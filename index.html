@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIdeazz - Web3 Login</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
-    <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.0/dist/umd/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@web3modal/ethers5@2.3.4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/eth-ens-namehash"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,16 +57,19 @@
                     await provider.send("eth_requestAccounts", []);
                     const signer = provider.getSigner();
                     const address = await signer.getAddress();
+                    console.log("Connected wallet address:", address);
                     
                     // Try fetching ENS name
                     const ensName = await provider.lookupAddress(address);
+                    console.log("ENS Name found:", ensName);
+                    
                     if (ensName) {
                         document.getElementById("walletAddress").innerText = `Connected as: ${ensName}`;
                     } else {
                         document.getElementById("walletAddress").innerText = `Connected: ${address}`;
                     }
                 } catch (error) {
-                    console.error("User rejected request", error);
+                    console.error("Error fetching ENS name:", error);
                 }
             } else {
                 alert("Please install MetaMask or use a Web3-enabled browser.");
