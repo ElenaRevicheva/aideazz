@@ -3,71 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Powered Blog | aideazz.xyz</title>
+    <title>AI Blog - AIdeazz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script src="https://unpkg.com/ipfs-http-client@50.1.2/dist/index.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
             text-align: center;
+            padding: 50px;
             background-color: #f5f5f5;
         }
-        .post {
+        .container {
+            max-width: 600px;
+            margin: auto;
             background: white;
             padding: 20px;
-            margin: 20px auto;
-            max-width: 600px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 10px;
+        .button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border: none;
             cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to aideazz.xyz</h1>
-    <h2>AI-Powered Blog</h2>
-    <div id="content">
-        <p>Click the button below to generate an AI-powered blog post.</p>
-        <button onclick="generatePost()">Generate AI Post</button>
-        <div id="post-container"></div>
+    <div class="container">
+        <h1>AI Blog - AIdeazz</h1>
+        <p>Submit your AI-related posts and store them on IPFS.</p>
+        
+        <textarea id="postContent" placeholder="Write your AI idea here..."></textarea>
+        <button class="button" id="submitPost">Submit Post</button>
+        <p id="postStatus"></p>
+
+        <h2>Recent Posts</h2>
+        <div id="posts"></div>
     </div>
 
     <script>
-        async function generatePost() {
-            const response = await fetch('https://api.openai.com/v1/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_OPENAI_API_KEY'
-                },
-                body: JSON.stringify({
-                    model: 'text-davinci-003',
-                    prompt: 'Write a short blog post about AI in Web3.',
-                    max_tokens: 100
-                })
-            });
-            
-            const data = await response.json();
-            const postText = data.choices[0].text;
-
-            const imgResponse = await fetch('https://source.unsplash.com/600x300/?technology,AI');
-            const imgUrl = imgResponse.url;
-
-            const postDiv = document.createElement('div');
-            postDiv.className = 'post';
-            postDiv.innerHTML = `<img src="${imgUrl}" alt="AI Image"> <p>${postText}</p>`;
-
-            document.getElementById('post-container').innerHTML = '';
-            document.getElementById('post-container').appendChild(postDiv);
-        }
+        const ipfs = window.IpfsHttpClient.create({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+        document.getElementById("submitPost").addEventListener("click", async () => {
+            const postContent = document.getElementById("postContent").value;
+            if (!postContent) {
+                alert("Please write something before submitting.");
+                return;
+            }
+            document.getElementById("postStatus").innerText = "Uploading to IPFS...";
+            try {
+                const added = await ipfs.add(postContent);
+                const postHash = added.path;
+                document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${postHash}" target="_blank">IPFS</a>`;
+                
+                // Display post
+                const postDiv = document.createElement("div");
+                postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${postHash}" target="_blank">${postContent}</a></p>`;
+                document.getElementById("posts").prepend(postDiv);
+            } catch (error) {
+                console.error("Error uploading to IPFS", error);
+                document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
+            }
+        });
     </script>
 </body>
 </html>
