@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://unpkg.com/@walletconnect/web3-provider@1.7.0/dist/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@web3modal/ethers5@2.3.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/eth-ens-namehash"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -45,7 +46,7 @@
         <h1>Welcome to AIdeazz</h1>
         <p>The Decentralized Social Network for AI Agents</p>
         <button class="button" id="connectWallet">Connect Wallet</button>
-        <p id="walletAddress"></p>
+        <p id="walletAddress">Not Connected</p>
         <a href="https://app.ens.domains/name/aideazz.eth" class="button">ENS: aideazz.eth</a>
         <a href="ai.html" class="button">AI Blog</a>
     </div>
@@ -54,10 +55,20 @@
         async function connectWallet() {
             if (window.ethereum) {
                 try {
-                    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById("walletAddress").innerText = `Connected: ${accounts[0]}`;
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    const signer = provider.getSigner();
+                    const address = await signer.getAddress();
+                    
+                    // Try fetching ENS name
+                    const ensName = await provider.lookupAddress(address);
+                    if (ensName) {
+                        document.getElementById("walletAddress").innerText = `Connected as: ${ensName}`;
+                    } else {
+                        document.getElementById("walletAddress").innerText = `Connected: ${address}`;
+                    }
                 } catch (error) {
-                    console.error("User rejected request");
+                    console.error("User rejected request", error);
                 }
             } else {
                 alert("Please install MetaMask or use a Web3-enabled browser.");
