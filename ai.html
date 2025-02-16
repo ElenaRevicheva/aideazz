@@ -4,9 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
+
+    <!-- Corrected JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/web3.storage/dist/bundle.esm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3.storage/dist/bundle.umd.min.js"></script> <!-- Fixed Web3Storage script -->
+
+    <script type="module">
+        async function uploadToStoracha(content) {
+            const apiKey = "did:key:z6MkjLBQy7YCHgmu7H6EcuYaLdfU7XqcdXkPqrscyVWKNpo7"; // Your Storacha API Key
+            const response = await fetch("https://console.storacha.network/upload", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    fileName: "post.txt",
+                    content: content
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to upload to Storacha");
+            }
+
+            const data = await response.json();
+            return data.cid;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("submitPost").addEventListener("click", async () => {
+                const postContent = document.getElementById("postContent").value;
+                if (!postContent) {
+                    alert("Please write something before submitting.");
+                    return;
+                }
+                document.getElementById("postStatus").innerText = "Uploading to Storacha IPFS...";
+
+                try {
+                    const cid = await uploadToStoracha(postContent);
+                    document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
+
+                    const postDiv = document.createElement("div");
+                    postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
+                    document.getElementById("posts").prepend(postDiv);
+                } catch (error) {
+                    console.error("Error uploading to Storacha", error);
+                    document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
+                }
+            });
+        });
+    </script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,33 +108,5 @@
         <h2>Recent Posts</h2>
         <div id="posts"></div>
     </div>
-
-    <script>
-        const web3StorageToken = 'did:key:z6MkjLBQy7YCHgmu7H6EcuYaLdfU7XqcdXkPqrscyVWKNpo7'; // Using Storacha Key
-        const client = new Web3Storage({ token: web3StorageToken });
-
-        document.getElementById("submitPost").addEventListener("click", async () => {
-            const postContent = document.getElementById("postContent").value;
-            if (!postContent) {
-                alert("Please write something before submitting.");
-                return;
-            }
-            document.getElementById("postStatus").innerText = "Uploading to IPFS...";
-            try {
-                const blob = new Blob([postContent], { type: 'text/plain' });
-                const file = new File([blob], "post.txt", { type: "text/plain" });
-                const cid = await client.put([file]);
-                
-                document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
-                
-                const postDiv = document.createElement("div");
-                postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
-                document.getElementById("posts").prepend(postDiv);
-            } catch (error) {
-                console.error("Error uploading to IPFS", error);
-                document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
-            }
-        });
-    </script>
 </body>
 </html>
