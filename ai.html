@@ -6,25 +6,27 @@
     <title>AI Blog - AIdeazz</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <script type="module">
+    <script>
         async function uploadToFleek(content) {
-            const response = await fetch("https://storage.fleek.co/v1/upload", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    fileName: "post.txt",
-                    content: content,
-                    storage: "filecoin-arweave" // Ensures Filecoin & Arweave are used
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error("Failed to upload to Fleek");
+            const formData = new FormData();
+            const blob = new Blob([content], { type: "text/plain" });
+            formData.append("file", blob, "post.txt");
+
+            try {
+                const response = await fetch("https://storage.fleek.co/v1/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error("Failed to upload to Fleek");
+                }
+                const data = await response.json();
+                return data.cid;
+            } catch (error) {
+                console.error("Error uploading to Fleek", error);
+                throw error;
             }
-            const data = await response.json();
-            return data.cid;
         }
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -43,7 +45,6 @@
                     postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
                     document.getElementById("posts").prepend(postDiv);
                 } catch (error) {
-                    console.error("Error uploading to Fleek", error);
                     document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
                 }
             });
