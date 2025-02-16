@@ -11,7 +11,7 @@
 
     <script type="module">
         async function uploadToFleek(content) {
-            const response = await fetch("https://storage.fleek.co/v1/upload", {
+            const response = await fetch("https://api.fleek.co/storage/v1/upload", { // ✅ Correct Fleek Storage API
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
