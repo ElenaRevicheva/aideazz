@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +7,12 @@
     <title>AI Blog - AIdeazz</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <script>
+    <script type="module">
         async function uploadToFleek(content) {
-            const response = await fetch("https://api.fleek.co/storage/v1/upload", {
+            const response = await fetch("https://storage.fleek.co/v1/upload", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer YOUR_FLEEK_API_KEY"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     fileName: "post.txt",
@@ -35,7 +35,7 @@
                     alert("Please write something before submitting.");
                     return;
                 }
-                document.getElementById("postStatus").innerText = "Uploading to Fleek Storage...";
+                document.getElementById("postStatus").innerText = "Uploading to Fleek IPFS...";
                 try {
                     const cid = await uploadToFleek(postContent);
                     document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
