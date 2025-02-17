@@ -6,27 +6,32 @@
     <title>AI Blog - AIdeazz</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    
-    <!-- Import Fleek SDK from CDN -->
-    <script type="module">
-        import { FleekSdk, ApplicationAccessTokenService } from "https://cdn.jsdelivr.net/npm/@fleek-platform/sdk/dist/browser/index.min.js";
 
-        const applicationService = new ApplicationAccessTokenService({
-            clientId: "client__3Wvtty7Aa7KgxsqC0NO", // Replace with your Fleek Client ID
-        });
-
-        const fleekSdk = new FleekSdk({
-            accessTokenService: applicationService
-        });
+    <!-- Fleek Storage API (Using Fetch Instead of SDK) -->
+    <script>
+        const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Client ID
 
         async function uploadToFleek(content) {
             try {
-                const response = await fleekSdk.storage().uploadFile({
-                    file: new Blob([content], { type: "text/plain" }),
-                    onUploadProgress: (progress) => console.log(`Uploading: ${progress}%`),
+                const response = await fetch("https://api.fleek.co/storage/v1/upload", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${clientId}`
+                    },
+                    body: JSON.stringify({
+                        fileName: "post.txt",
+                        content: content,
+                        storage: "filecoin-arweave" // Ensures Filecoin & Arweave are used
+                    })
                 });
 
-                return response.cid;
+                if (!response.ok) {
+                    throw new Error("Failed to upload to Fleek");
+                }
+
+                const data = await response.json();
+                return data.cid;
             } catch (error) {
                 console.error("Error uploading to Fleek", error);
                 throw error;
@@ -34,7 +39,10 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("submitPost").addEventListener("click", async () => {
+            const submitButton = document.getElementById("submitPost");
+            submitButton.disabled = false; // Ensure the button is active
+
+            submitButton.addEventListener("click", async () => {
                 const postContent = document.getElementById("postContent").value;
                 if (!postContent) {
                     alert("Please write something before submitting.");
