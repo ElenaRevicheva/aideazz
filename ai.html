@@ -9,10 +9,12 @@
     <script type="module">
         import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk/browser';
 
-        // Fleek Application Credentials
+        // Fleek Credentials
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
+        const projectId = "<YOUR_PROJECT_ID>"; // Replace with your Fleek project ID
 
         console.log("🚀 Initializing Fleek SDK...");
+        
         const fleekStorage = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
@@ -21,7 +23,6 @@
 
         async function uploadToFleek(content) {
             try {
-                // Ensure SDK and storage service are properly initialized
                 if (!fleekStorage || !fleekStorage.storage) {
                     throw new Error("❌ Fleek SDK storage object is undefined");
                 }
@@ -32,20 +33,19 @@
                     throw new Error("❌ Fleek SDK storage.uploadFile function is missing");
                 }
 
-                // Validate input content
                 if (!content.trim()) {
                     throw new Error("❌ Content cannot be empty");
                 }
 
-                // Convert content to a Blob and create a File
                 const blob = new Blob([content], { type: "text/plain" });
                 const file = new File([blob], `post_${Date.now()}.txt`, { type: "text/plain" });
 
                 console.log("📤 Uploading file:", file);
 
-                // Upload the file to Fleek Storage
+                // Correct API usage for Fleek Storage
                 const uploadResult = await fleekStorage.storage.uploadFile({
-                    bucket: "aideazz-blog", // Ensure this bucket exists in your Fleek Storage settings
+                    bucket: "aideazz-blog",
+                    projectId: projectId, // Ensure project ID is passed
                     key: `ai_posts/${file.name}`,
                     file: file,
                     contentType: "text/plain"
@@ -138,3 +138,4 @@
     </div>
 </body>
 </html>
+
