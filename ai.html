@@ -19,12 +19,16 @@
 
         async function uploadToFleek(content) {
             try {
+                // Ensure file is properly created
                 const blob = new Blob([content], { type: "text/plain" });
                 const file = new File([blob], "post.txt", { type: "text/plain" });
 
+                console.log("Uploading file:", file);
+
                 // Upload to Fleek Storage using the correct method
-                const uploadResult = await fleekStorage.storage().uploadFile({
-                    data: file
+                const uploadResult = await fleekStorage.storage.uploadFile({
+                    file: file,  // Ensure correct file object
+                    path: "ai_posts/", // Optional: Set a directory path
                 });
 
                 console.log("Upload Result:", uploadResult);
