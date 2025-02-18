@@ -4,38 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <script>
-        const clientId = "client__3Wvtty7Aa7KgxsqC0NO";
-        const uploadToFleek = async (content) => {
-            document.getElementById("postStatus").innerText = "Uploading to Fleek IPFS...";
+    <script type="module">
+        import { FleekSdk, ApplicationAccessTokenService } from "https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.js";
+        
+        const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Credential ID
+        const applicationService = new ApplicationAccessTokenService({ clientId });
+        const fleekSdk = new FleekSdk({ accessTokenService: applicationService });
+
+        async function uploadToFleek(content) {
             try {
-                const response = await fetch("https://platform.fleek.co/storage/v1/upload", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${clientId}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        fileName: "post.txt",
-                        content: content,
-                        storage: "filecoin-arweave"
-                    })
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to upload to Fleek");
-                }
-                const data = await response.json();
-                document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${data.cid}" target="_blank">IPFS</a>`;
-                const postDiv = document.createElement("div");
-                postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${data.cid}" target="_blank">${content}</a></p>`;
-                document.getElementById("posts").prepend(postDiv);
+                const file = new Blob([content], { type: "text/plain" });
+                const response = await fleekSdk.storage().uploadFile({ file });
+                return response.cid;
             } catch (error) {
                 console.error("Error uploading to Fleek", error);
-                document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
+                throw error;
             }
-        };
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("submitPost").addEventListener("click", async () => {
                 const postContent = document.getElementById("postContent").value;
@@ -43,7 +29,17 @@
                     alert("Please write something before submitting.");
                     return;
                 }
-                await uploadToFleek(postContent);
+                document.getElementById("postStatus").innerText = "Uploading to Fleek Storage...";
+                try {
+                    const cid = await uploadToFleek(postContent);
+                    document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
+                    
+                    const postDiv = document.createElement("div");
+                    postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
+                    document.getElementById("posts").prepend(postDiv);
+                } catch (error) {
+                    document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
+                }
             });
         });
     </script>
@@ -90,9 +86,11 @@
     <div class="container">
         <h1>AI Blog - AIdeazz</h1>
         <p>Submit your AI-related posts and store them on IPFS.</p>
+        
         <textarea id="postContent" placeholder="Write your AI idea here..."></textarea>
         <button class="button" id="submitPost">Submit Post</button>
         <p id="postStatus"></p>
+
         <h2>Recent Posts</h2>
         <div id="posts"></div>
     </div>
