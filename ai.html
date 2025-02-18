@@ -5,61 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
 
-    <!-- Import Fleek SDK -->
+    <!-- Import Fleek SDK (ensure it’s the latest stable version) -->
     <script type="module">
         import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk/browser';
 
         // Fleek Application Credentials
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
 
-        console.log("Initializing Fleek SDK...");
+        console.log("🚀 Initializing Fleek SDK...");
         const fleekStorage = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
 
-        console.log("Fleek SDK Initialized:", fleekStorage);
+        console.log("✅ Fleek SDK Initialized:", fleekStorage);
 
         async function uploadToFleek(content) {
             try {
                 // Validate Fleek SDK instance
                 if (!fleekStorage || !fleekStorage.storage) {
-                    throw new Error("Fleek SDK storage object is undefined");
+                    throw new Error("❌ Fleek SDK storage object is undefined");
                 }
 
-                console.log("Fleek Storage Object:", fleekStorage.storage);
+                console.log("🛠️ Fleek Storage Object:", fleekStorage.storage);
 
-                if (typeof fleekStorage.storage.uploadFile !== "function") {
-                    throw new Error("Fleek SDK storage.uploadFile function is missing");
+                if (typeof fleekStorage.storage.upload !== "function") {
+                    throw new Error("❌ Fleek SDK storage.upload function is missing");
                 }
 
-                // Ensure content is valid
+                // Validate input content
                 if (!content.trim()) {
-                    throw new Error("Content cannot be empty");
+                    throw new Error("❌ Content cannot be empty");
                 }
 
                 // Convert content to a Blob and create a File
                 const blob = new Blob([content], { type: "text/plain" });
                 const file = new File([blob], `post_${Date.now()}.txt`, { type: "text/plain" });
 
-                console.log("Uploading file:", file);
+                console.log("📤 Uploading file:", file);
 
                 // Upload the file to Fleek
-                const uploadResult = await fleekStorage.storage.uploadFile({
+                const uploadResult = await fleekStorage.storage.upload({
                     bucket: "aideazz-blog", // Ensure bucket exists in Fleek Storage
                     key: `ai_posts/${file.name}`,
                     data: file,
                     contentType: "text/plain"
                 });
 
-                console.log("Upload Result:", uploadResult);
+                console.log("✅ Upload Result:", uploadResult);
 
                 if (uploadResult && uploadResult.cid) {
                     return uploadResult.cid;
                 } else {
-                    throw new Error("Upload failed. No CID returned.");
+                    throw new Error("❌ Upload failed. No CID returned.");
                 }
             } catch (error) {
-                console.error("Error uploading to Fleek:", error);
+                console.error("❌ Error uploading to Fleek:", error);
                 document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
             }
         }
