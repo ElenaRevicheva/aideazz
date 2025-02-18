@@ -13,7 +13,7 @@
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
 
         // Initialize Fleek SDK
-        const fleekSdk = new FleekSdk({
+        const fleekStorage = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
 
@@ -22,8 +22,11 @@
                 const blob = new Blob([content], { type: "text/plain" });
                 const file = new File([blob], "post.txt", { type: "text/plain" });
 
-                // Upload to Fleek Storage
-                const uploadResult = await fleekSdk.storage.upload({ data: file });
+                // Upload to Fleek Storage using the correct method
+                const uploadResult = await fleekStorage.storage().uploadFile({
+                    data: file
+                });
+
                 console.log("Upload Result:", uploadResult);
 
                 if (uploadResult && uploadResult.cid) {
