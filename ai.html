@@ -7,18 +7,26 @@
     
     <!-- Fleek SDK -->
     <script type="module">
-        import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk';
+        import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk/browser';
 
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
-        const fleekStorage = new FleekSdk({
+        const fleekSdk = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
 
         async function uploadToFleek(content) {
             try {
-                const file = new File([content], "post.txt", { type: "text/plain" });
-                const result = await fleekStorage.storage.uploadFile({ file });
-                return result.cid;
+                const blob = new Blob([content], { type: "text/plain" });
+                const file = new File([blob], "post.txt", { type: "text/plain" });
+
+                const uploadResult = await fleekSdk.storage.upload({ file });
+                console.log("Upload Result:", uploadResult);
+
+                if (uploadResult && uploadResult.cid) {
+                    return uploadResult.cid;
+                } else {
+                    throw new Error("Upload failed. No CID returned.");
+                }
             } catch (error) {
                 console.error("Error uploading to Fleek:", error);
                 document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
