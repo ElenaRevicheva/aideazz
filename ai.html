@@ -19,8 +19,8 @@
 
         async function uploadToFleek(content) {
             try {
-                // Validate the Fleek SDK instance
-                if (!fleekStorage.storage || typeof fleekStorage.storage.uploadFile !== "function") {
+                // Validate Fleek SDK instance
+                if (!fleekStorage || !fleekStorage.storage || typeof fleekStorage.storage.uploadFile !== "function") {
                     throw new Error("Fleek SDK storage.uploadFile is not available");
                 }
 
@@ -29,15 +29,15 @@
                     throw new Error("Content cannot be empty");
                 }
 
-                // Create a proper Blob and File object
+                // Convert content to a Blob and create a File
                 const blob = new Blob([content], { type: "text/plain" });
                 const file = new File([blob], `post_${Date.now()}.txt`, { type: "text/plain" });
 
                 console.log("Uploading file:", file);
 
-                // Use the correct Fleek Storage method
+                // Upload the file to Fleek
                 const uploadResult = await fleekStorage.storage.uploadFile({
-                    bucket: "aideazz-blog", // Customize your Fleek storage bucket name
+                    bucket: "aideazz-blog", // Ensure bucket exists in Fleek Storage
                     key: `ai_posts/${file.name}`,
                     data: file,
                     contentType: "text/plain"
