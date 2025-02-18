@@ -5,16 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
 
-    <!-- Import Fleek SDK from CDN -->
+    <!-- Import Fleek SDK -->
     <script type="module">
         import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk/browser';
 
         // Fleek Credentials
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
-        const projectId = "<YOUR_PROJECT_ID>"; // Replace with your Fleek project ID
+        const projectId = "<YOUR_PROJECT_ID>"; // Replace with your Fleek Project ID
+        const bucketName = "aideazz-blog"; // Change if needed
 
         console.log("🚀 Initializing Fleek SDK...");
-        
+
         const fleekStorage = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
@@ -29,7 +30,7 @@
 
                 console.log("🛠️ Fleek Storage Object:", fleekStorage.storage);
 
-                if (typeof fleekStorage.storage.uploadFile !== "function") {
+                if (!fleekStorage.storage.uploadFile) {
                     throw new Error("❌ Fleek SDK storage.uploadFile function is missing");
                 }
 
@@ -42,10 +43,10 @@
 
                 console.log("📤 Uploading file:", file);
 
-                // Correct API usage for Fleek Storage
-                const uploadResult = await fleekStorage.storage.uploadFile({
-                    bucket: "aideazz-blog",
-                    projectId: projectId, // Ensure project ID is passed
+                // Fleek Storage Upload
+                const uploadResult = await fleekStorage.storage.upload({
+                    bucket: bucketName,
+                    projectId: projectId,
                     key: `ai_posts/${file.name}`,
                     file: file,
                     contentType: "text/plain"
@@ -138,4 +139,3 @@
     </div>
 </body>
 </html>
-
