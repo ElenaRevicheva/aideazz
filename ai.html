@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
 
-    <!-- Import Fleek SDK (ensure it’s the latest stable version) -->
+    <!-- Import Fleek SDK from CDN -->
     <script type="module">
         import { FleekSdk, ApplicationAccessTokenService } from 'https://esm.sh/@fleek-platform/sdk/browser';
 
@@ -21,15 +21,15 @@
 
         async function uploadToFleek(content) {
             try {
-                // Validate Fleek SDK instance
+                // Ensure SDK and storage service are properly initialized
                 if (!fleekStorage || !fleekStorage.storage) {
                     throw new Error("❌ Fleek SDK storage object is undefined");
                 }
 
                 console.log("🛠️ Fleek Storage Object:", fleekStorage.storage);
 
-                if (typeof fleekStorage.storage.upload !== "function") {
-                    throw new Error("❌ Fleek SDK storage.upload function is missing");
+                if (typeof fleekStorage.storage.uploadFile !== "function") {
+                    throw new Error("❌ Fleek SDK storage.uploadFile function is missing");
                 }
 
                 // Validate input content
@@ -43,11 +43,11 @@
 
                 console.log("📤 Uploading file:", file);
 
-                // Upload the file to Fleek
-                const uploadResult = await fleekStorage.storage.upload({
-                    bucket: "aideazz-blog", // Ensure bucket exists in Fleek Storage
+                // Upload the file to Fleek Storage
+                const uploadResult = await fleekStorage.storage.uploadFile({
+                    bucket: "aideazz-blog", // Ensure this bucket exists in your Fleek Storage settings
                     key: `ai_posts/${file.name}`,
-                    data: file,
+                    file: file,
                     contentType: "text/plain"
                 });
 
