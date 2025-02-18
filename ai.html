@@ -12,16 +12,24 @@
         // Fleek Application Credentials
         const clientId = "client__3Wvtty7Aa7KgxsqC0NO"; // Your Fleek Application Token ID
 
-        // Initialize Fleek SDK
+        console.log("Initializing Fleek SDK...");
         const fleekStorage = new FleekSdk({
             accessTokenService: new ApplicationAccessTokenService({ clientId })
         });
 
+        console.log("Fleek SDK Initialized:", fleekStorage);
+
         async function uploadToFleek(content) {
             try {
                 // Validate Fleek SDK instance
-                if (!fleekStorage || !fleekStorage.storage || typeof fleekStorage.storage.uploadFile !== "function") {
-                    throw new Error("Fleek SDK storage.uploadFile is not available");
+                if (!fleekStorage || !fleekStorage.storage) {
+                    throw new Error("Fleek SDK storage object is undefined");
+                }
+
+                console.log("Fleek Storage Object:", fleekStorage.storage);
+
+                if (typeof fleekStorage.storage.uploadFile !== "function") {
+                    throw new Error("Fleek SDK storage.uploadFile function is missing");
                 }
 
                 // Ensure content is valid
