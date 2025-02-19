@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
     <script type="module">
-        // ✅ Import Fleek SDK from a working source
-        import { FleekSdk, ApplicationAccessTokenService } from 'https://app.fleek.xyz/sdk/browser.mjs'; // Temporary Fix
+        import { FleekSdk, ApplicationAccessTokenService } from 'https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.mjs';
 
         console.log("🚀 Initializing Fleek SDK...");
 
         // ✅ Set up authentication using the correct Application Credentials
         const accessTokenService = new ApplicationAccessTokenService({
-            clientId: "client_x1KWJx5pkupr-QO0F0Cp",  // ✅ Use your correct Application Credential ID
+            clientId: "client_x1KWJx5pkupr-QO0F0Cp",
         });
 
         // ✅ Initialize the Fleek SDK
@@ -29,7 +28,7 @@
                 }
 
                 document.getElementById("postStatus").innerText = "🚀 Uploading to Fleek Storage...";
-                
+
                 try {
                     // ✅ Convert text content to a file object
                     const blob = new Blob([postContent], { type: "text/plain" });
@@ -51,7 +50,7 @@
                     const cid = result.pin.cid;
 
                     document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
-                    
+
                     // ✅ Display uploaded post in the "Recent Posts" section
                     const postDiv = document.createElement("div");
                     postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
