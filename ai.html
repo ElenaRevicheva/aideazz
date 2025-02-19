@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
     <script type="module">
-        import { FleekSdk, ApplicationAccessTokenService } from 'https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.mjs';
+        import { FleekSdk, ApplicationAccessTokenService } from '@fleek-platform/sdk';
 
         console.log("🚀 Initializing Fleek SDK...");
 
-        // ✅ Set up authentication using the correct Application Credentials
+        // ✅ Correct Authentication for Browser (No Project ID needed)
         const accessTokenService = new ApplicationAccessTokenService({
-            clientId: "client_x1KWJx5pkupr-QO0F0Cp",
+            clientId: "client_x1KWJx5pkupr-QO0F0Cp",  // ✅ Correct Application Credential ID
         });
 
-        // ✅ Initialize the Fleek SDK
+        // ✅ Initialize Fleek SDK
         const fleekSdk = new FleekSdk({ accessTokenService });
 
         console.log("✅ Fleek SDK Initialized:", fleekSdk);
@@ -30,15 +30,25 @@
                 document.getElementById("postStatus").innerText = "🚀 Uploading to Fleek Storage...";
 
                 try {
-                    // ✅ Convert text content to a file object
-                    const blob = new Blob([postContent], { type: "text/plain" });
-                    const file = new File([blob], "post.txt", { type: "text/plain" });
+                    // ✅ Create a ReadableStream from the text content
+                    const stream = new ReadableStream({
+                        start(controller) {
+                            controller.enqueue(new TextEncoder().encode(postContent));
+                            controller.close();
+                        }
+                    });
+
+                    // ✅ Define file-like object
+                    const fileLike = {
+                        name: `post-${Date.now()}.txt`,
+                        stream: () => stream,
+                    };
 
                     console.log("📂 Uploading file to Fleek...");
 
-                    // ✅ Upload the file to Fleek Storage
+                    // ✅ Upload file to Fleek Storage
                     const result = await fleekSdk.storage.uploadFile({
-                        file,
+                        file: fileLike,
                         onUploadProgress: ({ loadedSize, totalSize }) => {
                             console.log(`Uploading: ${((loadedSize / totalSize) * 100).toFixed(2)}%`);
                         }
