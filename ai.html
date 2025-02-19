@@ -6,19 +6,15 @@
     <title>AI Blog - AIdeazz</title>
     <script type="module">
         import { FleekSdk, ApplicationAccessTokenService } from '@fleek-platform/sdk';
-
-        console.log("🚀 Initializing Fleek SDK...");
-
-        // ✅ Correct Authentication for Browser (No Project ID needed)
+        
         const accessTokenService = new ApplicationAccessTokenService({
-            clientId: "client_x1KWJx5pkupr-QO0F0Cp",  // ✅ Correct Application Credential ID
+            clientId: client_x1KWJx5pkupr-QO0F0Cp // 
+        });client_x1KWJx5pkupr-QO0F0Cp
+        
+        const fleekSdk = new FleekSdk({
+            accessTokenService
         });
-
-        // ✅ Initialize Fleek SDK
-        const fleekSdk = new FleekSdk({ accessTokenService });
-
-        console.log("✅ Fleek SDK Initialized:", fleekSdk);
-
+        
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("submitPost").addEventListener("click", async () => {
                 const postContent = document.getElementById("postContent").value;
@@ -26,59 +22,63 @@
                     alert("Please write something before submitting.");
                     return;
                 }
-
-                document.getElementById("postStatus").innerText = "🚀 Uploading to Fleek Storage...";
-
+                
+                const file = new File([postContent], "post.txt", { type: "text/plain" });
+                
+                document.getElementById("postStatus").innerText = "Uploading to Fleek Storage...";
                 try {
-                    // ✅ Create a ReadableStream from the text content
-                    const stream = new ReadableStream({
-                        start(controller) {
-                            controller.enqueue(new TextEncoder().encode(postContent));
-                            controller.close();
-                        }
-                    });
-
-                    // ✅ Define file-like object
-                    const fileLike = {
-                        name: `post-${Date.now()}.txt`,
-                        stream: () => stream,
-                    };
-
-                    console.log("📂 Uploading file to Fleek...");
-
-                    // ✅ Upload file to Fleek Storage
-                    const result = await fleekSdk.storage.uploadFile({
-                        file: fileLike,
-                        onUploadProgress: ({ loadedSize, totalSize }) => {
-                            console.log(`Uploading: ${((loadedSize / totalSize) * 100).toFixed(2)}%`);
-                        }
-                    });
-
-                    console.log("✅ Upload Successful:", result);
-
-                    // ✅ Get CID (Content Identifier)
+                    const result = await fleekSdk.storage.uploadFile({ file });
                     const cid = result.pin.cid;
-
+                    
                     document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
-
-                    // ✅ Display uploaded post in the "Recent Posts" section
+                    
                     const postDiv = document.createElement("div");
                     postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
                     document.getElementById("posts").prepend(postDiv);
-
                 } catch (error) {
-                    console.error("❌ Error uploading to Fleek:", error);
+                    console.error("Error uploading to Fleek", error);
                     document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
                 }
             });
         });
     </script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background-color: #f5f5f5; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; }
-        .button { display: block; width: 80%; margin: 10px auto; padding: 15px; font-size: 18px; text-decoration: none; color: white; background-color: #007bff; border: none; cursor: pointer; border-radius: 5px; }
-        .button:hover { background-color: #0056b3; }
-        textarea { width: 100%; height: 100px; padding: 10px; margin-top: 10px; }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 18px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
