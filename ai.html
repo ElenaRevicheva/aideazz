@@ -4,7 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
-    <script src="https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.js"></script>
+    <script type="module">
+        import { FleekSdk, ApplicationAccessTokenService } from 'https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.js';
+
+        // Initialize Fleek SDK with your credentials
+        const clientId = "client_x1KWJx5pkupr-QO0F0Cp";
+        const projectId = "cm6thkioi00048a12ywulnwvo";
+
+        const accessTokenService = new ApplicationAccessTokenService({ clientId });
+        const fleekSdk = new FleekSdk({ accessTokenService });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("submitPost").addEventListener("click", async () => {
+                const postContent = document.getElementById("postContent").value;
+                if (!postContent) {
+                    alert("Please write something before submitting.");
+                    return;
+                }
+                document.getElementById("postStatus").innerText = "Uploading to Fleek IPFS...";
+                try {
+                    const file = new File([postContent], "post.txt", { type: "text/plain" });
+                    const result = await fleekSdk.storage.uploadFile({ file });
+                    const cid = result.pin.cid;
+                    
+                    document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
+                    
+                    const postDiv = document.createElement("div");
+                    postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
+                    document.getElementById("posts").prepend(postDiv);
+                } catch (error) {
+                    console.error("❌ Error uploading to Fleek:", error);
+                    document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
+                }
+            });
+        });
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,60 +90,5 @@
         <h2>Recent Posts</h2>
         <div id="posts"></div>
     </div>
-
-    <script>
-        const clientId = "client__3Wvtty7Aa7KgxsqC0NO";
-        const apiUrl = "https://platform.fleek.co/storage/v1/upload";
-
-        async function uploadToFleek(content) {
-            console.log("🚀 Initializing Upload to Fleek...");
-            try {
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${clientId}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        fileName: "post.txt",
-                        content: content
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log("✅ Upload Successful:", data);
-                return data.cid;
-            } catch (error) {
-                console.error("❌ Error uploading to Fleek:", error);
-                document.getElementById("postStatus").innerText = "❌ Failed to upload post. Check console for details.";
-            }
-        }
-
-        document.getElementById("submitPost").addEventListener("click", async () => {
-            const postContent = document.getElementById("postContent").value;
-            if (!postContent) {
-                alert("Please write something before submitting.");
-                return;
-            }
-            document.getElementById("postStatus").innerText = "Uploading to Fleek...";
-            try {
-                const cid = await uploadToFleek(postContent);
-                if (cid) {
-                    document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
-                    
-                    const postDiv = document.createElement("div");
-                    postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
-                    document.getElementById("posts").prepend(postDiv);
-                }
-            } catch (error) {
-                console.error("❌ Error uploading to Fleek:", error);
-                document.getElementById("postStatus").innerText = "❌ Failed to upload post.";
-            }
-        });
-    </script>
 </body>
 </html>
