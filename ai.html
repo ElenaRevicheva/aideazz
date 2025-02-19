@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - AIdeazz</title>
     <script type="module">
-        import { FleekSdk, ApplicationAccessTokenService } from 'https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/dist/browser.mjs';
+        import { FleekSdk, ApplicationAccessTokenService } from 'https://cdn.jsdelivr.net/npm/@fleek-platform/sdk@latest/browser.mjs';
 
         console.log("🚀 Initializing Fleek SDK...");
 
-        // ✅ Set up authentication with Fleek SDK
+        // ✅ Set up authentication using the correct Application Credentials
         const accessTokenService = new ApplicationAccessTokenService({
-            clientId: "client_x1KWJx5pkupr-QO0F0Cp",  // ✅ Replace with your actual Application Credential ID
+            clientId: "client_x1KWJx5pkupr-QO0F0Cp",  // ✅ Use your correct Application Credential ID
         });
 
+        // ✅ Initialize the Fleek SDK
         const fleekSdk = new FleekSdk({ accessTokenService });
 
         console.log("✅ Fleek SDK Initialized:", fleekSdk);
@@ -29,12 +30,13 @@
                 document.getElementById("postStatus").innerText = "🚀 Uploading to Fleek Storage...";
                 
                 try {
-                    // ✅ Create a file-like object
-                    const file = new File([postContent], "post.txt", { type: "text/plain" });
+                    // ✅ Convert text content to a file object
+                    const blob = new Blob([postContent], { type: "text/plain" });
+                    const file = new File([blob], "post.txt", { type: "text/plain" });
 
                     console.log("📂 Uploading file to Fleek...");
 
-                    // ✅ Upload file to Fleek Storage
+                    // ✅ Upload the file to Fleek Storage
                     const result = await fleekSdk.storage.uploadFile({
                         file,
                         onUploadProgress: ({ loadedSize, totalSize }) => {
@@ -49,7 +51,7 @@
 
                     document.getElementById("postStatus").innerHTML = `✅ Post uploaded! View it on <a href="https://ipfs.io/ipfs/${cid}" target="_blank">IPFS</a>`;
                     
-                    // ✅ Display uploaded post
+                    // ✅ Display uploaded post in the "Recent Posts" section
                     const postDiv = document.createElement("div");
                     postDiv.innerHTML = `<p><a href="https://ipfs.io/ipfs/${cid}" target="_blank">${postContent}</a></p>`;
                     document.getElementById("posts").prepend(postDiv);
