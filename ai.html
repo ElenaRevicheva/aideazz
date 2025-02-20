@@ -14,7 +14,7 @@
     
     <p id="status"></p>
 
-    <!-- Load the bundled Fleek SDK -->
+    <!-- Load the Fleek SDK from GitHub -->
     <script src="https://raw.githubusercontent.com/ElenaRevicheva/aideazz/main/fleek-sdk.bundle.js"></script>
 
     <script>
@@ -28,7 +28,7 @@
 
             // Authenticate using ApplicationAccessTokenService
             const accessTokenService = new window.ApplicationAccessTokenService({
-                clientId: "client_x1KWJx5pkupr-QO0F0Cp",
+                clientId: "client_x1KWJx5pkupr-QO0F0Cp", // Use your correct Application Credential ID
             });
 
             const fleekSdk = new window.FleekSdk({
