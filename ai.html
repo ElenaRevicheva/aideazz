@@ -15,13 +15,14 @@
     <p id="status"></p>
 
     <!-- Load the bundled Fleek SDK -->
-    <script src="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/main/dist/fleek-sdk.bundle.js"></script>
+    <script src="https://raw.githubusercontent.com/ElenaRevicheva/aideazz/main/fleek-sdk.bundle.js"></script>
 
     <script>
         async function initializeFleek() {
             // Ensure Fleek SDK is available
             if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                 console.error("Fleek SDK failed to load");
+                document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
                 return;
             }
 
