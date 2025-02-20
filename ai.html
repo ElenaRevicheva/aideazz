@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIdeazz - Submit Post</title>
+    <title>AI Blog - Submit Post</title>
 </head>
 <body>
 
     <h2>Submit a Post</h2>
     
-    <input type="file" id="fileInput">
+    <textarea id="postContent" placeholder="Write your AI idea here..." rows="4" cols="50"></textarea>
     <button id="submitBtn">Submit Post</button>
     
     <p id="status"></p>
 
-    <!-- Load the bundled Fleek SDK from GitHub -->
+    <!-- Load the bundled Fleek SDK -->
     <script src="https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/main/dist/fleek-sdk.bundle.js"></script>
-    
+
     <script>
         async function initializeFleek() {
             // Ensure Fleek SDK is available
@@ -25,7 +25,7 @@
                 return;
             }
 
-            // Authenticate using ApplicationAccessTokenService (browser authentication)
+            // Authenticate using ApplicationAccessTokenService
             const accessTokenService = new window.ApplicationAccessTokenService({
                 clientId: "client_x1KWJx5pkupr-QO0F0Cp",
             });
@@ -35,26 +35,31 @@
             });
 
             document.getElementById("submitBtn").addEventListener("click", async function () {
-                const fileInput = document.getElementById("fileInput").files[0];
-                if (!fileInput) {
-                    alert("Please select a file first!");
+                const postContent = document.getElementById("postContent").value.trim();
+                if (!postContent) {
+                    alert("Please write something before submitting!");
                     return;
                 }
 
-                // Convert the file into a format compatible with Fleek SDK
+                // Convert text into a Blob for Fleek SDK
+                const blob = new Blob([postContent], { type: "text/plain" });
                 const fileLike = {
-                    name: fileInput.name,
-                    stream: () => fileInput.stream(),
+                    name: `post-${Date.now()}.txt`,
+                    stream: () => blob.stream(),
                 };
 
                 try {
-                    document.getElementById("status").textContent = "🚀 Uploading to Fleek...";
+                    document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
+                    
+                    // Upload text file to Fleek Storage
                     const result = await fleekSdk.storage.uploadFile({ file: fileLike });
-                    console.log("File uploaded:", result.pin.cid);
 
-                    document.getElementById("status").innerHTML = `✅ Upload Successful!<br>
+                    // Show CID and link to the uploaded post
+                    document.getElementById("status").innerHTML = `
+                        ✅ Post Uploaded!<br>
                         CID: ${result.pin.cid} <br>
-                        <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View File</a>`;
+                        <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View Post</a>
+                    `;
                 } catch (error) {
                     console.error("Upload failed:", error);
                     document.getElementById("status").textContent = "❌ Upload failed!";
@@ -62,7 +67,7 @@
             });
         }
 
-        // Initialize Fleek SDK once the page is loaded
+        // Initialize Fleek SDK when page loads
         window.onload = initializeFleek;
     </script>
 
