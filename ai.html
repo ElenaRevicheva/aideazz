@@ -14,14 +14,14 @@
     
     <p id="status"></p>
 
-    <!-- Load the bundled Fleek SDK from a reliable CDN -->
+    <!-- Load the bundled Fleek SDK -->
     <script src="https://cdn.jsdelivr.net/gh/ElenaRevicheva/aideazz@main/fleek-sdk.bundle.js"></script>
 
     <script>
         async function initializeFleek() {
             // Ensure Fleek SDK is available
             if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
-                console.error("Fleek SDK failed to load");
+                console.error("❌ Fleek SDK failed to load");
                 document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
                 return;
             }
