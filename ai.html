@@ -10,9 +10,9 @@
     <h2>Submit a Post</h2>
     
     <textarea id="postContent" placeholder="Write your AI idea here..." rows="4" cols="50"></textarea>
-    <button id="submitBtn" disabled>Submit Post</button> <!-- 🔴 Disabled until SDK loads -->
-    
-    <p id="status"></p>
+    <button id="submitBtn" disabled>Submit Post</button> <!-- Button disabled until SDK loads -->
+
+    <p id="status">🚀 Loading Fleek SDK...</p>
 
     <!-- ✅ Load Fleek SDK from Fleek Storage -->
     <script>
@@ -37,7 +37,6 @@
 
         async function initializeFleek() {
             try {
-                document.getElementById("status").textContent = "🚀 Loading Fleek SDK...";
                 await loadFleekSDK();
 
                 // ✅ Ensure Fleek SDK is available
