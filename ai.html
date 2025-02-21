@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
-    
-    <!-- Polyfill to define 'process' for browser -->
-    <script>
-        window.process = { env: {} }; 
-    </script>
 
-    <!-- Load Fleek SDK from GitHub -->
-    <script src="https://cdn.jsdelivr.net/gh/ElenaRevicheva/aideazz@main/fleek-sdk.bundle.js"></script>
+    <!-- ✅ Load Fleek SDK from Fleek Storage -->
+    <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
+
+    <!-- ✅ Fix potential issues with missing `process.env` -->
+    <script>
+        window.process = { env: {} };
+    </script>
 </head>
 <body>
 
@@ -27,14 +27,14 @@
             try {
                 console.log("🚀 Initializing Fleek SDK...");
 
-                // Ensure Fleek SDK is available
+                // ✅ Ensure Fleek SDK is available
                 if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                     throw new Error("❌ Fleek SDK failed to load.");
                 }
 
                 console.log("✅ Fleek SDK Loaded Successfully!");
 
-                // Authenticate using ApplicationAccessTokenService
+                // ✅ Authenticate using ApplicationAccessTokenService
                 const accessTokenService = new window.ApplicationAccessTokenService({
                     clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Use your correct Application Credential ID
                 });
@@ -43,7 +43,6 @@
                     accessTokenService,
                 });
 
-                // **Check if storage() and uploadFile() exist**
                 console.log("🛠️ Checking Fleek Storage Methods...");
                 if (!fleekSdk.storage || typeof fleekSdk.storage().uploadFile !== "function") {
                     throw new Error("❌ `uploadFile()` function not found in Fleek SDK.");
@@ -59,7 +58,7 @@
 
                     console.log("📤 Preparing to upload post...");
 
-                    // Convert text into a Blob for Fleek SDK
+                    // ✅ Convert text into a Blob for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
                     const fileLike = {
                         name: `post-${Date.now()}.txt`,
@@ -69,7 +68,7 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // **Test Fleek Storage Upload**
+                        // ✅ Upload text file to Fleek Storage
                         console.log("🔄 Uploading file to Fleek Storage...");
                         const result = await fleekSdk.storage().uploadFile({
                             file: fileLike,
@@ -77,7 +76,7 @@
 
                         console.log("✅ Post uploaded successfully!", result);
 
-                        // Show CID and link to the uploaded post
+                        // ✅ Show CID and link to the uploaded post
                         document.getElementById("status").innerHTML = `
                             ✅ Post Uploaded!<br>
                             CID: ${result.pin.cid} <br>
@@ -95,7 +94,7 @@
             }
         }
 
-        // Initialize Fleek SDK when page loads
+        // ✅ Initialize Fleek SDK when page loads
         window.onload = initializeFleek;
     </script>
 
