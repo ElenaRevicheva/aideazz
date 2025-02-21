@@ -10,8 +10,8 @@
         window.process = { env: {} }; 
     </script>
 
-    <!-- Load Fleek SDK from Fleek Storage -->
-    <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
+    <!-- Load Fleek SDK from GitHub -->
+    <script src="https://cdn.jsdelivr.net/gh/ElenaRevicheva/aideazz@main/fleek-sdk.bundle.js"></script>
 </head>
 <body>
 
@@ -62,8 +62,10 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // Upload text file to Fleek Storage
-                        const result = await fleekSdk.storage.uploadFile({ file: fileLike });
+                        // Upload text file to Fleek Storage using the correct method
+                        const result = await fleekSdk.storage().upload({
+                            file: fileLike,
+                        });
 
                         console.log("✅ Post uploaded successfully:", result);
 
