@@ -62,8 +62,8 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // Upload text file to Fleek Storage using the correct method
-                        const result = await fleekSdk.storage().upload({
+                        // **Corrected Storage Upload Function**
+                        const result = await fleekSdk.storage().uploadFile({
                             file: fileLike,
                         });
 
