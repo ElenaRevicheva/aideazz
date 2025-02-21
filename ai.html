@@ -4,35 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
-
-    <!-- ✅ Load Fleek SDK from Fleek Storage -->
-    <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
-
-    <!-- ✅ Fix potential issues with missing `process.env` -->
-    <script>
-        window.process = { env: {} };
-    </script>
 </head>
 <body>
 
     <h2>Submit a Post</h2>
     
     <textarea id="postContent" placeholder="Write your AI idea here..." rows="4" cols="50"></textarea>
-    <button id="submitBtn">Submit Post</button>
+    <button id="submitBtn" disabled>Submit Post</button> <!-- 🔴 Disabled until SDK loads -->
     
     <p id="status"></p>
 
+    <!-- ✅ Load Fleek SDK from Fleek Storage -->
     <script>
+        const sdkUrl = "https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz";
+
+        function loadFleekSDK() {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement("script");
+                script.src = sdkUrl;
+                script.onload = () => {
+                    console.log("✅ Fleek SDK Loaded Successfully!");
+                    resolve();
+                };
+                script.onerror = () => {
+                    console.error("❌ Failed to load Fleek SDK!");
+                    document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
+                    reject(new Error("Failed to load Fleek SDK"));
+                };
+                document.body.appendChild(script);
+            });
+        }
+
         async function initializeFleek() {
             try {
-                console.log("🚀 Initializing Fleek SDK...");
+                document.getElementById("status").textContent = "🚀 Loading Fleek SDK...";
+                await loadFleekSDK();
 
                 // ✅ Ensure Fleek SDK is available
                 if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                     throw new Error("❌ Fleek SDK failed to load.");
                 }
 
-                console.log("✅ Fleek SDK Loaded Successfully!");
+                console.log("✅ Fleek SDK Initialized!");
 
                 // ✅ Authenticate using ApplicationAccessTokenService
                 const accessTokenService = new window.ApplicationAccessTokenService({
@@ -43,11 +56,8 @@
                     accessTokenService,
                 });
 
-                console.log("🛠️ Checking Fleek Storage Methods...");
-                if (!fleekSdk.storage || typeof fleekSdk.storage().uploadFile !== "function") {
-                    throw new Error("❌ `uploadFile()` function not found in Fleek SDK.");
-                }
-                console.log("✅ Fleek Storage Methods Exist!");
+                document.getElementById("status").textContent = "✅ Fleek SDK Ready!";
+                document.getElementById("submitBtn").disabled = false; // ✅ Enable Submit Button
 
                 document.getElementById("submitBtn").addEventListener("click", async function () {
                     const postContent = document.getElementById("postContent").value.trim();
