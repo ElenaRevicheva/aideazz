@@ -14,8 +14,8 @@
     
     <p id="status"></p>
 
-    <!-- Load the Fleek SDK from JSDelivr (CDN) -->
-    <script src="https://cdn.jsdelivr.net/gh/ElenaRevicheva/aideazz@main/fleek-sdk.bundle.js"></script>
+    <!-- Load Fleek SDK from Fleek Storage -->
+    <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 
     <script>
         async function initializeFleek() {
@@ -28,7 +28,7 @@
 
             // Authenticate using ApplicationAccessTokenService
             const accessTokenService = new window.ApplicationAccessTokenService({
-                clientId: "client_x1KWJx5pkupr-QO0F0Cp", // Use your correct Application Credential ID
+                clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Use your correct Application Credential ID
             });
 
             const fleekSdk = new window.FleekSdk({
@@ -51,7 +51,7 @@
 
                 try {
                     document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
-                    
+
                     // Upload text file to Fleek Storage
                     const result = await fleekSdk.storage.uploadFile({ file: fileLike });
 
