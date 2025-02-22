@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
 
-    <!-- 🛠️ Polyfill for process.env to fix 'process is not defined' -->
+    <!-- 🛠️ Fix for process.env error -->
     <script>
         window.process = { env: {} };
     </script>
@@ -54,17 +54,14 @@
 
                     // Convert text into a Blob for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
-                    const fileLike = {
-                        name: `post-${Date.now()}.txt`,
-                        stream: () => blob.stream(),
-                    };
 
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // **✅ Corrected Storage Upload Function**
-                        const result = await fleekSdk.storage.uploadFile({
-                            file: fileLike,
+                        // ✅ Corrected Storage Upload Function
+                        const result = await fleekSdk.storage.upload({
+                            files: [{ name: `post-${Date.now()}.txt`, stream: () => blob.stream() }],
+                            directoryName: "posts",
                         });
 
                         console.log("✅ Post uploaded successfully:", result);
