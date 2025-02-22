@@ -52,16 +52,19 @@
 
                     console.log("📤 Preparing to upload post...");
 
-                    // Convert text into a Blob for Fleek SDK
+                    // Convert text into a File object for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
+                    const file = new File([blob], `post-${Date.now()}.txt`, { type: "text/plain" });
 
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
                         // ✅ Corrected Storage Upload Function
-                        const result = await fleekSdk.storage.upload({
-                            files: [{ name: `post-${Date.now()}.txt`, stream: () => blob.stream() }],
-                            directoryName: "posts",
+                        const result = await fleekSdk.storage.uploadFile({
+                            file,
+                            onUploadProgress: (progress) => {
+                                console.log(`Upload Progress: ${progress.loadedSize} / ${progress.totalSize}`);
+                            },
                         });
 
                         console.log("✅ Post uploaded successfully:", result);
