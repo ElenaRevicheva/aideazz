@@ -10,7 +10,7 @@
         window.process = { env: {} };
     </script>
 
-    <!-- Load Fleek SDK from IPFS -->
+    <!-- Load Fleek SDK from IPFS (BUNDLED) -->
     <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 </head>
 <body>
@@ -57,8 +57,8 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // Corrected method: Using `upload`
-                        const result = await fleekSdk.storage().upload({
+                        // ✅ FIXED: Using `uploadFile` (Correct SDK Method)
+                        const result = await fleekSdk.storage.uploadFile({
                             file,
                         });
 
