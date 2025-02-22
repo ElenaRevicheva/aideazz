@@ -4,59 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
+
+    <!-- 🛠️ Polyfill for process.env to fix 'process is not defined' -->
+    <script>
+        window.process = { env: {} };
+    </script>
+
+    <!-- ✅ Load Fleek SDK from IPFS (Your Fleek SDK bundle) -->
+    <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 </head>
 <body>
 
     <h2>Submit a Post</h2>
     
     <textarea id="postContent" placeholder="Write your AI idea here..." rows="4" cols="50"></textarea>
-    <button id="submitBtn" disabled>Submit Post</button> <!-- Button disabled until SDK loads -->
+    <button id="submitBtn">Submit Post</button>
+    
+    <p id="status"></p>
 
-    <p id="status">🚀 Loading Fleek SDK...</p>
-
-    <!-- ✅ Load Fleek SDK from Fleek Storage -->
     <script>
-        const sdkUrl = "https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz";
-
-        function loadFleekSDK() {
-            return new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.src = sdkUrl;
-                script.onload = () => {
-                    console.log("✅ Fleek SDK Loaded Successfully!");
-                    resolve();
-                };
-                script.onerror = () => {
-                    console.error("❌ Failed to load Fleek SDK!");
-                    document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
-                    reject(new Error("Failed to load Fleek SDK"));
-                };
-                document.body.appendChild(script);
-            });
-        }
-
         async function initializeFleek() {
             try {
-                await loadFleekSDK();
-
-                // ✅ Ensure Fleek SDK is available
+                console.log("🚀 Initializing Fleek SDK...");
+                
+                // Ensure Fleek SDK is available
                 if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
-                    throw new Error("❌ Fleek SDK failed to load.");
+                    throw new Error("❌ Fleek SDK failed to load");
                 }
 
-                console.log("✅ Fleek SDK Initialized!");
+                console.log("✅ Fleek SDK Loaded Successfully!");
 
-                // ✅ Authenticate using ApplicationAccessTokenService
+                // Authenticate using ApplicationAccessTokenService
                 const accessTokenService = new window.ApplicationAccessTokenService({
-                    clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Use your correct Application Credential ID
+                    clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Correct Application Credential ID
                 });
 
                 const fleekSdk = new window.FleekSdk({
                     accessTokenService,
                 });
-
-                document.getElementById("status").textContent = "✅ Fleek SDK Ready!";
-                document.getElementById("submitBtn").disabled = false; // ✅ Enable Submit Button
 
                 document.getElementById("submitBtn").addEventListener("click", async function () {
                     const postContent = document.getElementById("postContent").value.trim();
@@ -67,7 +52,7 @@
 
                     console.log("📤 Preparing to upload post...");
 
-                    // ✅ Convert text into a Blob for Fleek SDK
+                    // Convert text into a Blob for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
                     const fileLike = {
                         name: `post-${Date.now()}.txt`,
@@ -77,15 +62,14 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // ✅ Upload text file to Fleek Storage
-                        console.log("🔄 Uploading file to Fleek Storage...");
-                        const result = await fleekSdk.storage().uploadFile({
+                        // **✅ Corrected Storage Upload Function**
+                        const result = await fleekSdk.storage.uploadFile({
                             file: fileLike,
                         });
 
-                        console.log("✅ Post uploaded successfully!", result);
+                        console.log("✅ Post uploaded successfully:", result);
 
-                        // ✅ Show CID and link to the uploaded post
+                        // Show CID and link to the uploaded post
                         document.getElementById("status").innerHTML = `
                             ✅ Post Uploaded!<br>
                             CID: ${result.pin.cid} <br>
@@ -93,7 +77,7 @@
                         `;
                     } catch (error) {
                         console.error("❌ Upload failed:", error);
-                        document.getElementById("status").textContent = `❌ Upload failed! ${error.message}`;
+                        document.getElementById("status").textContent = "❌ Upload failed!";
                     }
                 });
 
@@ -103,7 +87,7 @@
             }
         }
 
-        // ✅ Initialize Fleek SDK when page loads
+        // Initialize Fleek SDK when page loads
         window.onload = initializeFleek;
     </script>
 
