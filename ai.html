@@ -10,7 +10,7 @@
         window.process = { env: {} };
     </script>
 
-    <!-- Load Fleek SDK from IPFS (Your Fleek SDK bundle) -->
+    <!-- Load Fleek SDK from IPFS -->
     <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 </head>
 <body>
@@ -27,14 +27,12 @@
             try {
                 console.log("🚀 Initializing Fleek SDK...");
                 
-                // Ensure Fleek SDK is available
                 if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                     throw new Error("❌ Fleek SDK failed to load");
                 }
 
                 console.log("✅ Fleek SDK Loaded Successfully!");
 
-                // Authenticate using ApplicationAccessTokenService
                 const accessTokenService = new window.ApplicationAccessTokenService({
                     clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Correct Application Credential ID
                 });
@@ -52,24 +50,20 @@
 
                     console.log("📤 Preparing to upload post...");
 
-                    // Convert text into a File object for Fleek SDK
+                    // Create a file object for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
                     const file = new File([blob], `post-${Date.now()}.txt`, { type: "text/plain" });
 
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // ✅ Using correct upload function
-                        const result = await fleekSdk.storage.uploadRawFile({
+                        // Corrected method: Using `uploadFile`
+                        const result = await fleekSdk.storage().uploadFile({
                             file,
-                            onUploadProgress: (progress) => {
-                                console.log(`Upload Progress: ${progress.loadedSize} / ${progress.totalSize}`);
-                            },
                         });
 
                         console.log("✅ Post uploaded successfully:", result);
 
-                        // Show CID and link to the uploaded post
                         document.getElementById("status").innerHTML = `
                             ✅ Post Uploaded!<br>
                             CID: ${result.pin.cid} <br>
