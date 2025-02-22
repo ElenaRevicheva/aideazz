@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
 
-    <!-- 🛠️ Fix for process.env error -->
+    <!-- Fix for 'process is not defined' -->
     <script>
         window.process = { env: {} };
     </script>
 
-    <!-- ✅ Load Fleek SDK from IPFS (Your Fleek SDK bundle) -->
+    <!-- Load Fleek SDK from IPFS (Your Fleek SDK bundle) -->
     <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 </head>
 <body>
@@ -59,8 +59,8 @@
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // ✅ Corrected Storage Upload Function
-                        const result = await fleekSdk.storage.uploadFile({
+                        // ✅ Using correct upload function
+                        const result = await fleekSdk.storage.uploadRawFile({
                             file,
                             onUploadProgress: (progress) => {
                                 console.log(`Upload Progress: ${progress.loadedSize} / ${progress.totalSize}`);
