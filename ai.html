@@ -10,7 +10,7 @@
         window.process = { env: {} };
     </script>
 
-    <!-- Load Fleek SDK from IPFS (BUNDLED) -->
+    <!-- Load Fleek SDK from Fleek Storage -->
     <script src="https://bafkreig4d334pnpgjxq7vju336w4aq5ebczqxuuvw3wum5fhowgdz5kc4u.ipfs.flk-ipfs.xyz"></script>
 </head>
 <body>
@@ -50,15 +50,15 @@
 
                     console.log("📤 Preparing to upload post...");
 
-                    // Create a file object for Fleek SDK
+                    // Convert text to Blob for Fleek SDK
                     const blob = new Blob([postContent], { type: "text/plain" });
                     const file = new File([blob], `post-${Date.now()}.txt`, { type: "text/plain" });
 
                     try {
                         document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
                         
-                        // ✅ FIXED: Using `uploadFile` (Correct SDK Method)
-                        const result = await fleekSdk.storage.uploadFile({
+                        // ✅ FIXED: Using `uploadRawFile` (Correct SDK Method for Browsers)
+                        const result = await fleekSdk.storage.uploadRawFile({
                             file,
                         });
 
