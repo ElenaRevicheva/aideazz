@@ -14,64 +14,66 @@
     
     <p id="status"></p>
 
-    <!-- Load Fleek SDK from your Fleek-hosted site -->
+    <!-- Load the Fleek SDK from your website -->
     <script src="https://www.aideazz.xyz/fleek-sdk.bundle.js"></script>
 
     <script>
         async function initializeFleek() {
-            try {
-                // Ensure Fleek SDK is available
-                if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
-                    throw new Error("❌ Fleek SDK failed to load.");
+            console.log("🚀 Initializing Fleek SDK...");
+
+            // Ensure Fleek SDK is available
+            if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
+                console.error("❌ Fleek SDK failed to load");
+                document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
+                return;
+            }
+
+            console.log("✅ Fleek SDK Loaded Successfully!");
+
+            // Authenticate using ApplicationAccessTokenService
+            const accessTokenService = new window.ApplicationAccessTokenService({
+                clientId: "client_x1KWJx5pkupr-QO0F0Cp", // ✅ Use your correct Application Credential ID
+            });
+
+            const fleekSdk = new window.FleekSdk({
+                accessTokenService,
+            });
+
+            document.getElementById("submitBtn").addEventListener("click", async function () {
+                const postContent = document.getElementById("postContent").value.trim();
+                if (!postContent) {
+                    alert("Please write something before submitting!");
+                    return;
                 }
 
-                console.log("✅ Fleek SDK Loaded Successfully!");
+                console.log("📤 Preparing to upload post...");
 
-                // Authenticate using ApplicationAccessTokenService
-                const accessTokenService = new window.ApplicationAccessTokenService({
-                    clientId: "client_x1KWJx5pkupr-QO0F0Cp" // Use your correct Application Credential ID
-                });
+                // Convert text into a Blob for Fleek SDK
+                const blob = new Blob([postContent], { type: "text/plain" });
+                const fileLike = {
+                    name: `post-${Date.now()}.txt`,
+                    stream: () => blob.stream(),
+                };
 
-                const fleekSdk = new window.FleekSdk({ accessTokenService });
+                try {
+                    document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
+                    
+                    // ✅ Upload text file to Fleek Storage
+                    const result = await fleekSdk.storage.uploadRawFile({ file: fileLike });
 
-                document.getElementById("submitBtn").addEventListener("click", async function () {
-                    const postContent = document.getElementById("postContent").value.trim();
-                    if (!postContent) {
-                        alert("Please write something before submitting!");
-                        return;
-                    }
+                    console.log("✅ Upload Successful! CID:", result.pin.cid);
 
-                    console.log("📤 Preparing to upload post...");
-
-                    // Convert text into a Blob for Fleek SDK
-                    const blob = new Blob([postContent], { type: "text/plain" });
-                    const fileLike = {
-                        name: `post-${Date.now()}.txt`,
-                        stream: () => blob.stream(),
-                    };
-
-                    try {
-                        document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
-                        
-                        // Upload text file to Fleek Storage
-                        const result = await fleekSdk.storage.uploadRawFile({ file: fileLike });
-
-                        // Show CID and link to the uploaded post
-                        document.getElementById("status").innerHTML = `
-                            ✅ Post Uploaded!<br>
-                            CID: ${result.pin.cid} <br>
-                            <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View Post</a>
-                        `;
-                    } catch (error) {
-                        console.error("❌ Upload failed:", error);
-                        document.getElementById("status").textContent = "❌ Upload failed!";
-                    }
-                });
-
-            } catch (error) {
-                console.error(error.message);
-                document.getElementById("status").textContent = error.message;
-            }
+                    // Show CID and link to the uploaded post
+                    document.getElementById("status").innerHTML = `
+                        ✅ Post Uploaded!<br>
+                        CID: ${result.pin.cid} <br>
+                        <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View Post</a>
+                    `;
+                } catch (error) {
+                    console.error("❌ Upload failed:", error);
+                    document.getElementById("status").textContent = "❌ Upload failed!";
+                }
+            });
         }
 
         // Initialize Fleek SDK when page loads
