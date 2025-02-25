@@ -21,7 +21,7 @@
         async function initializeFleek() {
             console.log("🚀 Initializing Fleek SDK...");
 
-            // ✅ Ensure Fleek SDK is available
+            // ✅ Check if Fleek SDK is loaded
             if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                 console.error("❌ Fleek SDK failed to load");
                 document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
