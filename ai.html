@@ -21,7 +21,7 @@
         async function initializeFleek() {
             console.log("🚀 Initializing Fleek SDK...");
 
-            // ✅ Check if Fleek SDK is loaded
+            // ✅ Ensure Fleek SDK is loaded properly
             if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                 console.error("❌ Fleek SDK failed to load");
                 document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
@@ -57,7 +57,7 @@
                     document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
 
                     // ✅ Upload text file to Fleek Storage
-                    const result = await fleekSdk.storage.uploadFile({ file: fileLike });
+                    const result = await fleekSdk.storage.uploadRawFile({ file: fileLike });
 
                     console.log("✅ Upload Successful:", result);
 
