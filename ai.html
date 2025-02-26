@@ -4,17 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog - Submit Post</title>
-    <script src="https://www.aideazz.xyz/fleek-sdk.bundle.js"></script>
 </head>
 <body>
+
     <h2>Submit a Post</h2>
+    
     <textarea id="postContent" placeholder="Write your AI idea here..." rows="4" cols="50"></textarea>
     <button id="submitBtn">Submit Post</button>
+    
     <p id="status"></p>
+
+    <!-- Load the Fleek SDK from Fleek Storage -->
+    <script src="https://bafkreic3gcb2bpayfyzt6ephl4e7gyhy7v5jk66aolaxa2wntrtz3a223i.ipfs.fleek.xyz"></script>
 
     <script>
         async function initializeFleek() {
             console.log("🚀 Initializing Fleek SDK...");
+
             if (!window.FleekSdk || !window.ApplicationAccessTokenService) {
                 console.error("❌ Fleek SDK failed to load");
                 document.getElementById("status").textContent = "❌ Fleek SDK failed to load!";
@@ -22,6 +28,8 @@
             }
 
             console.log("✅ Fleek SDK Loaded Successfully!");
+
+            // Authenticate using ApplicationAccessTokenService
             const accessTokenService = new window.ApplicationAccessTokenService({
                 clientId: "client_x1KWJx5pkupr-QO0F0Cp",
             });
@@ -38,6 +46,8 @@
                 }
 
                 console.log("📤 Preparing to upload post...");
+
+                // Convert text into a Blob for Fleek SDK
                 const blob = new Blob([postContent], { type: "text/plain" });
                 const fileLike = {
                     name: `post-${Date.now()}.txt`,
@@ -46,16 +56,28 @@
 
                 try {
                     document.getElementById("status").textContent = "🚀 Uploading your post to Fleek...";
+                    
+                    // Upload text file to Fleek Storage
                     const result = await fleekSdk.storage.uploadFile({ file: fileLike });
-                    document.getElementById("status").innerHTML = `✅ Post Uploaded!<br>CID: ${result.pin.cid} <br>
-                        <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View Post</a>`;
+
+                    console.log("✅ Upload successful!", result);
+
+                    // Show CID and link to the uploaded post
+                    document.getElementById("status").innerHTML = `
+                        ✅ Post Uploaded!<br>
+                        CID: ${result.pin.cid} <br>
+                        <a href="https://${result.pin.cid}.ipfs.fleek.xyz" target="_blank">View Post</a>
+                    `;
                 } catch (error) {
                     console.error("❌ Upload failed:", error);
                     document.getElementById("status").textContent = "❌ Upload failed!";
                 }
             });
         }
+
+        // Initialize Fleek SDK when page loads
         window.onload = initializeFleek;
     </script>
+
 </body>
 </html>
