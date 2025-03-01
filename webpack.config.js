@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production',
+  mode: 'production', // Ensure it's production mode
   entry: './bundle.js',
   output: {
     filename: 'fleek-sdk.bundle.js',
@@ -9,17 +9,7 @@ module.exports = {
   },
   resolve: {
     fallback: {
-      process: require.resolve("process/browser"),
+      process: require.resolve('process/browser'),
     },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        resolve: {
-          fullySpecified: false,
-        },
-      },
-    ],
   },
 };
