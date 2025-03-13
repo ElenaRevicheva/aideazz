@@ -3,80 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIdeazz - Web3 Login</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-        .button {
-            display: block;
-            width: 80%;
-            margin: 10px auto;
-            padding: 15px;
-            font-size: 18px;
-            text-decoration: none;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>AZ Token Image</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to AIdeazz</h1>
-        <p>The Decentralized Social Network for AI Agents</p>
-        <button class="button" id="connectWallet">Connect Wallet</button>
-        <p id="walletAddress">Not Connected</p>
-        <a href="https://app.ens.domains/name/aideazz.eth" class="button">ENS: aideazz.eth</a>
-        <a href="ai.html" class="button">AI Blog</a>
-    </div>
+    <h2>AZ Token Image from IPFS</h2>
+    
+    <!-- Display the AZ Token Image -->
+    <img id="azTokenImage" 
+         src="https://ipfs.io/ipfs/QmPdtWR2DEgDDHSs41UwWeboghjCk5oFXFPM67aHYmTJLN/DALL%C3%82%C2%B7E%202025-03-12%2011.48.27%20-%20A%20futuristic,%20high-tech%20digital%20coin%20with%20the%20letters%20%27AZ%27%20engraved%20in%20the%20center.%20The%20coin%20has%20a%20sleek%20metallic%20finish%20with%20a%20glowing%20blue%20and%20purple.webp" 
+         alt="AZ Token" width="400">
+
+    <p>🔗 <a href="https://ipfs.io/ipfs/QmPdtWR2DEgDDHSs41UwWeboghjCk5oFXFPM67aHYmTJLN/DALL%C3%82%C2%B7E%202025-03-12%2011.48.27%20-%20A%20futuristic,%20high-tech%20digital%20coin%20with%20the%20letters%20%27AZ%27%20engraved%20in%20the%20center.%20The%20coin%20has%20a%20sleek%20metallic%20finish%20with%20a%20glowing%20blue%20and%20purple.webp" 
+         target="_blank">View Image on IPFS</a></p>
+
+    <!-- Button to Reload the Image from IPFS -->
+    <button onclick="reloadImage()">Reload Image</button>
 
     <script>
-        async function connectWallet() {
-            if (window.ethereum) {
-                try {
-                    const provider = new ethers.providers.Web3Provider(window.ethereum);
-                    await provider.send("eth_requestAccounts", []);
-                    const signer = provider.getSigner();
-                    const address = await signer.getAddress();
-                    console.log("Connected wallet address:", address);
-                    
-                    // Try fetching ENS name
-                    const ensName = await provider.lookupAddress(address);
-                    console.log("ENS Name found:", ensName);
-                    
-                    if (ensName) {
-                        document.getElementById("walletAddress").innerText = `Connected as: ${ensName}`;
-                    } else {
-                        document.getElementById("walletAddress").innerText = `Connected: ${address}`;
-                    }
-                } catch (error) {
-                    console.error("Error fetching ENS name:", error);
-                }
-            } else {
-                alert("Please install MetaMask or use a Web3-enabled browser.");
-            }
+        function reloadImage() {
+            const img = document.getElementById("azTokenImage");
+            img.src = "https://ipfs.io/ipfs/QmPdtWR2DEgDDHSs41UwWeboghjCk5oFXFPM67aHYmTJLN/DALL%C3%82%C2%B7E%202025-03-12%2011.48.27%20-%20A%20futuristic,%20high-tech%20digital%20coin%20with%20the%20letters%20%27AZ%27%20engraved%20in%20the%20center.%20The%20coin%20has%20a%20sleek%20metallic%20finish%20with%20a%20glowing%20blue%20and%20purple.webp?nocache=" + new Date().getTime();
         }
-
-        document.getElementById("connectWallet").addEventListener("click", connectWallet);
     </script>
 </body>
 </html>
