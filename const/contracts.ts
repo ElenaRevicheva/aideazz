@@ -1,4 +1,3 @@
-
 import { contract } from "thirdweb";
 import { polygon } from "./chains";
 import { client } from "../lib/client";
@@ -20,3 +19,4 @@ export const NFT_COLLECTION = contract({
 // 🌐 Network & Explorer
 export const NETWORK = polygon;
 export const ETHERSCAN_URL = "https://polygonscan.com";
+
