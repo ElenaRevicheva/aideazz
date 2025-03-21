@@ -1,63 +1,39 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 
-/**
- * Landing page with a simple gradient background and a hero asset.
- * Free to customize as you see fit.
- */
-const Home: NextPage = () => {
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Home() {
   return (
-    <div className="">
-      <div className="flex justify-center p-2">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center p-8 bg-gradient-to-b from-black via-gray-900 to-black">
+      
+      {/* Hero Image (Now Scaled Properly to Fit Without Scrolling) */}
+      <div className="relative w-full flex justify-center mb-6">
         <Image
           src="/hero-asset.png"
-          width={860}
-          height={540}
-          alt="Hero asset, NFT marketplace"
+          width={800}  // Adjusted width
+          height={450} // Reduced height to fit screen
+          alt="Hero asset"
           quality={100}
-          className="max-w-screen mb-4"
+          className="max-w-screen-md h-auto object-contain rounded-lg"
         />
       </div>
-      <div className="px-8 mx-auto text-center">
-        <h1 className="mb-5 text-white font-bold text-6xl">
-          <span className="text-transparent bg-clip-text gradient">
-						Build NFT Marketplaces
-          </span>
-          <br />
-					faster than ever.
-        </h1>
-        <p className="text-white/60 text-lg max-w-xl mx-auto">
-          <Link
-            className="hover:underline"
-            href="https://thirdweb.com"
-            target="_blank"
-          >
-						thirdweb
-          </Link>{" "}
-					gives you the tools you need to create audited, performant,
-					and flexible NFT marketplaces in <b>hours</b>,{" "}
-          <i>not months</i>.
-        </p>
 
-        <div className="flex justify-center text-lg font-medium items-center mt-12 gap-4">
-          <Link
-            className="w-56 p-3 rounded-lg transition-all hover:shadow-lg gradient border-white/10 border"
-            href="https://portal.thirdweb.com/"
-          >
-						Get Started
-          </Link>
-          <Link
-            className="w-56 p-3 rounded-lg bg-white/[.04] transition-all hover:bg-white/[.06] border-white/10 border"
-            href="https://github.com/thirdweb-example/marketplace-v3"
-            target="_blank"
-          >
-						GitHub
-          </Link>
-        </div>
-      </div>
+      {/* Showroom Content */}
+      <h1 className="text-5xl font-bold text-white mb-4">
+        Welcome to the Atuona AI Agent Showroom
+      </h1>
+      <p className="text-white/70 text-lg max-w-2xl mb-6">
+        Meet our first AI agent — <strong>@Atuona_bot</strong>. Designed to guide
+        you through mindful digital creativity and Web3 experiences.
+      </p>
+      <Link
+        href="https://t.me/Atuona_bot"
+        target="_blank"
+        className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all"
+      >
+        ✨ Try Atuona on Telegram
+      </Link>
     </div>
   );
-};
-
-export default Home;
+}
