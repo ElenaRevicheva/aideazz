@@ -1,6 +1,6 @@
 import { polygon } from "./chains";
 
-// Your real deployed marketplace contract on Polygon
+// Define your MarketplaceV3 contract
 export const MARKETPLACE_CONTRACTS = [
   {
     address: "0xC9988B2616b92D4577d5C15D29eC87421b3E1AE5",
@@ -8,8 +8,17 @@ export const MARKETPLACE_CONTRACTS = [
   },
 ];
 
-// 🧪 Temporary dummy values to prevent build errors on Fleek
-export const MARKETPLACE = "0x0000000000000000000000000000000000000000";
-export const NFT_COLLECTION = "0x0000000000000000000000000000000000000000";
+// Corrected format for Thirdweb SDK usage
+export const MARKETPLACE = {
+  address: "0xC9988B2616b92D4577d5C15D29eC87421b3E1AE5",
+  chain: polygon,
+};
+
+// If you don't have an NFT contract deployed yet, use a placeholder
+export const NFT_COLLECTION = {
+  address: "0x0000000000000000000000000000000000000000", // Replace later
+  chain: polygon,
+};
+
 export const NETWORK = polygon;
 export const ETHERSCAN_URL = "https://polygonscan.com";
