@@ -1,19 +1,35 @@
 "use client";
 
-import { useListingsQuery } from "thirdweb/react";
+import { useEffect, useState } from "react";
 import { MARKETPLACE } from "@/consts/contracts";
+import { Listing, getAllListings } from "thirdweb/extensions/marketplace";
 import { ListingType } from "thirdweb/constants/marketplace";
 import Link from "next/link";
 
 export default function ListingGrid() {
-  const { data: listings, isLoading } = useListingsQuery(MARKETPLACE);
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchListings() {
+      try {
+        const listings = await getAllListings({ contract: MARKETPLACE });
+        setListings(listings);
+      } catch (err) {
+        console.error("Failed to load listings:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchListings();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
       {isLoading ? (
         <p>Loading listings...</p>
       ) : (
-        listings?.map((listing) => (
+        listings.map((listing) => (
           <Link
             key={listing.id}
             href={`/${listing.type === ListingType.Auction ? "auction" : "buy"}/${listing.id}`}
