@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { MARKETPLACE } from "@/consts/contracts";
 import { getAllListings } from "thirdweb/extensions/marketplace";
-import type { Listing } from "thirdweb/types";
 import { ListingType } from "thirdweb/constants/marketplace";
 import Link from "next/link";
+
+// ✅ Inferred Listing type
+type Listing = Awaited<ReturnType<typeof getAllListings>>[0];
 
 export default function ListingGrid() {
   const [listings, setListings] = useState<Listing[] | null>(null);
