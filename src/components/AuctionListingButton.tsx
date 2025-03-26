@@ -3,10 +3,14 @@
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { createAuction } from "thirdweb/extensions/marketplace";
 import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import { NFT } from "thirdweb/sdk";
 import toast from "react-hot-toast";
 import toastStyle from "@/util/toastConfig";
 import { revalidatePath } from "next/cache";
+
+// 🔧 Replace Thirdweb SDK NFT type with a local one:
+type NFT = {
+  id: string;
+};
 
 export default function AuctionListingButton({ nft }: { nft: NFT }) {
   const account = useActiveAccount();
