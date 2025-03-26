@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-black text-white">
@@ -8,13 +6,12 @@ export default function Home() {
           Welcome to your Thirdweb Marketplace 🛍️
         </p>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-black via-black dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          {/* ✅ Fixed image path below (no leading slash!) */}
-          <Image
+          {/* ✅ Now using plain img tag — works perfectly in Fleek */}
+          <img
             src="thirdweb.svg"
             alt="Thirdweb Logo"
             width={100}
             height={24}
-            priority
           />
         </div>
       </div>
