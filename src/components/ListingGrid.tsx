@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { MARKETPLACE } from "@/consts/contracts";
-import { Listing, getAllListings } from "thirdweb/extensions/marketplace";
+import { getAllListings } from "thirdweb/extensions/marketplace";
+import type { Listing } from "thirdweb/types";
 import { ListingType } from "thirdweb/constants/marketplace";
 import Link from "next/link";
 
 export default function ListingGrid() {
-  const [listings, setListings] = useState<Listing[]>([]);
+  const [listings, setListings] = useState<Listing[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -16,11 +17,12 @@ export default function ListingGrid() {
         const listings = await getAllListings({ contract: MARKETPLACE });
         setListings(listings);
       } catch (err) {
-        console.error("Failed to load listings:", err);
+        console.error("Error fetching listings:", err);
       } finally {
         setIsLoading(false);
       }
     }
+
     fetchListings();
   }, []);
 
@@ -29,7 +31,7 @@ export default function ListingGrid() {
       {isLoading ? (
         <p>Loading listings...</p>
       ) : (
-        listings.map((listing) => (
+        listings?.map((listing) => (
           <Link
             key={listing.id}
             href={`/${listing.type === ListingType.Auction ? "auction" : "buy"}/${listing.id}`}
@@ -42,8 +44,7 @@ export default function ListingGrid() {
             />
             <h3 className="text-lg font-semibold mb-2">{listing.asset.name}</h3>
             <p className="text-gray-600">
-              Price:{" "}
-              {listing.currencyValuePerToken.displayValue}{" "}
+              Price: {listing.currencyValuePerToken.displayValue}{" "}
               {listing.currencyValuePerToken.symbol}
             </p>
           </Link>
