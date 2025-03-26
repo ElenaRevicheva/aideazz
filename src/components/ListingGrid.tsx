@@ -1,72 +1,36 @@
-import {
-  getAllValidAuctions,
-  getAllValidListings,
-} from "thirdweb/extensions/marketplace";
-import { NFT as NFTType, ThirdwebContract } from "thirdweb";
-import React, { Suspense } from "react";
-<<<<<<< HEAD
-import { MARKETPLACE_ADDRESS, NFT_COLLECTION_ADDRESS } from '@/consts/contracts';;
-=======
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts
-";
->>>>>>> ab8af70838e18916f690150eb29d8c5de2aff935
-import NFTGrid, { NFTGridLoading } from "../NFT/NFTGrid";
+"use client";
 
-type Props = {
-	marketplace: ThirdwebContract;
-	collection: ThirdwebContract;
-	overrideOnclickBehavior?: (nft: NFTType) => void;
-	emptyText: string;
-};
+import { useListings } from "thirdweb/react";
+import { MARKETPLACE } from "@/consts/contracts";
+import { ListingType } from "thirdweb/constants/marketplace";
+import Link from "next/link";
 
-export default async function ListingGrid(props: Props) {
-  const listingsPromise = getAllValidListings({
-    contract: MARKETPLACE,
-  });
-  const auctionsPromise = getAllValidAuctions({
-    contract: MARKETPLACE,
-  });
-
-  const [listings, auctions] = await Promise.all([
-    listingsPromise,
-    auctionsPromise,
-  ]);
-
-  // Retrieve all NFTs from the listings
-  const tokenIds = Array.from(
-    new Set([
-      ...listings
-        .filter(
-          (l) => l.assetContractAddress === NFT_COLLECTION_ADDRESS
-        )
-        .map((l) => l.tokenId),
-      ...auctions
-        .filter(
-          (a) => a.assetContractAddress === NFT_COLLECTION_ADDRESS
-        )
-        .map((a) => a.tokenId),
-    ])
-  );
-
-  const nftData = tokenIds.map((tokenId) => {
-    return {
-      tokenId: tokenId,
-      directListing: listings.find(
-        (listing) => listing.tokenId === tokenId
-      ),
-      auctionListing: auctions.find(
-        (listing) => listing.tokenId === tokenId
-      ),
-    };
-  });
+export default function ListingGrid() {
+  const { data: listings, isLoading } = useListings(MARKETPLACE);
 
   return (
-    <Suspense fallback={<NFTGridLoading />}>
-      <NFTGrid
-        nftData={nftData}
-        emptyText={props.emptyText}
-        overrideOnclickBehavior={props.overrideOnclickBehavior}
-      />
-    </Suspense>
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+      {isLoading && <p>Loading listings...</p>}
+      {listings?.map((listing) => (
+        <Link
+          href={`/listing/${listing.id}`}
+          key={listing.id}
+          className="rounded-lg border border-gray-300 p-4 shadow-md hover:shadow-xl transition"
+        >
+          <p className="font-semibold">{listing.asset.name}</p>
+          <img
+            src={listing.asset.image}
+            alt={listing.asset.name}
+            className="w-full h-48 object-cover mt-2 rounded"
+          />
+          <p className="text-sm mt-2">
+            Price:{" "}
+            {listing.type === ListingType.Auction
+              ? `${listing.buyoutCurrencyValuePerToken.displayValue} (auction)`
+              : `${listing.currencyValuePerToken.displayValue} ${listing.currencyValuePerToken.symbol}`}
+          </p>
+        </Link>
+      ))}
+    </div>
   );
 }
