@@ -1,36 +1,36 @@
 "use client";
 
-import { TransactionButton, useActiveAccount } from "thirdweb/react";
 import { makeOffer } from "thirdweb/extensions/marketplace";
 import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import { NFT } from "thirdweb/sdk";
 import toast from "react-hot-toast";
 import toastStyle from "@/util/toastConfig";
 import { revalidatePath } from "next/cache";
+import { TransactionButton, useActiveAccount } from "thirdweb/react";
 
-export default function MakeOfferButton({ nft }: { nft: NFT }) {
+export default function MakeOfferButton({ nft }: { nft: any }) {
   const account = useActiveAccount();
 
   return (
     <TransactionButton
+      disabled={!account}
       transaction={() => {
         if (!account) throw new Error("No connected wallet");
         return makeOffer({
           contract: MARKETPLACE,
           assetContractAddress: NFT_COLLECTION.address,
           tokenId: nft.id,
-          totalPrice: BigInt(0.005 * 1e18),
+          pricePerToken: BigInt(0.002 * 1e18).toString(), // ✅ price as string
         });
       }}
       onTransactionSent={() => {
-        toast.loading("Submitting offer...", {
+        toast.loading("Sending offer...", {
           id: "offer",
           style: toastStyle,
           position: "bottom-center",
         });
       }}
       onTransactionConfirmed={() => {
-        toast.success("Offer submitted!", {
+        toast.success("Offer sent successfully!", {
           id: "offer",
           style: toastStyle,
           position: "bottom-center",
@@ -38,7 +38,7 @@ export default function MakeOfferButton({ nft }: { nft: NFT }) {
         revalidatePath("/");
       }}
       onError={() => {
-        toast.error("Failed to submit offer", {
+        toast.error("Offer failed!", {
           id: "offer",
           style: toastStyle,
           position: "bottom-center",
