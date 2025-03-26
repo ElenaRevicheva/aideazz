@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import toastStyle from "@/util/toastConfig";
 import { revalidatePath } from "next/cache";
 
-// Use a local type since thirdweb/sdk is not available
+// Local type
 type NFT = {
   id: string;
 };
@@ -22,11 +22,13 @@ export default function AuctionListingButton({ nft }: { nft: NFT }) {
         return createAuction({
           contract: MARKETPLACE,
           assetContractAddress: NFT_COLLECTION.address,
-          tokenId: BigInt(nft.id), // ✅ FIXED: Convert string to bigint
-          buyoutPricePerToken: BigInt(0.01 * 1e18),
-          minimumBidAmount: BigInt(0.001 * 1e18),
-          startTimestamp: BigInt(Math.floor(Date.now() / 1000)),
-          endTimestamp: BigInt(Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60),
+          tokenId: nft.id, // ✅ It's a string as expected now
+          buyoutPricePerToken: BigInt(0.01 * 1e18).toString(), // ✅ string
+          minimumBidAmount: BigInt(0.001 * 1e18).toString(),   // ✅ string
+          startTimestamp: BigInt(Math.floor(Date.now() / 1000)).toString(),
+          endTimestamp: BigInt(
+            Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60
+          ).toString(),
         });
       }}
       onTransactionSent={() => {
