@@ -23,11 +23,11 @@ export default function AuctionListingButton({ nft }: { nft: NFT }) {
         return createAuction({
           contract: MARKETPLACE,
           assetContractAddress: NFT_COLLECTION.address,
-          tokenId: BigInt(nft.id), // ✅ bigint
-          buyoutPricePerToken: BigInt(0.01 * 1e18).toString(), // ✅ string
-          minimumBidAmount: BigInt(0.001 * 1e18).toString(),   // ✅ string
-          startTimestamp: new Date(), // ✅ Date object (starts now)
-          endTimestamp: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // ✅ Date 7 days later
+          tokenId: BigInt(nft.id),
+          buyoutBidAmount: BigInt(0.01 * 1e18).toString(), // ✅ Corrected key
+          minimumBidAmount: BigInt(0.001 * 1e18).toString(),
+          startTimestamp: new Date(),
+          endTimestamp: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         });
       }}
       onTransactionSent={() => {
