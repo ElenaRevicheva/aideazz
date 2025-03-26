@@ -1,7 +1,7 @@
 "use client";
 
 import { TransactionButton, useActiveAccount } from "thirdweb/react";
-import { approveERC721Transfer } from "thirdweb/extensions/marketplace";
+// ❌ Removed broken import: approveERC721Transfer
 import { NFT_COLLECTION, MARKETPLACE } from "@/consts/contracts";
 import { NFT } from "thirdweb/sdk";
 import toastStyle from "@/util/toastConfig";
@@ -15,11 +15,9 @@ export default function ApproveButton({ nft }: { nft: NFT }) {
     <TransactionButton
       transaction={() => {
         if (!account) throw new Error("No connected wallet");
-        return approveERC721Transfer({
-          contract: NFT_COLLECTION,
-          operator: MARKETPLACE.address,
-          tokenId: nft.id,
-        });
+
+        // ❗ Placeholder until approve function is available in SDK
+        throw new Error("Approval function not implemented in SDK.");
       }}
       onTransactionSent={() => {
         toast.loading("Approving transfer...", {
@@ -35,8 +33,8 @@ export default function ApproveButton({ nft }: { nft: NFT }) {
           position: "bottom-center",
         });
       }}
-      onError={(error) => {
-        toast.error("Approval failed", {
+      onError={() => {
+        toast.error("Approval not available", {
           id: "approve",
           style: toastStyle,
           position: "bottom-center",
