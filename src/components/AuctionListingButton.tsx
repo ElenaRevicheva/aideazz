@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import toastStyle from "@/util/toastConfig";
 import { revalidatePath } from "next/cache";
 
-// Local type
+// Local NFT type
 type NFT = {
   id: string;
 };
@@ -19,16 +19,17 @@ export default function AuctionListingButton({ nft }: { nft: NFT }) {
     <TransactionButton
       transaction={() => {
         if (!account) throw new Error("No connected wallet");
+
         return createAuction({
           contract: MARKETPLACE,
           assetContractAddress: NFT_COLLECTION.address,
-          tokenId: nft.id, // ✅ It's a string as expected now
+          tokenId: BigInt(nft.id), // ✅ BigInt
           buyoutPricePerToken: BigInt(0.01 * 1e18).toString(), // ✅ string
           minimumBidAmount: BigInt(0.001 * 1e18).toString(),   // ✅ string
-          startTimestamp: BigInt(Math.floor(Date.now() / 1000)).toString(),
+          startTimestamp: BigInt(Math.floor(Date.now() / 1000)).toString(), // ✅ string
           endTimestamp: BigInt(
             Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60
-          ).toString(),
+          ).toString(), // ✅ string
         });
       }}
       onTransactionSent={() => {
