@@ -19,7 +19,7 @@ export default function MakeOfferButton({ nft }: { nft: any }) {
           contract: MARKETPLACE,
           assetContractAddress: NFT_COLLECTION.address,
           tokenId: nft.id,
-          amount: BigInt(0.002 * 1e18), // ✅ Use `amount`
+          totalPrice: BigInt(0.002 * 1e18), // ✅ updated
         });
       }}
       onTransactionSent={() => {
