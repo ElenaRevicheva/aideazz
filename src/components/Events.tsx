@@ -6,7 +6,7 @@ import { MARKETPLACE } from "@/consts/contracts";
 export default function Events() {
   const { data: events, isLoading } = useContractEvents({
     contract: MARKETPLACE,
-    onEvents: () => {},
+    // ✅ Removed `onEvents`
   });
 
   return (
