@@ -3,23 +3,19 @@
 import { useEffect, useState } from "react";
 import { MARKETPLACE } from "@/consts/contracts";
 import { getAllListings } from "thirdweb/extensions/marketplace";
-import { ListingType } from "thirdweb/constants/marketplace";
 import Link from "next/link";
 
-// ✅ Inferred Listing type
-type Listing = Awaited<ReturnType<typeof getAllListings>>[0];
-
 export default function ListingGrid() {
-  const [listings, setListings] = useState<Listing[] | null>(null);
+  const [listings, setListings] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchListings() {
       try {
-        const listings = await getAllListings({ contract: MARKETPLACE });
-        setListings(listings);
-      } catch (err) {
-        console.error("Error fetching listings:", err);
+        const allListings = await getAllListings({ contract: MARKETPLACE });
+        setListings(allListings);
+      } catch (error) {
+        console.error("Failed to fetch listings:", error);
       } finally {
         setIsLoading(false);
       }
@@ -36,7 +32,7 @@ export default function ListingGrid() {
         listings?.map((listing) => (
           <Link
             key={listing.id}
-            href={`/${listing.type === ListingType.Auction ? "auction" : "buy"}/${listing.id}`}
+            href={`/${listing.type === "Auction" ? "auction" : "buy"}/${listing.id}`}
             className="border rounded-lg p-4 hover:shadow-lg transition"
           >
             <img
@@ -46,8 +42,7 @@ export default function ListingGrid() {
             />
             <h3 className="text-lg font-semibold mb-2">{listing.asset.name}</h3>
             <p className="text-gray-600">
-              Price: {listing.currencyValuePerToken.displayValue}{" "}
-              {listing.currencyValuePerToken.symbol}
+              Price: {listing.currencyValuePerToken.displayValue} {listing.currencyValuePerToken.symbol}
             </p>
           </Link>
         ))
