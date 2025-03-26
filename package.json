@@ -1,0 +1,41 @@
+{
+  "name": "thirdweb-nft-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export",
+    "deploy": "next build && next export && npx thirdweb@latest upload out"
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "classnames": "^2.5.1",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "next": "^14",
+    "nextjs-progressbar": "^0.0.16",
+    "pino-pretty": "^11.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.43.0",
+    "react-hot-toast": "^2.4.0",
+    "thirdweb": "^5.16.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8",
+    "@types/node": "^18.11.11",
+    "@types/react": "^18.3.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "^14.2.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.1.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
+  }
+}
