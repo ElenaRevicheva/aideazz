@@ -1,25 +1,24 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThirdwebProvider } from "thirdweb/react";
+import { Inter } from "next/font/google";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { polygon } from "@thirdweb-dev/chains";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "thirdweb SDK + Next starter",
-  description:
-    "Starter template for using thirdweb SDK with Next.js App router",
+export const metadata = {
+  title: "Aideazz AI Marketplace",
+  description: "Decentralized marketplace for AI agents and NFTs",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThirdwebProvider>{children}</ThirdwebProvider>
+        <ThirdwebProvider activeChain={polygon}>{children}</ThirdwebProvider>
       </body>
     </html>
   );
