@@ -1,40 +1,31 @@
 "use client";
 
-import { TransactionButton, useActiveAccount } from "@thirdweb-dev/react";
+import {
+  useActiveWallet,
+  useContract,
+  useNFTs,
+} from "@thirdweb-dev/react";
+import { polygon, client } from "@/lib/client";
 import { NFT_COLLECTION } from "@/consts/contracts";
-import toastStyle from "@/util/toastConfig";
-import toast from "react-hot-toast";
 
-export default function ApproveButton({ tokenId }: { tokenId: string }) {
-  const account = useActiveAccount();
+export default function ApproveButton() {
+  const account = useActiveWallet();
+  const { contract } = useContract(NFT_COLLECTION, { client, chain: polygon });
+  const { data: nfts, isLoading } = useNFTs(contract);
+
+  const handleClick = async () => {
+    if (!account || !contract) return;
+    // Example logic for approval action:
+    console.log(`Account ${account.address} wants to approve something...`);
+    // Add contract interaction here if needed
+  };
 
   return (
-    <TransactionButton
-      contract={NFT_COLLECTION}
-      action={(contract) => contract.erc721.setApprovalForAll(account?.address || "", true)}
-      onTransactionSent={() => {
-        toast.loading("Approving NFT...", {
-          id: "approve",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onTransactionConfirmed={() => {
-        toast.success("Approved NFT successfully!", {
-          id: "approve",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onError={() => {
-        toast.error("Approval failed", {
-          id: "approve",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
+    <button
+      onClick={handleClick}
+      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
     >
       Approve
-    </TransactionButton>
+    </button>
   );
 }

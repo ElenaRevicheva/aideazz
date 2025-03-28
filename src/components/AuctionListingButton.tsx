@@ -1,59 +1,41 @@
 "use client";
 
-import { TransactionButton, useActiveAccount } from "thirdweb/react";
-import { createAuction } from "thirdweb/extensions/marketplace";
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import toast from "react-hot-toast";
-import toastStyle from "@/util/toastConfig";
-import { revalidatePath } from "next/cache";
+import {
+  useActiveWallet,
+  useContract,
+} from "@thirdweb-dev/react";
+import { NFT_COLLECTION } from "@/consts/contracts";
+import { client, polygon } from "@/lib/client";
 
-// Local NFT type
-type NFT = {
-  id: string;
-};
+export default function AuctionListingButton() {
+  const wallet = useActiveWallet();
+  const { contract } = useContract(NFT_COLLECTION, { client, chain: polygon });
 
-export default function AuctionListingButton({ nft }: { nft: NFT }) {
-  const account = useActiveAccount();
+  const handleClick = async () => {
+    if (!wallet || !contract) return;
+
+    try {
+      const txResult = await contract.auction.createListing({
+        assetContractAddress: NFT_COLLECTION,
+        buyoutPricePerToken: "0.01",
+        currencyContractAddress: "0x0000000000000000000000000000000000000000",
+        listingDurationInSeconds: 86400,
+        quantity: 1,
+        startTimestamp: new Date(),
+      });
+
+      console.log("Auction created:", txResult);
+    } catch (err) {
+      console.error("Error creating auction:", err);
+    }
+  };
 
   return (
-    <TransactionButton
-      transaction={() => {
-        if (!account) throw new Error("No connected wallet");
-
-        return createAuction({
-          contract: MARKETPLACE,
-          assetContractAddress: NFT_COLLECTION.address,
-          tokenId: BigInt(nft.id),
-          buyoutBidAmount: BigInt(0.01 * 1e18).toString(), // ✅ Corrected key
-          minimumBidAmount: BigInt(0.001 * 1e18).toString(),
-          startTimestamp: new Date(),
-          endTimestamp: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        });
-      }}
-      onTransactionSent={() => {
-        toast.loading("Creating auction listing...", {
-          id: "auction",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onTransactionConfirmed={() => {
-        toast.success("Auction listing created!", {
-          id: "auction",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-        revalidatePath("/");
-      }}
-      onError={() => {
-        toast.error("Failed to create auction", {
-          id: "auction",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
+    <button
+      onClick={handleClick}
+      className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
     >
       Create Auction
-    </TransactionButton>
+    </button>
   );
 }

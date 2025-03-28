@@ -1,52 +1,46 @@
 "use client";
 
-import { TransactionButton, useActiveAccount } from "@thirdweb-dev/react";
-import { makeOffer, type NFT } from "@thirdweb-dev/sdk";
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import toast from "react-hot-toast";
-import toastStyle from "@/util/toastConfig";
-import { revalidatePath } from "next/cache";
+import {
+  useActiveWallet,
+  useContract,
+} from "@thirdweb-dev/react";
+import { MARKETPLACE } from "@/consts/contracts";
+import { client, polygon } from "@/lib/client";
 
-export default function MakeOfferButton({ nft }: { nft: NFT }) {
-  const account = useActiveAccount();
+interface Props {
+  listingId: string;
+}
+
+export default function MakeOfferButton({ listingId }: Props) {
+  const wallet = useActiveWallet();
+  const { contract: marketplace } = useContract(MARKETPLACE, {
+    client,
+    chain: polygon,
+  });
+
+  const handleClick = async () => {
+    if (!wallet || !marketplace) return;
+
+    try {
+      const txResult = await marketplace.directListings.makeOffer({
+        listingId,
+        quantityDesired: 1,
+        pricePerToken: "0.009",
+        currencyAddress: "0x0000000000000000000000000000000000000000",
+      });
+
+      console.log("Offer made:", txResult);
+    } catch (err) {
+      console.error("Error making offer:", err);
+    }
+  };
 
   return (
-    <TransactionButton
-      disabled={!account}
-      transaction={() => {
-        if (!account) throw new Error("No connected wallet");
-
-        return makeOffer({
-          contract: MARKETPLACE,
-          assetContractAddress: NFT_COLLECTION.address,
-          tokenId: nft.id,
-          totalPrice: BigInt(0.002 * 1e18),
-        });
-      }}
-      onTransactionSent={() => {
-        toast.loading("Making offer...", {
-          id: "offer",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onTransactionConfirmed={() => {
-        toast.success("Offer submitted!", {
-          id: "offer",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-        revalidatePath("/");
-      }}
-      onError={() => {
-        toast.error("Offer failed", {
-          id: "offer",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
+    <button
+      onClick={handleClick}
+      className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
     >
       Make Offer
-    </TransactionButton>
+    </button>
   );
 }

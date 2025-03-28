@@ -1,25 +1,31 @@
 "use client";
 
-import { useNFT } from "@thirdweb-dev/react";
-import { NFT_COLLECTION } from "@/consts/contracts";
-import { useParams } from "next/navigation";
+import { Listing } from "@thirdweb-dev/sdk";
+import Image from "next/image";
 
-export default function NFTComponent() {
-  const params = useParams();
-  const { data: nft, isLoading } = useNFT(NFT_COLLECTION, params?.nftId as string);
+interface NFTProps {
+  listing: Listing;
+}
 
-  if (isLoading) return <div>Loading NFT...</div>;
-  if (!nft) return <div>NFT not found</div>;
+export default function NFT({ listing }: NFTProps) {
+  const metadata = listing.asset;
 
   return (
-    <div className="mt-8">
-      <img
-        src={nft.metadata.image}
-        alt={nft.metadata.name}
-        className="w-full max-w-sm mx-auto rounded"
-      />
-      <h2 className="text-2xl font-semibold text-center mt-4">{nft.metadata.name}</h2>
-      <p className="text-center text-gray-600 mt-2">{nft.metadata.description}</p>
+    <div className="border rounded-lg shadow-md p-4">
+      {metadata.image && typeof metadata.image === "string" && (
+        <Image
+          src={metadata.image}
+          alt={metadata.name || "NFT"}
+          width={300}
+          height={300}
+          className="rounded-lg mb-4"
+        />
+      )}
+      <h2 className="text-xl font-semibold mb-2">{metadata.name}</h2>
+      <p className="text-sm text-gray-600">{metadata.description}</p>
+      <p className="mt-2 text-green-600 font-bold">
+        Price: {listing.buyoutPricePerToken} MATIC
+      </p>
     </div>
   );
 }

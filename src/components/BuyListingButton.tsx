@@ -1,75 +1,45 @@
 "use client";
-import { TransactionButton, useActiveAccount } from "thirdweb/react";
-import {
-  DirectListing,
-  EnglishAuction,
-  buyFromListing,
-  buyoutAuction,
-} from "thirdweb/extensions/marketplace";
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import toastStyle from "@/util/toastConfig";
-import toast from "react-hot-toast";
-import { revalidatePath } from "next/cache";
 
-export default function BuyListingButton({
-  auctionListing,
-  directListing,
-}: {
-  auctionListing?: EnglishAuction;
-  directListing?: DirectListing;
-}) {
-  const account = useActiveAccount();
+import {
+  useActiveWallet,
+  useContract,
+} from "@thirdweb-dev/react";
+import { MARKETPLACE } from "@/consts/contracts";
+import { client, polygon } from "@/lib/client";
+
+interface Props {
+  listingId: string;
+}
+
+export default function BuyListingButton({ listingId }: Props) {
+  const wallet = useActiveWallet();
+  const { contract: marketplace } = useContract(MARKETPLACE, {
+    client,
+    chain: polygon,
+  });
+
+  const handleBuy = async () => {
+    if (!wallet || !marketplace) return;
+
+    try {
+      const txResult = await marketplace.directListings.buyFromListing({
+        listingId,
+        quantity: 1,
+        buyer: wallet.address,
+      });
+
+      console.log("Purchase successful:", txResult);
+    } catch (err) {
+      console.error("Buy failed:", err);
+    }
+  };
 
   return (
-    <TransactionButton
-      disabled={
-        account?.address === auctionListing?.creatorAddress ||
-        account?.address === directListing?.creatorAddress ||
-        (!directListing && !auctionListing)
-      }
-      transaction={() => {
-        if (!account) throw new Error("No account");
-        if (auctionListing) {
-          return buyoutAuction({
-            contract: MARKETPLACE,
-            auctionId: auctionListing.id,
-          });
-        } else if (directListing) {
-          return buyFromListing({
-            contract: MARKETPLACE,
-            listingId: directListing.id,
-            recipient: account.address,
-            quantity: BigInt(1),
-          });
-        } else {
-          throw new Error("No valid listing found for this NFT");
-        }
-      }}
-      onTransactionSent={() => {
-        toast.loading("Purchasing...", {
-          id: "buy",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onError={(error) => {
-        toast(`Purchase Failed!`, {
-          icon: "❌",
-          id: "buy",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onTransactionConfirmed={(txResult) => {
-        toast("Purchased Successfully!", {
-          icon: "🥳",
-          id: "buy",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
+    <button
+      onClick={handleBuy}
+      className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
     >
       Buy Now
-    </TransactionButton>
+    </button>
   );
 }

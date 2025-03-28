@@ -1,3 +1,3 @@
-import { polygon } from "thirdweb/chains";
+import { Polygon } from "@thirdweb-dev/chains";
 
-export { polygon };
+export { Polygon as polygon };

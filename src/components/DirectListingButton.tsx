@@ -1,55 +1,41 @@
 "use client";
 
-import { TransactionButton, useActiveAccount } from "@thirdweb-dev/react";
-import { createListing } from "@thirdweb-dev/sdk";
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
-import type { NFT } from "@thirdweb-dev/sdk";
-import toast from "react-hot-toast";
-import toastStyle from "@/util/toastConfig";
-import { revalidatePath } from "next/cache";
+import {
+  useActiveWallet,
+  useContract,
+} from "@thirdweb-dev/react";
+import { NFT_COLLECTION } from "@/consts/contracts";
+import { client, polygon } from "@/lib/client";
 
-export default function DirectListingButton({ nft }: { nft: NFT }) {
-  const account = useActiveAccount();
+export default function DirectListingButton() {
+  const wallet = useActiveWallet();
+  const { contract } = useContract(NFT_COLLECTION, { client, chain: polygon });
+
+  const handleClick = async () => {
+    if (!wallet || !contract) return;
+
+    try {
+      const txResult = await contract.direct.createListing({
+        assetContractAddress: NFT_COLLECTION,
+        buyoutPricePerToken: "0.01",
+        currencyContractAddress: "0x0000000000000000000000000000000000000000",
+        listingDurationInSeconds: 86400,
+        quantity: 1,
+        startTimestamp: new Date(),
+      });
+
+      console.log("Direct listing created:", txResult);
+    } catch (err) {
+      console.error("Error creating listing:", err);
+    }
+  };
 
   return (
-    <TransactionButton
-      disabled={!account}
-      transaction={() => {
-        if (!account) throw new Error("No connected wallet");
-
-        return createListing({
-          contract: MARKETPLACE,
-          assetContractAddress: NFT_COLLECTION.address,
-          tokenId: nft.id,
-          pricePerToken: BigInt(0.01 * 1e18).toString(),
-          startTimestamp: new Date(),
-          endTimestamp: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days later
-        });
-      }}
-      onTransactionSent={() => {
-        toast.loading("Creating listing...", {
-          id: "direct-listing",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
-      onTransactionConfirmed={() => {
-        toast.success("Listing created!", {
-          id: "direct-listing",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-        revalidatePath("/");
-      }}
-      onError={() => {
-        toast.error("Failed to create listing", {
-          id: "direct-listing",
-          style: toastStyle,
-          position: "bottom-center",
-        });
-      }}
+    <button
+      onClick={handleClick}
+      className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
     >
       Create Direct Listing
-    </TransactionButton>
+    </button>
   );
 }
