@@ -1,0 +1,34 @@
+{
+  "name": "aideazz-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "next": "15.2.4",
+    "@thirdweb-dev/react": "4.9.4",
+    "@thirdweb-dev/sdk": "4.0.99",
+    "@tanstack/react-query": "4.29.12",
+    "ethers": "^5.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "@types/node": "^20",
+    "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4"
+  },
+  "overrides": {
+    "@tanstack/react-query": "4.29.12"
+  },
+  "resolutions": {
+    "@tanstack/react-query": "4.29.12"
+  }
+}
