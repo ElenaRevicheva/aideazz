@@ -42,6 +42,17 @@ export default function Home() {
             />
           )}
         </div>
+
+        <div className="mt-6 text-center">
+          <a
+            href="/blog/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline text-sm"
+          >
+            📝 Visit the Blog
+          </a>
+        </div>
       </div>
     </main>
   );
