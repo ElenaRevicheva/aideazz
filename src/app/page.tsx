@@ -43,14 +43,20 @@ export default function Home() {
           )}
         </div>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center space-y-2">
           <a
             href="/blog/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 underline text-sm"
+            className="text-blue-600 underline text-sm block"
           >
             📝 Visit the Blog
+          </a>
+          <a
+            href="/agents"
+            className="text-blue-600 underline text-sm block"
+          >
+            🧠 Explore AI Agents NFT Gallery →
           </a>
         </div>
       </div>
