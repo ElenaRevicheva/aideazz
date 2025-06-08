@@ -1,67 +1,42 @@
-import {
-  getAllValidAuctions,
-  getAllValidListings,
-} from "thirdweb/extensions/marketplace";
-import { NFT as NFTType, ThirdwebContract } from "thirdweb";
-import React, { Suspense } from "react";
-import { MARKETPLACE, NFT_COLLECTION } from "../../const/contracts";
-import NFTGrid, { NFTGridLoading } from "../NFT/NFTGrid";
+"use client";
 
-type Props = {
-	marketplace: ThirdwebContract;
-	collection: ThirdwebContract;
-	overrideOnclickBehavior?: (nft: NFTType) => void;
-	emptyText: string;
-};
+import { useContract, useContractRead } from "@thirdweb-dev/react";
+import { MARKETPLACE } from "@/consts/contracts";
+import Link from "next/link";
 
-export default async function ListingGrid(props: Props) {
-  const listingsPromise = getAllValidListings({
-    contract: MARKETPLACE,
-  });
-  const auctionsPromise = getAllValidAuctions({
-    contract: MARKETPLACE,
-  });
-
-  const [listings, auctions] = await Promise.all([
-    listingsPromise,
-    auctionsPromise,
-  ]);
-
-  // Retrieve all NFTs from the listings
-  const tokenIds = Array.from(
-    new Set([
-      ...listings
-        .filter(
-          (l) => l.assetContractAddress === NFT_COLLECTION.address
-        )
-        .map((l) => l.tokenId),
-      ...auctions
-        .filter(
-          (a) => a.assetContractAddress === NFT_COLLECTION.address
-        )
-        .map((a) => a.tokenId),
-    ])
+export default function ListingGrid() {
+  const { contract: marketplace } = useContract(MARKETPLACE.address);
+  const { data: listings, isLoading } = useContractRead(
+    marketplace,
+    "getActiveListings"
   );
 
-  const nftData = tokenIds.map((tokenId) => {
-    return {
-      tokenId: tokenId,
-      directListing: listings.find(
-        (listing) => listing.tokenId === tokenId
-      ),
-      auctionListing: auctions.find(
-        (listing) => listing.tokenId === tokenId
-      ),
-    };
-  });
-
   return (
-    <Suspense fallback={<NFTGridLoading />}>
-      <NFTGrid
-        nftData={nftData}
-        emptyText={props.emptyText}
-        overrideOnclickBehavior={props.overrideOnclickBehavior}
-      />
-    </Suspense>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-8">
+      {isLoading ? (
+        <p>Loading listings...</p>
+      ) : (
+        listings?.map((listing: any) => (
+          <Link
+            key={listing.id}
+            href={`/buy/${listing.id}`}
+            className="border rounded-lg p-4 hover:shadow-lg transition"
+          >
+            <img
+              src={listing.asset.image}
+              alt={listing.asset.name}
+              className="w-full h-64 object-cover rounded mb-4"
+            />
+            <h3 className="text-lg font-semibold mb-2">
+              {listing.asset.name}
+            </h3>
+            <p className="text-gray-600">
+              Price: {listing.buyoutCurrencyValuePerToken.displayValue}{" "}
+              {listing.buyoutCurrencyValuePerToken.symbol}
+            </p>
+          </Link>
+        ))
+      )}
+    </div>
   );
 }

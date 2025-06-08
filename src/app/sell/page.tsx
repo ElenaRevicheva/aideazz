@@ -1,5 +1,6 @@
 "use client";
 export const dynamic = "force-dynamic";
+
 import React, { useEffect, useState } from "react";
 import { useActiveAccount, MediaRenderer } from "thirdweb/react";
 import NFTGrid, { NFTGridLoading } from "@/components/NFT/NFTGrid";
@@ -7,9 +8,9 @@ import { NFT as NFTType } from "thirdweb";
 import { tokensOfOwner } from "thirdweb/extensions/erc721";
 import SaleInfo from "@/components/SaleInfo";
 import client from "@/lib/client";
-import { NFT_COLLECTION } from "@/const/contracts";
+import { NFT_COLLECTION } from "@/consts/contracts"; // ✅ Full contract object
 import toast from "react-hot-toast";
-import toastStyle from "@/util/toastConfig";
+import toastStyle from "@/util/toastConfig"; // ✅ Valid toast style
 import { Cross1Icon } from "@radix-ui/react-icons";
 
 export default function Sell() {
@@ -18,23 +19,21 @@ export default function Sell() {
 	const [selectedNft, setSelectedNft] = useState<NFTType>();
 
 	const account = useActiveAccount();
+
 	useEffect(() => {
 		if (account) {
 			setLoading(true);
 			tokensOfOwner({
-				contract: NFT_COLLECTION,
+				contract: NFT_COLLECTION, // ✅ Uses full object
 				owner: account.address,
 			})
 				.then(setOwnedTokenIds)
 				.catch((err) => {
-					toast.error(
-						"Something went wrong while fetching your NFTs!",
-						{
-							position: "bottom-center",
-							style: toastStyle,
-						}
-					);
-					console.log(err);
+					toast.error("Something went wrong while fetching your NFTs!", {
+						position: "bottom-center",
+						style: toastStyle,
+					});
+					console.error(err);
 				})
 				.finally(() => {
 					setLoading(false);
@@ -94,8 +93,7 @@ export default function Sell() {
 								#{selectedNft.id.toString()}
 							</p>
 							<p className="text-white/60">
-								You&rsquo;re about to list the following item
-								for sale.
+								You&rsquo;re about to list the following item for sale.
 							</p>
 
 							<div className="relative flex flex-col flex-1 py-4 overflow-hidden bg-transparent rounded-lg">

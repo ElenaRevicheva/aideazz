@@ -1,7 +1,7 @@
 import { TransactionButton } from "thirdweb/react";
 import { setApprovalForAll } from "thirdweb/extensions/erc721";
 import toast from "react-hot-toast";
-import { NFT_COLLECTION, MARKETPLACE } from "@/const/contracts";
+import { NFT_COLLECTION, MARKETPLACE } from "@/consts/contracts";
 import toastStyle from "@/util/toastConfig";
 
 export default function ApprovalButton() {

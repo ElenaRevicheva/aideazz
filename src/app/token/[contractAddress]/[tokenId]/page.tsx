@@ -6,7 +6,7 @@ import {
 	getAllValidListings,
 	getAllValidAuctions,
 } from "thirdweb/extensions/marketplace";
-import { MARKETPLACE, NFT_COLLECTION } from "@/const/contracts";
+import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
 import randomColor from "@/util/randomColor";
 import { getNFT } from "thirdweb/extensions/erc721";
 import client from "@/lib/client";

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useActiveAccount, useReadContract } from "thirdweb/react";
 import { ADDRESS_ZERO } from "thirdweb";
 import { isApprovedForAll } from "thirdweb/extensions/erc721";
-import { MARKETPLACE, NFT_COLLECTION } from "@/const/contracts";
+import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
 import AuctionListingButton from "./AuctionListingButton";
 import DirectListingButton from "./DirectListingButton";
 import cn from "classnames";

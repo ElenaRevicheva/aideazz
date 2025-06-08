@@ -6,7 +6,7 @@ import {
 	buyFromListing,
 	buyoutAuction,
 } from "thirdweb/extensions/marketplace";
-import { MARKETPLACE, NFT_COLLECTION } from "@/const/contracts";
+import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
 import toastStyle from "@/util/toastConfig";
 import toast from "react-hot-toast";
 import { revalidatePath } from "next/cache";

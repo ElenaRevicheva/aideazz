@@ -1,7 +1,7 @@
 const toastStyle = {
-	borderRadius: "4px",
-	background: "#222528",
+	background: "#333",
 	color: "#fff",
+	fontSize: "14px",
 };
 
 export default toastStyle;

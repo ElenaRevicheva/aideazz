@@ -4,7 +4,7 @@ import { NFT as NFTType } from "thirdweb";
 import { TransactionButton } from "thirdweb/react";
 import { createListing } from "thirdweb/extensions/marketplace";
 import toast from "react-hot-toast";
-import { MARKETPLACE, NFT_COLLECTION } from "@/const/contracts";
+import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
 import toastStyle from "@/util/toastConfig";
 import { revalidatePath } from "next/cache";
 

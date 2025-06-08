@@ -1,14 +1,15 @@
-import { createThirdwebClient } from "thirdweb";
+import { createThirdwebClient } from "@thirdweb-dev/react";
 
-const clientId = process.env.NEXT_PUBLIC_TW_CLIENT_ID;
-const secretKey = process.env.TW_SECRET_KEY;
+// ✅ Load credentials from .env.local
+const clientId = process.env.NEXT_PUBLIC_TW_CLIENT_ID as string;
+const secretKey = process.env.THIRDWEB_SECRET_KEY as string;
 
-if (!clientId && !secretKey) {
-  throw new Error("Client ID or Secret Key not set");
+if (!clientId || !secretKey) {
+  throw new Error("❌ Missing Thirdweb credentials in .env.local");
 }
 
-const client = createThirdwebClient(
-  secretKey ? { secretKey } : { clientId }
-);
-
-export default client;
+// ✅ Export named client (not default)
+export const client = createThirdwebClient({
+  clientId,
+  secretKey,
+});

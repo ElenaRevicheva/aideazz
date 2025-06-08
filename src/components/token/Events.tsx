@@ -1,7 +1,7 @@
 "use client";
 import { useContractEvents } from "thirdweb/react";
 import { transferEvent } from "thirdweb/extensions/erc721";
-import { ETHERSCAN_URL, NFT_COLLECTION } from "@/const/contracts";
+import { ETHERSCAN_URL, NFT_COLLECTION } from "@/consts/contracts";
 import Link from "next/link";
 
 export default function Events({ tokenId }: { tokenId: bigint }) {

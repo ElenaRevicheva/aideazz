@@ -1,22 +1,49 @@
-// app/buy/page.tsx
+"use client";
 
-import { Suspense } from "react";
-import { NFTGridLoading } from "@/components/NFT/NFTGrid";
-import ListingGrid from "@/components/ListingGrid/ListingGrid";
+import React, { useEffect, useState } from "react";
+import { NFT as NFTType } from "thirdweb";
+import { getNFTs } from "thirdweb/extensions/erc721";
+import { NFT_COLLECTION } from "@/consts/contracts";
+import NFTGrid, { NFTGridLoading } from "@/components/NFT/NFTGrid";
+import toast from "react-hot-toast";
+import toastStyle from "@/util/toastConfig";
 
-// ✅ Import MARKETPLACE and NFT_COLLECTION using correct alias
-import { MARKETPLACE, NFT_COLLECTION } from "@/consts/contracts";
+export default function BuyPage() {
+  const [loading, setLoading] = useState(true);
+  const [nfts, setNfts] = useState<NFTType[]>([]);
 
-export default function Buy() {
+  useEffect(() => {
+    async function fetchNFTs() {
+      try {
+        const fetched = await getNFTs({ contract: NFT_COLLECTION });
+        setNfts(fetched);
+      } catch (err) {
+        console.error("❌ Failed to fetch NFTs:", err);
+        toast.error("Could not load NFTs", {
+          position: "bottom-center",
+          style: toastStyle,
+        });
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNFTs();
+  }, []);
+
   return (
-    <Suspense fallback={<NFTGridLoading />}>
-      <ListingGrid
-        marketplace={MARKETPLACE}
-        collection={NFT_COLLECTION}
-        emptyText={
-          "Looks like there are no listed NFTs in this collection. Did you import your contract on the thirdweb dashboard? https://thirdweb.com/dashboard"
-        }
-      />
-    </Suspense>
+    <div>
+      <h1 className="text-4xl font-bold mb-6">Browse AI Agents</h1>
+
+      {loading ? (
+        <NFTGridLoading />
+      ) : (
+        <NFTGrid
+          nftData={nfts.map((nft) => ({ tokenId: nft.id }))}
+          emptyText="No NFTs found. Check back later!"
+        />
+      )}
+    </div>
   );
 }
+
