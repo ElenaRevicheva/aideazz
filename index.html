@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIdeazz - Decentralized Ecosystem for Emotionally Intelligent AI Agents | EspaLuz Spanish Bot</title>
+    <meta name="description" content="AIdeazz creates emotionally intelligent AI Personal Assistants (AIPAs) including EspaLuz for Spanish learning. Decentralized Web3 ecosystem for mindful AI agents.">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="AIdeazz - Emotionally Intelligent AI Ecosystem">
+    <meta property="og:description" content="Decentralized platform for crafting emotionally intelligent AI Personal Assistants that evolve with users">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aideazz.xyz">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 0;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .mission {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(45deg, #ff9a56, #ffcd3c);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .bot-card {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .bot-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .bot-card.featured {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            transform: scale(1.02);
+            border: 3px solid #fff;
+        }
+        
+        .bot-card.telegram {
+            background: linear-gradient(45deg, #0088cc, #0066aa);
+        }
+        
+        .bot-card.twitter {
+            background: linear-gradient(45deg, #1da1f2, #0d8bd9);
+        }
+        
+        .bot-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bot-platform {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .platform-button {
+            background: white;
+            color: #25D366;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+        
+        .platform-button.telegram {
+            color: #0088cc;
+        }
+        
+        .platform-button.twitter {
+            color: #1da1f2;
+        }
+        
+        .platform-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .web3-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .web3-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .web3-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .web3-card.deployed {
+            border-left-color: #28a745;
+            background: #f8fff9;
+        }
+        
+        .web3-card.pending {
+            border-left-color: #ffc107;
+            background: #fffef8;
+        }
+        
+        .status-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .status-badge.pending {
+            background: #ffc107;
+        }
+        
+        .founder-section {
+            background: linear-gradient(135deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .country-card {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .country-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .country-flag {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .whatsapp-section {
+            background: #25D366;
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .contract-info {
+            font-family: 'Courier New', monospace;
+            background: #f1f3f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            overflow-wrap: break-word;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .ecosystem-grid, .web3-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 5px;
+            transition: transform 0.3s ease;
+        }
+        
+        .link-button:hover {
+            transform: scale(1.05);
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">🧠 AIdeazz</div>
+            <div class="tagline">Decentralized Ecosystem for Emotionally Intelligent AI Agents</div>
+            <div class="mission">Crafting and evolving AI Personal Assistants (AIPAs) that empower users with mindful, adaptive intelligence for real-life challenges</div>
+        </header>
+        
+        <main class="main-content">
+            <div class="section">
+                <h2>🚀 What is AIdeazz?</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    AIdeazz is a decentralized platform for <strong>crafting and evolving emotionally intelligent AI Personal Assistants (AIPAs)</strong> that empowers users to buy, sell, and subscribe to mindful AIPAs tailored to real-life needs. Our platform integrates a Marketplace and SocialFi layer where users don't just consume — they co-create within a modular decentralized environment.
+                </p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3 style="margin-bottom: 15px;">🎯 AI Personal Assistants (AIPAs)</h3>
+                <p><strong>Not just intelligent, but emotionally aware.</strong> Unlike existing AI agents, AIPAs evolve with the user over time. Each AIPA is wrapped in an ERC-721 NFT, serves in high-value contexts, and is built not to replace people — but to help them become more resilient, adaptive, and successful.</p>
+            </div>
+            
+            <div class="section">
+                <h2>🤖 Live AI Agents (MVP)</h2>
+                <div class="ecosystem-grid">
+                    <div class="bot-card featured">
+                        <div class="bot-title">🌟 EspaLuz <span style="font-size: 0.8rem;">(Featured)</span></div>
+                        <div class="bot-platform">WhatsApp & Telegram</div>
+                        <p style="margin-bottom: 20px;">AI Family Companion for Learning Spanish On-The-Go. Emotionally intelligent tutor for expat families in Latin America & Spain with voice recognition, cultural insights, and family-oriented content.</p>
+                        <div style="margin-bottom: 15px;"><strong>🌎 Countries:</strong></div>
+                        <div class="countries-grid">
+                            <div class="country-card"><div class="country-flag">🇵🇦</div><div>Panama</div></div>
+                            <div class="country-card"><div class="country-flag">🇲🇽</div><div>Mexico</div></div>
+                            <div class="country-card"><div class="country-flag">🇨🇷</div><div>Costa Rica</div></div>
+                            <div class="country-card"><div class="country-flag">🇨🇴</div><div>Colombia</div></div>
+                            <div class="country-card"><div class="country-flag">🇨🇱</div><div>Chile</div></div>
+                            <div class="country-card"><div class="country-flag">🇦🇷</div><div>Argentina</div></div>
+                            <div class="country-card"><div class="country-flag">🇸🇻</div><div>El Salvador</div></div>
+                            <div class="country-card"><div class="country-flag">🇪🇸</div><div>Spain</div></div>
+                            <div class="country-card"><div class="country-flag">🇵🇪</div><div>Peru</div></div>
+                        </div>
+                        <a href="https://wa.me/14155238886?text=join%20pride-liquid" class="platform-button">💬 Try on WhatsApp</a>
+                        <a href="https://t.me/EspaLuzFamily_bot" class="platform-button telegram">📱 Try on Telegram</a>
+                        <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.9;">
+                            WhatsApp: Send "join pride-liquid" to +1 415 523 8886
+                        </div>
+                    </div>
+                    
+                    <div class="bot-card twitter">
+                        <div class="bot-title">📈 Trading Advisor AI</div>
+                        <div class="bot-platform">Twitter/X</div>
+                        <p style="margin-bottom: 20px;">Live trading advisor AI bot providing market insights, analysis, and trading guidance through social media engagement.</p>
+                        <a href="https://twitter.com/reviceva" class="platform-button twitter">🐦 Follow on X</a>
+                        <div style="margin-top: 15px;">
+                            <strong>Features:</strong> Market analysis, trading signals, portfolio insights
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🌐 Web3 Infrastructure (Live)</h2>
+                <div class="web3-grid">
+                    <div class="web3-card deployed">
+                        <h3>💰 AZ Token (ERC20) <span class="status-badge">✅ Live</span></h3>
+                        <p>Deployed on Polygon network, trading live on QuickSwap DEX</p>
+                        <div class="contract-info">0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5</div>
+                        <a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" class="link-button">Trade on QuickSwap</a>
+                        <a href="https://geckoterminal.com/ru/polygon_pos/pools/0x0bfc6036d553ed0a8762727dc0a2bae887698be0" class="link-button">View Charts</a>
+                    </div>
+                    
+                    <div class="web3-card deployed">
+                        <h3>🖼️ NFT Collection (ERC721) <span class="status-badge">✅ Live</span></h3>
+                        <p>AI Agents Profiles minted via Thirdweb on Polygon</p>
+                        <div class="contract-info">0x771Cc6BDCF8E7660ddc7E3F68FBCE7Dc5d675769</div>
+                        <a href="https://aideazz.xyz/agents/" class="link-button">View Collection</a>
+                    </div>
+                    
+                    <div class="web3-card deployed">
+                        <h3>🏪 MarketplaceV3 <span class="status-badge">✅ Live</span></h3>
+                        <p>Decentralized marketplace for AI agent NFTs with direct listings</p>
+                        <div class="contract-info">0xC99852f1faC6F1F255274bA77ef20326Ef4f1AE5</div>
+                        <a href="https://aideazz.xyz/agents/" class="link-button">Browse Marketplace</a>
+                    </div>
+                    
+                    <div class="web3-card deployed">
+                        <h3>🏛️ AIdeazz DAO <span class="status-badge">✅ Live</span></h3>
+                        <p>ERC-721 Token Voting system for governance on Polygon</p>
+                        <div class="contract-info">0x547d7aF7B55a92a65A1d015fAA4E75eeF4758190</div>
+                        <a href="https://app.decentdao.org/home?dao=matic%3A0x8301c6F34925580D2695E06fC212eDd8fA152535" class="link-button">Join DAO</a>
+                    </div>
+                    
+                    <div class="web3-card pending">
+                        <h3>📈 CoinGecko Listing <span class="status-badge pending">⏳ Pending</span></h3>
+                        <p>Official listing pending resubmission as traction and volume grow</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="founder-section">
+                <h2 style="color: white; border: none; margin-bottom: 20px;">👤 Founder & Vision</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div>
+                        <h3>Elena Revicheva</h3>
+                        <p><strong>Solo Founder & AI Entrepreneur</strong></p>
+                        <ul style="margin: 15px 0; line-height: 1.8;">
+                            <li>🇷🇺 Former Russian top IT project manager and CLO</li>
+                            <li>🇵🇦 Residing in Panama since 2022 (relocated as single mother)</li>
+                            <li>✍️ Known decadent writer, transformed to NFT creator</li>
+                            <li>💡 Strategic visioner in blockchain law, behavioral systems, and AI ethics</li>
+                        </ul>
+                        <a href="https://lit.link/en/aideazz" class="platform-button">📖 About Elena</a>
+                        <a href="https://opensea.io/kira_velerevich" class="platform-button">🎨 NFT Art</a>
+                    </div>
+                    <div>
+                        <h3>Mission Statement</h3>
+                        <p style="line-height: 1.8;">
+                            Building adaptive AIPAs that are more mindful, skilled, and relevant to users' changing reality. Our goal is creating AI that doesn't just process information, but understands human emotions and provides meaningful support in an increasingly unstable world.
+                        </p>
+                        <a href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" class="platform-button">🎥 Vision Video</a>
+                        <a href="https://notion.so/AIdeazz-Whitepaper-v1-0-1e3032c5edd7809cb4f1cf8645b12dbc" class="platform-button">📄 Whitepaper</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>🌍 Community & Decentralized Identity</h2>
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div>
+                            <h3>🔐 Decentralized Identity</h3>
+                            <p><strong>ENS:</strong> aideazz.eth</p>
+                            <div class="contract-info">0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5</div>
+                            <p><strong>Domain:</strong> www.aideazz.xyz</p>
+                        </div>
+                        <div>
+                            <h3>🤝 Professional Networks</h3>
+                            <p><strong>DAIAA Member:</strong> Decentralized AI Agent Alliance</p>
+                            <a href="https://www.daiaa.org/" class="link-button">View Alliance</a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px;">📱 Web3 Social Presence</h3>
+                    <div style="margin-top: 15px;">
+                        <a href="https://discord.gg/84ecz3Up" class="link-button">Discord: Atuona</a>
+                        <a href="https://lenster.xyz/u/aideazz" class="link-button">Lens: @aideazz</a>
+                        <a href="https://warpcast.com/atuona" class="link-button">Warpcast: @atuona</a>
+                        <a href="https://orb.ac/@orb_quantum_348" class="link-button">Orb: @orb_quantum_348</a>
+                        <a href="https://mirror.xyz/0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5" class="link-button">Mirror Blog</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="whatsapp-section">
+                <h2 style="color: white; border: none; margin-bottom: 20px;">🚀 Current Status & Future</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; text-align: left;">
+                    <div>
+                        <h3>✅ MVP Foundation</h3>
+                        <ul style="line-height: 1.8;">
+                            <li>Live AI agents on multiple platforms</li>
+                            <li>Complete Web3 infrastructure deployed</li>
+                            <li>Active DAO governance</li>
+                            <li>Growing community ecosystem</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🧠 Next Phase</h3>
+                        <ul style="line-height: 1.8;">
+                            <li>Onboarding elite Web3 developers</li>
+                            <li>Fundraising for ecosystem expansion</li>
+                            <li>Investment deck (Target: June 30, 2025)</li>
+                            <li>Enhanced AIPA capabilities via Model Context Protocol</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <h3>🔥 AIPA Era minted. Have any AIdeazz? Get on the ledger.</h3>
+                    <a href="https://wa.me/14155238886?text=join%20pride-liquid" class="platform-button">💬 Try EspaLuz Now</a>
+                    <a href="https://aideazz.xyz/agents/" class="platform-button">🖼️ Browse NFT Agents</a>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>📧 Contact & Support</h2>
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 10px;">
+                    <p style="line-height: 1.8;">
+                        <strong>Business Development:</strong> Building the future of emotionally intelligent AI<br>
+                        <strong>Platform:</strong> Decentralized ecosystem for AI Personal Assistants<br>
+                        <strong>Focus:</strong> Helping people become more resilient and adaptive through mindful AI<br>
+                        <strong>Technology:</strong> Web3, AI, NFTs, DAO governance, emotional intelligence
+                    </p>
+                    
+                    <p style="margin-top: 20px; line-height: 1.6;">
+                        <strong>Mission:</strong> Every interaction feeds into a system designed for continuous iteration, creating a living, composable AI ecosystem focused on adaptive AIPAs that are more mindful, skilled, and relevant to users' changing reality.
+                    </p>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>&copy; 2025 AIdeazz | Decentralized Ecosystem for Emotionally Intelligent AI Agents</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Building adaptive AIPAs for a better world • ENS: aideazz.eth</p>
+        </footer>
+    </div>
+</body>
+</html>

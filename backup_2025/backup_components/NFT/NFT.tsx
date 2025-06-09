@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useActiveAccount, MediaRenderer } from "thirdweb/react";
 import { NFT_COLLECTION } from "@/consts/contracts";
-import client from "@/lib/client";
+import { client } from "@/lib/client";
 import { NFT as NFTType } from "thirdweb";
 import { getNFT } from "thirdweb/extensions/erc721";
 
@@ -53,5 +53,4 @@ export const NFT = ({ tokenId, overrideOnclickBehavior }: NFTProps) => {
   );
 };
 
-// ✅ This is the line that fixes your build
 export default NFT;
