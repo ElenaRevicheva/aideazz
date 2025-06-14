@@ -43,7 +43,7 @@ const EspaLuzSection = () => {
                   <Users className="w-5 h-5" />
                   <span>Family-Focused</span>
                 </div>
-                <div className="flex items-center gap-2 text-blue-300">
+                <div className="flex items-center gap-2 text-amber-300">
                   <Heart className="w-5 h-5" />
                   <span>Emotionally Aware</span>
                 </div>
@@ -68,7 +68,7 @@ const EspaLuzSection = () => {
                   <span>Provides bilingual language learning support for all family members</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
+                  <div className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
                   <span>Understands cultural nuances and emotional challenges of transition</span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -84,7 +84,7 @@ const EspaLuzSection = () => {
             {/* Telegram Card */}
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full">
+                <div className="p-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full">
                   <MessageCircle className="w-8 h-8 text-white" />
                 </div>
                 <div>
@@ -95,7 +95,7 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Start your conversation with EspaLuz on Telegram. Experience how she understands your family's unique situation and provides personalized guidance.
               </p>
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
+              <Button className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
                 Open Telegram Chat
                 <ExternalLink className="ml-2 w-5 h-5" />
               </Button>

@@ -8,8 +8,8 @@ const VisionSection = () => {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
-            <Eye className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-300">The Bigger Picture</span>
+            <Eye className="w-4 h-4 text-amber-400" />
+            <span className="text-sm font-medium text-amber-300">The Bigger Picture</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6">
             <span className="gradient-text">Our Vision</span>
@@ -38,7 +38,7 @@ const VisionSection = () => {
           {/* Impact */}
           <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300">
             <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full">
+              <div className="p-3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-2xl font-semibold text-white font-poppins">Our Impact</h3>
@@ -66,7 +66,7 @@ const VisionSection = () => {
               </p>
             </div>
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h4 className="text-xl font-semibold text-white mb-3 font-poppins">Human-Centered</h4>

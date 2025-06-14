@@ -52,12 +52,12 @@ const CallToActionSection = () => {
           {/* Community */}
           <div className="glass-card p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">Join Community</h3>
               <p className="text-gray-300 text-sm mb-4">Connect with early adopters and contributors</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white font-semibold">
+              <Button size="sm" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold">
                 <Users className="w-4 h-4 mr-2" />
                 Join Us
               </Button>
