@@ -1,7 +1,12 @@
 
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import EspaLuzSection from "@/components/EspaLuzSection";
+import VisionSection from "@/components/VisionSection";
+import InvestorPitchSection from "@/components/InvestorPitchSection";
+import AIdeazzPlatformSection from "@/components/AIdeazzPlatformSection";
+import AIpaExplainerSection from "@/components/AIpaExplainerSection";
+import CallToActionSection from "@/components/CallToActionSection";
 
 const Index = () => {
   return (
@@ -9,7 +14,12 @@ const Index = () => {
       <Navigation />
       <main>
         <HeroSection />
-        <FeaturesSection />
+        <EspaLuzSection />
+        <InvestorPitchSection />
+        <VisionSection />
+        <AIdeazzPlatformSection />
+        <AIpaExplainerSection />
+        <CallToActionSection />
       </main>
     </div>
   );

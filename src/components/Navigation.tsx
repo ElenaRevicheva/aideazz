@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Brain, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
@@ -8,10 +8,11 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", href: "#home" },
-    { name: "Features", href: "#features" },
-    { name: "Portfolio", href: "#portfolio" },
-    { name: "About", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    { name: "EspaLuz", href: "#espaluz" },
+    { name: "Vision", href: "#vision" },
+    { name: "Platform", href: "#platform" },
+    { name: "Agents", href: "#agents" },
+    { name: "Invest", href: "#invest" },
   ];
 
   return (
@@ -21,11 +22,11 @@ const Navigation = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg">
+                <Brain className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold font-poppins text-white">
-                Modern<span className="text-purple-400">Web</span>
+                AI<span className="text-purple-400">deazz</span><span className="text-pink-400">.xyz</span>
               </span>
             </div>
 
@@ -44,8 +45,9 @@ const Navigation = () => {
 
             {/* Desktop CTA */}
             <div className="hidden md:block">
-              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
-                Get Started
+              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Join the Revolution
               </Button>
             </div>
 
@@ -72,8 +74,9 @@ const Navigation = () => {
                     {item.name}
                   </a>
                 ))}
-                <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4">
-                  Get Started
+                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4">
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Join the Revolution
                 </Button>
               </div>
             </div>
