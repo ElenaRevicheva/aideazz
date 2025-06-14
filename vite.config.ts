@@ -1,3 +1,5 @@
+// Force rebuild on Fleek – added June 11, 2025
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
