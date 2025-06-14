@@ -12,6 +12,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Ensure proper CSS loading -->
+    <style>
+      /* Critical inline styles to prevent FOUC */
+      body {
+        margin: 0;
+        padding: 0;
+        background: #0f0f23;
+        color: #e2e8f0;
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
