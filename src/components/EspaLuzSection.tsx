@@ -1,5 +1,5 @@
 
-import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles } from "lucide-react";
+import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EspaLuzSection = () => {
@@ -105,19 +105,19 @@ const EspaLuzSection = () => {
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
-                  <MessageCircle className="w-8 h-8 text-white" />
+                  <TestTube className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-white font-poppins">Try on WhatsApp</h3>
-                  <p className="text-gray-300">Connect via WhatsApp Business</p>
+                  <h3 className="text-2xl font-semibold text-white font-poppins">WhatsApp Sandbox</h3>
+                  <p className="text-gray-300">Testing via Twilio Sandbox</p>
                 </div>
               </div>
               <p className="text-gray-300 mb-6">
-                Reach EspaLuz through WhatsApp Business. Perfect for families who prefer WhatsApp for their daily communication needs.
+                Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
               </p>
-              <Button className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
-                Message on WhatsApp
-                <ExternalLink className="ml-2 w-5 h-5" />
+              <Button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
+                Test WhatsApp Sandbox
+                <TestTube className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
@@ -126,11 +126,11 @@ const EspaLuzSection = () => {
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-purple-400 mb-1">Live</div>
-                  <div className="text-gray-300 text-sm">Currently Active</div>
+                  <div className="text-gray-300 text-sm">On Telegram</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-pink-400 mb-1">24/7</div>
-                  <div className="text-gray-300 text-sm">Always Available</div>
+                  <div className="text-2xl font-bold text-orange-400 mb-1">Testing</div>
+                  <div className="text-gray-300 text-sm">WhatsApp Sandbox</div>
                 </div>
               </div>
             </div>
