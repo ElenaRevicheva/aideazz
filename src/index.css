@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
-@tailwind components;
+@tailwind components; 
 @tailwind utilities;
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
@@ -60,7 +60,9 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased min-h-screen;
+    @apply bg-background text-foreground antialiased min-h-screen;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    background: hsl(224 71% 4%);
     background-image: 
       radial-gradient(circle at 20% 50%, hsl(263 70% 50% / 0.3) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, hsl(263 70% 50% / 0.15) 0%, transparent 50%),
@@ -70,11 +72,20 @@
 
 @layer components {
   .glass-card {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl shadow-xl;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-500 bg-clip-text text-transparent;
+    background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 
   .gradient-border {
@@ -88,5 +99,13 @@
 @layer utilities {
   .text-shadow {
     text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
   }
 }
