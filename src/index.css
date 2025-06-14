@@ -1,4 +1,5 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -58,7 +59,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter antialiased;
+    @apply bg-background text-foreground font-inter antialiased min-h-screen;
     background-image: 
       radial-gradient(circle at 20% 50%, hsl(263 70% 50% / 0.3) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, hsl(263 70% 50% / 0.15) 0%, transparent 50%),
@@ -68,7 +69,7 @@
 
 @layer components {
   .glass-card {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl;
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl shadow-xl;
   }
 
   .gradient-text {
