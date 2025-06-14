@@ -1,5 +1,5 @@
 
-import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube } from "lucide-react";
+import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube, Mic, Image, Video, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EspaLuzSection = () => {
@@ -21,8 +21,8 @@ const EspaLuzSection = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Description */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Left: Description & Features */}
           <div className="space-y-8">
             <div className="glass-card p-8">
               <h3 className="text-2xl font-semibold text-white mb-6 font-poppins flex items-center gap-3">
@@ -54,28 +54,45 @@ const EspaLuzSection = () => {
               </div>
             </div>
 
+            {/* Current Functionalities */}
             <div className="glass-card p-8">
-              <h3 className="text-xl font-semibold text-white mb-4 font-poppins">
-                What EspaLuz Does:
+              <h3 className="text-2xl font-semibold text-white mb-6 font-poppins">
+                Current Functionalities
               </h3>
-              <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Helps families adapt emotionally to new Spanish-speaking environments</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-pink-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Provides bilingual language learning support for all family members</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-amber-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Understands cultural nuances and emotional challenges of transition</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                  <span>Offers personalized coaching for both children and adults</span>
-                </li>
-              </ul>
+              <div className="grid gap-4">
+                <div className="flex items-start gap-3">
+                  <Mic className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Accepts voice and text messages in English, Spanish, and Russian, as well as photos from users</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Globe className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Instantly translates any message into both Spanish and English</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MessageCircle className="w-5 h-5 text-purple-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Generates bilingual replies with rich, emotionally aware context</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Video className="w-5 h-5 text-pink-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Creates short avatar videos in Spanish and English — designed to engage children</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Mic className="w-5 h-5 text-amber-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Sends voice messages with full bilingual content using AI voice synthesis</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Image className="w-5 h-5 text-orange-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Translates text inside images (OCR) using GPT-4o vision capabilities</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Brain className="w-5 h-5 text-cyan-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Maintains emotional memory and context throughout the conversation</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Heart className="w-5 h-5 text-rose-400 mt-1 flex-shrink-0" />
+                  <span className="text-gray-300">Adapts tone based on detected emotions and the user's personal profile</span>
+                </div>
+              </div>
             </div>
           </div>
 
