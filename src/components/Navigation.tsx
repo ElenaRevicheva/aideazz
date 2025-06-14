@@ -9,6 +9,7 @@ const Navigation = () => {
   const navItems = [
     { name: "Home", href: "#home" },
     { name: "EspaLuz", href: "#espaluz" },
+    { name: "Vibe Coding", href: "#vibe-coding" },
     { name: "Vision", href: "#vision" },
     { name: "Platform", href: "#platform" },
     { name: "Agents", href: "#agents" },

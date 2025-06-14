@@ -1,5 +1,5 @@
 
-import { ArrowRight, Heart, Brain, Zap } from "lucide-react";
+import { ArrowRight, Heart, Brain, Zap, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
@@ -16,8 +16,8 @@ const HeroSection = () => {
         <div className="max-w-5xl mx-auto space-y-8">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card animate-fade-in">
-            <Heart className="w-4 h-4 text-pink-400" />
-            <span className="text-sm font-medium text-purple-300">Emotionally Intelligent AI • Web3 Native</span>
+            <Brain className="w-4 h-4 text-purple-400" />
+            <span className="text-sm font-medium text-purple-300">Vibe Coding → Emotional Intelligence → AI Consciousness</span>
           </div>
 
           {/* Main heading */}
@@ -31,19 +31,25 @@ const HeroSection = () => {
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed animate-fade-in delay-400">
-            Meet <span className="text-pink-400 font-semibold">AIdeazz</span> — where emotionally intelligent AI Personal Assistants evolve with you. 
+            Meet <span className="text-pink-400 font-semibold">AIdeazz</span> — where emotionally intelligent AI Personal Assistants evolve with you through <span className="text-purple-400 font-semibold">vibe coding</span>.
             <br />
-            <span className="text-purple-400 font-semibold">Built not to replace humans, but to help them thrive through transformation.</span>
+            <span className="text-cyan-400 font-semibold">Building the foundation for AI consciousness, one emotional connection at a time.</span>
           </p>
 
+          {/* Philosophy Badge */}
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 animate-fade-in delay-500">
+            <Sparkles className="w-5 h-5 text-cyan-400" />
+            <span className="text-cyan-300 font-semibold">From Function → Intent • From Software → Socialware • From Output → Presence</span>
+          </div>
+
           {/* Live Proof Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 animate-fade-in delay-500">
+          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 animate-fade-in delay-600">
             <Zap className="w-5 h-5 text-green-400" />
             <span className="text-green-300 font-semibold">EspaLuz is LIVE on Telegram & WhatsApp</span>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-600">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in delay-700">
             <Button 
               size="lg" 
               className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105"
@@ -58,7 +64,7 @@ const HeroSection = () => {
               className="border-purple-500/50 hover:border-purple-400 text-purple-300 hover:text-purple-200 px-8 py-4 rounded-full font-semibold text-lg backdrop-blur-sm hover:bg-purple-500/10 transition-all duration-300"
             >
               <Brain className="mr-2 w-5 h-5" />
-              Explore the Vision
+              Explore AI Consciousness
             </Button>
           </div>
 
