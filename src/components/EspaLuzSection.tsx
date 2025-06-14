@@ -84,7 +84,7 @@ const EspaLuzSection = () => {
             {/* Telegram Card */}
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full">
+                <div className="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full">
                   <MessageCircle className="w-8 h-8 text-white" />
                 </div>
                 <div>
@@ -95,7 +95,7 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Start your conversation with EspaLuz on Telegram. Experience how she understands your family's unique situation and provides personalized guidance.
               </p>
-              <Button className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
+              <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-full transition-all duration-300">
                 Open Telegram Chat
                 <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
@@ -125,7 +125,7 @@ const EspaLuzSection = () => {
             <div className="glass-card p-6">
               <div className="grid grid-cols-2 gap-4 text-center">
                 <div>
-                  <div className="text-2xl font-bold text-purple-400 mb-1">Live</div>
+                  <div className="text-2xl font-bold text-blue-400 mb-1">Live</div>
                   <div className="text-gray-300 text-sm">On Telegram</div>
                 </div>
                 <div>
