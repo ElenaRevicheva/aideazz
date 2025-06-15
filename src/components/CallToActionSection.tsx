@@ -1,9 +1,14 @@
+
 import { Heart, MessageCircle, DollarSign, Users, Mail, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CallToActionSection = () => {
   const handleContactClick = () => {
     window.location.href = "mailto:aipa@aideazz.xyz";
+  };
+
+  const openTelegramChat = () => {
+    window.open('https://t.me/EspaLuzFamily_bot', '_blank');
   };
 
   return (
@@ -30,7 +35,11 @@ const CallToActionSection = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">Experience EspaLuz</h3>
               <p className="text-gray-300 text-sm mb-4">Try our live AIPA and see emotional AI in action</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-semibold">
+              <Button 
+                size="sm" 
+                className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-semibold"
+                onClick={openTelegramChat}
+              >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Chat Now
               </Button>
