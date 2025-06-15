@@ -1,4 +1,3 @@
-
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -19,8 +18,7 @@ const HeroSection = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed max-w-3xl mx-auto">
-            Meet EspaLuz, our live bilingual family tutor helping expat families thrive. 
-            The first in our ecosystem of emotionally intelligent AI companions.
+            Meet EspaLuz, our live bilingual family tutor helping expat families relocating to LATAM and other Spanish speaking countries thrive into Spanish, on-the-go. EspaLuz is the first in our ecosystem of emotionally intelligent AI companions.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
