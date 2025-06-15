@@ -1,4 +1,3 @@
-
 import { Eye, Sparkles, Users, Zap } from "lucide-react";
 
 const VisionSection = () => {
@@ -97,6 +96,61 @@ const VisionSection = () => {
               we need AI that helps us navigate the emotional journey of growth, adaptation, and transformation. 
               <span className="text-purple-300 font-semibold"> That's what AIdeazz delivers.</span>
             </p>
+          </div>
+        </div>
+
+        {/* Founder Section */}
+        <div className="mt-16">
+          <div className="glass-card p-8 max-w-4xl mx-auto">
+            <h3 className="text-3xl font-bold font-poppins mb-6 text-center gradient-text">
+              🧠 Solo Founder, AI Entrepreneur & Vibe Coder
+            </h3>
+            <div className="text-center mb-6">
+              <a 
+                href="https://lit.link/en/aideazz" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xl font-semibold text-purple-300 hover:text-purple-200 transition-colors underline"
+              >
+                Elena Revicheva, about me
+              </a>
+            </div>
+            
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                🇷🇺 Former Russian top IT project manager and CLO at E-government, residing in Panama since 2022 
+                (relocated in a single-mother status because of war in Ukraine and started all my Life from scratch).
+              </p>
+              
+              <p>
+                ✍️ Well known Russian decadent writer, transformed to NFT creator in Panama{" "}
+                <a 
+                  href="https://opensea.io/kira_velerevich" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-purple-300 hover:text-purple-200 transition-colors underline"
+                >
+                  https://opensea.io/kira_velerevich
+                </a>
+                .
+              </p>
+              
+              <p>
+                💡 Strategic visioner in blockchain law, behavioral systems, and AI ethics.
+              </p>
+              
+              <div className="mt-6 text-center">
+                <p className="mb-2 font-semibold">Long story - video short:</p>
+                <a 
+                  href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-purple-300 hover:text-purple-200 transition-colors underline"
+                >
+                  https://www.capcut.com/s/CU4u6UjQIC9QydoB/
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
