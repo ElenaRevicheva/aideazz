@@ -1,3 +1,4 @@
+
 import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube, Mic, Image, Video, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -19,9 +20,24 @@ const EspaLuzSection = () => {
             <Sparkles className="w-4 h-4 text-pink-400" />
             <span className="text-sm font-medium text-pink-300">Living Proof of Concept</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6">
-            Meet <span className="gradient-text">EspaLuz</span>
-          </h2>
+          
+          {/* EspaLuz Photo and Title */}
+          <div className="flex flex-col items-center gap-6 mb-6">
+            <div className="relative">
+              <img 
+                src="/lovable-uploads/a9ca2d17-65b0-43f6-8da1-665c7f725d79.png"
+                alt="EspaLuz - AI Family Tutor"
+                className="w-32 h-32 rounded-full object-cover shadow-2xl border-4 border-purple-400/30"
+              />
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                <span className="text-xs">🤖</span>
+              </div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold font-poppins">
+              Meet <span className="gradient-text">EspaLuz</span>
+            </h2>
+          </div>
+          
           <p className="text-xl text-gray-300 leading-relaxed">
             Your bilingual AI family tutor — emotionally intelligent, culturally aware, and ready to help expat families thrive in Spanish-speaking countries.
           </p>
