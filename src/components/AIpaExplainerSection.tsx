@@ -15,9 +15,20 @@ const AIpaExplainerSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6">
             <span className="gradient-text">What is an AIPA?</span>
           </h2>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-xl text-gray-300 leading-relaxed mb-4">
             An AI Personal Assistant — created using the latest Model Context Protocol (Claude/OpenAI) — emotionally aware, upgradeable, and web3-native.
           </p>
+          <div className="text-center">
+            <p className="mb-2 font-semibold text-purple-300">Long story - video short:</p>
+            <a 
+              href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-300 hover:text-purple-200 transition-colors underline"
+            >
+              https://www.capcut.com/s/CXgM3XiNSKkniT0N/
+            </a>
+          </div>
         </div>
 
         {/* Main Content */}
