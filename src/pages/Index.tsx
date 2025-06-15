@@ -8,6 +8,7 @@ import InvestorPitchSection from "@/components/InvestorPitchSection";
 import AIdeazzPlatformSection from "@/components/AIdeazzPlatformSection";
 import AIpaExplainerSection from "@/components/AIpaExplainerSection";
 import CallToActionSection from "@/components/CallToActionSection";
+import YouTubeSubscriptionSection from "@/components/YouTubeSubscriptionSection";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <AIdeazzPlatformSection />
         <AIpaExplainerSection />
         <CallToActionSection />
+        <YouTubeSubscriptionSection />
       </main>
       <footer className="w-full mt-16 pb-8 flex justify-center">
         <div className="rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-amber-300 shadow-lg border border-white/10 flex items-center gap-2 backdrop-blur-md">
@@ -34,4 +36,3 @@ const Index = () => {
 };
 
 export default Index;
-
