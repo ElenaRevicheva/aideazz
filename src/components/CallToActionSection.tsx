@@ -76,7 +76,7 @@ const CallToActionSection = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">Get in Touch</h3>
               <p className="text-gray-300 text-sm mb-2">Email: aipa@aideazz.xyz</p>
-              <p className="text-gray-300 text-sm mb-4">Questions? Ideas? Let's talk about the future</p>
+              <p className="text-gray-300 text-sm mb-4">Chat with the Founder:</p>
               <div className="space-y-2">
                 <Button 
                   size="sm" 
