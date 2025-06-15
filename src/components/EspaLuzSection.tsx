@@ -1,8 +1,15 @@
-
 import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube, Mic, Image, Video, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const EspaLuzSection = () => {
+  const openTelegramChat = () => {
+    window.open('https://t.me/EspaLuzFamily_bot', '_blank');
+  };
+
+  const openWhatsAppSandbox = () => {
+    window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
+  };
+
   return (
     <section id="espaluz" className="py-24 relative">
       <div className="container mx-auto px-6">
@@ -112,7 +119,10 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Start your conversation with EspaLuz on Telegram. Experience how she understands your family's unique situation and provides personalized guidance.
               </p>
-              <Button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-full transition-all duration-300">
+              <Button 
+                onClick={openTelegramChat}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-full transition-all duration-300"
+              >
                 Open Telegram Chat
                 <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
@@ -132,7 +142,10 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
               </p>
-              <Button className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300">
+              <Button 
+                onClick={openWhatsAppSandbox}
+                className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300"
+              >
                 Test WhatsApp Sandbox
                 <TestTube className="ml-2 w-5 h-5" />
               </Button>

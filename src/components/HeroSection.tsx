@@ -2,6 +2,13 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
+  const scrollToEspaLuz = () => {
+    const espaluzSection = document.getElementById('espaluz');
+    if (espaluzSection) {
+      espaluzSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="pt-32 pb-20 relative">
       <div className="container mx-auto px-6 text-center">
@@ -22,7 +29,10 @@ const HeroSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+            <Button 
+              onClick={scrollToEspaLuz}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+            >
               Try EspaLuz Now
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
