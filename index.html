@@ -13,15 +13,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Ensure proper CSS loading -->
+    <!-- Critical inline styles to prevent FOUC and ensure styling works -->
     <style>
-      /* Critical inline styles to prevent FOUC */
       body {
-        margin: 0;
-        padding: 0;
-        background: #0f0f23;
-        color: #e2e8f0;
-        font-family: 'Inter', sans-serif;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: hsl(224 71% 4%) !important;
+        color: hsl(213 31% 91%) !important;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif !important;
+        background-image: 
+          radial-gradient(circle at 20% 50%, hsl(263 70% 50% / 0.3) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, hsl(263 70% 50% / 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 80%, hsl(263 70% 50% / 0.1) 0%, transparent 50%) !important;
+        min-height: 100vh !important;
+      }
+      
+      #root {
+        min-height: 100vh !important;
+        width: 100% !important;
+      }
+      
+      /* Ensure glass cards work */
+      .glass-card {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 1rem !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+      }
+      
+      /* Ensure gradient text works */
+      .gradient-text {
+        background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b) !important;
+        background-clip: text !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
       }
     </style>
   </head>
