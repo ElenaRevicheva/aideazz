@@ -1,4 +1,3 @@
-
 import { Code, Zap, Heart } from "lucide-react";
 
 const VibeCodingSection = () => {
@@ -14,8 +13,7 @@ const VibeCodingSection = () => {
             <span className="gradient-text">Vibe Coding</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            We build AI that understands not just what you say, but how you feel. 
-            Technology infused with emotional intelligence and human empathy.
+            We build AI that understands not just what you say, but how you feel, that remembers not just what you prompt, but Who You are Becoming through your Lifetime Journey challenges, the way you grow and transform, on-the-go.
           </p>
         </div>
 
