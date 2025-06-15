@@ -1,8 +1,14 @@
-
 import { TrendingUp, Target, Zap, Globe, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const InvestorPitchSection = () => {
+  const scrollToContact = () => {
+    const contactSection = document.querySelector('#contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="invest" className="py-24 relative bg-gradient-to-r from-purple-900/20 to-pink-900/20">
       <div className="container mx-auto px-6">
@@ -157,7 +163,11 @@ const InvestorPitchSection = () => {
                 <DollarSign className="mr-2 w-5 h-5" />
                 Invest in AIdeazz
               </Button>
-              <Button variant="outline" className="border-purple-500/50 hover:border-purple-400 text-purple-300 hover:text-purple-200 px-8 py-3 rounded-full font-semibold backdrop-blur-sm hover:bg-purple-500/10 transition-all duration-300">
+              <Button 
+                variant="outline" 
+                className="border-purple-500/50 hover:border-purple-400 text-purple-300 hover:text-purple-200 px-8 py-3 rounded-full font-semibold backdrop-blur-sm hover:bg-purple-500/10 transition-all duration-300"
+                onClick={scrollToContact}
+              >
                 Request Pitch Deck
               </Button>
             </div>

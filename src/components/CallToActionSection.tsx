@@ -1,4 +1,3 @@
-
 import { Heart, MessageCircle, DollarSign, Users, Mail, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -8,7 +7,7 @@ const CallToActionSection = () => {
   };
 
   return (
-    <section className="py-24 relative bg-gradient-to-r from-purple-900/30 to-pink-900/30">
+    <section id="contact" className="py-24 relative bg-gradient-to-r from-purple-900/30 to-pink-900/30">
       <div className="container mx-auto px-6">
         {/* Main CTA */}
         <div className="text-center max-w-4xl mx-auto mb-16">
