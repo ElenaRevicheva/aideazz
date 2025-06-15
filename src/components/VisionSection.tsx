@@ -1,3 +1,4 @@
+
 import { Eye, Sparkles, Users, Zap } from "lucide-react";
 
 const VisionSection = () => {
@@ -138,6 +139,22 @@ const VisionSection = () => {
               <p>
                 💡 Strategic visioner in blockchain law, behavioral systems, and AI ethics.
               </p>
+
+              <div className="flex items-start gap-3 mt-4">
+                <span className="text-green-400 font-semibold">✅</span>
+                <div>
+                  <span className="text-purple-300 font-semibold">DAIAA Membership:</span>{" "}
+                  <span className="text-gray-300">Founder individually accepted into the Decentralized AI Agent Alliance</span>{" "}
+                  <a 
+                    href="https://www.daiaa.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 underline"
+                  >
+                    https://www.daiaa.org/
+                  </a>
+                </div>
+              </div>
               
               <div className="mt-6 text-center">
                 <p className="mb-2 font-semibold">Long story - video short:</p>
