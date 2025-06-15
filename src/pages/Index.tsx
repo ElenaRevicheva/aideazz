@@ -11,9 +11,9 @@ import CallToActionSection from "@/components/CallToActionSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
-      <main>
+      <main className="flex-1">
         <HeroSection />
         <EspaLuzSection />
         <VibeCodingSection />
@@ -23,8 +23,15 @@ const Index = () => {
         <AIpaExplainerSection />
         <CallToActionSection />
       </main>
+      <footer className="w-full mt-16 pb-8 flex justify-center">
+        <div className="rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-amber-300 shadow-lg border border-white/10 flex items-center gap-2 backdrop-blur-md">
+          <span role="img" aria-label="point">👉</span> 
+          <span>AIPA Era minted. <span role="img" aria-label="fire">🔥</span> Have any AIdeazz? Get on the ledger.</span>
+        </div>
+      </footer>
     </div>
   );
 };
 
 export default Index;
+
