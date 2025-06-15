@@ -1,4 +1,3 @@
-
 import { TrendingUp, Target, Zap, Globe, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -86,6 +85,25 @@ const InvestorPitchSection = () => {
                 <li>• Increasing global mobility and cultural adaptation challenges</li>
                 <li>• Demand for AI ownership and customization beyond big tech</li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Decentralized Identity */}
+        <div className="glass-card p-8 mb-12">
+          <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
+            🔥 <strong>Decentralized Identity</strong>
+          </h3>
+          <div className="space-y-4">
+            <div>
+              <span className="text-purple-300 font-semibold">ENS:</span>{" "}
+              <code className="bg-gray-800/50 px-2 py-1 rounded text-green-400">aideazz.eth</code>
+            </div>
+            <div>
+              <span className="text-purple-300 font-semibold">Primary Wallet:</span>{" "}
+              <code className="bg-gray-800/50 px-2 py-1 rounded text-green-400 text-sm break-all">
+                0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5
+              </code>
             </div>
           </div>
         </div>
