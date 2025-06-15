@@ -1,3 +1,4 @@
+
 import { TrendingUp, Target, Zap, Globe, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -104,6 +105,40 @@ const InvestorPitchSection = () => {
               <code className="bg-gray-800/50 px-2 py-1 rounded text-green-400 text-sm break-all">
                 0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5
               </code>
+            </div>
+          </div>
+        </div>
+
+        {/* MVP Basics Highlights */}
+        <div className="glass-card p-8 mb-12">
+          <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
+            🔥 <strong>MVP Basics Highlights</strong>
+          </h3>
+          <div className="space-y-4">
+            <div className="flex items-start gap-3">
+              <span className="text-green-400 font-semibold">✅</span>
+              <div>
+                <span className="text-purple-300 font-semibold">AZ Token (ERC20):</span>{" "}
+                <span className="text-gray-300">Deployed on Polygon at Thirdweb.com, contract</span>{" "}
+                <code className="bg-gray-800/50 px-2 py-1 rounded text-green-400 text-sm break-all">
+                  0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5
+                </code>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="text-green-400 font-semibold">✅</span>
+              <div>
+                <span className="text-gray-300">Trading live on</span>{" "}
+                <a 
+                  href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 underline"
+                >
+                  QuickSwap
+                </a>{" "}
+                <span className="text-gray-300">DEX (liquidity fundraising ongoing)</span>
+              </div>
             </div>
           </div>
         </div>
