@@ -3,6 +3,10 @@ import { Heart, MessageCircle, DollarSign, Users, Mail, ExternalLink } from "luc
 import { Button } from "@/components/ui/button";
 
 const CallToActionSection = () => {
+  const handleContactClick = () => {
+    window.location.href = "mailto:aipa@aideazz.xyz";
+  };
+
   return (
     <section className="py-24 relative bg-gradient-to-r from-purple-900/30 to-pink-900/30">
       <div className="container mx-auto px-6">
@@ -71,11 +75,26 @@ const CallToActionSection = () => {
                 <Mail className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">Get in Touch</h3>
+              <p className="text-gray-300 text-sm mb-2">Email: aipa@aideazz.xyz</p>
               <p className="text-gray-300 text-sm mb-4">Questions? Ideas? Let's talk about the future</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold">
-                <Mail className="w-4 h-4 mr-2" />
-                Contact
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  size="sm" 
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+                  onClick={handleContactClick}
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </Button>
+                <Button 
+                  size="sm" 
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold"
+                  onClick={() => window.open('https://lit.link/en/aideazz', '_blank')}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Call/Chat
+                </Button>
+              </div>
             </div>
           </div>
         </div>
