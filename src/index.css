@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
-@tailwind components; 
+@tailwind components;
 @tailwind utilities;
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
@@ -61,51 +61,51 @@
 
   body {
     @apply bg-background text-foreground antialiased min-h-screen;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    background: hsl(224 71% 4%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    background: hsl(224 71% 4%) !important;
     background-image: 
       radial-gradient(circle at 20% 50%, hsl(263 70% 50% / 0.3) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, hsl(263 70% 50% / 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, hsl(263 70% 50% / 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 40% 80%, hsl(263 70% 50% / 0.1) 0%, transparent 50%) !important;
   }
 }
 
 @layer components {
   .glass-card {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
   }
 
   .gradient-text {
-    background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    background: linear-gradient(90deg, #a855f7, #ec4899, #f59e0b) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important;
   }
 
   .gradient-border {
     position: relative;
     background: linear-gradient(90deg, hsl(var(--background)), hsl(var(--background))) padding-box,
-                linear-gradient(90deg, hsl(263 70% 50%), hsl(45 90% 60%)) border-box;
-    border: 1px solid transparent;
+                linear-gradient(90deg, hsl(263 70% 50%), hsl(45 90% 60%)) border-box !important;
+    border: 1px solid transparent !important;
   }
 }
 
 @layer utilities {
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
   }
   
   .font-inter {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif !important;
   }
   
   .font-poppins {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif !important;
   }
 }
