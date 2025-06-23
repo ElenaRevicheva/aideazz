@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta viewport="width=device-width, initial-scale=1.0">
+    <title>AIdeazz - Emotionally Intelligent AI Personal Assistants</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark-bg: #0f0f23;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --light-text: #ffffff;
+            --muted-text: #a0a0b8;
+            --glow-color: #667eea;
+            --accent-color: #f093fb;
+            --link-color: #64ffda;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Background effects */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 50%);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        .orb1 {
+            width: 500px;
+            height: 500px;
+            background: var(--glow-color);
+            top: -200px;
+            left: -200px;
+            animation-duration: 25s;
+        }
+
+        .orb2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-color);
+            bottom: -200px;
+            right: -200px;
+            animation-duration: 30s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* Presentation container */
+        .presentation {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Slides */
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            position: absolute;
+            display: none;
+            animation: slideIn 0.6s ease-out;
+            padding: 60px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Navigation */
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            width: 30px;
+            border-radius: 5px;
+            background: var(--accent-color);
+        }
+
+        .nav-arrows {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 100;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Typography */
+        h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--muted-text);
+            margin-bottom: 40px;
+        }
+
+        /* Links */
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover {
+            border-bottom-color: var(--link-color);
+            transform: translateY(-1px);
+        }
+
+        .link-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.2), rgba(102, 126, 234, 0.2));
+            border: 1px solid var(--link-color);
+            border-radius: 8px;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .link-button:hover {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.3), rgba(102, 126, 234, 0.3));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Title slide specific */
+        .title-slide {
+            text-align: center;
+        }
+
+        .founder-info {
+            margin-top: 40px;
+            font-size: 1.2rem;
+        }
+
+        /* Content layouts */
+        .problem-grid, .solution-grid, .feature-grid {
+            display: grid;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .problem-item, .solution-item, .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .problem-item:hover, .solution-item:hover, .feature-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon-large {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        /* Framework diagram */
+        .framework-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .framework-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .framework-item:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+
+        /* Market stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--muted-text);
+            margin-top: 10px;
+        }
+
+        /* Business model */
+        .business-model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            border-bottom: none;
+        }
+
+        /* Links grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .link-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .link-section h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Traction items */
+        .traction-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .traction-list li {
+            padding: 15px 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Ask section */
+        .ask-highlight {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(240, 147, 251, 0.2));
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .ask-amount {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .stats-grid,
+            .business-model-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .framework-container {
+                grid-template-columns: 1fr;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <h1>AIdeazz</h1>
+            <p class="subtitle">Emotionally Intelligent AI Personal Assistants Evolving with You</p>
+            <div class="founder-info">
+                <p>Elena Revicheva, Founder & CEO</p>
+                <a href="https://www.aideazz.xyz" target="_blank" class="link-button">www.aideazz.xyz</a>
+                <a href="https://lit.link/en/aideazz" target="_blank" class="link-button">About Elena</a>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introduction -->
+        <div class="slide">
+            <h2>Introduction</h2>
+            <p style="font-size: 1.4rem; line-height: 2;">
+                AIdeazz is an early-stage decentralized ecosystem building emotionally intelligent AI Personal Assistants (AIPAs). Founded by a solo builder — former top IT project manager and blockchain entrepreneur — the platform integrates emotional memory, NFT identity, and SocialFi features. Now gaining traction with real users.
+            </p>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" target="_blank" class="link-button">📺 Watch Project Demo</a>
+                <a href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" target="_blank" class="link-button">👩‍💼 Elena's Story</a>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Problem -->
+        <div class="slide">
+            <h2>The Problem</h2>
+            <p style="font-size: 1.3rem;">Why current AI solutions fail at emotional connection:</p>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <span class="icon-large">⚠️</span>
+                    <p>Most AI agents lack emotional intelligence and contextual memory</p>
+                </div>
+                <div class="problem-item">
+                    <span class="icon-large">⚠️</span>
+                    <p>Expat families and individuals face adaptation stress without empathetic tools</p>
+                </div>
+                <div class="problem-item">
+                    <span class="icon-large">⚠️</span>
+                    <p>Users have no ownership or say in agent behavior or evolution</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 1.3rem;">
+                This leaves millions without AI that truly understands and supports their emotional needs.
+            </p>
+        </div>
+
+        <!-- Slide 4: The Solution -->
+        <div class="slide">
+            <h2>The Solution — AIdeazz</h2>
+            <h3 style="text-align: center;">Decentralized Emotional AI + Web3 Ownership</h3>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <span class="icon-large">🧠</span>
+                    <p>Emotionally intelligent AI Personal Assistants (AIPAs) using <strong>Vibe Coding</strong></p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">🎨</span>
+                    <p>NFT identity via ERC-721, upgrading to <strong>ERC-7857</strong> for AI agents</p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">🤝</span>
+                    <p>Emotional tuning framework for personality growth and adaptation</p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">🌐</span>
+                    <p>SocialFi platform for community co-creation and feedback loops</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 1.3rem;">
+                AIdeazz combines emotional intelligence with decentralized ownership to create AI companions that grow with you.
+            </p>
+        </div>
+
+        <!-- Slide 5: Vibe Coding Framework -->
+        <div class="slide">
+            <h2>Vibe Coding Framework</h2>
+            <p style="font-size: 1.3rem;">Emotionally aware AI needs structure — here's ours:</p>
+            <div class="framework-container">
+                <div class="framework-item">
+                    <span class="icon-large">🎯</span>
+                    <h3>Affective Parameter Tuning</h3>
+                    <p>Empathy coefficients, response warmth, tone modulation</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">🧩</span>
+                    <h3>Contextual Memory Design</h3>
+                    <p>Retention of emotional interaction patterns and personal context</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">🔁</span>
+                    <h3>Adaptive Personality Matrices</h3>
+                    <p>Evolving agent traits based on user behavior and feedback loops</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">📊</span>
+                    <h3>Continuous Iteration</h3>
+                    <p>Every interaction feeds into system-wide improvements</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Live AI Agents & Demo -->
+        <div class="slide">
+            <h2>🔥 Live AI Agents</h2>
+            <p style="font-size: 1.3rem;">AIPAs deployed and running with real users:</p>
+            <div class="solution-grid">
+                <div class="solution-item">
+                    <span class="icon-large">🇪🇸</span>
+                    <h3>EspaLuz Family Bot</h3>
+                    <p>Spanish learning companion for families</p>
+                    <a href="https://t.me/EspaLuzFamily_bot" target="_blank" class="link-button">Try on Telegram</a>
+                    <a href="https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid" target="_blank" class="link-button">Test on WhatsApp</a>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">📈</span>
+                    <h3>Trading Advisor AI</h3>
+                    <p>Market insights and trading guidance</p>
+                    <a href="https://twitter.com/reviceva" target="_blank" class="link-button">Live on Twitter/X</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="color: var(--muted-text); font-style: italic;">More AI agents launching soon on our platform</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Technology & Infrastructure -->
+        <div class="slide">
+            <h2>Technology & Infrastructure</h2>
+            <p style="font-size: 1.3rem;">Built on robust Web3 infrastructure:</p>
+            <div class="links-grid">
+                <div class="link-section">
+                    <h4>🪙 AZ Token (ERC20)</h4>
+                    <p>Contract: 0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5</p>
+                    <a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" target="_blank" class="link-button">Trade on QuickSwap</a>
+                </div>
+                <div class="link-section">
+                    <h4>🎨 NFT Collection</h4>
+                    <p>ERC-721: 0x771Cc6BDCF8E7660ddc7E3F68FBCE7Dc5d675769</p>
+                    <p style="color: var(--muted-text); font-style: italic;">Deployed on Polygon via Thirdweb</p>
+                </div>
+                <div class="link-section">
+                    <h4>🏛️ DAO Governance</h4>
+                    <p>Polygon DAO via Decent</p>
+                    <a href="https://app.decentdao.org/home?dao=matic%3A0x8301c6F34925580D2695E06fC212eDd8fA152535&page=1&size=10" target="_blank" class="link-button">Join DAO</a>
+                </div>
+                <div class="link-section">
+                    <h4>📄 Documentation</h4>
+                    <a href="https://notion.so/AIdeazz-Whitepaper-v1-0-1e3032c5edd7809cb4f1cf8645b12dbc?pvs=21" target="_blank" class="link-button">Read Whitepaper</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Market Opportunity -->
+        <div class="slide">
+            <h2>Market Opportunity</h2>
+            <p style="font-size: 1.3rem; text-align: center;">The time for mindful AI is now:</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">$25B+</div>
+                    <div class="stat-label">AI personal assistant market by 2030</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">280M+</div>
+                    <div class="stat-label">Global expat families needing emotional adaptation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Untapped Emotional AI × Web3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Business Model -->
+        <div class="slide">
+            <h2>Business Model</h2>
+            <p style="font-size: 1.3rem;">Multiple revenue streams in the AIPA ecosystem:</p>
+            <div class="business-model-grid">
+                <div class="feature-item">
+                    <span class="icon-large">🏪</span>
+                    <h3>Marketplace Revenue</h3>
+                    <p>AIPA subscriptions, sales, and emotional upgrades</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon-large">🤝</span>
+                    <h3>SocialFi Layer</h3>
+                    <p>User feedback, rating, and collaborative evolution rewards</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon-large">🎯</span>
+                    <h3>Token Economics</h3>
+                    <p>AZ Token powers governance, utility, and staking rewards</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Community & Partnerships -->
+        <div class="slide">
+            <h2>Community & Partnerships</h2>
+            <p style="font-size: 1.3rem;">Growing ecosystem across Web2 and Web3:</p>
+            <div class="links-grid">
+                <div class="link-section">
+                    <h4>🏢 Strategic Partnerships</h4>
+                    <a href="https://www.daiaa.org/" target="_blank" class="link-button">DAIAA Member</a>
+                    <p>Decentralized AI Agent Alliance</p>
+                </div>
+                <div class="link-section">
+                    <h4>📱 Social Media</h4>
+                    <a href="https://www.youtube.com/@AIdeazz" target="_blank" class="link-button">YouTube</a>
+                    <a href="https://x.com/reviceva" target="_blank" class="link-button">Twitter/X</a>
+                    <a href="https://www.instagram.com/elena_revicheva/" target="_blank" class="link-button">Instagram</a>
+                    <a href="https://www.linkedin.com/in/elenarevicheva/" target="_blank" class="link-button">LinkedIn</a>
+                </div>
+                <div class="link-section">
+                    <h4>💬 Community Channels</h4>
+                    <a href="https://t.me/EspaLuz" target="_blank" class="link-button">Telegram</a>
+                    <a href="https://discord.gg/RutK6kwp" target="_blank" class="link-button">Discord</a>
+                </div>
+                <div class="link-section">
+                    <h4>🌐 Web3 Social</h4>
+                    <a href="https://orb.club/@aideazz" target="_blank" class="link-button">Orb SocialFi</a>
+                    <a href="https://farcaster.xyz/atuona" target="_blank" class="link-button">Warpcast</a>
+                    <a href="https://mirror.xyz/0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5" target="_blank" class="link-button">Mirror</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Vision & Impact -->
+        <div class="slide">
+            <h2>Vision & Impact</h2>
+            <p style="font-size: 1.3rem;">Democratize emotionally intelligent AI through decentralized design:</p>
+            <div class="framework-container">
+                <div class="framework-item">
+                    <span class="icon-large">🔄</span>
+                    <h3>Evolving Relationships</h3>
+                    <p>AI agents that grow and adapt with their users over time</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">🔐</span>
+                    <h3>Privacy-First</h3>
+                    <p>Secure, encrypted emotional learning data via ERC-7857</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">🧬</span>
+                    <h3>Modular Intelligence</h3>
+                    <p>Composable memory systems and evolving capabilities</p>
+                </div>
+                <div class="framework-item">
+                    <span class="icon-large">🌱</span>
+                    <h3>Human Empowerment</h3>
+                    <p>Built for personal growth and resilience, not replacement</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: The Ask -->
+        <div class="slide">
+            <h2>The Ask</h2>
+            <p style="font-size: 1.3rem; text-align: center;">Seeking early-stage investment to build the future of emotionally intelligent AI:</p>
+            <div class="ask-highlight">
+                <div class="ask-amount">Raising $250K Pre-Seed</div>
+                <p style="font-size: 1.2rem;">To accelerate development, platform UX, and launch ERC-7857 agents</p>
+            </div>
+            <div class="solution-grid" style="margin-top: 40px;">
+                <div class="solution-item">
+                    <span class="icon-large">🚀</span>
+                    <p><strong>Launch WhatsApp Agent</strong><br>Complete multi-platform deployment</p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">🔧</span>
+                    <p><strong>ERC-7857 Integration</strong><br>Next-gen NFT standard for AI agents</p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">👥</span>
+                    <p><strong>Team Expansion</strong><br>Onboard elite Web3 devs & vibe coders</p>
+                </div>
+                <div class="solution-item">
+                    <span class="icon-large">📢</span>
+                    <p><strong>Growth & Awareness</strong><br>Expand community and user adoption</p>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 40px; font-size: 1.4rem;">
+                Join us in shaping the future of emotionally intelligent AI.
+            </p>
+        </div>
+
+        <!-- Slide 13: Contact & Next Steps -->
+        <div class="slide">
+            <h2>Let's Build the AIPA Era Together</h2>
+            <p style="font-size: 1.3rem; text-align: center; margin-bottom: 40px;">
+                Ready to join the emotionally intelligent AI revolution?
+            </p>
+            
+            <div class="links-grid">
+                <div class="link-section">
+                    <h4>👩‍💼 Contact Elena Revicheva</h4>
+                    <a href="mailto:contact@aideazz.xyz" class="link-button">✉️ Email</a>
+                    <a href="https://www.linkedin.com/in/elenarevicheva/" target="_blank" class="link-button">💼 LinkedIn</a>
+                    <a href="https://lit.link/en/aideazz" target="_blank" class="link-button">🔗 Full Bio</a>
+                </div>
+                
+                <div class="link-section">
+                    <h4>🌐 Platform & Demo</h4>
+                    <a href="https://www.aideazz.xyz" target="_blank" class="link-button">🏠 Main Website</a>
+                    <a href="https://t.me/EspaLuzFamily_bot" target="_blank" class="link-button">📱 Live Demo</a>
+                </div>
+                
+                <div class="link-section">
+                    <h4>🔗 Web3 Identity</h4>
+                    <p style="color: var(--accent-color); font-size: 1.2rem; margin-bottom: 10px;">aideazz.eth</p>
+                    <p style="font-size: 0.9rem; color: var(--muted-text);">Primary Wallet:<br>0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5</p>
+                    <a href="https://notion.so/AIdeazz-Whitepaper-v1-0-1e3032c5edd7809cb4f1cf8645b12dbc?pvs=21" target="_blank" class="link-button">📄 Whitepaper</a>
+                </div>
+                
+                <div class="link-section">
+                    <h4>🚀 Get Involved</h4>
+                    <a href="https://t.me/EspaLuz" target="_blank" class="link-button">Join Community</a>
+                    <a href="https://discord.gg/RutK6kwp" target="_blank" class="link-button">Discord</a>
+                    <a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" target="_blank" class="link-button">Trade AZ Token</a>
+                </div>
+            </div>
+            
+            <div class="cta-section" style="margin-top: 50px;">
+                <h3 style="color: var(--accent-color); margin-bottom: 20px;">🔥 AIPA Era Minted. Have any AIdeazz? Get on the ledger.</h3>
+                <a href="mailto:aipa@aideazz.xyz" class="cta-button">Let's Connect</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-arrows">
+        <div class="nav-arrow" id="prevSlide">←</div>
+        <div class="nav-arrow" id="nextSlide">→</div>
+    </div>
+
+    <div class="nav-dots">
+        <!-- Dots will be generated by JavaScript -->
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navDots = document.querySelector('.nav-dots');
+
+        // Generate navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('nav-dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            navDots.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.nav-dot');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlide();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlide();
+        }
+
+        // Event listeners
+        document.getElementById('nextSlide').addEventListener('click', nextSlide);
+        document.getElementById('prevSlide').addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key >= '1' && e.key <= '9') {
+                const slideIndex = parseInt(e.key) - 1;
+                if (slideIndex < totalSlides) goToSlide(slideIndex);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        // Auto-progress timer (optional)
+        let autoProgress = false;
+        let progressInterval;
+
+        function toggleAutoProgress() {
+            autoProgress = !autoProgress;
+            if (autoProgress) {
+                progressInterval = setInterval(nextSlide, 10000); // 10 seconds per slide
+            } else {
+                clearInterval(progressInterval);
+            }
+        }
+
+        // Press 'p' to toggle auto-progress
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'p') toggleAutoProgress();
+        });
+
+        // Analytics for link clicks (optional)
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' && e.target.href) {
+                console.log('Link clicked:', e.target.href);
+                // Add analytics tracking here if needed
+            }
+        });
+    </script>
+</body>
+</html>
