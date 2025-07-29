@@ -48,7 +48,7 @@ const Navigation = () => {
             <div className="hidden md:block">
               <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Join the Revolution
+                Join the AI-evolution
               </Button>
             </div>
 
@@ -77,7 +77,7 @@ const Navigation = () => {
                 ))}
                 <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4">
                   <Sparkles className="w-4 h-4 mr-2" />
-                  Join the Revolution
+                  Join the AI-evolution
                 </Button>
               </div>
             </div>
