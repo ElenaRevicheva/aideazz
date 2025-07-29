@@ -23,6 +23,7 @@ const LegalFooter = () => {
                 REPÚBLICA DE PANAMÁ<br/>
                 REGISTRO ÚNICO DE CONTRIBUYENTES - PERSONA NATURAL<br/>
                 RUC 8-NT-2-781965 DV 90<br/>
+                Primer Apellido REVICHEVA Primer Nombre ELENA<br/>
                 Tipo Persona EXTRANJERA<br/>
                 Actividad Empresarial Ocupación 21320 - PROGRAMADORES INFORMATICOS<br/>
                 Datos de Ubicación<br/>
@@ -42,6 +43,7 @@ const LegalFooter = () => {
           <div className="space-y-4">
             <h4 className="text-white font-semibold text-lg mb-4">Contact Information</h4>
             <div className="text-gray-300 text-sm space-y-2">
+              <p><strong>ELENA REVICHEVA</strong></p>
               <p><strong>Email:</strong> aipa@aideazz.xyz</p>
               <p><strong>Website:</strong> aideazz.xyz</p>
               <p><strong>Phone:</strong> +507 61666716</p>
