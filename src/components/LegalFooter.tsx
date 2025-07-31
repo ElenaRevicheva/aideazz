@@ -1,5 +1,6 @@
 import React from "react";
 
+// Updated legal footer with correct contact information format
 const LegalFooter = () => {
   return (
     <footer className="w-full bg-black/20 border-t border-white/10">
@@ -33,7 +34,6 @@ const LegalFooter = () => {
                 Calle/Avenida PRINCIPAL<br/>
                 Edificio PH LATITUDE<br/>
                 Casa/Apto 8B<br/>
-                Teléfono Fijo 61666716<br/>
                 Dirección Descriptiva COSTA DEL ESTE
               </p>
             </div>
@@ -43,18 +43,13 @@ const LegalFooter = () => {
           <div className="space-y-4">
             <h4 className="text-white font-semibold text-lg mb-4">Contact Information</h4>
             <div className="text-gray-300 text-sm space-y-2">
-              <p><strong>ELENA REVICHEVA</strong></p>
+              <p><strong>Nombre legal del negocio:</strong> ELENA REVICHEVA</p>
               <p><strong>Email:</strong> aipa@aideazz.xyz</p>
               <p><strong>Website:</strong> aideazz.xyz</p>
-              <p><strong>Phone:</strong> +507 61666716</p>
-              <p><strong>Location Data:</strong></p>
-              <p><strong>Province:</strong> PANAMA</p>
-              <p><strong>District:</strong> PANAMA</p>
-              <p><strong>Corregimiento:</strong> JUAN DIAZ</p>
-              <p><strong>Street/Avenue:</strong> PRINCIPAL</p>
-              <p><strong>Building:</strong> PH LATITUDE</p>
-              <p><strong>House/Apt:</strong> 8B</p>
-              <p><strong>Descriptive Address:</strong> COSTA DEL ESTE</p>
+              <p><strong>Phone:</strong> +507 66623757</p>
+              <p><strong>Dirección:</strong> PH Latitude 8 8B COSTA DEL ESTE JUAN DIAZ</p>
+              <p><strong>PANAMA</strong></p>
+              <p><strong>Provincia:</strong> PANAMA</p>
               <p><strong>Country:</strong> REPÚBLICA DE PANAMÁ</p>
             </div>
           </div>
@@ -68,7 +63,7 @@ const LegalFooter = () => {
             </div>
             <div className="rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-amber-300 shadow-lg border border-white/10 flex items-center gap-2 backdrop-blur-md">
               <span role="img" aria-label="point">👉</span> 
-              <span>AIPA Era minted. <span role="img" aria-label="fire">🔥</span> Have any AIdeazz? Get on the ledger.</span>
+              <span>AIPA Era minted. <span role="img" aria-label="fire">��</span> Have any AIdeazz? Get on the ledger.</span>
             </div>
           </div>
         </div>
@@ -77,4 +72,4 @@ const LegalFooter = () => {
   );
 };
 
-export default LegalFooter; 
+export default LegalFooter;
