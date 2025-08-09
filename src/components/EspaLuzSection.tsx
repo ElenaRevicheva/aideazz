@@ -152,7 +152,7 @@ const EspaLuzSection = () => {
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border-2 border-green-400/50 relative overflow-hidden">
               {/* Premium Badge */}
               <div className="absolute top-4 right-4 bg-gradient-to-r from-green-400 to-emerald-400 text-white text-xs font-bold px-3 py-1 rounded-full">
-                🔥 LIVE NOW
+                LIVE NOW
               </div>
               
               <div className="flex items-center gap-4 mb-6">
@@ -168,13 +168,13 @@ const EspaLuzSection = () => {
                 </div>
               </div>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                🚀 <strong className="text-green-400">The complete EspaLuz experience</strong> — chat directly with our fully operational WhatsApp bot! Voice messages, image translation, emotional intelligence, and all premium features are live and ready for your family.
+                <strong className="text-green-400">The complete EspaLuz experience</strong> — chat directly with our fully operational WhatsApp bot! Voice messages, image translation, emotional intelligence, and all premium features are live and ready for your family.
               </p>
               <Button 
                 onClick={openLiveWhatsApp}
                 className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
-                🚀 Start Chatting Now
+                Start Chatting Now
                 <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
             </div>
