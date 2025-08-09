@@ -11,6 +11,10 @@ const EspaLuzSection = () => {
     window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
   };
 
+  const openWhatsAppLive = () => {
+    window.open('https://bit.ly/EspaLuz', '_blank');
+  };
+
   return (
     <section id="espaluz" className="py-24 relative">
       <div className="container mx-auto px-6">
@@ -165,14 +169,26 @@ const EspaLuzSection = () => {
                 Test WhatsApp Sandbox
                 <TestTube className="ml-2 w-5 h-5" />
               </Button>
+              <div className="mt-4" />
+              <Button
+                onClick={openWhatsAppLive}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-full transition-all duration-300"
+              >
+                Open WhatsApp Live
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
             </div>
 
             {/* Stats */}
             <div className="glass-card p-6">
-              <div className="grid grid-cols-2 gap-4 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-400 mb-1">Live</div>
                   <div className="text-gray-300 text-sm">On Telegram</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-400 mb-1">Live</div>
+                  <div className="text-gray-300 text-sm">On WhatsApp</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-orange-400 mb-1">Testing</div>
