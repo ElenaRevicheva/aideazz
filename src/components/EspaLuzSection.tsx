@@ -11,7 +11,7 @@ const EspaLuzSection = () => {
     window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
   };
 
-  const openWhatsAppLive = () => {
+  const openLiveWhatsApp = () => {
     window.open('https://bit.ly/EspaLuz', '_blank');
   };
 
@@ -148,10 +148,41 @@ const EspaLuzSection = () => {
               </Button>
             </div>
 
-            {/* WhatsApp Card */}
+            {/* WhatsApp Live Card - PRIORITY */}
+            <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border-2 border-green-400/50 relative overflow-hidden">
+              {/* Premium Badge */}
+              <div className="absolute top-4 right-4 bg-gradient-to-r from-green-400 to-emerald-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+                🔥 LIVE NOW
+              </div>
+              
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-lg">
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-white font-poppins flex items-center gap-2">
+                    WhatsApp Live 
+                    <span className="text-green-400">⚡</span>
+                  </h3>
+                  <p className="text-green-300 font-medium">Full-featured • Real-time • Ready now!</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                🚀 <strong className="text-green-400">The complete EspaLuz experience</strong> — chat directly with our fully operational WhatsApp bot! Voice messages, image translation, emotional intelligence, and all premium features are live and ready for your family.
+              </p>
+              <Button 
+                onClick={openLiveWhatsApp}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+              >
+                🚀 Start Chatting Now
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+
+            {/* WhatsApp Sandbox Card */}
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full">
                   <TestTube className="w-8 h-8 text-white" />
                 </div>
                 <div>
@@ -160,7 +191,7 @@ const EspaLuzSection = () => {
                 </div>
               </div>
               <p className="text-gray-300 mb-6">
-                Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
+                Alternative testing environment using Twilio's WhatsApp Sandbox. While our live WhatsApp bot is fully operational, this sandbox provides additional testing capabilities for development purposes.
               </p>
               <Button
                 onClick={openWhatsAppLive}
@@ -181,14 +212,14 @@ const EspaLuzSection = () => {
 
             {/* Stats */}
             <div className="glass-card p-6">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-400 mb-1">Live</div>
                   <div className="text-gray-300 text-sm">On Telegram</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-green-400 mb-1">Live</div>
-                  <div className="text-gray-300 text-sm">On WhatsApp</div>
+                  <div className="text-gray-300 text-sm">WhatsApp Bot</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-orange-400 mb-1">Testing</div>
