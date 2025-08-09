@@ -183,7 +183,7 @@ const EspaLuzSection = () => {
                 </div>
               </div>
               <p className="text-gray-300 mb-6">
-                Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
+                Alternative testing environment using Twilio's WhatsApp Sandbox. While our live WhatsApp bot is fully operational, this sandbox provides additional testing capabilities for development purposes.
               </p>
               <Button 
                 onClick={openWhatsAppSandbox}
