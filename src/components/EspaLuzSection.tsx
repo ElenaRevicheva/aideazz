@@ -162,20 +162,20 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
               </p>
+              <Button
+                onClick={openWhatsAppLive}
+                className="w-full bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 hover:from-emerald-500 hover:via-green-600 hover:to-teal-600 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-xl ring-2 ring-emerald-300/50"
+              >
+                Open WhatsApp Live
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+              <div className="mt-4" />
               <Button 
                 onClick={openWhatsAppSandbox}
                 className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300"
               >
                 Test WhatsApp Sandbox
                 <TestTube className="ml-2 w-5 h-5" />
-              </Button>
-              <div className="mt-4" />
-              <Button
-                onClick={openWhatsAppLive}
-                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-full transition-all duration-300"
-              >
-                Open WhatsApp Live
-                <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
