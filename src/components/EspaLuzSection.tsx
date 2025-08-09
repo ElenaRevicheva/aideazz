@@ -11,6 +11,10 @@ const EspaLuzSection = () => {
     window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
   };
 
+  const openLiveWhatsApp = () => {
+    window.open('https://bit.ly/EspaLuz', '_blank');
+  };
+
   return (
     <section id="espaluz" className="py-24 relative">
       <div className="container mx-auto px-6">
@@ -144,10 +148,33 @@ const EspaLuzSection = () => {
               </Button>
             </div>
 
-            {/* WhatsApp Card */}
+            {/* WhatsApp Live Card */}
             <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full">
+                <div className="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-full">
+                  <MessageCircle className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-white font-poppins">WhatsApp Live</h3>
+                  <p className="text-gray-300">Chat with EspaLuz directly</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-6">
+                Connect with EspaLuz through our live WhatsApp bot. Experience real-time conversations with full functionality and all features available.
+              </p>
+              <Button 
+                onClick={openLiveWhatsApp}
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 rounded-full transition-all duration-300"
+              >
+                Chat on WhatsApp
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+
+            {/* WhatsApp Sandbox Card */}
+            <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="p-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full">
                   <TestTube className="w-8 h-8 text-white" />
                 </div>
                 <div>
@@ -169,10 +196,14 @@ const EspaLuzSection = () => {
 
             {/* Stats */}
             <div className="glass-card p-6">
-              <div className="grid grid-cols-2 gap-4 text-center">
+              <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-400 mb-1">Live</div>
                   <div className="text-gray-300 text-sm">On Telegram</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-400 mb-1">Live</div>
+                  <div className="text-gray-300 text-sm">WhatsApp Bot</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-orange-400 mb-1">Testing</div>
