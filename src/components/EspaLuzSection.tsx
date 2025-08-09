@@ -11,6 +11,10 @@ const EspaLuzSection = () => {
     window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
   };
 
+  const openWhatsAppLive = () => {
+    window.open('https://bit.ly/EspaLuz', '_blank');
+  };
+
   return (
     <section id="espaluz" className="py-24 relative">
       <div className="container mx-auto px-6">
@@ -158,6 +162,14 @@ const EspaLuzSection = () => {
               <p className="text-gray-300 mb-6">
                 Currently testing EspaLuz through Twilio's WhatsApp Sandbox. This is a development environment as we prepare for WhatsApp Business API integration.
               </p>
+              <Button
+                onClick={openWhatsAppLive}
+                className="w-full bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 hover:from-emerald-500 hover:via-green-600 hover:to-teal-600 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-xl ring-2 ring-emerald-300/50"
+              >
+                Open WhatsApp Live
+                <ExternalLink className="ml-2 w-5 h-5" />
+              </Button>
+              <div className="mt-4" />
               <Button 
                 onClick={openWhatsAppSandbox}
                 className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300"
@@ -169,10 +181,14 @@ const EspaLuzSection = () => {
 
             {/* Stats */}
             <div className="glass-card p-6">
-              <div className="grid grid-cols-2 gap-4 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-400 mb-1">Live</div>
                   <div className="text-gray-300 text-sm">On Telegram</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-400 mb-1">Live</div>
+                  <div className="text-gray-300 text-sm">On WhatsApp</div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-orange-400 mb-1">Testing</div>
