@@ -1,0 +1,13 @@
+{
+  "sites": [
+    {
+      "slug": "aideazz-website",
+      "distDir": "dist",
+      "buildCommand": "npm run build",
+      "buildSettings": {
+        "framework": "vite",
+        "nodeVersion": "18.x"
+      }
+    }
+  ]
+}
