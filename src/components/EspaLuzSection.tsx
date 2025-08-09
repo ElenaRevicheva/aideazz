@@ -194,7 +194,7 @@ const EspaLuzSection = () => {
                 Alternative testing environment using Twilio's WhatsApp Sandbox. While our live WhatsApp bot is fully operational, this sandbox provides additional testing capabilities for development purposes.
               </p>
               <Button
-                onClick={openWhatsAppLive}
+                onClick={openLiveWhatsApp}
                 className="w-full bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 hover:from-emerald-500 hover:via-green-600 hover:to-teal-600 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-xl ring-2 ring-emerald-300/50"
               >
                 Open WhatsApp Live
