@@ -2,18 +2,21 @@
 import { useState } from "react";
 import { Menu, X, Brain, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "EspaLuz", href: "#espaluz" },
-    { name: "Vibe Coding", href: "#vibe-coding" },
-    { name: "Vision", href: "#vision" },
-    { name: "Platform", href: "#platform" },
-    { name: "Agents", href: "#agents" },
-    { name: "Invest", href: "#invest" },
+    { name: t("nav.home"), href: "#home" },
+    { name: t("nav.espaluz"), href: "#espaluz" },
+    { name: t("nav.vibeCoding"), href: "#vibe-coding" },
+    { name: t("nav.vision"), href: "#vision" },
+    { name: t("nav.platform"), href: "#platform" },
+    { name: t("nav.agents"), href: "#agents" },
+    { name: t("nav.invest"), href: "#invest" },
   ];
 
   return (
@@ -44,11 +47,12 @@ const Navigation = () => {
               ))}
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:block">
+            {/* Desktop CTA & Language Switcher */}
+            <div className="hidden md:flex items-center gap-4">
+              <LanguageSwitcher />
               <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Join the AI-evolution
+                {t("nav.cta")}
               </Button>
             </div>
 
@@ -75,9 +79,12 @@ const Navigation = () => {
                     {item.name}
                   </a>
                 ))}
+                <div className="flex items-center justify-center py-2">
+                  <LanguageSwitcher />
+                </div>
                 <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4">
                   <Sparkles className="w-4 h-4 mr-2" />
-                  Join the AI-evolution
+                  {t("nav.cta")}
                 </Button>
               </div>
             </div>
