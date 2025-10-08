@@ -35,8 +35,6 @@ const LegalFooter = () => {
                 Distrito PANAMA<br/>
                 Corregimiento JUAN DIAZ<br/>
                 Calle/Avenida PRINCIPAL<br/>
-                Edificio PH LATITUDE<br/>
-                Casa/Apto 8B<br/>
                 Dirección Descriptiva COSTA DEL ESTE
               </p>
             </div>
@@ -49,7 +47,7 @@ const LegalFooter = () => {
               <p><strong>{t("footer.businessName")}</strong> {t("footer.businessNameValue")}</p>
               <p><strong>{t("footer.email")}</strong> aipa@aideazz.xyz</p>
               <p><strong>{t("footer.website")}</strong> aideazz.xyz</p>
-              <p><strong>{t("footer.phone")}</strong> +507 66623757</p>
+              <p><strong>{t("footer.phone")}</strong> +507 61 666 716</p>
               <p><strong>{t("footer.address")}</strong> {t("footer.addressValue")}</p>
               <p><strong>PANAMA</strong></p>
               <p><strong>{t("footer.province")}</strong> {t("footer.provinceValue")}</p>
