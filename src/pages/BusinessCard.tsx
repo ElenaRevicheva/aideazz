@@ -168,11 +168,15 @@ export default function BusinessCard() {
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
                       <motion.div 
-                        whileHover={{ scale: 1.1, rotate: 360 }}
-                        transition={{ duration: 0.6 }}
-                        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg shadow-purple-500/50"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                        className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30"
                       >
-                        <Globe className="w-8 h-8 text-white" />
+                        <img 
+                          src="/elena-photo.jpg" 
+                          alt="Elena Revicheva"
+                          className="w-full h-full object-cover"
+                        />
                       </motion.div>
                       <div>
                         <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
