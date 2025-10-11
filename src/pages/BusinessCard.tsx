@@ -179,15 +179,15 @@ export default function BusinessCard() {
                           Elena Revicheva
                         </h1>
                         <p className="text-sm text-purple-300 mt-1">
-                          Founder @ AIdeazz | AI Entrepreneur | Product Designer
+                          Founder @ AIdeazz | AI Product Builder | Full-Stack Creator
                         </p>
                         <p className="text-xs text-gray-300 mt-2 max-w-xl">
-                          Vision → Execution → Traction → Scale
+                          2 live AI agents • Real users across 19 countries • 8 months
                         </p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                           <span>📍 Panama</span>
-                          <span>🧠 EN 🇬🇧 + ES 🇪🇸</span>
-                          <span>⚡ Vibe Coder (by necessity)</span>
+                          <span>🧠 Bilingual EN/ES</span>
+                          <span>⚡ Builder & Founder</span>
                         </div>
                       </div>
                     </div>
@@ -295,12 +295,11 @@ export default function BusinessCard() {
 
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ Vibe Coded (March-Oct 2025)</strong> — resourceful execution
+                      <strong>⚡ March-October 2025</strong> — Solo Founder Journey
                     </p>
                     <p className="text-xs text-gray-300">
-                      No funding, no co-founder, no dev team? No problem. 
-                      Taught myself to code and shipped 7 projects solo to validate the vision. 
-                      Result: 2 live AI agents with real users across 19 countries.
+                      Built and shipped 7 AI projects from scratch. Learned to code while building. 
+                      Shipped 2 live agents (EspaLuz & ALGOM Alpha) now serving users across 19 Spanish-speaking countries.
                     </p>
                   </div>
 
@@ -312,7 +311,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        ⚙️ Tech Stack (Self-taught for survival)
+                        ⚙️ Tech Stack
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {techStack.map((tech, idx) => (
@@ -362,41 +361,41 @@ export default function BusinessCard() {
                     transition={{ delay: 0.8 }}
                     className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
                   >
-                    <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 What I Bring to Your Team</p>
+                    <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 What I Do</p>
                     
                     <div className="mb-4 text-sm text-gray-300">
                       <p className="mb-2">
-                        <strong className="text-white">Proven execution:</strong> Shipped 2 live AI agents with real users, zero funding, zero team.
+                        <strong className="text-white">Ship AI products:</strong> 2 live agents with real users. Both launched and scaled solo.
                       </p>
                       <p className="mb-2">
-                        <strong className="text-white">Cross-domain skills:</strong> I own the full stack — product vision, UX design, technical implementation, go-to-market.
+                        <strong className="text-white">Own the full cycle:</strong> Product vision, UX design, technical build, go-to-market.
                       </p>
                       <p>
-                        <strong className="text-white">Speed & resourcefulness:</strong> 7 projects in 8 months. I ship, iterate, and learn fast.
+                        <strong className="text-white">Move fast:</strong> 7 projects in 8 months. Ship, iterate, improve.
                       </p>
                     </div>
 
                     <div className="space-y-4">
                       <div>
-                        <p className="text-sm font-semibold text-green-400 mb-2">💎 HYBRID Model (Most Interested)</p>
+                        <p className="text-sm font-semibold text-green-400 mb-2">💎 Ideal Setup: HYBRID</p>
                         <ul className="text-xs text-gray-300 space-y-1.5 ml-4">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Full-time role at your AI startup + pre-seed investment for AIdeazz</span>
+                            <span>Full-time role at AI startup + pre-seed for AIdeazz</span>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Win-win: You get 100% of my execution power, I continue building the AI companion vision</span>
+                            <span>You get full execution capacity, I scale the AI companion vision in parallel</span>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Strategic advising/consulting + AIdeazz partnership opportunities</span>
+                            <span>Strategic partnership opportunities between your product and AIdeazz ecosystem</span>
                           </li>
                         </ul>
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-blue-400 mb-2">💼 Full-Time Roles (Also Open)</p>
+                        <p className="text-sm font-semibold text-blue-400 mb-2">💼 Also Consider</p>
                         <div className="flex flex-wrap gap-2">
                           <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Designer</span>
                           <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Manager</span>
@@ -406,13 +405,13 @@ export default function BusinessCard() {
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-purple-400 mb-2">💰 Investment Only (Possible)</p>
-                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed for AIdeazz • Live agents + traction + clear roadmap to revenue</p>
+                        <p className="text-sm font-semibold text-purple-400 mb-2">💰 Investment Track</p>
+                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed for AIdeazz • Live agents • Organic traction • Clear GTM</p>
                       </div>
                     </div>
 
                     <p className="text-xs text-gray-400 mt-4">
-                      Available immediately. Open to remote, hybrid, or relocation. Let's talk if there's a match.
+                      Remote, hybrid, or relocation — all work. Let's explore fit.
                     </p>
                   </motion.div>
                 </motion.section>
@@ -453,13 +452,13 @@ export default function BusinessCard() {
                     </div>
 
                     <div className="mb-6">
-                      <p className="text-sm text-blue-300 mb-3">⚡ How It Started:</p>
+                      <p className="text-sm text-blue-300 mb-3">⚡ The Build:</p>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        March 2025: Founded AIdeazz with vision but no funding, no co-founder, no dev budget.
+                        March 2025: Founded AIdeazz. Built and shipped 7 projects solo to validate the vision.
                         <br />
-                        Strategy: Vibe coded 7 projects solo (March-Oct 2025) to validate product-market fit.
+                        <strong className="text-white">Launch:</strong> EspaLuz (AI Spanish tutor) and ALGOM Alpha (AI crypto advisor) — both live and serving users.
                         <br />
-                        <strong className="text-white">Traction:</strong> 2 live agents (EspaLuz & ALGOM Alpha) with organic user growth across LATAM.
+                        <strong className="text-white">Traction:</strong> Organic user growth across 19 Spanish-speaking countries in LATAM.
                       </p>
                     </div>
 
@@ -494,15 +493,15 @@ export default function BusinessCard() {
                   transition={{ delay: 1 }}
                   className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl text-center"
                 >
-                  <h2 className="text-2xl font-bold mb-4">🔥 Ready to Ship With Your Team</h2>
+                  <h2 className="text-2xl font-bold mb-4">🔥 Let's Build</h2>
                   <p className="text-gray-300 mb-3">
-                    <strong>For Employers:</strong> I own the full product lifecycle — from vision to live users. Hire me to ship your AI products faster.
+                    <strong>For teams:</strong> I ship AI products end-to-end. Vision to launch to users.
                   </p>
                   <p className="text-gray-300 mb-3">
-                    <strong>For Investors:</strong> Live agents, organic traction, and a clear path to emotionally intelligent AI companions at scale.
+                    <strong>For investors:</strong> 2 live agents, organic traction, clear path to emotionally intelligent AI at scale.
                   </p>
                   <p className="text-gray-300 mb-6">
-                    <strong>Location:</strong> Based in 🇵🇦 Panama (LATAM timezone) • Bilingual EN/ES • Open to remote, hybrid, or relocation
+                    Based in 🇵🇦 Panama (LATAM timezone) • Bilingual EN/ES • Remote/hybrid/relocation — all work
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
