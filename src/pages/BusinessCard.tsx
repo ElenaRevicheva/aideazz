@@ -592,11 +592,15 @@ export default function BusinessCard() {
                 >
                   <div className="text-center mb-8">
                     <motion.div 
-                      whileHover={{ scale: 1.1, rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                      className="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg shadow-purple-500/50 mb-4"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-24 h-24 mx-auto rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30 mb-4"
                     >
-                      <Globe className="w-10 h-10 text-white" />
+                      <img 
+                        src="/elena-photo-back.jpg" 
+                        alt="Elena Revicheva"
+                        className="w-full h-full object-cover"
+                      />
                     </motion.div>
                     <h1 className="text-4xl font-bold mb-2">Elena Revicheva</h1>
                     <p className="text-purple-300 text-lg mb-3">Founder @ AIdeazz</p>
