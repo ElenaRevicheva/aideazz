@@ -295,11 +295,12 @@ export default function BusinessCard() {
 
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ Vibe Coded (March-Oct 2025)</strong> — by necessity, not choice
+                      <strong>⚡ Vibe Coded (March-Oct 2025)</strong> — resourceful execution
                     </p>
                     <p className="text-xs text-gray-300">
-                      Founded AIdeazz with vision but no funding, no technical co-founder, no dev budget. 
-                      Solution: Learned to vibe code. Shipped 7 projects solo to prove the vision works.
+                      No funding, no co-founder, no dev team? No problem. 
+                      Taught myself to code and shipped 7 projects solo to validate the vision. 
+                      Result: 2 live AI agents with real users across 19 countries.
                     </p>
                   </div>
 
@@ -361,45 +362,57 @@ export default function BusinessCard() {
                     transition={{ delay: 0.8 }}
                     className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
                   >
-                    <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 Actively Seeking (Need Income to Provide for Family)</p>
+                    <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 What I Bring to Your Team</p>
                     
+                    <div className="mb-4 text-sm text-gray-300">
+                      <p className="mb-2">
+                        <strong className="text-white">Proven execution:</strong> Shipped 2 live AI agents with real users, zero funding, zero team.
+                      </p>
+                      <p className="mb-2">
+                        <strong className="text-white">Cross-domain skills:</strong> I own the full stack — product vision, UX design, technical implementation, go-to-market.
+                      </p>
+                      <p>
+                        <strong className="text-white">Speed & resourcefulness:</strong> 7 projects in 8 months. I ship, iterate, and learn fast.
+                      </p>
+                    </div>
+
                     <div className="space-y-4">
                       <div>
-                        <p className="text-sm font-semibold text-green-400 mb-2">💎 HYBRID (Ideal)</p>
+                        <p className="text-sm font-semibold text-green-400 mb-2">💎 HYBRID Model (Most Interested)</p>
                         <ul className="text-xs text-gray-300 space-y-1.5 ml-4">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Paid role at AI startup + ability to continue AIdeazz with pre-seed investment</span>
+                            <span>Full-time role at your AI startup + pre-seed investment for AIdeazz</span>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>I believe every human will soon want their own emotionally intelligent AI companion evolving with them through life</span>
+                            <span>Win-win: You get 100% of my execution power, I continue building the AI companion vision</span>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Paid advising/consulting while scaling AIdeazz agents</span>
+                            <span>Strategic advising/consulting + AIdeazz partnership opportunities</span>
                           </li>
                         </ul>
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-blue-400 mb-2">💼 Employment (Priority)</p>
+                        <p className="text-sm font-semibold text-blue-400 mb-2">💼 Full-Time Roles (Also Open)</p>
                         <div className="flex flex-wrap gap-2">
                           <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Designer</span>
                           <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Manager</span>
                           <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">Founding AI Engineer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI UX Strategist</span>
+                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI UX Lead</span>
                         </div>
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-purple-400 mb-2">💰 Investment (Open)</p>
-                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed for AIdeazz • Capital to hire engineers & scale traction</p>
+                        <p className="text-sm font-semibold text-purple-400 mb-2">💰 Investment Only (Possible)</p>
+                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed for AIdeazz • Live agents + traction + clear roadmap to revenue</p>
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-4 italic">
-                      Reality: I need income now. Investment would be amazing, but I can't wait indefinitely. Open to all conversations.
+                    <p className="text-xs text-gray-400 mt-4">
+                      Available immediately. Open to remote, hybrid, or relocation. Let's talk if there's a match.
                     </p>
                   </motion.div>
                 </motion.section>
@@ -440,34 +453,34 @@ export default function BusinessCard() {
                     </div>
 
                     <div className="mb-6">
-                      <p className="text-sm text-blue-300 mb-3">⚡ The Reality:</p>
+                      <p className="text-sm text-blue-300 mb-3">⚡ How It Started:</p>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        March 2025: Founded AIdeazz with vision but no funding, no technical co-founder, no dev budget.
+                        March 2025: Founded AIdeazz with vision but no funding, no co-founder, no dev budget.
                         <br />
-                        Solution: Vibe coded 7 projects solo (March-Oct 2025) to prove the concept.
+                        Strategy: Vibe coded 7 projects solo (March-Oct 2025) to validate product-market fit.
                         <br />
-                        Result: 2 live agents (EspaLuz & ALGOM Alpha) gaining real users organically.
+                        <strong className="text-white">Traction:</strong> 2 live agents (EspaLuz & ALGOM Alpha) with organic user growth across LATAM.
                       </p>
                     </div>
 
                     <div>
-                      <p className="text-sm text-pink-300 mb-3">🧭 What I Need:</p>
+                      <p className="text-sm text-pink-300 mb-3">🧭 Next Steps:</p>
                       <ul className="space-y-2 text-sm text-gray-300">
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          HYBRID: Paid employment at AI startup + pre-seed for AIdeazz (ideal)
+                          Scaling EspaLuz & ALGOM Alpha to 10K+ users across LATAM
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          OR: Full-time AI Product/Engineering role to sustain myself & family
+                          Building v2: More emotionally intelligent, more personalized, more helpful
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          OR: Investment to hire engineers & scale agents to revenue
+                          Exploring partnerships with EdTech & FinTech companies in Panama + beyond
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Not waiting for "someday" — actively building while seeking opportunities
+                          Open to joining the right team to accelerate this vision together
                         </li>
                       </ul>
                     </div>
@@ -481,15 +494,15 @@ export default function BusinessCard() {
                   transition={{ delay: 1 }}
                   className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl text-center"
                 >
-                  <h2 className="text-2xl font-bold mb-4">🔥 Let's Talk — I'm Ready Now</h2>
+                  <h2 className="text-2xl font-bold mb-4">🔥 Ready to Ship With Your Team</h2>
                   <p className="text-gray-300 mb-3">
-                    <strong>For Employers:</strong> I ship products, not just code. Proven execution with 2 live agents, real users, no team.
+                    <strong>For Employers:</strong> I own the full product lifecycle — from vision to live users. Hire me to ship your AI products faster.
                   </p>
                   <p className="text-gray-300 mb-3">
-                    <strong>For Investors:</strong> Real traction, resourcefulness, and clear vision. Built everything with $0 funding.
+                    <strong>For Investors:</strong> Live agents, organic traction, and a clear path to emotionally intelligent AI companions at scale.
                   </p>
                   <p className="text-gray-300 mb-6">
-                    <strong>For Both:</strong> Based in 🇵🇦 Panama (LATAM timezone) • Bilingual EN/ES • Available immediately
+                    <strong>Location:</strong> Based in 🇵🇦 Panama (LATAM timezone) • Bilingual EN/ES • Open to remote, hybrid, or relocation
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
