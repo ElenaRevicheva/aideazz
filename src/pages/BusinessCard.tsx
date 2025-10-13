@@ -212,7 +212,7 @@ export default function BusinessCard() {
                       <a href="mailto:aipa@aideazz.xyz" 
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
-                        <Mail className="w-4 h-4"/> Hire Me
+                        <Mail className="w-4 h-4"/> Let's Build 🚀
                       </a>
                     </div>
                   </div>
@@ -638,11 +638,11 @@ export default function BusinessCard() {
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      href="mailto:hello@aideazz.xyz"
+                      href="mailto:aipa@aideazz.xyz"
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
-                      <Mail className="w-4 h-4" /> Contact Me
+                      <Mail className="w-4 h-4" /> Let's Connect ✨
                     </motion.a>
                   </div>
 
@@ -757,11 +757,11 @@ export default function BusinessCard() {
                       <Linkedin className="w-4 h-4" /> LinkedIn
                     </a>
                     <a 
-                      href="mailto:hello@aideazz.xyz"
+                      href="mailto:aipa@aideazz.xyz"
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
-                      <Mail className="w-4 h-4" /> Contact
+                      <Mail className="w-4 h-4" /> Let's Talk 💬
                     </a>
                   </div>
 
