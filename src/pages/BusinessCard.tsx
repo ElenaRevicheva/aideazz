@@ -399,18 +399,6 @@ export default function BusinessCard() {
                     className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
                   >
                     <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 What I Do</p>
-                    
-                    <div className="mb-4 text-sm text-gray-300">
-                      <p className="mb-2">
-                        <strong className="text-white">Ship AI products:</strong> 6 production apps (4 live AI agents, 2 apps) with real users. All launched and scaled solo.
-                      </p>
-                      <p className="mb-2">
-                        <strong className="text-white">Own the full cycle:</strong> Product vision, UX design, technical build, go-to-market.
-                      </p>
-                      <p>
-                        <strong className="text-white">Move fast:</strong> 6 production apps in 7 months. Ship, iterate, improve.
-                      </p>
-                    </div>
 
                     <div className="space-y-4">
                       <div>
