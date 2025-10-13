@@ -396,49 +396,62 @@ export default function BusinessCard() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
+                    className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl p-8 border-2 border-purple-500/50 shadow-2xl shadow-purple-500/30"
                   >
-                    <p className="text-sm text-purple-300 font-semibold mb-4">💼 I am actually open to:</p>
+                    <p className="text-xl text-purple-200 font-bold mb-6 text-center">💼 I am actually open to:</p>
 
-                    <div className="space-y-4">
-                      <div>
-                        <p className="text-xs font-semibold text-blue-400 mb-2">AI roles</p>
-                        <div className="flex flex-wrap gap-2 ml-4">
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Manager</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">Full-Stack AI Engineer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">Founding Engineer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Designer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">LLM Engineer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Solutions Architect</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Growth Engineer</span>
+                    <div className="space-y-6">
+                      <div className="backdrop-blur-sm bg-blue-600/10 rounded-xl p-4 border border-blue-500/30">
+                        <p className="text-sm font-bold text-blue-300 mb-3">AI roles</p>
+                        <div className="flex flex-wrap gap-2">
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Product Manager</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">Full-Stack AI Engineer</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">Founding Engineer</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Product Designer</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">LLM Engineer</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Solutions Architect</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Growth Engineer</span>
                         </div>
                       </div>
 
-                      <div>
-                        <p className="text-xs font-semibold text-purple-400 mb-2">Pre-seed/Seed investment for AIdeazz Start up</p>
-                        <p className="text-xs text-gray-300 ml-4">6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution</p>
-                      </div>
+                      <a 
+                        href="https://www.aideazz.xyz/pitch.html" 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="block backdrop-blur-sm bg-purple-600/10 rounded-xl p-4 border border-purple-500/30 hover:bg-purple-600/20 hover:border-purple-400/50 transition-all group"
+                      >
+                        <p className="text-sm font-bold text-purple-300 mb-3 group-hover:text-purple-200 transition-colors">Pre-seed/Seed investment for AIdeazz Start up 🚀</p>
+                        <p className="text-sm text-gray-200">6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution</p>
+                        <p className="text-xs text-purple-400 mt-2 group-hover:text-purple-300">→ View full pitch deck</p>
+                      </a>
 
-                      <div>
-                        <p className="text-xs font-semibold text-green-400 mb-2">💎 IDEAL: Hybrid Approach</p>
-                        <ul className="text-xs text-gray-300 space-y-1.5 ml-4">
+                      <div className="backdrop-blur-sm bg-green-600/10 rounded-xl p-4 border-2 border-green-500/40">
+                        <p className="text-base font-bold text-green-300 mb-3">💎 IDEAL: Hybrid Approach</p>
+                        <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5">✦</span>
-                            <span>Full-time role at AI startup + pre-seed for AIdeazz</span>
+                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
+                            <a 
+                              href="https://aideazz.xyz/" 
+                              target="_blank" 
+                              rel="noreferrer"
+                              className="hover:text-white hover:underline transition-all"
+                            >
+                              Full-time role at AI startup + pre-seed for AIdeazz
+                            </a>
                           </li>
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5">✦</span>
+                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
                             <span>You get full execution capacity, I scale AIdeazz vision in parallel</span>
                           </li>
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5">✦</span>
+                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
                             <span>Strategic partnership opportunities between your product and AIdeazz ecosystem</span>
                           </li>
                         </ul>
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-4">
+                    <p className="text-base text-center text-purple-200 font-semibold mt-6">
                       Let's explore fit.
                     </p>
                   </motion.div>
