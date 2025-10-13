@@ -500,14 +500,14 @@ export default function BusinessCard() {
                   >
                     <div className="mb-6">
                       <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                        AIdeazz - Born in Panama
+                        AIdeazz Startup - Born in Panama
                       </h3>
                       <p className="text-gray-300 leading-relaxed mb-3">
                         Ecosystem of emotionally intelligent AI companions — built to help people grow, succeed, and thrive. 
-                        In learning languages. In relocation. In career shift and professional transformation.
+                        In learning languages. In relocation. In career shift and professional transformation. And other life challenges.
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because Life is a challenging process of learning.
+                        Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because life is a permanent process of learning.
                       </p>
                     </div>
 
