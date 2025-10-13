@@ -685,18 +685,18 @@ export default function BusinessCard() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-6 mb-8">
-                    <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-purple-400 mb-1">6</div>
-                      <div className="text-xs text-gray-400">Production Apps</div>
+                  <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">6</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">AI Products</div>
                     </div>
-                    <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-blue-400 mb-1">28</div>
-                      <div className="text-xs text-gray-400">Technologies</div>
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">28</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Technologies</div>
                     </div>
-                    <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-pink-400 mb-1">1</div>
-                      <div className="text-xs text-gray-400">Ecosystem Vision</div>
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">1</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Ecosystem<br className="sm:hidden" /> Vision</div>
                     </div>
                   </div>
 
