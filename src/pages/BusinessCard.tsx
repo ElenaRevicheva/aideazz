@@ -677,10 +677,10 @@ export default function BusinessCard() {
                     <h1 className="text-4xl font-bold mb-2">Elena Revicheva</h1>
                     <p className="text-purple-300 text-lg mb-3">Founder @ AIdeazz</p>
                     <p className="text-gray-400 text-sm">
-                      AI Entrepreneur | Product Designer | Tech Visionary
+                      AI Entrepreneur | Vibe Coder
                     </p>
                     <div className="flex items-center justify-center gap-4 mt-3 text-sm text-gray-400">
-                      <span>📍 Panama</span>
+                      <span>🇵🇦 Panama</span>
                       <span>🧠 EN 🇬🇧 + ES 🇪🇸</span>
                     </div>
                   </div>
@@ -692,7 +692,7 @@ export default function BusinessCard() {
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">28</div>
-                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Technologies</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Tech Vibes</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">1</div>
@@ -702,8 +702,7 @@ export default function BusinessCard() {
 
                   <div className="mb-8 text-center">
                     <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                      Building emotionally intelligent AI agents that help humans grow, connect & thrive. 
-                      Seeking opportunities in AI Product Design, partnerships, and investment.
+                      Building emotionally intelligent educational AI PersonalAssistants (AIPAs).
                     </p>
                   </div>
 
