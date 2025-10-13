@@ -127,12 +127,15 @@ export default function BusinessCard() {
   };
 
   const coreStrengths: string[] = [
-    "AI Product Vision & Strategy",
-    "Conversational UX Design",
+    "AI Product Vision & Strategy - AI-First Development - 10x faster shipping",
+    "Multi-AI Orchestration - 8+ services integrated",
+    "Full-Stack Engineering via vibe coding - React/TypeScript + Python/Node",
     "0→1 Execution (proven by live agents)",
+    "Cross-Platform problem solving - Web, Telegram, WhatsApp, blockchain",
     "Human-AI Interaction Design",
-    "Cross-domain Problem Solving",
-    "Bilingual Product (EN/ES)"
+    "Web3 & Blockchain - Smart contracts, NFTs on Polygon",
+    "Bilingual Product (EN/ES)",
+    "The full cycle: AI Product vision, UX design, build & deploy, go-to-market. Ship, iterate, improve."
   ];
 
   return (
@@ -370,7 +373,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        🧩 What I'm Actually Good At
+                        💫 My Core Vibes
                       </h3>
                       <ul className="space-y-2">
                         {coreStrengths.map((strength, idx) => (
