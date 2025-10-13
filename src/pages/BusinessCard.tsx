@@ -373,13 +373,13 @@ export default function BusinessCard() {
                     
                     <div className="mb-4 text-sm text-gray-300">
                       <p className="mb-2">
-                        <strong className="text-white">Ship AI products:</strong> 2 live agents with real users. Both launched and scaled solo.
+                        <strong className="text-white">Ship AI products:</strong> 6 production apps (4 live AI agents, 2 apps) with real users. All launched and scaled solo.
                       </p>
                       <p className="mb-2">
                         <strong className="text-white">Own the full cycle:</strong> Product vision, UX design, technical build, go-to-market.
                       </p>
                       <p>
-                        <strong className="text-white">Move fast:</strong> 7 projects in 8 months. Ship, iterate, improve.
+                        <strong className="text-white">Move fast:</strong> 6 production apps in 7 months. Ship, iterate, improve.
                       </p>
                     </div>
 
