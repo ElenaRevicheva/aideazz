@@ -702,7 +702,7 @@ export default function BusinessCard() {
 
                   <div className="mb-8 text-center">
                     <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                      Building emotionally intelligent educational AI PersonalAssistants (AIPAs).
+                      Building emotionally intelligent AI PersonalAssistants (AIPAs).
                     </p>
                   </div>
 
