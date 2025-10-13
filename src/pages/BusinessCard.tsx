@@ -697,35 +697,35 @@ export default function BusinessCard() {
                         className="w-full h-full object-cover"
                       />
                     </motion.div>
-                    <h1 className="text-4xl font-bold mb-2">Elena Revicheva</h1>
-                    <p className="text-purple-300 text-lg mb-3">Founder @ AIdeazz</p>
+                    <h1 className="text-4xl font-bold mb-2">{t('cardBack.name')}</h1>
+                    <p className="text-purple-300 text-lg mb-3">{t('cardBack.founder')}</p>
                     <p className="text-gray-400 text-sm">
-                      AI Entrepreneur | Vibe Coder
+                      {t('cardBack.subtitle')}
                     </p>
                     <div className="flex items-center justify-center gap-4 mt-3 text-sm text-gray-400">
-                      <span>🇵🇦 Panama</span>
-                      <span>🧠 EN 🇬🇧 + ES 🇪🇸</span>
+                      <span>🇵🇦 {t('cardBack.location')}</span>
+                      <span>🧠 {t('cardBack.languages')}</span>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">6</div>
-                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">AI Products</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat1')}</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">28</div>
-                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Tech DNA</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat2')}</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">1</div>
-                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">Ecosystem<br className="sm:hidden" /> Vision</div>
+                      <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat3')}</div>
                     </div>
                   </div>
 
                   <div className="mb-8 text-center">
                     <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                      Building emotionally intelligent AI PersonalAssistants (AIPAs).
+                      {t('cardBack.desc')}
                     </p>
                   </div>
 
@@ -737,7 +737,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Globe className="w-4 h-4" /> Portfolio
+                      <Globe className="w-4 h-4" /> {t('cardBack.portfolio')}
                     </a>
                     <a 
                       href="https://x.com/reviceva" 
@@ -746,7 +746,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Twitter className="w-4 h-4" /> X
+                      <Twitter className="w-4 h-4" /> {t('cardBack.twitter')}
                     </a>
                     <a 
                       href="https://www.linkedin.com/in/elenarevicheva/" 
@@ -755,20 +755,20 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Linkedin className="w-4 h-4" /> LinkedIn
+                      <Linkedin className="w-4 h-4" /> {t('cardBack.linkedin')}
                     </a>
                     <a 
                       href="mailto:aipa@aideazz.xyz"
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
-                      <Mail className="w-4 h-4" /> Let's Talk 💬
+                      <Mail className="w-4 h-4" /> {t('cardBack.email')}
                     </a>
                   </div>
 
                   <div className="mt-8 text-center">
                     <p className="text-sm text-purple-300 italic">
-                      "Have an AIdeazz? Get on the ledger." ⚡
+                      {t('cardBack.quote')}
                     </p>
                   </div>
 
@@ -778,7 +778,7 @@ export default function BusinessCard() {
                       transition={{ repeat: Infinity, duration: 2 }}
                       className="text-sm text-purple-400"
                     >
-                      ✨ Click to see full portfolio ✨
+                      ✨ {t('cardBack.flipText')} ✨
                     </motion.p>
                   </div>
                 </motion.div>
