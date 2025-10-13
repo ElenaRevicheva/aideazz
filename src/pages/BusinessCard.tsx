@@ -220,7 +220,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-purple-400" />
-                    <h2 className="text-2xl font-bold">1️⃣ Live AI Agents & Apps — Early Traction. Monetization Ready.</h2>
+                    <h2 className="text-2xl font-bold">1️⃣ Live AI Products — Monetization Ready.</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
