@@ -183,10 +183,10 @@ export default function BusinessCard() {
                           Elena Revicheva
                         </h1>
                         <p className="text-sm text-purple-300 mt-1">
-                          Founder @ AIdeazz | AI Product Builder | Full-Stack Creator
+                          Founder @ AIdeazz | AI-First Engineer | Solo Vibe Coder
                         </p>
                         <p className="text-xs text-gray-300 mt-2 max-w-xl">
-                          2 live AI agents • Real users across 19 countries • 8 months
+                          6 apps in 7 months • Solo vibe coded • &lt;$15K investment • Early traction
                         </p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                           <span>📍 Panama</span>
@@ -202,7 +202,7 @@ export default function BusinessCard() {
                         className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
                         🌐 AIdeazz
                       </a>
-                      <a href="mailto:hello@aideazz.xyz" 
+                      <a href="mailto:aipa@aideazz.xyz" 
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
                         <Mail className="w-4 h-4"/> Hire Me
@@ -220,7 +220,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-purple-400" />
-                    <h2 className="text-2xl font-bold">1️⃣ Live AI Agents — Real Users. Real Traction.</h2>
+                    <h2 className="text-2xl font-bold">1️⃣ Production Apps — Early Traction. Monetization Ready.</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
