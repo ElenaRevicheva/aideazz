@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface Agent {
   emoji: string;
@@ -24,8 +25,14 @@ interface Particle {
 }
 
 export default function BusinessCard() {
+  const { t, i18n } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'es' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -95,25 +102,25 @@ export default function BusinessCard() {
   const agents: Agent[] = [
     {
       emoji: "🪄",
-      title: "EspaLuz",
-      subtitle: "WhatsApp AI Spanish Tutor",
-      desc: "Emotionally intelligent conversational tutor for expats & travelers across 19 Spanish-speaking countries. Real dialogue, not word-by-word translation.",
-      traction: "Growing organically with early user adoption across Panama and LATAM • PayPal Subscriptions LIVE, Crypto integrated",
-      tech: "Python, OpenAI GPT, WhatsApp API, LangChain, Conversation Design",
-      action: "Chat on WhatsApp",
+      title: t('section1.espaluz.title'),
+      subtitle: t('section1.espaluz.subtitle'),
+      desc: t('section1.espaluz.desc'),
+      traction: t('section1.espaluz.traction'),
+      tech: t('section1.espaluz.tech'),
+      action: t('section1.espaluz.action'),
       link: "https://wa.me/50766623757",
-      badge: "LIVE"
+      badge: t('section1.espaluz.badge')
     },
     {
       emoji: "🧠",
-      title: "ALGOM Alpha",
-      subtitle: "AI Crypto Advisor for Post-Scammer Era",
-      desc: "AI crypto mentor for beginner traders — teaching basics, safe trading, and digital literacy. Autonomous paper trading with real-time market analysis across 5 exchanges using technical indicators (LIVE on X and Railway).",
-      traction: "First 180 followers attracted • Engaging crypto community through trading education and auto-posting market insights with paper trading results to X",
-      tech: "Node.js, Eliza OS, CCXT (5 exchanges), Twitter API v2, WebSocket, Technical indicators (MA, RSI)",
-      action: "Follow on X",
+      title: t('section1.algom.title'),
+      subtitle: t('section1.algom.subtitle'),
+      desc: t('section1.algom.desc'),
+      traction: t('section1.algom.traction'),
+      tech: t('section1.algom.tech'),
+      action: t('section1.algom.action'),
       link: "https://x.com/reviceva",
-      badge: "LIVE"
+      badge: t('section1.algom.badge')
     }
   ];
 
@@ -127,15 +134,15 @@ export default function BusinessCard() {
   };
 
   const coreStrengths: string[] = [
-    "AI Product Vision & Strategy - AI-First Development - 10x faster shipping",
-    "Multi-AI Orchestration - 8+ services integrated",
-    "Full-Stack Engineering via vibe coding - React/TypeScript + Python/Node",
-    "0→1 Execution (proven by live agents)",
-    "Cross-Platform problem solving - Web, Telegram, WhatsApp, blockchain",
-    "Human-AI Interaction Design",
-    "Web3 & Blockchain - Smart contracts, NFTs on Polygon",
-    "Bilingual Product (EN/ES)",
-    "The full cycle: AI Product vision, UX design, build & deploy, go-to-market. Ship, iterate, improve."
+    t('section2.coreVibes.strength1'),
+    t('section2.coreVibes.strength2'),
+    t('section2.coreVibes.strength3'),
+    t('section2.coreVibes.strength4'),
+    t('section2.coreVibes.strength5'),
+    t('section2.coreVibes.strength6'),
+    t('section2.coreVibes.strength7'),
+    t('section2.coreVibes.strength8'),
+    t('section2.coreVibes.strength9')
   ];
 
   return (
@@ -144,6 +151,17 @@ export default function BusinessCard() {
       
       <div className="fixed top-0 left-0 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl animate-pulse" />
       <div className="fixed bottom-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+
+      {/* Language Toggle Button */}
+      <motion.button
+        onClick={toggleLanguage}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="fixed top-6 right-6 z-50 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg backdrop-blur-sm border border-white/10 flex items-center gap-2"
+      >
+        <Languages className="w-4 h-4" />
+        <span className="text-sm">{i18n.language === 'en' ? 'ES' : 'EN'}</span>
+      </motion.button>
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-6">
         <div 
@@ -187,18 +205,18 @@ export default function BusinessCard() {
                       </motion.div>
                       <div>
                         <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
-                          Elena Revicheva
+                          {t('header.name')}
                         </h1>
                         <p className="text-sm text-purple-300 mt-1">
-                          Founder @ AIdeazz | AI-First Engineer | Solo Vibe Coder
+                          {t('header.title')}
                         </p>
                         <p className="text-xs text-gray-300 mt-2 max-w-xl">
-                          6 deployments (4 live AI agents, 2 apps) • 7 months solo vibe coded • &lt;$15K • Early traction
+                          {t('header.stats')}
                         </p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                          <span>📍 Panama</span>
-                          <span>🧠 Bilingual EN/ES</span>
-                          <span>⚡ Builder & Founder</span>
+                          <span>📍 {t('header.location')}</span>
+                          <span>🧠 {t('header.bilingual')}</span>
+                          <span>⚡ {t('header.builder')}</span>
                         </div>
                       </div>
                     </div>
@@ -207,12 +225,12 @@ export default function BusinessCard() {
                       <a href="https://aideazz.xyz" target="_blank" rel="noreferrer" 
                         onClick={(e) => e.stopPropagation()}
                         className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
-                        🌐 AIdeazz
+                        🌐 {t('header.websiteButton')}
                       </a>
                       <a href="mailto:aipa@aideazz.xyz" 
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
-                        <Mail className="w-4 h-4"/> Let's Build 🚀
+                        <Mail className="w-4 h-4"/> {t('header.contactButton')}
                       </a>
                     </div>
                   </div>
@@ -227,7 +245,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-purple-400" />
-                    <h2 className="text-2xl font-bold">1️⃣ Live AI Products — Monetization Ready.</h2>
+                    <h2 className="text-2xl font-bold">1️⃣ {t('section1.title')}</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
@@ -301,39 +319,39 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-blue-400" />
-                    <h2 className="text-2xl font-bold">2️⃣ How I Built This Alone</h2>
+                    <h2 className="text-2xl font-bold">2️⃣ {t('section2.title')}</h2>
                   </div>
 
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ March 2025 - Present</strong> — Solo Vibe Coder Journey
+                      <strong>⚡ {t('section2.timeline.title')}</strong> — {t('section2.timeline.subtitle')}
                     </p>
-                    <p className="text-xs text-white font-semibold mb-1">Key Stats:</p>
+                    <p className="text-xs text-white font-semibold mb-1">{t('section2.timeline.keyStats')}</p>
                     <ul className="space-y-1 text-xs text-gray-300">
-                      <li>• 50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)</li>
-                      <li>• 8+ AI services integrated (Claude, GPT, Whisper, TTS, HeyGen, OCR etc.)</li>
+                      <li>• {t('section2.timeline.stat1')}</li>
+                      <li>• {t('section2.timeline.stat2')}</li>
                     </ul>
                   </div>
 
                   <div className="mt-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ THE VIBE CODING ADVANTAGE</strong>
+                      <strong>⚡ {t('section2.vibeAdvantage.title')}</strong>
                     </p>
                     <p className="text-xs text-gray-300 mb-3">
-                      Solo-built 6 production apps in 7 months for &lt;$15K using AI-assisted development (Claude AI tools, Cursor etc.):
+                      {t('section2.vibeAdvantage.desc')}
                     </p>
                     <div className="grid grid-cols-2 gap-4 mt-3 text-xs">
                       <div>
-                        <p className="text-gray-400">Traditional Team:</p>
-                        <p className="text-white">$900K+/year</p>
+                        <p className="text-gray-400">{t('section2.vibeAdvantage.traditional')}</p>
+                        <p className="text-white">{t('section2.vibeAdvantage.traditionalCost')}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400">Vibe Coding:</p>
-                        <p className="text-green-400">&lt;$15K total</p>
+                        <p className="text-gray-400">{t('section2.vibeAdvantage.vibeCoding')}</p>
+                        <p className="text-green-400">{t('section2.vibeAdvantage.vibeCost')}</p>
                       </div>
                     </div>
                     <p className="text-xs text-purple-300 mt-2">
-                      Result: 98% cost reduction • 10x faster shipping
+                      {t('section2.vibeAdvantage.result')}
                     </p>
                   </div>
 
@@ -345,7 +363,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        ⚙️ Tech Stack
+                        ⚙️ {t('section2.techStack.title')}
                       </h3>
                       <div className="space-y-4">
                         {Object.entries(techStackByCategory).map(([category, techs]) => (
@@ -373,7 +391,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        💫 My Core Vibes
+                        💫 {t('section2.coreVibes.title')}
                       </h3>
                       <ul className="space-y-2">
                         {coreStrengths.map((strength, idx) => (
@@ -401,22 +419,22 @@ export default function BusinessCard() {
                     <div className="text-center mb-6">
                       <p className="text-2xl font-black mb-1">
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                          💼 I am actually open to:
+                          💼 {t('section2.openTo.title')}
                         </span>
                       </p>
                     </div>
 
                     <div className="space-y-6">
                       <div className="backdrop-blur-sm bg-blue-600/10 rounded-xl p-4 border border-blue-500/30">
-                        <p className="text-sm font-bold text-purple-300 mb-3">AI roles</p>
+                        <p className="text-sm font-bold text-purple-300 mb-3">{t('section2.openTo.aiRoles')}</p>
                         <div className="flex flex-wrap gap-2">
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Product Manager</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">Full-Stack AI Engineer</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">Founding Engineer</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Product Designer</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">LLM Engineer</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Solutions Architect</span>
-                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Growth Engineer</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role1')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role2')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role3')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role4')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role5')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role6')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role7')}</span>
                         </div>
                       </div>
 
@@ -429,19 +447,19 @@ export default function BusinessCard() {
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 group-hover:from-purple-600/30 group-hover:to-pink-600/30 transition-all" />
                         <div className="relative p-5">
                           <div className="flex items-center justify-between mb-3">
-                            <p className="text-base font-bold text-purple-300 group-hover:text-purple-200 transition-colors">Pre-seed/Seed investment for AIdeazz Start up</p>
+                            <p className="text-base font-bold text-purple-300 group-hover:text-purple-200 transition-colors">{t('section2.openTo.investment.title')}</p>
                             <span className="text-2xl group-hover:scale-110 transition-transform">🚀</span>
                           </div>
-                          <p className="text-sm text-gray-200 mb-3">6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution</p>
+                          <p className="text-sm text-gray-200 mb-3">{t('section2.openTo.investment.desc')}</p>
                           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg group-hover:from-purple-500 group-hover:to-pink-500 transition-all">
-                            <span className="text-sm font-bold text-white">View full pitch deck</span>
+                            <span className="text-sm font-bold text-white">{t('section2.openTo.investment.button')}</span>
                             <span className="text-white group-hover:translate-x-1 transition-transform">→</span>
                           </div>
                         </div>
                       </a>
 
                       <div className="backdrop-blur-sm bg-gradient-to-br from-green-600/20 to-emerald-600/20 rounded-xl p-5 border-2 border-green-400/50">
-                        <p className="text-base font-bold text-green-300 mb-4">💎 IDEAL: Hybrid Approach</p>
+                        <p className="text-base font-bold text-green-300 mb-4">💎 {t('section2.openTo.hybrid.title')}</p>
                         <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5 text-lg">✦</span>
@@ -452,21 +470,21 @@ export default function BusinessCard() {
                               className="relative group/link"
                             >
                               <span className="relative">
-                                Full-time role at AI startup + pre-seed for AIdeazz
+                                {t('section2.openTo.hybrid.item1')}
                                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 group-hover/link:w-full transition-all duration-300" />
                               </span>
                               <span className="inline-flex items-center gap-1 ml-2 px-2 py-0.5 bg-gradient-to-r from-green-600 to-blue-600 rounded text-xs font-bold text-white opacity-0 group-hover/link:opacity-100 transition-opacity">
-                                Explore <span className="group-hover/link:translate-x-0.5 transition-transform">→</span>
+                                {t('section2.openTo.hybrid.item1Button')} <span className="group-hover/link:translate-x-0.5 transition-transform">→</span>
                               </span>
                             </a>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5 text-lg">✦</span>
-                            <span>You get full execution capacity, I scale AIdeazz vision in parallel</span>
+                            <span>{t('section2.openTo.hybrid.item2')}</span>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5 text-lg">✦</span>
-                            <span>Strategic partnership opportunities between your product and AIdeazz ecosystem</span>
+                            <span>{t('section2.openTo.hybrid.item3')}</span>
                           </li>
                         </ul>
                       </div>
@@ -475,7 +493,7 @@ export default function BusinessCard() {
                     <div className="mt-8 text-center">
                       <p className="text-xl font-black">
                         <span className="bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent">
-                          Let's explore fit.
+                          {t('section2.openTo.closing')}
                         </span>
                       </p>
                     </div>
@@ -491,7 +509,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-pink-400" />
-                    <h2 className="text-2xl font-bold">3️⃣ AIdeazz Ecosystem — The Vision</h2>
+                    <h2 className="text-2xl font-bold">3️⃣ {t('section3.title')}</h2>
                   </div>
 
                   <motion.div
@@ -500,42 +518,40 @@ export default function BusinessCard() {
                   >
                     <div className="mb-6">
                       <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                        AIdeazz Startup - Born in Panama
+                        {t('section3.mainTitle')}
                       </h3>
                       <p className="text-gray-300 leading-relaxed mb-3">
-                        Ecosystem of emotionally intelligent AI companions — built to help people grow, succeed, and thrive. 
-                        In learning languages. In relocation. In career shift and professional transformation. And other life challenges.
+                        {t('section3.desc1')}
                       </p>
                       <p className="text-gray-300 leading-relaxed">
-                        Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because life is a permanent process of learning.
+                        {t('section3.desc2')}
                       </p>
                     </div>
 
                     <div className="mb-6">
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        <span className="text-purple-300">✨</span> I believe every human will someday want their own emotionally intelligent AI companion — to become the best version of Self. 
-                        Not generic chatbots, but deeply personal AI that grows alongside you.
+                        <span className="text-purple-300">✨</span> {t('section3.vision')}
                       </p>
                     </div>
 
                     <div>
-                      <p className="text-sm text-pink-300 mb-3">🧭 Next Steps:</p>
+                      <p className="text-sm text-pink-300 mb-3">🧭 {t('section3.nextSteps.title')}</p>
                       <ul className="space-y-2 text-sm text-gray-300">
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Scaling EspaLuz & ALGOM Alpha to 10K+ users across LATAM
+                          {t('section3.nextSteps.step1')}
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Building v2: More emotionally intelligent, more personalized, more helpful AI Companions
+                          {t('section3.nextSteps.step2')}
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Exploring partnerships with EdTech in Panama + beyond
+                          {t('section3.nextSteps.step3')}
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Open to joining the right team to accelerate this vision together
+                          {t('section3.nextSteps.step4')}
                         </li>
                       </ul>
                     </div>
@@ -545,24 +561,23 @@ export default function BusinessCard() {
                       <div className="backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-xl p-4 sm:p-5 border border-purple-500/30">
                         <div className="flex items-center gap-2 mb-3">
                           <span className="text-2xl">🌐</span>
-                          <p className="text-sm sm:text-base text-purple-300 font-semibold">Coming Soon: Web3 AI Agent Marketplace</p>
+                          <p className="text-sm sm:text-base text-purple-300 font-semibold">{t('section3.web3.title')}</p>
                         </div>
                         <p className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
-                          Where emotionally intelligent AI agents are wrapped in{' '}
-                          <strong className="text-white">ERC-7857 dynamic iNFTs</strong> — enabling true ownership, trading, and evolution of your personal AI companions.
+                          {t('section3.web3.desc')}
                         </p>
                         <div className="flex flex-wrap gap-1 sm:gap-2">
                           <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
-                            ERC-7857 NFTs
+                            {t('section3.web3.badge1')}
                           </span>
                           <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
-                            Web3-Native
+                            {t('section3.web3.badge2')}
                           </span>
                           <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
-                            AI Ownership
+                            {t('section3.web3.badge3')}
                           </span>
                           <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
-                            In Development
+                            {t('section3.web3.badge4')}
                           </span>
                         </div>
                       </div>
@@ -577,15 +592,15 @@ export default function BusinessCard() {
                   transition={{ delay: 1 }}
                   className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl text-center"
                 >
-                  <h2 className="text-2xl font-bold mb-4">🔥 Let's Build</h2>
+                  <h2 className="text-2xl font-bold mb-4">🔥 {t('contact.title')}</h2>
                   <p className="text-gray-300 mb-3">
-                    <strong>For teams:</strong> I ship AI products end-to-end. Vision to launch to users.
+                    <strong>{t('contact.forTeams')}</strong> {t('contact.forTeamsDesc')}
                   </p>
                   <p className="text-gray-300 mb-3">
-                    <strong>For investors:</strong> 2 live agents, organic traction, clear path to emotionally intelligent AI at scale.
+                    <strong>{t('contact.forInvestors')}</strong> {t('contact.forInvestorsDesc')}
                   </p>
                   <p className="text-gray-300 mb-6">
-                    Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES
+                    {t('contact.location')}
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
@@ -598,7 +613,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Globe className="w-4 h-4" /> Portfolio
+                      <Globe className="w-4 h-4" /> {t('contact.portfolio')}
                     </motion.a>
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
@@ -609,7 +624,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Twitter className="w-4 h-4" /> X / Twitter
+                      <Twitter className="w-4 h-4" /> {t('contact.twitter')}
                     </motion.a>
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
@@ -620,7 +635,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Linkedin className="w-4 h-4" /> LinkedIn
+                      <Linkedin className="w-4 h-4" /> {t('contact.linkedin')}
                     </motion.a>
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
@@ -629,17 +644,17 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
-                      <Mail className="w-4 h-4" /> Let's Connect ✨
+                      <Mail className="w-4 h-4" /> {t('contact.email')}
                     </motion.a>
                   </div>
 
                   <p className="mt-6 text-sm text-purple-300 italic">
-                    "Have an AIdeazz? Get on the ledger." ⚡
+                    {t('contact.quote')}
                   </p>
                 </motion.section>
 
                 <footer className="mt-12 text-center text-sm text-gray-500">
-                  © 2025 Elena Revicheva — AIdeazz. Built with ❤️ in Panama.
+                  {t('footer.copyright')}
                 </footer>
 
                 <div className="mt-6 text-center">
@@ -648,7 +663,7 @@ export default function BusinessCard() {
                     transition={{ repeat: Infinity, duration: 2 }}
                     className="text-sm text-purple-400"
                   >
-                    ✨ Click anywhere to flip card ✨
+                    ✨ {t('footer.flipPrompt')} ✨
                   </motion.p>
                 </div>
               </div>
