@@ -398,8 +398,6 @@ export default function BusinessCard() {
                     transition={{ delay: 0.8 }}
                     className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
                   >
-                    <p className="text-sm text-purple-300 uppercase tracking-wider mb-3">🎯 What I Do</p>
-
                     <div className="space-y-4">
                       <div>
                         <p className="text-sm font-semibold text-green-400 mb-2">💎 Ideal Setup: HYBRID</p>
