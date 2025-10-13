@@ -537,27 +537,35 @@ export default function BusinessCard() {
                           <span className="text-pink-400">•</span>
                           Open to joining the right team to accelerate this vision together
                         </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400">•</span>
-                          Web3 AI Agent Marketplace - where emotionally intelligent AI agents are wrapped in{' '}
-                          <strong className="text-white">ERC-7857 dynamic iNFTs</strong> — 
-                          enabling true ownership, trading, and evolution of your personal AI companions.
-                          <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3">
-                            <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
-                              ERC-7857 NFTs
-                            </span>
-                            <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
-                              Web3-Native
-                            </span>
-                            <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
-                              AI Ownership
-                            </span>
-                            <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
-                              In Development
-                            </span>
-                          </div>
-                        </li>
                       </ul>
+                    </div>
+
+                    {/* Web3 Section - Separated for better mobile display */}
+                    <div className="mt-6 pt-6 border-t border-white/10">
+                      <div className="backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-xl p-4 sm:p-5 border border-purple-500/30">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-2xl">🌐</span>
+                          <p className="text-sm sm:text-base text-purple-300 font-semibold">Coming Soon: Web3 AI Agent Marketplace</p>
+                        </div>
+                        <p className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
+                          Where emotionally intelligent AI agents are wrapped in{' '}
+                          <strong className="text-white">ERC-7857 dynamic iNFTs</strong> — enabling true ownership, trading, and evolution of your personal AI companions.
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
+                            ERC-7857 NFTs
+                          </span>
+                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
+                            Web3-Native
+                          </span>
+                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
+                            AI Ownership
+                          </span>
+                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
+                            In Development
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 </motion.section>
