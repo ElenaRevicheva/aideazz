@@ -98,7 +98,7 @@ export default function BusinessCard() {
       title: "EspaLuz",
       subtitle: "WhatsApp AI Spanish Tutor",
       desc: "Emotionally intelligent conversational tutor for expats & travelers across 19 Spanish-speaking countries. Real dialogue, not word-by-word translation.",
-      traction: "Growing organically with early user adoption across Panama and LATAM",
+      traction: "Growing organically with early user adoption across Panama and LATAM • PayPal Subscriptions LIVE, Crypto integrated",
       tech: "Python, OpenAI GPT, WhatsApp API, LangChain, Conversation Design",
       action: "Chat on WhatsApp",
       link: "https://wa.me/50766623757",
