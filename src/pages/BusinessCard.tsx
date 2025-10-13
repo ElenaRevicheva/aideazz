@@ -299,12 +299,16 @@ export default function BusinessCard() {
 
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ March-October 2025</strong> — Solo Founder Journey
+                      <strong>⚡ March 2025 - Present</strong> — Solo Vibe Coder Journey
                     </p>
-                    <p className="text-xs text-gray-300">
-                      Built and shipped 7 AI projects from scratch. Learned to code while building. 
-                      Shipped 2 live agents (EspaLuz & ALGOM Alpha) now serving users across 19 Spanish-speaking countries.
+                    <p className="text-xs text-gray-300 mb-2">
+                      Built 6 production apps in 7 months using vibe coding (Claude AI tools and Cursor).
                     </p>
+                    <p className="text-xs text-white font-semibold mb-1">Key Stats:</p>
+                    <ul className="space-y-1 text-xs text-gray-300">
+                      <li>• 50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)</li>
+                      <li>• 8+ AI services integrated (Claude, GPT, Whisper, TTS, HeyGen, OCR etc.)</li>
+                    </ul>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
