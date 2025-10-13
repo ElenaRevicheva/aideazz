@@ -577,7 +577,7 @@ export default function BusinessCard() {
                     <strong>For investors:</strong> 2 live agents, organic traction, clear path to emotionally intelligent AI at scale.
                   </p>
                   <p className="text-gray-300 mb-6">
-                    Based in 🇵🇦 Panama (LATAM timezone) • Bilingual EN/ES • Remote/hybrid/relocation — all work
+                    Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-4">
