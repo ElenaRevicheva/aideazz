@@ -398,9 +398,26 @@ export default function BusinessCard() {
                     transition={{ delay: 0.8 }}
                     className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-pink-600/10 rounded-2xl p-6 border border-purple-500/30 shadow-2xl"
                   >
+                    <p className="text-sm text-purple-300 font-semibold mb-4">💼 What I'm Looking For</p>
+
                     <div className="space-y-4">
                       <div>
-                        <p className="text-sm font-semibold text-green-400 mb-2">💎 Ideal Setup: HYBRID</p>
+                        <p className="text-xs font-semibold text-blue-400 mb-2">1. JOB OPPORTUNITIES — Open to AI roles</p>
+                        <div className="flex flex-wrap gap-2 ml-4">
+                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Designer</span>
+                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Manager</span>
+                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">Founding AI Engineer</span>
+                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI UX Lead</span>
+                        </div>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold text-purple-400 mb-2">2. SEEKING INVESTMENT — Pre-seed for AIdeazz</p>
+                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed • 6 live apps • Early traction • Monetization ready • Clear GTM</p>
+                      </div>
+
+                      <div>
+                        <p className="text-xs font-semibold text-green-400 mb-2">💎 IDEAL: Hybrid Approach (Job + Investment)</p>
                         <ul className="text-xs text-gray-300 space-y-1.5 ml-4">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5">✦</span>
@@ -415,21 +432,6 @@ export default function BusinessCard() {
                             <span>Strategic partnership opportunities between your product and AIdeazz ecosystem</span>
                           </li>
                         </ul>
-                      </div>
-
-                      <div>
-                        <p className="text-sm font-semibold text-blue-400 mb-2">💼 Also Consider</p>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Designer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI Product Manager</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">Founding AI Engineer</span>
-                          <span className="text-xs px-2 py-1 bg-blue-600/20 border border-blue-500/30 rounded">AI UX Lead</span>
-                        </div>
-                      </div>
-
-                      <div>
-                        <p className="text-sm font-semibold text-purple-400 mb-2">💰 Investment Track</p>
-                        <p className="text-xs text-gray-300 ml-4">Pre-seed/Seed for AIdeazz • Live agents • Organic traction • Clear GTM</p>
                       </div>
                     </div>
 
