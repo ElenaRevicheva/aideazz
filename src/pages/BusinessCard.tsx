@@ -311,6 +311,28 @@ export default function BusinessCard() {
                     </ul>
                   </div>
 
+                  <div className="mt-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
+                    <p className="text-sm text-purple-200 mb-2">
+                      <strong>⚡ THE VIBE CODING ADVANTAGE</strong>
+                    </p>
+                    <p className="text-xs text-gray-300">
+                      Solo-built 6 apps for &lt;$15K using AI-assisted development:
+                    </p>
+                    <div className="grid grid-cols-2 gap-4 mt-3 text-xs">
+                      <div>
+                        <p className="text-gray-400">Traditional Team:</p>
+                        <p className="text-white">$900K+/year</p>
+                      </div>
+                      <div>
+                        <p className="text-gray-400">Vibe Coding:</p>
+                        <p className="text-green-400">&lt;$15K total</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-purple-300 mt-2">
+                      Result: 98% cost reduction • 10x faster shipping
+                    </p>
+                  </div>
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
