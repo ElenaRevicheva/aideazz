@@ -186,7 +186,7 @@ export default function BusinessCard() {
                           Founder @ AIdeazz | AI-First Engineer | Solo Vibe Coder
                         </p>
                         <p className="text-xs text-gray-300 mt-2 max-w-xl">
-                          6 apps in 7 months • Solo vibe coded • &lt;$15K investment • Early traction
+                          6 deployments (4 live AI agents, 2 apps) • 7 months solo vibe coded • &lt;$15K • Early traction
                         </p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
                           <span>📍 Panama</span>
@@ -220,7 +220,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-purple-400" />
-                    <h2 className="text-2xl font-bold">1️⃣ Production Apps — Early Traction. Monetization Ready.</h2>
+                    <h2 className="text-2xl font-bold">1️⃣ Live AI Agents & Apps — Early Traction. Monetization Ready.</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
