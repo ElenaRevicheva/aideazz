@@ -500,33 +500,22 @@ export default function BusinessCard() {
                   >
                     <div className="mb-6">
                       <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                        AIdeazz
+                        AIdeazz - Born in Panama
                       </h3>
+                      <p className="text-gray-300 leading-relaxed mb-3">
+                        Ecosystem of emotionally intelligent AI companions — built to help people grow, succeed, and thrive. 
+                        In learning languages. In relocation. In career shift and professional transformation.
+                      </p>
                       <p className="text-gray-300 leading-relaxed">
-                        An ecosystem of emotionally intelligent AI companions — built to help people grow, succeed, and thrive. 
-                        Born in 🇵🇦 Panama, nurtured by Innovation Smart District.
+                        Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because Life is a challenging process of learning.
                       </p>
                     </div>
 
                     <div className="mb-6">
-                      <p className="text-sm text-purple-300 mb-3">✨ The Vision:</p>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        I believe every human will soon want their own emotionally intelligent AI companion — 
-                        evolving with them through life challenges, helping them become the best version of themselves. 
+                        <span className="text-purple-300">✨</span> I believe every human will someday want their own emotionally intelligent AI companion — to become the best version of Self. 
                         Not generic chatbots, but deeply personal AI that grows alongside you.
                       </p>
-                    </div>
-
-                    <div className="mb-6">
-                      <p className="text-sm text-blue-300 mb-3">⚡ March 2025 - Present — Solo Vibe Coder Journey</p>
-                      <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                        Built 6 production apps in 7 months using vibe coding (Claude AI tools and Cursor).
-                      </p>
-                      <p className="text-sm text-white font-semibold mb-2">Key Stats:</p>
-                      <ul className="space-y-1 text-sm text-gray-300">
-                        <li>• 50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)</li>
-                        <li>• 8+ AI services integrated (Claude, GPT, Whisper, TTS, HeyGen, OCR etc.)</li>
-                      </ul>
                     </div>
 
                     <div>
@@ -538,47 +527,37 @@ export default function BusinessCard() {
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Building v2: More emotionally intelligent, more personalized, more helpful
+                          Building v2: More emotionally intelligent, more personalized, more helpful AI Companions
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          Exploring partnerships with EdTech & FinTech companies in Panama + beyond
+                          Exploring partnerships with EdTech in Panama + beyond
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
                           Open to joining the right team to accelerate this vision together
                         </li>
-                      </ul>
-                    </div>
-
-                    <div className="mt-6 pt-6 border-t border-white/10">
-                      <div className="backdrop-blur-xl bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl p-5 border border-blue-500/30">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="text-2xl">🌐</span>
-                          <p className="text-sm text-blue-300 font-semibold">Coming Soon: Web3 AI Agent Ecosystem</p>
-                        </div>
-                        
-                        <p className="text-sm text-gray-300 mb-4 leading-relaxed">
-                          AIdeazz.xyz ecosystem where emotionally intelligent AI agents are wrapped in{' '}
-                          <strong className="text-white">ERC-7857 standard NFTs</strong> — 
+                        <li className="flex items-start gap-2">
+                          <span className="text-pink-400">•</span>
+                          Web3 AI Agent Marketplace - where emotionally intelligent AI agents are wrapped in{' '}
+                          <strong className="text-white">ERC-7857 dynamic iNFTs</strong> — 
                           enabling true ownership, trading, and evolution of your personal AI companions.
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-2">
-                          <span className="text-xs px-3 py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300">
-                            ERC-7857 NFTs
-                          </span>
-                          <span className="text-xs px-3 py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300">
-                            Web3-Native
-                          </span>
-                          <span className="text-xs px-3 py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300">
-                            AI Ownership
-                          </span>
-                          <span className="text-xs px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300">
-                            In Development
-                          </span>
-                        </div>
-                      </div>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            <span className="text-xs px-3 py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300">
+                              ERC-7857 NFTs
+                            </span>
+                            <span className="text-xs px-3 py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300">
+                              Web3-Native
+                            </span>
+                            <span className="text-xs px-3 py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300">
+                              AI Ownership
+                            </span>
+                            <span className="text-xs px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300">
+                              In Development
+                            </span>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </motion.div>
                 </motion.section>
