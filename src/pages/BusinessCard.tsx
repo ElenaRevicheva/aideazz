@@ -396,11 +396,11 @@ export default function BusinessCard() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-6 backdrop-blur-xl bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-blue-600/30 rounded-2xl p-8 border-2 border-purple-400/60 shadow-2xl shadow-purple-500/50"
+                    className="mt-6 backdrop-blur-xl bg-gradient-to-br from-green-600/30 via-emerald-600/20 to-teal-600/30 rounded-2xl p-8 border-2 border-green-400/60 shadow-2xl shadow-green-500/50"
                   >
                     <div className="text-center mb-6">
                       <p className="text-2xl font-black mb-1">
-                        <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
                           💼 I am actually open to:
                         </span>
                       </p>
@@ -474,7 +474,7 @@ export default function BusinessCard() {
 
                     <div className="mt-8 text-center">
                       <p className="text-xl font-black">
-                        <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent">
                           Let's explore fit.
                         </span>
                       </p>
