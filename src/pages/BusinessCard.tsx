@@ -109,7 +109,7 @@ export default function BusinessCard() {
       title: "ALGOM Alpha",
       subtitle: "AI Crypto Advisor for Post-Scammer Era",
       desc: "Transparent AI crypto mentor that simplifies safe trading and digital literacy — directly through social platforms.",
-      traction: "Early user interaction and thought leadership visibility on X",
+      traction: "Early user interaction • 180 followers attracted • Engaging crypto community on X",
       tech: "AI agent framework, real-time data parsing, sentiment analysis, prompt optimization",
       action: "Follow on X",
       link: "https://x.com/reviceva",
