@@ -551,17 +551,17 @@ export default function BusinessCard() {
                           Where emotionally intelligent AI agents are wrapped in{' '}
                           <strong className="text-white">ERC-7857 dynamic iNFTs</strong> — enabling true ownership, trading, and evolution of your personal AI companions.
                         </p>
-                        <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
                             ERC-7857 NFTs
                           </span>
-                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
                             Web3-Native
                           </span>
-                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
                             AI Ownership
                           </span>
-                          <span className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
                             In Development
                           </span>
                         </div>
