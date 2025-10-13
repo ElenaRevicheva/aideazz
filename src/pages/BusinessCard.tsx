@@ -487,6 +487,36 @@ export default function BusinessCard() {
                         </li>
                       </ul>
                     </div>
+
+                    <div className="mt-6 pt-6 border-t border-white/10">
+                      <div className="backdrop-blur-xl bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-xl p-5 border border-blue-500/30">
+                        <div className="flex items-center gap-2 mb-3">
+                          <span className="text-2xl">🌐</span>
+                          <p className="text-sm text-blue-300 font-semibold">Coming Soon: Web3 AI Agent Ecosystem</p>
+                        </div>
+                        
+                        <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+                          AIdeazz.xyz ecosystem where emotionally intelligent AI agents are wrapped in{' '}
+                          <strong className="text-white">ERC-7857 standard NFTs</strong> — 
+                          enabling true ownership, trading, and evolution of your personal AI companions.
+                        </p>
+                        
+                        <div className="flex flex-wrap gap-2">
+                          <span className="text-xs px-3 py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300">
+                            ERC-7857 NFTs
+                          </span>
+                          <span className="text-xs px-3 py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300">
+                            Web3-Native
+                          </span>
+                          <span className="text-xs px-3 py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300">
+                            AI Ownership
+                          </span>
+                          <span className="text-xs px-3 py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300">
+                            In Development
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </motion.div>
                 </motion.section>
 
