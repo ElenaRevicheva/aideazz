@@ -456,14 +456,15 @@ export default function BusinessCard() {
                     </div>
 
                     <div className="mb-6">
-                      <p className="text-sm text-blue-300 mb-3">⚡ The Build:</p>
-                      <p className="text-gray-300 text-sm leading-relaxed">
-                        March 2025: Founded AIdeazz. Built and shipped 7 projects solo to validate the vision.
-                        <br />
-                        <strong className="text-white">Launch:</strong> EspaLuz (AI Spanish tutor) and ALGOM Alpha (AI crypto advisor) — both live and serving users.
-                        <br />
-                        <strong className="text-white">Traction:</strong> Organic user growth across 19 Spanish-speaking countries in LATAM.
+                      <p className="text-sm text-blue-300 mb-3">⚡ March 2025 - Present — Solo Vibe Coder Journey</p>
+                      <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                        Built 6 production apps in 7 months using vibe coding (Claude AI tools and Cursor).
                       </p>
+                      <p className="text-sm text-white font-semibold mb-2">Key Stats:</p>
+                      <ul className="space-y-1 text-sm text-gray-300">
+                        <li>• 50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)</li>
+                        <li>• 8+ AI services integrated (Claude, GPT, Whisper, TTS, HeyGen, OCR etc.)</li>
+                      </ul>
                     </div>
 
                     <div>
