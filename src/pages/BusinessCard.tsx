@@ -109,7 +109,7 @@ export default function BusinessCard() {
       title: "ALGOM Alpha",
       subtitle: "AI Crypto Advisor for Post-Scammer Era",
       desc: "AI trading agent with autonomous paper trading deployed on Railway. Real-time market analysis across 5 exchanges (Bybit, Binance, Kraken, OKX, Coinbase) with technical indicators (MA, RSI), risk management, and automated educational posts to X.",
-      traction: "180 followers attracted • Paper trading LIVE on Railway • Auto-posting market insights to X • Multi-exchange integration",
+      traction: "First 180 followers attracted • Paper trading LIVE on Railway • Engaging crypto community through crypto trading education and auto-posting market insights to X • Multi-exchange integration",
       tech: "Node.js, Eliza OS, CCXT (5 exchanges), Twitter API v2, WebSocket, Technical indicators (MA, RSI)",
       action: "Follow on X",
       link: "https://x.com/reviceva",
