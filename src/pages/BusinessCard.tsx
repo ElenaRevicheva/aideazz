@@ -118,8 +118,18 @@ export default function BusinessCard() {
   ];
 
   const techStack: string[] = [
-    "OpenAI GPT-4", "Anthropic Claude", "ElizaOS", "Python", 
-    "TypeScript", "React", "Node.js", "Flask", "Supabase", "Tailwind"
+    // Backend
+    "Python", "Node.js", "Flask", "Deno Edge Functions", "Gunicorn",
+    // Frontend
+    "TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui",
+    // AI
+    "OpenAI GPT-4", "Anthropic Claude", "ElizaOS", "Whisper", "TTS", "HeyGen",
+    // Data & Backend Services
+    "PostgreSQL", "Supabase", "Railway", "Docker",
+    // Web3
+    "Thirdweb SDK", "Polygon", "MetaMask", "IPFS",
+    // APIs & Integrations
+    "PayPal API", "Telegram API", "WhatsApp API", "Twitter API", "CCXT"
   ];
 
   const coreStrengths: string[] = [
@@ -669,12 +679,12 @@ export default function BusinessCard() {
 
                   <div className="grid grid-cols-3 gap-6 mb-8">
                     <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-purple-400 mb-1">2</div>
-                      <div className="text-xs text-gray-400">Live AI Agents</div>
+                      <div className="text-3xl font-bold text-purple-400 mb-1">6</div>
+                      <div className="text-xs text-gray-400">Production Apps</div>
                     </div>
                     <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-blue-400 mb-1">10+</div>
-                      <div className="text-xs text-gray-400">Tech Stack</div>
+                      <div className="text-3xl font-bold text-blue-400 mb-1">29</div>
+                      <div className="text-xs text-gray-400">Technologies</div>
                     </div>
                     <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
                       <div className="text-3xl font-bold text-pink-400 mb-1">1</div>
