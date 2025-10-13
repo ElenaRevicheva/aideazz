@@ -117,20 +117,14 @@ export default function BusinessCard() {
     }
   ];
 
-  const techStack: string[] = [
-    // Backend
-    "Python", "Node.js", "Flask", "Deno Edge Functions", "Gunicorn",
-    // Frontend
-    "TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui",
-    // AI
-    "OpenAI GPT-4", "Anthropic Claude", "ElizaOS", "Whisper", "TTS", "HeyGen",
-    // Data & Backend Services
-    "PostgreSQL", "Supabase", "Railway", "Docker",
-    // Web3
-    "Thirdweb SDK", "Polygon", "MetaMask", "IPFS",
-    // APIs & Integrations
-    "PayPal API", "Telegram API", "WhatsApp API", "Twitter API", "CCXT"
-  ];
+  const techStackByCategory = {
+    "Backend": ["Python", "Node.js", "Flask", "Deno Edge Functions", "Gunicorn"],
+    "Frontend": ["TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui"],
+    "AI & ML": ["OpenAI GPT-5", "Anthropic Claude", "ElizaOS", "Whisper", "TTS"],
+    "Database": ["PostgreSQL", "Supabase", "Railway", "Docker"],
+    "Web3": ["Thirdweb SDK", "Polygon", "MetaMask", "IPFS"],
+    "APIs": ["PayPal", "Telegram", "WhatsApp", "Twitter", "CCXT"]
+  };
 
   const coreStrengths: string[] = [
     "AI Product Vision & Strategy",
@@ -350,18 +344,21 @@ export default function BusinessCard() {
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                         ⚙️ Tech Stack
                       </h3>
-                      <div className="flex flex-wrap gap-2">
-                        {techStack.map((tech, idx) => (
-                          <motion.span
-                            key={tech}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.7 + idx * 0.05 }}
-                            whileHover={{ scale: 1.1, y: -2 }}
-                            className="px-3 py-1.5 rounded-lg bg-purple-600/20 border border-purple-500/30 text-sm font-medium hover:bg-purple-600/30 transition-all cursor-default"
-                          >
-                            {tech}
-                          </motion.span>
+                      <div className="space-y-4">
+                        {Object.entries(techStackByCategory).map(([category, techs]) => (
+                          <div key={category}>
+                            <p className="text-xs font-semibold text-purple-300 mb-2">{category}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {techs.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="px-2 py-1 rounded-lg bg-purple-600/20 border border-purple-500/30 text-xs font-medium hover:bg-purple-600/30 transition-all cursor-default"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
                         ))}
                       </div>
                     </motion.div>
@@ -683,7 +680,7 @@ export default function BusinessCard() {
                       <div className="text-xs text-gray-400">Production Apps</div>
                     </div>
                     <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-3xl font-bold text-blue-400 mb-1">29</div>
+                      <div className="text-3xl font-bold text-blue-400 mb-1">28</div>
                       <div className="text-xs text-gray-400">Technologies</div>
                     </div>
                     <div className="text-center p-4 rounded-xl bg-white/5 border border-white/10">
