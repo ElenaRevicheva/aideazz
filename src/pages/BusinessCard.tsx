@@ -408,7 +408,7 @@ export default function BusinessCard() {
 
                     <div className="space-y-6">
                       <div className="backdrop-blur-sm bg-blue-600/10 rounded-xl p-4 border border-blue-500/30">
-                        <p className="text-sm font-bold text-blue-300 mb-3">AI roles</p>
+                        <p className="text-sm font-bold text-purple-300 mb-3">AI roles</p>
                         <div className="flex flex-wrap gap-2">
                           <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">AI Product Manager</span>
                           <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">Full-Stack AI Engineer</span>
