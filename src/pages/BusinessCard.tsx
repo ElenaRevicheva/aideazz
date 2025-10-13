@@ -301,9 +301,6 @@ export default function BusinessCard() {
                     <p className="text-sm text-purple-200 mb-2">
                       <strong>⚡ March 2025 - Present</strong> — Solo Vibe Coder Journey
                     </p>
-                    <p className="text-xs text-gray-300 mb-2">
-                      Built 6 production apps in 7 months using vibe coding (Claude AI tools and Cursor).
-                    </p>
                     <p className="text-xs text-white font-semibold mb-1">Key Stats:</p>
                     <ul className="space-y-1 text-xs text-gray-300">
                       <li>• 50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)</li>
@@ -315,8 +312,8 @@ export default function BusinessCard() {
                     <p className="text-sm text-purple-200 mb-2">
                       <strong>⚡ THE VIBE CODING ADVANTAGE</strong>
                     </p>
-                    <p className="text-xs text-gray-300">
-                      Solo-built 6 apps for &lt;$15K using AI-assisted development:
+                    <p className="text-xs text-gray-300 mb-3">
+                      Solo-built 6 production apps in 7 months for &lt;$15K using AI-assisted development (Claude AI tools, Cursor etc.):
                     </p>
                     <div className="grid grid-cols-2 gap-4 mt-3 text-xs">
                       <div>
