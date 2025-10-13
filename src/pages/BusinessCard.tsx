@@ -396,9 +396,15 @@ export default function BusinessCard() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-6 backdrop-blur-xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl p-8 border-2 border-purple-500/50 shadow-2xl shadow-purple-500/30"
+                    className="mt-6 backdrop-blur-xl bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-blue-600/30 rounded-2xl p-8 border-2 border-purple-400/60 shadow-2xl shadow-purple-500/50"
                   >
-                    <p className="text-xl text-purple-200 font-bold mb-6 text-center">💼 I am actually open to:</p>
+                    <div className="text-center mb-6">
+                      <p className="text-2xl font-black mb-1">
+                        <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                          💼 I am actually open to:
+                        </span>
+                      </p>
+                    </div>
 
                     <div className="space-y-6">
                       <div className="backdrop-blur-sm bg-blue-600/10 rounded-xl p-4 border border-blue-500/30">
@@ -418,15 +424,24 @@ export default function BusinessCard() {
                         href="https://www.aideazz.xyz/pitch.html" 
                         target="_blank" 
                         rel="noreferrer"
-                        className="block backdrop-blur-sm bg-purple-600/10 rounded-xl p-4 border border-purple-500/30 hover:bg-purple-600/20 hover:border-purple-400/50 transition-all group"
+                        className="block relative overflow-hidden rounded-xl border-2 border-purple-400/60 hover:border-purple-300 transition-all group"
                       >
-                        <p className="text-sm font-bold text-purple-300 mb-3 group-hover:text-purple-200 transition-colors">Pre-seed/Seed investment for AIdeazz Start up 🚀</p>
-                        <p className="text-sm text-gray-200">6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution</p>
-                        <p className="text-xs text-purple-400 mt-2 group-hover:text-purple-300">→ View full pitch deck</p>
+                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 group-hover:from-purple-600/30 group-hover:to-pink-600/30 transition-all" />
+                        <div className="relative p-5">
+                          <div className="flex items-center justify-between mb-3">
+                            <p className="text-base font-bold text-purple-300 group-hover:text-purple-200 transition-colors">Pre-seed/Seed investment for AIdeazz Start up</p>
+                            <span className="text-2xl group-hover:scale-110 transition-transform">🚀</span>
+                          </div>
+                          <p className="text-sm text-gray-200 mb-3">6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution</p>
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg group-hover:from-purple-500 group-hover:to-pink-500 transition-all">
+                            <span className="text-sm font-bold text-white">View full pitch deck</span>
+                            <span className="text-white group-hover:translate-x-1 transition-transform">→</span>
+                          </div>
+                        </div>
                       </a>
 
-                      <div className="backdrop-blur-sm bg-green-600/10 rounded-xl p-4 border-2 border-green-500/40">
-                        <p className="text-base font-bold text-green-300 mb-3">💎 IDEAL: Hybrid Approach</p>
+                      <div className="backdrop-blur-sm bg-gradient-to-br from-green-600/20 to-emerald-600/20 rounded-xl p-5 border-2 border-green-400/50">
+                        <p className="text-base font-bold text-green-300 mb-4">💎 IDEAL: Hybrid Approach</p>
                         <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5 text-lg">✦</span>
@@ -434,9 +449,15 @@ export default function BusinessCard() {
                               href="https://aideazz.xyz/" 
                               target="_blank" 
                               rel="noreferrer"
-                              className="hover:text-white hover:underline transition-all"
+                              className="relative group/link"
                             >
-                              Full-time role at AI startup + pre-seed for AIdeazz
+                              <span className="relative">
+                                Full-time role at AI startup + pre-seed for AIdeazz
+                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 group-hover/link:w-full transition-all duration-300" />
+                              </span>
+                              <span className="inline-flex items-center gap-1 ml-2 px-2 py-0.5 bg-gradient-to-r from-green-600 to-blue-600 rounded text-xs font-bold text-white opacity-0 group-hover/link:opacity-100 transition-opacity">
+                                Explore <span className="group-hover/link:translate-x-0.5 transition-transform">→</span>
+                              </span>
                             </a>
                           </li>
                           <li className="flex items-start gap-2">
@@ -451,9 +472,13 @@ export default function BusinessCard() {
                       </div>
                     </div>
 
-                    <p className="text-base text-center text-purple-200 font-semibold mt-6">
-                      Let's explore fit.
-                    </p>
+                    <div className="mt-8 text-center">
+                      <p className="text-xl font-black">
+                        <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                          Let's explore fit.
+                        </span>
+                      </p>
+                    </div>
                   </motion.div>
                 </motion.section>
 
