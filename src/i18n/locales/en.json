@@ -30,6 +30,29 @@
       "badge": "LIVE"
     }
   },
+  "otherProducts": {
+    "title": "Other Products in My Portfolio",
+    "product1": {
+      "name": "EspaLuz SaaS",
+      "desc": "Full-stack web app with AI language learning, voice & video integration",
+      "link": "https://espaluz-ai-language-tutor.lovable.app/"
+    },
+    "product2": {
+      "name": "EspaLuz Telegram Bot",
+      "desc": "Community bot with emotional AI for Spanish learners",
+      "link": "https://t.me/EspaLuzFamily_bot"
+    },
+    "product3": {
+      "name": "EspaLuz Influencer Bot",
+      "desc": "Automated content distribution across 7 platforms with emotional AI",
+      "link": "https://t.me/Influencer_EspaLuz_bot"
+    },
+    "product4": {
+      "name": "Atuona",
+      "desc": "Web3 NFT gallery for Russian poetry on Polygon blockchain",
+      "link": "https://atuona.xyz/"
+    }
+  },
   "section2": {
     "title": "How I Built This Alone",
     "background": {
