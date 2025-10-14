@@ -741,8 +741,16 @@ export default function BusinessCard() {
                   {/* VISION SECTION */}
                   <div className="mb-8 backdrop-blur-xl bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10 rounded-xl p-6 border border-white/10">
                     <div className="mb-5">
-                      <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent text-center">
-                        {t('section3.mainTitle')}
+                      <h3 className="text-xl font-bold mb-2 text-center">
+                        <a 
+                          href="https://www.aideazz.xyz/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent hover:from-purple-200 hover:to-pink-200 transition-all"
+                        >
+                          {t('section3.mainTitle')}
+                        </a>
                       </h3>
                       <p className="text-gray-300 text-sm leading-relaxed mb-2">
                         {t('section3.desc1')}
