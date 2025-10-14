@@ -251,7 +251,26 @@
     "mirrorButton": "Leer en Mirror"
   },
   "footer": {
-    "copyright": "© 2025 Elena Revicheva — AIdeazz. Construido con ❤️ en Panamá.",
+    "companyTitle": "AIdeazz",
+    "companyInfo1": "AIdeazz está registrado como persona natural extranjera",
+    "companyInfo2": "Especializado en IA educativa y soluciones de Agentes IA emocionalmente inteligentes",
+    "companyInfo3": "Creando interacciones de IA conscientes y centradas en el ser humano",
+    "legalTitle": "Registro Legal",
+    "contactTitle": "Información de Contacto",
+    "businessName": "Nombre legal del negocio:",
+    "businessNameValue": "ELENA REVICHEVA",
+    "email": "Email:",
+    "website": "Sitio web:",
+    "phone": "Teléfono:",
+    "address": "Dirección:",
+    "addressValue": "COSTA DEL ESTE JUAN DIAZ",
+    "province": "Provincia:",
+    "provinceValue": "PANAMA",
+    "country": "País:",
+    "countryValue": "REPÚBLICA DE PANAMÁ",
+    "copyright": "© 2025 AIdeazz. Todos los derechos reservados.",
+    "aipaEra": "Era AIPA acuñada.",
+    "ledgerPrompt": "¿Tienes algún AIdeazz? Súbelo al ledger.",
     "flipPrompt": "Clic en cualquier lugar para voltear la tarjeta"
   },
   "header": {
@@ -355,8 +374,8 @@
   },
   "section3": {
     "title": "Ecosistema AIdeazz — La Visión",
-    "mainTitle": "Startup AIdeazz - Nacido en Panamá",
-    "desc1": "Ecosistema de compañeros IA emocionalmente inteligentes — construidos para ayudar a las personas a crecer, tener éxito y prosperar. En el aprendizaje de idiomas. En la reubicación. En el cambio de carrera y la transformación profesional. Y otros desafíos de la vida.",
+    "mainTitle": "Startup AIdeazz",
+    "desc1": "AIdeazz es un ecosistema de agentes emocionalmente inteligentes — nacido en Panamá y apoyado por Innovation Smart District (ISD). Nuestra misión es construir compañeros IA conscientes que amplifiquen el potencial humano a través de la educación, el coaching y la asistencia digital confiable.",
     "desc2": "Creados no para reemplazar a las personas sino para evolucionar con ellas de manera consciente, ayudándolas a adquirir nuevas habilidades y aprender más rápido porque la vida es un proceso permanente de aprendizaje.",
     "vision": "Creo que cada ser humano algún día querrá tener su propio compañero IA emocionalmente inteligente — para convertirse en la mejor versión de sí mismo. No chatbots genéricos, sino IA profundamente personal que crece junto a ti.",
     "nextSteps": {

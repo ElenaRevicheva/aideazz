@@ -251,7 +251,26 @@
     "mirrorButton": "Read on Mirror"
   },
   "footer": {
-    "copyright": "© 2025 Elena Revicheva — AIdeazz. Built with ❤️ in Panama.",
+    "companyTitle": "AIdeazz",
+    "companyInfo1": "AIdeazz is registered as a foreign natural person (persona natural extranjera)",
+    "companyInfo2": "Specializing in educational AI and emotionally intelligent AI Agents and solutions",
+    "companyInfo3": "Creating conscious, human-centered AI interactions",
+    "legalTitle": "Legal Registration",
+    "contactTitle": "Contact Information",
+    "businessName": "Nombre legal del negocio:",
+    "businessNameValue": "ELENA REVICHEVA",
+    "email": "Email:",
+    "website": "Website:",
+    "phone": "Phone:",
+    "address": "Dirección:",
+    "addressValue": "COSTA DEL ESTE JUAN DIAZ",
+    "province": "Provincia:",
+    "provinceValue": "PANAMA",
+    "country": "Country:",
+    "countryValue": "REPÚBLICA DE PANAMÁ",
+    "copyright": "© 2025 AIdeazz. All rights reserved.",
+    "aipaEra": "AIPA Era minted.",
+    "ledgerPrompt": "Have any AIdeazz? Get on the ledger.",
     "flipPrompt": "Click anywhere to flip card"
   },
   "header": {
@@ -355,8 +374,8 @@
   },
   "section3": {
     "title": "AIdeazz Ecosystem — The Vision",
-    "mainTitle": "AIdeazz Startup - Born in Panama",
-    "desc1": "Ecosystem of emotionally intelligent AI companions — built to help people grow, succeed, and thrive. In learning languages. In relocation. In career shift and professional transformation. And other life challenges.",
+    "mainTitle": "AIdeazz Startup",
+    "desc1": "AIdeazz is an ecosystem of emotionally intelligent agents — born in Panama and supported by Innovation Smart District (ISD). Our mission is to build conscious AI companions that amplify human potential through education, coaching, and trusted digital assistance.",
     "desc2": "Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because life is a permanent process of learning.",
     "vision": "I believe every human will someday want their own emotionally intelligent AI companion — to become the best version of Self. Not generic chatbots, but deeply personal AI that grows alongside you.",
     "nextSteps": {
