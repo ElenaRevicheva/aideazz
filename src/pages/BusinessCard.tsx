@@ -753,7 +753,26 @@ export default function BusinessCard() {
                         </a>
                       </h3>
                       <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                        {t('section3.desc1')}
+                        <a 
+                          href="https://www.aideazz.xyz/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                        >
+                          AIdeazz
+                        </a>
+                        {' '}is an ecosystem of emotionally intelligent agents — born in Panama and supported by{' '}
+                        <a 
+                          href="https://www.isdistrict.com/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                        >
+                          Innovation Smart District (ISD)
+                        </a>
+                        . Our mission is to build conscious AI companions that amplify human potential through education, coaching, and trusted digital assistance.
                       </p>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         {t('section3.desc2')}
