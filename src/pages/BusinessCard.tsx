@@ -616,7 +616,7 @@ export default function BusinessCard() {
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      href="https://aideazz.xyz" 
+                      href="https://wa.me/50761666716" 
                       target="_blank" 
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
