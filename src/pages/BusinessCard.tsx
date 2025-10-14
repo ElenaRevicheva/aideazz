@@ -594,91 +594,6 @@ export default function BusinessCard() {
                   </motion.div>
                 </motion.section>
 
-                {/* 3️⃣ VISION */}
-                <motion.section 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.9 }}
-                  className="mb-12"
-                >
-                  <div className="flex items-center gap-3 mb-6">
-                    <Sparkles className="w-6 h-6 text-pink-400" />
-                    <h2 className="text-2xl font-bold">3️⃣ {t('section3.title')}</h2>
-                  </div>
-
-                  <motion.div
-                    whileHover={{ scale: 1.01 }}
-                    className="backdrop-blur-xl bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10 rounded-2xl p-8 border border-white/10 shadow-2xl"
-                  >
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">
-                        {t('section3.mainTitle')}
-                      </h3>
-                      <p className="text-gray-300 leading-relaxed mb-3">
-                        {t('section3.desc1')}
-                      </p>
-                      <p className="text-gray-300 leading-relaxed">
-                        {t('section3.desc2')}
-                      </p>
-                    </div>
-
-                    <div className="mb-6">
-                      <p className="text-gray-300 text-sm leading-relaxed">
-                        <span className="text-purple-300">✨</span> {t('section3.vision')}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-pink-300 mb-3">🧭 {t('section3.nextSteps.title')}</p>
-                      <ul className="space-y-2 text-sm text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400">•</span>
-                          {t('section3.nextSteps.step1')}
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400">•</span>
-                          {t('section3.nextSteps.step2')}
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400">•</span>
-                          {t('section3.nextSteps.step3')}
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <span className="text-pink-400">•</span>
-                          {t('section3.nextSteps.step4')}
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Web3 Section - Separated for better mobile display */}
-                    <div className="mt-6 pt-6 border-t border-white/10">
-                      <div className="backdrop-blur-xl bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-xl p-4 sm:p-5 border border-purple-500/30">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="text-2xl">🌐</span>
-                          <p className="text-sm sm:text-base text-purple-300 font-semibold">{t('section3.web3.title')}</p>
-                        </div>
-                        <p className="text-xs sm:text-sm text-gray-300 mb-4 leading-relaxed">
-                          {t('section3.web3.desc')}
-                        </p>
-                        <div className="flex flex-wrap gap-1 sm:gap-2">
-                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
-                            {t('section3.web3.badge1')}
-                          </span>
-                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
-                            {t('section3.web3.badge2')}
-                          </span>
-                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
-                            {t('section3.web3.badge3')}
-                          </span>
-                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-3 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
-                            {t('section3.web3.badge4')}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.section>
-
                 {/* Contact */}
                 <motion.section 
                   initial={{ opacity: 0 }}
@@ -821,6 +736,76 @@ export default function BusinessCard() {
                     <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
                       {t('cardBack.desc')}
                     </p>
+                  </div>
+
+                  {/* VISION SECTION */}
+                  <div className="mb-8 backdrop-blur-xl bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10 rounded-xl p-6 border border-white/10">
+                    <div className="mb-5">
+                      <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent text-center">
+                        {t('section3.mainTitle')}
+                      </h3>
+                      <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                        {t('section3.desc1')}
+                      </p>
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        {t('section3.desc2')}
+                      </p>
+                    </div>
+
+                    <div className="mb-5">
+                      <p className="text-gray-300 text-sm leading-relaxed">
+                        <span className="text-purple-300">✨</span> {t('section3.vision')}
+                      </p>
+                    </div>
+
+                    <div className="mb-5">
+                      <p className="text-xs text-pink-300 mb-2">🧭 {t('section3.nextSteps.title')}</p>
+                      <ul className="space-y-2 text-xs text-gray-300">
+                        <li className="flex items-start gap-2">
+                          <span className="text-pink-400">•</span>
+                          {t('section3.nextSteps.step1')}
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-pink-400">•</span>
+                          {t('section3.nextSteps.step2')}
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-pink-400">•</span>
+                          {t('section3.nextSteps.step3')}
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-pink-400">•</span>
+                          {t('section3.nextSteps.step4')}
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Web3 Section */}
+                    <div className="pt-5 border-t border-white/10">
+                      <div className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-lg p-4 border border-purple-500/30">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">🌐</span>
+                          <p className="text-xs sm:text-sm text-purple-300 font-semibold">{t('section3.web3.title')}</p>
+                        </div>
+                        <p className="text-[10px] sm:text-xs text-gray-300 mb-3 leading-relaxed">
+                          {t('section3.web3.desc')}
+                        </p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-purple-600/20 border border-purple-500/30 rounded-full text-purple-300 whitespace-nowrap">
+                            {t('section3.web3.badge1')}
+                          </span>
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-blue-600/20 border border-blue-500/30 rounded-full text-blue-300 whitespace-nowrap">
+                            {t('section3.web3.badge2')}
+                          </span>
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-pink-600/20 border border-pink-500/30 rounded-full text-pink-300 whitespace-nowrap">
+                            {t('section3.web3.badge3')}
+                          </span>
+                          <span className="text-[8px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-600/20 border border-green-500/30 rounded-full text-green-300 whitespace-nowrap">
+                            {t('section3.web3.badge4')}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap justify-center gap-3">
