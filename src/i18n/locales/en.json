@@ -39,17 +39,17 @@
     },
     "product2": {
       "name": "EspaLuz Telegram Bot",
-      "desc": "Community bot with emotional AI for Spanish learners",
+      "desc": "Bilingual AI Assistant for Spanish learners on the go",
       "link": "https://t.me/EspaLuzFamily_bot"
     },
     "product3": {
       "name": "EspaLuz Influencer Bot",
-      "desc": "Automated content distribution across 7 platforms with emotional AI",
+      "desc": "Automated SMM with content distribution across 4 platforms with emotional AI",
       "link": "https://t.me/Influencer_EspaLuz_bot"
     },
     "product4": {
       "name": "Atuona",
-      "desc": "Web3 NFT gallery for Russian poetry on Polygon blockchain",
+      "desc": "Web3 Underground NFT gallery for modern Russian poetry on Polygon",
       "link": "https://atuona.xyz/"
     }
   },
