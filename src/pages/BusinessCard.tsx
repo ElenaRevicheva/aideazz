@@ -382,9 +382,9 @@ export default function BusinessCard() {
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-green-600/10 border border-green-500/30 hover:border-green-400/60 transition-all group"
+                        className="p-4 rounded-lg bg-slate-700/10 border border-slate-600/30 hover:border-slate-500/60 transition-all group"
                       >
-                        <h3 className="text-sm font-bold text-green-300 mb-1 group-hover:text-green-200 transition-colors">
+                        <h3 className="text-sm font-bold text-slate-300 mb-1 group-hover:text-slate-200 transition-colors">
                           {t('otherProducts.product4.name')}
                         </h3>
                         <p className="text-xs text-gray-400 leading-relaxed">
