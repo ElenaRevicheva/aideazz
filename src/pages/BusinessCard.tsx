@@ -763,7 +763,29 @@ export default function BusinessCard() {
                       <ul className="space-y-2 text-xs text-gray-300">
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
-                          {t('section3.nextSteps.step1')}
+                          <span>
+                            Scaling{' '}
+                            <a 
+                              href="https://wa.me/50766623757" 
+                              target="_blank" 
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                            >
+                              EspaLuz
+                            </a>
+                            {' '}&{' '}
+                            <a 
+                              href="https://twitter.com/reviceva" 
+                              target="_blank" 
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                            >
+                              ALGOM Alpha
+                            </a>
+                            {' '}to 10K+ users across LATAM
+                          </span>
                         </li>
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
