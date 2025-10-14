@@ -616,17 +616,6 @@ export default function BusinessCard() {
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      href="https://wa.me/50761666716" 
-                      target="_blank" 
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-all border border-green-400 shadow-lg shadow-green-500/50"
-                    >
-                      <Globe className="w-4 h-4" /> {t('contact.portfolio')}
-                    </motion.a>
-                    <motion.a 
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
                       href="https://x.com/reviceva" 
                       target="_blank" 
                       rel="noreferrer"
@@ -654,6 +643,17 @@ export default function BusinessCard() {
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
                       <Mail className="w-4 h-4" /> {t('contact.email')}
+                    </motion.a>
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href="https://wa.me/50761666716" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-all border border-green-400 shadow-lg shadow-green-500/50 font-semibold"
+                    >
+                      {t('contact.whatsapp')}
                     </motion.a>
                   </div>
 
