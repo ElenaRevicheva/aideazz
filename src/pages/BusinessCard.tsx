@@ -322,6 +322,15 @@ export default function BusinessCard() {
                     <h2 className="text-2xl font-bold">2️⃣ {t('section2.title')}</h2>
                   </div>
 
+                  <div className="mb-6 backdrop-blur-xl bg-blue-600/10 rounded-xl p-4 border border-blue-500/20">
+                    <p className="text-sm text-blue-200 mb-2">
+                      <strong>💼 {t('section2.background.title')}</strong>
+                    </p>
+                    <p className="text-xs text-gray-300">
+                      {t('section2.background.text')}
+                    </p>
+                  </div>
+
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
                     <p className="text-sm text-purple-200 mb-2">
                       <strong>⚡ {t('section2.timeline.title')}</strong> — {t('section2.timeline.subtitle')}
