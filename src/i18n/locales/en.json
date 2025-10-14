@@ -288,7 +288,7 @@
     "espaluz": {
       "title": "EspaLuz",
       "subtitle": "WhatsApp AI Spanish Tutor",
-      "desc": "Emotionally intelligent conversational tutor for expats & travelers across 19 Spanish-speaking countries. Real dialogue with empathy and cultural tips for adaptation, not another word-by-word translate app.",
+      "desc": "Turn cultural overwhelm into confident belonging. AI companion delivering real conversations with empathy, cultural wisdom, and insider tips for expat families thriving across 19 Spanish-speaking countries — way beyond word-by-word translation.",
       "traction": "Growing organically with early user adoption across Panama and LATAM • PayPal Subscriptions LIVE, Crypto integrated",
       "tech": "Python, OpenAI GPT, WhatsApp API, LangChain, Conversation Design",
       "action": "Chat on WhatsApp",
