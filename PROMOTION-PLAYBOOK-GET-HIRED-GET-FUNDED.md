@@ -15,7 +15,37 @@
 
 ---
 
-## 📊 QUICK WINS (DO THESE FIRST - TODAY!)
+## 🚀 START HERE: ISD COMMUNITY SHARE (DO THIS FIRST!)
+
+**Why ISD First:**
+- Warm community that knows you
+- Panama-based network = immediate local opportunities
+- Direct access to investors, founders, and companies in ISD ecosystem
+- Builds momentum for broader outreach
+
+**ACTION (30 minutes):**
+
+1. **Read the prepared ISD message** in `ISD-COMMUNITY-MESSAGE.md`
+2. **Choose Option 3** (Value-First & Community-Oriented) — best for first share
+3. **Customize it** with any recent ISD event or member shoutouts
+4. **Post it** in the main ISD channel (Slack/WhatsApp/LinkedIn group)
+5. **Be ready** to respond to all comments/DMs within 1-2 hours
+
+**Expected Results:**
+- 5-10 immediate responses
+- 2-3 coffee meeting requests
+- 1-2 warm investor/company intros
+- Community positioning as serious AI builder
+
+**Follow-up Plan:**
+- Day 3: Thank everyone publicly who responded
+- Day 7: Share brief progress update
+- Day 14: Offer to give ISD talk on AI-assisted development
+- Day 30: Share results and learnings
+
+---
+
+## 📊 QUICK WINS (DO THESE NEXT - TODAY!)
 
 ### ⚡ **1. LinkedIn Profile Optimization (30 minutes)**
 
@@ -26,15 +56,13 @@ AI-First Engineer | Built 6 Production Apps in 7 Months Solo (<$15K) | Ex-Chief 
 
 **About Section (copy-paste this):**
 ```
-Former Chief Legal Officer & Chief Executive with 7 years in Russian E-government IT Project Management.
-
-Relocated to Panama in 2022. Started from scratch.
+7 years in Russian E-government sector as Chief Executive in IT Project Management and CLO. Relocated to Panama in 2022 to start fresh and rebuild myself as a solo founder and AI Dev.
 
 7 months later:
 • Built 6 production AI apps solo using AI-assisted development
 • 2 live AI agents (EspaLuz & ALGOM Alpha) serving real users
 • 50,000+ lines of code (TypeScript, Python, JavaScript, SQL)
-• Multi-AI orchestration (GPT-5, Claude, Whisper, TTS, OCR)
+• Multi-AI orchestration (GPT-4, Claude, Whisper, TTS, OCR)
 • Full-stack: React/TypeScript + Python/Node + PostgreSQL
 • Web3: Smart contracts, NFTs on Polygon
 • Total investment: <$15K (98% cost reduction vs traditional)
@@ -46,14 +74,17 @@ Tech Stack: Python, Node.js, React, TypeScript, Flask, Supabase, PostgreSQL, Doc
 2. Pre-seed/Seed investment for AIdeazz
 
 Portfolio: www.aideazz.xyz/card
+GitHub: https://github.com/ElenaRevicheva
+X/Twitter: https://twitter.com/reviceva
 
 Based in Panama 🇵🇦 | Bilingual EN/ES | Remote/Hybrid/Relocation all work
 ```
 
 **Featured Section:**
 - Add your business card link with custom title: "My AI Products Portfolio - From Executive to Solo Builder"
-- Add EspaLuz demo video/screenshot
-- Add ALGOM Alpha link (x.com/reviceva)
+- Add EspaLuz WhatsApp link: https://wa.me/50766623757
+- Add ALGOM Alpha X profile: https://twitter.com/reviceva
+- Add GitHub: https://github.com/ElenaRevicheva
 
 ---
 
@@ -95,11 +126,11 @@ Ex-Chief Executive → AI-First Engineer | Built 6 Production Apps in 7 Months S
 
 **Bio:**
 ```
-Former Chief Legal Officer & Chief Executive (7 years E-government IT). Pivoted to AI development in 2022. Built 6 production apps solo in 7 months for <$15K using AI-assisted development.
+7 years as Chief Executive in IT Project Management (Russian E-government sector). Pivoted to AI development in 2022. Built 6 production apps solo in 7 months for <$15K using AI-assisted development.
 
 Live products: EspaLuz (AI Spanish tutor), ALGOM Alpha (AI crypto mentor)
 
-Tech: React, TypeScript, Python, Node.js, Multi-AI (GPT-5, Claude, Whisper), PostgreSQL, Web3, APIs
+Tech: React, TypeScript, Python, Node.js, Multi-AI (GPT-4, Claude, Whisper), PostgreSQL, Web3, APIs
 
 Portfolio: www.aideazz.xyz/card
 ```
@@ -209,7 +240,7 @@ Questions? Ask below 👇
 ```
 Why I left my executive job to start over at [age]
 
-In 2022, I was Chief Legal Officer in E-government.
+In 2022, I was Chief Executive in E-government IT.
 Good salary. Stable career. 7 years invested.
 
 But something was missing.
@@ -604,11 +635,14 @@ aipa@aideazz.xyz
 - Apply to 10-20 competitions
 - Even if you don't win, you get practice + exposure
 
-**4. Innovation Smart District (Your Advantage!):**
-- You mentioned ISD support
-- Ask them for investor intros
-- Ask to be featured in their success stories
-- Ask about their accelerator programs
+**4. Innovation Smart District (Your Strategic Advantage!):**
+- Share your portfolio in ISD community (use prepared message from ISD-COMMUNITY-MESSAGE.md)
+- Request warm investor introductions from ISD network
+- Ask to be featured in ISD success stories/case studies
+- Inquire about ISD accelerator programs and mentorship
+- Attend ISD events and position yourself as AI thought leader
+- Offer to give talks on AI-assisted development or vibe coding
+- Connect with other ISD startups for potential collaborations
 
 ---
 
@@ -676,7 +710,8 @@ What I can bring:
 → AI-first development mindset (I know how to ship fast with AI tools)
 
 Portfolio: www.aideazz.xyz/card
-GitHub: [if you have one with your projects]
+GitHub: https://github.com/ElenaRevicheva
+X/Twitter: https://twitter.com/reviceva
 
 I'd love to discuss how I can contribute to [Company]'s mission of [their mission].
 
@@ -1330,6 +1365,7 @@ Available for a call?
 Best,
 Elena Revicheva
 aipa@aideazz.xyz
++507 616 66 716
 Panama 🇵🇦
 ```
 
@@ -1398,7 +1434,7 @@ Hey everyone! 👋
 Wanted to share my journey as I've been lurking here for a while and learned so much from this community.
 
 Background:
-• 7 years Chief Legal Officer & Chief Executive (E-government IT)
+• 7 years Chief Executive in IT Project Management (E-government sector)
 • Relocated to Panama in 2022
 • Decided to start from scratch in AI development
 
@@ -1418,7 +1454,7 @@ What I built (solo, 7 months, <$15K):
 Tech Stack:
 • Frontend: React, TypeScript, Tailwind, Vite
 • Backend: Python/Flask, Node.js, PostgreSQL
-• AI: GPT-5, Claude, ElizaOS, LangChain
+• AI: GPT-4, Claude, ElizaOS, LangChain
 • Deployment: Railway, Docker, Supabase
 
 Lessons learned:
