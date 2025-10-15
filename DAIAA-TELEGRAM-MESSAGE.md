@@ -21,43 +21,39 @@
 ```
 Hey DAIAA builders! 👋
 
-Sharing my decentralized AI portfolio with this community — would love your technical feedback.
+Sharing my AI + Web3 portfolio with this community — would love your technical feedback.
 👉 https://www.aideazz.xyz/card
 
-Been shipping AI agents solo for 7 months using decentralized-first approach: multi-AI orchestration (no single provider lock-in), Web3 integrations, user data sovereignty.
+Building AIdeazz: a Web3 ecosystem of emotionally intelligent AI Personal Assistants (AIPAs) — AI agents that grow with users through real-life challenges like relocation, language learning, and professional growth.
 
-🔥 What's live:
-✅ 2 autonomous AI agents (EspaLuz + ALGOM Alpha on ElizaOS)
-✅ Web3 infrastructure (Atuona NFT gallery on Polygon)
-✅ Capital-efficient (<$15K vs $900K+ centralized competitors)
-✅ Real users across 19 countries, crypto payments integrated
+🔥 What's live (Web2 AI agents proving the vision):
+✅ EspaLuz — AI Spanish tutor (WhatsApp, 19 countries, crypto payments) 👉 https://wa.me/50766623757
+✅ ALGOM Alpha — AI crypto advisor on X 👉 https://x.com/reviceva
+✅ Real users, early traction, <$15K capital efficiency
+✅ Multi-AI orchestration (GPT/Claude/Whisper), React/TS, Python/Node
 
-⚡ Core tech: Multi-AI orchestration (GPT/Claude/Whisper), React/TS, Python/Node, PostgreSQL, ElizaOS, Thirdweb, IPFS
-
-🎯 Now exploring: **Wrapping AI agents into ERC-7857 dynamic iNFTs**
-→ Vision: Users OWN their AI companions (not rent SaaS)
-→ AI agents as tradable, evolvable NFTs with dynamic metadata
-→ Agent personality/memory evolves on-chain
-→ Zero Big Tech gatekeepers
+🎯 **Now developing: Web3 governance + ERC-7857 dynamic iNFT layer**
+→ Vision: AI agents wrapped as evolving iNFTs — users OWN their AIPAs (not rent SaaS)
+→ Agent personality/memory evolves on-chain (dynamic metadata)
+→ Emotionally intelligent companions that adapt to user's life journey
+→ Human-centered, ethical AI that helps people grow (not replace them)
 
 💡 I'm now exploring next steps and would value your thoughts:
-👉 Path A: Join a decentralized AI team (AI Engineer, Founding Engineer, Product roles)
-👉 Path B: Raise pre-seed ($100–300K) to scale AIdeazz with ERC-7857 focus
+👉 Path A: Join a Web3 AI team (AI Engineer, Founding Engineer, Product roles)
+👉 Path B: Raise pre-seed ($100–300K) to scale AIdeazz with ERC-7857 + Web3 governance
 
 🤝 Ways this community might guide me:
-⿡ Technical feedback on my decentralized AI architecture
-⿢ Warm intros to Web3 AI teams hiring or angels/VCs investing in decentralized AI
-⿣ Anyone building with ERC-7857 for AI agents? (looking for technical insights)
+⿡ Technical feedback on AI → Web3 transition architecture
+⿢ Warm intros to Web3 AI teams hiring or angels/VCs investing in emotional AI + decentralization
+⿣ Anyone building with ERC-7857 for AI agents? (looking for technical insights, potential co-developers)
 
 ✨ Happy to share learnings on:
-🔧 Multi-AI orchestration without provider lock-in
-⚙️ User data sovereignty patterns
-💰 Capital-efficient decentralized AI development
-🤖 ElizaOS autonomous agent frameworks
+🔧 Multi-AI orchestration patterns
+⚙️ Emotionally intelligent AI agent design
+💰 Capital-efficient AI development (Vibe Coding)
+🤖 High-tech project management & due diligence
 
-Deep technical due diligence of Web3 + AI projects
-
-Passionate about decentralizing AI and always open to connect with fellow builders 🔥
+Passionate about human-centered, emotionally intelligent AI at the Web3 intersection 🔥
 
 Available for coffee ☕ in Panama City or quick video chat 💬
 
