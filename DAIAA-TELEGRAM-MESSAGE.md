@@ -16,43 +16,51 @@
 
 ---
 
-## **TELEGRAM-READY: Short & Punchy (ERC-7857 Focus) ⭐ RECOMMENDED**
+## **TELEGRAM-READY: Tech-Savvy & ERC-7857 Focused ⭐ RECOMMENDED**
 
 ```
-Hey DAIAA community! 👋
+Hey DAIAA builders! 👋
 
-Quick intro — been building decentralized AI agents in Panama for 7 months:
+Sharing my decentralized AI portfolio with this community — would love your technical feedback.
+👉 https://www.aideazz.xyz/card
 
-**What's live:**
-🧠 EspaLuz — AI language tutor (WhatsApp, 19 countries, crypto payments)
-🧠 ALGOM Alpha — AI crypto educator (ElizaOS-based, autonomous trading)
-🎨 Atuona — NFT gallery on Polygon
-📊 Total: <$15K invested, 2 live agents serving real users
+Been shipping AI agents solo for 7 months using decentralized-first approach: multi-AI orchestration (no single provider lock-in), Web3 integrations, user data sovereignty.
 
-**Tech:** Multi-AI orchestration (GPT/Claude/Whisper), React/TypeScript, Python/Node, Web3 integrations
+🔥 What's live:
+✅ 2 autonomous AI agents (EspaLuz + ALGOM Alpha on ElizaOS)
+✅ Web3 infrastructure (Atuona NFT gallery on Polygon)
+✅ Capital-efficient (<$15K vs $900K+ centralized competitors)
+✅ Real users across 19 countries, crypto payments integrated
 
-**Digital card:** www.aideazz.xyz/card
+⚡ Core tech: Multi-AI orchestration (GPT/Claude/Whisper), React/TS, Python/Node, PostgreSQL, ElizaOS, Thirdweb, IPFS
 
----
+🎯 Now exploring: **Wrapping AI agents into ERC-7857 dynamic iNFTs**
+→ Vision: Users OWN their AI companions (not rent SaaS)
+→ AI agents as tradable, evolvable NFTs with dynamic metadata
+→ Agent personality/memory evolves on-chain
+→ Zero Big Tech gatekeepers
 
-**Main question for DAIAA builders:**
+🤝 Questions for DAIAA community:
+⿡ Is anyone already building with ERC-7857 for AI agents? Would love to collaborate!
+⿢ Best practices for on-chain AI agent state management?
+⿣ Feedback on decentralized AI architecture (portfolio has full tech stack)
 
-I'm working on wrapping AI agents into **ERC-7857 dynamic iNFTs** — so users can OWN their AI companions (not rent SaaS subscriptions).
+✨ Happy to share learnings on:
+🔧 Multi-AI orchestration without provider lock-in
+⚙️ User data sovereignty patterns
+💰 Capital-efficient decentralized AI development
+🤖 ElizaOS autonomous agent frameworks
 
-Vision: AI agent marketplace where:
-• You OWN your AI agent (tradable NFT)
-• Agent personality/memory evolves over time (dynamic metadata)
-• Transfer, sell, or upgrade your AI
-• Zero Big Tech lock-in
+Deep technical due diligence of Web3 + AI projects
 
-**Is anyone here already building with ERC-7857 for AI agents?** Would love to collaborate, share learnings, or avoid reinventing the wheel!
+Passionate about decentralizing AI and always open to connect with fellow decentralization maximalists 🔥
 
-Also exploring: data sovereignty patterns, decentralized AI orchestration, agentic commerce.
+Available for technical discussions ☕ (Panama City) or async collab 💬
 
-Let's decentralize AI together! 🚀
-
-— Elena | Panama 🇵🇦
-aipa@aideazz.xyz
+Elena Revicheva
+AIdeazz | Panama 🇵🇦
+📧 aipa@aideazz.xyz
+🌐 https://www.aideazz.xyz/card
 ```
 
 ---
