@@ -16,7 +16,40 @@
 
 ---
 
-## **Option 1: Decentralized AI Focus (RECOMMENDED for DAIAA)**
+## **TELEGRAM-READY: Short & Punchy (ERC-7857 Focus) ⭐ RECOMMENDED**
+
+```
+Hey DAIAA builders! 👋
+
+Working on wrapping AI agents into ERC-7857 dynamic iNFTs — so users can OWN their AI companions, not just rent them.
+
+**What I've built so far:**
+🧠 2 live autonomous AI agents (EspaLuz language tutor + ALGOM Alpha crypto educator)
+🔗 Built on ElizaOS, multi-AI orchestration
+🌐 Web3 infrastructure (Atuona NFT platform on Polygon)
+
+**Vision:** AI agent marketplace where agents = tradable, evolvable iNFTs
+• User owns their AI companion
+• AI personality/memory evolves over time
+• Can transfer, trade, or upgrade
+• Zero Big Tech lock-in
+
+**Question for the community:**
+Is anyone here already working on ERC-7857 dynamic iNFTs for AI agents? Would love to collaborate or learn from your experience!
+
+Also exploring: data sovereignty patterns, decentralized AI orchestration, agentic commerce models.
+
+Portfolio: www.aideazz.xyz/card
+
+Let's decentralize AI together! 🚀
+
+— Elena | Panama 🇵🇦
+aipa@aideazz.xyz
+```
+
+---
+
+## **Option 1: Decentralized AI Focus (ORIGINAL VERSION)**
 
 ```
 Hey DAIAA community! 👋
