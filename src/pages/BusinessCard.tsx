@@ -859,13 +859,13 @@ export default function BusinessCard() {
 
                   <div className="flex flex-wrap justify-center gap-3">
                     <a 
-                      href="https://aideazz.xyz" 
+                      href="https://wa.me/50761666716" 
                       target="_blank" 
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-all border border-green-400 shadow-lg shadow-green-500/50"
                     >
-                      <Globe className="w-4 h-4" /> {t('cardBack.portfolio')}
+                      <Globe className="w-4 h-4" /> {t('cardBack.whatsapp')}
                     </a>
                     <a 
                       href="https://x.com/reviceva" 
