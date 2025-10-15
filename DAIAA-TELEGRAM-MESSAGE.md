@@ -19,27 +19,35 @@
 ## **TELEGRAM-READY: Short & Punchy (ERC-7857 Focus) ⭐ RECOMMENDED**
 
 ```
-Hey DAIAA builders! 👋
+Hey DAIAA community! 👋
 
-Working on wrapping AI agents into ERC-7857 dynamic iNFTs — so users can OWN their AI companions, not just rent them.
+Quick intro — been building decentralized AI agents in Panama for 7 months:
 
-**What I've built so far:**
-🧠 2 live autonomous AI agents (EspaLuz language tutor + ALGOM Alpha crypto educator)
-🔗 Built on ElizaOS, multi-AI orchestration
-🌐 Web3 infrastructure (Atuona NFT platform on Polygon)
+**What's live:**
+🧠 EspaLuz — AI language tutor (WhatsApp, 19 countries, crypto payments)
+🧠 ALGOM Alpha — AI crypto educator (ElizaOS-based, autonomous trading)
+🎨 Atuona — NFT gallery on Polygon
+📊 Total: <$15K invested, 2 live agents serving real users
 
-**Vision:** AI agent marketplace where agents = tradable, evolvable iNFTs
-• User owns their AI companion
-• AI personality/memory evolves over time
-• Can transfer, trade, or upgrade
+**Tech:** Multi-AI orchestration (GPT/Claude/Whisper), React/TypeScript, Python/Node, Web3 integrations
+
+**Digital card:** www.aideazz.xyz/card
+
+---
+
+**Main question for DAIAA builders:**
+
+I'm working on wrapping AI agents into **ERC-7857 dynamic iNFTs** — so users can OWN their AI companions (not rent SaaS subscriptions).
+
+Vision: AI agent marketplace where:
+• You OWN your AI agent (tradable NFT)
+• Agent personality/memory evolves over time (dynamic metadata)
+• Transfer, sell, or upgrade your AI
 • Zero Big Tech lock-in
 
-**Question for the community:**
-Is anyone here already working on ERC-7857 dynamic iNFTs for AI agents? Would love to collaborate or learn from your experience!
+**Is anyone here already building with ERC-7857 for AI agents?** Would love to collaborate, share learnings, or avoid reinventing the wheel!
 
-Also exploring: data sovereignty patterns, decentralized AI orchestration, agentic commerce models.
-
-Portfolio: www.aideazz.xyz/card
+Also exploring: data sovereignty patterns, decentralized AI orchestration, agentic commerce.
 
 Let's decentralize AI together! 🚀
 
