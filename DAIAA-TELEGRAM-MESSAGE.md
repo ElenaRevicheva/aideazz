@@ -16,7 +16,56 @@
 
 ---
 
-## **Option 1: Decentralized AI Focus (RECOMMENDED for DAIAA)**
+## **TELEGRAM-READY: Tech-Savvy & ERC-7857 Focused ⭐ RECOMMENDED**
+
+```
+Hey DAIAA builders! 👋
+
+Sharing my AI + Web3 portfolio with this community — would love your technical feedback.
+👉 https://www.aideazz.xyz/card
+
+Building AIdeazz: a Web3 ecosystem of emotionally intelligent AI Personal Assistants (AIPAs) — AI agents that grow with users through real-life challenges like relocation, language learning, and professional growth.
+
+🔥 What's live (Web2 AI agents proving the vision):
+✅ EspaLuz — AI Spanish tutor (WhatsApp, 19 countries, crypto payments) 👉 https://wa.me/50766623757
+✅ ALGOM Alpha — AI crypto advisor on X 👉 https://x.com/reviceva
+✅ Real users, early traction, <$15K capital efficiency
+✅ Multi-AI orchestration (GPT/Claude/Whisper), React/TS, Python/Node
+
+🎯 **Now developing: Web3 governance + ERC-7857 dynamic iNFT layer**
+→ Vision: AI agents wrapped as evolving iNFTs — users OWN their AIPAs (not rent SaaS)
+→ Agent personality/memory evolves on-chain (dynamic metadata)
+→ Emotionally intelligent companions that adapt to user's life journey
+→ Human-centered, ethical AI that helps people grow (not replace them)
+
+💡 I'm now exploring next steps and would value your thoughts:
+👉 Path A: Join a Web3 AI team (AI Engineer, Founding Engineer, Product roles)
+👉 Path B: Raise pre-seed ($100–300K) to scale AIdeazz with ERC-7857 + Web3 governance
+
+🤝 Ways this community might guide me:
+⿡ Technical feedback on AI → Web3 transition architecture
+⿢ Warm intros to Web3 AI teams hiring or angels/VCs investing in emotional AI + decentralization
+⿣ Anyone building with ERC-7857 for AI agents? (looking for technical insights, potential co-developers)
+
+✨ Happy to share learnings on:
+🔧 Multi-AI orchestration patterns
+⚙️ Emotionally intelligent AI agent design
+💰 Capital-efficient AI development (Vibe Coding)
+🤖 High-tech project management & due diligence
+
+Passionate about human-centered, emotionally intelligent AI at the Web3 intersection 🔥
+
+Available for coffee ☕ in Panama City or quick video chat 💬
+
+Elena Revicheva
+AIdeazz | Panama 🇵🇦
+📧 aipa@aideazz.xyz
+🌐 https://www.aideazz.xyz/card
+```
+
+---
+
+## **Option 1: Decentralized AI Focus (ORIGINAL VERSION)**
 
 ```
 Hey DAIAA community! 👋
