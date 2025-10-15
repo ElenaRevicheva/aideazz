@@ -40,10 +40,14 @@ Been shipping AI agents solo for 7 months using decentralized-first approach: mu
 → Agent personality/memory evolves on-chain
 → Zero Big Tech gatekeepers
 
-🤝 Questions for DAIAA community:
-⿡ Is anyone already building with ERC-7857 for AI agents? Would love to collaborate!
-⿢ Best practices for on-chain AI agent state management?
-⿣ Feedback on decentralized AI architecture (portfolio has full tech stack)
+💡 I'm now exploring next steps and would value your thoughts:
+👉 Path A: Join a decentralized AI team (AI Engineer, Founding Engineer, Product roles)
+👉 Path B: Raise pre-seed ($100–300K) to scale AIdeazz with ERC-7857 focus
+
+🤝 Ways this community might guide me:
+⿡ Technical feedback on my decentralized AI architecture
+⿢ Warm intros to Web3 AI teams hiring or angels/VCs investing in decentralized AI
+⿣ Anyone building with ERC-7857 for AI agents? (looking for technical insights)
 
 ✨ Happy to share learnings on:
 🔧 Multi-AI orchestration without provider lock-in
@@ -53,9 +57,9 @@ Been shipping AI agents solo for 7 months using decentralized-first approach: mu
 
 Deep technical due diligence of Web3 + AI projects
 
-Passionate about decentralizing AI and always open to connect with fellow decentralization maximalists 🔥
+Passionate about decentralizing AI and always open to connect with fellow builders 🔥
 
-Available for technical discussions ☕ (Panama City) or async collab 💬
+Available for coffee ☕ in Panama City or quick video chat 💬
 
 Elena Revicheva
 AIdeazz | Panama 🇵🇦
