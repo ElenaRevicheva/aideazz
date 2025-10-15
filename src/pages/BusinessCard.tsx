@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface Agent {
@@ -623,6 +623,17 @@ export default function BusinessCard() {
                       className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
                       <Twitter className="w-4 h-4" /> {t('contact.twitter')}
+                    </motion.a>
+                    <motion.a 
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href="https://github.com/ElenaRevicheva" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
+                    >
+                      <Github className="w-4 h-4" /> {t('contact.github')}
                     </motion.a>
                     <motion.a 
                       whileHover={{ scale: 1.05 }}
