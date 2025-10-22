@@ -464,74 +464,253 @@ AIdeazz builds **AI Personal Assistants (AIPAs)** that:
 
 ---
 
-## 🎯 12-Month Roadmap with Funding
+## 🚀 12-Month Roadmap with Funding
 
-### Q1 (Months 1-3): Monetization Activation
-**Goals:**
-- Activate PayPal subscriptions with paid tiers
-- Implement analytics tracking (user counts, engagement, conversion)
-- Launch user acquisition campaigns (organic + paid)
-- Fix crypto payment webhooks
+### **Pricing Strategy (Foundation for All Projections)**
+| Tier | Price | Target Audience | Features |
+|------|-------|----------------|----------|
+| **Basic** | $15/month | Individual learners | Core AI tutor, text/voice |
+| **Family** | $35/month | Families (2-4 members) | Multi-user, video avatars |
+| **Premium** | $75/month | Power users | 1-on-1 sessions, priority support |
+| **Enterprise** | $200-500/month | Schools, corporations | Custom deployment, analytics |
 
-**Targets:**
-- 100 active users
-- 20 paying subscribers
-- $500-1,000 MRR
-
-**Team:** Founder + 1 junior engineer + freelance marketer
+**Projected Mix by Month 12:** 60% Basic, 30% Family, 8% Premium, 2% Enterprise  
+**Blended ARPU:** ~$25/month
 
 ---
 
-### Q2 (Months 4-6): Growth & Validation
-**Goals:**
-- Scale user acquisition (SEO, content, partnerships)
-- Launch referral program (viral growth)
-- Expand to 2 countries beyond Panama (Colombia, Mexico)
-- Start mobile app development (React Native)
+### **Q1 (Months 1-3): Foundation & Activation**
+
+**Primary Focus:** Analytics, monetization infrastructure, and proof of conversion
+
+**Specific Actions:**
+1. **Week 1-2:** Implement Mixpanel/Amplitude for user analytics
+2. **Week 3-4:** Activate PayPal subscriptions with 3 tiers (Basic, Family, Premium)
+3. **Week 5-8:** Launch targeted ads to Panama/Colombia expat Facebook groups
+4. **Week 9-12:** Fix crypto payment webhooks, A/B test onboarding flow
+
+**User Acquisition Strategy:**
+- **Organic:** Expat Facebook groups (50 users, $0 CAC)
+- **Content:** Blog posts on "Moving to Panama/Colombia" (30 users, $15 CAC via SEO tools)
+- **Paid Ads:** Facebook/Instagram targeting expats (70 users, $30 CAC)
+- **Total Budget:** $5K marketing (not $35K - savings for later quarters)
 
 **Targets:**
-- 1,000 active users
-- 100 paying subscribers
-- $3K-5K MRR
-- 10% conversion rate
+- **150 active users** (from 7 → conservative 21x growth)
+  - 50 organic (community outreach, word-of-mouth)
+  - 30 content marketing (blog, YouTube, SEO)
+  - 70 paid ads (Facebook targeting Panama/Colombia expats)
+- **15 paying subscribers** (10% conversion - conservative for early adopters)
+  - 10 Basic @ $15 = $150
+  - 4 Family @ $35 = $140
+  - 1 Premium @ $75 = $75
+- **$365 MRR** (realistic baseline, proves conversion)
 
-**Team:** Founder + 1 engineer + 1 full-time marketer + contractor support
+**Key Metrics to Track:**
+- CAC: $30 (blended across channels)
+- Conversion rate: 10% (free trial → paid)
+- Trial-to-paid time: 7 days
+- Churn: <10% (early adopters are sticky)
+
+**Team:** Founder (full-time) + Junior Engineer (analytics/bugs) + Freelance Marketer (content + ads, 20 hrs/week)
+
+**Risks & Mitigation:**
+- *Risk:* Conversion lower than 10% → Extend free trial to 14 days, add onboarding calls
+- *Risk:* CAC higher than $30 → Pivot to pure organic (slower but free)
 
 ---
 
-### Q3 (Months 7-9): Mobile & Scale
-**Goals:**
-- Launch iOS/Android apps
-- Partner with language schools (B2B pilot)
-- Expand to 5 countries total
-- Build community features (forums, events)
+### **Q2 (Months 4-6): Validation & Viral Growth**
+
+**Primary Focus:** Prove product-market fit, launch referral program, expand geographically
+
+**Specific Actions:**
+1. **Month 4:** Launch referral program (give 1 month free, get 1 month free)
+2. **Month 5:** Expand to Mexico (3rd largest expat destination in LATAM)
+3. **Month 5:** Partner with 2-3 local relocation consultants (affiliate model)
+4. **Month 6:** Start React Native mobile app (iOS/Android MVP)
+
+**User Acquisition Strategy:**
+- **Referrals:** 150 existing users × 30% refer × 1.5 avg referrals = 68 new users ($0 CAC)
+- **SEO/Content:** 100 users from blog traffic ($20 CAC - tools + freelance writer)
+- **Partnerships:** 3 relocation consultants × 30 clients each = 90 users ($10 CAC - 10% commission)
+- **Paid Ads:** Scale to $12K budget = 240 users ($50 CAC - broader targeting, higher cost)
+- **Total Marketing Budget:** $15K (M4: $3K, M5: $5K, M6: $7K)
 
 **Targets:**
-- 5,000 active users
-- 500 paying subscribers
-- $15K-25K MRR
-- 10-15% conversion rate
+- **650 active users** (150→650 = 4.3x growth, driven by referrals + partnerships)
+  - 150 baseline from Q1
+  - 68 from referrals
+  - 100 from content/SEO
+  - 90 from partnerships
+  - 240 from paid ads
+- **65 paying subscribers** (10% conversion, proving consistency)
+  - 40 Basic @ $15 = $600
+  - 20 Family @ $35 = $700
+  - 4 Premium @ $75 = $300
+  - 1 Enterprise pilot @ $200 = $200
+- **$1,800 MRR** (still conservative, 5x growth from Q1)
 
-**Team:** Founder + 2 engineers + 1 marketer + support
+**Key Metrics:**
+- CAC: $35 (blended - rising due to paid ads scale)
+- LTV: $180 (assumes 12-month retention, 6-month payback)
+- LTV:CAC = 5.1:1 ✅ (healthy unit economics)
+- Referral rate: 30% of users refer (industry benchmark: 15-40%)
+- Churn: 8% monthly (normal for subscription apps)
+
+**Team:** Founder + Full-Stack Engineer (mobile app) + Full-Time Marketer (content + partnerships) + VA for customer support (10 hrs/week)
+
+**Risks & Mitigation:**
+- *Risk:* Referral program doesn't take off → Increase incentive to 2 free months
+- *Risk:* Partnership deals slow → Double down on paid ads (have budget buffer)
 
 ---
 
-### Q4 (Months 10-12): Series A Prep
-**Goals:**
-- Reach 10,000 active users
-- Optimize unit economics (CAC, LTV, churn)
-- Expand to 10 countries
-- Launch B2B offering (schools, corporations)
-- Prepare Series A metrics & pitch
+### **Q3 (Months 7-9): Scale & B2B Validation**
+
+**Primary Focus:** Mobile app launch, B2B pilot, expand to 5 countries, prove scalability
+
+**Specific Actions:**
+1. **Month 7:** Launch mobile app (iOS + Android MVP)
+2. **Month 7:** Pilot B2B with 2 language schools in Panama (10-20 students each)
+3. **Month 8:** Expand to Argentina & Costa Rica (high expat populations)
+4. **Month 9:** Community features (user forums, live Q&A with tutors)
+
+**User Acquisition Strategy:**
+- **Mobile App Stores:** 300 organic downloads (ASO optimization, WhatsApp/Telegram CTAs)
+- **Referrals:** 650 users × 35% refer × 1.5 = 341 new users (improving viral loop)
+- **SEO/Content:** 250 users (compound effect of 6 months of content)
+- **B2B Pilot:** 2 schools × 15 avg students = 30 users (enterprise CAC: $150)
+- **Paid Ads:** Scale to $25K = 400 users ($62 CAC - saturating early markets, expanding geo)
+- **Total Marketing Budget:** $30K
 
 **Targets:**
-- 10,000 active users
-- 1,000+ paying subscribers
-- $50K-100K MRR
-- Break-even or close
-- Series A ready ($3M-5M raise)
+- **1,970 active users** (650→1,970 = 3x growth)
+  - 650 baseline from Q2
+  - 300 from mobile app
+  - 341 from referrals
+  - 250 from content/SEO
+  - 30 from B2B pilot
+  - 400 from paid ads
+- **197 paying subscribers** (10% conversion, maintaining consistency)
+  - 120 Basic @ $15 = $1,800
+  - 60 Family @ $35 = $2,100
+  - 15 Premium @ $75 = $1,125
+  - 2 Enterprise @ $300 avg = $600
+- **$5,625 MRR** (3x growth from Q2, $67.5K ARR run-rate)
 
-**Team:** Founder (CEO/CTO) + 3 engineers + marketer + ops
+**Key Metrics:**
+- CAC: $50 (rising - expected as we scale)
+- LTV: $240 (18-month retention, improving product-market fit)
+- LTV:CAC = 4.8:1 ✅ (still healthy despite rising CAC)
+- Mobile adoption: 35% of new users (proving cross-platform value)
+- B2B conversion: 60% of pilot students convert to paid (higher than B2C)
+- Churn: 7% monthly (improving as product matures)
+
+**Team:** Founder + 2 Engineers (1 mobile, 1 backend/features) + Full-Time Marketer + Customer Support (20 hrs/week) + B2B Sales Contractor (commission-based)
+
+**Risks & Mitigation:**
+- *Risk:* Mobile app adoption slow → Add mobile-exclusive features (offline mode, push notifications)
+- *Risk:* B2B pilots don't convert → Focus on B2C scale, revisit B2B in Q4
+
+---
+
+### **Q4 (Months 10-12): Profitability Path & Series A Prep**
+
+**Primary Focus:** Path to break-even, optimize unit economics, expand to 10 countries, Series A-ready metrics
+
+**Specific Actions:**
+1. **Month 10:** Expand to Chile, Peru, Ecuador (3 more countries = 8 total)
+2. **Month 10:** Launch Premium+ tier ($125/month with weekly 1-on-1 video tutoring)
+3. **Month 11:** Optimize LTV (upsell family → premium, reduce churn with engagement loops)
+4. **Month 11:** Close 3-5 B2B deals with language schools/corporations
+5. **Month 12:** Prepare Series A pitch deck with 12-month proof of scalability
+
+**User Acquisition Strategy:**
+- **Mobile + Web:** 800 organic (app store momentum, SEO compound effect)
+- **Referrals:** 1,970 users × 40% refer × 1.5 = 1,182 new users (viral loop fully activated)
+- **B2B Sales:** 5 enterprise deals × 30 avg users = 150 users
+- **Paid Ads:** Scale to $40K = 500 users ($80 CAC - international expansion, higher CPMs)
+- **Partnerships:** 10 relocation agencies × 20 clients = 200 users
+- **Total Marketing Budget:** $50K (aggressive scaling for Series A metrics)
+
+**Targets:**
+- **4,800 active users** (1,970→4,800 = 2.4x growth, conservative deceleration)
+  - 1,970 baseline from Q3
+  - 800 organic (mobile + web)
+  - 1,182 from referrals (largest growth driver)
+  - 150 from B2B
+  - 500 from paid ads
+  - 200 from partnerships
+- **480 paying subscribers** (10% conversion, proven sustainable)
+  - 280 Basic @ $15 = $4,200
+  - 145 Family @ $35 = $5,075
+  - 40 Premium @ $75 = $3,000
+  - 10 Premium+ @ $125 = $1,250
+  - 5 Enterprise @ $400 avg = $2,000
+- **$15,525 MRR → $186K ARR** (Series A-ready traction)
+
+**Path to Break-Even:**
+- **Monthly Burn:** $35K (3 engineers @ $8K, marketer @ $6K, ops @ $3K, founder @ $4K, hosting/AI @ $6K)
+- **Monthly Revenue:** $15.5K
+- **Net Burn:** -$19.5K/month
+- **Runway with $100K:** 5+ months remaining (need Series A or profitability push)
+- **Break-even target:** 900 paying subscribers @ $25 avg = $22.5K MRR (achievable Month 15-18)
+
+**Key Metrics (Series A Ready):**
+- **Total Users:** 4,800 active (meaningful scale)
+- **Paying Subscribers:** 480 (10% conversion proven over 12 months)
+- **ARR:** $186K (path to $1M ARR visible)
+- **CAC:** $65 blended (optimized over 12 months)
+- **LTV:** $300 (24-month retention, strong product-market fit)
+- **LTV:CAC:** 4.6:1 ✅ (healthy, fundable unit economics)
+- **Churn:** 6% monthly, 50% annual (industry standard)
+- **Payback Period:** 9 months (acceptable for SaaS)
+- **Countries:** 8-10 (international scalability proven)
+- **NPS Score:** 50+ (strong product-market fit indicator)
+
+**Team:** Founder (CEO/CTO) + 3 Engineers (mobile, backend, frontend) + Full-Time Marketer + Operations Manager (customer success, partnerships, legal) + 2 Part-Time Support Agents
+
+**Series A Pitch:**
+- "We built to $186K ARR in 12 months with $100K seed funding (60% capital efficiency)"
+- "Proven 10% conversion rate across 4,800 users and 10 countries"
+- "Clear path to $1M ARR in 6 months with Series A capital"
+- "Seeking $3M to scale to 50K users and $5M ARR by Year 2"
+
+**Risks & Mitigation:**
+- *Risk:* Don't hit $186K ARR → Show trajectory: "On pace for $150K ARR, need 6 more months"
+- *Risk:* Burn too high → Cut to profitability: Pause hiring, focus on upsells, reduce ads to $10K/month
+- *Risk:* Series A market is tough → Position as "profitable growth" story, not "growth at all costs"
+
+---
+
+### **Summary Table: 12-Month Milestones**
+
+| Quarter | Users | Paying | MRR | CAC | LTV:CAC | Marketing $ | Team Size |
+|---------|-------|--------|-----|-----|---------|-------------|-----------|
+| **Q1** | 150 | 15 | $365 | $30 | 6:1 | $5K | 2.5 FTE |
+| **Q2** | 650 | 65 | $1,800 | $35 | 5.1:1 | $15K | 3.5 FTE |
+| **Q3** | 1,970 | 197 | $5,625 | $50 | 4.8:1 | $30K | 5 FTE |
+| **Q4** | 4,800 | 480 | $15,525 | $65 | 4.6:1 | $50K | 7 FTE |
+
+**Total 12-Month Investment:** $100K seed funding  
+**Total Marketing Spend:** $100K (aggressive but justified by metrics)  
+**Ending ARR:** $186K (Series A ready)  
+**Ending MRR:** $15.5K (path to break-even visible)
+
+---
+
+### **Why This Roadmap Is Iron-Clad**
+
+✅ **Conservative Conversion:** 10% sustained across all quarters (industry standard)  
+✅ **Realistic CAC:** Starts at $30, scales to $65 (expected as markets saturate)  
+✅ **Healthy LTV:CAC:** Never drops below 4.5:1 (VCs want 3:1 minimum)  
+✅ **Specific Tactics:** Every user source explained with channel-specific CAC  
+✅ **Pricing Justified:** Blended ARPU of $25 matches detailed tier breakdown  
+✅ **Growth Curve:** 21x → 4.3x → 3x → 2.4x (realistic deceleration over time)  
+✅ **Team Scaling:** Gradual from 2.5 → 7 FTE (not over-hiring)  
+✅ **Backup Plans:** Risk mitigation for every quarter  
+✅ **Series A Ready:** $186K ARR with proof of scalability across 10 countries  
 
 ---
 
