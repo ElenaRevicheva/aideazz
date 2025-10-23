@@ -7,6 +7,23 @@
 
 ---
 
+Slide order:
+
+Title
+Introduction
+The Problem
+The Solution
+Vibe Coding Framework
+Live AI Agents & Demo
+Technology & Infrastructure
+Market Opportunity
+Business Model ← HERE!
+Community & Partnerships
+Vision & Impact
+12-Month Roadmap
+The Ask
+Contact & Next Steps
+
 ## 📊 Executive Summary
 
 **Current Pitch.html Status:**
