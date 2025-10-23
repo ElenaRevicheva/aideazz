@@ -7,7 +7,7 @@
 
 ## Executive Summary
 
-**AIdeazz** is a pre-seed stage startup building emotionally intelligent AI Personal Assistants (AIPAs) that evolve with their users through life's transitions. Founded by solo entrepreneur and AI-first engineer Elena Revicheva in Panama in 2025, the company has rapidly deployed 6 LIVE AI products serving real users across web, messaging platforms (WhatsApp, Telegram), and blockchain infrastructure—all built with less than $15,000 in capital through AI-assisted "vibe coding" development methodology.
+**AIdeazz** https://aideazz.xyz/ is a pre-seed stage startup building emotionally intelligent AI Personal Assistants (AIPAs) that evolve with their users through life's transitions. Founded by solo entrepreneur and AI-first engineer Elena Revicheva in Panama in 2025, the company has rapidly deployed 6 LIVE AI products serving real users across web, messaging platforms (WhatsApp, Telegram), and blockchain infrastructure—all built with less than $15,000 in capital through AI-assisted "vibe coding" development methodology.
 
 The startup addresses the $25B+ AI personal assistant market by combining emotional intelligence, multi-platform accessibility, Web3 ownership, and family-aware context to serve 280M+ expats and language learners worldwide, starting with 19 Spanish-speaking countries.
 
@@ -16,7 +16,7 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 ## 🏢 Company Information
 
 ### Legal Structure
-- **Business Name:** AIdeazz
+- **Business Name:** AIdeazz 
 - **Legal Name:** ELENA REVICHEVA
 - **Registration:** Panama (Persona Natural Extranjera with Permanent Residency in Panama, RUC 8-NT-2-781965 DV 90, Actividad Empresarial Ocupación 21320 - PROGRAMADORES INFORMATICOS)
 - **Founded:** July 2025
@@ -45,6 +45,7 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 - Self-taught AI engineer through "vibe coding" (AI-assisted development)
 - Member of ISD, Panama https://www.isdistrict.com/ and Decentralized AI Agent Alliance (DAIAA) https://www.daiaa.org/
 - Strategic visionary in AI consciousness, emotional intelligence and decentralised AI Agents
+**Business portfolio:** https://www.aideazz.xyz/card
 
 **Technical Capabilities:**
 - 50,000+ lines of production code (TypeScript, Python, JavaScript, SQL)
