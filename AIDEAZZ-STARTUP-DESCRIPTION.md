@@ -99,14 +99,15 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 
 ## 💡 Solution: The AIdeazz Ecosystem
 
-### Core Innovation: Emotionally Intelligent AIPAs
+### Core Innovation: Emotionally Intelligent AIPAs focused on education, professional transformation and personal growth
 
 AIdeazz builds **AI Personal Assistants (AIPAs)** that:
 - **Understand emotions:** Custom 50+ emotion detection system ✅ *Live now*
 - **Remember relationships:** Family-aware context and memory ✅ *Live now*
 - **Evolve with users:** Adaptive learning through every interaction ✅ *Live now*
-- **Work everywhere:** Web, WhatsApp, Telegram—meet users where they are ✅ *Live now*
-- **Provide ownership:** Web3-native with dynamic iNFT identity (ERC-7857) 🔮 *Roadmap - requires funding & team to implement*
+- **Work right where Life happens, helping users on the go:** WhatsApp, Telegram—meet users where they are ✅ *Live now*
+- **Provide ownership:** Web3-native with dynamic iNFT identity (ERC-7857) 🔮 *requires funding & team to implement*
+- LIVE product https://wa.me/50766623757: EspaLuz - WhatsApp AI bilingual Tutor helping expats dive in Spanish and local natives to improve English on the go
 
 ### The "Vibe Coding" Framework
 
