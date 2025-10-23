@@ -7,9 +7,12 @@
 
 ## Executive Summary
 
-**AIdeazz** https://aideazz.xyz/ is a pre-seed stage startup building emotionally intelligent AI Personal Assistants (AIPAs) that evolve with their users through life's transitions. Founded by solo entrepreneur and AI-first engineer Elena Revicheva in Panama in 2025, the company has rapidly deployed 6 LIVE AI products serving real users across web, messaging platforms (WhatsApp, Telegram), and blockchain infrastructure—all built with less than $15,000 in capital through AI-assisted "vibe coding" development methodology.
+**AIdeazz** https://aideazz.xyz/ is a pre-seed stage AI/EdTech startup building emotionally intelligent AI Personal Assistants (AIPAs) for expat families, travelers, people facing professional transformations and other life's transitions across borders of the world — AI agents that help users learn on the go, understand context, remember relationships, and mindfully adapt through real interactions. AIPAs are not just meant to help relocants, they connect to them native locals providing public and private services constructing bridges between cultures and making practicalities go easier. 
+Founded by solo entrepreneur and AI-first engineer Elena Revicheva in Panama in 2025, the company has rapidly deployed 6 LIVE AI products serving real users across messaging platforms (WhatsApp, Telegram), web and blockchain infrastructure — all built with less than $15,000 in capital through AI-assisted development ("vibe coding"). 
 
-The startup addresses the $25B+ AI personal assistant market by combining emotional intelligence, multi-platform accessibility, Web3 ownership, and family-aware context to serve 280M+ expats and language learners worldwide, starting with 19 Spanish-speaking countries.
+Target Market: $37B+ TAM (AI assistants $25B + language learning $12B), starting with 19 Spanish-speaking countries and 280M+ expats.
+
+Seeking: $100K-$500K pre-seed to activate monetization, scale to 5K users, and build marketplace MVP.
 
 ---
 
@@ -22,8 +25,6 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 - **Founded:** July 2025
 - **Location:** Costa del Este, Juan Díaz, Panama City, Panama
 - **Industry:** AI/ML, EdTech, Saas, Web3
-
-### Stage Classification: **PRE-SEED**
 
 **Rationale:**
 - ✅ Working MVP (6 AI products deployed)
@@ -64,6 +65,8 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 
 ### The Market Gap
 
+Current AI (ChatGPT, Duolingo, Babbel and AI tutors) lacks emotional awareness, family context, and true user ownership. 280M+ expats worldwide face language barriers and cultural adaptation stress with only generic, one-size-fits-all tools.
+
 **Current AI solutions lack three critical elements:**
 
 1. **Emotional Intelligence**
@@ -79,7 +82,7 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 3. **True Ownership & Privacy**
    - Big Tech owns your AI interactions and data
    - No portability or customization rights
-   - Users are products, not owners
+   - Users are products, not owners: Big Tech (ChatGPT, Google) owns your AI conversations and profits from your data—you can't sell, transfer, or keep your trained AI, making you a data mine, not an asset owner. AIdeazz flips this with NFT-wrapped AIPAs: you own the AI that is evolving with you, the emotional training, and the value.
 
 ### Target User Pain Points
 
@@ -109,6 +112,16 @@ AIdeazz builds **AI Personal Assistants (AIPAs)** that:
 - **Provide ownership:** Web3-native with dynamic iNFT identity (ERC-7857) 🔮 *requires funding & team to implement*
 - LIVE product https://wa.me/50766623757: EspaLuz - WhatsApp AI bilingual Tutor helping expats dive in Spanish and local natives to improve English on the go
 
+## Who is an AIPA?
+
+AI Personal Assistant — not just intelligent, but emotionally aware (leveraging advanced natural language processing and sentiment analysis frameworks).
+
+Unlike existing AI agents, **AIPAs** evolve **with** **the user over time.**
+
+**Each AIPA:**
+
+- Is going to be wrapped in an **ERC-7857 NFT with web3 governance.** ERC-7857 is the **breakthrough Ethereum standard built exclusively for AI agents**—the first to enable privacy-preserving metadata, dynamic capability evolution, and encrypted emotional context storage. Unlike traditional NFTs, this **next-generation standard** allows AIPAs to grow and adapt while keeping personal learning data completely secure.
+
 ### The "Vibe Coding" Framework
 
 **Proprietary Development Methodology:**
@@ -118,28 +131,33 @@ AIdeazz builds **AI Personal Assistants (AIPAs)** that:
 - Adaptive personality matrices (evolving agent traits)
 - Continuous iteration (every interaction improves system)
 
-### Platform Architecture
+### AIdeazz Ecosystem Architecture
 
 **What's LIVE Now (Proven):**
 
-**1. Emotionally Intelligent AI Core** ✅
+**1. Emotionally Intelligent AI Core built (example: EspaLuz AI Tutor)** ✅
 - Custom 50+ emotion detection system
 - Family-aware context and memory
 - Adaptive learning through interactions
 - Multi-platform (Web, WhatsApp, Telegram)
 
-**2. Payment Infrastructure** ✅
-- PayPal Subscriptions integrated
-- Crypto payments (BTC, ETH, USDT via PayPangea)
-- Ready to activate with funding
+**2. Payment Infrastructure built** (example: EspaLuz) ✅
+- PayPal Subscriptions live and working
+- Crypto payments (USDT via PayPangea https://paypangea.com/ integrated, in testing for now)
 
-**3. Web3 Foundation** ✅
-- AZ Token (ERC20) trading live on QuickSwap
-- NFT deployment capability proven (ATUONA ERC-721)
-- Polygon DAO governance deployed via Decent
+**3. Web3 Foundation of AIdeazz ecosystem built** ✅
+- 🔥 **Governance Basics: ERC-721 Token Voting system**: AIdeazz DAO live on Polygon at [Decent app](https://app.decentdao.org/home?dao=matic%3A0x8301c6F34925580D2695E06fC212eDd8fA152535&page=1&size=10), address of the DAO:  `0x547d7aF7B55a92a65A1d015fAA4E75eeF4758190` ✅ 
+- **AZ Token (ERC20):** Deployed on Polygon at Thirdweb.com, contract `0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5` ✅, Trading live on [QuickSwap](https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5) DEX (liquidity fundraising ongoing) ✅, CoinGecko listing: pending resubmission (early-stage volume and traction are growing organically; investor support will accelerate visibility and liquidity) ✅
+- decentralised identity with ENS name registered: aideazz.eth
+- AI Agents NFT wrapping capability proven: NFT Collection (ERC721) for AIPAs wrappers deployed on Polygon at Thirdweb.com, contract 0x771Cc6BDCF8E7660ddc7E3F68FBCE7Dc5d675769, AI Agents Profiles minted ✅ ERC-7857 standard for dynamic iNFTs layer requires funding and team to implement.
 
 **What Requires Funding & Team:**
+🔮 AIPA Marketplace: Buy, sell, subscribe to specialized AI agents (tutors, coaches, advisors)
+🔮 NFT-wrapped ownership (ERC-7857): Users own their trained AIPAs as tradable digital assets
+🔮 SocialFi layer: Community co-creation, rating systems, collaborative agent evolution
+🔮 Developer ecosystem: Open platform for AI engineers, domain experts, and creators to mint custom AIPAs
 
+STOPPED here 23.10.2025 
 **4. AIPA Marketplace** 🔮 *Q3-Q4 2026 with funding*
 - Buy, sell, subscribe to specialized AIPAs
 - From family tutors to business coaches
