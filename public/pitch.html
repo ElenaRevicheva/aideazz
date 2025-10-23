@@ -108,6 +108,11 @@
             justify-content: center;
         }
 
+        /* Override centering for content-heavy slides */
+        .slide.slide-top.active {
+            justify-content: flex-start;
+        }
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -669,7 +674,7 @@
         </div>
 
         <!-- Slide 10: Community & Partnerships -->
-        <div class="slide">
+        <div class="slide slide-top">
             <h2>Community & Partnerships</h2>
             <p style="font-size: 1.3rem;">Growing ecosystem across Web2 and Web3:</p>
             <div class="links-grid">
@@ -728,7 +733,7 @@
         </div>
 
         <!-- Slide 12: 12-Month Roadmap with Funding -->
-        <div class="slide">
+        <div class="slide slide-top">
             <h2>12-Month Roadmap with Funding</h2>
             <p style="font-size: 1.3rem; text-align: center; margin-bottom: 30px;">Clear path from pre-seed to Series A ready:</p>
             
@@ -801,7 +806,7 @@
         </div>
 
         <!-- Slide 14: Contact & Next Steps -->
-        <div class="slide">
+        <div class="slide slide-top">
             <h2>Let's Build the AIPA Era Together</h2>
             <p style="font-size: 1.3rem; text-align: center; margin-bottom: 40px;">
                 Ready to join the emotionally intelligent AI revolution?
