@@ -16,14 +16,12 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 ## 🏢 Company Information
 
 ### Legal Structure
-- **Legal Name:** ELENA REVICHEVA (Persona Natural Extranjera with Permanent Residency in Panama, RUC 8-NT-2-781965 DV 90, Actividad Empresarial Ocupación 21320 - PROGRAMADORES INFORMATICOS)
 - **Business Name:** AIdeazz
-- **Registration:** Panama - Foreign Natural Person
-- **Founded:** March 2025
+- **Legal Name:** ELENA REVICHEVA
+- **Registration:** Panama (Persona Natural Extranjera with Permanent Residency in Panama, RUC 8-NT-2-781965 DV 90, Actividad Empresarial Ocupación 21320 - PROGRAMADORES INFORMATICOS)
+- **Founded:** July 2025
 - **Location:** Costa del Este, Juan Díaz, Panama City, Panama
-- **Industry:** AI/ML, EdTech, Web3, SaaS
-- **ENS Domain:** aideazz.eth
-- **Primary Wallet:** 0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5
+- **Industry:** AI/ML, EdTech, Saas, Web3
 
 ### Stage Classification: **PRE-SEED**
 
