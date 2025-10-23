@@ -45,6 +45,7 @@ The startup addresses the $25B+ AI personal assistant market by combining emotio
 - Self-taught AI engineer through "vibe coding" (AI-assisted development)
 - Member of ISD, Panama https://www.isdistrict.com/ and Decentralized AI Agent Alliance (DAIAA) https://www.daiaa.org/
 - Strategic visionary in AI consciousness, emotional intelligence and decentralised AI Agents
+
 **Business portfolio:** https://www.aideazz.xyz/card
 
 **Technical Capabilities:**
