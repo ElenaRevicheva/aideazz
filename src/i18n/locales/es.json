@@ -47,16 +47,17 @@
     "whatsappLiveSubtitle": "Completo • Tiempo real • ¡Listo ya!",
     "whatsappLiveDescription": "La experiencia completa de EspaLuz — ¡chatea directamente con nuestro bot de WhatsApp totalmente operativo! Mensajes de voz, traducción de imágenes, inteligencia emocional y todas las funciones premium están en vivo y listas para tu familia.",
     "startChatting": "Comienza a Chatear Ahora",
-    "whatsappSandboxTitle": "WhatsApp Sandbox",
-    "whatsappSandboxSubtitle": "Pruebas a través de Twilio Sandbox",
-    "whatsappSandboxDescription": "Entorno de prueba alternativo usando el Sandbox de WhatsApp de Twilio. Aunque nuestro bot de WhatsApp en vivo está completamente operativo, este sandbox proporciona capacidades de prueba adicionales para fines de desarrollo.",
+    "webAppTitle": "EspaLuz Web App",
+    "webAppSubtitle": "Plataforma SaaS Completa",
+    "webAppDescription": "Plataforma completa de aprendizaje de idiomas con IA que incluye voz, video, perfiles familiares, seguimiento de progreso y módulos de aprendizaje. Actualmente en pruebas beta—algunas funciones aún se están refinando.",
+    "webAppBadge": "BETA",
     "openWhatsappLive": "Abrir WhatsApp en Vivo",
-    "testSandbox": "Probar WhatsApp Sandbox",
+    "tryWebApp": "Probar Web App",
     "statsLive": "En Vivo",
     "statsTelegram": "En Telegram",
     "statsWhatsapp": "Bot de WhatsApp",
-    "statsTesting": "Pruebas",
-    "statsWhatsappSandbox": "WhatsApp Sandbox"
+    "statsBeta": "Beta",
+    "statsWebApp": "Web App"
   },
   "vibeCoding": {
     "badge": "Nuestra Filosofía",
