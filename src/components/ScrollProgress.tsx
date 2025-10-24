@@ -23,7 +23,7 @@ const ScrollProgress = () => {
     <>
       {/* Top Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 origin-left z-[60] pointer-events-none"
         style={{ scaleX }}
       />
 
@@ -36,8 +36,9 @@ const ScrollProgress = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-40 hover:shadow-purple-500/50 transition-shadow duration-300"
+          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-[70] hover:shadow-purple-500/50 transition-shadow duration-300"
           aria-label="Scroll to top"
+        >
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
