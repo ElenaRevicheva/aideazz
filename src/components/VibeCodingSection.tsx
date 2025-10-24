@@ -39,19 +39,33 @@ const VibeCodingSection = () => {
             <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-white mb-4 font-poppins">{t("vibeCoding.emotionalIntelligence")}</h3>
             <p className="text-gray-300">{t("vibeCoding.emotionalDescription")}</p>
-          </div>
+          </motion.div>
           
-          <div className="glass-card p-8 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-8 text-center"
+          >
             <Zap className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-white mb-4 font-poppins">{t("vibeCoding.adaptiveLearning")}</h3>
             <p className="text-gray-300">{t("vibeCoding.adaptiveDescription")}</p>
-          </div>
+          </motion.div>
           
-          <div className="glass-card p-8 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-8 text-center"
+          >
             <Code className="w-12 h-12 text-blue-400 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-white mb-4 font-poppins">{t("vibeCoding.humanCentered")}</h3>
             <p className="text-gray-300">{t("vibeCoding.humanDescription")}</p>
-          </div>
+          </motion.div>
         </div>
 
         {/* New section */}
