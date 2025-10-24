@@ -1,6 +1,7 @@
 import { Heart, MessageCircle, DollarSign, Users, Mail, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const CallToActionSection = () => {
   const { t } = useTranslation();
@@ -17,19 +18,32 @@ const CallToActionSection = () => {
     <section id="contact" className="py-24 relative bg-gradient-to-r from-purple-900/30 to-pink-900/30">
       <div className="container mx-auto px-6">
         {/* Main CTA */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto mb-16"
+        >
           <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6">
             <span className="gradient-text">{t("cta.title")}</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed mb-8">
             {t("cta.subtitle")}
           </p>
-        </div>
+        </motion.div>
 
         {/* Action Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {/* Try EspaLuz */}
-          <div className="glass-card p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6"
+          >
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-white" />

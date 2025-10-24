@@ -1,7 +1,7 @@
-
 import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, Monitor, Mic, Image, Video, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const EspaLuzSection = () => {
   const { t } = useTranslation();
@@ -22,7 +22,13 @@ const EspaLuzSection = () => {
     <section id="espaluz" className="py-24 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
             <Sparkles className="w-4 h-4 text-pink-400" />
             <span className="text-sm font-medium text-pink-300">{t("espaluz.badge")}</span>
@@ -30,25 +36,51 @@ const EspaLuzSection = () => {
           
           {/* EspaLuz Photo and Title */}
           <div className="flex flex-col items-center gap-6 mb-6">
-            <div className="relative">
-              <img 
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="relative"
+            >
+              <motion.img 
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
                 src="/lovable-uploads/a9ca2d17-65b0-43f6-8da1-665c7f725d79.png"
                 alt={t("espaluz.altText")}
                 className="w-32 h-32 rounded-full object-cover shadow-2xl border-4 border-purple-400/30"
               />
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+              <motion.div 
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.5 }}
+                className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white flex items-center justify-center"
+              >
                 <span className="text-xs">🤖</span>
-              </div>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold font-poppins">
+              </motion.div>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-4xl md:text-5xl font-bold font-poppins"
+            >
               {t("espaluz.title")} <span className="gradient-text">{t("espaluz.titleHighlight")}</span>
-            </h2>
+            </motion.h2>
           </div>
           
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-xl text-gray-300 leading-relaxed"
+          >
             {t("espaluz.subtitle")}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

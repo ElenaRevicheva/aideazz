@@ -1,6 +1,7 @@
 import { Brain, Shield, Zap, Heart, Sparkles, ExternalLink, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const AIpaExplainerSection = () => {
   const { t } = useTranslation();
@@ -9,7 +10,13 @@ const AIpaExplainerSection = () => {
     <section id="agents" className="py-24 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
             <Brain className="w-4 h-4 text-purple-400" />
             <span className="text-sm font-medium text-purple-300">{t("aipa.badge")}</span>
@@ -33,31 +40,49 @@ const AIpaExplainerSection = () => {
           </div>
 
           {/* Business Portfolio CTA */}
-          <div className="mt-8">
-            <Button
-              asChild
-              className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 animate-pulse-subtle"
-            >
-              <a 
-                href="https://www.aideazz.xyz/card" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-3"
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8"
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                asChild
+                className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
               >
-                <Rocket className="w-6 h-6" />
-                {t("aipa.businessPortfolioButton")}
-                <ExternalLink className="w-5 h-5" />
-              </a>
-            </Button>
+                <a 
+                  href="https://www.aideazz.xyz/card" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3"
+                >
+                  <Rocket className="w-6 h-6" />
+                  {t("aipa.businessPortfolioButton")}
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+              </Button>
+            </motion.div>
             <p className="text-sm text-gray-400 mt-3">{t("aipa.businessPortfolioDescription")}</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left: Core Features */}
-          <div className="space-y-8">
-            <div className="glass-card p-8">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
+          >
+            <motion.div 
+              whileHover={{ scale: 1.02, rotateY: 3 }}
+              style={{ transformStyle: 'preserve-3d' }}
+              className="glass-card p-8"
+            >
               <h3 className="text-2xl font-semibold text-white mb-6 font-poppins flex items-center gap-3">
                 <Sparkles className="w-8 h-8 text-purple-400" />
                 {t("aipa.coreFeaturesTitle")}
@@ -97,12 +122,22 @@ const AIpaExplainerSection = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right: NFT & Bonding */}
-          <div className="space-y-8">
-            <div className="glass-card p-8 border-2 border-purple-500/30">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-8"
+          >
+            <motion.div 
+              whileHover={{ scale: 1.02, rotateY: -3 }}
+              style={{ transformStyle: 'preserve-3d' }}
+              className="glass-card p-8 border-2 border-purple-500/30"
+            >
               <h3 className="text-2xl font-semibold text-white mb-6 font-poppins flex items-center gap-3">
                 <Shield className="w-8 h-8 text-purple-400" />
                 {t("aipa.nftTitle")}
@@ -152,8 +187,8 @@ const AIpaExplainerSection = () => {
                   <span className="text-green-300 font-semibold">{t("aipa.contextCommunication")}</span>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Marketplace Preview */}

@@ -1,5 +1,6 @@
 import { Code, Zap, Heart, Brain, MessageCircle, Target } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const VibeCodingSection = () => {
   const { t } = useTranslation();
@@ -7,7 +8,13 @@ const VibeCodingSection = () => {
   return (
     <section id="vibe-coding" className="py-24 relative">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-4xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
             <Code className="w-4 h-4 text-blue-400" />
             <span className="text-sm font-medium text-blue-300">{t("vibeCoding.badge")}</span>
@@ -18,10 +25,17 @@ const VibeCodingSection = () => {
           <p className="text-xl text-gray-300 leading-relaxed">
             {t("vibeCoding.subtitle")}
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="glass-card p-8 text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-8 text-center"
+          >
             <Heart className="w-12 h-12 text-pink-400 mx-auto mb-4" />
             <h3 className="text-2xl font-semibold text-white mb-4 font-poppins">{t("vibeCoding.emotionalIntelligence")}</h3>
             <p className="text-gray-300">{t("vibeCoding.emotionalDescription")}</p>
