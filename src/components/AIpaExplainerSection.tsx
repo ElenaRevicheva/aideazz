@@ -102,15 +102,23 @@ const AIpaExplainerSection = () => {
 
           {/* Right: NFT & Bonding */}
           <div className="space-y-8">
-            <div className="glass-card p-8">
+            <div className="glass-card p-8 border-2 border-purple-500/30">
               <h3 className="text-2xl font-semibold text-white mb-6 font-poppins flex items-center gap-3">
-                <Shield className="w-8 h-8 text-green-400" />
+                <Shield className="w-8 h-8 text-purple-400" />
                 {t("aipa.nftTitle")}
               </h3>
               <div className="space-y-4">
                 <p className="text-gray-300 leading-relaxed">
-                  {t("aipa.nftDescription")} <strong className="text-green-300">{t("aipa.nftDescriptionHighlight")}</strong> {t("aipa.nftDescriptionContinued")}
+                  {t("aipa.nftDescription")} <strong className="text-purple-300 font-bold">{t("aipa.nftDescriptionHighlight")}</strong> {t("aipa.nftDescriptionContinued")}
                 </p>
+                
+                {/* ERC-7857 Explainer */}
+                <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg p-4">
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {t("aipa.nftExplainer")}
+                  </p>
+                </div>
+                
                 <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-lg p-4">
                   <h4 className="text-lg font-semibold text-green-300 mb-2">{t("aipa.whatThisMeansTitle")}</h4>
                   <ul className="space-y-2 text-gray-300">
