@@ -470,12 +470,62 @@
         .slide::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 200;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: none;
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light-text);
+        }
+
+        .lang-btn.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .language-switcher {
+                top: 15px;
+                right: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="bg-animation"></div>
     <div class="orb orb1"></div>
     <div class="orb orb2"></div>
+
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+    </div>
 
     <div class="presentation">
         <!-- Slide 1: Title -->
@@ -1102,6 +1152,556 @@
                 // Add analytics tracking here if needed
             }
         });
+
+        // ============================================
+        // LANGUAGE SWITCHING SYSTEM
+        // ============================================
+        
+        let currentLang = localStorage.getItem('pitchLang') || 'en';
+        
+        // Store original English content for each slide
+        const originalContent = {};
+        slides.forEach((slide, index) => {
+            originalContent[index] = slide.innerHTML;
+        });
+
+        // Spanish translations for all slides
+        const translations = {
+            es: {
+                htmlLang: 'es',
+                pageTitle: 'AIdeazz - Asistentes Personales de IA Emocionalmente Inteligentes',
+                slides: {
+                    0: `
+                        <h1>AIdeazz</h1>
+                        <p class="subtitle">Asistentes Personales de IA Emocionalmente Inteligentes que Evolucionan Contigo</p>
+                        <p style="font-size: 1.1rem; color: var(--muted-text); margin-top: 20px;">
+                            <strong>Pre-Seed AI/EdTech</strong> | Con Base en Panamá | 6 Productos LIVE | Buscando $100K-500K
+                        </p>
+                        <div class="founder-info">
+                            <p>Elena Revicheva, Fundadora & CEO</p>
+                            <a href="https://www.aideazz.xyz" target="_blank" class="link-button">www.aideazz.xyz</a>
+                            <a href="https://lit.link/en/aideazz" target="_blank" class="link-button">Sobre Elena</a>
+                        </div>
+                    `,
+                    1: `
+                        <h2>Introducción</h2>
+                        <p style="font-size: 1.4rem; line-height: 2;">
+                            AIdeazz es una <strong style="color: var(--accent-color);">startup pre-seed de AI/EdTech</strong> que construye Asistentes Personales de IA emocionalmente inteligentes (AIPAs) para familias expatriadas y estudiantes de idiomas en 19 países hispanohablantes. Fundada por Elena Revicheva, ingeniera de IA en solitario en Panamá (marzo 2025).
+                        </p>
+                        
+                        <div style="margin-top: 30px; background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(102, 126, 234, 0.3);">
+                            <p style="font-size: 1.3rem; text-align: center; margin-bottom: 15px;"><strong>Ejecución Comprobada:</strong></p>
+                            <p style="font-size: 1.2rem; text-align: center;">
+                                ✅ <strong>6 productos LIVE</strong> desplegados en <strong>7 meses</strong> (marzo-oct 2025)<br>
+                                ✅ Construidos por <strong>&lt;$15K</strong> mediante "vibe coding" (desarrollo asistido por IA)<br>
+                                ✅ <strong>98% de eficiencia de capital</strong> vs. equipos tradicionales
+                            </p>
+                        </div>
+                        
+                        <div style="margin-top: 30px; background: rgba(240, 147, 251, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(240, 147, 251, 0.3);">
+                            <p style="font-size: 1.3rem; text-align: center; margin-bottom: 15px;"><strong>Estado Actual:</strong></p>
+                            <p style="font-size: 1.2rem; text-align: center;">
+                                📊 <strong>~10 usuarios activos</strong> (crecimiento orgánico, cero marketing)<br>
+                                💳 <strong>Sistemas de pago listos</strong> (PayPal LIVE, crypto integrado)<br>
+                                💰 <strong>Pre-ingresos</strong> | Buscando <strong>$100K-500K</strong> para activar monetización
+                            </p>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <a href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" target="_blank" class="link-button">📺 Ver Demo del Proyecto</a>
+                            <a href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" target="_blank" class="link-button">👩‍💼 Historia de Elena</a>
+                        </div>
+                    `,
+                    2: `
+                        <h2>El Problema</h2>
+                        <p style="font-size: 1.3rem;">Por qué las soluciones de IA actuales fallan en conexión emocional:</p>
+                        <div class="problem-grid">
+                            <div class="problem-item">
+                                <span class="icon-large">⚠️</span>
+                                <p>La mayoría de los agentes de IA carecen de inteligencia emocional y memoria contextual</p>
+                            </div>
+                            <div class="problem-item">
+                                <span class="icon-large">⚠️</span>
+                                <p>Las familias expatriadas enfrentan estrés de adaptación sin herramientas empáticas</p>
+                            </div>
+                            <div class="problem-item">
+                                <span class="icon-large">⚠️</span>
+                                <p>Los usuarios no tienen propiedad ni voz en el comportamiento o evolución del agente</p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 40px; font-size: 1.3rem;">
+                            Esto deja a millones sin IA que realmente comprenda y apoye sus necesidades emocionales.
+                        </p>
+                    `,
+                    3: `
+                        <h2>La Solución — AIdeazz</h2>
+                        <h3 style="text-align: center;">IA Emocional Descentralizada + Propiedad Web3</h3>
+                        <div class="solution-grid">
+                            <div class="solution-item">
+                                <span class="icon-large">🧠</span>
+                                <p>Asistentes Personales de IA emocionalmente inteligentes (AIPAs) usando <strong>Vibe Coding</strong> 
+                                <span style="color: #4ade80; font-weight: bold;">✅ LIVE</span></p>
+                            </div>
+                            <div class="solution-item">
+                                <span class="icon-large">🎨</span>
+                                <p>Identidad NFT vía ERC-721, actualizando a <strong>ERC-7857</strong> para agentes de IA 
+                                <span style="color: #fbbf24; font-weight: bold;">🔮 Roadmap</span></p>
+                            </div>
+                            <div class="solution-item">
+                                <span class="icon-large">🤝</span>
+                                <p>Marco de ajuste emocional para crecimiento y adaptación de personalidad 
+                                <span style="color: #4ade80; font-weight: bold;">✅ LIVE</span></p>
+                            </div>
+                            <div class="solution-item">
+                                <span class="icon-large">🌐</span>
+                                <p>Plataforma SocialFi para co-creación comunitaria y ciclos de retroalimentación 
+                                <span style="color: #fbbf24; font-weight: bold;">🔮 Roadmap</span></p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 40px; font-size: 1.3rem;">
+                            AIdeazz combina inteligencia emocional con propiedad descentralizada para crear compañeros de IA que crecen contigo.
+                        </p>
+                    `,
+                    4: `
+                        <h2>Marco Vibe Coding</h2>
+                        <p style="font-size: 1.3rem;">La IA emocionalmente consciente necesita estructura — esta es la nuestra:</p>
+                        <div class="framework-container">
+                            <div class="framework-item">
+                                <span class="icon-large">🎯</span>
+                                <h3>Ajuste de Parámetros Afectivos</h3>
+                                <p>Coeficientes de empatía, calidez de respuesta, modulación de tono</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">🧩</span>
+                                <h3>Diseño de Memoria Contextual</h3>
+                                <p>Retención de patrones de interacción emocional y contexto personal</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">🔁</span>
+                                <h3>Matrices de Personalidad Adaptativa</h3>
+                                <p>Rasgos de agente que evolucionan según comportamiento del usuario y ciclos de retroalimentación</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">📊</span>
+                                <h3>Iteración Continua</h3>
+                                <p>Cada interacción se alimenta en mejoras a nivel de sistema</p>
+                            </div>
+                        </div>
+                    `,
+                    5: `
+                        <h2>🔥 Agentes de IA en Vivo</h2>
+                        <p style="font-size: 1.3rem;">AIPAs desplegados y funcionando con usuarios reales:</p>
+                        
+                        <div class="solution-grid">
+                            <div class="solution-item">
+                                <span class="icon-large">🇪🇸</span>
+                                <h3>EspaLuz AI Tutor</h3>
+                                <p style="color: var(--accent-color); font-weight: bold;">~10 usuarios activos | Pre-ingresos</p>
+                                <p style="margin-top: 10px;">Tutor bilingüe Español ↔ Inglés | Contexto familiar</p>
+                                
+                                <ul style="font-size: 0.9rem; text-align: left; margin: 15px 0 15px 20px; line-height: 1.8;">
+                                    <li><strong>Detección de 50+ emociones</strong> (choque cultural, ansiedad lingüística, nostalgia)</li>
+                                    <li><strong>Procesamiento de voz</strong> con latencia menor a 2 segundos</li>
+                                    <li><strong>Traducción OCR de imágenes</strong> (extraer texto de fotos)</li>
+                                    <li><strong>Multiplataforma</strong> (WhatsApp, Telegram, Web)</li>
+                                    <li><strong>Suscripciones PayPal</strong> integradas y funcionando</li>
+                                </ul>
+                                
+                                <a href="https://wa.me/50766623757" target="_blank" class="link-button">💬 Probar en WhatsApp</a>
+                                <a href="https://t.me/EspaLuzFamily_bot" target="_blank" class="link-button">📱 Probar en Telegram</a>
+                            </div>
+                            
+                            <div class="solution-item">
+                                <span class="icon-large">📈</span>
+                                <h3>ALGOM Alpha</h3>
+                                <p style="color: var(--accent-color); font-weight: bold;">180 seguidores en X | Creciendo</p>
+                                <p style="margin-top: 10px;">Asesor de crypto AI enseñando trading seguro a principiantes</p>
+                                
+                                <ul style="font-size: 0.9rem; text-align: left; margin: 15px 0 15px 20px; line-height: 1.8;">
+                                    <li><strong>Trading simulado autónomo</strong> con análisis de mercado en tiempo real</li>
+                                    <li><strong>5 exchanges integrados</strong> (Bybit, Binance, Kraken, etc.)</li>
+                                    <li><strong>Indicadores técnicos</strong> (MA, RSI, análisis de volumen)</li>
+                                    <li><strong>Auto-publicación</strong> de insights de trading en X diariamente</li>
+                                </ul>
+                                
+                                <a href="https://twitter.com/reviceva" target="_blank" class="link-button">🐦 En vivo en X</a>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 30px;">
+                            <p style="color: var(--accent-color); font-size: 1.2rem; font-weight: bold;">
+                                Estado: Infraestructura de pago lista • Activando monetización con financiamiento
+                            </p>
+                            <p style="font-size: 1rem; color: var(--muted-text); margin-top: 10px;">
+                                6 productos desplegados | 50,000+ líneas de código en producción | Construidos en 7 meses por &lt;$15K
+                            </p>
+                        </div>
+                    `,
+                    6: `
+                        <h2>Tecnología e Infraestructura</h2>
+                        <p style="font-size: 1.3rem;">Construido sobre infraestructura Web3 robusta:</p>
+                        <div class="links-grid">
+                            <div class="link-section">
+                                <h4>🪙 AZ Token (ERC20)</h4>
+                                <p>Operando en vivo en Polygon</p>
+                                <p style="font-size: 0.8rem; color: var(--muted-text); margin-top: 5px;">
+                                    Contrato: 0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5
+                                </p>
+                                <a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" target="_blank" class="link-button">Operar en QuickSwap</a>
+                            </div>
+                            <div class="link-section">
+                                <h4>🎨 Colección NFT</h4>
+                                <p>ERC-721 desplegado en Polygon</p>
+                                <p style="font-size: 0.8rem; color: var(--muted-text); margin-top: 5px;">
+                                    Contrato: 0x771Cc6BDCF8E7660ddc7E3F68FBCE7Dc5d675769
+                                </p>
+                                <p style="color: var(--muted-text); font-style: italic;">vía Thirdweb</p>
+                            </div>
+                            <div class="link-section">
+                                <h4>🏛️ Gobernanza DAO</h4>
+                                <p>DAO en Polygon vía Decent</p>
+                                <p style="font-size: 0.8rem; color: var(--muted-text); margin-top: 5px;">
+                                    DAO: 0x547d7aF7B55a92a65A1d015fAA4E75eeF4758190
+                                </p>
+                                <a href="https://app.decentdao.org/home?dao=matic%3A0x8301c6F34925580D2695E06fC212eDd8fA152535&page=1&size=10" target="_blank" class="link-button">Unirse al DAO</a>
+                            </div>
+                            <div class="link-section">
+                                <h4>📄 Documentación</h4>
+                                <a href="https://notion.so/AIdeazz-Whitepaper-v1-0-1e3032c5edd7809cb4f1cf8645b12dbc?pvs=21" target="_blank" class="link-button">Leer Whitepaper</a>
+                            </div>
+                        </div>
+                    `,
+                    7: `
+                        <h2>Oportunidad de Mercado</h2>
+                        <p style="font-size: 1.3rem; text-align: center; margin-bottom: 30px;">
+                            <strong style="color: var(--accent-color);">$37B+ TAM</strong> en la intersección de AI + EdTech + Web3:
+                        </p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">$25B+</div>
+                                <div class="stat-label">Mercado de asistentes personales de IA para 2030</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">$12B+</div>
+                                <div class="stat-label">Mercado global de aprendizaje de idiomas (2024)</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">280M+</div>
+                                <div class="stat-label">Expatriados en todo el mundo necesitando adaptación lingüística y cultural</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 40px; text-align: center;">
+                            <p style="font-size: 1.3rem; margin-bottom: 15px;">
+                                <strong>Mercados Objetivo:</strong>
+                            </p>
+                            <div class="solution-grid">
+                                <div class="solution-item">
+                                    <span class="icon-large">✈️</span>
+                                    <h3>19 Países Hispanohablantes</h3>
+                                    <p>Panamá, Colombia, México, España, Argentina, Chile, Perú, Costa Rica, Ecuador, y 10 más</p>
+                                </div>
+                                <div class="solution-item">
+                                    <span class="icon-large">🔄</span>
+                                    <h3>Mercado de Doble Lado</h3>
+                                    <p><strong>Expatriados</strong> aprendiendo español (15M+) + <strong>Locales</strong> aprendiendo inglés (50M+) = <strong>2x oportunidad de ingresos</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    8: `
+                        <h2>Modelo de Negocio</h2>
+                        <p style="font-size: 1.3rem; text-align: center;">Estrategia de ingresos lista para activar con financiamiento:</p>
+                        
+                        <div class="business-model-grid">
+                            <div class="feature-item" style="border: 2px solid var(--accent-color);">
+                                <span class="icon-large">✅</span>
+                                <h3>Suscripciones (LISTO AHORA)</h3>
+                                <p style="margin-top: 10px;"><strong>Niveles:</strong> $15 Básico | $35 Familia | $75 Premium | $200-500 Empresa</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">✅ PayPal LIVE y funcionando<br>✅ Crypto integrado (en pruebas)<br>⏳ Activando con financiamiento</p>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <span class="icon-large">🔮</span>
+                                <h3>Marketplace de AIPAs</h3>
+                                <p style="margin-top: 10px;"><strong>Cronograma:</strong> Q3-Q4 2026</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Comprar/vender AIPAs especializados<br>Mejoras emocionales y personalización<br>Regalías para creadores (agentes construidos por la comunidad)</p>
+                                <p style="font-size: 0.85rem; color: var(--muted-text); margin-top: 10px; font-style: italic;">Requiere financiamiento para desarrollo frontend y contratos inteligentes</p>
+                            </div>
+                            
+                            <div class="feature-item">
+                                <span class="icon-large">🔮</span>
+                                <h3>Economía de Tokens</h3>
+                                <p style="margin-top: 10px;"><strong>Cronograma:</strong> Q4 2026</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">✅ AZ Token en vivo en QuickSwap<br>🔮 Activación de gobernanza<br>🔮 Recompensas de staking<br>🔮 Utilidad en la app</p>
+                                <p style="font-size: 0.85rem; color: var(--muted-text); margin-top: 10px; font-style: italic;">Fundación construida, capa de utilidad requiere financiamiento</p>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 40px; font-size: 1.3rem;">
+                            <strong>Estrategia de Mercado:</strong> 19 países hispanohablantes × Doble lado (expatriados + locales) = <strong>2x oportunidad de ingresos</strong>
+                        </p>
+                        <p style="text-align: center; margin-top: 15px; font-size: 1.1rem; color: var(--accent-color);">
+                            Enfoque: Activar suscripciones primero → Escalar usuarios → Lanzar marketplace/utilidad de token
+                        </p>
+                    `,
+                    9: `
+                        <h2>Comunidad y Alianzas</h2>
+                        
+                        <!-- Sección de Membresías Estratégicas -->
+                        <div style="margin-bottom: 40px; background: rgba(102, 126, 234, 0.1); padding: 25px; border-radius: 15px; border: 1px solid rgba(102, 126, 234, 0.3);">
+                            <h3 style="color: var(--accent-color); text-align: center; margin-bottom: 20px;">🤝 Membresías Estratégicas</h3>
+                            <div class="solution-grid" style="margin-top: 20px;">
+                                <div class="solution-item">
+                                    <span class="icon-large">🏢</span>
+                                    <h4>Innovation Smart District (ISD) Panamá</h4>
+                                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                                        Soporte del ecosistema, credibilidad local, acceso a gobierno y líderes empresariales de Panamá
+                                    </p>
+                                    <a href="https://www.isdistrict.com/" target="_blank" class="link-button" style="margin-top: 10px;">Visitar ISD</a>
+                                </div>
+                                <div class="solution-item">
+                                    <span class="icon-large">🤖</span>
+                                    <h4>Decentralized AI Agent Alliance (DAIAA)</h4>
+                                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                                        Miembro individual (fundadora), reconocimiento de la industria, red global de comunidad de agentes de IA
+                                    </p>
+                                    <a href="https://www.daiaa.org/" target="_blank" class="link-button" style="margin-top: 10px;">Visitar DAIAA</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección de Canales de Comunidad -->
+                        <p style="font-size: 1.3rem;">Ecosistema en crecimiento en Web2 y Web3:</p>
+                        <div class="links-grid">
+                            <div class="link-section">
+                                <h4>📱 Redes Sociales</h4>
+                                <a href="https://www.youtube.com/@AIdeazz" target="_blank" class="link-button">YouTube</a>
+                                <a href="https://x.com/reviceva" target="_blank" class="link-button">Twitter/X</a>
+                                <a href="https://www.instagram.com/elena_revicheva/" target="_blank" class="link-button">Instagram</a>
+                                <a href="https://www.linkedin.com/in/elenarevicheva/" target="_blank" class="link-button">LinkedIn</a>
+                            </div>
+                            <div class="link-section">
+                                <h4>💬 Canales de Comunidad</h4>
+                                <a href="https://t.me/EspaLuz" target="_blank" class="link-button">Telegram</a>
+                                <a href="https://discord.gg/RutK6kwp" target="_blank" class="link-button">Discord</a>
+                            </div>
+                            <div class="link-section">
+                                <h4>🌐 Social Web3</h4>
+                                <a href="https://orb.club/@aideazz" target="_blank" class="link-button">Orb SocialFi</a>
+                                <a href="https://farcaster.xyz/atuona" target="_blank" class="link-button">Warpcast</a>
+                                <a href="https://mirror.xyz/0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5" target="_blank" class="link-button">Mirror</a>
+                            </div>
+                        </div>
+                    `,
+                    10: `
+                        <h2>Visión e Impacto</h2>
+                        <p style="font-size: 1.3rem;">Democratizar la IA emocionalmente inteligente mediante diseño descentralizado:</p>
+                        <div class="framework-container">
+                            <div class="framework-item">
+                                <span class="icon-large">🔄</span>
+                                <h3>Relaciones en Evolución</h3>
+                                <p>Agentes de IA que crecen y se adaptan con sus usuarios a lo largo del tiempo</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">🔐</span>
+                                <h3>Privacidad Primero</h3>
+                                <p>Datos de aprendizaje emocional seguros y encriptados vía ERC-7857</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">🧬</span>
+                                <h3>Inteligencia Modular</h3>
+                                <p>Sistemas de memoria componibles y capacidades en evolución</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">🌱</span>
+                                <h3>Empoderamiento Humano</h3>
+                                <p>Construido para crecimiento personal y resiliencia, no para reemplazo</p>
+                            </div>
+                        </div>
+                    `,
+                    11: `
+                        <h2>Hoja de Ruta de 12 Meses con Financiamiento</h2>
+                        <p style="font-size: 1.3rem; text-align: center; margin-bottom: 30px;">Camino claro de pre-seed a listo para Serie A:</p>
+                        
+                        <div class="framework-container">
+                            <div class="framework-item">
+                                <span class="icon-large">Q1</span>
+                                <h3>Meses 1-3: Activación</h3>
+                                <p><strong>150 usuarios | 15 pagando | $365 MRR</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Activar monetización, implementar analíticas, lanzar anuncios pagados dirigidos a grupos de expatriados en Panamá/Colombia</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">Q2</span>
+                                <h3>Meses 4-6: Crecimiento</h3>
+                                <p><strong>650 usuarios | 65 pagando | $1,800 MRR</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Programa de referidos, expandir a México y Colombia, desarrollo de app móvil inicia</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">Q3</span>
+                                <h3>Meses 7-9: Escala</h3>
+                                <p><strong>1,970 usuarios | 197 pagando | $5,625 MRR</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Lanzar apps iOS/Android, pilotos B2B con escuelas de idiomas, 5 países operacionales</p>
+                            </div>
+                            <div class="framework-item">
+                                <span class="icon-large">Q4</span>
+                                <h3>Meses 10-12: Preparación Serie A</h3>
+                                <p><strong>4,800 usuarios | 480 pagando | $15,525 MRR</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">$186K ARR, 10 países validados, camino claro a $1M ARR</p>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 40px;">
+                            <p style="font-size: 1.1rem; color: var(--accent-color);">
+                                <strong>Economía Unitaria Comprobada:</strong> CAC $30-65 | LTV $180-300 | LTV:CAC 4.6-6:1 | 10% conversión sostenida
+                            </p>
+                            <p style="font-size: 1rem; color: var(--muted-text); margin-top: 15px;">
+                                ARPU Combinado: $25/mes (60% Básico $15, 30% Familia $35, 8% Premium $75, 2% Empresa $200-500)
+                            </p>
+                        </div>
+                    `,
+                    12: `
+                        <h2>La Solicitud</h2>
+                        <p style="font-size: 1.3rem; text-align: center;">Buscando $100K-$500K pre-seed para activar monetización y escalar:</p>
+                        
+                        <div class="ask-highlight">
+                            <div class="ask-amount">Ronda Pre-Seed $100K-$500K</div>
+                            <p style="font-size: 1.2rem;">De ~10 usuarios hoy → 4,800 usuarios en 12 meses | Camino a $186K ARR</p>
+                        </div>
+                        
+                        <div class="business-model-grid" style="margin-top: 40px;">
+                            <div class="feature-item">
+                                <span class="icon-large">⚙️</span>
+                                <h3>40% Ingeniería</h3>
+                                <p><strong>$40K-200K</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">1-2 ingenieros, app móvil (React Native), sistemas de analíticas, integración ERC-7857</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="icon-large">📢</span>
+                                <h3>30% Marketing</h3>
+                                <p><strong>$30K-150K</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Adquisición de usuarios (anuncios Facebook/Instagram), SEO, alianzas con influencers, expandir a 5-10 países</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="icon-large">🏢</span>
+                                <h3>20% Operaciones</h3>
+                                <p><strong>$20K-100K</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Cumplimiento legal (19 países), equipo de soporte al cliente, alianzas B2B</p>
+                            </div>
+                            <div class="feature-item">
+                                <span class="icon-large">💰</span>
+                                <h3>10% Reserva</h3>
+                                <p><strong>$10K-50K</strong></p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Extensión de runway 12-18 meses, costos inesperados, planificación de contingencia</p>
+                            </div>
+                        </div>
+                        
+                        <p style="text-align: center; margin-top: 40px; font-size: 1.2rem;">
+                            <strong>Por Qué Esta es una Apuesta Inteligente:</strong> 6 apps construidas por &lt;$15K = <strong>98% reducción de costos</strong> vs. equipos tradicionales<br>
+                            <span style="color: var(--accent-color);">Cada dólar de inversión rinde 50x más</span>
+                        </p>
+                    `,
+                    13: `
+                        <h2>Construyamos Juntos la Era AIPA</h2>
+                        <p style="font-size: 1.3rem; text-align: center; margin-bottom: 30px;">
+                            ¿Listo para unirte a la revolución de IA emocionalmente inteligente?
+                        </p>
+                        
+                        <!-- Sección de Contacto Directo -->
+                        <div style="margin-bottom: 40px; background: rgba(240, 147, 251, 0.1); padding: 30px; border-radius: 15px; border: 1px solid rgba(240, 147, 251, 0.3); text-align: center;">
+                            <h3 style="color: var(--accent-color); margin-bottom: 20px;">📞 Contactar a Elena Revicheva</h3>
+                            <p style="font-size: 1.3rem; margin-bottom: 15px;">
+                                <strong>📧 Email:</strong> <a href="mailto:aipa@aideazz.xyz" style="color: var(--link-color);">aipa@aideazz.xyz</a>
+                            </p>
+                            <p style="font-size: 1.3rem; margin-bottom: 20px;">
+                                <strong>🌐 ENS:</strong> aideazz.eth
+                            </p>
+                            
+                            <!-- Botones de Contacto -->
+                            <div style="margin-top: 20px; margin-bottom: 20px;">
+                                <a href="https://wa.me/50761666716" target="_blank" class="link-button" style="font-size: 1.1rem; margin: 5px;">💬 WhatsApp</a>
+                                <a href="https://t.me/ElenaRevicheva" target="_blank" class="link-button" style="font-size: 1.1rem; margin: 5px;">📱 Telegram</a>
+                            </div>
+                            
+                            <a href="https://www.aideazz.xyz/card" target="_blank" class="link-button" style="font-size: 1.1rem; margin: 5px;">🃏 Portafolio Empresarial Completo</a>
+                            <a href="https://wa.me/50766623757" target="_blank" class="link-button" style="font-size: 1.1rem; margin: 5px;">🧑‍🏫 Probar Demo EspaLuz</a>
+                        </div>
+                        
+                        <div class="links-grid">
+
+                            
+                            <div class="link-section">
+                                <h4>🌐 Plataforma y Demo</h4>
+                                <a href="https://www.aideazz.xyz" target="_blank" class="link-button">🏠 Sitio Web Principal</a>
+                                <a href="https://t.me/EspaLuzFamily_bot" target="_blank" class="link-button">📱 Demo en Vivo</a>
+                            </div>
+                            
+                            <div class="link-section">
+                                <h4>🔗 Identidad Web3</h4>
+                                <p style="color: var(--accent-color); font-size: 1.2rem; margin-bottom: 10px;">aideazz.eth</p>
+                                <p style="font-size: 0.9rem; color: var(--muted-text);">Wallet Principal:<br>0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5</p>
+                                <a href="https://notion.so/AIdeazz-Whitepaper-v1-0-1e3032c5edd7809cb4f1cf8645b12dbc?pvs=21" target="_blank" class="link-button">📄 Whitepaper</a>
+                            </div>
+                            
+                            <div class="link-section">
+                                <h4>🚀 Involúcrate</h4>
+                                <a href="https://t.me/EspaLuz" target="_blank" class="link-button">Unirse a Comunidad</a>
+                                <a href="https://discord.gg/RutK6kwp" target="_blank" class="link-button">Discord</a>
+                                <a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" target="_blank" class="link-button">Operar AZ Token</a>
+                            </div>
+                        </div>
+                        
+                        <div class="cta-section" style="margin-top: 50px;">
+                            <h3 style="color: var(--accent-color); margin-bottom: 20px;">🔥 Era AIPA Acuñada. ¿Tienes AIdeazz? Únete al registro.</h3>
+                            <a href="mailto:aipa@aideazz.xyz" class="cta-button">Conectemos</a>
+                        </div>
+                    `
+                }
+            }
+        };
+
+        // Language switching function
+        function switchLanguage(lang) {
+            if (lang === 'en') {
+                // Restore original English content
+                slides.forEach((slide, index) => {
+                    slide.innerHTML = originalContent[index];
+                });
+                document.documentElement.lang = 'en';
+                document.title = 'AIdeazz - Emotionally Intelligent AI Personal Assistants';
+            } else if (lang === 'es' && translations.es) {
+                // Apply Spanish translations
+                slides.forEach((slide, index) => {
+                    if (translations.es.slides[index]) {
+                        slide.innerHTML = translations.es.slides[index];
+                    }
+                });
+                document.documentElement.lang = 'es';
+                document.title = translations.es.pageTitle;
+            }
+
+            // Update button states
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Save preference
+            currentLang = lang;
+            localStorage.setItem('pitchLang', lang);
+        }
+
+        // Initialize language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Apply saved language preference on load
+        if (currentLang === 'es') {
+            switchLanguage('es');
+        }
     </script>
 </body>
 </html>
