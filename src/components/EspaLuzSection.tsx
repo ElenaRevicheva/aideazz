@@ -1,5 +1,5 @@
 
-import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, TestTube, Mic, Image, Video, Brain } from "lucide-react";
+import { MessageCircle, Heart, Globe, Users, ExternalLink, Sparkles, Monitor, Mic, Image, Video, Brain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
@@ -10,8 +10,8 @@ const EspaLuzSection = () => {
     window.open('https://t.me/EspaLuzFamily_bot', '_blank');
   };
 
-  const openWhatsAppSandbox = () => {
-    window.open('https://api.whatsapp.com/send/?phone=14155238886&text=join+pride-liquid', '_blank');
+  const openWebApp = () => {
+    window.open('https://espaluz-ai-language-tutor.lovable.app/', '_blank');
   };
 
   const openLiveWhatsApp = () => {
@@ -223,8 +223,8 @@ const EspaLuzSection = () => {
                   <div className="text-gray-300 text-sm">{t("espaluz.statsWhatsapp")}</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-orange-400 mb-1">{t("espaluz.statsTesting")}</div>
-                  <div className="text-gray-300 text-sm">{t("espaluz.statsWhatsappSandbox")}</div>
+                  <div className="text-2xl font-bold text-purple-400 mb-1">{t("espaluz.statsBeta")}</div>
+                  <div className="text-gray-300 text-sm">{t("espaluz.statsWebApp")}</div>
                 </div>
               </div>
             </div>
