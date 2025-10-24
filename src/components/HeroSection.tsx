@@ -59,14 +59,20 @@ const HeroSection = () => {
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
                 onClick={scrollToEspaLuz}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
+                className="ripple-effect bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
               >
                 {t("hero.tryEspaLuz")}
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <motion.div
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                  className="inline-block ml-2"
+                >
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg">
+              <Button variant="outline" className="ripple-effect border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg">
                 {t("hero.learnMore")}
               </Button>
             </motion.div>

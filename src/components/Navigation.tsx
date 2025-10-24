@@ -4,6 +4,7 @@ import { Menu, X, Brain, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { motion } from "framer-motion";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,14 +26,22 @@ const Navigation = () => {
         <div className="glass-card px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg">
+            <motion.div 
+              className="flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div 
+                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg"
+                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                transition={{ duration: 0.5 }}
+              >
                 <Brain className="w-6 h-6 text-white" />
-              </div>
+              </motion.div>
               <span className="text-xl font-bold font-poppins text-white">
                 AI<span className="text-purple-400">deazz</span><span className="text-pink-400">.xyz</span>
               </span>
-            </div>
+            </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
