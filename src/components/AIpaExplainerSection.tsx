@@ -1,4 +1,4 @@
-import { Brain, Shield, Zap, Heart, Sparkles, ExternalLink } from "lucide-react";
+import { Brain, Shield, Zap, Heart, Sparkles, ExternalLink, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
@@ -30,6 +30,26 @@ const AIpaExplainerSection = () => {
             >
               https://www.capcut.com/s/CXgM3XiNSKkniT0N/
             </a>
+          </div>
+
+          {/* Business Portfolio CTA */}
+          <div className="mt-8">
+            <Button
+              asChild
+              className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105 animate-pulse-subtle"
+            >
+              <a 
+                href="https://www.aideazz.xyz/card" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-3"
+              >
+                <Rocket className="w-6 h-6" />
+                {t("aipa.businessPortfolioButton")}
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </Button>
+            <p className="text-sm text-gray-400 mt-3">{t("aipa.businessPortfolioDescription")}</p>
           </div>
         </div>
 
@@ -164,14 +184,35 @@ const AIpaExplainerSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
-          <Button 
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105"
-            disabled
-          >
-            {t("aipa.exploreButton")}
-            <span className="ml-2 text-sm opacity-75">{t("aipa.comingSoonLabel")}</span>
-          </Button>
+        <div className="text-center space-y-6">
+          <div>
+            <Button
+              asChild
+              className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
+            >
+              <a 
+                href="https://www.aideazz.xyz/card" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-3"
+              >
+                <Rocket className="w-6 h-6" />
+                {t("aipa.businessPortfolioButton")}
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </Button>
+            <p className="text-base text-gray-300 mt-4 font-medium">{t("aipa.businessPortfolioDescription")}</p>
+          </div>
+          
+          <div className="pt-4">
+            <Button 
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 opacity-60"
+              disabled
+            >
+              {t("aipa.exploreButton")}
+              <span className="ml-2 text-sm opacity-75">{t("aipa.comingSoonLabel")}</span>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
