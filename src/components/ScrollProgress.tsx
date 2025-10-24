@@ -39,7 +39,6 @@ const ScrollProgress = () => {
           className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-[70] hover:shadow-purple-500/50 transition-shadow duration-300"
           aria-label="Scroll to top"
         >
-        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
