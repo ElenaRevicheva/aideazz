@@ -114,16 +114,57 @@ const AIdeazzPlatformSection = () => {
           </div>
         </div>
 
-        {/* Bottom Statement */}
-        <div className="text-center">
-          <div className="glass-card inline-block p-8 max-w-3xl">
-            <h3 className="text-2xl font-semibold text-white mb-4 font-poppins">
+        {/* Bottom Statement - Beautiful Story Section */}
+        <div className="relative mt-20">
+          {/* Animated gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-blue-900/30 rounded-3xl blur-3xl animate-pulse"></div>
+          
+          <div className="relative glass-card p-12 max-w-5xl mx-auto border-2 border-purple-500/20">
+            {/* Title with animated gradient */}
+            <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center font-poppins bg-gradient-to-r from-green-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
               {t("platform.bottomTitle")}
             </h3>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              {t("platform.bottomDescription")} 
-              <span className="text-purple-300 font-semibold"> {t("platform.bottomHighlight")}</span>
-            </p>
+            
+            {/* Story paragraphs with beautiful formatting */}
+            <div className="space-y-6 text-lg leading-relaxed">
+              <p className="text-gray-200 font-medium animate-fade-in">
+                {t("platform.bottomParagraph1")}
+              </p>
+              
+              <p className="text-gray-300 animate-fade-in" style={{animationDelay: '0.2s'}}>
+                {t("platform.bottomParagraph2")}
+              </p>
+              
+              <p className="text-gray-300 animate-fade-in" style={{animationDelay: '0.4s'}}>
+                {t("platform.bottomParagraph3")}
+              </p>
+              
+              <p className="text-gray-300 animate-fade-in bg-gradient-to-r from-purple-500/10 to-pink-500/10 p-4 rounded-xl border border-purple-500/20" style={{animationDelay: '0.6s'}}>
+                {t("platform.bottomParagraph4")}
+              </p>
+              
+              <p className="text-gray-200 font-medium animate-fade-in" style={{animationDelay: '0.8s'}}>
+                {t("platform.bottomParagraph5")}
+              </p>
+              
+              <p className="text-purple-300 italic font-semibold animate-fade-in text-center" style={{animationDelay: '1s'}}>
+                {t("platform.bottomParagraph6")}
+              </p>
+              
+              <p className="text-gray-300 animate-fade-in bg-gradient-to-r from-blue-500/10 to-cyan-500/10 p-4 rounded-xl border border-blue-500/20" style={{animationDelay: '1.2s'}}>
+                {t("platform.bottomParagraph7")}
+              </p>
+            </div>
+            
+            {/* Final taglines with special styling */}
+            <div className="mt-10 text-center space-y-3">
+              <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent animate-pulse">
+                {t("platform.bottomHighlight1")}
+              </p>
+              <p className="text-2xl font-bold bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent animate-pulse" style={{animationDelay: '0.5s'}}>
+                {t("platform.bottomHighlight2")}
+              </p>
+            </div>
           </div>
         </div>
       </div>
