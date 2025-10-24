@@ -107,7 +107,7 @@ const VisionSection = () => {
             </h3>
             <div className="text-center mb-6">
               <a 
-                href="https://lit.link/en/aideazz" 
+                href="https://www.aideazz.xyz/card" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-xl font-semibold text-purple-300 hover:text-purple-200 transition-colors underline"
