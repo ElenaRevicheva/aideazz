@@ -2,6 +2,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import ParticleBackground from "./ParticleBackground";
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -15,7 +16,9 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="pt-32 pb-20 relative overflow-hidden">
-      <div className="container mx-auto px-6 text-center">
+      {/* Particle Background */}
+      <ParticleBackground />
+      <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-4xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}

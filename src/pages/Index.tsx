@@ -1,4 +1,3 @@
-
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import EspaLuzSection from "@/components/EspaLuzSection";
@@ -10,10 +9,12 @@ import AIpaExplainerSection from "@/components/AIpaExplainerSection";
 import CallToActionSection from "@/components/CallToActionSection";
 import YouTubeSubscriptionSection from "@/components/YouTubeSubscriptionSection";
 import LegalFooter from "@/components/LegalFooter";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollProgress />
       <Navigation />
       <main className="flex-1">
         <HeroSection />
