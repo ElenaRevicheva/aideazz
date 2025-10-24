@@ -180,34 +180,31 @@ const EspaLuzSection = () => {
               </Button>
             </div>
 
-            {/* WhatsApp Sandbox Card */}
-            <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+            {/* EspaLuz Web App Card */}
+            <div className="glass-card p-8 hover:bg-white/10 transition-all duration-300 transform hover:scale-105 border border-purple-400/30 relative overflow-hidden">
+              {/* Beta Badge */}
+              <div className="absolute top-4 right-4 bg-gradient-to-r from-purple-400 to-pink-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+                {t("espaluz.webAppBadge")}
+              </div>
+              
               <div className="flex items-center gap-4 mb-6">
-                <div className="p-3 bg-gradient-to-r from-orange-500 to-yellow-500 rounded-full">
-                  <TestTube className="w-8 h-8 text-white" />
+                <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
+                  <Monitor className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-white font-poppins">{t("espaluz.whatsappSandboxTitle")}</h3>
-                  <p className="text-gray-300">{t("espaluz.whatsappSandboxSubtitle")}</p>
+                  <h3 className="text-2xl font-semibold text-white font-poppins">{t("espaluz.webAppTitle")}</h3>
+                  <p className="text-purple-300 font-medium">{t("espaluz.webAppSubtitle")}</p>
                 </div>
               </div>
-              <p className="text-gray-300 mb-6">
-                {t("espaluz.whatsappSandboxDescription")}
+              <p className="text-gray-300 mb-6 leading-relaxed">
+                {t("espaluz.webAppDescription")}
               </p>
-              <Button
-                onClick={openLiveWhatsApp}
-                className="w-full bg-gradient-to-r from-emerald-400 via-green-500 to-teal-500 hover:from-emerald-500 hover:via-green-600 hover:to-teal-600 text-white font-semibold py-4 rounded-full transition-all duration-300 shadow-xl ring-2 ring-emerald-300/50"
-              >
-                {t("espaluz.openWhatsappLive")}
-                <ExternalLink className="ml-2 w-5 h-5" />
-              </Button>
-              <div className="mt-4" />
               <Button 
-                onClick={openWhatsAppSandbox}
-                className="w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 text-white font-semibold py-3 rounded-full transition-all duration-300"
+                onClick={openWebApp}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
               >
-                {t("espaluz.testSandbox")}
-                <TestTube className="ml-2 w-5 h-5" />
+                {t("espaluz.tryWebApp")}
+                <ExternalLink className="ml-2 w-5 h-5" />
               </Button>
             </div>
 
