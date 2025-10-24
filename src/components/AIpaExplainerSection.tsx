@@ -164,9 +164,13 @@ const AIpaExplainerSection = () => {
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="glass-card p-8">
+            <motion.div 
+              whileHover={{ scale: 1.02, rotateY: -3 }}
+              style={{ transformStyle: 'preserve-3d' }}
+              className="glass-card p-8"
+            >
               <h3 className="text-xl font-semibold text-white mb-4 font-poppins">
                 {t("aipa.contextsTitle")}
               </h3>
