@@ -78,17 +78,31 @@ const InvestorPitchSection = () => {
             <Target className="w-12 h-12 text-green-400 mx-auto mb-4" />
             <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric1Value")}</h4>
             <p className="text-gray-300">{t("investor.metric1Description")}</p>
-          </div>
-          <div className="glass-card p-6 text-center hover:bg-white/10 transition-all duration-300">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6 text-center"
+          >
             <Users className="w-12 h-12 text-purple-400 mx-auto mb-4" />
             <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric2Value")}</h4>
             <p className="text-gray-300">{t("investor.metric2Description")}</p>
-          </div>
-          <div className="glass-card p-6 text-center hover:bg-white/10 transition-all duration-300">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6 text-center"
+          >
             <Globe className="w-12 h-12 text-pink-400 mx-auto mb-4" />
             <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric3Value")}</h4>
             <p className="text-gray-300">{t("investor.metric3Description")}</p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Why Now */}

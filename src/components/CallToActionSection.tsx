@@ -59,10 +59,17 @@ const CallToActionSection = () => {
                 {t("cta.chatNow")}
               </Button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Invest */}
-          <div className="glass-card p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6"
+          >
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <DollarSign className="w-8 h-8 text-white" />
@@ -74,10 +81,17 @@ const CallToActionSection = () => {
                 {t("cta.learnMore")}
               </Button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Community */}
-          <div className="glass-card p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6"
+          >
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
@@ -89,10 +103,17 @@ const CallToActionSection = () => {
                 {t("cta.joinUs")}
               </Button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact */}
-          <div className="glass-card p-6 hover:bg-white/10 transition-all duration-300 transform hover:scale-105">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            whileHover={{ scale: 1.05, y: -5 }}
+            className="glass-card p-6"
+          >
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-white" />
@@ -119,7 +140,7 @@ const CallToActionSection = () => {
                 </Button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Footer Message */}
