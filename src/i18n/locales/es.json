@@ -221,7 +221,9 @@
     "comingSoonTitle": "Próximamente",
     "comingSoonDescription": "Acuñación y ventas próximamente",
     "exploreButton": "Explorar Marketplace de AIPAs",
-    "comingSoonLabel": "(Próximamente)"
+    "comingSoonLabel": "(Próximamente)",
+    "businessPortfolioButton": "Ver Agentes IA en Vivo",
+    "businessPortfolioDescription": "Explora nuestro portafolio empresarial completo con agentes IA operacionales listos ahora"
   },
   "cta": {
     "title": "Únete a la Revolución",
