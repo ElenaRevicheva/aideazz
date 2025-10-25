@@ -290,4 +290,109 @@
     transform: scale(1.02) translateY(-8px);
     box-shadow: 0 30px 60px rgba(168, 85, 247, 0.3);
   }
+
+  /* Phase 6: Emotional Storytelling Animations */
+  @keyframes emotional-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes heart-pulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 5px rgba(236, 72, 153, 0.5));
+    }
+    50% {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.8));
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3), 0 0 40px rgba(236, 72, 153, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(168, 85, 247, 0.5), 0 0 60px rgba(236, 72, 153, 0.4);
+    }
+  }
+
+  @keyframes journey-progress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  .animate-emotional-reveal {
+    animation: emotional-reveal 1s ease-out forwards;
+  }
+
+  .animate-heart-pulse {
+    animation: heart-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.8s ease-out forwards;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-journey-progress {
+    animation: journey-progress 2s ease-out forwards;
+  }
+
+  /* Mood-based background shifts */
+  .mood-struggle {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+    transition: background 1.5s ease;
+  }
+
+  .mood-hope {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+    transition: background 1.5s ease;
+  }
+
+  .mood-success {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+    transition: background 1.5s ease;
+  }
 }
