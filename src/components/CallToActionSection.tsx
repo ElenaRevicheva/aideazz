@@ -76,7 +76,12 @@ const CallToActionSection = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">{t("cta.investTitle")}</h3>
               <p className="text-gray-300 text-sm mb-4">{t("cta.investDescription")}</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold">
+              <Button 
+                size="sm" 
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold cursor-pointer relative z-40"
+                onClick={() => window.open('https://www.aideazz.xyz/pitch.html', '_blank')}
+                style={{ pointerEvents: 'auto' }}
+              >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 {t("cta.learnMore")}
               </Button>
