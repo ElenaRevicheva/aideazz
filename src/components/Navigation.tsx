@@ -68,10 +68,12 @@ const Navigation = () => {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 text-white hover:text-purple-400 transition-colors"
+              className="md:hidden p-3 text-white hover:text-purple-400 transition-colors relative z-[120] pointer-events-auto cursor-pointer bg-purple-600/20 rounded-lg"
               onClick={() => setIsOpen(!isOpen)}
+              style={{ pointerEvents: 'auto' }}
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
 
