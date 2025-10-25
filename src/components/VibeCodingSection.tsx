@@ -71,8 +71,21 @@ const VibeCodingSection = () => {
         {/* New section */}
         <div className="max-w-4xl mx-auto">
           <div className="glass-card p-8 mb-8">
-            <h3 className="text-3xl font-bold font-poppins mb-6 text-center">
-              🚀 <span className="gradient-text">{t("vibeCoding.sectionTitle")}</span>
+            <h3 className="text-3xl font-bold font-poppins mb-6 text-center flex items-center justify-center gap-3">
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 5, -5, 0]
+                }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Brain className="w-10 h-10 text-purple-400 animate-glow-pulse" />
+              </motion.div>
+              <span className="gradient-text">{t("vibeCoding.sectionTitle")}</span>
             </h3>
             <p className="text-lg text-gray-300 leading-relaxed mb-6 text-center">
               {t("vibeCoding.sectionSubtitle")}
