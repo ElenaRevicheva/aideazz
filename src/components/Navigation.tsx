@@ -77,7 +77,7 @@ const Navigation = () => {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="md:hidden mt-4 pt-4 border-t border-white/10 pointer-events-auto">
+            <div className="md:hidden mt-4 pt-4 border-t border-white/10 pointer-events-auto relative z-[110]">
               <div className="flex flex-col gap-4">
                 {navItems.map((item) => (
                   <a
