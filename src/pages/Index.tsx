@@ -6,6 +6,7 @@ import VisionSection from "@/components/VisionSection";
 import InvestorPitchSection from "@/components/InvestorPitchSection";
 import AIdeazzPlatformSection from "@/components/AIdeazzPlatformSection";
 import AIpaExplainerSection from "@/components/AIpaExplainerSection";
+import UserJourneyTimeline from "@/components/UserJourneyTimeline";
 import CallToActionSection from "@/components/CallToActionSection";
 import YouTubeSubscriptionSection from "@/components/YouTubeSubscriptionSection";
 import LegalFooter from "@/components/LegalFooter";
@@ -24,6 +25,7 @@ const Index = () => {
         <VibeCodingSection />
         <InvestorPitchSection />
         <VisionSection />
+        <UserJourneyTimeline />
         <AIdeazzPlatformSection />
         <AIpaExplainerSection />
         <CallToActionSection />

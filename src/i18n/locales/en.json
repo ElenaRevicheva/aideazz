@@ -454,5 +454,15 @@
     "email": "Let's Talk 💬",
     "quote": "💡 \"Have any AIdeazz? Get on the ledger.\" ⚡",
     "flipText": "Click to see full portfolio"
+  },
+  "journey": {
+    "step1Title": "Struggle & Need",
+    "step1Desc": "Life brings challenges — relocation, language barriers, cultural adaptation. You need help, but generic AI doesn't understand your emotional journey.",
+    "step2Title": "Meet Your AIPA",
+    "step2Desc": "You discover an AI companion that truly understands your emotions, remembers your story, and adapts to your family's unique needs.",
+    "step3Title": "Growth & Learning",
+    "step3Desc": "Your AIPA evolves with you — teaching languages, guiding decisions, providing emotional support when life feels overwhelming.",
+    "step4Title": "Confidence & Connection",
+    "step4Desc": "You've adapted, grown stronger, and built meaningful connections. Your AIPA helped you thrive through transformation."
   }
 }
