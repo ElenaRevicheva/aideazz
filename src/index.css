@@ -96,20 +96,21 @@
     @apply bg-background text-foreground antialiased min-h-screen;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
     background: hsl(224 71% 4%) !important;
-    /* Smooth flowing gradient - no hard section boundaries */
+    /* Smooth flowing gradient - MORE VISIBLE transitions */
     background-image: 
       linear-gradient(180deg, 
-        hsl(224 71% 4%) 0%,
-        hsl(263 70% 12% / 0.3) 10%,
-        hsl(280 60% 8% / 0.4) 25%,
-        hsl(263 70% 10% / 0.35) 40%,
-        hsl(220 70% 8% / 0.3) 60%,
-        hsl(263 70% 12% / 0.4) 75%,
-        hsl(224 71% 4%) 100%
+        hsla(224, 71%, 4%, 1) 0%,
+        hsla(263, 70%, 15%, 0.5) 8%,
+        hsla(280, 60%, 12%, 0.6) 20%,
+        hsla(263, 70%, 15%, 0.5) 35%,
+        hsla(220, 70%, 12%, 0.5) 50%,
+        hsla(263, 70%, 15%, 0.6) 65%,
+        hsla(280, 60%, 12%, 0.5) 80%,
+        hsla(224, 71%, 4%, 1) 100%
       ),
-      radial-gradient(circle at 20% 30%, hsl(263 70% 50% / 0.15) 0%, transparent 40%),
-      radial-gradient(circle at 80% 60%, hsl(280 60% 50% / 0.12) 0%, transparent 40%),
-      radial-gradient(circle at 50% 90%, hsl(220 70% 50% / 0.1) 0%, transparent 35%) !important;
+      radial-gradient(circle at 20% 20%, hsl(263 70% 50% / 0.2) 0%, transparent 35%),
+      radial-gradient(circle at 80% 50%, hsl(280 60% 50% / 0.18) 0%, transparent 38%),
+      radial-gradient(circle at 50% 85%, hsl(220 70% 50% / 0.15) 0%, transparent 32%) !important;
     background-attachment: fixed !important;
   }
 }
