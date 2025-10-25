@@ -115,11 +115,21 @@ const AIdeazzPlatformSection = () => {
         </div>
 
         {/* Bottom Statement - Beautiful Story Section */}
-        <div className="relative mt-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="relative mt-20"
+        >
           {/* Animated gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-blue-900/30 rounded-3xl blur-3xl animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-blue-900/30 rounded-3xl blur-3xl animate-glow-pulse"></div>
           
-          <div className="relative glass-card p-12 max-w-5xl mx-auto border-2 border-purple-500/20">
+          <div className="relative glass-card p-12 max-w-5xl mx-auto border-2 border-purple-500/20 animate-emotional-reveal">
+            {/* Emotional heart icon with pulse */}
+            <div className="flex justify-center mb-6">
+              <Heart className="w-12 h-12 text-pink-400 animate-heart-pulse" />
+            </div>
+            
             {/* Title with animated gradient */}
             <h3 className="text-3xl md:text-4xl font-bold mb-8 text-center font-poppins bg-gradient-to-r from-green-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
               {t("platform.bottomTitle")}
