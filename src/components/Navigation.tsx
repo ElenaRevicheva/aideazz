@@ -44,12 +44,13 @@ const Navigation = () => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden md:flex items-center gap-8 pointer-events-auto">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
+                  className="text-gray-300 hover:text-white transition-colors duration-200 font-medium cursor-pointer relative z-[110]"
+                  style={{ pointerEvents: 'auto' }}
                 >
                   {item.name}
                 </a>
@@ -76,14 +77,15 @@ const Navigation = () => {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="md:hidden mt-4 pt-4 border-t border-white/10">
+            <div className="md:hidden mt-4 pt-4 border-t border-white/10 pointer-events-auto">
               <div className="flex flex-col gap-4">
                 {navItems.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 font-medium py-2 cursor-pointer relative z-[110]"
                     onClick={() => setIsOpen(false)}
+                    style={{ pointerEvents: 'auto' }}
                   >
                     {item.name}
                   </a>
