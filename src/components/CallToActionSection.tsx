@@ -10,8 +10,8 @@ const CallToActionSection = () => {
     window.location.href = "mailto:aipa@aideazz.xyz";
   };
 
-  const openTelegramChat = () => {
-    window.open('https://t.me/EspaLuzFamily_bot', '_blank');
+  const openEspaLuzWhatsApp = () => {
+    window.open('https://wa.me/50766623757', '_blank');
   };
 
   return (
