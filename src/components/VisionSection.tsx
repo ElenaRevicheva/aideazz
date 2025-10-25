@@ -1,7 +1,6 @@
 import { Eye, Sparkles, Users, Zap, MapPin, Briefcase, Video } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const VisionSection = () => {
   const { t } = useTranslation();
