@@ -118,52 +118,19 @@ const VisionSection = () => {
             </div>
             
             <div className="space-y-4 text-gray-300 leading-relaxed">
-              <p>
+              <p className="text-center">
                 🇷🇺 {t("vision.founderBio1")}
               </p>
               
-              <p>
-                ✍️ {t("vision.founderBio2")}{" "}
-                <a 
-                  href="https://opensea.io/kira_velerevich" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-purple-300 hover:text-purple-200 transition-colors underline"
-                >
-                  https://opensea.io/kira_velerevich
-                </a>
-                .
-              </p>
-              
-              <p>
-                💡 {t("vision.founderBio3")}
-              </p>
-
-              <div className="flex items-start gap-3 mt-4">
-                <span className="text-green-400 font-semibold">✅</span>
-                <div>
-                  <span className="text-purple-300 font-semibold">{t("vision.daiaaTitle")}</span>{" "}
-                  <span className="text-gray-300">{t("vision.daiaaDescription")}</span>{" "}
-                  <a 
-                    href="https://www.daiaa.org/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-300 underline"
-                  >
-                    https://www.daiaa.org/
-                  </a>
-                </div>
-              </div>
-              
               <div className="mt-6 text-center">
-                <p className="mb-2 font-semibold">{t("vision.videoPrompt")}</p>
                 <a 
                   href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-purple-300 hover:text-purple-200 transition-colors underline"
+                  className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer relative z-40"
+                  style={{ pointerEvents: 'auto' }}
                 >
-                  https://www.capcut.com/s/CU4u6UjQIC9QydoB/
+                  {t("vision.videoButtonText")}
                 </a>
               </div>
             </div>
