@@ -15,7 +15,8 @@ const LanguageSwitcher = () => {
       onClick={toggleLanguage}
       variant="ghost"
       size="sm"
-      className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+      className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors cursor-pointer relative z-[111]"
+      style={{ pointerEvents: 'auto' }}
     >
       <Globe className="w-4 h-4" />
       <span className="font-medium">{i18n.language === 'en' ? 'ES' : 'EN'}</span>
