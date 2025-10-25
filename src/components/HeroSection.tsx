@@ -14,6 +14,13 @@ const HeroSection = () => {
     }
   };
 
+  const scrollToPlatform = () => {
+    const platformSection = document.getElementById('platform');
+    if (platformSection) {
+      platformSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="pt-32 pb-20 relative overflow-hidden">
       {/* Particle Background */}
@@ -72,7 +79,11 @@ const HeroSection = () => {
               </Button>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" className="ripple-effect border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg">
+              <Button 
+                onClick={scrollToPlatform}
+                variant="outline" 
+                className="ripple-effect border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg"
+              >
                 {t("hero.learnMore")}
               </Button>
             </motion.div>
