@@ -454,5 +454,15 @@
     "email": "Hablemos 💬",
     "quote": "💡 \"¿Tienes algún AIdeazz? Súbelo al ledger.\" ⚡",
     "flipText": "Clic para ver portafolio completo"
+  },
+  "journey": {
+    "step1Title": "Lucha y Necesidad",
+    "step1Desc": "La vida trae desafíos — reubicación, barreras del idioma, adaptación cultural. Necesitas ayuda, pero la IA genérica no entiende tu viaje emocional.",
+    "step2Title": "Conoce a Tu AIPA",
+    "step2Desc": "Descubres un compañero de IA que realmente entiende tus emociones, recuerda tu historia y se adapta a las necesidades únicas de tu familia.",
+    "step3Title": "Crecimiento y Aprendizaje",
+    "step3Desc": "Tu AIPA evoluciona contigo — enseñando idiomas, guiando decisiones, brindando apoyo emocional cuando la vida se siente abrumadora.",
+    "step4Title": "Confianza y Conexión",
+    "step4Desc": "Te has adaptado, crecido más fuerte y construido conexiones significativas. Tu AIPA te ayudó a prosperar a través de la transformación."
   }
 }

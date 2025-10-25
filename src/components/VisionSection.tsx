@@ -1,5 +1,7 @@
-import { Eye, Sparkles, Users, Zap } from "lucide-react";
+import { Eye, Sparkles, Users, Zap, MapPin, Briefcase, Video } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const VisionSection = () => {
   const { t } = useTranslation();
@@ -99,43 +101,109 @@ const VisionSection = () => {
           </div>
         </div>
 
-        {/* Founder Section */}
-        <div className="mt-16">
-          <div className="glass-card p-8 max-w-4xl mx-auto">
-            <h3 className="text-3xl font-bold font-poppins mb-6 text-center gradient-text">
+        {/* Founder Section - Enhanced with Visual Timeline */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="mt-16"
+        >
+          <div className="glass-card p-12 max-w-5xl mx-auto animate-glow-pulse">
+            <h3 className="text-3xl md:text-4xl font-bold font-poppins mb-8 text-center gradient-text">
               🧠 {t("vision.founderTitle")}
             </h3>
-            <div className="text-center mb-6">
-            <a 
-              href="https://www.aideazz.xyz/card" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-xl font-semibold text-purple-300 hover:text-purple-200 transition-colors underline cursor-pointer relative z-40"
-              style={{ pointerEvents: 'auto' }}
-            >
-              {t("vision.founderLink")}
-            </a>
-            </div>
             
-            <div className="space-y-4 text-gray-300 leading-relaxed">
-              <p className="text-center">
-                🇷🇺 {t("vision.founderBio1")}
-              </p>
+            {/* Founder Timeline */}
+            <div className="relative max-w-3xl mx-auto mb-8">
+              {/* Vertical timeline line */}
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 to-pink-500 opacity-30"></div>
               
-              <div className="mt-6 text-center">
-                <a 
-                  href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer relative z-40"
-                  style={{ pointerEvents: 'auto' }}
+              <div className="space-y-8">
+                {/* Timeline Item 1: Background */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="relative pl-20 animate-slide-in-right"
                 >
-                  {t("vision.videoButtonText")}
-                </a>
+                  <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 animate-glow-pulse"></div>
+                  <div className="glass-card p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Briefcase className="w-5 h-5 text-cyan-400" />
+                      <h4 className="font-semibold text-white">IT Executive & CLO</h4>
+                    </div>
+                    <p className="text-gray-300 text-sm">
+                      🇷🇺 {t("vision.founderBio1")}
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Timeline Item 2: Location */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="relative pl-20 animate-slide-in-right"
+                  style={{ animationDelay: '0.2s' }}
+                >
+                  <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 animate-glow-pulse"></div>
+                  <div className="glass-card p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="w-5 h-5 text-pink-400" />
+                      <h4 className="font-semibold text-white">Panama City 🇵🇦</h4>
+                    </div>
+                    <p className="text-gray-300 text-sm">
+                      Building AIdeazz as a solo founder since 2022
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Timeline Item 3: Video Story */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="relative pl-20 animate-slide-in-right"
+                  style={{ animationDelay: '0.4s' }}
+                >
+                  <div className="absolute left-6 top-2 w-5 h-5 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 animate-glow-pulse"></div>
+                  <div className="glass-card p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Video className="w-5 h-5 text-green-400" />
+                      <h4 className="font-semibold text-white">The Story</h4>
+                    </div>
+                    <a 
+                      href="https://www.capcut.com/s/CU4u6UjQIC9QydoB/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block px-5 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold rounded-lg transition-all duration-300 cursor-pointer relative z-40 text-sm"
+                      style={{ pointerEvents: 'auto' }}
+                    >
+                      {t("vision.videoButtonText")}
+                    </a>
+                  </div>
+                </motion.div>
               </div>
             </div>
+            
+            {/* Portfolio Link */}
+            <div className="text-center mt-8 pt-6 border-t border-purple-500/20">
+              <a 
+                href="https://www.aideazz.xyz/card" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-full transition-all duration-300 cursor-pointer relative z-40 transform hover:scale-105"
+                style={{ pointerEvents: 'auto' }}
+              >
+                📂 {t("vision.founderLink")}
+              </a>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
