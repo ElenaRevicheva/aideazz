@@ -1,11 +1,15 @@
-import { Layers, ShoppingCart, Users, Zap, Coins, GitBranch } from "lucide-react";
+import { Layers, ShoppingCart, Users, Zap, Coins, GitBranch, Heart } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 const AIdeazzPlatformSection = () => {
   const { t } = useTranslation();
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   
   return (
-    <section id="platform" className="py-24 relative bg-gradient-to-r from-blue-900/20 to-purple-900/20">
+    <section ref={sectionRef} id="platform" className="py-24 relative mood-hope">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-16">
