@@ -119,23 +119,23 @@ const CallToActionSection = () => {
                 <Mail className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">{t("cta.contactTitle")}</h3>
-              <p className="text-gray-300 text-sm mb-2">{t("cta.contactEmail")}</p>
-              <p className="text-gray-300 text-sm mb-4">{t("cta.contactChat")}</p>
               <div className="space-y-2">
                 <Button 
                   size="sm" 
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold"
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold cursor-pointer relative z-40"
                   onClick={handleContactClick}
+                  style={{ pointerEvents: 'auto' }}
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   {t("cta.emailButton")}
                 </Button>
                 <Button 
                   size="sm" 
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold"
-                  onClick={() => window.open('https://lit.link/en/aideazz', '_blank')}
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold cursor-pointer relative z-40"
+                  onClick={() => window.open('https://wa.me/50761666716', '_blank')}
+                  style={{ pointerEvents: 'auto' }}
                 >
-                  <ExternalLink className="w-4 h-4 mr-2" />
+                  <MessageCircle className="w-4 h-4 mr-2" />
                   {t("cta.callChatButton")}
                 </Button>
               </div>
