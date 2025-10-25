@@ -48,7 +48,7 @@ const EspaLuzSection = () => {
                 transition={{ duration: 0.3 }}
                 src="/lovable-uploads/a9ca2d17-65b0-43f6-8da1-665c7f725d79.png"
                 alt={t("espaluz.altText")}
-                className="w-32 h-32 rounded-full object-cover shadow-2xl border-4 border-purple-400/30"
+                className="w-32 h-32 rounded-full object-cover shadow-2xl border-4 border-purple-400/30 animate-heartbeat"
               />
               <motion.div 
                 initial={{ scale: 0 }}

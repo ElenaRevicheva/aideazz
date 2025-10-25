@@ -32,7 +32,7 @@ const Navigation = () => {
               transition={{ duration: 0.2 }}
             >
               <motion.div 
-                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg"
+                className="p-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg animate-breathe"
                 whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                 transition={{ duration: 0.5 }}
               >

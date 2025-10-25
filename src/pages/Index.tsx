@@ -10,10 +10,12 @@ import CallToActionSection from "@/components/CallToActionSection";
 import YouTubeSubscriptionSection from "@/components/YouTubeSubscriptionSection";
 import LegalFooter from "@/components/LegalFooter";
 import ScrollProgress from "@/components/ScrollProgress";
+import MagneticCursor from "@/components/MagneticCursor";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col">
+      <MagneticCursor />
       <ScrollProgress />
       <Navigation />
       <main className="flex-1">

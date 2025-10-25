@@ -2,9 +2,12 @@ import { TrendingUp, Target, Zap, Globe, Users, DollarSign } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useCountUp } from "@/hooks/useCountUp";
 
 const InvestorPitchSection = () => {
   const { t } = useTranslation();
+  const [startCount, setStartCount] = useState(false);
   
   const scrollToContact = () => {
     const contactSection = document.querySelector('#contact');
@@ -66,44 +69,36 @@ const InvestorPitchSection = () => {
         </motion.div>
 
         {/* Opportunity Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="glass-card p-6 text-center"
-          >
-            <Target className="w-12 h-12 text-green-400 mx-auto mb-4" />
-            <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric1Value")}</h4>
-            <p className="text-gray-300">{t("investor.metric1Description")}</p>
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="glass-card p-6 text-center"
-          >
-            <Users className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-            <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric2Value")}</h4>
-            <p className="text-gray-300">{t("investor.metric2Description")}</p>
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.05, y: -5 }}
-            className="glass-card p-6 text-center"
-          >
-            <Globe className="w-12 h-12 text-pink-400 mx-auto mb-4" />
-            <h4 className="text-2xl font-bold text-white mb-2">{t("investor.metric3Value")}</h4>
-            <p className="text-gray-300">{t("investor.metric3Description")}</p>
-          </motion.div>
-        </div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+          onViewportEnter={() => setStartCount(true)}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <MetricCard
+            icon={Target}
+            value="$37B+"
+            description={t("investor.metric1Description")}
+            delay={0}
+            startCount={startCount}
+            iconColor="text-green-400"
+          />
+          <MetricCard
+            icon={Users}
+            value="280M+"
+            description={t("investor.metric2Description")}
+            delay={0.1}
+            startCount={startCount}
+            iconColor="text-purple-400"
+          />
+          <MetricCard
+            icon={Globe}
+            value="19"
+            description={t("investor.metric3Description")}
+            delay={0.2}
+            startCount={startCount}
+            iconColor="text-pink-400"
+          />
+        </motion.div>
 
         {/* Why Now */}
         <div className="glass-card p-8 mb-12">
@@ -212,6 +207,51 @@ const InvestorPitchSection = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+// Metric Card Component with Counter
+const MetricCard = ({ 
+  icon: Icon, 
+  value, 
+  description, 
+  delay, 
+  startCount,
+  iconColor 
+}: { 
+  icon: any; 
+  value: string; 
+  description: string; 
+  delay: number;
+  startCount: boolean;
+  iconColor: string;
+}) => {
+  // Extract number from value string
+  const numericValue = parseInt(value.replace(/[^0-9]/g, ''));
+  const suffix = value.replace(/[0-9]/g, '');
+  const count = useCountUp(numericValue, 2000, startCount);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay }}
+      whileHover={{ scale: 1.05, y: -5 }}
+      className="glass-card p-6 text-center card-morph"
+    >
+      <motion.div
+        className="inline-block"
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+      >
+        <Icon className={`w-12 h-12 ${iconColor} mx-auto mb-4`} />
+      </motion.div>
+      <h4 className="text-2xl font-bold text-white mb-2">
+        {count}{suffix}
+      </h4>
+      <p className="text-gray-300">{description}</p>
+    </motion.div>
   );
 };
 
