@@ -190,7 +190,11 @@ const InvestorPitchSection = () => {
               {t("investor.ctaDescription")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-full font-semibold shadow-2xl hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105">
+              <Button 
+                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-full font-semibold shadow-2xl hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105 cursor-pointer relative z-40"
+                onClick={() => window.open("https://wa.me/50761666716?text=Hi%20Elena,%20I'm%20interested%20in%20investing%20in%20AIdeazz.%20Let's%20talk!", '_blank')}
+                style={{ pointerEvents: 'auto' }}
+              >
                 <DollarSign className="mr-2 w-5 h-5" />
                 {t("investor.investButton")}
               </Button>
