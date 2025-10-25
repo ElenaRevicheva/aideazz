@@ -67,21 +67,21 @@ const UserJourneyTimeline = () => {
 
         {/* Timeline */}
         <div className="max-w-6xl mx-auto relative">
-          {/* Vertical line */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 opacity-30"></div>
+          {/* Vertical line - hidden on mobile, centered on desktop */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 opacity-30"></div>
           
-          {/* Animated progress line */}
+          {/* Animated progress line - hidden on mobile, centered on desktop */}
           {isInView && (
             <motion.div
               initial={{ height: 0 }}
               animate={{ height: "100%" }}
               transition={{ duration: 2, ease: "easeOut" }}
-              className="absolute left-8 md:left-1/2 top-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-green-400 z-10"
+              className="hidden md:block absolute left-1/2 top-0 w-0.5 bg-gradient-to-b from-blue-400 via-purple-400 to-green-400 z-10"
             ></motion.div>
           )}
 
           {/* Steps */}
-          <div className="space-y-16">
+          <div className="space-y-8 md:space-y-16">
             {journeySteps.map((step, index) => {
               const Icon = step.icon;
               const isLeft = index % 2 === 0;
@@ -92,35 +92,35 @@ const UserJourneyTimeline = () => {
                   initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`relative flex items-center ${
+                  className={`relative flex items-start gap-4 md:items-center ${
                     isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                  } flex-col md:gap-8`}
+                  } md:gap-8`}
                 >
-                  {/* Content */}
-                  <div className={`flex-1 ${isLeft ? "md:text-right md:pr-8" : "md:text-left md:pl-8"} text-center mb-8 md:mb-0`}>
-                    <div className={`glass-card p-6 inline-block ${isLeft ? "animate-slide-in-right" : "animate-slide-in-left"}`} style={{ animationDelay: `${index * 0.2}s` }}>
-                      <h3 className="text-2xl font-bold text-white mb-3 font-poppins">
-                        {step.title}
-                      </h3>
-                      <p className="text-gray-300 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Icon in center */}
+                  {/* Icon - Left side on mobile, center on desktop */}
                   <div className="relative z-20 flex-shrink-0">
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={isInView ? { scale: 1 } : {}}
                       transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                      className={`w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-2xl animate-glow-pulse`}
+                      className={`w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-2xl animate-glow-pulse`}
                     >
-                      <Icon className={`w-8 h-8 text-white`} />
+                      <Icon className={`w-7 h-7 md:w-8 md:h-8 text-white`} />
                     </motion.div>
                   </div>
 
-                  {/* Spacer for alignment */}
+                  {/* Content - Right side on mobile, alternating on desktop */}
+                  <div className={`flex-1 ${isLeft ? "md:text-right md:pr-8" : "md:text-left md:pl-8"} text-left`}>
+                    <div className={`glass-card p-5 md:p-6 ${isLeft ? "md:animate-slide-in-right" : "md:animate-slide-in-left"}`} style={{ animationDelay: `${index * 0.2}s` }}>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-2 md:mb-3 font-poppins">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Spacer for alignment - desktop only */}
                   <div className="flex-1 hidden md:block"></div>
                 </motion.div>
               );
