@@ -178,17 +178,17 @@ const AIpaExplainerSection = () => {
                 {t("aipa.contextsDescription")}
               </p>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-center">
-                  <span className="text-purple-300 font-semibold">{t("aipa.contextLearning")}</span>
+                <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-2.5 md:p-3 text-center">
+                  <span className="text-purple-300 font-semibold text-xs md:text-sm break-words">{t("aipa.contextLearning")}</span>
                 </div>
-                <div className="bg-pink-500/10 border border-pink-500/20 rounded-lg p-3 text-center">
-                  <span className="text-pink-300 font-semibold">{t("aipa.contextCoaching")}</span>
+                <div className="bg-pink-500/10 border border-pink-500/20 rounded-lg p-2.5 md:p-3 text-center">
+                  <span className="text-pink-300 font-semibold text-xs md:text-sm break-words">{t("aipa.contextCoaching")}</span>
                 </div>
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 text-center">
-                  <span className="text-blue-300 font-semibold">{t("aipa.contextTransitions")}</span>
+                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-2.5 md:p-3 text-center">
+                  <span className="text-blue-300 font-semibold text-xs md:text-sm break-words">{t("aipa.contextTransitions")}</span>
                 </div>
-                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3 text-center">
-                  <span className="text-green-300 font-semibold">{t("aipa.contextCommunication")}</span>
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-2.5 md:p-3 text-center">
+                  <span className="text-green-300 font-semibold text-xs md:text-sm break-words">{t("aipa.contextCommunication")}</span>
                 </div>
               </div>
             </motion.div>
