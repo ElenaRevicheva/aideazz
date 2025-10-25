@@ -169,7 +169,8 @@ const InvestorPitchSection = () => {
                   href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-blue-400 hover:text-blue-300 underline"
+                  className="text-blue-400 hover:text-blue-300 underline cursor-pointer relative z-40"
+                  style={{ pointerEvents: 'auto' }}
                 >
                   QuickSwap
                 </a>{" "}

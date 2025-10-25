@@ -106,14 +106,15 @@ const VisionSection = () => {
               🧠 {t("vision.founderTitle")}
             </h3>
             <div className="text-center mb-6">
-              <a 
-                href="https://www.aideazz.xyz/card" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xl font-semibold text-purple-300 hover:text-purple-200 transition-colors underline"
-              >
-                {t("vision.founderLink")}
-              </a>
+            <a 
+              href="https://www.aideazz.xyz/card" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-xl font-semibold text-purple-300 hover:text-purple-200 transition-colors underline cursor-pointer relative z-40"
+              style={{ pointerEvents: 'auto' }}
+            >
+              {t("vision.founderLink")}
+            </a>
             </div>
             
             <div className="space-y-4 text-gray-300 leading-relaxed">
