@@ -98,7 +98,12 @@ const CallToActionSection = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-3 font-poppins">{t("cta.communityTitle")}</h3>
               <p className="text-gray-300 text-sm mb-4">{t("cta.communityDescription")}</p>
-              <Button size="sm" className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold">
+              <Button 
+                size="sm" 
+                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold cursor-pointer relative z-40"
+                onClick={() => window.open('https://chat.whatsapp.com/Hb0oCy3P7F658DoCI7Jv4N', '_blank')}
+                style={{ pointerEvents: 'auto' }}
+              >
                 <Users className="w-4 h-4 mr-2" />
                 {t("cta.joinUs")}
               </Button>
