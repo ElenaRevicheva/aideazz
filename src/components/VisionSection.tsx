@@ -154,9 +154,9 @@ const VisionSection = () => {
                       <MapPin className="w-5 h-5 text-pink-400" />
                       <h4 className="font-semibold text-white">Panama City 🇵🇦</h4>
                     </div>
-                    <p className="text-gray-300 text-sm">
-                      Building AIdeazz as a solo founder since 2022
-                    </p>
+                  <p className="text-gray-300 text-sm">
+                    Building AIdeazz as a solo AI dev since March 2025
+                  </p>
                   </div>
                 </motion.div>
 
