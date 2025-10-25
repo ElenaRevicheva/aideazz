@@ -174,7 +174,8 @@ const EspaLuzSection = () => {
               </p>
               <Button 
                 onClick={openTelegramChat}
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-full transition-all duration-300"
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 rounded-full transition-all duration-300 cursor-pointer relative z-40"
+                style={{ pointerEvents: 'auto' }}
               >
                 {t("espaluz.openTelegram")}
                 <ExternalLink className="ml-2 w-5 h-5" />
