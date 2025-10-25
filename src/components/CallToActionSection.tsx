@@ -52,8 +52,9 @@ const CallToActionSection = () => {
               <p className="text-gray-300 text-sm mb-4">{t("cta.experienceDescription")}</p>
               <Button 
                 size="sm" 
-                className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-semibold"
-                onClick={openTelegramChat}
+                className="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-semibold cursor-pointer relative z-40"
+                onClick={openEspaLuzWhatsApp}
+                style={{ pointerEvents: 'auto' }}
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 {t("cta.chatNow")}
