@@ -17,7 +17,7 @@ const InvestorPitchSection = () => {
   };
 
   return (
-    <section id="invest" className="py-24 relative bg-gradient-to-r from-purple-900/20 to-pink-900/20">
+    <section id="invest" className="py-24 relative">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <motion.div 

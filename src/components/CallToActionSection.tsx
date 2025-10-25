@@ -15,7 +15,7 @@ const CallToActionSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 relative bg-gradient-to-r from-purple-900/30 to-pink-900/30">
+    <section id="contact" className="py-24 relative">
       <div className="container mx-auto px-6">
         {/* Main CTA */}
         <motion.div 
