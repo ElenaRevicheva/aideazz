@@ -22,12 +22,12 @@ const Index = () => {
       <main className="flex-1">
         <HeroSection />
         <EspaLuzSection />
-        <VibeCodingSection />
-        <InvestorPitchSection />
-        <VisionSection />
-        <UserJourneyTimeline />
         <AIdeazzPlatformSection />
         <AIpaExplainerSection />
+        <UserJourneyTimeline />
+        <VisionSection />
+        <VibeCodingSection />
+        <InvestorPitchSection />
         <CallToActionSection />
         <YouTubeSubscriptionSection />
       </main>
