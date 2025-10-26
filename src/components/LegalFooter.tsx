@@ -62,8 +62,7 @@ const LegalFooter = () => {
               {t("footer.copyright")}
             </div>
             <div className="rounded-full bg-white/5 px-6 py-3 text-sm font-semibold text-amber-300 shadow-lg border border-white/10 flex items-center gap-2 backdrop-blur-md">
-              <span role="img" aria-label="point">👉</span> 
-              <span>{t("footer.aipaEra")} <span role="img" aria-label="fire">🔥</span> {t("footer.ledgerPrompt")}</span>
+              <span>{t("footer.aipaEra")} {t("footer.ledgerPrompt")}</span>
             </div>
           </div>
         </div>

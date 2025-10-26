@@ -194,9 +194,8 @@ const EspaLuzSection = () => {
                   <MessageCircle className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-semibold text-white font-poppins flex items-center gap-2">
+                  <h3 className="text-2xl font-semibold text-white font-poppins">
                     {t("espaluz.whatsappLiveTitle")}
-                    <span className="text-green-400">⚡</span>
                   </h3>
                   <p className="text-green-300 font-medium">{t("espaluz.whatsappLiveSubtitle")}</p>
                 </div>

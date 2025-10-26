@@ -50,7 +50,7 @@ const InvestorPitchSection = () => {
           className="glass-card p-12 mb-12 max-w-5xl mx-auto"
         >
           <h3 className="text-3xl font-bold text-white mb-8 text-center font-poppins">
-            🔥 {t("investor.boldVisionTitle")}
+            {t("investor.boldVisionTitle")}
           </h3>
           <div className="text-lg text-gray-300 leading-relaxed space-y-6">
             <p>
@@ -63,7 +63,7 @@ const InvestorPitchSection = () => {
               <strong className="text-pink-300">{t("investor.vision3")}</strong> {t("investor.vision3Description")}
             </p>
             <p className="text-center text-xl font-semibold text-white">
-              💡 {t("investor.vision4")} <em>{t("investor.vision4Emphasis")}</em>.
+              {t("investor.vision4")} <em>{t("investor.vision4Emphasis")}</em>.
             </p>
           </div>
         </motion.div>
@@ -129,7 +129,7 @@ const InvestorPitchSection = () => {
         {/* Decentralized Identity */}
         <div className="glass-card p-8 mb-12">
           <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
-            🔥 <strong>{t("investor.decentralizedTitle")}</strong>
+            <strong>{t("investor.decentralizedTitle")}</strong>
           </h3>
           <div className="space-y-4">
             <div>
@@ -148,7 +148,7 @@ const InvestorPitchSection = () => {
         {/* MVP Basics Highlights */}
         <div className="glass-card p-8 mb-12">
           <h3 className="text-2xl font-bold text-white mb-6 font-poppins">
-            🔥 <strong>{t("investor.mvpTitle")}</strong>
+            <strong>{t("investor.mvpTitle")}</strong>
           </h3>
           <div className="space-y-4">
             <div className="flex items-start gap-3">
