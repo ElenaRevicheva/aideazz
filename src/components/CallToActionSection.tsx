@@ -133,15 +133,6 @@ const CallToActionSection = () => {
               <div className="space-y-2">
                 <Button 
                   size="sm" 
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold cursor-pointer relative z-40"
-                  onClick={handleContactClick}
-                  style={{ pointerEvents: 'auto' }}
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  {t("cta.emailButton")}
-                </Button>
-                <Button 
-                  size="sm" 
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold cursor-pointer relative z-40"
                   onClick={() => window.open('https://wa.me/50761666716', '_blank')}
                   style={{ pointerEvents: 'auto' }}
@@ -152,6 +143,13 @@ const CallToActionSection = () => {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Questions Link */}
+        <div className="text-center mb-12">
+          <p className="text-gray-400">
+            {t("cta.questions")} <a href="mailto:aipa@aideazz.xyz" className="text-purple-400 hover:text-purple-300 underline transition-colors cursor-pointer relative z-40" style={{ pointerEvents: 'auto' }}>aipa@aideazz.xyz</a>
+          </p>
         </div>
 
         {/* Footer Message */}

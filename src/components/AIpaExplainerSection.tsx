@@ -239,35 +239,23 @@ const AIpaExplainerSection = () => {
         </div>
 
         {/* CTA */}
-        <div className="text-center space-y-6">
-          <div>
-            <Button
-              asChild
-              className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
+        <div className="text-center">
+          <Button
+            asChild
+            className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
+          >
+            <a 
+              href="https://www.aideazz.xyz/card" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-3"
             >
-              <a 
-                href="https://www.aideazz.xyz/card" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-3"
-              >
-                <Rocket className="w-6 h-6" />
-                {t("aipa.businessPortfolioButton")}
-                <ExternalLink className="w-5 h-5" />
-              </a>
-            </Button>
-            <p className="text-base text-gray-300 mt-4 font-medium">{t("aipa.businessPortfolioDescription")}</p>
-          </div>
-          
-          <div className="pt-4 px-4 md:px-0">
-            <Button 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 md:px-8 py-3 md:py-4 rounded-full font-semibold text-sm md:text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 opacity-60 max-w-full"
-              disabled
-            >
-              <span className="truncate">{t("aipa.exploreButton")}</span>
-              <span className="ml-2 text-xs md:text-sm opacity-75 flex-shrink-0">{t("aipa.comingSoonLabel")}</span>
-            </Button>
-          </div>
+              <Rocket className="w-6 h-6" />
+              {t("aipa.businessPortfolioButton")}
+              <ExternalLink className="w-5 h-5" />
+            </a>
+          </Button>
+          <p className="text-base text-gray-300 mt-4 font-medium">{t("aipa.businessPortfolioDescription")}</p>
         </div>
       </div>
     </section>
