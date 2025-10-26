@@ -13,10 +13,10 @@ const Navigation = () => {
   const navItems = [
     { name: t("nav.home"), href: "#home" },
     { name: t("nav.espaluz"), href: "#espaluz" },
-    { name: t("nav.vibeCoding"), href: "#vibe-coding" },
-    { name: t("nav.vision"), href: "#vision" },
     { name: t("nav.platform"), href: "#platform" },
     { name: t("nav.agents"), href: "#agents" },
+    { name: t("nav.vision"), href: "#vision" },
+    { name: t("nav.vibeCoding"), href: "#vibe-coding" },
     { name: t("nav.invest"), href: "#invest" },
   ];
 
