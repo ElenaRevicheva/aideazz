@@ -259,13 +259,13 @@ const AIpaExplainerSection = () => {
             <p className="text-base text-gray-300 mt-4 font-medium">{t("aipa.businessPortfolioDescription")}</p>
           </div>
           
-          <div className="pt-4">
+          <div className="pt-4 px-4 md:px-0">
             <Button 
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 rounded-full font-semibold text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 opacity-60"
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-4 md:px-8 py-3 md:py-4 rounded-full font-semibold text-sm md:text-lg shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 opacity-60 max-w-full"
               disabled
             >
-              {t("aipa.exploreButton")}
-              <span className="ml-2 text-sm opacity-75">{t("aipa.comingSoonLabel")}</span>
+              <span className="truncate">{t("aipa.exploreButton")}</span>
+              <span className="ml-2 text-xs md:text-sm opacity-75 flex-shrink-0">{t("aipa.comingSoonLabel")}</span>
             </Button>
           </div>
         </div>
