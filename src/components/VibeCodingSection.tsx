@@ -82,9 +82,9 @@ const VibeCodingSection = () => {
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-                className="rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 p-3 backdrop-blur-sm flex-shrink-0"
+                className="text-5xl flex-shrink-0"
               >
-                <Brain className="w-10 h-10 text-purple-400 animate-glow-pulse" />
+                🧠
               </motion.div>
               <h3 className="text-3xl font-bold font-poppins text-center">
                 <span className="gradient-text">{t("vibeCoding.sectionTitle")}</span>
