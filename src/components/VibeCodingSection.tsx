@@ -72,20 +72,55 @@ const VibeCodingSection = () => {
         <div className="max-w-4xl mx-auto">
           <div className="glass-card p-8 mb-8">
             <div className="flex items-center justify-center gap-3 mb-6">
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="text-5xl flex-shrink-0"
-              >
-                🧠
-              </motion.div>
+              <div className="relative flex-shrink-0">
+                {/* Aura circles */}
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.5, 1],
+                    opacity: [0.6, 0.2, 0.6]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-400 to-rose-400 blur-xl"
+                  style={{ transform: 'translate(-50%, -50%)', left: '50%', top: '50%', width: '120%', height: '120%' }}
+                />
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.8, 1],
+                    opacity: [0.4, 0.1, 0.4]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5
+                  }}
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-rose-400 to-pink-500 blur-2xl"
+                  style={{ transform: 'translate(-50%, -50%)', left: '50%', top: '50%', width: '150%', height: '150%' }}
+                />
+                {/* Brain emoji with rose filter */}
+                <motion.div
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ 
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  className="text-5xl relative z-10"
+                  style={{ 
+                    filter: 'hue-rotate(-20deg) saturate(1.5) brightness(1.2)',
+                    textShadow: '0 0 20px rgba(251, 113, 133, 0.8), 0 0 40px rgba(244, 63, 94, 0.6)'
+                  }}
+                >
+                  🧠
+                </motion.div>
+              </div>
               <h3 className="text-3xl font-bold font-poppins text-center">
                 <span className="gradient-text">{t("vibeCoding.sectionTitle")}</span>
               </h3>
