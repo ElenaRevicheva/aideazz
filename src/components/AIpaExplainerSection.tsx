@@ -28,15 +28,23 @@ const AIpaExplainerSection = () => {
             {t("aipa.subtitle")}
           </p>
           <div className="text-center">
-            <p className="mb-2 font-semibold text-purple-300">{t("aipa.videoPrompt")}</p>
-            <a 
-              href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-purple-300 hover:text-purple-200 transition-colors underline"
-            >
-              https://www.capcut.com/s/CXgM3XiNSKkniT0N/
-            </a>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                asChild
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-purple-500/50 transition-all duration-300 cursor-pointer"
+              >
+                <a 
+                  href="https://www.capcut.com/s/CXgM3XiNSKkniT0N/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                  style={{ pointerEvents: 'auto' }}
+                >
+                  <ExternalLink className="w-5 h-5" />
+                  {t("aipa.videoPrompt")}
+                </a>
+              </Button>
+            </motion.div>
           </div>
 
           {/* Business Portfolio CTA */}
