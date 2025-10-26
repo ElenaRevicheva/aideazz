@@ -203,6 +203,103 @@ const AIpaExplainerSection = () => {
           </motion.div>
         </div>
 
+        {/* Why Not ChatGPT? - Competitive Differentiation */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
+          <div className="glass-card p-8 md:p-12 border-2 border-amber-500/30 bg-gradient-to-r from-amber-500/5 to-orange-500/5">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-poppins">
+                🤔 {t("aipa.whyNotChatGPTTitle")}
+              </h3>
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                {t("aipa.whyNotChatGPTSubtitle")}
+              </p>
+            </div>
+
+            {/* Comparison Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* ChatGPT Column */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-600/30 rounded-xl p-6"
+              >
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-700/50 rounded-full mb-3">
+                    <Brain className="w-5 h-5 text-gray-400" />
+                    <span className="text-gray-300 font-semibold">{t("aipa.chatGPTLabel")}</span>
+                  </div>
+                  <p className="text-gray-400 text-sm">{t("aipa.chatGPTTagline")}</p>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon1")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon2")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon3")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon4")}</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* EspaLuz Column */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border-2 border-purple-500/50 rounded-xl p-6 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                  {t("aipa.aipaAdvantage")}
+                </div>
+                <div className="text-center mb-6 mt-4">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/50 to-pink-600/50 rounded-full mb-3">
+                    <Heart className="w-5 h-5 text-pink-300" />
+                    <span className="text-white font-semibold">{t("aipa.espaluzLabel")}</span>
+                  </div>
+                  <p className="text-purple-200 text-sm font-semibold">{t("aipa.espaluzTagline")}</p>
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-white text-sm font-medium">{t("aipa.aipaMemory")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-white text-sm font-medium">{t("aipa.aipaEmotion")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-white text-sm font-medium">{t("aipa.aipaContext")}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+                    <p className="text-white text-sm font-medium">{t("aipa.aipaAdaptation")}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Bottom Tagline */}
+            <div className="text-center mt-8">
+              <p className="text-xl md:text-2xl font-bold gradient-text">
+                {t("aipa.comparisonTagline")}
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Marketplace Preview */}
         <div className="glass-card p-12 mb-12">
           <div className="text-center mb-8">
