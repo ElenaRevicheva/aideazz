@@ -255,7 +255,7 @@ const AIpaExplainerSection = () => {
               >
                 <div className="text-center mb-6">
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-700/50 rounded-full mb-3">
-                    <Brain className="w-5 h-5 text-gray-400" />
+                    <MessageSquare className="w-5 h-5 text-gray-400" />
                     <span className="text-gray-300 font-semibold">{t("aipa.chatGPTLabel")}</span>
                   </div>
                   <p className="text-gray-400 text-sm">{t("aipa.chatGPTTagline")}</p>
