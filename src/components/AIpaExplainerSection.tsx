@@ -1,4 +1,4 @@
-import { Brain, Shield, Zap, Heart, Sparkles, ExternalLink, Rocket, X, Check, HelpCircle } from "lucide-react";
+import { Brain, Shield, Zap, Heart, Sparkles, ExternalLink, Rocket, X, Check, HelpCircle, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
