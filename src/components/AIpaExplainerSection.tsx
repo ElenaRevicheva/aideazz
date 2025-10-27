@@ -262,19 +262,19 @@ const AIpaExplainerSection = () => {
                 </div>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <X className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon1")}</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <X className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon2")}</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <X className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon3")}</p>
                   </div>
                   <div className="flex items-start gap-3">
-                    <X className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+                    <X className="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" />
                     <p className="text-gray-300 text-sm">{t("aipa.chatGPTCon4")}</p>
                   </div>
                 </div>
