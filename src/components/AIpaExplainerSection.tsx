@@ -290,7 +290,12 @@ const AIpaExplainerSection = () => {
                 </div>
                 <div className="text-center mb-6 mt-4">
                   <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600/50 to-pink-600/50 rounded-full mb-3">
-                    <Heart className="w-5 h-5 text-pink-300" />
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Heart className="w-5 h-5 text-pink-300" />
+                    </motion.div>
                     <span className="text-white font-semibold">{t("aipa.espaluzLabel")}</span>
                   </div>
                   <p className="text-purple-200 text-sm font-semibold">{t("aipa.espaluzTagline")}</p>
