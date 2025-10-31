@@ -36,7 +36,6 @@ Portfolio documentation, technical summaries, and skills overview
 
 ### `/docs/03-business-pitch/`
 Business pitches, investor materials, and business card analysis
-- AI Co-Founder Feasibility Analysis
 - AIDeazz Startup Description
 - Honest Investor Pitch
 - Pitch Iron-Clad Edits
@@ -82,6 +81,10 @@ Website and UI planning documents
 - Portfolio Corrections Needed
 - Vibe Coder Quote Refined
 
+### `/docs/10-ai-cofounder-strategy/`
+AI Co-Founder development strategy and feasibility analysis
+- AI Co-Founder Feasibility Analysis
+
 ## ?? Quick Start
 
 **For Job Seekers/Recruiters:**
@@ -96,6 +99,9 @@ Review `/docs/04-tech-stacks/` to understand the technical architecture of vario
 **For Team Members:**
 Begin with `/docs/07-planning-tracking/START-HERE-30-DAY-PLAN.md` for current priorities.
 
+
+**For AI Co-Founder Development:**
+See `/docs/10-ai-cofounder-strategy/` for feasibility analysis and strategic planning.
 ## ?? About This Repository
 
 This is the documentation branch of the AIDeazz project. The main codebase lives on the `main` branch, while this `docs` branch is dedicated to organizing all documentation materials.
