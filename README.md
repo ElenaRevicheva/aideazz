@@ -24,6 +24,7 @@ Portfolio documentation, technical summaries, and skills overview
 
 ### `/docs/03-business-pitch/`
 Business pitches, investor materials, and business card analysis
+- AI Co-Founder Feasibility Analysis
 - AIDeazz Startup Description
 - Honest Investor Pitch
 - Pitch Iron-Clad Edits
