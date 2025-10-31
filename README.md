@@ -62,6 +62,7 @@ Project planning and progress tracking documents
 ### `/docs/08-guides-howtos/`
 How-to guides and instructional documentation
 - How to Use Branches
+- Doc vs Docs Branch Resolution (Historical Record)
 
 ### `/docs/09-website-ui/`
 Website and UI planning documents
