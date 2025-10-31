@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
+# AIDeazz Documentation Repository
 
-## Project info
+Welcome to the AIDeazz documentation repository. This branch contains all project documentation organized into thematic folders for easy navigation.
 
-**URL**: https://lovable.dev/projects/fbab687a-4c4c-4a06-96ca-9b8561fc588c
+## ?? Documentation Structure
 
-## How can I edit this code?
+### `/docs/01-career-applications/`
+Job applications, summit applications, and resume materials
+- IOET AI Engineer Application Guide
+- Y Combinator Work at a Startup Application
+- Escalaton Summit Application
+- Elena Revicheva Resume 2025
 
-There are several ways of editing your application.
+### `/docs/02-portfolio/`
+Portfolio documentation, technical summaries, and skills overview
+- AIDeazz Portfolio Files List
+- Elena Revicheva Tech Portfolio
+- How to Use This Portfolio
+- One-Page Visual Summary
+- Quick Tech Summary
+- Resume Tech Bullets
+- Tech Portfolio Index
+- Tech Stack and Skills Overview
 
-**Use Lovable**
+### `/docs/03-business-pitch/`
+Business pitches, investor materials, and business card analysis
+- AIDeazz Startup Description
+- Honest Investor Pitch
+- Pitch Iron-Clad Edits
+- Business Card Analysis and Recommendations
+- Business Card Changes Preview
+- Business Card Honest Recommendations
+- Competitor Comparison Implementation Report
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fbab687a-4c4c-4a06-96ca-9b8561fc588c) and start prompting.
+### `/docs/04-tech-stacks/`
+Technical stack documentation for all projects
+- EspaLuz Telegram Bot Tech Stack
+- WhatsApp Tech Stack
+- EspaLuz SaaS Tech Stack
+- EspaLuz Influencer Tech Stack
+- Atuona Tech Stack
+- Dragon Trade
 
-Changes made via Lovable will be committed automatically to this repo.
+### `/docs/05-marketing-communications/`
+Marketing messages, community communications, and promotion materials
+- DAIAA Telegram Message
+- ISD Community Message
+- ISD Response Site Down
+- Promotion Playbook: Get Hired, Get Funded
 
-**Use your preferred IDE**
+### `/docs/06-deployment/`
+Deployment guides and infrastructure documentation
+- Fleek Deployment Explanation
+- Fleek Deployment Guide
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### `/docs/07-planning-tracking/`
+Project planning and progress tracking documents
+- 30-Day Tracker
+- START HERE: 30-Day Plan
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### `/docs/08-guides-howtos/`
+How-to guides and instructional documentation
+- How to Use Branches
 
-Follow these steps:
+### `/docs/09-website-ui/`
+Website and UI planning documents
+- CTA Simplification Plan
+- Portfolio Corrections Needed
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## ?? Quick Start
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+**For Job Seekers/Recruiters:**
+Start with `/docs/02-portfolio/` to see technical skills and portfolio overview.
 
-# Step 3: Install the necessary dependencies.
-npm i
+**For Investors:**
+Check `/docs/03-business-pitch/` for startup description and investor pitches.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+**For Developers:**
+Review `/docs/04-tech-stacks/` to understand the technical architecture of various projects.
 
-**Edit a file directly in GitHub**
+**For Team Members:**
+Begin with `/docs/07-planning-tracking/START-HERE-30-DAY-PLAN.md` for current priorities.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## ?? About This Repository
 
-**Use GitHub Codespaces**
+This is the documentation branch of the AIDeazz project. The main codebase lives on the `main` branch, while this `docs` branch is dedicated to organizing all documentation materials.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Note:** This branch still contains source code files from the main project. These are kept for reference but the primary focus is the documentation in the `/docs/` folder.
 
-## What technologies are used for this project?
+## ?? Keeping Documentation Up to Date
 
-This project is built with:
+When adding new documentation:
+1. Determine which thematic folder it belongs to
+2. Add the file to the appropriate `/docs/XX-category/` folder
+3. Update this README if you add a new category
+4. Keep file names descriptive and use UPPERCASE-WITH-DASHES.md format for consistency
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## ?? Contact
 
-## How can I deploy this project?
+For questions about this documentation or the AIDeazz project, please refer to the contact information in the portfolio documents.
 
-Simply open [Lovable](https://lovable.dev/projects/fbab687a-4c4c-4a06-96ca-9b8561fc588c) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Last Updated: October 31, 2025
