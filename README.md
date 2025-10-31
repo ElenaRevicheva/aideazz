@@ -6,10 +6,22 @@ Welcome to the AIDeazz documentation repository. This branch contains all projec
 
 ### `/docs/01-career-applications/`
 Job applications, summit applications, and resume materials
-- IOET AI Engineer Application Guide
-- Y Combinator Work at a Startup Application
+- AI Models Reality Check
+- ChatGPT Version Evaluation
+- Elena One-Page Resume Template
+- Elena Resume 2 Pages Final
+- Elena Resume Final Version
+- Elena Revicheva Resume 2025 (HTML)
 - Escalaton Summit Application
-- Elena Revicheva Resume 2025
+- IOET AI Engineer Application Guide
+- Resume 8 to 2 Pages Transformation
+- Resume AI Models Final Recommendation
+- Resume Changes Needed
+- Resume Critical Fixes
+- Resume Critical Fixes Updated
+- Resume Edited Version Analysis
+- Resume Length Crisis
+- Y Combinator Work at a Startup Application
 
 ### `/docs/02-portfolio/`
 Portfolio documentation, technical summaries, and skills overview
@@ -68,6 +80,7 @@ How-to guides and instructional documentation
 Website and UI planning documents
 - CTA Simplification Plan
 - Portfolio Corrections Needed
+- Vibe Coder Quote Refined
 
 ## ?? Quick Start
 
