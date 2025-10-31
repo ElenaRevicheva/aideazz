@@ -1,3 +1,13 @@
+# ?? DEPRECATED BRANCH - USE `docs` INSTEAD ??
+
+**This `doc` branch has been deprecated. All documentation has been merged into the `docs` branch.**
+
+?? **Switch to:** `git checkout docs`
+
+?? **See:** `DEPRECATED-USE-DOCS-BRANCH.md` for full details
+
+---
+
 # Welcome to your Lovable project
 
 ## Project info
