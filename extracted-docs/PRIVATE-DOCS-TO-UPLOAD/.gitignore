@@ -1,0 +1,46 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-*
+.cursor/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+tmp/
+
+# Logs
+*.log
+logs/
+
+# Sensitive files (extra protection)
+*.key
+*.pem
+*.env
+.env.local
+.env.production
+secrets/
+private/
+confidential/
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Node modules (if any scripts added)
+node_modules/
