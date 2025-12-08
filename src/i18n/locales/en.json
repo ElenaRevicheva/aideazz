@@ -302,7 +302,7 @@
   "header": {
     "name": "Elena Revicheva",
     "title": "Founder @ AIdeazz | AI-First Engineer | Solo Vibe Coder",
-    "stats": "6 deployments (4 live AI agents, 2 apps) • 7 months solo vibe coded • <$15K • Early traction",
+    "stats": "11 AI products (7 live AI agents, 4 apps) • 10 months solo vibe coded • <$15K • Early traction",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
     "builder": "Builder & Founder",
@@ -311,6 +311,25 @@
   },
   "section1": {
     "title": "Live AI Products — Monetization Ready.",
+    "cofounderTitle": "🤖 AI Co-Founders — Autonomous & Live",
+    "cto": {
+      "title": "CTO AIPA",
+      "subtitle": "AI Technical Co-Founder",
+      "desc": "Autonomous code review system eliminating the need for a technical co-founder. Reviews PRs across 8+ repositories with sub-30-second response time, security scanning, complexity analysis, and architecture detection.",
+      "traction": "8 repos connected • Sub-30s reviews • 99.9% uptime • $0/month operational cost",
+      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude 3.5 Sonnet, Oracle Autonomous Database 26ai (mTLS), GitHub API, PM2",
+      "action": "View on GitHub",
+      "badge": "LIVE"
+    },
+    "cmo": {
+      "title": "CMO AIPA",
+      "subtitle": "AI Marketing Co-Founder",
+      "desc": "Autonomous LinkedIn & Instagram content engine with strategic business intelligence. Generates daily AI-powered content, analyzes performance, coordinates with CTO AIPA to announce new features.",
+      "traction": "Daily autonomous posting (3 PM Panama / 20:00 UTC) • Bilingual EN/ES • Strategic decision-making • $0/month",
+      "tech": "Python, AsyncAnthropic (Claude API), FastAPI, Make.com, Buffer API, Railway",
+      "action": "View on GitHub",
+      "badge": "LIVE"
+    },
     "espaluz": {
       "title": "EspaLuz",
       "subtitle": "WhatsApp AI Spanish Tutor",
@@ -337,7 +356,7 @@
       "text": "7 years in Russian E-government sector as Chief Executive in IT Project Management and CLO. Relocated to Panama in 2022 to start fresh and rebuild myself as a solo founder and AI Dev."
     },
     "timeline": {
-      "title": "March 2025 - Present",
+      "title": "March 2025 - December 2025",
       "subtitle": "Solo Vibe Coder Journey",
       "keyStats": "Key Stats:",
       "stat1": "50,000+ lines of code (TypeScript, Python, JavaScript, SQL etc.)",
@@ -345,12 +364,12 @@
     },
     "vibeAdvantage": {
       "title": "THE VIBE CODING ADVANTAGE",
-      "desc": "Solo-built 6 production apps in 7 months for <$15K using AI-assisted development (Claude AI tools, Cursor etc.):",
+      "desc": "Solo-built 11 production apps in 10 months for <$15K using AI-assisted development (Claude AI tools, Cursor etc.):",
       "traditional": "Traditional Team:",
       "traditionalCost": "$900K+/year",
       "vibeCoding": "Vibe Coding:",
       "vibeCost": "<$15K total",
-      "result": "Result: 98% cost reduction • 10x faster shipping"
+      "result": "Result: 99%+ cost reduction • 10x faster shipping"
     },
     "techStack": {
       "title": "Tech Stack",
@@ -385,7 +404,7 @@
       "role7": "AI Growth Engineer",
       "investment": {
         "title": "Pre-seed/Seed investment for AIdeazz Start up",
-        "desc": "6 production apps • Early user traction • Monetization infrastructure ready • Proven solo execution",
+        "desc": "11 production apps (7 AI agents + 4 products) • Early user traction • 2 AI Co-Founders deployed • Monetization infrastructure ready • Proven solo execution",
         "button": "View full pitch deck"
       },
       "hybrid": {
@@ -448,7 +467,7 @@
     "forTeams": "For teams:",
     "forTeamsDesc": "I ship AI products end-to-end. Vision to launch to users.",
     "forInvestors": "For investors:",
-    "forInvestorsDesc": "2 live agents, organic traction, clear path to emotionally intelligent AI at scale.",
+    "forInvestorsDesc": "11 AI products live (7 agents + 4 apps), 2 AI Co-Founders, organic traction, clear path to emotionally intelligent AI at scale.",
     "location": "Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES",
     "twitter": "X",
     "github": "GitHub",

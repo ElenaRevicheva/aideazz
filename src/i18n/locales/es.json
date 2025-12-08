@@ -302,7 +302,7 @@
   "header": {
     "name": "Elena Revicheva",
     "title": "Fundadora @ AIdeazz | Ingeniera IA-First | Vibe Coder en Solitario",
-    "stats": "6 despliegues (4 agentes IA en vivo, 2 apps) • 7 meses de vibe coding en solitario • <$15K • Tracción inicial",
+    "stats": "11 productos IA (7 agentes IA en vivo, 4 apps) • 10 meses de vibe coding en solitario • <$15K • Tracción inicial",
     "location": "Panamá",
     "bilingual": "Bilingüe EN/ES",
     "builder": "Builder & Fundadora",
@@ -311,6 +311,25 @@
   },
   "section1": {
     "title": "Productos IA en Vivo — Listos para Monetización.",
+    "cofounderTitle": "🤖 Co-Fundadores de IA — Autónomos y en Vivo",
+    "cto": {
+      "title": "CTO AIPA",
+      "subtitle": "Cofundador Técnico de IA",
+      "desc": "Sistema autónomo de revisión de código que elimina la necesidad de un cofundador técnico. Revisa PRs en más de 8 repositorios con tiempo de respuesta de menos de 30 segundos, escaneo de seguridad, análisis de complejidad y detección de arquitectura.",
+      "traction": "8 repos conectados • Revisiones en <30s • 99.9% uptime • $0/mes costo operativo",
+      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude 3.5 Sonnet, Oracle Autonomous Database 26ai (mTLS), GitHub API, PM2",
+      "action": "Ver en GitHub",
+      "badge": "EN VIVO"
+    },
+    "cmo": {
+      "title": "CMO AIPA",
+      "subtitle": "Cofundador de Marketing de IA",
+      "desc": "Motor de contenido autónomo para LinkedIn e Instagram con inteligencia de negocios estratégica. Genera contenido diario impulsado por IA, analiza el rendimiento, coordina con CTO AIPA para anunciar nuevas funciones.",
+      "traction": "Publicación autónoma diaria (3 PM Panamá / 20:00 UTC) • Bilingüe EN/ES • Toma de decisiones estratégicas • $0/mes",
+      "tech": "Python, AsyncAnthropic (Claude API), FastAPI, Make.com, Buffer API, Railway",
+      "action": "Ver en GitHub",
+      "badge": "EN VIVO"
+    },
     "espaluz": {
       "title": "EspaLuz",
       "subtitle": "Tutor de Español con IA por WhatsApp",
@@ -337,7 +356,7 @@
       "text": "7 años en el sector de E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Me reubiqué a Panamá en 2022 para comenzar de nuevo y reconstruirme como fundadora en solitario y desarrolladora IA."
     },
     "timeline": {
-      "title": "Marzo 2025 - Presente",
+      "title": "Marzo 2025 - Diciembre 2025",
       "subtitle": "Viaje de Vibe Coder en Solitario",
       "keyStats": "Estadísticas Clave:",
       "stat1": "50,000+ líneas de código (TypeScript, Python, JavaScript, SQL etc.)",
@@ -345,12 +364,12 @@
     },
     "vibeAdvantage": {
       "title": "LA VENTAJA DEL VIBE CODING",
-      "desc": "Construí en solitario 6 apps de producción en 7 meses por <$15K usando desarrollo asistido por IA (herramientas de IA Claude, Cursor etc.):",
+      "desc": "Construí en solitario 11 apps de producción en 10 meses por <$15K usando desarrollo asistido por IA (herramientas de IA Claude, Cursor etc.):",
       "traditional": "Equipo Tradicional:",
       "traditionalCost": "$900K+/año",
       "vibeCoding": "Vibe Coding:",
       "vibeCost": "<$15K total",
-      "result": "Resultado: 98% de reducción de costos • 10x más rápido en lanzamiento"
+      "result": "Resultado: 99%+ de reducción de costos • 10x más rápido en lanzamiento"
     },
     "techStack": {
       "title": "Stack Tecnológico",
@@ -385,7 +404,7 @@
       "role7": "Ingeniero de Crecimiento IA",
       "investment": {
         "title": "Inversión Pre-seed/Seed para el Startup AIdeazz",
-        "desc": "6 apps de producción • Tracción inicial de usuarios • Infraestructura de monetización lista • Ejecución en solitario probada",
+        "desc": "11 apps de producción (7 agentes IA + 4 productos) • Tracción inicial de usuarios • 2 Co-Fundadores IA desplegados • Infraestructura de monetización lista • Ejecución en solitario probada",
         "button": "Ver pitch deck completo"
       },
       "hybrid": {
@@ -448,7 +467,7 @@
     "forTeams": "Para equipos:",
     "forTeamsDesc": "Lanzo productos IA de principio a fin. Visión a lanzamiento a usuarios.",
     "forInvestors": "Para inversionistas:",
-    "forInvestorsDesc": "2 agentes en vivo, tracción orgánica, camino claro hacia IA emocionalmente inteligente a escala.",
+    "forInvestorsDesc": "11 productos IA en vivo (7 agentes + 4 apps), 2 Co-Fundadores IA, tracción orgánica, camino claro hacia IA emocionalmente inteligente a escala.",
     "location": "Basada en 🇵🇦 Panamá (zona horaria LATAM: UTC-5 / EST) • Bilingüe EN/ES",
     "twitter": "X",
     "github": "GitHub",

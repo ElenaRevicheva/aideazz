@@ -99,6 +99,31 @@ export default function BusinessCard() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const aiCoFounders: Agent[] = [
+    {
+      emoji: "🤖",
+      title: t('section1.cto.title'),
+      subtitle: t('section1.cto.subtitle'),
+      desc: t('section1.cto.desc'),
+      traction: t('section1.cto.traction'),
+      tech: t('section1.cto.tech'),
+      action: t('section1.cto.action'),
+      link: "https://github.com/ElenaRevicheva/AIPA_AITCF",
+      badge: t('section1.cto.badge')
+    },
+    {
+      emoji: "📢",
+      title: t('section1.cmo.title'),
+      subtitle: t('section1.cmo.subtitle'),
+      desc: t('section1.cmo.desc'),
+      traction: t('section1.cmo.traction'),
+      tech: t('section1.cmo.tech'),
+      action: t('section1.cmo.action'),
+      link: "https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF",
+      badge: t('section1.cmo.badge')
+    }
+  ];
+
   const agents: Agent[] = [
     {
       emoji: "🪄",
@@ -125,12 +150,13 @@ export default function BusinessCard() {
   ];
 
   const techStackByCategory = {
-    "Backend": ["Python", "Node.js", "Flask", "Deno Edge Functions", "Gunicorn"],
-    "Frontend": ["TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui"],
-    "AI & ML": ["OpenAI GPT-5", "Anthropic Claude", "ElizaOS", "Whisper", "TTS"],
-    "Database": ["PostgreSQL", "Supabase", "Railway", "Docker"],
+    "Backend": ["Python", "Node.js", "Flask", "FastAPI", "Express.js", "Deno Edge Functions", "Gunicorn"],
+    "Frontend": ["TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
+    "AI & ML": ["OpenAI GPT", "Anthropic Claude", "Groq (Llama 3.3 70B)", "ElizaOS", "Whisper", "TTS", "MCP", "LangChain"],
+    "Database": ["PostgreSQL", "Oracle Autonomous DB 26ai", "Supabase", "Docker"],
+    "Infrastructure": ["Oracle Cloud (OCI)", "Railway", "PM2", "Ubuntu", "mTLS encryption"],
     "Web3": ["Thirdweb SDK", "Polygon", "MetaMask", "IPFS"],
-    "APIs": ["PayPal", "Telegram", "WhatsApp", "Twitter", "CCXT"]
+    "APIs": ["GitHub API", "PayPal", "Telegram", "WhatsApp", "Twitter", "CCXT", "Buffer", "Make.com"]
   };
 
   const coreStrengths: string[] = [
@@ -236,11 +262,85 @@ export default function BusinessCard() {
                   </div>
                 </motion.header>
 
-                {/* 1️⃣ TRACTION */}
+                {/* AI CO-FOUNDERS SECTION */}
                 <motion.section 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
+                  className="mb-12"
+                >
+                  <div className="flex items-center gap-3 mb-6">
+                    <Sparkles className="w-6 h-6 text-purple-400" />
+                    <h2 className="text-2xl font-bold">{t('section1.cofounderTitle')}</h2>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {aiCoFounders.map((agent, idx) => (
+                      <motion.div
+                        key={agent.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 + idx * 0.1 }}
+                        whileHover={{ y: -8, scale: 1.02 }}
+                        className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl hover:shadow-purple-500/30 transition-all relative overflow-hidden group"
+                      >
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-20 transition-opacity blur-xl" />
+                        
+                        <div className="relative z-10">
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <div className="flex items-center gap-3 mb-2">
+                                <span className="text-3xl">{agent.emoji}</span>
+                                <div>
+                                  <h3 className="text-xl font-bold">{agent.title}</h3>
+                                  <p className="text-xs text-purple-300">{agent.subtitle}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <motion.span 
+                              animate={{ scale: [1, 1.1, 1] }}
+                              transition={{ repeat: Infinity, duration: 2 }}
+                              className="px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-black text-xs font-bold shadow-lg"
+                            >
+                              {agent.badge}
+                            </motion.span>
+                          </div>
+
+                          <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+                            {agent.desc}
+                          </p>
+
+                          <div className="space-y-3 mb-4 text-xs">
+                            <div>
+                              <span className="text-blue-400 font-semibold">Traction:</span>
+                              <span className="text-gray-400 ml-2">{agent.traction}</span>
+                            </div>
+                            <div>
+                              <span className="text-purple-400 font-semibold">Tech:</span>
+                              <span className="text-gray-400 ml-2">{agent.tech}</span>
+                            </div>
+                          </div>
+
+                          <a 
+                            href={agent.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold text-sm shadow-lg"
+                          >
+                            {agent.action} <ExternalLink className="w-4 h-4" />
+                          </a>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.section>
+
+                {/* 1️⃣ TRACTION */}
+                <motion.section 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
@@ -314,7 +414,7 @@ export default function BusinessCard() {
                 <motion.section 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
+                  transition={{ delay: 0.5 }}
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
@@ -399,7 +499,7 @@ export default function BusinessCard() {
                 <motion.section 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
+                  transition={{ delay: 0.6 }}
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
@@ -730,7 +830,7 @@ export default function BusinessCard() {
 
                   <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">6</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">11</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat1')}</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
