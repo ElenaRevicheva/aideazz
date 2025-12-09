@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface Agent {
@@ -260,9 +260,18 @@ export default function BusinessCard() {
                           {t('header.stats')}
                         </p>
                         <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
-                          <span>📍 {t('header.location')}</span>
-                          <span>🧠 {t('header.bilingual')}</span>
-                          <span>⚡ {t('header.builder')}</span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3 text-purple-400" /> 
+                            {t('header.location')}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Languages className="w-3 h-3 text-blue-400" /> 
+                            {t('header.bilingual')}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Zap className="w-3 h-3 text-amber-400" /> 
+                            {t('header.builder')}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -270,8 +279,9 @@ export default function BusinessCard() {
                     <div className="flex items-center gap-3">
                       <a href="https://aideazz.xyz" target="_blank" rel="noreferrer" 
                         onClick={(e) => e.stopPropagation()}
-                        className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
-                        🌐 {t('header.websiteButton')}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
+                        <Globe className="w-4 h-4" /> 
+                        {t('header.websiteButton')}
                       </a>
                       <a href="mailto:aipa@aideazz.xyz" 
                         onClick={(e) => e.stopPropagation()}
@@ -536,8 +546,9 @@ export default function BusinessCard() {
                   </div>
 
                   <div className="mb-6 backdrop-blur-xl bg-blue-600/10 rounded-xl p-4 border border-blue-500/20">
-                    <p className="text-sm text-blue-200 mb-2">
-                      <strong>💼 {t('section2.background.title')}</strong>
+                    <p className="text-sm text-blue-200 mb-2 flex items-center gap-2">
+                      <Briefcase className="w-4 h-4 text-blue-300" />
+                      <strong>{t('section2.background.title')}</strong>
                     </p>
                     <p className="text-xs text-gray-300">
                       {t('section2.background.text')}
@@ -545,8 +556,9 @@ export default function BusinessCard() {
                   </div>
 
                   <div className="mb-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
-                    <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ {t('section2.timeline.title')}</strong> — {t('section2.timeline.subtitle')}
+                    <p className="text-sm text-purple-200 mb-2 flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-purple-300" />
+                      <strong>{t('section2.timeline.title')}</strong> <span className="mx-2">—</span> {t('section2.timeline.subtitle')}
                     </p>
                     <p className="text-xs text-white font-semibold mb-1">{t('section2.timeline.keyStats')}</p>
                     <ul className="space-y-1 text-xs text-gray-300">
@@ -556,8 +568,9 @@ export default function BusinessCard() {
                   </div>
 
                   <div className="mt-6 backdrop-blur-xl bg-purple-600/10 rounded-xl p-4 border border-purple-500/20">
-                    <p className="text-sm text-purple-200 mb-2">
-                      <strong>⚡ {t('section2.vibeAdvantage.title')}</strong>
+                    <p className="text-sm text-purple-200 mb-2 flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-amber-400" />
+                      <strong>{t('section2.vibeAdvantage.title')}</strong>
                     </p>
                     <p className="text-xs text-gray-300 mb-3">
                       {t('section2.vibeAdvantage.desc')}
@@ -639,9 +652,10 @@ export default function BusinessCard() {
                     className="mt-6 backdrop-blur-xl bg-gradient-to-br from-green-600/30 via-emerald-600/20 to-teal-600/30 rounded-2xl p-8 border-2 border-green-400/60 shadow-2xl shadow-green-500/50"
                   >
                     <div className="text-center mb-6">
-                      <p className="text-2xl font-black mb-1">
+                      <p className="text-2xl font-black mb-1 flex items-center justify-center gap-2">
+                        <Briefcase className="w-6 h-6 text-emerald-400" />
                         <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                          💼 {t('section2.openTo.title')}
+                          {t('section2.openTo.title')}
                         </span>
                       </p>
                     </div>
@@ -670,7 +684,7 @@ export default function BusinessCard() {
                         <div className="relative p-5">
                           <div className="flex items-center justify-between mb-3">
                             <p className="text-base font-bold text-purple-300 group-hover:text-purple-200 transition-colors">{t('section2.openTo.investment.title')}</p>
-                            <span className="text-2xl group-hover:scale-110 transition-transform">🚀</span>
+                            <Rocket className="w-6 h-6 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all" />
                           </div>
                           <p className="text-sm text-gray-200 mb-3">{t('section2.openTo.investment.desc')}</p>
                           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg group-hover:from-purple-500 group-hover:to-pink-500 transition-all">
@@ -681,7 +695,10 @@ export default function BusinessCard() {
                       </a>
 
                       <div className="backdrop-blur-sm bg-gradient-to-br from-green-600/20 to-emerald-600/20 rounded-xl p-5 border-2 border-green-400/50">
-                        <p className="text-base font-bold text-green-300 mb-4">💎 {t('section2.openTo.hybrid.title')}</p>
+                        <p className="text-base font-bold text-green-300 mb-4 flex items-center gap-2">
+                          <Gem className="w-5 h-5 text-emerald-400" />
+                          {t('section2.openTo.hybrid.title')}
+                        </p>
                         <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 mt-0.5 text-lg">✦</span>
@@ -729,7 +746,10 @@ export default function BusinessCard() {
                   transition={{ delay: 1 }}
                   className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl text-center"
                 >
-                  <h2 className="text-2xl font-bold mb-4">🔥 {t('contact.title')}</h2>
+                  <h2 className="text-2xl font-bold mb-4 flex items-center justify-center gap-2">
+                    <Flame className="w-6 h-6 text-orange-400" />
+                    {t('contact.title')}
+                  </h2>
                   <p className="text-gray-300 mb-3">
                     <strong>{t('contact.forTeams')}</strong> {t('contact.forTeamsDesc')}
                   </p>
