@@ -1,10 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface Agent {
-  emoji: string;
+  icon: LucideIcon;
+  iconColor: string;
+  iconBgFrom: string;
+  iconBgTo: string;
+  iconGlow: string;
   title: string;
   subtitle: string;
   desc: string;
@@ -101,7 +105,11 @@ export default function BusinessCard() {
 
   const aiCoFounders: Agent[] = [
     {
-      emoji: "🤖",
+      icon: Cpu,
+      iconColor: "text-blue-300",
+      iconBgFrom: "from-blue-500/20",
+      iconBgTo: "to-indigo-500/20",
+      iconGlow: "bg-blue-500/20",
       title: t('section1.cto.title'),
       subtitle: t('section1.cto.subtitle'),
       desc: t('section1.cto.desc'),
@@ -112,7 +120,11 @@ export default function BusinessCard() {
       badge: t('section1.cto.badge')
     },
     {
-      emoji: "📢",
+      icon: TrendingUp,
+      iconColor: "text-emerald-300",
+      iconBgFrom: "from-emerald-500/20",
+      iconBgTo: "to-teal-500/20",
+      iconGlow: "bg-emerald-500/20",
       title: t('section1.cmo.title'),
       subtitle: t('section1.cmo.subtitle'),
       desc: t('section1.cmo.desc'),
@@ -126,7 +138,11 @@ export default function BusinessCard() {
 
   const agents: Agent[] = [
     {
-      emoji: "🪄",
+      icon: MessageCircle,
+      iconColor: "text-purple-300",
+      iconBgFrom: "from-purple-500/20",
+      iconBgTo: "to-pink-500/20",
+      iconGlow: "bg-purple-500/20",
       title: t('section1.espaluz.title'),
       subtitle: t('section1.espaluz.subtitle'),
       desc: t('section1.espaluz.desc'),
@@ -137,7 +153,11 @@ export default function BusinessCard() {
       badge: t('section1.espaluz.badge')
     },
     {
-      emoji: "🧠",
+      icon: Activity,
+      iconColor: "text-cyan-300",
+      iconBgFrom: "from-cyan-500/20",
+      iconBgTo: "to-blue-500/20",
+      iconGlow: "bg-cyan-500/20",
       title: t('section1.algom.title'),
       subtitle: t('section1.algom.subtitle'),
       desc: t('section1.algom.desc'),
@@ -288,13 +308,17 @@ export default function BusinessCard() {
                         
                         <div className="relative z-10">
                           <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <div className="flex items-center gap-3 mb-2">
-                                <span className="text-3xl">{agent.emoji}</span>
-                                <div>
-                                  <h3 className="text-xl font-bold">{agent.title}</h3>
-                                  <p className="text-xs text-purple-300">{agent.subtitle}</p>
+                            <div className="flex items-center gap-3 mb-2">
+                              {/* Glassmorphic icon badge */}
+                              <div className="relative flex-shrink-0">
+                                <div className={`absolute inset-0 ${agent.iconGlow} blur-xl rounded-xl`}></div>
+                                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${agent.iconBgFrom} ${agent.iconBgTo} backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg`}>
+                                  <agent.icon className={`w-6 h-6 ${agent.iconColor}`} strokeWidth={1.5} />
                                 </div>
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-bold">{agent.title}</h3>
+                                <p className="text-xs text-purple-300">{agent.subtitle}</p>
                               </div>
                             </div>
                             <motion.span 
@@ -336,7 +360,7 @@ export default function BusinessCard() {
                   </div>
                 </motion.section>
 
-                {/* 1️⃣ TRACTION */}
+                {/* LIVE AI PRODUCTS */}
                 <motion.section 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -345,7 +369,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-purple-400" />
-                    <h2 className="text-2xl font-bold">1️⃣ {t('section1.title')}</h2>
+                    <h2 className="text-2xl font-bold">{t('section1.title')}</h2>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-6">
@@ -362,13 +386,17 @@ export default function BusinessCard() {
                         
                         <div className="relative z-10">
                           <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <div className="flex items-center gap-3 mb-2">
-                                <span className="text-3xl">{agent.emoji}</span>
-                                <div>
-                                  <h3 className="text-xl font-bold">{agent.title}</h3>
-                                  <p className="text-xs text-purple-300">{agent.subtitle}</p>
+                            <div className="flex items-center gap-3 mb-2">
+                              {/* Glassmorphic icon badge */}
+                              <div className="relative flex-shrink-0">
+                                <div className={`absolute inset-0 ${agent.iconGlow} blur-xl rounded-xl`}></div>
+                                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${agent.iconBgFrom} ${agent.iconBgTo} backdrop-blur-sm border border-white/20 flex items-center justify-center shadow-lg`}>
+                                  <agent.icon className={`w-6 h-6 ${agent.iconColor}`} strokeWidth={1.5} />
                                 </div>
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-bold">{agent.title}</h3>
+                                <p className="text-xs text-purple-300">{agent.subtitle}</p>
                               </div>
                             </div>
                             <motion.span 
@@ -495,7 +523,7 @@ export default function BusinessCard() {
                   </div>
                 </motion.section>
 
-                {/* 2️⃣ TALENT */}
+                {/* TALENT & TECH STACK */}
                 <motion.section 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -504,7 +532,7 @@ export default function BusinessCard() {
                 >
                   <div className="flex items-center gap-3 mb-6">
                     <Sparkles className="w-6 h-6 text-blue-400" />
-                    <h2 className="text-2xl font-bold">2️⃣ {t('section2.title')}</h2>
+                    <h2 className="text-2xl font-bold">{t('section2.title')}</h2>
                   </div>
 
                   <div className="mb-6 backdrop-blur-xl bg-blue-600/10 rounded-xl p-4 border border-blue-500/20">
