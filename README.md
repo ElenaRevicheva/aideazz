@@ -12,13 +12,12 @@
 ---
 
 ## ?? About AIDeazz
-
-AIDeazz is a **full-stack AI agent platform** showcasing production-ready autonomous agents that generate real revenue. This isn't just a portfolio?it's a **live ecosystem** of AI products serving real users and processing real transactions.
+An ecosystem of AI agents designed to operate as persistent, context-aware, emotionally intelligent personal assistants across real-life environments — evolving with users on the go. Focused on language learning, professional skill development, relocation, and real-world life challenges.
+AIDeazz is a **full-stack AI agent platform** showcasing production-ready autonomous agents that generate early traction revenue. This isn't just a portfolio?it's a **live ecosystem** of AI products serving real users and processing real transactions.
 
 ### ?? What Makes This Special
 
 - **?? Revenue-Generating AI Agents** - Not demos, actual products with paying users
-- **?? Web3 Integration** - Crypto payments, blockchain transactions, decentralized deployment
 - **?? Multi-Market** - Serving users in English and Spanish markets
 - **?? Multi-Platform** - WhatsApp, Telegram, Web - AI agents where users are
 - **?? Advanced AI** - GPT-4, Claude, custom fine-tuned models with memory and context
