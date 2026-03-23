@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface Agent {
@@ -306,7 +306,7 @@ export default function BusinessCard() {
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <Sparkles className="w-6 h-6 text-purple-400" />
+                    <Cpu className="w-6 h-6 text-purple-400" />
                     <h2 className="text-2xl font-bold">{t('section1.cofounderTitle')}</h2>
                   </div>
 
@@ -384,7 +384,7 @@ export default function BusinessCard() {
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <Sparkles className="w-6 h-6 text-purple-400" />
+                    <Activity className="w-6 h-6 text-purple-400" />
                     <h2 className="text-2xl font-bold">{t('section1.title')}</h2>
                   </div>
 
@@ -462,7 +462,7 @@ export default function BusinessCard() {
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <Sparkles className="w-6 h-6 text-purple-400" />
+                    <Briefcase className="w-6 h-6 text-purple-400" />
                     <h2 className="text-2xl font-bold">{t('otherProducts.title')}</h2>
                   </div>
 
@@ -547,7 +547,7 @@ export default function BusinessCard() {
                   className="mb-12"
                 >
                   <div className="flex items-center gap-3 mb-6">
-                    <Sparkles className="w-6 h-6 text-blue-400" />
+                    <Zap className="w-6 h-6 text-blue-400" />
                     <h2 className="text-2xl font-bold">{t('section2.title')}</h2>
                   </div>
 
