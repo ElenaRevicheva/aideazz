@@ -1,4 +1,4 @@
-# AIDeazz - AI Agents Web3 Showroom
+# AIdeazz - Ecosystem of AI Personal Assistants evolving with users On The Go
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success)](https://aideazz.com)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
