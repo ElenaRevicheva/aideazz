@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Sparkles, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 interface Agent {
@@ -277,13 +277,19 @@ export default function BusinessCard() {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <a href="https://aideazz.xyz" target="_blank" rel="noreferrer" 
+                      <a href="https://aideazz.xyz" target="_blank" rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
-                        <Globe className="w-4 h-4" /> 
+                        <Globe className="w-4 h-4" />
                         {t('header.websiteButton')}
                       </a>
-                      <a href="mailto:aipa@aideazz.xyz" 
+                      <a href="/Elena_Revicheva_Resume.pdf" target="_blank" rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
+                        <FileText className="w-4 h-4" />
+                        {t('header.resumeButton')}
+                      </a>
+                      <a href="mailto:aipa@aideazz.xyz"
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
                         <Mail className="w-4 h-4"/> {t('header.contactButton')}
