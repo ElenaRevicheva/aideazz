@@ -11,9 +11,9 @@
 
 ---
 
-## About AIDeazz
+## About AIdeazz
 An ecosystem of AI agents designed to operate as persistent, context-aware, emotionally intelligent personal assistants across real-life environments — evolving with users on the go. Focused on language learning, professional skill development, relocation, and real-world life challenges.
-AIDeazz is a **full-stack AI agent platform** showcasing production-ready autonomous agents that generate early traction revenue. This isn't just a portfolio — it's a **live ecosystem** of AI products serving real users and processing real transactions.
+AIdeazz is a **full-stack AI agent platform** of production-ready autonomous agents. This isn't just a portfolio — it's a **live ecosystem** of AI products serving real users and processing real transactions.
 
 ### What Makes This Special
 
@@ -175,19 +175,24 @@ VITE_WEB3_PROVIDER=your_web3_provider
 
 ## What This Demonstrates
 
+### For **Early Users**
+- **EspaLuz** — learn Spanish on WhatsApp or Telegram, at your own pace, with a tutor that remembers you: [wa.me/50766623757](http://wa.me/50766623757) | [t.me/EspaLuzFamily_bot](https://t.me/EspaLuzFamily_bot)
+- **VibeJob Hunter** — autonomous job search agent that finds, scores, and applies to roles for you: [t.me/vibejob_hunter_bot](https://t.me/vibejob_hunter_bot)
+- **ALGOM Alpha** — daily AI-powered crypto market content on X: [@reviceva](https://x.com/reviceva)
+- All agents are free to try. Feedback directly shapes what gets built next.
+
+### For **Employers**
+- **AI Systems Engineering:** End-to-end LLM agent design, multi-model routing, persistent memory, tool execution — deployed and running in production on Oracle Cloud
+- **Applied, not theoretical:** 9 agents live, real users, real infra problems solved (not demos)
+- **Full ownership:** Architecture, backend, APIs, Telegram/WhatsApp bots, deployment, monitoring — solo
+- **Shipping under constraints:** Built and operated while managing sole parental responsibilities — reliability and focus by necessity
+
 ### For **Investors**
 - **Product-Market Fit:** Revenue-generating products with real users
 - **Technical Execution:** Production-ready, scalable architecture
 - **Web3 Innovation:** Early mover in decentralized AI agents
 - **Multi-Revenue Streams:** Subscriptions, crypto payments, future B2B opportunities
 - **Global Market:** English + Spanish = 1B+ addressable users
-
-### For **Employers**
-- **Full-Stack Mastery:** Frontend, backend, AI/ML, Web3
-- **Modern Tech Stack:** React, TypeScript, Node.js, latest best practices
-- **Shipping Skills:** Not just code — live products generating revenue
-- **AI/ML Expertise:** Production AI agent deployment and optimization
-- **Web3 Knowledge:** Smart contracts, IPFS, decentralized systems
 
 ### Technical Highlights
 ```
@@ -252,7 +257,7 @@ Building an **ecosystem of specialized AI agents** that democratize access to in
 
 ## Like What You See?
 
-Star this repo if you're impressed! Shows interest to potential collaborators and investors.
+Star this repo — it signals interest to collaborators, early users, and employers browsing the work.
 
 ---
 
