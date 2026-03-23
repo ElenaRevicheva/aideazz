@@ -239,7 +239,8 @@ Building an **ecosystem of specialized AI agents** that democratize access to in
 
 **Let's connect:**
 
-- **Website:** [aideazz.com](https://aideazz.com)
+- **Website:** [AIdeazz - AI Personal Assistants That Evolve With You](https://aideazz.com)
+- **Portfolio:** [AIdeazz - AI Personal Assistants That Evolve With You](https://aideazz.xyz/card)
 - **GitHub:** [@ElenaRevicheva](https://github.com/ElenaRevicheva)
 - **LinkedIn:** [Connect for serious inquiries](https://linkedin.com/in/elenarevicheva)
 - **Email:** Available on website
