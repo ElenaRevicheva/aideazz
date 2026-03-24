@@ -415,23 +415,23 @@
   },
   "section3": {
     "title": "AIdeazz Ecosystem — The Vision",
-    "mainTitle": "AIdeazz Startup",
-    "desc1": "AIdeazz is an ecosystem of emotionally intelligent agents — born in Panama and supported by Innovation Smart District (ISD). Our mission is to build conscious AI companions that amplify human potential through education, coaching, and trusted digital assistance.",
-    "desc2": "Created not to replace people but mindfully evolve with them, helping them achieve new skills and learn faster because life is a permanent process of learning.",
-    "vision": "I believe every human will someday want their own emotionally intelligent AI companion — to become the best version of Self. Not generic chatbots, but deeply personal AI that grows alongside you.",
+    "mainTitle": "AIdeazz",
+    "desc1": "AIdeazz is a production ecosystem of context-aware AI agents — built in Panama and backed by Innovation Smart District (ISD). The platform combines persistent memory architectures, multi-model LLM routing, and emotional intelligence to deliver AI assistants that operate across education, automation, and personal productivity.",
+    "desc2": "Designed not to replace human judgment but to augment it — helping users acquire new skills, make better decisions, and operate faster through personalized AI that retains context over time.",
+    "vision": "The thesis: every professional will eventually need a personal AI agent — not a generic chatbot, but a persistent, evolving system that understands their domain, remembers their history, and compounds value over time.",
     "nextSteps": {
-      "title": "Next Steps:",
-      "step1": "Scaling EspaLuz & ALGOM Alpha to 10K+ users across LATAM",
-      "step2": "Building v2: More emotionally intelligent, more personalized, more helpful AI Companions",
-      "step3": "Exploring partnerships with EdTech in Panama + beyond",
-      "step4": "Open to joining the right team to accelerate this vision together"
+      "title": "Roadmap:",
+      "step1": "Scaling EspaLuz & ALGOM to 10K+ users across LATAM markets",
+      "step2": "AELA orchestration layer — unified agent communication bus, shared memory, strategic planning across all 10 agents",
+      "step3": "Exploring partnerships with EdTech and AI-first companies in Panama and beyond",
+      "step4": "Open to joining the right engineering team to accelerate this architecture at scale"
     },
     "web3": {
-      "title": "Coming Soon: Web3 AI Agent Marketplace",
-      "desc": "Where emotionally intelligent AI agents are wrapped in ERC-7857 dynamic iNFTs — enabling true ownership, trading, and evolution of your personal AI companions.",
-      "badge1": "ERC-7857 NFTs",
-      "badge2": "Web3-Native",
-      "badge3": "AI Ownership",
+      "title": "In Development: Web3 AI Agent Layer",
+      "desc": "On-chain agent ownership via ERC-7857 dynamic iNFTs — enabling portable, tradeable, and evolving personal AI agents with verifiable state on Polygon.",
+      "badge1": "ERC-7857",
+      "badge2": "Polygon",
+      "badge3": "Agent Ownership",
       "badge4": "In Development"
     }
   },
