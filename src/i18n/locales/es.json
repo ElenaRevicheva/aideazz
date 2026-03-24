@@ -323,11 +323,11 @@
       "badge": "EN VIVO"
     },
     "cmo": {
-      "title": "CMO AIPA",
-      "subtitle": "Cofundador de Marketing de IA",
-      "desc": "Motor de contenido autónomo para LinkedIn e Instagram con inteligencia de negocios estratégica. Genera contenido diario impulsado por IA, analiza el rendimiento, coordina con CTO AIPA para anunciar nuevas funciones.",
-      "traction": "Publicación autónoma diaria (3 PM Panamá / 20:00 UTC) • Bilingüe EN/ES • Toma de decisiones estratégicas • $0/mes",
-      "tech": "Python, AsyncAnthropic (Claude API), FastAPI, Make.com, Buffer API, Railway",
+      "title": "CMO AIPA + VibeJobHunter",
+      "subtitle": "Cofundador de Marketing IA y Motor de Búsqueda de Empleo",
+      "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 — escanea 218 empresas en Greenhouse, Lever, Ashby, Workable + Dice MCP, scoring de 100 puntos con Claude, auto-apply a formularios ATS, outreach a founders con cover letters IA.",
+      "traction": "218 empresas monitoreadas • 8+ fuentes de empleo • Ciclos de descubrimiento cada hora • Publicación bilingüe diaria • <$1/mes",
+      "tech": "Python, FastAPI, Claude Sonnet 4, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
