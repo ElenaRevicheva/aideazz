@@ -316,7 +316,7 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "AI Technical Co-Founder",
-      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across 11 repos. Voice-to-code: NLP voice commands via Telegram to review, fix, and ship code on the go.",
+      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across 11 repos. Voice-to-code pipeline (WIP): NLP voice commands via Telegram — already handles reviews and queries, full code-on-the-go in progress.",
       "traction": "11 repos monitored • 25+ code reviews • <$1/month cost • 99.9% uptime",
       "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "View on GitHub",
