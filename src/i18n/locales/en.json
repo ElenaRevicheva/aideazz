@@ -325,7 +325,7 @@
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "AI Marketing Co-Founder & Job Hunting Engine",
-      "desc": "Two agents in one: (1) Autonomous LinkedIn/Instagram content engine — daily bilingual EN/ES posts via Claude Sonnet 4, Make.com, Buffer. (2) 24/7 job hunting — scrapes 218 companies across Greenhouse, Lever, Ashby, Workable + Dice MCP, Claude-powered 100-point scoring, auto-apply to ATS forms, founder outreach with AI cover letters.",
+      "desc": "Two agents in one: (1) Autonomous LinkedIn/Instagram content engine — daily bilingual EN/ES posts via Claude Sonnet 4, Make.com, Buffer. (2) 24/7 job hunting — scrapes 218 companies across Greenhouse, Lever, Ashby, Workable + Dice MCP, Claude-powered 100-point scoring, auto-apply to ATS forms, founder outreach with AI cover letters. Voice NLP (WIP): Telegram voice commands for job queries and controls, full natural-language orchestration in progress.",
       "traction": "218 companies monitored • 8+ job sources • Hourly discovery cycles • Daily bilingual posting • <$1/month",
       "tech": "Python, FastAPI, Claude Sonnet 4, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "View on GitHub",
