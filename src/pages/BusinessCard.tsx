@@ -706,7 +706,7 @@ export default function BusinessCard() {
                         </p>
                         <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
+                            <span className="text-green-400 text-sm leading-5">✦</span>
                             <a 
                               href="https://aideazz.xyz/" 
                               target="_blank" 
@@ -723,11 +723,11 @@ export default function BusinessCard() {
                             </a>
                           </li>
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
+                            <span className="text-green-400 text-sm leading-5">✦</span>
                             <span>{t('section2.openTo.hybrid.item2')}</span>
                           </li>
                           <li className="flex items-start gap-2">
-                            <span className="text-green-400 mt-0.5 text-lg">✦</span>
+                            <span className="text-green-400 text-sm leading-5">✦</span>
                             <span>{t('section2.openTo.hybrid.item3')}</span>
                           </li>
                         </ul>
