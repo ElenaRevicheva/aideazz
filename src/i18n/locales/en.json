@@ -332,11 +332,11 @@
       "badge": "LIVE"
     },
     "espaluz": {
-      "title": "EspaLuz",
-      "subtitle": "WhatsApp AI Spanish Tutor",
-      "desc": "Turn cultural overwhelm into confident belonging. AI companion delivering real conversations with empathy, cultural wisdom, and insider tips for expat families thriving across 19 Spanish-speaking countries — way beyond word-by-word translation.",
-      "traction": "Growing organically with early user adoption across Panama and LATAM • PayPal Subscriptions LIVE, Crypto integrated",
-      "tech": "Python, OpenAI GPT, WhatsApp API, LangChain, Conversation Design",
+      "title": "EspaLuz Stack",
+      "subtitle": "AI Spanish Tutor — WhatsApp + Telegram + Social Automation",
+      "desc": "3-product family for expat families across 21 Spanish-speaking countries: (1) WhatsApp & Telegram tutors — voice messages with neural TTS, real-time translation EN/ES/RU, emotional intelligence (50+ states), family memory, OCR photo translation, 21-country cultural context. (2) Influencer bot — AI-generated daily content across 7 social platforms via Groq Llama 3.3 70B + Buffer/Make.com. Unified PostgreSQL memory across all platforms.",
+      "traction": "3 bots live (WhatsApp + Telegram + Influencer) • 21-country localization • Neural voice (edge-tts) • PayPal + crypto payments • 7-platform social distribution",
+      "tech": "Python, Flask, Claude Sonnet 4, Groq (Llama 3.3 70B), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
       "action": "Chat on WhatsApp",
       "badge": "LIVE"
     },
@@ -443,21 +443,11 @@
   "otherProducts": {
     "title": "Other Products in My Portfolio",
     "product1": {
-      "name": "EspaLuz SaaS",
+      "name": "EspaLuz SaaS (Beta)",
       "desc": "Full-stack web app with AI language learning, voice & video integration",
       "link": "https://espaluz-ai-language-tutor.lovable.app/"
     },
     "product2": {
-      "name": "EspaLuz Telegram Bot",
-      "desc": "Bilingual AI Assistant for Spanish learners on the go",
-      "link": "https://t.me/EspaLuzFamily_bot"
-    },
-    "product3": {
-      "name": "EspaLuz Influencer Bot",
-      "desc": "Automated SMM with AI generated content distribution across 4 platforms for EspaLuz Tutor promotion",
-      "link": "https://t.me/Influencer_EspaLuz_bot"
-    },
-    "product4": {
       "name": "Atuona",
       "desc": "Web3 Underground NFT Drop Gallery for modern Russian poetry on Polygon",
       "link": "https://atuona.xyz/"

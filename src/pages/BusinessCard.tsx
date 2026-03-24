@@ -504,39 +504,6 @@ export default function BusinessCard() {
                         </p>
                       </motion.a>
 
-                      {/* Product 3 */}
-                      <motion.a
-                        href={t('otherProducts.product3.link')}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-pink-600/10 border border-pink-500/30 hover:border-pink-400/60 transition-all group"
-                      >
-                        <h3 className="text-sm font-bold text-pink-300 mb-1 group-hover:text-pink-200 transition-colors">
-                          {t('otherProducts.product3.name')}
-                        </h3>
-                        <p className="text-xs text-gray-400 leading-relaxed">
-                          {t('otherProducts.product3.desc')}
-                        </p>
-                      </motion.a>
-
-                      {/* Product 4 */}
-                      <motion.a
-                        href={t('otherProducts.product4.link')}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-slate-700/10 border border-slate-600/30 hover:border-slate-500/60 transition-all group"
-                      >
-                        <h3 className="text-sm font-bold text-slate-300 mb-1 group-hover:text-slate-200 transition-colors">
-                          {t('otherProducts.product4.name')}
-                        </h3>
-                        <p className="text-xs text-gray-400 leading-relaxed">
-                          {t('otherProducts.product4.desc')}
-                        </p>
-                      </motion.a>
                     </div>
                   </div>
                 </motion.section>
