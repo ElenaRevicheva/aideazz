@@ -515,16 +515,16 @@ export default function BusinessCard() {
                       {/* Product 2 - Atuona */}
                       <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="p-4 rounded-lg bg-blue-600/10 border border-blue-500/30 hover:border-blue-400/60 transition-all"
+                        className="p-4 rounded-lg bg-purple-600/10 border border-purple-500/30 hover:border-purple-400/60 transition-all"
                       >
-                        <h3 className="text-sm font-bold text-blue-300 mb-1">
+                        <h3 className="text-sm font-bold text-purple-300 mb-1">
                           {t('otherProducts.product2.name')}
                         </h3>
                         <p className="text-xs text-gray-400 leading-relaxed mb-3">
                           {t('otherProducts.product2.desc')}
                         </p>
                         <div className="flex flex-wrap gap-2">
-                          <a href={t('otherProducts.product2.link')} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-blue-600/20 hover:bg-blue-600/40 transition-all text-xs font-semibold text-blue-300">
+                          <a href={t('otherProducts.product2.link')} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-purple-600/20 hover:bg-purple-600/40 transition-all text-xs font-semibold text-purple-300">
                             atuona.xyz <ExternalLink className="w-3 h-3" />
                           </a>
                           <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-white/5 hover:bg-white/15 transition-all text-xs font-semibold text-gray-400">
