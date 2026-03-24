@@ -1005,14 +1005,14 @@ export default function BusinessCard() {
                   </div>
 
                   <div className="flex flex-wrap justify-center gap-3">
-                    <a 
-                      href="https://wa.me/50761666716" 
-                      target="_blank" 
+                    <a
+                      href="https://t.me/elenarevicheva"
+                      target="_blank"
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-green-600 hover:bg-green-500 transition-all border border-green-400 shadow-lg shadow-green-500/50"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-blue-500 hover:bg-blue-400 transition-all border border-blue-400 shadow-lg shadow-blue-500/50"
                     >
-                      <Globe className="w-4 h-4" /> {t('cardBack.whatsapp')}
+                      <MessageCircle className="w-4 h-4" /> {t('cardBack.telegram')}
                     </a>
                     <a 
                       href="https://x.com/reviceva" 
