@@ -375,25 +375,19 @@
       "result": "Result: 98% cost reduction • 10x faster iteration • All agents live 24/7 on Oracle Cloud"
     },
     "techStack": {
-      "title": "Tech Stack",
-      "backend": "Backend",
-      "frontend": "Frontend",
-      "aiMl": "AI & ML",
-      "database": "Database",
-      "web3": "Web3",
-      "apis": "APIs"
+      "title": "Tech Stack"
     },
     "coreVibes": {
-      "title": "My Core Vibes",
-      "strength1": "AI Product Vision & Strategy - AI-First Development - 10x faster shipping",
-      "strength2": "Multi-AI Orchestration - 8+ services integrated",
-      "strength3": "Full-Stack Engineering via vibe coding - React/TypeScript + Python/Node",
-      "strength4": "0→1 Execution (proven by live agents)",
-      "strength5": "Cross-Platform problem solving - Web, Telegram, WhatsApp, blockchain",
-      "strength6": "Human-AI Interaction Design",
-      "strength7": "Web3 & Blockchain - Smart contracts, NFTs on Polygon",
-      "strength8": "Bilingual Product (EN/ES)",
-      "strength9": "The full cycle: AI Product vision, UX design, build & deploy, go-to-market. Ship, iterate, improve."
+      "title": "Core Competencies",
+      "strength1": "Multi-model LLM orchestration — Claude, GPT, Groq routing by cost/complexity",
+      "strength2": "Autonomous agent architecture — persistent memory, event-driven, self-healing",
+      "strength3": "Full-stack engineering — React/TypeScript frontend + Python/Node.js backend",
+      "strength4": "Multi-modal AI pipelines — text, voice, image (Flux Pro), video (Luma), OCR",
+      "strength5": "Cross-platform delivery — Web, Telegram, WhatsApp, Twitter, blockchain",
+      "strength6": "Infrastructure & DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
+      "strength7": "0→1 execution — 10 production agents shipped, all live 24/7",
+      "strength8": "AI-assisted development — Claude Code, Cursor, rapid prototyping to production",
+      "strength9": "Bilingual product design (EN/ES) — i18n, localization across 21 countries"
     },
     "openTo": {
       "title": "I am actually open to:",

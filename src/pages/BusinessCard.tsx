@@ -183,13 +183,12 @@ export default function BusinessCard() {
   ];
 
   const techStackByCategory = {
-    "Backend": ["Python", "Node.js", "Flask", "FastAPI", "Express.js", "Deno Edge Functions", "Gunicorn"],
-    "Frontend": ["TypeScript", "React", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
-    "AI & ML": ["OpenAI GPT", "Anthropic Claude", "Groq (Llama 3.3 70B)", "ElizaOS", "Whisper", "TTS", "MCP", "LangChain"],
-    "Database": ["PostgreSQL", "Oracle Autonomous DB 26ai", "Supabase", "Docker"],
-    "Infrastructure": ["Oracle Cloud (OCI)", "Railway", "PM2", "Ubuntu", "mTLS encryption"],
-    "Web3": ["Thirdweb SDK", "Polygon", "MetaMask", "IPFS"],
-    "APIs": ["GitHub API", "PayPal", "Telegram", "WhatsApp", "Twitter", "CCXT", "Buffer", "Make.com"]
+    "Backend": ["Python", "Node.js", "TypeScript", "Flask", "FastAPI", "Express.js", "Gunicorn"],
+    "Frontend": ["React", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion", "i18next"],
+    "AI / LLM": ["Claude Opus 4", "Claude Sonnet 4", "Groq (Llama 3.3 70B)", "OpenAI GPT", "Whisper", "Flux Pro", "Luma Dream Machine", "edge-tts", "LangChain", "MCP", "Eliza OS"],
+    "Database & Infra": ["Oracle Autonomous DB 26ai (mTLS)", "PostgreSQL", "SQLite", "Oracle Cloud (OCI)", "systemd", "PM2", "Docker"],
+    "Integrations": ["GitHub API", "Telegram Bot API", "WhatsApp Cloud API", "Twitter API v2", "PayPal IPN", "Buffer", "Make.com", "CCXT (5 exchanges)", "Playwright"],
+    "Web3": ["Polygon", "Thirdweb SDK", "IPFS", "Fleek", "MetaMask"]
   };
 
   const coreStrengths: string[] = [
@@ -605,7 +604,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        ⚙️ {t('section2.techStack.title')}
+                        <Cpu className="w-5 h-5 text-purple-400" /> {t('section2.techStack.title')}
                       </h3>
                       <div className="space-y-4">
                         {Object.entries(techStackByCategory).map(([category, techs]) => (
@@ -633,7 +632,7 @@ export default function BusinessCard() {
                       className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-                        💫 {t('section2.coreVibes.title')}
+                        <Zap className="w-5 h-5 text-blue-400" /> {t('section2.coreVibes.title')}
                       </h3>
                       <ul className="space-y-2">
                         {coreStrengths.map((strength, idx) => (

@@ -375,25 +375,19 @@
       "result": "Resultado: 98% reducción de costos • 10x más rápida iteración • Todos los agentes 24/7 en Oracle Cloud"
     },
     "techStack": {
-      "title": "Stack Tecnológico",
-      "backend": "Backend",
-      "frontend": "Frontend",
-      "aiMl": "IA & ML",
-      "database": "Base de Datos",
-      "web3": "Web3",
-      "apis": "APIs"
+      "title": "Stack Tecnológico"
     },
     "coreVibes": {
-      "title": "Mis Core Vibes",
-      "strength1": "Visión y Estrategia de Producto IA - Desarrollo IA-First - 10x más rápido en lanzamiento",
-      "strength2": "Orquestación Multi-IA - 8+ servicios integrados",
-      "strength3": "Ingeniería Full-Stack vía vibe coding - React/TypeScript + Python/Node",
-      "strength4": "Ejecución 0→1 (probada con agentes en vivo)",
-      "strength5": "Resolución de problemas Cross-Platform - Web, Telegram, WhatsApp, blockchain",
-      "strength6": "Diseño de Interacción Humano-IA",
-      "strength7": "Web3 & Blockchain - Smart contracts, NFTs en Polygon",
-      "strength8": "Producto Bilingüe (EN/ES)",
-      "strength9": "El ciclo completo: Visión de producto IA, diseño UX, construir y desplegar, ir al mercado. Lanzar, iterar, mejorar."
+      "title": "Competencias Clave",
+      "strength1": "Orquestación LLM multi-modelo — Claude, GPT, Groq con enrutamiento por costo/complejidad",
+      "strength2": "Arquitectura de agentes autónomos — memoria persistente, event-driven, auto-recuperación",
+      "strength3": "Ingeniería full-stack — frontend React/TypeScript + backend Python/Node.js",
+      "strength4": "Pipelines IA multi-modal — texto, voz, imagen (Flux Pro), video (Luma), OCR",
+      "strength5": "Entrega cross-platform — Web, Telegram, WhatsApp, Twitter, blockchain",
+      "strength6": "Infraestructura y DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
+      "strength7": "Ejecución 0→1 — 10 agentes en producción lanzados, todos en vivo 24/7",
+      "strength8": "Desarrollo asistido por IA — Claude Code, Cursor, prototipado rápido a producción",
+      "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 21 países"
     },
     "openTo": {
       "title": "Estoy abierta a:",
