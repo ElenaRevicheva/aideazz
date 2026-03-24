@@ -241,7 +241,7 @@ export default function BusinessCard() {
                       <motion.div 
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                        className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30"
+                        className="w-28 h-28 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30 flex-shrink-0"
                       >
                         <img 
                           src="/elena-photo.jpg" 
