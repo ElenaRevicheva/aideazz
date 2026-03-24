@@ -3,6 +3,11 @@ import { motion } from "framer-motion";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+interface AgentLink {
+  action: string;
+  link: string;
+}
+
 interface Agent {
   icon: LucideIcon;
   iconColor: string;
@@ -17,6 +22,7 @@ interface Agent {
   action: string;
   link: string;
   badge: string;
+  extraLinks?: AgentLink[];
 }
 
 interface Particle {
@@ -152,7 +158,11 @@ export default function BusinessCard() {
       tech: t('section1.espaluz.tech'),
       action: t('section1.espaluz.action'),
       link: "https://wa.me/50766623757",
-      badge: t('section1.espaluz.badge')
+      badge: t('section1.espaluz.badge'),
+      extraLinks: [
+        { action: t('section1.espaluz.action2'), link: "https://t.me/EspaLuzFamily_bot" },
+        { action: t('section1.espaluz.action3'), link: "https://t.me/Influencer_EspaLuz_bot" }
+      ]
     },
     {
       icon: Activity,
@@ -441,15 +451,29 @@ export default function BusinessCard() {
                             </div>
                           </div>
 
-                          <a 
-                            href={agent.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold text-sm shadow-lg"
-                          >
-                            {agent.action} <ExternalLink className="w-4 h-4" />
-                          </a>
+                          <div className="flex flex-wrap gap-2">
+                            <a
+                              href={agent.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold text-sm shadow-lg"
+                            >
+                              {agent.action} <ExternalLink className="w-4 h-4" />
+                            </a>
+                            {agent.extraLinks?.map((extra, i) => (
+                              <a
+                                key={i}
+                                href={extra.link}
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all font-semibold text-sm border border-white/10"
+                              >
+                                {extra.action} <ExternalLink className="w-4 h-4" />
+                              </a>
+                            ))}
+                          </div>
                         </div>
                       </motion.div>
                     ))}
