@@ -359,20 +359,20 @@
       "text": "7 años en E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Reubicada a Panamá en 2022 — transición de gestión ejecutiva a ingeniería IA práctica, lanzando 10 agentes en producción que resuelven problemas reales en aprendizaje de idiomas, automatización de empleo, revisión de código y generación de contenido."
     },
     "timeline": {
-      "title": "Marzo 2025 - Diciembre 2025",
-      "subtitle": "Viaje de Vibe Coder en Solitario",
-      "keyStats": "Estadísticas Clave:",
-      "stat1": "50,000+ líneas de código (TypeScript, Python, JavaScript, SQL etc.)",
-      "stat2": "8+ servicios de IA integrados (Claude, GPT, Whisper, TTS, HeyGen, OCR etc.)"
+      "title": "Marzo 2025 — Marzo 2026",
+      "subtitle": "12 Meses de Producción",
+      "keyStats": "Resultado:",
+      "stat1": "10 agentes IA autónomos en producción (TypeScript, Python, Node.js)",
+      "stat2": "8+ servicios IA/ML integrados (Claude, GPT, Whisper, Flux Pro, Luma, edge-tts, OCR, LangChain)"
     },
     "vibeAdvantage": {
-      "title": "LA VENTAJA DEL VIBE CODING",
-      "desc": "Construí en solitario 11 apps de producción en 10 meses por <$15K usando desarrollo asistido por IA (herramientas de IA Claude, Cursor etc.):",
+      "title": "DESARROLLO ASISTIDO POR IA A ESCALA",
+      "desc": "10 agentes en producción lanzados en 12 meses, en solitario, por <$15K de costo total de infraestructura — usando Claude Code, Cursor y orquestación multi-modelo:",
       "traditional": "Equipo Tradicional:",
       "traditionalCost": "$900K+/año",
-      "vibeCoding": "Vibe Coding:",
+      "vibeCoding": "Solo con IA:",
       "vibeCost": "<$15K total",
-      "result": "Resultado: 99%+ de reducción de costos • 10x más rápido en lanzamiento"
+      "result": "Resultado: 98% reducción de costos • 10x más rápida iteración • Todos los agentes 24/7 en Oracle Cloud"
     },
     "techStack": {
       "title": "Stack Tecnológico",
