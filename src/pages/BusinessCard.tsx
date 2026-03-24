@@ -883,15 +883,15 @@ export default function BusinessCard() {
 
                   <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">11</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">10</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat1')}</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">28</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">12</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat2')}</div>
                     </div>
                     <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">1</div>
+                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">OCI</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat3')}</div>
                     </div>
                   </div>

@@ -399,18 +399,18 @@
       "role5": "Ingeniera de Herramientas IA Internas",
       "role6": "Arquitecta de Soluciones IA",
       "investment": {
-        "title": "Inversión Pre-seed/Seed para el Startup AIdeazz",
-        "desc": "11 apps de producción (7 agentes IA + 4 productos) • Tracción inicial de usuarios • 2 Co-Fundadores IA desplegados • Infraestructura de monetización lista • Ejecución en solitario probada",
-        "button": "Ver pitch deck completo"
+        "title": "Lo Que Aporto a Tu Equipo",
+        "desc": "10 agentes IA en producción construidos en solitario • Orquestación LLM multi-modelo (Claude/GPT/Groq) • Full-stack: frontend React + backend Python/Node • Infraestructura Oracle Cloud 24/7 • Experiencia ejecutiva en transformación digital",
+        "button": "Ver portafolio"
       },
       "hybrid": {
-        "title": "IDEAL: Enfoque Híbrido",
-        "item1": "Rol de tiempo completo en startup IA + pre-seed para AIdeazz",
-        "item1Button": "Explorar",
-        "item2": "Obtienes capacidad de ejecución completa, yo escalo la visión AIdeazz en paralelo",
-        "item3": "Oportunidades de asociación estratégica entre tu producto y el ecosistema AIdeazz"
+        "title": "Por Qué Contratar a una Builder-Founder",
+        "item1": "Entrego de punta a punta — desde arquitectura hasta despliegue en producción y feedback de usuarios",
+        "item1Button": "Portafolio",
+        "item2": "Disciplina de fundadora: trato cada proyecto como propio — ownership, urgencia, cero desperdicio",
+        "item3": "7 años de gestión ejecutiva + 12 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
       },
-      "closing": "Exploremos el fit."
+      "closing": "Lista para construir juntos."
     }
   },
   "section3": {
@@ -450,10 +450,10 @@
   },
   "contact": {
     "title": "Construyamos Juntos",
-    "forTeams": "Para equipos:",
-    "forTeamsDesc": "Lanzo productos IA de principio a fin. Visión a lanzamiento a usuarios.",
+    "forTeams": "Para equipos contratando:",
+    "forTeamsDesc": "Construyo y opero sistemas LLM en producción — flujos de agentes, integraciones API, memoria persistente, despliegue en la nube. 10 agentes en vivo en Oracle Cloud ahora mismo.",
     "forInvestors": "Para inversionistas:",
-    "forInvestorsDesc": "11 productos IA en vivo (7 agentes + 4 apps), 2 Co-Fundadores IA, tracción orgánica, camino claro hacia IA emocionalmente inteligente a escala.",
+    "forInvestorsDesc": "Ecosistema AIdeazz: 10 agentes IA en vivo, infraestructura de monetización lista, respaldo ISD en Panamá. Abierta a conversaciones pre-seed.",
     "location": "Basada en 🇵🇦 Panamá (zona horaria LATAM: UTC-5 / EST) • Bilingüe EN/ES",
     "twitter": "X",
     "github": "GitHub",
@@ -464,14 +464,14 @@
   },
   "cardBack": {
     "name": "Elena Revicheva",
-    "founder": "Fundadora @ AIdeazz",
-    "subtitle": "Emprendedora IA | Vibe Coder",
+    "founder": "Ingeniera de IA Aplicada | Fundadora @ AIdeazz",
+    "subtitle": "Construyendo sistemas LLM en producción y agentes autónomos",
     "location": "Panamá",
     "languages": "EN 🇬🇧 + ES 🇪🇸",
-    "stat1": "Productos IA",
-    "stat2": "ADN Tecnológico",
-    "stat3": "Visión de Ecosistema",
-    "desc": "Construyendo AsistentesPersonales IA (AIPAs) emocionalmente inteligentes.",
+    "stat1": "Agentes IA en Vivo",
+    "stat2": "Meses Construyendo",
+    "stat3": "Nube (24/7)",
+    "desc": "Lanzando sistemas IA en producción — desde arquitectura hasta despliegue y usuarios reales.",
     "whatsapp": "WhatsApp",
     "twitter": "X",
     "linkedin": "LinkedIn",

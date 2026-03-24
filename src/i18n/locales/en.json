@@ -399,18 +399,18 @@
       "role5": "Internal AI Tools Engineer",
       "role6": "AI Solutions Architect",
       "investment": {
-        "title": "Pre-seed/Seed investment for AIdeazz Start up",
-        "desc": "11 production apps (7 AI agents + 4 products) • Early user traction • 2 AI Co-Founders deployed • Monetization infrastructure ready • Proven solo execution",
-        "button": "View full pitch deck"
+        "title": "What I Bring to Your Team",
+        "desc": "10 production AI agents shipped solo • Multi-model LLM orchestration (Claude/GPT/Groq) • Full-stack: React frontend + Python/Node backend • Oracle Cloud infrastructure running 24/7 • Executive background in digital transformation",
+        "button": "View portfolio"
       },
       "hybrid": {
-        "title": "IDEAL: Hybrid Approach",
-        "item1": "Full-time role at AI startup + pre-seed for AIdeazz",
-        "item1Button": "Explore",
-        "item2": "You get full execution capacity, I scale AIdeazz vision in parallel",
-        "item3": "Strategic partnership opportunities between your product and AIdeazz ecosystem"
+        "title": "Why Hire a Builder-Founder",
+        "item1": "I ship end-to-end — from architecture to production deployment to user feedback",
+        "item1Button": "Portfolio",
+        "item2": "Founder discipline: I treat every project like my own — ownership, urgency, zero waste",
+        "item3": "7 years executive management + 12 months hands-on AI engineering = systems thinking + execution speed"
       },
-      "closing": "Let's explore fit."
+      "closing": "Ready to build together."
     }
   },
   "section3": {
@@ -450,10 +450,10 @@
   },
   "contact": {
     "title": "Let's Build",
-    "forTeams": "For teams:",
-    "forTeamsDesc": "I ship AI products end-to-end. Vision to launch to users.",
+    "forTeams": "For hiring teams:",
+    "forTeamsDesc": "I build and operate production LLM systems — agent workflows, API integrations, persistent memory, cloud deployment. 10 agents live on Oracle Cloud right now.",
     "forInvestors": "For investors:",
-    "forInvestorsDesc": "11 AI products live (7 agents + 4 apps), 2 AI Co-Founders, organic traction, clear path to emotionally intelligent AI at scale.",
+    "forInvestorsDesc": "AIdeazz ecosystem: 10 AI agents live, monetization infrastructure ready, ISD-backed in Panama. Open to pre-seed conversations.",
     "location": "Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES",
     "twitter": "X",
     "github": "GitHub",
@@ -464,14 +464,14 @@
   },
   "cardBack": {
     "name": "Elena Revicheva",
-    "founder": "Founder @ AIdeazz",
-    "subtitle": "AI Entrepreneur | Vibe Coder",
+    "founder": "Applied AI Engineer | Founder @ AIdeazz",
+    "subtitle": "Building production LLM systems & autonomous agents",
     "location": "Panama",
     "languages": "EN 🇬🇧 + ES 🇪🇸",
-    "stat1": "AI Products",
-    "stat2": "Tech DNA",
-    "stat3": "Ecosystem Vision",
-    "desc": "Building emotionally intelligent AI PersonalAssistants (AIPAs).",
+    "stat1": "AI Agents Live",
+    "stat2": "Months Building",
+    "stat3": "Cloud (24/7)",
+    "desc": "Shipping production AI systems — from architecture to deployment to real users.",
     "whatsapp": "WhatsApp",
     "twitter": "X",
     "linkedin": "LinkedIn",
