@@ -679,26 +679,6 @@ export default function BusinessCard() {
                         </div>
                       </div>
 
-                      <a 
-                        href="https://www.aideazz.xyz/pitch.html" 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="block relative overflow-hidden rounded-xl border-2 border-purple-400/60 hover:border-purple-300 transition-all group"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 group-hover:from-purple-600/30 group-hover:to-pink-600/30 transition-all" />
-                        <div className="relative p-5">
-                          <div className="flex items-center justify-between mb-3">
-                            <p className="text-base font-bold text-purple-300 group-hover:text-purple-200 transition-colors">{t('section2.openTo.investment.title')}</p>
-                            <Rocket className="w-6 h-6 text-purple-400 group-hover:scale-110 group-hover:text-purple-300 transition-all" />
-                          </div>
-                          <p className="text-sm text-gray-200 mb-3">{t('section2.openTo.investment.desc')}</p>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg group-hover:from-purple-500 group-hover:to-pink-500 transition-all">
-                            <span className="text-sm font-bold text-white">{t('section2.openTo.investment.button')}</span>
-                            <span className="text-white group-hover:translate-x-1 transition-transform">→</span>
-                          </div>
-                        </div>
-                      </a>
-
                       <div className="backdrop-blur-sm bg-gradient-to-br from-green-600/20 to-emerald-600/20 rounded-xl p-5 border-2 border-green-400/50">
                         <p className="text-base font-bold text-green-300 mb-4 flex items-center gap-2">
                           <Gem className="w-5 h-5 text-emerald-400" />
@@ -759,7 +739,10 @@ export default function BusinessCard() {
                     <strong>{t('contact.forTeams')}</strong> {t('contact.forTeamsDesc')}
                   </p>
                   <p className="text-gray-300 mb-3">
-                    <strong>{t('contact.forInvestors')}</strong> {t('contact.forInvestorsDesc')}
+                    <strong>{t('contact.forInvestors')}</strong> {t('contact.forInvestorsDesc')}{' '}
+                    <a href="https://www.aideazz.xyz/pitch.html" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors text-sm font-medium">
+                      {t('section2.openTo.investment.button')} <span className="text-xs">→</span>
+                    </a>
                   </p>
                   <p className="text-gray-300 mb-6">
                     {t('contact.location')}
