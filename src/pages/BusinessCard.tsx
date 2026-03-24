@@ -237,11 +237,11 @@ export default function BusinessCard() {
                   className="mb-12 backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
                 >
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                    <div className="flex items-center gap-4">
-                      <motion.div 
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                      <motion.div
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 0.3 }}
-                        className="w-28 h-28 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30 flex-shrink-0"
+                        className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30 flex-shrink-0"
                       >
                         <img 
                           src="/elena-photo.jpg" 
