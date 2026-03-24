@@ -333,9 +333,9 @@
     },
     "espaluz": {
       "title": "EspaLuz Stack",
-      "subtitle": "Tutor IA de Español — WhatsApp + Telegram + Automatización Social",
-      "desc": "Familia de 3 productos para familias expatriadas en 21 países hispanohablantes: (1) Tutores WhatsApp y Telegram — mensajes de voz con TTS neuronal, traducción EN/ES/RU en tiempo real, inteligencia emocional (50+ estados), memoria familiar, traducción OCR de fotos, contexto cultural de 21 países. (2) Bot Influencer — contenido diario generado por IA en 7 plataformas sociales vía Groq Llama 3.3 70B + Buffer/Make.com. Memoria PostgreSQL unificada entre todas las plataformas.",
-      "traction": "3 bots en vivo (WhatsApp + Telegram + Influencer) • Localización de 21 países • Voz neuronal (edge-tts) • Pagos PayPal + crypto • Distribución social en 7 plataformas",
+      "subtitle": "Compañero IA Emocionalmente Inteligente — WhatsApp + Telegram + Automatización Social",
+      "desc": "Familia de 3 productos para expatriados, viajeros y locales en 21 países hispanohablantes. No solo un tutor — consejero bilingüe, asistente de reubicación e intérprete cultural con memoria familiar. Mensajes de voz con TTS neuronal (edge-tts), traducción EN/ES/RU en tiempo real, inteligencia emocional (50+ estados, sensible a la familia), traducción OCR de fotos, ayuda práctica en 21 países (bancos, médicos, escuelas, emergencias). Bot Influencer auto-genera contenido diario en 7 plataformas sociales. Memoria PostgreSQL unificada vía LangChain.",
+      "traction": "3 bots en vivo (WhatsApp + Telegram + Influencer) • Localización de 21 países • Voz neuronal • Suscripciones PayPal • Distribución social en 7 plataformas",
       "tech": "Python, Flask, Claude Sonnet 4, Groq (Llama 3.3 70B), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
       "action": "Chatear en WhatsApp",
       "badge": "EN VIVO"
