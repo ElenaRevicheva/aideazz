@@ -392,13 +392,11 @@
     "openTo": {
       "title": "I am actually open to:",
       "aiRoles": "AI roles",
-      "role1": "AI Product Manager",
-      "role2": "Full-Stack AI Engineer",
-      "role3": "Founding Engineer",
-      "role4": "AI Product Designer",
-      "role5": "LLM Engineer",
-      "role6": "AI Solutions Architect",
-      "role7": "AI Growth Engineer",
+      "role1": "Applied AI Engineer",
+      "role2": "Agent Systems Engineer",
+      "role3": "AI Product Engineer",
+      "role4": "Agentic AI Engineer",
+      "role5": "Internal AI Tools Engineer",
       "investment": {
         "title": "Pre-seed/Seed investment for AIdeazz Start up",
         "desc": "11 production apps (7 AI agents + 4 products) • Early user traction • 2 AI Co-Founders deployed • Monetization infrastructure ready • Proven solo execution",
