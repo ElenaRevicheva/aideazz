@@ -316,9 +316,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "Cofundador Técnico de IA",
-      "desc": "Sistema autónomo de revisión de código que elimina la necesidad de un cofundador técnico. Revisa PRs en más de 8 repositorios con tiempo de respuesta de menos de 30 segundos, escaneo de seguridad, análisis de complejidad y detección de arquitectura.",
-      "traction": "8 repos conectados • Revisiones en <30s • 99.9% uptime • $0/mes costo operativo",
-      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude 3.5 Sonnet, Oracle Autonomous Database 26ai (mTLS), GitHub API, PM2",
+      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en 11 repos, bot de Telegram con 26+ comandos.",
+      "traction": "11 repos monitoreados • 25+ revisiones de código • <$1/mes costo • 99.9% uptime",
+      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },

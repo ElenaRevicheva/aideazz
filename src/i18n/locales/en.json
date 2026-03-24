@@ -316,9 +316,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "AI Technical Co-Founder",
-      "desc": "Autonomous code review system eliminating the need for a technical co-founder. Reviews PRs across 8+ repositories with sub-30-second response time, security scanning, complexity analysis, and architecture detection.",
-      "traction": "8 repos connected • Sub-30s reviews • 99.9% uptime • $0/month operational cost",
-      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude 3.5 Sonnet, Oracle Autonomous Database 26ai (mTLS), GitHub API, PM2",
+      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across 11 repos, Telegram bot with 26+ commands.",
+      "traction": "11 repos monitored • 25+ code reviews • <$1/month cost • 99.9% uptime",
+      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "View on GitHub",
       "badge": "LIVE"
     },
