@@ -342,10 +342,10 @@
     },
     "algom": {
       "title": "ALGOM Alpha",
-      "subtitle": "AI Crypto Advisor for Post-Scammer Era",
-      "desc": "AI crypto mentor for beginner traders — teaching basics, safe trading, and digital literacy. Autonomous paper trading with real-time market analysis across 5 exchanges using technical indicators (LIVE on X and Railway).",
-      "traction": "First 180 followers attracted • Engaging crypto community through trading education and auto-posting market insights with paper trading results to X",
-      "tech": "Node.js, Eliza OS, CCXT (5 exchanges), Twitter API v2, WebSocket, Technical indicators (MA, RSI)",
+      "subtitle": "Web3 & Crypto Coach for Beginners — Post-Scam Era",
+      "desc": "AI-powered Web3 education bot for beginner traders — scam detection, risk management, trading psychology, and technical analysis basics. Autonomous paper trading (zero real money) with real-time data from 5 exchanges, honest reporting of wins and losses on X.",
+      "traction": "~200 X followers • 40% educational content rotation • Paper trading with transparent results • Daily auto-posting",
+      "tech": "Node.js, Eliza OS, Claude Sonnet 4, Groq (Llama 3.3 70B), CCXT (5 exchanges), CoinGecko, Twitter API v2, Oracle Cloud (PM2)",
       "action": "Follow on X",
       "badge": "LIVE"
     }
