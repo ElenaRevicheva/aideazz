@@ -316,7 +316,7 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "Cofundador Técnico de IA",
-      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en 11 repos, bot de Telegram con 26+ comandos.",
+      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en 11 repos. Voz-a-código: comandos de voz NLP vía Telegram para revisar, corregir y desplegar código sobre la marcha.",
       "traction": "11 repos monitoreados • 25+ revisiones de código • <$1/mes costo • 99.9% uptime",
       "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "Ver en GitHub",
