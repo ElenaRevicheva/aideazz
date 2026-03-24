@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 interface AgentLink {
   action: string;
   link: string;
+  className?: string;
 }
 
 interface Agent {
@@ -160,8 +161,8 @@ export default function BusinessCard() {
       link: "https://wa.me/50766623757",
       badge: t('section1.espaluz.badge'),
       extraLinks: [
-        { action: t('section1.espaluz.action2'), link: "https://t.me/EspaLuzFamily_bot" },
-        { action: t('section1.espaluz.action3'), link: "https://t.me/Influencer_EspaLuz_bot" }
+        { action: t('section1.espaluz.action2'), link: "https://t.me/EspaLuzFamily_bot", className: "bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-400 hover:to-blue-400" },
+        { action: t('section1.espaluz.action3'), link: "https://t.me/Influencer_EspaLuz_bot", className: "bg-white/10 hover:bg-white/20 border border-white/10" }
       ]
     },
     {
@@ -457,7 +458,7 @@ export default function BusinessCard() {
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold text-sm shadow-lg"
+                              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${agent.extraLinks ? 'bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500'}`}
                             >
                               {agent.action} <ExternalLink className="w-4 h-4" />
                             </a>
@@ -468,7 +469,7 @@ export default function BusinessCard() {
                                 target="_blank"
                                 rel="noreferrer"
                                 onClick={(e) => e.stopPropagation()}
-                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all font-semibold text-sm border border-white/10"
+                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${extra.className || 'bg-white/10 hover:bg-white/20 border border-white/10'}`}
                               >
                                 {extra.action} <ExternalLink className="w-4 h-4" />
                               </a>

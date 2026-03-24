@@ -334,8 +334,8 @@
     "espaluz": {
       "title": "EspaLuz Stack",
       "subtitle": "Compañero IA Emocionalmente Inteligente — WhatsApp + Telegram + Automatización Social",
-      "desc": "Familia de 3 productos para expatriados, viajeros y locales en 21 países hispanohablantes. No solo un tutor — consejero bilingüe, asistente de reubicación e intérprete cultural con memoria familiar. Mensajes de voz con TTS neuronal (edge-tts), traducción EN/ES/RU en tiempo real, inteligencia emocional (50+ estados, sensible a la familia), traducción OCR de fotos, ayuda práctica en 21 países (bancos, médicos, escuelas, emergencias). Bot Influencer auto-genera contenido diario en 7 plataformas sociales. Memoria PostgreSQL unificada vía LangChain.",
-      "traction": "3 bots en vivo (WhatsApp + Telegram + Influencer) • Localización de 21 países • Voz neuronal • Suscripciones PayPal • Distribución social en 7 plataformas",
+      "desc": "Consejero IA bilingüe, asistente de reubicación e intérprete cultural con memoria familiar — para expatriados, viajeros y locales en 21 países hispanohablantes. Mensajes de voz neuronal (edge-tts), traducción EN/ES/RU en tiempo real, inteligencia emocional (50+ estados), traducción OCR de fotos, ayuda práctica (bancos, médicos, escuelas, emergencias). Memoria PostgreSQL unificada vía LangChain.",
+      "traction": "3 bots en vivo • Localización de 21 países • Voz neuronal • Suscripciones PayPal • Auto-publicación social en 7 plataformas vía bot Influencer",
       "tech": "Python, Flask, Claude Sonnet 4, Groq (Llama 3.3 70B), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
       "action": "EspaLuz WhatsApp",
       "action2": "EspaLuz Telegram",
