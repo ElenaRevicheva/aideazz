@@ -46,6 +46,8 @@ const HeroSection = () => {
             {t("hero.title")}
             <br />
             <span className="gradient-text">{t("hero.titleHighlight")}</span>
+            <br />
+            <span className="text-white/95 text-3xl md:text-5xl">{t("hero.titleSubHighlight")}</span>
           </motion.h1>
           
           <motion.p 
