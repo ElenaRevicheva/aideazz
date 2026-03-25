@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Elena Revicheva AI Portfolio">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020" />
+      <stop offset="100%" stop-color="#1f1147" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#accent)" stroke-width="2.5" />
+
+  <path d="M16 20h18v6H22v7h11v6H22v12h-6z" fill="#e5e7eb" />
+  <path d="M38 20h10c6 0 10 3.5 10 9 0 4-2.2 6.9-6 8l7 14h-6.8l-6.2-12H44v12h-6zM44 26v7h4.2c2.4 0 3.8-1.2 3.8-3.5S50.6 26 48.2 26z" fill="#e5e7eb" />
+
+  <circle cx="49.5" cy="14.5" r="2.5" fill="#06b6d4" />
+  <path d="M49.5 17v5M44 22h11" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" />
+</svg>
