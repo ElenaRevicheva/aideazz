@@ -70,9 +70,18 @@ export default function BusinessCard() {
   const handleCardFlip = () => {
     setIsFlipped((prev) => !prev);
 
-    // Keep flip UX anchored at the beginning of the card.
+    // Keep flip UX anchored at the beginning of the card with an instant jump.
     window.requestAnimationFrame(() => {
-      cardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      const cardTop = cardRef.current?.getBoundingClientRect().top;
+      if (cardTop === undefined) return;
+
+      const targetTop = Math.max(window.scrollY + cardTop, 0);
+      const root = document.documentElement;
+      const previousBehavior = root.style.scrollBehavior;
+
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, targetTop);
+      root.style.scrollBehavior = previousBehavior;
     });
   };
 
