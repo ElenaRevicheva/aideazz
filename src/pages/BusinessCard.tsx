@@ -86,6 +86,22 @@ export default function BusinessCard() {
   };
 
   useEffect(() => {
+    const pageTitle = isSpanish
+      ? "Elena Revicheva | Portafolio de Productos de IA"
+      : "Elena Revicheva | AI Products Portfolio";
+    const pageDescription = isSpanish
+      ? "Portafolio de Elena Revicheva: productos de IA en produccion, agentes autonomos y sistemas reales desplegados."
+      : "Portfolio of Elena Revicheva: production AI products, autonomous agents, and real systems deployed.";
+
+    document.title = pageTitle;
+
+    const descriptionTag = document.querySelector('meta[name="description"]');
+    if (descriptionTag) {
+      descriptionTag.setAttribute("content", pageDescription);
+    }
+  }, [isSpanish]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
