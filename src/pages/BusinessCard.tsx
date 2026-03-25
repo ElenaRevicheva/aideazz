@@ -1,7 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+
+function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!shouldStart) return;
+    let startTime: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [end, duration, shouldStart]);
+  return count;
+}
 
 interface AgentLink {
   action: string;
@@ -41,6 +57,9 @@ export default function BusinessCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const isSpanish = (i18n.resolvedLanguage ?? i18n.language).toLowerCase().startsWith('es');
   const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf' : '/Elena_Revicheva_Resume.pdf';
+  const statsRef = useRef<HTMLDivElement>(null);
+  const agentCount = useCountUp(10, 1200, isFlipped);
+  const monthCount = useCountUp(12, 1200, isFlipped);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
@@ -204,11 +223,19 @@ export default function BusinessCard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white antialiased relative overflow-hidden">
-      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none opacity-40" />
-      
-      <div className="fixed top-0 left-0 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl animate-pulse" />
-      <div className="fixed bottom-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+    <div className="min-h-screen bg-slate-950 text-white antialiased relative overflow-hidden scroll-smooth">
+      {/* Premium mesh gradient background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950/80 to-slate-950" />
+      <div className="fixed inset-0 opacity-30" style={{
+        backgroundImage: `
+          radial-gradient(at 20% 20%, rgba(120, 40, 200, 0.4) 0px, transparent 50%),
+          radial-gradient(at 80% 10%, rgba(30, 64, 175, 0.3) 0px, transparent 50%),
+          radial-gradient(at 50% 60%, rgba(168, 85, 247, 0.2) 0px, transparent 50%),
+          radial-gradient(at 90% 80%, rgba(59, 130, 246, 0.25) 0px, transparent 50%),
+          radial-gradient(at 10% 90%, rgba(139, 92, 246, 0.2) 0px, transparent 50%)
+        `
+      }} />
+      <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none opacity-25" />
 
       {/* Language Toggle Button */}
       <motion.button
@@ -246,7 +273,7 @@ export default function BusinessCard() {
                 <motion.header 
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-12 backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
+                  className="mb-12 backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.1)]"
                 >
                   <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                     <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -255,10 +282,10 @@ export default function BusinessCard() {
                         transition={{ duration: 0.3 }}
                         className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shadow-lg shadow-purple-500/50 ring-2 ring-purple-500/30 flex-shrink-0"
                       >
-                        <img 
-                          src="/elena-photo.jpg" 
+                        <img
+                          src="/elena-photo.jpg"
                           alt="Elena Revicheva"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                         />
                       </motion.div>
                       <div>
@@ -330,7 +357,7 @@ export default function BusinessCard() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 + idx * 0.1 }}
                         whileHover={{ y: -8, scale: 1.02 }}
-                        className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl hover:shadow-purple-500/30 transition-all relative overflow-hidden group"
+                        className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.1)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.4),0_4px_16px_rgba(139,92,246,0.2)] transition-all duration-300 relative overflow-hidden group"
                       >
                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-20 transition-opacity blur-xl" />
                         
@@ -349,13 +376,13 @@ export default function BusinessCard() {
                                 <p className="text-xs text-purple-300">{agent.subtitle}</p>
                               </div>
                             </div>
-                            <motion.span 
-                              animate={{ scale: [1, 1.1, 1] }}
-                              transition={{ repeat: Infinity, duration: 2 }}
-                              className="px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-black text-xs font-bold shadow-lg"
-                            >
+                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-semibold text-green-400">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                              </span>
                               {agent.badge}
-                            </motion.span>
+                            </span>
                           </div>
 
                           <p className="text-sm text-gray-300 mb-4 leading-relaxed">
@@ -388,6 +415,50 @@ export default function BusinessCard() {
                   </div>
                 </motion.section>
 
+                {/* AGENT ARCHITECTURE MINI-DIAGRAM */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.25 }}
+                  className="mb-12 flex justify-center"
+                >
+                  <div className="backdrop-blur-xl bg-white/[0.02] rounded-xl px-8 py-4 border border-white/5 inline-flex items-center gap-4">
+                    <svg width="280" height="48" viewBox="0 0 280 48" className="opacity-60">
+                      {/* Center hub */}
+                      <circle cx="140" cy="24" r="8" fill="none" stroke="url(#hubGrad)" strokeWidth="1.5" />
+                      <text x="140" y="27" textAnchor="middle" fill="#a78bfa" fontSize="7" fontWeight="600">AELA</text>
+                      {/* Spokes */}
+                      <line x1="30" y1="24" x2="132" y2="24" stroke="rgba(139,92,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      <line x1="148" y1="24" x2="250" y2="24" stroke="rgba(139,92,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      <line x1="140" y1="16" x2="80" y2="6" stroke="rgba(59,130,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      <line x1="140" y1="16" x2="200" y2="6" stroke="rgba(59,130,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      <line x1="140" y1="32" x2="80" y2="42" stroke="rgba(59,130,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      <line x1="140" y1="32" x2="200" y2="42" stroke="rgba(59,130,246,0.3)" strokeWidth="1" strokeDasharray="3,3" />
+                      {/* Agent dots */}
+                      <circle cx="30" cy="24" r="3.5" fill="#8b5cf6" opacity="0.6" />
+                      <circle cx="250" cy="24" r="3.5" fill="#8b5cf6" opacity="0.6" />
+                      <circle cx="80" cy="6" r="3" fill="#3b82f6" opacity="0.5" />
+                      <circle cx="200" cy="6" r="3" fill="#3b82f6" opacity="0.5" />
+                      <circle cx="80" cy="42" r="3" fill="#3b82f6" opacity="0.5" />
+                      <circle cx="200" cy="42" r="3" fill="#3b82f6" opacity="0.5" />
+                      {/* Labels */}
+                      <text x="30" y="38" textAnchor="middle" fill="#9ca3af" fontSize="5.5">CTO</text>
+                      <text x="250" y="38" textAnchor="middle" fill="#9ca3af" fontSize="5.5">CMO</text>
+                      <text x="80" y="17" textAnchor="middle" fill="#9ca3af" fontSize="5.5">EspaLuz</text>
+                      <text x="200" y="17" textAnchor="middle" fill="#9ca3af" fontSize="5.5">ALGOM</text>
+                      <text x="80" y="38" textAnchor="middle" fill="#9ca3af" fontSize="5.5">Atuona</text>
+                      <text x="200" y="38" textAnchor="middle" fill="#9ca3af" fontSize="5.5">Dragon</text>
+                      <defs>
+                        <linearGradient id="hubGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#a78bfa" />
+                          <stop offset="100%" stopColor="#ec4899" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <p className="text-[10px] text-gray-500 max-w-[120px] leading-tight">AELA orchestration layer connecting all agents (in development)</p>
+                  </div>
+                </motion.div>
+
                 {/* LIVE AI PRODUCTS */}
                 <motion.section 
                   initial={{ opacity: 0 }}
@@ -408,7 +479,7 @@ export default function BusinessCard() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 + idx * 0.1 }}
                         whileHover={{ y: -8, scale: 1.02 }}
-                        className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl hover:shadow-purple-500/30 transition-all relative overflow-hidden group"
+                        className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.1)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.4),0_4px_16px_rgba(139,92,246,0.2)] transition-all duration-300 relative overflow-hidden group"
                       >
                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-20 transition-opacity blur-xl" />
                         
@@ -427,13 +498,13 @@ export default function BusinessCard() {
                                 <p className="text-xs text-purple-300">{agent.subtitle}</p>
                               </div>
                             </div>
-                            <motion.span 
-                              animate={{ scale: [1, 1.1, 1] }}
-                              transition={{ repeat: Infinity, duration: 2 }}
-                              className="px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-black text-xs font-bold shadow-lg"
-                            >
+                            <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-xs font-semibold text-green-400">
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                              </span>
                               {agent.badge}
-                            </motion.span>
+                            </span>
                           </div>
 
                           <p className="text-sm text-gray-300 mb-4 leading-relaxed">
@@ -492,7 +563,7 @@ export default function BusinessCard() {
                     <h2 className="text-2xl font-bold">{t('otherProducts.title')}</h2>
                   </div>
 
-                  <div className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl">
+                  <div className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)]">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {/* Product 1 */}
                       <motion.a
@@ -601,7 +672,7 @@ export default function BusinessCard() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.6 }}
-                      className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
+                      className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)]"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                         <Cpu className="w-5 h-5 text-purple-400" /> {t('section2.techStack.title')}
@@ -614,7 +685,7 @@ export default function BusinessCard() {
                               {techs.map((tech) => (
                                 <span
                                   key={tech}
-                                  className="px-2 py-1 rounded-lg bg-purple-600/20 border border-purple-500/30 text-xs font-medium hover:bg-purple-600/30 transition-all cursor-default"
+                                  className="px-2 py-1 rounded-lg bg-purple-600/20 border border-purple-500/30 text-xs font-medium hover:bg-purple-600/40 hover:border-purple-400/50 hover:shadow-[0_0_12px_rgba(168,85,247,0.3)] transition-all duration-200 cursor-default"
                                 >
                                   {tech}
                                 </span>
@@ -629,7 +700,7 @@ export default function BusinessCard() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.6 }}
-                      className="backdrop-blur-xl bg-white/5 rounded-2xl p-6 border border-white/10 shadow-2xl"
+                      className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-6 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)]"
                     >
                       <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
                         <Zap className="w-5 h-5 text-blue-400" /> {t('section2.coreVibes.title')}
@@ -655,7 +726,7 @@ export default function BusinessCard() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 }}
-                    className="mt-6 backdrop-blur-xl bg-gradient-to-br from-green-600/30 via-emerald-600/20 to-teal-600/30 rounded-2xl p-8 border-2 border-green-400/60 shadow-2xl shadow-green-500/50"
+                    className="mt-6 backdrop-blur-xl bg-gradient-to-br from-green-600/30 via-emerald-600/20 to-teal-600/30 rounded-2xl p-8 border-2 border-green-400/60 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_4px_16px_rgba(34,197,94,0.15)]"
                   >
                     <div className="text-center mb-6">
                       <p className="text-2xl font-black mb-1 flex items-center justify-center gap-2">
@@ -729,7 +800,7 @@ export default function BusinessCard() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
-                  className="backdrop-blur-xl bg-white/5 rounded-2xl p-8 border border-white/10 shadow-2xl text-center"
+                  className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-8 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)] text-center"
                 >
                   <h2 className="text-2xl font-bold mb-4 flex items-center justify-center gap-2">
                     <Flame className="w-6 h-6 text-orange-400" />
@@ -815,11 +886,11 @@ export default function BusinessCard() {
 
                 <div className="mt-6 text-center">
                   <motion.p 
-                    animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="text-sm text-purple-400"
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ repeat: Infinity, duration: 3 }}
+                    className="text-sm text-purple-400 flex items-center justify-center gap-2"
                   >
-                    ✨ {t('footer.flipPrompt')} ✨
+                    <ArrowRight className="w-3.5 h-3.5" /> {t('footer.flipPrompt')}
                   </motion.p>
                 </div>
               </div>
@@ -839,7 +910,7 @@ export default function BusinessCard() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isFlipped ? 1 : 0 }}
                   transition={{ delay: 0.4 }}
-                  className="backdrop-blur-xl bg-white/5 rounded-2xl p-12 border border-white/10 shadow-2xl max-w-3xl mx-auto"
+                  className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)] max-w-3xl mx-auto"
                 >
                   <div className="text-center mb-8">
                     <motion.div 
@@ -864,16 +935,16 @@ export default function BusinessCard() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
-                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">10</div>
+                  <div ref={statsRef} className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 shadow-lg shadow-purple-500/5">
+                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1">{agentCount}</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat1')}</div>
                     </div>
-                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
-                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">12</div>
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 shadow-lg shadow-blue-500/5">
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1">{monthCount}</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat2')}</div>
                     </div>
-                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10">
+                    <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 shadow-lg shadow-pink-500/5">
                       <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">OCI</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat3')}</div>
                     </div>
@@ -928,12 +999,12 @@ export default function BusinessCard() {
 
                     <div className="mb-5">
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        <span className="text-purple-300">✨</span> {t('section3.vision')}
+                        <Lightbulb className="w-4 h-4 text-purple-300 inline flex-shrink-0" /> {t('section3.vision')}
                       </p>
                     </div>
 
                     <div className="mb-5">
-                      <p className="text-xs text-pink-300 mb-2">🧭 {t('section3.nextSteps.title')}</p>
+                      <p className="text-xs text-pink-300 mb-2 flex items-center gap-1.5"><Compass className="w-3.5 h-3.5" /> {t('section3.nextSteps.title')}</p>
                       <ul className="space-y-2 text-xs text-gray-300">
                         <li className="flex items-start gap-2">
                           <span className="text-pink-400">•</span>
@@ -980,7 +1051,7 @@ export default function BusinessCard() {
                     <div className="pt-5 border-t border-white/10">
                       <div className="bg-gradient-to-r from-purple-600/10 to-blue-600/10 rounded-lg p-4 border border-purple-500/30">
                         <div className="flex items-center gap-2 mb-2">
-                          <span className="text-xl">🌐</span>
+                          <Globe className="w-5 h-5 text-purple-300" />
                           <p className="text-xs sm:text-sm text-purple-300 font-semibold">{t('section3.web3.title')}</p>
                         </div>
                         <p className="text-[10px] sm:text-xs text-gray-300 mb-3 leading-relaxed">
@@ -1049,11 +1120,11 @@ export default function BusinessCard() {
 
                   <div className="mt-8 text-center">
                     <motion.p 
-                      animate={{ opacity: [0.5, 1, 0.5] }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      className="text-sm text-purple-400"
+                      animate={{ opacity: [0.4, 1, 0.4] }}
+                      transition={{ repeat: Infinity, duration: 3 }}
+                      className="text-sm text-purple-400 flex items-center justify-center gap-2"
                     >
-                      ✨ {t('cardBack.flipText')} ✨
+                      <ArrowRight className="w-3.5 h-3.5" /> {t('cardBack.flipText')}
                     </motion.p>
                   </div>
                 </motion.div>
