@@ -415,103 +415,6 @@ export default function BusinessCard() {
                   </div>
                 </motion.section>
 
-                {/* AILA ORCHESTRATION DIAGRAM */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="mb-12"
-                >
-                  <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
-                    {/* Title */}
-                    <div className="text-center mb-6">
-                      <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase mb-1">Orchestration Architecture</p>
-                      <p className="text-[10px] sm:text-xs text-gray-500">AILA — Adaptive Intelligent Life Assistant (in development)</p>
-                    </div>
-
-                    {/* Hub-Spoke Layout */}
-                    <div className="relative flex flex-col items-center gap-4">
-                      {/* Top row of agents */}
-                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-1.5">
-                            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-blue-300">CTO AIPA</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Code Review</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-1.5">
-                            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-emerald-300">CMO AIPA</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Job Hunting</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1.5">
-                            <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-cyan-300">VibeJob</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Applications</p>
-                        </div>
-                      </div>
-
-                      {/* Connection lines to hub */}
-                      <div className="flex items-center justify-center w-full max-w-lg">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
-                        <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
-                        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
-                      </div>
-
-                      {/* Central Hub — AILA */}
-                      <div className="relative">
-                        <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full" />
-                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border-2 border-purple-400/40 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                          <p className="text-sm sm:text-base font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">AILA</p>
-                          <p className="text-[7px] sm:text-[8px] text-gray-400 text-center leading-tight px-1">Orchestrator</p>
-                        </div>
-                      </div>
-
-                      {/* Connection lines to bottom */}
-                      <div className="flex items-center justify-center w-full max-w-lg">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
-                        <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
-                        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
-                      </div>
-
-                      {/* Bottom row of agents */}
-                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-1.5">
-                            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-purple-300">EspaLuz</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Life Assistant</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-1.5">
-                            <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-amber-300">ALGOM</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Web3 Coach</p>
-                        </div>
-                        <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-1.5">
-                            <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
-                          </div>
-                          <p className="text-[10px] sm:text-xs font-semibold text-pink-300">Creative</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Art & NFTs</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Mission statement */}
-                    <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
-                      An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them.
-                    </p>
-                  </div>
-                </motion.div>
-
                 {/* LIVE AI PRODUCTS */}
                 <motion.section 
                   initial={{ opacity: 0 }}
@@ -662,6 +565,103 @@ export default function BusinessCard() {
                     </div>
                   </div>
                 </motion.section>
+
+                {/* AILA ORCHESTRATION DIAGRAM */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.55 }}
+                  className="mb-12"
+                >
+                  <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
+                    {/* Title */}
+                    <div className="text-center mb-6">
+                      <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase mb-1">Orchestration Architecture</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">AILA — Adaptive Intelligent Life Assistant (in development)</p>
+                    </div>
+
+                    {/* Hub-Spoke Layout */}
+                    <div className="relative flex flex-col items-center gap-4">
+                      {/* Top row of agents */}
+                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-1.5">
+                            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-blue-300">CTO AIPA</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Code Review</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-1.5">
+                            <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-emerald-300">CMO AIPA</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Job Hunting</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1.5">
+                            <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-cyan-300">VibeJob</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Applications</p>
+                        </div>
+                      </div>
+
+                      {/* Connection lines to hub */}
+                      <div className="flex items-center justify-center w-full max-w-lg">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
+                        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
+                      </div>
+
+                      {/* Central Hub — AILA */}
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full" />
+                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border-2 border-purple-400/40 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                          <p className="text-sm sm:text-base font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">AILA</p>
+                          <p className="text-[7px] sm:text-[8px] text-gray-400 text-center leading-tight px-1">Orchestrator</p>
+                        </div>
+                      </div>
+
+                      {/* Connection lines to bottom */}
+                      <div className="flex items-center justify-center w-full max-w-lg">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
+                        <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
+                        <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
+                      </div>
+
+                      {/* Bottom row of agents */}
+                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-1.5">
+                            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-purple-300">EspaLuz</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Life Assistant</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-1.5">
+                            <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-amber-300">ALGOM</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Web3 Coach</p>
+                        </div>
+                        <div className="text-center">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-1.5">
+                            <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
+                          </div>
+                          <p className="text-[10px] sm:text-xs font-semibold text-pink-300">Creative</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Art & NFTs</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Mission statement */}
+                    <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
+                      An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them.
+                    </p>
+                  </div>
+                </motion.div>
 
                 {/* TALENT & TECH STACK */}
                 <motion.section 
