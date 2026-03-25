@@ -428,9 +428,9 @@
     },
     "web3": {
       "title": "En Desarrollo: Capa Web3 de Agentes IA",
-      "desc": "Propiedad de agentes on-chain vía iNFTs dinámicos — habilitando agentes IA personales portables, intercambiables y evolutivos con estado verificable en Polygon y otras cadenas.",
-      "badge1": "ERC-7857",
-      "badge2": "Polygon",
+      "desc": "Propiedad de agentes on-chain vía ERC-7857 (AI Agents NFT con Metadatos Privados, estándar Draft de 0G Labs) + cuentas ERC-6551 vinculadas a tokens. Agentes IA portables e intercambiables con estado encriptado, evolución dinámica de capacidades y transferencias con preservación de privacidad en cadenas EVM.",
+      "badge1": "ERC-7857 + ERC-6551",
+      "badge2": "Cadenas EVM",
       "badge3": "Propiedad de Agentes",
       "badge4": "En Desarrollo"
     }

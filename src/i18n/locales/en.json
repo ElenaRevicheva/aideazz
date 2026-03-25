@@ -428,9 +428,9 @@
     },
     "web3": {
       "title": "In Development: Web3 AI Agent Layer",
-      "desc": "On-chain agent ownership via dynamic iNFTs — enabling portable, tradeable, and evolving personal AI agents with verifiable state on Polygon and other chains.",
-      "badge1": "ERC-7857",
-      "badge2": "Polygon",
+      "desc": "On-chain agent ownership via ERC-7857 (AI Agents NFT with Private Metadata, Draft standard by 0G Labs) + ERC-6551 token-bound accounts. Portable, tradeable AI agents with encrypted state, dynamic capability evolution, and privacy-preserving transfers across EVM chains.",
+      "badge1": "ERC-7857 + ERC-6551",
+      "badge2": "EVM Chains",
       "badge3": "Agent Ownership",
       "badge4": "In Development"
     }
