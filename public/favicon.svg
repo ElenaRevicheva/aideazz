@@ -1,27 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AIdeazz ecosystem icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AIdeazz icon">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0b1020" />
-      <stop offset="100%" stop-color="#1a1240" />
+      <stop offset="0%" stop-color="#0b0f1a" />
+      <stop offset="100%" stop-color="#140f33" />
     </linearGradient>
-    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7c3aed" />
-      <stop offset="100%" stop-color="#22d3ee" />
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c026d3" />
+      <stop offset="100%" stop-color="#06b6d4" />
     </linearGradient>
-    <linearGradient id="mark" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#f8fafc" />
-      <stop offset="100%" stop-color="#dbeafe" />
-    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#c026d3" flood-opacity="0.6" />
+    </filter>
   </defs>
 
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#ring)" stroke-width="2.5" />
-  <rect x="8" y="8" width="48" height="48" rx="10" fill="none" stroke="rgba(124,58,237,0.30)" stroke-width="1.2" />
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#accent)" stroke-width="3" />
+  <rect x="7.5" y="7.5" width="49" height="49" rx="11" fill="none" stroke="#7c3aed" stroke-opacity="0.35" stroke-width="1.6" />
 
-  <path d="M32 14 L17 49 H23.8 L27.4 40.5 H36.6 L40.2 49 H47 L32 14 Z" fill="url(#mark)" />
-  <rect x="28.7" y="30.5" width="6.6" height="3.8" rx="1.3" fill="#0b1020" />
+  <g filter="url(#glow)">
+    <path d="M32 14 L16.8 49 H24.8 L28.1 41 H35.9 L39.2 49 H47.2 L32 14 Z" fill="#f8fafc" />
+    <rect x="28.6" y="30.4" width="6.8" height="4.2" rx="1.2" fill="#130f2d" />
+  </g>
 
-  <path d="M18 20 L32 12 L46 20" fill="none" stroke="#22d3ee" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
-  <circle cx="18" cy="20" r="2.3" fill="#22d3ee" />
-  <circle cx="32" cy="12" r="2.4" fill="#7c3aed" />
-  <circle cx="46" cy="20" r="2.3" fill="#22d3ee" />
+  <circle cx="32" cy="12" r="2.6" fill="#06b6d4" />
+  <path d="M18.8 21.5 L32 13.9 L45.2 21.5" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-opacity="0.9" />
 </svg>
