@@ -1,20 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Elena Revicheva AI Portfolio">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AIdeazz ecosystem icon">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#0b1020" />
-      <stop offset="100%" stop-color="#1f1147" />
+      <stop offset="100%" stop-color="#1a1240" />
     </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#7c3aed" />
-      <stop offset="100%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#dbeafe" />
     </linearGradient>
   </defs>
 
-  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#accent)" stroke-width="2.5" />
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#ring)" stroke-width="2.5" />
+  <rect x="8" y="8" width="48" height="48" rx="10" fill="none" stroke="rgba(124,58,237,0.30)" stroke-width="1.2" />
 
-  <path d="M16 20h18v6H22v7h11v6H22v12h-6z" fill="#e5e7eb" />
-  <path d="M38 20h10c6 0 10 3.5 10 9 0 4-2.2 6.9-6 8l7 14h-6.8l-6.2-12H44v12h-6zM44 26v7h4.2c2.4 0 3.8-1.2 3.8-3.5S50.6 26 48.2 26z" fill="#e5e7eb" />
+  <path d="M32 14 L17 49 H23.8 L27.4 40.5 H36.6 L40.2 49 H47 L32 14 Z" fill="url(#mark)" />
+  <rect x="28.7" y="30.5" width="6.6" height="3.8" rx="1.3" fill="#0b1020" />
 
-  <circle cx="49.5" cy="14.5" r="2.5" fill="#06b6d4" />
-  <path d="M49.5 17v5M44 22h11" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M18 20 L32 12 L46 20" fill="none" stroke="#22d3ee" stroke-opacity="0.7" stroke-width="1.5" stroke-linecap="round" />
+  <circle cx="18" cy="20" r="2.3" fill="#22d3ee" />
+  <circle cx="32" cy="12" r="2.4" fill="#7c3aed" />
+  <circle cx="46" cy="20" r="2.3" fill="#22d3ee" />
 </svg>
