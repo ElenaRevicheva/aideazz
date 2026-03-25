@@ -61,7 +61,7 @@ const AIpaExplainerSection = () => {
                 className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-lg shadow-2xl hover:shadow-pink-500/50 transition-all duration-300"
               >
                 <a 
-                  href="https://www.aideazz.xyz/card" 
+                  href="https://www.aideazz.xyz/portfolio" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-3"
@@ -372,7 +372,7 @@ const AIpaExplainerSection = () => {
             className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white px-10 py-6 rounded-full font-bold text-xl shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 transform hover:scale-105"
           >
             <a 
-              href="https://www.aideazz.xyz/card" 
+              href="https://www.aideazz.xyz/portfolio" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3"
