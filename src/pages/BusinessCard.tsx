@@ -54,6 +54,7 @@ interface Particle {
 export default function BusinessCard() {
   const { t, i18n } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const isSpanish = (i18n.resolvedLanguage ?? i18n.language).toLowerCase().startsWith('es');
   const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf' : '/Elena_Revicheva_Resume.pdf';
@@ -64,6 +65,15 @@ export default function BusinessCard() {
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
     i18n.changeLanguage(newLang);
+  };
+
+  const handleCardFlip = () => {
+    setIsFlipped((prev) => !prev);
+
+    // Keep flip UX anchored at the beginning of the card.
+    window.requestAnimationFrame(() => {
+      cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   };
 
   useEffect(() => {
@@ -250,9 +260,10 @@ export default function BusinessCard() {
 
       <div className="relative z-10 flex items-center justify-center min-h-screen p-6">
         <div 
+          ref={cardRef}
           className="relative w-full max-w-5xl cursor-pointer"
           style={{ perspective: '2000px' }}
-          onClick={() => setIsFlipped(!isFlipped)}
+          onClick={handleCardFlip}
         >
           <motion.div
             className="relative w-full"
