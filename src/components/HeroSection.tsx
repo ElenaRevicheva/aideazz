@@ -6,6 +6,21 @@ import GradientMesh from "./GradientMesh";
 
 const HeroSection = () => {
   const { t } = useTranslation();
+
+  const renderSublineWithGradientZ = (text: string) => {
+    const zIndex = text.indexOf("Z");
+    if (zIndex === -1) {
+      return text;
+    }
+
+    return (
+      <>
+        {text.slice(0, zIndex)}
+        <span className="gradient-text">Z</span>
+        {text.slice(zIndex + 1)}
+      </>
+    );
+  };
   
   const scrollToEspaLuz = () => {
     const espaluzSection = document.getElementById('espaluz');
@@ -47,7 +62,9 @@ const HeroSection = () => {
             <br />
             <span className="gradient-text">{t("hero.titleHighlight")}</span>
             <br />
-            <span className="text-white/95 text-3xl md:text-5xl">{t("hero.titleSubHighlight")}</span>
+            <span className="text-white/95 text-3xl md:text-5xl">
+              {renderSublineWithGradientZ(t("hero.titleSubHighlight"))}
+            </span>
           </motion.h1>
           
           <motion.p 
