@@ -439,7 +439,7 @@
     "title": "Otros Productos en Mi Portafolio",
     "product1": {
       "name": "EspaLuz SaaS (Beta)",
-      "desc": "App web full-stack con aprendizaje de idiomas IA, voz e integración de video",
+      "desc": "Plataforma full-stack de aprendizaje de idiomas con IA: React/TypeScript + Supabase + 11 Edge Functions. IA multi-modal (Claude, Whisper STT, TTS, video HeyGen). Suscripciones PayPal, perfiles familiares, 70+ componentes, i18n (EN/ES/RU), bots Telegram y WhatsApp.",
       "link": "https://espaluz-ai-language-tutor.lovable.app/"
     },
     "product2": {
@@ -453,7 +453,9 @@
     "forTeams": "Para equipos contratando:",
     "forTeamsDesc": "Construyo y opero sistemas LLM en producción — flujos de agentes, integraciones API, memoria persistente, despliegue en la nube. 10 agentes en vivo en Oracle Cloud ahora mismo.",
     "forInvestors": "Para inversionistas:",
-    "forInvestorsDesc": "Ecosistema AIdeazz: 10 agentes IA en vivo, infraestructura de monetización lista, respaldo ISD en Panamá. Abierta a conversaciones pre-seed.",
+    "forInvestorsDescPre": "",
+    "forInvestorsLink": "Ecosistema AIdeazz (MVP)",
+    "forInvestorsDescPost": ": 10 agentes IA en vivo, infraestructura de monetización lista, respaldo ISD en Panamá. Abierta a conversaciones pre-seed.",
     "location": "Basada en 🇵🇦 Panamá (zona horaria LATAM: UTC-5 / EST) • Bilingüe EN/ES",
     "twitter": "X",
     "github": "GitHub",

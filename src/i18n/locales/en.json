@@ -439,7 +439,7 @@
     "title": "Other Products in My Portfolio",
     "product1": {
       "name": "EspaLuz SaaS (Beta)",
-      "desc": "Full-stack web app with AI language learning, voice & video integration",
+      "desc": "Full-stack AI language learning platform: React/TypeScript + Supabase + 11 Edge Functions. Multi-modal AI (Claude, Whisper STT, TTS, HeyGen video). PayPal subscriptions, family profiles, 70+ components, i18n (EN/ES/RU), Telegram & WhatsApp bots.",
       "link": "https://espaluz-ai-language-tutor.lovable.app/"
     },
     "product2": {
@@ -453,7 +453,9 @@
     "forTeams": "For hiring teams:",
     "forTeamsDesc": "I build and operate production LLM systems — agent workflows, API integrations, persistent memory, cloud deployment. 10 agents live on Oracle Cloud right now.",
     "forInvestors": "For investors:",
-    "forInvestorsDesc": "AIdeazz ecosystem: 10 AI agents live, monetization infrastructure ready, ISD-backed in Panama. Open to pre-seed conversations.",
+    "forInvestorsDescPre": "",
+    "forInvestorsLink": "AIdeazz ecosystem (MVP)",
+    "forInvestorsDescPost": ": 10 AI agents live, monetization infrastructure ready, ISD-backed in Panama. Open to pre-seed conversations.",
     "location": "Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES",
     "twitter": "X",
     "github": "GitHub",

@@ -739,7 +739,7 @@ export default function BusinessCard() {
                     <strong>{t('contact.forTeams')}</strong> {t('contact.forTeamsDesc')}
                   </p>
                   <p className="text-gray-300 mb-3">
-                    <strong>{t('contact.forInvestors')}</strong> {t('contact.forInvestorsDesc')}{' '}
+                    <strong>{t('contact.forInvestors')}</strong> {t('contact.forInvestorsDescPre')}<a href="https://www.aideazz.xyz" target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="text-purple-400 hover:text-purple-300 transition-colors font-medium underline underline-offset-2">{t('contact.forInvestorsLink')}</a>{t('contact.forInvestorsDescPost')}{' '}
                     <a href="https://www.aideazz.xyz/pitch.html" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 transition-colors text-sm font-medium">
                       {t('section2.openTo.investment.button')} <span className="text-xs">→</span>
                     </a>
