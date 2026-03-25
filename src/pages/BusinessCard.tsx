@@ -72,7 +72,7 @@ export default function BusinessCard() {
 
     // Keep flip UX anchored at the beginning of the card.
     window.requestAnimationFrame(() => {
-      cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      cardRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' });
     });
   };
 
