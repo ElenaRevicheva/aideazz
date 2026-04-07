@@ -1,0 +1,25 @@
+# Bunny/IPFS often serves sitemap.xml with Cache-Control: no-cache; Googlebot
+# may time out on cold edges. Warming sitemap.txt (max-age=180) and related
+# URLs from GitHub-hosted runners may improve edge cache hits before crawlers.
+name: Warm SEO endpoints
+on:
+  schedule:
+    - cron: "17 */2 * * *"
+  workflow_dispatch:
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GET sitemap.txt, sitemap.xml, robots.txt
+        run: |
+          set -e
+          UA='Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+          for u in \
+            'https://aideazz.xyz/sitemap.txt' \
+            'https://aideazz.xyz/sitemap.xml' \
+            'https://aideazz.xyz/robots.txt'
+          do
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 120 -A "$UA" "$u") || code=ERR
+            echo "$code  $u"
+            test "$code" = "200" || exit 1
+          done
