@@ -99,6 +99,80 @@ export default function BusinessCard() {
     if (descriptionTag) {
       descriptionTag.setAttribute("content", pageDescription);
     }
+
+    // OG tags for portfolio page (social sharing)
+    const setMetaProperty = (property: string, content: string) => {
+      let tag = document.querySelector(`meta[property="${property}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('property', property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+    const setMetaName = (name: string, content: string) => {
+      let tag = document.querySelector(`meta[name="${name}"]`);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute('name', name);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    };
+
+    setMetaProperty('og:type', 'profile');
+    setMetaProperty('og:url', 'https://aideazz.xyz/portfolio');
+    setMetaProperty('og:title', pageTitle);
+    setMetaProperty('og:description', pageDescription);
+    setMetaProperty('og:image', 'https://aideazz.xyz/elena-photo.jpg');
+    setMetaName('twitter:card', 'summary_large_image');
+    setMetaName('twitter:title', pageTitle);
+    setMetaName('twitter:description', pageDescription);
+    setMetaName('twitter:image', 'https://aideazz.xyz/elena-photo.jpg');
+    setMetaName('twitter:creator', '@reviceva');
+
+    // JSON-LD: Portfolio structured data for GEO
+    const existingLd = document.querySelector('script[data-portfolio-ld]');
+    if (existingLd) existingLd.remove();
+    const ldScript = document.createElement('script');
+    ldScript.type = 'application/ld+json';
+    ldScript.setAttribute('data-portfolio-ld', 'true');
+    ldScript.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Elena Revicheva",
+        "url": "https://aideazz.xyz/portfolio",
+        "image": "https://aideazz.xyz/elena-photo.jpg",
+        "jobTitle": "AI Systems Builder & Former Deputy CEO",
+        "description": "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 9 autonomous agents, multi-model LLM routing (76% Groq / 24% Claude), voice pipelines. $0/month infrastructure on Oracle Cloud.",
+        "knowsAbout": ["AI Agents", "Multi-model LLM Routing", "Claude API", "GPT API", "Whisper Voice Pipeline", "Oracle Cloud", "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration", "Telegram Bot Development", "WhatsApp API"],
+        "sameAs": [
+          "https://linkedin.com/in/elenarevicheva",
+          "https://github.com/ElenaRevicheva",
+          "https://x.com/reviceva"
+        ],
+        "makesOffer": {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Integration & Automation",
+            "description": "Production AI systems for startups: LLM API wiring, multi-agent orchestration, voice pipelines, data automation. From an executive who builds and communicates AI systems."
+          }
+        }
+      }
+    });
+    document.head.appendChild(ldScript);
+
+    // Canonical for portfolio
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://aideazz.xyz/portfolio');
   }, [isSpanish]);
 
   useEffect(() => {
