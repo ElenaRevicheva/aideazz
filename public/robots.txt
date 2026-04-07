@@ -25,4 +25,5 @@ Allow: /
 User-agent: *
 Allow: /
 
+Sitemap: https://aideazz.xyz/sitemap.txt
 Sitemap: https://aideazz.xyz/sitemap.xml
