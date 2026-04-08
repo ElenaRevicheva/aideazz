@@ -7,6 +7,7 @@
     "platform": "Plataforma",
     "agents": "Agentes",
     "invest": "Inversión",
+    "team": "Equipo",
     "cta": "Únete a la AI-evolución"
   },
   "hero": {
@@ -109,7 +110,19 @@
     "founderTitle": "Fundadora Solitaria, Emprendedora de IA y Vibe Coder",
     "founderLink": "Elena Revicheva, Portafolio de negocios",
     "founderBio1": "Antigua Ejecutiva de TI y CLO en E-gobierno regional ruso, residiendo en Panamá desde 2022.",
-    "videoButtonText": "Historia larga - video corto"
+    "videoButtonText": "Historia larga - video corto",
+    "founderPhase1Title": "Liderazgo Ejecutivo (2011–2018)",
+    "founderPhase1Desc": "7 años como Vicepresidenta y CLO — gobernanza a nivel directivo, transformación digital empresarial y programas multifuncionales en entornos regulados.",
+    "founderPhase2Title": "Constructora de IA Aplicada (2025–Presente)",
+    "founderPhase2Desc": "Autodidacta con Cursor y Claude Code. 9 agentes de IA en producción en Oracle Cloud a $0/mes. Enrutamiento multi-modelo: 76% Groq / 24% Claude.",
+    "founderStat1": "9 agentes",
+    "founderStat1Label": "en producción 24/7",
+    "founderStat2": "$0/mes",
+    "founderStat2Label": "infra Oracle Cloud",
+    "founderStat3": "76/24%",
+    "founderStat3Label": "Groq / Claude",
+    "founderStat4": "12 meses",
+    "founderStat4Label": "construido sola"
   },
   "investor": {
     "badge": "Oportunidad de Inversión",

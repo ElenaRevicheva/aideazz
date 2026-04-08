@@ -124,11 +124,11 @@ export default function BusinessCard() {
     setMetaProperty('og:url', 'https://aideazz.xyz/portfolio');
     setMetaProperty('og:title', pageTitle);
     setMetaProperty('og:description', pageDescription);
-    setMetaProperty('og:image', 'https://aideazz.xyz/elena-photo.jpg');
+    setMetaProperty('og:image', 'https://aideazz.xyz/elena-og.jpg');
     setMetaName('twitter:card', 'summary_large_image');
     setMetaName('twitter:title', pageTitle);
     setMetaName('twitter:description', pageDescription);
-    setMetaName('twitter:image', 'https://aideazz.xyz/elena-photo.jpg');
+    setMetaName('twitter:image', 'https://aideazz.xyz/elena-og.jpg');
     setMetaName('twitter:creator', '@reviceva');
 
     // JSON-LD: Portfolio structured data for GEO
@@ -144,7 +144,7 @@ export default function BusinessCard() {
         "@type": "Person",
         "name": "Elena Revicheva",
         "url": "https://aideazz.xyz/portfolio",
-        "image": "https://aideazz.xyz/elena-photo.jpg",
+        "image": "https://aideazz.xyz/elena-og.jpg",
         "jobTitle": "AI Systems Builder & Former Deputy CEO",
         "description": "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 9 autonomous agents, multi-model LLM routing (76% Groq / 24% Claude), voice pipelines. $0/month infrastructure on Oracle Cloud.",
         "knowsAbout": ["AI Agents", "Multi-model LLM Routing", "Claude API", "GPT API", "Whisper Voice Pipeline", "Oracle Cloud", "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration", "Telegram Bot Development", "WhatsApp API"],

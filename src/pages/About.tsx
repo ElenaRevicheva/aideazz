@@ -23,13 +23,13 @@ export default function About() {
     );
     setMeta("property", "og:url", "https://aideazz.xyz/about");
     setMeta("property", "og:type", "profile");
-    setMeta("property", "og:image", "https://aideazz.xyz/elena-photo.jpg");
+    setMeta("property", "og:image", "https://aideazz.xyz/elena-og.jpg");
     setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", "Elena Revicheva — Executive-Turned-AI-Builder");
     setMeta("name", "twitter:description",
       "7 years Deputy CEO. 9 production AI agents. $0/month infra. Multi-model LLM routing."
     );
-    setMeta("name", "twitter:image", "https://aideazz.xyz/elena-photo.jpg");
+    setMeta("name", "twitter:image", "https://aideazz.xyz/elena-og.jpg");
 
     let canonical = document.querySelector('link[rel="canonical"]');
     if (!canonical) {
@@ -50,7 +50,7 @@ export default function About() {
       "@type": "Person",
       name: "Elena Revicheva",
       url: "https://aideazz.xyz/about",
-      image: "https://aideazz.xyz/elena-photo.jpg",
+      image: "https://aideazz.xyz/elena-og.jpg",
       jobTitle: "AI Systems Builder & Former Deputy CEO",
       description:
         "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 9 autonomous agents, multi-model LLM routing, voice pipelines. $0/month on Oracle Cloud.",

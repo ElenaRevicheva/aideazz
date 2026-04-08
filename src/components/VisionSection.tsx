@@ -1,4 +1,4 @@
-import { Eye, Sparkles, Users, Zap, MapPin, Briefcase, Video } from "lucide-react";
+import { Eye, Sparkles, Users, Zap, MapPin, Briefcase, Video, Award, Code } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 
@@ -101,7 +101,8 @@ const VisionSection = () => {
         </div>
 
         {/* Founder Section - Enhanced with Visual Timeline */}
-        <motion.div 
+        <motion.div
+          id="team"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -189,11 +190,66 @@ const VisionSection = () => {
               </div>
             </div>
             
+            {/* Career Phases */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="glass-card p-5"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <Award className="w-5 h-5 text-cyan-400" />
+                  <h4 className="font-semibold text-white text-sm">{t("vision.founderPhase1Title")}</h4>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {t("vision.founderPhase1Desc")}
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="glass-card p-5"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <Code className="w-5 h-5 text-green-400" />
+                  <h4 className="font-semibold text-white text-sm">{t("vision.founderPhase2Title")}</h4>
+                </div>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {t("vision.founderPhase2Desc")}
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Stats Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8"
+            >
+              {[
+                [t("vision.founderStat1"), t("vision.founderStat1Label")],
+                [t("vision.founderStat2"), t("vision.founderStat2Label")],
+                [t("vision.founderStat3"), t("vision.founderStat3Label")],
+                [t("vision.founderStat4"), t("vision.founderStat4Label")],
+              ].map(([stat, label]) => (
+                <div key={stat} className="bg-white/5 rounded-xl p-3 text-center border border-white/5">
+                  <div className="text-lg font-bold text-purple-300">{stat}</div>
+                  <div className="text-xs text-gray-400">{label}</div>
+                </div>
+              ))}
+            </motion.div>
+
             {/* Portfolio Link */}
             <div className="text-center mt-8 pt-6 border-t border-purple-500/20">
-              <a 
-                href="https://www.aideazz.xyz/portfolio" 
-                target="_blank" 
+              <a
+                href="https://www.aideazz.xyz/portfolio"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-full transition-all duration-300 cursor-pointer relative z-40 transform hover:scale-105"
                 style={{ pointerEvents: 'auto' }}

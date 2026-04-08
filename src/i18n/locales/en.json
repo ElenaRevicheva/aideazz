@@ -7,6 +7,7 @@
     "platform": "Platform",
     "agents": "Agents",
     "invest": "Invest",
+    "team": "Team",
     "cta": "Join the AI-evolution"
   },
   "hero": {
@@ -109,7 +110,19 @@
     "founderTitle": "Solo Founder, AI Entrepreneur & Vibe Coder",
     "founderLink": "Elena Revicheva, Business portfolio",
     "founderBio1": "Former IT Executive and CLO in Russian regional E-government, residing in Panama since 2022.",
-    "videoButtonText": "Long story - video short"
+    "videoButtonText": "Long story - video short",
+    "founderPhase1Title": "Executive Leadership (2011–2018)",
+    "founderPhase1Desc": "7 years as Deputy CEO & CLO — board-level governance, enterprise digital transformation, and cross-functional programs in regulated environments.",
+    "founderPhase2Title": "Applied AI Builder (2025–Present)",
+    "founderPhase2Desc": "Self-taught via Cursor & Claude Code. 9 production AI agents on Oracle Cloud at $0/month. Multi-model routing: 76% Groq / 24% Claude.",
+    "founderStat1": "9 agents",
+    "founderStat1Label": "in production 24/7",
+    "founderStat2": "$0/month",
+    "founderStat2Label": "Oracle Cloud infra",
+    "founderStat3": "76/24%",
+    "founderStat3Label": "Groq / Claude routing",
+    "founderStat4": "12 months",
+    "founderStat4Label": "solo-built"
   },
   "investor": {
     "badge": "Investment Opportunity",
