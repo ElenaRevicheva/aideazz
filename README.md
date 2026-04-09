@@ -169,6 +169,7 @@ VITE_WEB3_PROVIDER=your_web3_provider
 - **CDN:** Distributed IPFS nodes globally
 - **SSL:** Automatic HTTPS
 - **Continuous Deployment:** [4everland](https://www.4everland.org/) builds from the `main` branch and deploys to IPFS (site + portfolio)
+- **Blog / Hashnode:** `/blog` loads the live publication feed from Hashnode’s public GraphQL API in the browser — daily CTO AIPA posts at 09:30 America/Panama appear on the portfolio **without** a new site deploy.
 - **Performance:** <100ms First Contentful Paint, 95+ Lighthouse score
 
 ---
