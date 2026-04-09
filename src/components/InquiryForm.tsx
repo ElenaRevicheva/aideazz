@@ -58,11 +58,15 @@ const InquiryForm = () => {
         const token = await getRecaptchaToken(siteKey);
         body.recaptcha_token = token;
       }
+      const controller = new AbortController();
+      const requestTimeoutMs = 45_000;
+      const timeoutId = window.setTimeout(() => controller.abort(), requestTimeoutMs);
       const r = await fetch(MARKETING_INQUIRY_PROXY_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-      });
+        signal: controller.signal,
+      }).finally(() => window.clearTimeout(timeoutId));
       const data = (await r.json().catch(() => ({}))) as {
         ok?: boolean;
         error?: string;
@@ -85,10 +89,17 @@ const InquiryForm = () => {
       setMessage("");
     } catch (err) {
       console.error(err);
-      const msg =
-        err instanceof Error && err.message === "__CAPTCHA__"
+      const isAbort = err instanceof Error && err.name === "AbortError";
+      const isCaptchaFlow =
+        err instanceof Error &&
+        (/reCAPTCHA|timed out|__CAPTCHA__/i.test(err.message) || err.message === "__CAPTCHA__");
+      const msg = isAbort
+        ? t("cta.inquiryErrorTimeout")
+        : err instanceof Error && err.message === "__CAPTCHA__"
           ? t("cta.inquiryErrorCaptcha")
-          : t("cta.inquiryError");
+          : isCaptchaFlow
+            ? t("cta.inquiryErrorCaptcha")
+            : t("cta.inquiryError");
       toast.error(msg);
     } finally {
       setSending(false);
