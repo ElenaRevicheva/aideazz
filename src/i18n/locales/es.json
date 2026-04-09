@@ -296,6 +296,7 @@
     "inquirySending": "Enviando…",
     "inquirySuccess": "Recibido — te responderemos pronto.",
     "inquiryError": "No se pudo enviar. Prueba correo o WhatsApp abajo.",
+    "inquiryErrorCaptcha": "Falló la verificación de seguridad. Actualiza la página e inténtalo de nuevo.",
     "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje."
   },
   "youtube": {

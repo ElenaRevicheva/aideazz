@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MARKETING_INQUIRY_PROXY_URL } from "@/config/marketing";
+import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
 import { Send, Loader2 } from "lucide-react";
 
 /**
@@ -52,20 +53,43 @@ const InquiryForm = () => {
         page_url,
         ...utm,
       };
+      const siteKey = getRecaptchaSiteKey();
+      if (siteKey) {
+        const token = await getRecaptchaToken(siteKey);
+        body.recaptcha_token = token;
+      }
       const r = await fetch(MARKETING_INQUIRY_PROXY_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = (await r.json().catch(() => ({}))) as { ok?: boolean; error?: string };
+      const data = (await r.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+        code?: string;
+      };
       if (!r.ok || !data.ok) {
+        const code = data.code;
+        if (
+          code === "captcha_required" ||
+          code === "captcha_failed" ||
+          code === "captcha_low_score" ||
+          code === "captcha_bad_action" ||
+          code === "captcha_error"
+        ) {
+          throw new Error("__CAPTCHA__");
+        }
         throw new Error(data.error || r.statusText);
       }
       toast.success(t("cta.inquirySuccess"));
       setMessage("");
     } catch (err) {
       console.error(err);
-      toast.error(t("cta.inquiryError"));
+      const msg =
+        err instanceof Error && err.message === "__CAPTCHA__"
+          ? t("cta.inquiryErrorCaptcha")
+          : t("cta.inquiryError");
+      toast.error(msg);
     } finally {
       setSending(false);
     }

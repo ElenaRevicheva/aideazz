@@ -296,6 +296,7 @@
     "inquirySending": "Sending…",
     "inquirySuccess": "Received — we’ll get back to you.",
     "inquiryError": "Could not send. Try email or WhatsApp below.",
+    "inquiryErrorCaptcha": "Security check failed. Refresh the page and try again.",
     "inquiryValidation": "Please add at least your name, email, or a short message."
   },
   "youtube": {
