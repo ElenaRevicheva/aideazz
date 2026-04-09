@@ -1,15 +1,17 @@
-/** Google reCAPTCHA v3 (invisible) — site key is public; secret stays on CTO AIPA. */
+/** Google reCAPTCHA Enterprise (score / v3-style) — site key is public; secret stays on CTO AIPA. */
 
 declare global {
   interface Window {
     grecaptcha?: {
-      ready: (cb: () => void) => void;
-      execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+      enterprise?: {
+        ready: (cb: () => void) => void;
+        execute: (siteKey: string, opts: { action: string }) => Promise<string>;
+      };
     };
   }
 }
 
-const SCRIPT_ID = "recaptcha-v3-script";
+const SCRIPT_ID = "recaptcha-enterprise-script";
 const LOAD_TIMEOUT_MS = 25_000;
 const EXEC_TIMEOUT_MS = 20_000;
 
@@ -29,13 +31,13 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
   ]);
 }
 
-/** Wait until grecaptcha exists (script may still be initializing). */
-function waitForGrecaptchaReady(): Promise<void> {
+/** Wait until grecaptcha.enterprise is ready. */
+function waitForEnterpriseReady(): Promise<void> {
   return new Promise((resolve, reject) => {
     const tick = () => {
-      if (window.grecaptcha?.ready) {
+      if (window.grecaptcha?.enterprise?.ready) {
         try {
-          window.grecaptcha.ready(() => resolve());
+          window.grecaptcha.enterprise.ready(() => resolve());
         } catch (e) {
           reject(e);
         }
@@ -49,7 +51,7 @@ function waitForGrecaptchaReady(): Promise<void> {
 
 function loadScript(siteKey: string): Promise<void> {
   if (typeof window === "undefined") return Promise.resolve();
-  if (window.grecaptcha?.execute) return Promise.resolve();
+  if (window.grecaptcha?.enterprise?.execute) return Promise.resolve();
   if (loadScriptPromise) return loadScriptPromise;
 
   loadScriptPromise = (async () => {
@@ -58,13 +60,13 @@ function loadScript(siteKey: string): Promise<void> {
         const s = document.createElement("script");
         s.id = SCRIPT_ID;
         s.async = true;
-        s.src = `https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
+        s.src = `https://www.google.com/recaptcha/enterprise.js?render=${encodeURIComponent(siteKey)}`;
         s.onload = () => resolve();
-        s.onerror = () => reject(new Error("reCAPTCHA script failed to load"));
+        s.onerror = () => reject(new Error("reCAPTCHA Enterprise script failed to load"));
         document.head.appendChild(s);
       });
     }
-    await withTimeout(waitForGrecaptchaReady(), LOAD_TIMEOUT_MS, "reCAPTCHA API bind");
+    await withTimeout(waitForEnterpriseReady(), LOAD_TIMEOUT_MS, "reCAPTCHA Enterprise API bind");
   })();
 
   loadScriptPromise = loadScriptPromise.catch((e) => {
@@ -79,19 +81,19 @@ function loadScript(siteKey: string): Promise<void> {
 
 export async function getRecaptchaToken(siteKey: string): Promise<string> {
   await loadScript(siteKey);
-  if (!window.grecaptcha?.execute) {
-    throw new Error("reCAPTCHA execute unavailable");
+  if (!window.grecaptcha?.enterprise?.execute) {
+    throw new Error("reCAPTCHA Enterprise execute unavailable");
   }
   return withTimeout(
     new Promise<string>((resolve, reject) => {
-      window.grecaptcha!.ready(() => {
+      window.grecaptcha!.enterprise!.ready(() => {
         window
-          .grecaptcha!.execute(siteKey, { action: "inquiry" })
+          .grecaptcha!.enterprise!.execute(siteKey, { action: "inquiry" })
           .then(resolve)
           .catch(reject);
       });
     }),
     EXEC_TIMEOUT_MS,
-    "reCAPTCHA execute"
+    "reCAPTCHA Enterprise execute"
   );
 }
