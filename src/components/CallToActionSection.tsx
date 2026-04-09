@@ -2,6 +2,7 @@ import { Heart, MessageCircle, DollarSign, Users, Mail, ExternalLink } from "luc
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import InquiryForm from "@/components/InquiryForm";
 
 const CallToActionSection = () => {
   const { t } = useTranslation();
@@ -144,6 +145,17 @@ const CallToActionSection = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Phase 3: real inquiry → Oracle (UTM from URL) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="glass-card p-8 md:p-10 mb-16"
+        >
+          <InquiryForm />
+        </motion.div>
 
         {/* Questions Link */}
         <div className="text-center mb-12">

@@ -282,7 +282,20 @@
     "footerTitle": "Construido por Humanos, para Humanos",
     "footerDescription": "AIdeazz es una plataforma de base liderada por una fundadora solitaria con una visión:",
     "footerHighlight": "IA que no solo computa, sino que conecta, entiende y ayuda a todos a prosperar a través de las transformaciones de la vida.",
-    "footerTagline": "AIdeazz.xyz • IA Emocional • Nativo Web3 • Centrado en el Humano"
+    "footerTagline": "AIdeazz.xyz • IA Emocional • Nativo Web3 • Centrado en el Humano",
+    "inquiryTitle": "Consulta de proyecto",
+    "inquirySubtitle": "Cuéntanos qué quieres conectar — se guarda en nuestro stack (el UTM de tu enlace se captura automáticamente).",
+    "inquiryName": "Nombre",
+    "inquiryNamePlaceholder": "Tu nombre",
+    "inquiryEmail": "Correo",
+    "inquiryEmailPlaceholder": "tu@empresa.com",
+    "inquiryMessage": "Mensaje",
+    "inquiryMessagePlaceholder": "¿Qué datos o sistemas debemos conectar?",
+    "inquirySubmit": "Enviar consulta",
+    "inquirySending": "Enviando…",
+    "inquirySuccess": "Recibido — te responderemos pronto.",
+    "inquiryError": "No se pudo enviar. Prueba correo o WhatsApp abajo.",
+    "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje."
   },
   "youtube": {
     "title": "Sigue a AIdeazz para Actualizaciones",

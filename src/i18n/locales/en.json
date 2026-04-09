@@ -282,7 +282,20 @@
     "footerTitle": "Built by Humans, for Humans",
     "footerDescription": "AIdeazz is a grassroots platform led by a solo founder with a vision:",
     "footerHighlight": "AI that doesn't just compute, but connects, understands, and helps us all thrive through life's transformations.",
-    "footerTagline": "AIdeazz.xyz • Emotional AI • Web3 Native • Human-Centered"
+    "footerTagline": "AIdeazz.xyz • Emotional AI • Web3 Native • Human-Centered",
+    "inquiryTitle": "Project inquiry",
+    "inquirySubtitle": "Tell us what you want to wire up — stored securely on our stack (UTM from your link is captured automatically).",
+    "inquiryName": "Name",
+    "inquiryNamePlaceholder": "Your name",
+    "inquiryEmail": "Email",
+    "inquiryEmailPlaceholder": "you@company.com",
+    "inquiryMessage": "Message",
+    "inquiryMessagePlaceholder": "What data or systems should we connect?",
+    "inquirySubmit": "Send inquiry",
+    "inquirySending": "Sending…",
+    "inquirySuccess": "Received — we’ll get back to you.",
+    "inquiryError": "Could not send. Try email or WhatsApp below.",
+    "inquiryValidation": "Please add at least your name, email, or a short message."
   },
   "youtube": {
     "title": "Follow AIdeazz for Updates",
