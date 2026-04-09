@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Cable } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -34,6 +34,10 @@ const HeroSection = () => {
     if (platformSection) {
       platformSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -80,7 +84,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button 
@@ -104,6 +108,17 @@ const HeroSection = () => {
                 className="ripple-effect border-white/20 text-white hover:bg-white/10 px-8 py-4 rounded-full font-semibold text-lg"
               >
                 {t("hero.learnMore")}
+              </Button>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                type="button"
+                onClick={scrollToContact}
+                variant="outline"
+                className="ripple-effect border-purple-400/40 text-purple-100 hover:bg-purple-500/15 px-8 py-4 rounded-full font-semibold text-lg"
+              >
+                <Cable className="w-5 h-5 mr-2 inline-block" aria-hidden />
+                {t("hero.inquiryCta")}
               </Button>
             </motion.div>
           </motion.div>

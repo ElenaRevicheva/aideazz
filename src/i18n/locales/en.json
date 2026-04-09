@@ -17,7 +17,8 @@
     "titleSubHighlight": "From \"A\" to \"Z\" of Your Private AI Space",
     "description": "Meet EspaLuz, our live bilingual family tutor helping expat families relocating to LATAM and other Spanish speaking countries thrive into Spanish, on-the-go. EspaLuz is the first in our ecosystem of emotionally intelligent AI companions.",
     "tryEspaLuz": "Try EspaLuz Now",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "inquiryCta": "Wire AI, agents & data →"
   },
   "espaluz": {
     "badge": "Living Proof of Concept",
@@ -283,14 +284,14 @@
     "footerDescription": "AIdeazz is a grassroots platform led by a solo founder with a vision:",
     "footerHighlight": "AI that doesn't just compute, but connects, understands, and helps us all thrive through life's transformations.",
     "footerTagline": "AIdeazz.xyz • Emotional AI • Web3 Native • Human-Centered",
-    "inquiryTitle": "Project inquiry",
-    "inquirySubtitle": "Tell us what you want to wire up — stored securely on our stack (UTM from your link is captured automatically).",
+    "inquiryTitle": "Applied AI, agents & automation",
+    "inquirySubtitle": "Use this form for applied AI, custom AI agents, automation, and wiring data, workflows, and systems together. Tell us your context — we respond personally. (Campaign tags from your link are saved automatically.)",
     "inquiryName": "Name",
     "inquiryNamePlaceholder": "Your name",
     "inquiryEmail": "Email",
     "inquiryEmailPlaceholder": "you@company.com",
-    "inquiryMessage": "Message",
-    "inquiryMessagePlaceholder": "What data or systems should we connect?",
+    "inquiryMessage": "What do you want to build or connect?",
+    "inquiryMessagePlaceholder": "Examples: connect CRM, email, and chat; build an AI agent on your docs or tickets; automate reports or approvals; integrate APIs and databases — describe your data, tools, and goal.",
     "inquirySubmit": "Send inquiry",
     "inquirySending": "Sending…",
     "inquirySuccess": "Received — we’ll get back to you.",

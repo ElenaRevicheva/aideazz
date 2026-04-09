@@ -17,7 +17,8 @@
     "titleSubHighlight": "De la \"A\" a la \"Z\" de tu Espacio Privado de IA",
     "description": "Conoce a EspaLuz, nuestra tutora familiar bilingüe en vivo que ayuda a familias expatriadas que se mudan a LATAM y otros países hispanohablantes a prosperar en español, sobre la marcha. EspaLuz es la primera en nuestro ecosistema de compañeros de IA emocionalmente inteligentes.",
     "tryEspaLuz": "Prueba EspaLuz Ahora",
-    "learnMore": "Saber Más"
+    "learnMore": "Saber Más",
+    "inquiryCta": "Conectar IA, agentes y datos →"
   },
   "espaluz": {
     "badge": "Prueba de Concepto en Vivo",
@@ -283,14 +284,14 @@
     "footerDescription": "AIdeazz es una plataforma de base liderada por una fundadora solitaria con una visión:",
     "footerHighlight": "IA que no solo computa, sino que conecta, entiende y ayuda a todos a prosperar a través de las transformaciones de la vida.",
     "footerTagline": "AIdeazz.xyz • IA Emocional • Nativo Web3 • Centrado en el Humano",
-    "inquiryTitle": "Consulta de proyecto",
-    "inquirySubtitle": "Cuéntanos qué quieres conectar — se guarda en nuestro stack (el UTM de tu enlace se captura automáticamente).",
+    "inquiryTitle": "IA aplicada, agentes y automatización",
+    "inquirySubtitle": "Usa este formulario para IA aplicada, creación de agentes de IA, automatización y conectar datos, flujos de trabajo y sistemas. Cuéntanos tu contexto — respondemos en persona. (Las etiquetas de campaña de tu enlace se guardan automáticamente.)",
     "inquiryName": "Nombre",
     "inquiryNamePlaceholder": "Tu nombre",
     "inquiryEmail": "Correo",
     "inquiryEmailPlaceholder": "tu@empresa.com",
-    "inquiryMessage": "Mensaje",
-    "inquiryMessagePlaceholder": "¿Qué datos o sistemas debemos conectar?",
+    "inquiryMessage": "¿Qué quieres construir o conectar?",
+    "inquiryMessagePlaceholder": "Ejemplos: conectar CRM, correo y chat; crear un agente de IA sobre tus documentos o tickets; automatizar informes o aprobaciones; integrar APIs y bases de datos — describe tus datos, herramientas y objetivo.",
     "inquirySubmit": "Enviar consulta",
     "inquirySending": "Enviando…",
     "inquirySuccess": "Recibido — te responderemos pronto.",

@@ -72,7 +72,7 @@ const InquiryForm = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto text-left">
+    <div className="max-w-xl mx-auto text-left relative z-10 pointer-events-auto">
       <h3 className="text-xl font-semibold text-white mb-2 font-poppins">{t("cta.inquiryTitle")}</h3>
       <p className="text-sm text-gray-400 mb-6">{t("cta.inquirySubtitle")}</p>
       <form onSubmit={submit} className="space-y-4">
@@ -100,7 +100,7 @@ const InquiryForm = () => {
             autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="bg-white/5 border-white/20 text-white"
+            className="relative z-10 bg-white/5 border-white/20 text-white pointer-events-auto"
             placeholder={t("cta.inquiryNamePlaceholder")}
           />
         </div>
@@ -115,7 +115,7 @@ const InquiryForm = () => {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="bg-white/5 border-white/20 text-white"
+            className="relative z-10 bg-white/5 border-white/20 text-white pointer-events-auto"
             placeholder={t("cta.inquiryEmailPlaceholder")}
           />
         </div>
@@ -129,7 +129,7 @@ const InquiryForm = () => {
             rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="bg-white/5 border-white/20 text-white resize-y min-h-[100px]"
+            className="relative z-10 bg-white/5 border-white/20 text-white resize-y min-h-[100px] pointer-events-auto"
             placeholder={t("cta.inquiryMessagePlaceholder")}
           />
         </div>

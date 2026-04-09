@@ -140,6 +140,8 @@
     mask-composite: exclude;
     opacity: 0;
     transition: opacity 0.3s ease;
+    /* Let clicks reach inputs/buttons inside the card (decorative border only) */
+    pointer-events: none;
   }
 
   .glass-card:hover::before {
