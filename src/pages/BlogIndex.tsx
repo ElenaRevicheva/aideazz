@@ -1,12 +1,8 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ArrowLeft, BookOpen, Loader2, Radio } from "lucide-react";
+import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
-import {
-  fetchHashnodePostList,
-  mergeHashnodeWithLocal,
-  HASHNODE_PUBLICATION_HOST,
-} from "@/lib/hashnode-public";
+import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-public";
 
 export default function BlogIndex() {
   const [merged, setMerged] = useState<ReturnType<typeof mergeHashnodeWithLocal> | null>(null);
@@ -27,13 +23,13 @@ export default function BlogIndex() {
     setMeta(
       "name",
       "description",
-      "Long-form writing on production AI, GEO, and agents — synced with Hashnode daily."
+      "Articles on building production AI systems, multi-agent operations, and what it takes to ship."
     );
     setMeta("property", "og:title", "Writing — AIdeazz");
     setMeta(
       "property",
       "og:description",
-      "Production AI systems, infrastructure, and how we ship — on the domain you control."
+      "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned."
     );
     setMeta("property", "og:url", "https://aideazz.xyz/blog");
     setMeta("property", "og:type", "website");
@@ -59,7 +55,7 @@ export default function BlogIndex() {
         setMerged(mergeHashnodeWithLocal(remote, local));
       } catch (e) {
         if (!cancelled) {
-          setFetchError(e instanceof Error ? e.message : "Could not load Hashnode feed");
+          setFetchError(e instanceof Error ? e.message : "Could not load latest articles");
           setMerged(mergeHashnodeWithLocal([], getAllPosts()));
         }
       } finally {
@@ -92,15 +88,13 @@ export default function BlogIndex() {
             </h1>
           </div>
           <p className="text-gray-300 text-lg max-w-2xl leading-relaxed">
-            Essays on <span className="text-white font-medium">shipping AI in production</span>, multi-agent
-            ops, and GEO — published on{" "}
-            <span className="text-purple-300">aideazz.xyz</span> and mirrored from{" "}
-            <span className="text-fuchsia-300">{HASHNODE_PUBLICATION_HOST}</span> so{" "}
-            <span className="text-white">new Hashnode posts show up here the same day</span>, no redeploy.
+            Practical notes on <span className="text-white font-medium">AI in production</span> — how
+            multi-agent systems are wired, what breaks at scale, and how to think about cost and risk. New
+            posts appear here regularly; you can read each one in full on this site.
           </p>
           {fetchError ? (
-            <p className="text-amber-400/90 text-sm mt-3">
-              Live sync unavailable ({fetchError}). Showing bundled posts only — refresh later.
+            <p className="text-gray-500 text-sm mt-4 border-l-2 border-amber-500/50 pl-3">
+              Showing saved articles. If the list looks incomplete, refresh in a moment.
             </p>
           ) : null}
         </header>
@@ -108,22 +102,19 @@ export default function BlogIndex() {
         {loading ? (
           <div className="flex items-center gap-3 text-purple-300">
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Syncing latest posts from Hashnode…</span>
+            <span>Loading articles…</span>
           </div>
+        ) : posts.length === 0 ? (
+          <p className="text-gray-400">No articles yet — check back soon.</p>
         ) : (
           <ul className="space-y-6">
             {posts.map((p) => (
               <li key={p.slug}>
-                <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:border-purple-500/30 transition-colors">
-                  <div className="flex flex-wrap items-center gap-2 text-xs text-purple-400/90 font-mono mb-1">
-                    <time dateTime={p.date}>{p.date}</time>
-                    <span className="text-white/20">·</span>
-                    <span className="inline-flex items-center gap-1 text-emerald-400/90">
-                      <Radio className="w-3 h-3" />
-                      Live feed
-                    </span>
-                  </div>
-                  <h2 className="text-xl font-semibold mt-1">
+                <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:border-purple-500/30 transition-colors shadow-lg shadow-purple-950/20">
+                  <time className="text-xs text-purple-400/90 font-mono" dateTime={p.date}>
+                    {p.date}
+                  </time>
+                  <h2 className="text-xl font-semibold mt-2">
                     <Link to={`/blog/${p.slug}`} className="hover:text-purple-300 transition-colors">
                       {p.title}
                     </Link>
@@ -131,21 +122,21 @@ export default function BlogIndex() {
                   {p.description ? (
                     <p className="text-gray-400 mt-2 text-sm leading-relaxed line-clamp-4">{p.description}</p>
                   ) : null}
-                  <div className="flex flex-wrap gap-4 mt-4">
+                  <div className="flex flex-wrap gap-4 mt-5">
                     <Link
                       to={`/blog/${p.slug}`}
-                      className="inline-flex text-sm font-medium text-purple-400 hover:text-purple-300"
+                      className="inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-purple-900/40"
                     >
-                      Read on AIdeazz →
+                      Read article
                     </Link>
                     {p.hashnodeUrl ? (
                       <a
                         href={p.hashnodeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex text-sm text-gray-500 hover:text-gray-300"
+                        className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 underline-offset-4 hover:underline"
                       >
-                        Open on Hashnode
+                        Also on Hashnode
                       </a>
                     ) : null}
                   </div>

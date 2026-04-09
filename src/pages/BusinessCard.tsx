@@ -448,7 +448,6 @@ export default function BusinessCard() {
                   </div>
                 </motion.header>
 
-                {/* Self-hosted blog (Phase 2 roadmap) — additive; Hashnode remains a syndication channel */}
                 <motion.section
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -456,20 +455,29 @@ export default function BusinessCard() {
                   className="mb-10"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="rounded-2xl border border-purple-500/20 bg-gradient-to-r from-purple-950/40 to-slate-900/60 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-purple-400 font-semibold mb-1">
-                        {t("writing.badge")}
-                      </p>
-                      <p className="text-white font-semibold">{t("writing.title")}</p>
-                      <p className="text-sm text-gray-400 mt-1 max-w-xl">{t("writing.desc")}</p>
+                  <div className="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/50 via-slate-900/70 to-slate-950/80 p-6 sm:p-7 flex flex-col lg:flex-row lg:items-center gap-6 shadow-[0_12px_40px_rgba(88,28,135,0.15)]">
+                    <div className="flex gap-4 flex-1 min-w-0">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600/40 to-pink-600/30 border border-white/10">
+                        <FileText className="w-6 h-6 text-purple-200" />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-xs uppercase tracking-[0.2em] text-purple-300/90 font-semibold mb-2">
+                          {t("writing.badge")}
+                        </p>
+                        <p className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                          {t("writing.title")}
+                        </p>
+                        <p className="text-sm text-gray-300 mt-2 max-w-2xl leading-relaxed">
+                          {t("writing.desc")}
+                        </p>
+                      </div>
                     </div>
                     <Link
                       to="/blog"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-sm font-medium text-white whitespace-nowrap transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-sm font-semibold text-white whitespace-nowrap shadow-lg shadow-purple-900/40 transition-all shrink-0"
                     >
-                      <ArrowRight className="w-4 h-4" />
                       {t("writing.cta")}
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </motion.section>

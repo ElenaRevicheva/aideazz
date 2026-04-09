@@ -326,9 +326,9 @@
   },
   "writing": {
     "badge": "Artículos",
-    "title": "Ensayos — sincronizados cada día con Hashnode",
-    "desc": "Cuando sale el post diario (09:30 Ciudad de Panamá) en Hashnode, aparece aquí solo. Mismo contenido: tu dominio para GEO, Hashnode para alcance.",
-    "cta": "Abrir blog"
+    "title": "Ensayos sobre IA en producción",
+    "desc": "Textos largos sobre agentes, infraestructura y despliegue — léelos completos en el blog. Sin humo: lo que funciona en producción.",
+    "cta": "Ver artículos"
   },
   "section1": {
     "title": "Productos IA en Vivo — Listos para Monetización",

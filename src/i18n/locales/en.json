@@ -326,9 +326,9 @@
   },
   "writing": {
     "badge": "Writing",
-    "title": "Essays — synced daily with Hashnode",
-    "desc": "When the 09:30 Panama post hits Hashnode, it appears here automatically. Same articles: your domain for GEO, Hashnode for reach.",
-    "cta": "Open blog"
+    "title": "Articles on AI in production",
+    "desc": "Long-form notes on agents, infrastructure, and shipping — read in full on the blog. No hype, just what works in the real stack.",
+    "cta": "Read articles"
   },
   "section1": {
     "title": "Live AI Products — Monetization Ready",
