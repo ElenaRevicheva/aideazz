@@ -77,7 +77,7 @@ AIdeazz is a **full-stack AI agent platform** of production-ready autonomous age
 
 ### **Web3 & Blockchain**
 ```
-- Fleek deployment (IPFS/decentralized hosting)
+- 4everland deployment (IPFS/decentralized hosting)
 - Web3.js / Ethers.js integration
 - Smart contract interaction
 - Crypto payment processing (PayPal + native crypto)
@@ -157,18 +157,18 @@ VITE_WEB3_PROVIDER=your_web3_provider
 | **Database** | MongoDB, Redis | Data persistence + caching |
 | **AI/ML** | GPT-4, Claude | Intelligent agent capabilities |
 | **Web3** | Web3.js, Ethers.js | Blockchain integration |
-| **Deployment** | Fleek (IPFS) | Decentralized hosting |
+| **Deployment** | 4everland (IPFS) | Decentralized hosting |
 | **CI/CD** | GitHub Actions | Automated deployments |
 
 ---
 
 ## Deployment & Infrastructure
 
-- **Hosting:** Fleek (IPFS - decentralized, censorship-resistant)
+- **Hosting:** 4everland (IPFS - decentralized, censorship-resistant)
 - **Domain:** https://aideazz.com (ENS-compatible)
 - **CDN:** Distributed IPFS nodes globally
 - **SSL:** Automatic HTTPS
-- **Continuous Deployment:** Auto-deploy from `main` branch
+- **Continuous Deployment:** [4everland](https://www.4everland.org/) builds from the `main` branch and deploys to IPFS (site + portfolio)
 - **Performance:** <100ms First Contentful Paint, 95+ Lighthouse score
 
 ---

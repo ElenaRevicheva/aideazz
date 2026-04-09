@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -316,7 +317,7 @@ export default function BusinessCard() {
     "AI / LLM": ["Claude Opus 4", "Claude Sonnet 4", "Groq (Llama 3.3 70B)", "OpenAI GPT", "Whisper", "Flux Pro", "Luma Dream Machine", "edge-tts", "LangChain", "MCP", "Eliza OS"],
     "Database & Infra": ["Oracle Autonomous DB 26ai (mTLS)", "PostgreSQL", "SQLite", "Oracle Cloud (OCI)", "systemd", "PM2", "Docker"],
     "Integrations": ["GitHub API", "Telegram Bot API", "WhatsApp Cloud API", "Twitter API v2", "PayPal IPN", "Buffer", "Make.com", "CCXT (5 exchanges)", "Playwright"],
-    "Web3": ["Polygon", "Thirdweb SDK", "IPFS", "Fleek", "MetaMask"]
+    "Web3": ["Polygon", "Thirdweb SDK", "IPFS", "4everland", "MetaMask"]
   };
 
   const coreStrengths: string[] = [
@@ -446,6 +447,32 @@ export default function BusinessCard() {
                     </div>
                   </div>
                 </motion.header>
+
+                {/* Self-hosted blog (Phase 2 roadmap) — additive; Hashnode remains a syndication channel */}
+                <motion.section
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 }}
+                  className="mb-10"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="rounded-2xl border border-purple-500/20 bg-gradient-to-r from-purple-950/40 to-slate-900/60 p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-wider text-purple-400 font-semibold mb-1">
+                        {t("writing.badge")}
+                      </p>
+                      <p className="text-white font-semibold">{t("writing.title")}</p>
+                      <p className="text-sm text-gray-400 mt-1 max-w-xl">{t("writing.desc")}</p>
+                    </div>
+                    <Link
+                      to="/blog"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-sm font-medium text-white whitespace-nowrap transition-colors"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                      {t("writing.cta")}
+                    </Link>
+                  </div>
+                </motion.section>
 
                 {/* AI CO-FOUNDERS SECTION */}
                 <motion.section 

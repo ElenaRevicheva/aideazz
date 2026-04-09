@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import BusinessCard from "./pages/BusinessCard";
 import About from "./pages/About";
+import BlogIndex from "./pages/BlogIndex";
+import BlogPost from "./pages/BlogPost";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +22,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/portfolio" element={<BusinessCard />} />
           <Route path="/about" element={<About />} />
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/card" element={<Navigate to="/portfolio" replace />} />
           <Route path="*" element={<div>404 - Page Not Found</div>} />
         </Routes>

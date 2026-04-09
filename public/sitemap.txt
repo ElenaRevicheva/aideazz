@@ -3,3 +3,5 @@ https://aideazz.xyz/about
 https://aideazz.xyz/portfolio
 https://aideazz.xyz/pitch.html
 https://aideazz.xyz/pitch-es.html
+https://aideazz.xyz/blog
+https://aideazz.xyz/blog/from-boardroom-to-build-what-running-nine-production-ai-agents-actually-means

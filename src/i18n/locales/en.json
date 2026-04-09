@@ -324,6 +324,12 @@
     "resumeButton": "Resume",
     "contactButton": "Let's Build"
   },
+  "writing": {
+    "badge": "Writing",
+    "title": "Long-form on aideazz.xyz",
+    "desc": "Production AI, GEO, and multi-agent operations — canonical on this domain. The same essays are also on Hashnode for distribution.",
+    "cta": "Open blog"
+  },
   "section1": {
     "title": "Live AI Products — Monetization Ready",
     "cofounderTitle": "AI Co-Founders — Autonomous & Live",

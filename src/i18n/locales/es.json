@@ -324,6 +324,12 @@
     "resumeButton": "Currículum",
     "contactButton": "Construyamos Juntos"
   },
+  "writing": {
+    "badge": "Artículos",
+    "title": "Textos largos en aideazz.xyz",
+    "desc": "IA en producción, GEO y operaciones multi-agente — versión canónica en este dominio. Los mismos textos también están en Hashnode para difusión.",
+    "cta": "Abrir blog"
+  },
   "section1": {
     "title": "Productos IA en Vivo — Listos para Monetización",
     "cofounderTitle": "Co-Fundadores de IA — Autónomos y en Vivo",
