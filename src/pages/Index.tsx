@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import EspaLuzSection from "@/components/EspaLuzSection";
@@ -14,6 +15,16 @@ import ScrollProgress from "@/components/ScrollProgress";
 import MagneticCursor from "@/components/MagneticCursor";
 
 const Index = () => {
+  useEffect(() => {
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute("href", "https://aideazz.xyz/");
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <MagneticCursor />
