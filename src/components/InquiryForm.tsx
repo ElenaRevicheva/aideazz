@@ -10,10 +10,17 @@ import { MARKETING_INQUIRY_PROXY_URL } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
 import { Send, Loader2 } from "lucide-react";
 
+type InquiryFormProps = {
+  /** Anchor for deep links / scroll (default `inquiry-form`). */
+  id?: string;
+  className?: string;
+};
+
 /**
  * Phase 3: UTM from URL + Oracle business_leads via CTO AIPA (real POST, no simulation).
+ * Same reCAPTCHA + proxy as homepage — works on any route under aideazz.xyz (Origin allowlist).
  */
-const InquiryForm = () => {
+const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [name, setName] = useState("");
@@ -108,8 +115,11 @@ const InquiryForm = () => {
 
   return (
     <div
-      id="inquiry-form"
-      className="max-w-xl mx-auto text-left relative z-10 pointer-events-auto scroll-mt-28 md:scroll-mt-32"
+      id={id}
+      className={
+        className ??
+        "max-w-xl mx-auto text-left relative z-10 pointer-events-auto scroll-mt-28 md:scroll-mt-32"
+      }
     >
       <h3 className="text-xl font-semibold text-white mb-2 font-poppins">{t("cta.inquiryTitle")}</h3>
       <p className="text-sm text-gray-400 mb-6">{t("cta.inquirySubtitle")}</p>

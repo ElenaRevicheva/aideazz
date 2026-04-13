@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import InquiryForm from "@/components/InquiryForm";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -1016,6 +1017,17 @@ export default function BusinessCard() {
                   <p className="text-gray-300 mb-6">
                     {t('contact.location')}
                   </p>
+
+                  {/* Phase 3: same inquiry + reCAPTCHA as homepage → Oracle business_leads (see CTO AIPA inquiry-proxy) */}
+                  <div
+                    className="mb-10 max-w-xl mx-auto text-left"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <InquiryForm
+                      id="portfolio-inquiry-form"
+                      className="max-w-xl mx-auto text-left relative z-20 pointer-events-auto rounded-2xl border border-purple-500/25 bg-white/[0.04] p-6 sm:p-8 scroll-mt-24"
+                    />
+                  </div>
                   
                   <div className="flex flex-wrap justify-center gap-4">
                     <motion.a 
