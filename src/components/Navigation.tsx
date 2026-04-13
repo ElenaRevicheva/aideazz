@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { motion } from "framer-motion";
+import { scrollToInquiryForm } from "@/lib/scrollToInquiryForm";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +62,11 @@ const Navigation = () => {
             {/* Desktop CTA & Language Switcher */}
             <div className="hidden md:flex items-center gap-4">
               <LanguageSwitcher />
-              <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+              <Button
+                type="button"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+                onClick={() => scrollToInquiryForm()}
+              >
                 <Sparkles className="w-4 h-4 mr-2" />
                 {t("nav.cta")}
               </Button>
@@ -96,7 +101,14 @@ const Navigation = () => {
                 <div className="flex items-center justify-center py-2">
                   <LanguageSwitcher />
                 </div>
-                <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4">
+                <Button
+                  type="button"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-2 rounded-full font-semibold shadow-lg hover:shadow-purple-500/25 transition-all duration-300 mt-4"
+                  onClick={() => {
+                    setIsOpen(false);
+                    scrollToInquiryForm();
+                  }}
+                >
                   <Sparkles className="w-4 h-4 mr-2" />
                   {t("nav.cta")}
                 </Button>

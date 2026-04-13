@@ -107,7 +107,10 @@ const InquiryForm = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto text-left relative z-10 pointer-events-auto">
+    <div
+      id="inquiry-form"
+      className="max-w-xl mx-auto text-left relative z-10 pointer-events-auto scroll-mt-28 md:scroll-mt-32"
+    >
       <h3 className="text-xl font-semibold text-white mb-2 font-poppins">{t("cta.inquiryTitle")}</h3>
       <p className="text-sm text-gray-400 mb-6">{t("cta.inquirySubtitle")}</p>
       <form onSubmit={submit} className="space-y-4">

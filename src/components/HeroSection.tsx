@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import GradientMesh from "./GradientMesh";
+import { scrollToInquiryForm } from "@/lib/scrollToInquiryForm";
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ const HeroSection = () => {
   };
 
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    scrollToInquiryForm();
   };
 
   return (
