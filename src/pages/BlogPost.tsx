@@ -178,7 +178,16 @@ export default function BlogPost() {
             {description ? <p className="text-gray-400 mt-4 text-lg">{description}</p> : null}
           </header>
           <div className="prose prose-invert prose-purple max-w-none prose-headings:text-white prose-a:text-purple-400 prose-strong:text-white">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{bodyMd}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                img: ({ alt, ...props }) => (
+                  <img {...props} alt={alt?.trim() ? alt : "Article illustration"} loading="lazy" decoding="async" />
+                ),
+              }}
+            >
+              {bodyMd}
+            </ReactMarkdown>
           </div>
           {hashnodeUrl ? (
             <footer className="mt-12 pt-8 border-t border-white/10 text-sm text-gray-400">

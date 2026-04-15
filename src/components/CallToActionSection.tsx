@@ -81,7 +81,7 @@ const CallToActionSection = () => {
               <Button 
                 size="sm" 
                 className="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold cursor-pointer relative z-40"
-                onClick={() => window.open('https://www.aideazz.xyz/pitch.html', '_blank')}
+                onClick={() => window.open('https://aideazz.xyz/pitch.html', '_blank')}
                 style={{ pointerEvents: 'auto' }}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />

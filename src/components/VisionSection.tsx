@@ -248,7 +248,7 @@ const VisionSection = () => {
             {/* Portfolio Link */}
             <div className="text-center mt-8 pt-6 border-t border-purple-500/20">
               <a
-                href="https://www.aideazz.xyz/portfolio"
+                href="https://aideazz.xyz/portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold rounded-full transition-all duration-300 cursor-pointer relative z-40 transform hover:scale-105"

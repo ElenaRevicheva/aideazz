@@ -1,7 +1,11 @@
 https://aideazz.xyz/
 https://aideazz.xyz/about
 https://aideazz.xyz/portfolio
+https://aideazz.xyz/blog
 https://aideazz.xyz/pitch.html
 https://aideazz.xyz/pitch-es.html
-https://aideazz.xyz/blog
-https://aideazz.xyz/blog/from-boardroom-to-build-what-running-nine-production-ai-agents-actually-means
+https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production
+https://aideazz.xyz/blog/ai-automation-for-small-business-what-ships-vs-what-dies
+https://aideazz.xyz/blog/ai-for-construction-business-beyond-dashboards-to-field-operations
+https://aideazz.xyz/blog/why-i-route-76-of-inference-away-from-frontier-models
+https://aideazz.xyz/blog/ai-assisted-development-how-i-ship-production-code-without-a-cs-degree
