@@ -1,43 +1,21 @@
 import { useEffect } from "react";
+import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function About() {
   useEffect(() => {
-    document.title = "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz";
-
-    const setMeta = (attr: string, key: string, content: string) => {
-      let tag = document.querySelector(`meta[${attr}="${key}"]`);
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.setAttribute(attr, key);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute("content", content);
-    };
-
-    setMeta("name", "description",
-      "Elena Revicheva: 7 years as Deputy CEO in digital infrastructure, now building production AI systems. 9 AI agents running on Oracle Cloud at $0/month."
-    );
-    setMeta("property", "og:title", "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz");
-    setMeta("property", "og:description",
-      "7 years board-level executive. 9 production AI agents at $0/month. I speak both languages — CEO and engineer."
-    );
-    setMeta("property", "og:url", "https://aideazz.xyz/about");
-    setMeta("property", "og:type", "profile");
-    setMeta("property", "og:image", "https://aideazz.xyz/elena-og.jpg");
-    setMeta("name", "twitter:card", "summary_large_image");
-    setMeta("name", "twitter:title", "Elena Revicheva — Executive-Turned-AI-Builder");
-    setMeta("name", "twitter:description",
-      "7 years Deputy CEO. 9 production AI agents. $0/month infra. Multi-model LLM routing."
-    );
-    setMeta("name", "twitter:image", "https://aideazz.xyz/elena-og.jpg");
-
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://aideazz.xyz/about");
+    applyPageSeo({
+      title: "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz",
+      description:
+        "Elena Revicheva: 7 years as Deputy CEO in digital infrastructure, now building production AI systems. 9 AI agents running on Oracle Cloud at $0/month.",
+      canonicalUrl: `${SITE_ORIGIN}/about`,
+      ogType: "profile",
+      ogTitle: "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz",
+      ogDescription:
+        "7 years board-level executive. 9 production AI agents at $0/month. I speak both languages — CEO and engineer.",
+      twitterTitle: "Elena Revicheva — Executive-Turned-AI-Builder",
+      twitterDescription:
+        "7 years Deputy CEO. 9 production AI agents. $0/month infra. Multi-model LLM routing.",
+    });
 
     // JSON-LD Person schema for GEO
     const existingLd = document.querySelector('script[data-about-ld]');

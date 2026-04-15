@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import { getAllPosts } from "@/lib/blog";
 import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-public";
+import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function BlogIndex() {
   const [merged, setMerged] = useState<ReturnType<typeof mergeHashnodeWithLocal> | null>(null);
@@ -10,37 +11,18 @@ export default function BlogIndex() {
   const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Writing — AIdeazz | Elena Revicheva";
-    const setMeta = (attr: string, key: string, content: string) => {
-      let tag = document.querySelector(`meta[${attr}="${key}"]`);
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.setAttribute(attr, key);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute("content", content);
-    };
-    setMeta(
-      "name",
-      "description",
-      "Articles on building production AI systems, multi-agent operations, and what it takes to ship."
-    );
-    setMeta("property", "og:title", "Writing — AIdeazz");
-    setMeta(
-      "property",
-      "og:description",
-      "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned."
-    );
-    setMeta("property", "og:url", "https://aideazz.xyz/blog");
-    setMeta("property", "og:type", "website");
-    setMeta("property", "og:image", "https://aideazz.xyz/elena-og.jpg");
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://aideazz.xyz/blog");
+    applyPageSeo({
+      title: "Writing — AIdeazz | Elena Revicheva",
+      description:
+        "Articles on building production AI systems, multi-agent operations, and what it takes to ship.",
+      canonicalUrl: `${SITE_ORIGIN}/blog`,
+      ogTitle: "Writing — AIdeazz",
+      ogDescription:
+        "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned.",
+      twitterTitle: "Writing — AIdeazz | Elena Revicheva",
+      twitterDescription:
+        "Production AI systems, multi-agent operations, and lessons from shipping nine agents on Oracle Cloud.",
+    });
   }, []);
 
   useEffect(() => {

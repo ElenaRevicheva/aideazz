@@ -5,8 +5,7 @@ import remarkGfm from "remark-gfm";
 import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 import { getPostBySlug } from "@/lib/blog";
 import { fetchHashnodePostBySlug } from "@/lib/hashnode-public";
-
-const SITE = "https://aideazz.xyz";
+import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -68,31 +67,18 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug || !title) return;
-    document.title = `${title} | AIdeazz`;
-    const url = `${SITE}/blog/${slug}`;
-    const setMeta = (attr: string, key: string, content: string) => {
-      let tag = document.querySelector(`meta[${attr}="${key}"]`);
-      if (!tag) {
-        tag = document.createElement("meta");
-        tag.setAttribute(attr, key);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute("content", content);
-    };
-    setMeta("name", "description", description || title);
-    setMeta("property", "og:title", title);
-    setMeta("property", "og:description", description || title);
-    setMeta("property", "og:url", url);
-    setMeta("property", "og:type", "article");
-    setMeta("property", "og:image", `${SITE}/elena-og.jpg`);
-    setMeta("name", "twitter:card", "summary_large_image");
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", url);
+    const url = `${SITE_ORIGIN}/blog/${slug}`;
+    const desc = (description || title).slice(0, 320);
+    applyPageSeo({
+      title: `${title} | AIdeazz`,
+      description: desc,
+      canonicalUrl: url,
+      ogType: "article",
+      ogTitle: title,
+      ogDescription: desc,
+      twitterTitle: title,
+      twitterDescription: desc,
+    });
 
     const existing = document.querySelector("script[data-blog-article-ld]");
     if (existing) existing.remove();
@@ -106,12 +92,12 @@ export default function BlogPost() {
       author: {
         "@type": "Person",
         name: "Elena Revicheva",
-        url: `${SITE}/about`,
+        url: `${SITE_ORIGIN}/about`,
       },
       publisher: {
         "@type": "Organization",
         name: "AIdeazz",
-        url: SITE,
+        url: SITE_ORIGIN,
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       ...(hashnodeUrl ? { sameAs: hashnodeUrl } : {}),

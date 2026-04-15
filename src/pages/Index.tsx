@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { applyHomePageSeo } from "@/lib/seo";
 import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import EspaLuzSection from "@/components/EspaLuzSection";
@@ -16,13 +17,7 @@ import MagneticCursor from "@/components/MagneticCursor";
 
 const Index = () => {
   useEffect(() => {
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.setAttribute("rel", "canonical");
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute("href", "https://aideazz.xyz/");
+    applyHomePageSeo();
   }, []);
 
   return (

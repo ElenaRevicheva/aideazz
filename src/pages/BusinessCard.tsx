@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
   const [count, setCount] = useState(0);
@@ -95,43 +96,16 @@ export default function BusinessCard() {
       ? "Portafolio de Elena Revicheva: productos de IA en produccion, agentes autonomos y sistemas reales desplegados."
       : "Portfolio of Elena Revicheva: production AI products, autonomous agents, and real systems deployed.";
 
-    document.title = pageTitle;
-
-    const descriptionTag = document.querySelector('meta[name="description"]');
-    if (descriptionTag) {
-      descriptionTag.setAttribute("content", pageDescription);
-    }
-
-    // OG tags for portfolio page (social sharing)
-    const setMetaProperty = (property: string, content: string) => {
-      let tag = document.querySelector(`meta[property="${property}"]`);
-      if (!tag) {
-        tag = document.createElement('meta');
-        tag.setAttribute('property', property);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute('content', content);
-    };
-    const setMetaName = (name: string, content: string) => {
-      let tag = document.querySelector(`meta[name="${name}"]`);
-      if (!tag) {
-        tag = document.createElement('meta');
-        tag.setAttribute('name', name);
-        document.head.appendChild(tag);
-      }
-      tag.setAttribute('content', content);
-    };
-
-    setMetaProperty('og:type', 'profile');
-    setMetaProperty('og:url', 'https://aideazz.xyz/portfolio');
-    setMetaProperty('og:title', pageTitle);
-    setMetaProperty('og:description', pageDescription);
-    setMetaProperty('og:image', 'https://aideazz.xyz/elena-og.jpg');
-    setMetaName('twitter:card', 'summary_large_image');
-    setMetaName('twitter:title', pageTitle);
-    setMetaName('twitter:description', pageDescription);
-    setMetaName('twitter:image', 'https://aideazz.xyz/elena-og.jpg');
-    setMetaName('twitter:creator', '@reviceva');
+    applyPageSeo({
+      title: pageTitle,
+      description: pageDescription,
+      canonicalUrl: `${SITE_ORIGIN}/portfolio`,
+      ogType: "profile",
+      ogTitle: pageTitle,
+      ogDescription: pageDescription,
+      twitterTitle: pageTitle,
+      twitterDescription: pageDescription,
+    });
 
     // JSON-LD: Portfolio structured data for GEO
     const existingLd = document.querySelector('script[data-portfolio-ld]');
@@ -166,15 +140,6 @@ export default function BusinessCard() {
       }
     });
     document.head.appendChild(ldScript);
-
-    // Canonical for portfolio
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', 'https://aideazz.xyz/portfolio');
   }, [isSpanish]);
 
   useEffect(() => {

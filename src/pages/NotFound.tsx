@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,6 +10,19 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const path = location.pathname || "/";
+    applyPageSeo({
+      title: "Page not found | AIdeazz",
+      description:
+        "This page is not on aideazz.xyz. Return to the homepage for AI agents, portfolio, and contact.",
+      canonicalUrl: `${SITE_ORIGIN}${path.startsWith("/") ? path : `/${path}`}`,
+      ogTitle: "404 — AIdeazz",
+      ogDescription: "Page not found.",
+      robots: "noindex, follow",
+    });
   }, [location.pathname]);
 
   return (
