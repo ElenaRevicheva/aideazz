@@ -37,6 +37,11 @@
 
     <!-- Canonical: set per-route in React (Index, About, Blog*, Portfolio) — no static link here (was duplicate for all URLs in GSC) -->
 
+    <!-- hreflang: site serves EN + ES at same URLs via i18next (browser/localStorage detection) -->
+    <link rel="alternate" hreflang="en" href="https://aideazz.xyz/" />
+    <link rel="alternate" hreflang="es" href="https://aideazz.xyz/" />
+    <link rel="alternate" hreflang="x-default" href="https://aideazz.xyz/" />
+
     <!-- Author & GEO signals -->
     <meta name="author" content="Elena Revicheva" />
     <meta name="robots" content="index, follow" />

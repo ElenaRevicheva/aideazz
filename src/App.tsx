@@ -10,6 +10,7 @@ import BusinessCard from "./pages/BusinessCard";
 import About from "./pages/About";
 import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
+import NotFound from "./pages/NotFound";
 
 /** Public origin for CTO AIPA (nginx serves /cto/ → PM2). Override: VITE_CTO_WEBHOOK_ORIGIN */
 const CTO_WEBHOOK_ORIGIN = (
@@ -53,7 +54,7 @@ const App = () => (
           {/* Explicit + splat so /cto/leads/dashboard always matches (SPA hosts + RR6) */}
           <Route path="/cto/leads/dashboard" element={<CtoRedirect />} />
           <Route path="/cto/*" element={<CtoRedirect />} />
-          <Route path="*" element={<div>404 - Page Not Found</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
