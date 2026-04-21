@@ -358,6 +358,15 @@
       "action": "View on GitHub",
       "badge": "LIVE"
     },
+    "geo": {
+      "title": "GEO + SEO Engine",
+      "subtitle": "Site discoverability & content pipeline",
+      "desc": "Public-site layer: JSON-LD (Person, Organization, FAQ, portfolio ProfilePage), generated sitemap and robots rules (incl. common AI crawlers), canonical URLs and hreflang EN/ES. Wired to CTO AIPA for production publishing — Claude drafts long-form posts from rotating topic briefs with best-effort Google Search Console query hints when API access is configured; publishes to Hashnode, mirrors on aideazz/blog, optional Dev.to cross-post with canonical back to the site; runs logged to Oracle content_log. Contact forms pass UTMs through an origin-checked inquiry proxy into Oracle business_leads for triage and outreach — same stack as the rest of the ecosystem, no black-box SEO promises.",
+      "traction": "Structured data + sitemap live • Scheduled publish path (opt-in) • Blog mirror + content_log • Lead + UTM pipeline to Oracle",
+      "tech": "Vite, React, Hashnode GraphQL, Dev.to API, Claude, Google Search Console (optional), GA4, reCAPTCHA Enterprise, Oracle Autonomous DB, Node.js cron (CTO AIPA)",
+      "action": "View on GitHub",
+      "badge": "LIVE"
+    },
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "AI Marketing Co-Founder & Job Hunting Engine",

@@ -358,6 +358,15 @@
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
+    "geo": {
+      "title": "Motor GEO + SEO",
+      "subtitle": "Descubrimiento del sitio y pipeline de contenido",
+      "desc": "Capa del sitio público: JSON-LD (Person, Organization, FAQ, ProfilePage del portafolio), sitemap generado y reglas en robots (incl. rastreadores de IA habituales), URLs canónicas y hreflang EN/ES. Conectado a CTO AIPA para publicación en producción: Claude redacta artículos largos a partir de briefs rotativos con apoyo opcional de consultas de Google Search Console cuando hay API configurada; publica en Hashnode, refleja en aideazz/blog, cross-post opcional en Dev.to con canónica al sitio; cada ejecución queda en Oracle content_log. Los formularios envían UTMs por un proxy de consultas con allowlist de origen hacia Oracle business_leads para triage y outreach — el mismo stack que el resto del ecosistema, sin promesas opacas de SEO.",
+      "traction": "Datos estructurados + sitemap en vivo • Publicación programada (opt-in) • Espejo del blog + content_log • Pipeline de leads y UTM a Oracle",
+      "tech": "Vite, React, GraphQL Hashnode, API Dev.to, Claude, Google Search Console (opcional), GA4, reCAPTCHA Enterprise, Oracle Autonomous DB, cron Node.js (CTO AIPA)",
+      "action": "Ver en GitHub",
+      "badge": "EN VIVO"
+    },
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "Cofundador de Marketing IA y Motor de Búsqueda de Empleo",

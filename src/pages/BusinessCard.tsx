@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
@@ -222,6 +222,21 @@ export default function BusinessCard() {
       action: t('section1.cto.action'),
       link: "https://github.com/ElenaRevicheva/AIPA_AITCF",
       badge: t('section1.cto.badge')
+    },
+    {
+      icon: Search,
+      iconColor: "text-sky-300",
+      iconBgFrom: "from-sky-500/20",
+      iconBgTo: "to-cyan-500/20",
+      iconGlow: "bg-sky-500/20",
+      title: t('section1.geo.title'),
+      subtitle: t('section1.geo.subtitle'),
+      desc: t('section1.geo.desc'),
+      traction: t('section1.geo.traction'),
+      tech: t('section1.geo.tech'),
+      action: t('section1.geo.action'),
+      link: "https://github.com/ElenaRevicheva/aideazz",
+      badge: t('section1.geo.badge')
     },
     {
       icon: TrendingUp,
@@ -460,7 +475,7 @@ export default function BusinessCard() {
                     <h2 className="text-2xl font-bold">{t('section1.cofounderTitle')}</h2>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {aiCoFounders.map((agent, idx) => (
                       <motion.div
                         key={agent.title}
