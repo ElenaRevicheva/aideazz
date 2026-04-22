@@ -461,6 +461,7 @@
   "section3": {
     "title": "Ecosistema AIdeazz — La Visión",
     "mainTitle": "AIdeazz",
+    "missionLead": "<aideazz>AIdeazz</aideazz> es un ecosistema de agentes con inteligencia emocional, nacido en Panamá y con el apoyo de <isd>Innovation Smart District (ISD)</isd>. Nuestra misión es construir compañeros de IA conscientes que amplifiquen el potencial humano mediante educación, coaching y asistencia digital confiable.",
     "desc1": "AIdeazz es un ecosistema en producción de agentes IA con contexto persistente — construido en Panamá y respaldado por Innovation Smart District (ISD). La plataforma combina arquitecturas de memoria persistente, enrutamiento LLM multi-modelo e inteligencia emocional para entregar asistentes IA que operan en educación, automatización y productividad personal.",
     "desc2": "Diseñado no para reemplazar el juicio humano sino para potenciarlo — ayudando a los usuarios a adquirir nuevas habilidades, tomar mejores decisiones y operar más rápido a través de IA personalizada que retiene contexto a lo largo del tiempo.",
     "vision": "La tesis: toda persona — profesional o no — eventualmente necesitará un agente IA personal. No un chatbot genérico, sino un sistema persistente y evolutivo que entienda su contexto, recuerde su historial, se adapte a los desafíos de la vida real y acumule valor con el tiempo.",

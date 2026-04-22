@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
@@ -1161,26 +1161,29 @@ export default function BusinessCard() {
                         </a>
                       </h3>
                       <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                        <a 
-                          href="https://aideazz.xyz/" 
-                          target="_blank" 
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
-                        >
-                          AIdeazz
-                        </a>
-                        {' '}is an ecosystem of emotionally intelligent agents — born in Panama and supported by{' '}
-                        <a 
-                          href="https://www.isdistrict.com/" 
-                          target="_blank" 
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
-                        >
-                          Innovation Smart District (ISD)
-                        </a>
-                        . Our mission is to build conscious AI companions that amplify human potential through education, coaching, and trusted digital assistance.
+                        <Trans
+                          i18nKey="section3.missionLead"
+                          components={{
+                            aideazz: (
+                              <a
+                                href="https://aideazz.xyz/"
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                              />
+                            ),
+                            isd: (
+                              <a
+                                href="https://www.isdistrict.com/"
+                                target="_blank"
+                                rel="noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                className="text-purple-300 hover:text-purple-200 underline underline-offset-2 transition-colors"
+                              />
+                            ),
+                          }}
+                        />
                       </p>
                       <p className="text-gray-300 text-sm leading-relaxed">
                         {t('section3.desc2')}
