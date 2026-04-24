@@ -7,3 +7,5 @@ AIdeazz pitch deck → PDF (design preserved)
 5. Save into this folder: pitch-pdf/
 
 Screen layout is unchanged; print rules only run for Print / Save as PDF.
+
+Note: Long slides may continue across more than one PDF page (no forced blank sheets). Hero / spotlight CTA buttons are hidden in print so content stays with the narrative.

@@ -546,7 +546,7 @@
         @media print {
             @page {
                 size: A4 landscape;
-                margin: 10mm;
+                margin: 8mm;
             }
             html, body {
                 overflow: visible !important;
@@ -563,6 +563,12 @@
             .nav,
             .hud-top,
             #spot {
+                display: none !important;
+            }
+
+            /* Hide CTA rows in PDF — prevents orphan button strips and huge empty margins */
+            #deck a.btn,
+            #deck .flex-wrap.mt-l {
                 display: none !important;
             }
 
@@ -595,13 +601,13 @@
                 min-height: 0 !important;
                 height: auto !important;
                 max-height: none !important;
-                padding: 6mm 8mm !important;
+                padding: 5mm 7mm !important;
                 margin: 0 !important;
                 overflow: visible !important;
                 page-break-after: always;
                 break-after: page;
-                page-break-inside: avoid;
-                break-inside: avoid;
+                page-break-inside: auto !important;
+                break-inside: auto !important;
                 animation: none !important;
                 opacity: 1 !important;
                 visibility: visible !important;
