@@ -1,0 +1,9 @@
+AIdeazz pitch deck → PDF (design preserved)
+
+1. Open in Chrome: https://aideazz.xyz/pitch.html (or file:///…/public/pitch.html after npm run build from repo root).
+2. Optional: switch EN/ES on the page before printing — PDF uses the language shown on screen.
+3. Ctrl+P (Cmd+P on Mac). Destination: Save as PDF.
+4. Enable “Background graphics” if colors look washed out.
+5. Save into this folder: pitch-pdf/
+
+Screen layout is unchanged; print rules only run for Print / Save as PDF.

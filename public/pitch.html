@@ -541,6 +541,82 @@
             .tbl { font-size: 0.72rem; }
             .tbl th, .tbl td { padding: 8px 10px; }
         }
+
+        /* PDF / Print: does not affect normal browsing — only Chrome Print → Save as PDF */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            html, body {
+                overflow: visible !important;
+                height: auto !important;
+                background: var(--bg) !important;
+            }
+            body, #deck > .slide, .tile, .shell {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .lang,
+            .arrow,
+            .nav,
+            .hud-top,
+            #spot {
+                display: none !important;
+            }
+
+            .grid-bg {
+                position: fixed !important;
+                inset: 0 !important;
+                z-index: -1 !important;
+                pointer-events: none !important;
+            }
+
+            #deck {
+                position: relative !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                display: block !important;
+                overflow: visible !important;
+            }
+
+            #deck > .slide {
+                position: relative !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                inset: auto !important;
+                left: auto !important;
+                top: auto !important;
+                width: 100% !important;
+                max-width: none !important;
+                min-height: 0 !important;
+                height: auto !important;
+                max-height: none !important;
+                padding: 6mm 8mm !important;
+                margin: 0 !important;
+                overflow: visible !important;
+                page-break-after: always;
+                break-after: page;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                animation: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            #deck > .slide:last-child {
+                page-break-after: auto;
+                break-after: auto;
+            }
+
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
