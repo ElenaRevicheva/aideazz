@@ -938,7 +938,7 @@ export default function BusinessCard() {
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 text-sm leading-5">✦</span>
                             <a 
-                              href="https://aideazz.xyz/" 
+                              href="/pitch.html" 
                               target="_blank" 
                               rel="noreferrer"
                               className="relative group/link"
