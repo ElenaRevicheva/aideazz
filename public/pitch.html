@@ -14,638 +14,1226 @@
     <title>AIdeazz — Adaptive AI Agents</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg: #07070f;
-            --surface: rgba(255,255,255,0.03);
-            --border: rgba(255,255,255,0.08);
-            --border-accent: rgba(0,212,255,0.3);
-            --cyan: #00d4ff;
-            --violet: #7c3aed;
-            --green: #00ffaa;
-            --text: #f0f0f8;
-            --muted: #6b7280;
+            --bg: #050509;
+            --bg-2: #0a0a14;
+            --surface: rgba(255,255,255,0.025);
+            --surface-hi: rgba(255,255,255,0.05);
+            --border: rgba(255,255,255,0.06);
+            --border-hi: rgba(255,255,255,0.12);
+            --border-cyan: rgba(0,212,255,0.35);
+            --cyan: #00e5ff;
+            --magenta: #ff006e;
+            --violet: #a855f7;
+            --green: #00ffa3;
+            --amber: #ffb000;
+            --text: #f5f5f8;
+            --muted: #7a7a88;
             --mono: 'JetBrains Mono', monospace;
             --sans: 'Inter', system-ui, sans-serif;
+            --serif: 'Instrument Serif', serif;
         }
 
-        body {
+        html, body {
+            height: 100%;
             font-family: var(--sans);
             background: var(--bg);
             color: var(--text);
             overflow: hidden;
-            height: 100vh;
         }
 
-        /* Grid background */
+        /* Conic gradient mesh background */
         body::before {
             content: '';
             position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
+            inset: -50%;
+            background:
+                radial-gradient(ellipse 60% 40% at 20% 30%, rgba(0,229,255,0.08), transparent 60%),
+                radial-gradient(ellipse 50% 40% at 80% 70%, rgba(168,85,247,0.08), transparent 60%),
+                radial-gradient(ellipse 40% 30% at 50% 100%, rgba(255,0,110,0.05), transparent 60%);
+            animation: mesh 40s linear infinite;
             z-index: 0;
             pointer-events: none;
         }
+        @keyframes mesh {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+        }
 
-        /* Ambient orbs */
-        .orb {
+        /* Noise grain overlay */
+        body::after {
+            content: '';
             position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.15;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+            opacity: 0.08;
+            mix-blend-mode: overlay;
             pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Dot grid */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
             z-index: 0;
-        }
-        .orb-1 { width: 600px; height: 600px; background: var(--cyan); top: -200px; left: -200px; animation: drift 30s ease-in-out infinite; }
-        .orb-2 { width: 500px; height: 500px; background: var(--violet); bottom: -150px; right: -150px; animation: drift 24s ease-in-out infinite reverse; }
-
-        @keyframes drift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, -40px); }
+            pointer-events: none;
         }
 
-        /* Slides */
-        .deck { position: relative; width: 100%; height: 100vh; }
+        /* Cursor spotlight */
+        .spotlight {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,229,255,0.08), transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: opacity 0.3s;
+            filter: blur(20px);
+        }
+
+        /* Deck */
+        .deck { position: relative; width: 100%; height: 100vh; z-index: 2; }
 
         .slide {
             position: absolute;
             inset: 0;
             display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 60px;
-            z-index: 1;
+            padding: 40px 40px 80px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-hi) transparent;
         }
-        .slide.active { display: flex; animation: appear 0.5s ease-out; }
-        .slide.top { align-items: flex-start; padding-top: 70px; }
+        .slide.active { display: flex; animation: appear 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .slide::-webkit-scrollbar { width: 4px; }
+        .slide::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
 
         @keyframes appear {
-            from { opacity: 0; transform: translateY(16px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+            to   { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        .card {
+        .shell {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1240px;
+            margin: auto;
+            position: relative;
+        }
+
+        /* Slide header strip */
+        .strip {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        .strip .dot-live { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .strip .sep { color: var(--border-hi); }
+        .strip .accent { color: var(--cyan); }
+
+        /* Typography */
+        h1 {
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            font-size: clamp(2.2rem, 5vw, 4.6rem);
+            margin-bottom: 20px;
+        }
+        h1 .serif { font-family: var(--serif); font-weight: 400; font-style: italic; letter-spacing: -0.02em; }
+        h1 .grad {
+            background: linear-gradient(135deg, var(--text), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            margin-bottom: 16px;
+        }
+        h2 .serif { font-family: var(--serif); font-weight: 400; font-style: italic; }
+        h2 .grad {
+            background: linear-gradient(135deg, var(--text), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
+
+        .lead {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--muted);
+            max-width: 640px;
+            margin-bottom: 32px;
+        }
+
+        .mono { font-family: var(--mono); }
+        .tag-mono { font-family: var(--mono); font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; }
+
+        /* Bento grid */
+        .bento {
+            display: grid;
+            gap: 14px;
+        }
+        .bento-4 { grid-template-columns: repeat(4, 1fr); }
+        .bento-3 { grid-template-columns: repeat(3, 1fr); }
+        .bento-2 { grid-template-columns: repeat(2, 1fr); }
+
+        .tile {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 64px;
-            backdrop-filter: blur(24px);
+            border-radius: 18px;
+            padding: 22px;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .card::before {
+        .tile:hover {
+            border-color: var(--border-cyan);
+            background: var(--surface-hi);
+            transform: translateY(-2px);
+        }
+        .tile-wide { grid-column: span 2; }
+        .tile-tall { grid-row: span 2; }
+
+        .tile-glow::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-            opacity: 0.4;
+            inset: -1px;
+            background: linear-gradient(135deg, var(--cyan), transparent 40%, var(--violet));
+            border-radius: 18px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tile-glow:hover::before { opacity: 0.6; }
+
+        .stat-big {
+            font-family: var(--mono);
+            font-size: clamp(2.4rem, 4vw, 3.6rem);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, var(--text), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .stat-sub {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.5;
         }
 
-        /* Navigation */
+        /* Hero */
+        .hero-eyebrow {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .hero-eyebrow::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        /* Badges */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--border);
+        }
+        .pill-live { color: var(--green); border-color: rgba(0,255,163,0.25); background: rgba(0,255,163,0.05); }
+        .pill-early { color: var(--cyan); border-color: rgba(0,229,255,0.25); background: rgba(0,229,255,0.05); }
+        .pill-wip { color: var(--amber); border-color: rgba(255,176,0,0.25); background: rgba(255,176,0,0.05); }
+        .pill-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 10px;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--border-hi);
+            background: var(--surface);
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+        }
+        .btn:hover { background: rgba(0,229,255,0.08); border-color: var(--border-cyan); transform: translateY(-1px); }
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(168,85,247,0.15));
+            border-color: var(--border-cyan);
+            color: var(--cyan);
+        }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(0,229,255,0.2); }
+
+        /* Tables */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .tbl th {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-align: left;
+            padding: 8px 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tbl td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            vertical-align: middle;
+        }
+        .tbl tr:hover td { background: rgba(0,229,255,0.02); }
+        .tbl td:first-child { font-weight: 600; }
+
+        /* Feature list */
+        .feat {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        .feat .bullet {
+            font-family: var(--mono);
+            color: var(--cyan);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .feat strong { color: var(--text); font-weight: 500; }
+
+        /* Timeline */
+        .tl { margin: 8px 0; }
+        .tl-row {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 20px;
+            padding: 14px 0;
+            border-left: 1px solid var(--border);
+            padding-left: 24px;
+            position: relative;
+        }
+        .tl-row::before {
+            content: '';
+            position: absolute;
+            left: -5px; top: 22px;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 12px var(--cyan);
+        }
+        .tl-yr { font-family: var(--mono); font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.05em; padding-top: 2px; }
+        .tl-txt { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+        .tl-txt strong { color: var(--text); font-weight: 500; }
+
+        /* Honest note */
+        .honest {
+            margin-top: 24px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px dashed var(--border-hi);
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .honest span { color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* HUD elements */
+        .hud-top {
+            position: fixed;
+            top: 22px;
+            left: 32px;
+            right: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .hud-logo {
+            display: flex; align-items: center; gap: 10px;
+            color: var(--text);
+            font-weight: 600;
+        }
+        .hud-logo .bar { width: 18px; height: 1px; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+        .hud-counter { color: var(--cyan); }
+
+        /* Nav */
         .nav {
             position: fixed;
-            bottom: 36px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             z-index: 100;
-            background: rgba(7,7,15,0.8);
+            background: rgba(10,10,20,0.7);
             border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 10px 20px;
-            backdrop-filter: blur(20px);
+            border-radius: 100px;
+            padding: 8px 14px;
+            backdrop-filter: blur(16px);
         }
         .dot {
-            width: 8px; height: 8px;
+            width: 6px; height: 6px;
             border-radius: 50%;
-            background: var(--border);
+            background: var(--border-hi);
             cursor: pointer;
             transition: all 0.3s;
         }
-        .dot.active { width: 24px; border-radius: 4px; background: var(--cyan); }
+        .dot.active { width: 22px; border-radius: 3px; background: var(--cyan); box-shadow: 0 0 10px rgba(0,229,255,0.6); }
 
         .arrow {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
             z-index: 100;
-            width: 44px; height: 44px;
-            background: rgba(255,255,255,0.04);
+            width: 36px; height: 36px;
+            background: rgba(10,10,20,0.6);
             border: 1px solid var(--border);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 18px;
+            font-family: var(--mono);
+            backdrop-filter: blur(16px);
         }
-        .arrow:hover { background: rgba(0,212,255,0.1); border-color: var(--border-accent); }
-        .arrow-left { left: 24px; }
-        .arrow-right { right: 24px; }
+        .arrow:hover { background: rgba(0,229,255,0.1); border-color: var(--border-cyan); }
+        .arrow-l { left: 16px; } .arrow-r { right: 16px; }
 
-        /* Slide counter */
-        .counter {
+        /* Lang toggle */
+        .lang {
             position: fixed;
-            top: 28px;
-            right: 36px;
-            font-family: var(--mono);
-            font-size: 0.75rem;
-            color: var(--muted);
-            z-index: 100;
-            letter-spacing: 0.1em;
-        }
-
-        /* Typography */
-        .label {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--cyan);
-            margin-bottom: 16px;
-        }
-
-        h1 {
-            font-size: clamp(3rem, 5.5vw, 5.5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-            margin-bottom: 24px;
-        }
-        h1 .accent { color: var(--cyan); }
-
-        h2 {
-            font-size: clamp(2rem, 3.5vw, 3rem);
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            margin-bottom: 24px;
-        }
-        h2 .accent { color: var(--cyan); }
-
-        .lead {
-            font-size: 1.25rem;
-            line-height: 1.7;
-            color: var(--muted);
-            max-width: 680px;
-        }
-
-        .mono { font-family: var(--mono); }
-
-        /* Stat blocks */
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-top: 48px; }
-        .stat {
-            background: rgba(0,212,255,0.04);
-            border: 1px solid var(--border-accent);
-            border-radius: 16px;
-            padding: 24px;
-        }
-        .stat-num {
-            font-family: var(--mono);
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--cyan);
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-        .stat-label { font-size: 0.8rem; color: var(--muted); line-height: 1.4; text-transform: uppercase; letter-spacing: 0.05em; }
-
-        /* Grid layouts */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
-
-        .item {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            transition: border-color 0.2s;
-        }
-        .item:hover { border-color: var(--border-accent); }
-        .item-icon { font-size: 1.5rem; margin-bottom: 12px; }
-        .item-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; }
-        .item-body { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-        /* Agent table */
-        .agent-table { width: 100%; border-collapse: collapse; margin-top: 32px; font-size: 0.85rem; }
-        .agent-table th {
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--muted);
-            text-align: left;
-            padding: 10px 16px;
-            border-bottom: 1px solid var(--border);
-        }
-        .agent-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            vertical-align: middle;
-            color: var(--text);
-        }
-        .agent-table tr:hover td { background: rgba(0,212,255,0.02); }
-        .badge {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            padding: 3px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.05em;
-        }
-        .badge-live { background: rgba(0,255,170,0.1); color: var(--green); border: 1px solid rgba(0,255,170,0.2); }
-        .badge-early { background: rgba(0,212,255,0.1); color: var(--cyan); border: 1px solid rgba(0,212,255,0.2); }
-        .badge-wip { background: rgba(255,160,0,0.1); color: #ffa000; border: 1px solid rgba(255,160,0,0.2); }
-
-        /* Traction items */
-        .traction-row {
+            top: 20px;
+            right: 32px;
             display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border);
+            gap: 4px;
+            padding: 4px;
+            background: rgba(10,10,20,0.7);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            z-index: 101;
+            backdrop-filter: blur(16px);
         }
-        .traction-row:last-child { border-bottom: none; }
-        .traction-num { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--cyan); min-width: 100px; }
-        .traction-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
-        .traction-desc strong { color: var(--text); }
-
-        /* Phase list */
-        .phase-list { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
-        .phase-list li {
-            display: flex; align-items: flex-start; gap: 14px;
-            font-size: 0.95rem; color: var(--muted); line-height: 1.5;
-        }
-        .phase-list li .check {
+        .lang button {
+            background: none; border: none;
+            padding: 5px 12px;
+            border-radius: 100px;
             font-family: var(--mono);
-            color: var(--green);
-            font-size: 0.75rem;
-            margin-top: 3px;
-            flex-shrink: 0;
+            font-size: 0.68rem;
+            color: var(--muted);
+            cursor: pointer;
+            letter-spacing: 0.1em;
+            transition: all 0.2s;
         }
-        .phase-list li strong { color: var(--text); }
+        .lang button.on { background: var(--cyan); color: var(--bg); }
 
-        /* Timeline */
-        .timeline { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
-        .tl-item { display: flex; gap: 24px; padding: 20px 0; border-left: 1px solid var(--border); padding-left: 28px; position: relative; }
-        .tl-item::before {
+        /* Agent spotlight card */
+        .spot {
+            background: linear-gradient(135deg, rgba(0,229,255,0.03), rgba(168,85,247,0.03));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .spot::before {
             content: '';
             position: absolute;
-            left: -5px; top: 28px;
-            width: 9px; height: 9px;
-            border-radius: 50%;
-            background: var(--cyan);
-            box-shadow: 0 0 12px var(--cyan);
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
         }
-        .tl-year { font-family: var(--mono); font-size: 0.75rem; color: var(--cyan); min-width: 90px; padding-top: 2px; }
-        .tl-content { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
-        .tl-content strong { color: var(--text); }
-
-        /* CTA buttons */
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 12px 24px;
-            border: 1px solid var(--border-accent);
-            border-radius: 10px;
-            font-size: 0.9rem;
-            color: var(--cyan);
-            text-decoration: none;
-            transition: all 0.2s;
-            margin: 6px;
-            font-family: var(--mono);
+        .spot-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .btn:hover { background: rgba(0,212,255,0.08); transform: translateY(-2px); }
-        .btn-primary { background: rgba(0,212,255,0.1); }
+        .spot-name { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+        .spot-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 14px; }
 
-        /* Honest disclaimer */
-        .honest {
-            font-family: var(--mono);
-            font-size: 0.72rem;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px 18px;
-            margin-top: 28px;
-            line-height: 1.7;
-        }
-        .honest span { color: var(--cyan); }
+        /* Small badges row */
+        .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 
-        /* Slide-specific overrides */
-        .slide-hero .card { text-align: left; max-width: 900px; }
-        .slide-hero h1 { font-size: clamp(3.5rem, 6vw, 6.5rem); }
+        /* Utility */
+        .mt-s { margin-top: 12px; } .mt-m { margin-top: 20px; } .mt-l { margin-top: 32px; }
+        .flex-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        /* Link styling */
+        a.link { color: var(--cyan); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        a.link:hover { border-bottom-color: var(--cyan); }
+
+        /* Code addr */
+        .addr { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); word-break: break-all; }
 
         /* Responsive */
-        @media (max-width: 900px) {
-            .slide { padding: 24px; }
-            .card { padding: 36px 28px; border-radius: 16px; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
+        @media (max-width: 1024px) {
+            .bento-4 { grid-template-columns: repeat(2, 1fr); }
+            .bento-3 { grid-template-columns: repeat(2, 1fr); }
         }
-
-        @media (max-width: 600px) {
-            .card { padding: 24px 18px; }
-            .agent-table { font-size: 0.75rem; }
-            .agent-table th, .agent-table td { padding: 8px 10px; }
+        @media (max-width: 640px) {
+            .slide { padding: 80px 20px 80px; }
+            .bento-4, .bento-3, .bento-2 { grid-template-columns: 1fr; }
+            .tile-wide { grid-column: span 1; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.6rem; }
+            .hud-top { left: 16px; right: 16px; font-size: 0.6rem; }
+            .tl-row { grid-template-columns: 80px 1fr; gap: 12px; }
+            .tbl { font-size: 0.72rem; }
+            .tbl th, .tbl td { padding: 8px 10px; }
         }
     </style>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<div class="grid-bg"></div>
+<div class="spotlight" id="spot"></div>
 
-<div class="counter" id="counter">01 / 08</div>
+<!-- HUD -->
+<div class="hud-top">
+    <div class="hud-logo"><span class="bar"></span>AIDEAZZ <span style="color:var(--muted);font-weight:400">// PITCH.2026</span></div>
+    <div class="hud-counter"><span id="cnt">01</span> / <span id="tot">14</span></div>
+</div>
 
-<div class="deck">
+<!-- Lang toggle -->
+<div class="lang">
+    <button class="on" data-lang="en">EN</button>
+    <button data-lang="es">ES</button>
+</div>
 
-    <!-- SLIDE 1: HERO -->
-    <div class="slide slide-hero active" id="slide-1">
-        <div class="card">
-            <div class="label">AIdeazz — April 2026</div>
-            <h1>Adaptive AI agents<br>that help you <span class="accent">thrive</span><br>on the go.</h1>
-            <p class="lead">10 autonomous agents. 13 months. One developer. Under $15,000. All running 24/7 in production.</p>
-            <div style="margin-bottom:32px;">
-                <a href="https://aideazz.xyz" class="btn btn-primary">aideazz.xyz</a>
-                <a href="https://aideazz.xyz/card" class="btn">About Elena →</a>
+<div class="deck" id="deck">
+
+    <!-- 1. HERO -->
+    <div class="slide active" data-slide>
+        <div class="shell" style="margin-top:60px;">
+            <div class="hero-eyebrow">AIDEAZZ · APRIL 2026 · PANAMA CITY</div>
+            <div class="flex-wrap" style="gap:8px;margin:10px 0 18px;">
+                <span class="tag-mono" style="background:rgba(0,229,255,0.08);border:1px solid var(--border-cyan);color:#00e5ff;padding:6px 12px;border-radius:999px;font-size:0.7rem;">● OPEN TO FOUNDING AI HIRE ROLES</span>
+                <span class="tag-mono" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.4);color:#c084fc;padding:6px 12px;border-radius:999px;font-size:0.7rem;">● ACCELERATOR CONVERSATIONS</span>
             </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-num">10</div>
-                    <div class="stat-label">Agents live in production</div>
+            <h1 data-i18n="hero.title">Adaptive AI agents <span class="serif">that help you</span><br><span class="grad">thrive on the go.</span></h1>
+            <p class="lead" data-i18n="hero.lead">10 autonomous agents. 13 months. One developer. Under $15,000. All running 24/7 in production on shared infrastructure.</p>
+            <p class="lead" data-i18n="hero.sub" style="margin-top:12px;font-size:1rem;color:var(--muted);max-width:720px;">Built to prove I can ship. <span style="color:#00e5ff;">Primary goal: join the right team as a founding AI / applied-AI engineer.</span> Investment is welcome — stable income is the mission.</p>
+
+            <div class="bento bento-4 mt-m">
+                <div class="tile tile-glow">
+                    <div class="stat-big">10</div>
+                    <div class="stat-sub" data-i18n="hero.stat1">Agents live in production</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-num">13mo</div>
-                    <div class="stat-label">Solo build time</div>
+                <div class="tile tile-glow">
+                    <div class="stat-big">13<span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
+                    <div class="stat-sub" data-i18n="hero.stat2">Solo build time</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-num">&lt;$15K</div>
-                    <div class="stat-label">Total capital invested</div>
+                <div class="tile tile-glow">
+                    <div class="stat-big">&lt;$15K</div>
+                    <div class="stat-sub" data-i18n="hero.stat3">Total capital invested</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-num">~$0</div>
-                    <div class="stat-label">Monthly infra cost</div>
+                <div class="tile tile-glow">
+                    <div class="stat-big">~$0</div>
+                    <div class="stat-sub" data-i18n="hero.stat4">Monthly infra cost</div>
+                </div>
+            </div>
+
+            <div class="flex-wrap mt-l">
+                <a href="https://aideazz.xyz" class="btn btn-primary">aideazz.xyz →</a>
+                <a href="https://aideazz.xyz/portfolio" class="btn" data-i18n="hero.btn2">The Founder</a>
+                <a href="https://wa.me/50766623757" class="btn" data-i18n="hero.btn3">Try Flagship EspaLuz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. PROBLEM -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">02</span><span class="sep">//</span><span data-i18n="prob.label">THE PROBLEM</span></div>
+            <h2 data-i18n="prob.title">Most people can't afford the tools<br>that <span class="grad">high-performing</span> businesses run on.</h2>
+            <p class="lead" data-i18n="prob.lead">Especially when you are adapting to a new country, a new language, or a new career — without a team, a budget, or a safety net.</p>
+
+            <div class="bento bento-3 mt-m">
+                <div class="tile">
+                    <div class="tag-mono">01 / Adaptation</div>
+                    <h3 class="mt-s" data-i18n="prob.c1.t">Language & cultural shift</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="prob.c1.b">280M+ people navigating daily life in a second language with no affordable, always-on support.</p>
+                </div>
+                <div class="tile">
+                    <div class="tag-mono">02 / Career</div>
+                    <h3 class="mt-s" data-i18n="prob.c2.t">Navigation is broken</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="prob.c2.b">Job hunting rewards templates, not signal. ATS forms, ghosting, zero feedback loops — especially for non-traditional profiles.</p>
+                </div>
+                <div class="tile">
+                    <div class="tag-mono">03 / Building</div>
+                    <h3 class="mt-s" data-i18n="prob.c3.t">Solo builders, no team</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="prob.c3.b">Founders and small teams can't afford the engineering bandwidth that their ideas actually require.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 2: PROBLEM -->
-    <div class="slide" id="slide-2">
-        <div class="card">
-            <div class="label">The Problem</div>
-            <h2>Most people can't afford the tools that<br><span class="accent">high-performing businesses</span> run on.</h2>
-            <p class="lead">Especially when you're adapting to a new country, a new language, or a new career — without a team, a budget, or a safety net.</p>
-            <div class="grid-3" style="margin-top:40px;">
-                <div class="item">
-                    <div class="item-icon">🌍</div>
-                    <div class="item-title">Language & adaptation</div>
-                    <div class="item-body">280M+ people navigating life in a second language with no affordable, always-on support.</div>
+    <!-- 3. SOLUTION -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">03</span><span class="sep">//</span><span data-i18n="sol.label">THE SOLUTION</span></div>
+            <h2 data-i18n="sol.title">An ecosystem of <span class="serif">autonomous</span> agents,<br>each owning a <span class="grad">real problem</span> end-to-end.</h2>
+            <p class="lead" data-i18n="sol.lead">Not a platform. Not a wrapper. Each agent is a production system: scraping, scoring, deciding, acting, notifying — 24/7, without human input.</p>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile tile-glow">
+                    <div class="tag-mono">INFRASTRUCTURE</div>
+                    <h3 class="mt-s" data-i18n="sol.c1.t">One VM. One database. 10 agents.</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c1.b">All agents share one Oracle Cloud VM and one Oracle Autonomous Database. Coordinate through shared tables. ~$0/month on Oracle free credit grant.</p>
                 </div>
-                <div class="item">
-                    <div class="item-icon">💼</div>
-                    <div class="item-title">Career navigation</div>
-                    <div class="item-body">Job hunting is broken — especially for non-traditional profiles. ATS forms, ghosting, zero feedback loops.</div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">MODEL ROUTING</div>
+                    <h3 class="mt-s" data-i18n="sol.c2.t">Cost-conscious by design</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c2.b">Claude Opus 4 for critical paths. Groq Llama 3.3 70B (free tier) for standard analysis. Explicit cost reasoning per call.</p>
                 </div>
-                <div class="item">
-                    <div class="item-icon">⚡</div>
-                    <div class="item-title">Building alone</div>
-                    <div class="item-body">Solo founders and small teams can't afford the engineering bandwidth that their ideas require.</div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">VOICE-FIRST</div>
+                    <h3 class="mt-s" data-i18n="sol.c3.t">Voice interfaces on every agent</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c3.b">Groq Whisper transcription. Accessible via WhatsApp and Telegram — no app install required. Sub-2s latency on EspaLuz.</p>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">EVALUATION</div>
+                    <h3 class="mt-s" data-i18n="sol.c4.t">Production-grade eval harness</h3>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c4.b">131-test, 4-layer pipeline. LLM-as-judge consistency scoring. $0.03/run. Regressions caught before deploy.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 3: SOLUTION -->
-    <div class="slide" id="slide-3">
-        <div class="card">
-            <div class="label">The Solution</div>
-            <h2>An ecosystem of <span class="accent">autonomous agents</span>,<br>each owning a real problem end-to-end.</h2>
-            <p class="lead">Not a platform. Not a wrapper. Each agent is a production system: scraping, scoring, deciding, acting, notifying — 24/7, without human input.</p>
-            <div class="grid-2" style="margin-top:36px;">
-                <div class="item">
-                    <div class="item-title mono" style="color:var(--cyan);margin-bottom:12px;">Shared infrastructure</div>
-                    <div class="item-body">One Oracle Cloud VM. One Oracle Autonomous Database. All agents coordinate through shared tables. ~$0/month on Oracle free credit grant.</div>
+    <!-- 4. AGENTS TABLE -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">04</span><span class="sep">//</span><span data-i18n="ag.label">WHAT'S LIVE</span></div>
+            <h2 data-i18n="ag.title">10 agents. <span class="grad">All in production.</span></h2>
+            <p class="lead" data-i18n="ag.lead">Every agent below runs 24/7 on Oracle Cloud, coordinating through shared database tables. Real users. Real deploys. Honest status.</p>
+
+            <div class="tile" style="padding:10px 6px;">
+                <table class="tbl">
+                    <thead>
+                        <tr>
+                            <th data-i18n="ag.th1">Agent</th>
+                            <th data-i18n="ag.th2">Function</th>
+                            <th data-i18n="ag.th3">Platform</th>
+                            <th data-i18n="ag.th4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>EspaLuz WhatsApp</td><td>Bilingual tutor, voice-first, 50+ emotion detection</td><td>WhatsApp</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">&lt;20 paying</span></td></tr>
+                        <tr><td>EspaLuz Telegram</td><td>Bilingual tutor, structured lessons</td><td>Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span></td></tr>
+                        <tr><td>EspaLuz Influencer</td><td>Automated social content EN/ES</td><td>Telegram</td><td><span class="pill pill-early"><span class="pill-dot"></span>EARLY</span></td></tr>
+                        <tr><td>CTO AIPA</td><td>GitHub webhook → diff → LLM review → comment</td><td>Telegram + API</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">25 reviews</span></td></tr>
+                        <tr><td>CMO AIPA</td><td>GEO+SEO, daily blog, UTM, lead triage</td><td>FastAPI + Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">5 phases</span></td></tr>
+                        <tr><td>VibeJob Hunter</td><td>Autonomous job search, scoring, ATS automation</td><td>Telegram</td><td><span class="pill pill-wip"><span class="pill-dot"></span>VERIFYING</span></td></tr>
+                        <tr><td>OpenClaw Shortlist</td><td>YC AI company shortlist, voice interface</td><td>Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span></td></tr>
+                        <tr><td>Algom Alpha / DragonTrade</td><td>Crypto research + auto-posting</td><td>X (Twitter)</td><td><span class="pill pill-wip"><span class="pill-dot"></span>FRAGILE</span></td></tr>
+                        <tr><td>Atuona Creative AI</td><td>NFT generation, automated image + video</td><td>Polygon + Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">48+ NFTs</span></td></tr>
+                        <tr><td>AILA</td><td>Adaptive Intelligent Life Assistant — orchestrates all 9 agents, longitudinal personal memory</td><td>Hive / Oracle</td><td><span class="pill" style="background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.3);"><span class="pill-dot" style="background:#c084fc;"></span>BLUEPRINT</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. ESPALUZ SPOTLIGHT -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">05</span><span class="sep">//</span><span>AGENT SPOTLIGHT</span></div>
+            <h2>EspaLuz <span class="serif">— bilingual tutor,</span><br><span class="grad">voice-first, emotion-aware.</span></h2>
+
+            <div class="spot mt-m">
+                <div class="spot-head">
+                    <div>
+                        <div class="spot-name">EspaLuz AI Tutor</div>
+                        <div class="spot-sub" data-i18n="esp.sub">Spanish ↔ English · family-aware context · WhatsApp + Telegram + Web</div>
+                    </div>
+                    <div class="badges">
+                        <span class="pill pill-live"><span class="pill-dot"></span>LIVE</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>&lt;20 PAYING</span>
+                        <span class="pill" style="color:var(--muted);">RETAINED SINCE 2025</span>
+                    </div>
                 </div>
-                <div class="item">
-                    <div class="item-title mono" style="color:var(--cyan);margin-bottom:12px;">Multi-model routing</div>
-                    <div class="item-body">Claude Opus 4 for critical paths. Groq Llama 3.3 70B (free tier) for standard analysis. Cost-conscious by design, not by accident.</div>
-                </div>
-                <div class="item">
-                    <div class="item-title mono" style="color:var(--cyan);margin-bottom:12px;">Voice interfaces</div>
-                    <div class="item-body">All agents have voice input via Groq Whisper. Accessible on WhatsApp and Telegram — no app install required.</div>
-                </div>
-                <div class="item">
-                    <div class="item-title mono" style="color:var(--cyan);margin-bottom:12px;">Production eval harness</div>
-                    <div class="item-body">131-test, 4-layer evaluation pipeline. LLM-as-judge consistency scoring. $0.03/run. Regressions caught before deploy.</div>
+
+                <div class="bento bento-2">
+                    <div>
+                        <div class="tag-mono mt-s">CORE FEATURES</div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>50+ emotion detection</strong> — cultural shock, language anxiety, homesickness</div></div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>Voice processing</strong> — sub-2 second latency via Groq Whisper</div></div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>OCR image translation</strong> — extract text from photos, translate inline</div></div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>Multi-platform</strong> — WhatsApp Cloud API + Telegram + Web, one core engine</div></div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>PayPal subscriptions</strong> integrated (payment sync is current fix priority)</div></div>
+                    </div>
+                    <div>
+                        <div class="tag-mono mt-s">HONEST SIGNAL</div>
+                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;" data-i18n="esp.signal">Fewer than 20 paying subscribers — but they have been retained since 2025 with <strong style="color:var(--text);">zero marketing spend</strong>. People paid, stayed, kept using it. That is the retention signal worth scaling.</p>
+                        <div class="flex-wrap mt-m">
+                            <a href="https://wa.me/50766623757" class="btn btn-primary" target="_blank">Try on WhatsApp</a>
+                            <a href="https://t.me/EspaLuzFamily_bot" class="btn" target="_blank">Try on Telegram</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SLIDE 4: AGENTS -->
-    <div class="slide top" id="slide-4">
-        <div class="card" style="max-width:1100px;">
-            <div class="label">What's Live</div>
-            <h2>10 agents. <span class="accent">All in production.</span></h2>
-            <table class="agent-table">
-                <thead>
-                    <tr>
-                        <th>Agent</th>
-                        <th>Function</th>
-                        <th>Platform</th>
-                        <th>Honest Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>EspaLuz WhatsApp</strong></td>
-                        <td>Spanish/English tutor, voice-first</td>
-                        <td>WhatsApp</td>
-                        <td><span class="badge badge-live">live</span> &lt;20 paying, retained since 2025</td>
-                    </tr>
-                    <tr>
-                        <td><strong>EspaLuz Telegram</strong></td>
-                        <td>Bilingual tutor, structured lessons</td>
-                        <td>Telegram</td>
-                        <td><span class="badge badge-live">live</span> active user base</td>
-                    </tr>
-                    <tr>
-                        <td><strong>EspaLuz Influencer</strong></td>
-                        <td>Automated social content, EN/ES</td>
-                        <td>Telegram</td>
-                        <td><span class="badge badge-early">early</span> audience growth in progress</td>
-                    </tr>
-                    <tr>
-                        <td><strong>CTO AIPA</strong></td>
-                        <td>GitHub webhook → diff → LLM review → comment</td>
-                        <td>Telegram + API</td>
-                        <td><span class="badge badge-live">live</span> 25 reviews, 3 repos</td>
-                    </tr>
-                    <tr>
-                        <td><strong>CMO AIPA</strong></td>
-                        <td>GEO+SEO, daily blog, UTM, lead triage</td>
-                        <td>FastAPI + Telegram</td>
-                        <td><span class="badge badge-live">live</span> 5 phases autonomous</td>
-                    </tr>
-                    <tr>
-                        <td><strong>VibeJob Hunter</strong></td>
-                        <td>Autonomous job search, scoring, ATS automation</td>
-                        <td>Telegram</td>
-                        <td><span class="badge badge-wip">verifying</span> delivery confirmation in progress</td>
-                    </tr>
-                    <tr>
-                        <td><strong>OpenClaw Shortlist</strong></td>
-                        <td>YC AI company shortlist, voice interface</td>
-                        <td>Telegram</td>
-                        <td><span class="badge badge-live">live</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Algom Alpha / DragonTrade</strong></td>
-                        <td>Crypto market research + X posting</td>
-                        <td>X (Twitter)</td>
-                        <td><span class="badge badge-wip">fragile</span> rate-limit prone</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Atuona Creative AI</strong></td>
-                        <td>NFT generation, automated image + video</td>
-                        <td>Polygon + Telegram</td>
-                        <td><span class="badge badge-live">live</span> 48+ NFTs published</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- 6. CTO AIPA SPOTLIGHT -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">06</span><span class="sep">//</span><span>AGENT SPOTLIGHT</span></div>
+            <h2>CTO AIPA <span class="serif">— code review pipeline,</span><br><span class="grad">multi-model, cost-routed.</span></h2>
+
+            <div class="spot mt-m">
+                <div class="spot-head">
+                    <div>
+                        <div class="spot-name">CTO AIPA</div>
+                        <div class="spot-sub">GitHub webhook → diff fetch → deterministic analysis → LLM routing → GitHub comment + Oracle write</div>
+                    </div>
+                    <div class="badges">
+                        <span class="pill pill-live"><span class="pill-dot"></span>LIVE</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>25 REVIEWS</span>
+                        <span class="pill" style="color:var(--muted);">3 REPOS</span>
+                    </div>
+                </div>
+
+                <div class="bento bento-2">
+                    <div>
+                        <div class="tag-mono mt-s">PIPELINE</div>
+                        <div class="feat"><span class="bullet">01</span><div><strong>Webhook trigger</strong> — any push to monitored repo</div></div>
+                        <div class="feat"><span class="bullet">02</span><div><strong>Diff + security scan</strong> — deterministic complexity + CVE detection</div></div>
+                        <div class="feat"><span class="bullet">03</span><div><strong>LLM routing</strong> — Claude Opus 4 (critical) or Groq Llama 3.3 70B (standard, free)</div></div>
+                        <div class="feat"><span class="bullet">04</span><div><strong>Posted comment</strong> + Oracle DB write for audit trail</div></div>
+                        <div class="feat"><span class="bullet">05</span><div><strong>Telegram notification</strong> to founder — every review, every repo</div></div>
+                    </div>
+                    <div>
+                        <div class="tag-mono mt-s">WHY IT MATTERS</div>
+                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;">Multi-model routing with <strong style="color:var(--text);">explicit cost reasoning</strong> — not the default behavior of LLM apps. Claude for depth, Groq for volume. One pipeline, two budgets.</p>
+                        <div class="flex-wrap mt-m">
+                            <a href="https://t.me/aitcf_aideazz_bot" class="btn btn-primary" target="_blank">CTO AIPA Bot</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- SLIDE 5: TRACTION -->
-    <div class="slide" id="slide-5">
-        <div class="card">
-            <div class="label">Traction — Honest</div>
-            <h2>The numbers <span class="accent">as they are.</span></h2>
-            <div style="margin-top:32px;">
-                <div class="traction-row">
-                    <div class="traction-num">&lt;20</div>
-                    <div class="traction-desc"><strong>EspaLuz paying subscribers — retained since 2025 with zero marketing spend.</strong> Small number. But they paid, stayed, and kept using it without being pushed. That is the retention signal worth scaling.</div>
+    <!-- 7. VIBEJOB HUNTER SPOTLIGHT -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">07</span><span class="sep">//</span><span>AGENT SPOTLIGHT</span></div>
+            <h2>VibeJob Hunter <span class="serif">— production eval</span><br><span class="grad">harness, 4 layers, $0.03/run.</span></h2>
+
+            <div class="spot mt-m">
+                <div class="spot-head">
+                    <div>
+                        <div class="spot-name">VibeJob Hunter</div>
+                        <div class="spot-sub">Autonomous scrape → score → route → apply → follow-up — 218 ATS endpoints monitored</div>
+                    </div>
+                    <div class="badges">
+                        <span class="pill pill-wip"><span class="pill-dot"></span>DELIVERY VERIFYING</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>131 TESTS</span>
+                    </div>
                 </div>
-                <div class="traction-row">
-                    <div class="traction-num">131</div>
-                    <div class="traction-desc"><strong>Tests in the VibeJob Hunter eval harness.</strong> 4 layers: keyword scoring, bias compensation, golden-set routing (22 human-labelled jobs), LLM-as-judge consistency (Claude Haiku, ≥75% threshold). $0.03/run. Production-grade, not a demo.</div>
-                </div>
-                <div class="traction-row">
-                    <div class="traction-num">5</div>
-                    <div class="traction-desc"><strong>Autonomous phases of the CMO marketing engine.</strong> JSON-LD structured data, sitemap, daily blog publisher (GSC gap analysis + Dev.to cross-post), UTM attribution pipeline, AI lead triage with urgency scoring. All running without human input.</div>
-                </div>
-                <div class="traction-row">
-                    <div class="traction-num">25</div>
-                    <div class="traction-desc"><strong>Code reviews by CTO AIPA across 3 repositories.</strong> Multi-model routing: Claude Opus 4 for critical paths, Groq Llama 3.3 70B for standard analysis. Explicit cost reasoning built in.</div>
+
+                <div class="bento bento-2">
+                    <div>
+                        <div class="tag-mono mt-s">EVAL HARNESS — 4 LAYERS</div>
+                        <div class="feat"><span class="bullet">L1</span><div><strong>Keyword scoring</strong> — deterministic, &lt;1s</div></div>
+                        <div class="feat"><span class="bullet">L2</span><div><strong>Bias compensation</strong> — penalty layers for wrong role, wrong stack, US-only</div></div>
+                        <div class="feat"><span class="bullet">L3</span><div><strong>Golden-set routing</strong> — 22 human-labelled jobs as ground truth</div></div>
+                        <div class="feat"><span class="bullet">L4</span><div><strong>LLM-as-judge</strong> — Claude Haiku validates agreement ≥75% threshold</div></div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>Cost</strong> — $0.03/run. Catches regressions before deploy.</div></div>
+                    </div>
+                    <div>
+                        <div class="tag-mono mt-s">HONEST GAP</div>
+                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;">Generated 253 application artifacts. <strong style="color:var(--text);">Verified employer responses: zero.</strong> Application delivery confirmation (whether ATS forms actually submit) is the current open problem — not the scoring engine.</p>
+                        <div class="flex-wrap mt-m">
+                            <a href="https://t.me/vibejob_hunter_bot" class="btn btn-primary" target="_blank">VibeJob Bot</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- 8. CMO AIPA SPOTLIGHT -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">08</span><span class="sep">//</span><span>AGENT SPOTLIGHT</span></div>
+            <h2>CMO AIPA <span class="serif">— autonomous</span><br><span class="grad">marketing engine, 5 phases.</span></h2>
+
+            <div class="spot mt-m">
+                <div class="spot-head">
+                    <div>
+                        <div class="spot-name">CMO AIPA — GEO + SEO Engine</div>
+                        <div class="spot-sub">Runs autonomously on Oracle. Daily content. Attribution. Lead triage. No human in the loop.</div>
+                    </div>
+                    <div class="badges">
+                        <span class="pill pill-live"><span class="pill-dot"></span>LIVE</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>5 PHASES</span>
+                    </div>
+                </div>
+
+                <div class="bento bento-3">
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono">PHASE 01</div>
+                        <h3 class="mt-s">Structured data</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">JSON-LD schema, OpenGraph, hreflang EN/ES, build-time sitemap with live Hashnode slugs.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono">PHASE 02</div>
+                        <h3 class="mt-s">Daily blog publisher</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">GSC gap analysis selects topics. AI writes. Cross-posts to Dev.to. Hashnode primary.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono">PHASE 03</div>
+                        <h3 class="mt-s">UTM attribution</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">Every CTA tagged. Full-funnel tracking to Oracle. Source, medium, campaign in DB.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono">PHASE 04</div>
+                        <h3 class="mt-s">AI lead triage</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">Incoming leads scored by urgency. Dashboard for founder review. Auto-reply.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono">PHASE 05</div>
+                        <h3 class="mt-s">Cloudflare + redirects</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">301 hygiene, apex canonical, 404 noindex. Search discoverability not an afterthought.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(168,85,247,0.05));">
+                        <div class="tag-mono">PHASE 06</div>
+                        <h3 class="mt-s">Roadmapped</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">WordPress-compatible blueprint for client deployments (fractional pitch asset).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 9. METHODOLOGY -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">09</span><span class="sep">//</span><span data-i18n="meth.label">METHODOLOGY</span></div>
+            <h2 data-i18n="meth.title">One developer shipping<br><span class="grad">what most teams can't.</span></h2>
+            <p class="lead" data-i18n="meth.lead">Claude Code and Cursor are the actual development environment — not a shortcut, not training wheels. The permanent workflow.</p>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile tile-glow">
+                    <div class="tag-mono">VELOCITY</div>
+                    <h3 class="mt-s" data-i18n="meth.c1.t">Idea → deployed agent in days</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c1.b">Every agent was scoped, built, and shipped to production by one person. 10 systems in 13 months is the proof.</p>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">OWNERSHIP</div>
+                    <h3 class="mt-s" data-i18n="meth.c2.t">Full architectural control</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c2.b">No black boxes. No delegated understanding. Every line is reviewed, every trade-off is deliberate.</p>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">PRODUCTION-FIRST</div>
+                    <h3 class="mt-s" data-i18n="meth.c3.t">Iterating with real users</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c3.b">Not in staging. Not in demos. Real WhatsApp subscribers, real GitHub webhooks, real ATS submissions.</p>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">COST DISCIPLINE</div>
+                    <h3 class="mt-s" data-i18n="meth.c4.t">Free-tier + Oracle Always Free</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c4.b">Multi-model routing. Free-tier APIs where quality allows. ~$0/month operating cost during credit grant.</p>
+                </div>
+            </div>
+
+            <div class="honest"><span>2026 reality:</span> This is what a founding AI hire looks like. Not someone who codes from scratch without assistance — someone who leverages AI tools to out-execute teams.</div>
+        </div>
+    </div>
+
+    <!-- 10. TRACTION -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">10</span><span class="sep">//</span><span data-i18n="trac.label">TRACTION — HONEST</span></div>
+            <h2 data-i18n="trac.title">The numbers <span class="serif">as they are.</span></h2>
+
+            <div class="bento bento-4 mt-m">
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="20" data-count-prefix="<">&lt;20</div>
+                    <div class="stat-sub" data-i18n="trac.s1">EspaLuz paying subs — retained since 2025, zero marketing</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="131">131</div>
+                    <div class="stat-sub" data-i18n="trac.s2">Tests in VJH eval harness — 4 layers, $0.03/run</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="25">25</div>
+                    <div class="stat-sub" data-i18n="trac.s3">Code reviews by CTO AIPA across 3 repos</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="5">5</div>
+                    <div class="stat-sub" data-i18n="trac.s4">CMO phases autonomous — JSON-LD, blog, UTM, triage, redirects</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="48" data-count-suffix="+">48+</div>
+                    <div class="stat-sub" data-i18n="trac.s5">NFTs published by Atuona — automated image + video pipeline</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="218">218</div>
+                    <div class="stat-sub" data-i18n="trac.s6">ATS endpoints monitored by VibeJob Hunter</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="50" data-count-suffix="K+">50K+</div>
+                    <div class="stat-sub" data-i18n="trac.s7">Lines of production code across the ecosystem</div>
+                </div>
+                <div class="tile tile-glow">
+                    <div class="stat-big" data-count-to="21">21</div>
+                    <div class="stat-sub" data-i18n="trac.s8">Spanish-speaking countries EspaLuz reaches</div>
+                </div>
+            </div>
+
             <div class="honest"><span>honest note:</span> Revenue is effectively zero at scale. VibeJob Hunter delivery verification is the current open problem. These are the real numbers — the story is strong enough without inflation.</div>
         </div>
     </div>
 
-    <!-- SLIDE 6: METHODOLOGY -->
-    <div class="slide" id="slide-6">
-        <div class="card">
-            <div class="label">The Methodology</div>
-            <h2>One developer shipping what<br><span class="accent">most teams can't.</span></h2>
-            <p class="lead">Claude Code and Cursor are the actual development environment — not a shortcut, not training wheels. The permanent workflow.</p>
-            <ul class="phase-list" style="margin-top:36px;">
-                <li><span class="check">▸</span> <div><strong>Idea to deployed agent in days, not weeks.</strong> Every agent was scoped, built, and shipped to production by one person. 10 systems in 13 months is the proof.</div></li>
-                <li><span class="check">▸</span> <div><strong>Full ownership of every architectural decision.</strong> No black boxes, no delegated understanding. Every line is reviewed, every trade-off is deliberate.</div></li>
-                <li><span class="check">▸</span> <div><strong>Iterating in production with real users.</strong> Not in staging. Not in demos. Real WhatsApp subscribers, real GitHub webhooks, real ATS form submissions.</div></li>
-                <li><span class="check">▸</span> <div><strong>Cost-disciplined by design.</strong> Multi-model routing, free-tier APIs, Oracle Always Free infra. ~$0/month operating cost during credit grant period.</div></li>
-                <li><span class="check">▸</span> <div><strong>This is what a founding AI hire looks like in 2026.</strong> Not someone who codes from scratch without assistance — someone who leverages AI tools to out-execute teams.</div></li>
-            </ul>
+    <!-- 11. FOUNDER -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">11</span><span class="sep">//</span><span data-i18n="fnd.label">THE FOUNDER</span></div>
+            <h2 data-i18n="fnd.title">Elena Revicheva<br><span class="serif">executive who</span> <span class="grad">ships.</span></h2>
+
+            <div class="tl mt-m">
+                <div class="tl-row">
+                    <div class="tl-yr">2011–2018</div>
+                    <div class="tl-txt" data-i18n="fnd.r1"><strong>Chief Legal Officer → Deputy CEO for Corporate Governance</strong> — Russian regional e-government digital infrastructure. 7 years board-level governance, enterprise digital transformation, highly regulated environments. Decided what got built and made it accountable.</div>
+                </div>
+                <div class="tl-row">
+                    <div class="tl-yr">2022</div>
+                    <div class="tl-txt" data-i18n="fnd.r2"><strong>Relocated to Panama City</strong> as a single mother with a one-year-old. No local network, no Spanish, no income. Rebuilt from zero.</div>
+                </div>
+                <div class="tl-row">
+                    <div class="tl-yr">Jan 2025</div>
+                    <div class="tl-txt" data-i18n="fnd.r3"><strong>Decision:</strong> teach herself to build AI systems using Claude Code and Cursor as the actual methodology — not a shortcut.</div>
+                </div>
+                <div class="tl-row">
+                    <div class="tl-yr">Apr 2026</div>
+                    <div class="tl-txt" data-i18n="fnd.r4"><strong>10 production AI agents.</strong> 13 months. Solo. Under $15,000. TypeScript, Python, SQL. 8+ AI services integrated. 50K+ lines across the ecosystem.</div>
+                </div>
+            </div>
+
+            <div class="honest mt-m"><span>the hybrid is rare:</span> Most AI engineers have never operated at board level. Most executives have never shipped production AI systems. Elena can design, build, and explain AI systems to non-technical decision-makers in the same conversation.</div>
         </div>
     </div>
 
-    <!-- SLIDE 7: FOUNDER -->
-    <div class="slide" id="slide-7">
-        <div class="card">
-            <div class="label">The Founder</div>
-            <h2>Elena Revicheva<br><span class="accent">Executive who ships.</span></h2>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-year">2011–2018</div>
-                    <div class="tl-content"><strong>Deputy CEO + Chief Legal Officer</strong> — Russian regional e-government digital infrastructure. 7 years board-level governance, enterprise digital transformation, highly regulated environments. Decided what got built and made it accountable.</div>
+    <!-- 12. WEB3 INFRASTRUCTURE -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">12</span><span class="sep">//</span><span>WEB3 INFRASTRUCTURE · BUILT, NOT PITCHED</span></div>
+            <h2>On-chain infrastructure <span class="serif">exists.</span><br><span class="grad">Not the investment thesis.</span></h2>
+            <p class="lead">Deployed on Polygon during the 2025 build cycle. All contracts verifiable on-chain. Included for completeness — not as the value proposition.</p>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile">
+                    <div class="tag-mono">AZ TOKEN · ERC-20</div>
+                    <h3 class="mt-s">Live on QuickSwap</h3>
+                    <div class="addr mt-s">0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5</div>
+                    <div class="flex-wrap mt-s"><a href="https://dapp.quickswap.exchange/swap/v3/ETH/0x5F9cdccA7cE46198fad277A5914E7D545cb3afc5" class="btn" target="_blank">View on QuickSwap</a></div>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-year">2022</div>
-                    <div class="tl-content"><strong>Relocated to Panama City</strong> as a single mother with a one-year-old. No local network, no Spanish, no income. Rebuilt from zero.</div>
+                <div class="tile">
+                    <div class="tag-mono">NFT COLLECTION · ERC-721</div>
+                    <h3 class="mt-s">Deployed via Thirdweb</h3>
+                    <div class="addr mt-s">0x771Cc6BDCF8E7660ddc7E3F68FBCE7Dc5d675769</div>
+                    <p style="font-size:0.82rem;color:var(--muted);margin-top:10px;">48+ NFTs minted via Atuona Creative AI — automated image + video generation pipeline.</p>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-year">Jan 2025</div>
-                    <div class="tl-content"><strong>Decision:</strong> teach herself to build AI systems using Claude Code and Cursor as the actual methodology — not a shortcut.</div>
+                <div class="tile">
+                    <div class="tag-mono">DAO · DECENT</div>
+                    <h3 class="mt-s">Polygon DAO</h3>
+                    <div class="addr mt-s">0x547d7aF7B55a92a65A1d015fAA4E75eeF4758190</div>
+                    <div class="flex-wrap mt-s"><a href="https://app.decentdao.org/home?dao=matic%3A0x8301c6F34925580D2695E06fC212eDd8fA152535" class="btn" target="_blank">View DAO</a></div>
                 </div>
-                <div class="tl-item">
-                    <div class="tl-year">Apr 2026</div>
-                    <div class="tl-content"><strong>10 production AI agents</strong> — 13 months, solo, under $15,000. TypeScript, Python, SQL. 8+ AI services integrated. 50K+ lines across the ecosystem.</div>
+                <div class="tile">
+                    <div class="tag-mono">ENS · IDENTITY</div>
+                    <h3 class="mt-s">aideazz.eth</h3>
+                    <div class="addr mt-s">Primary wallet:<br>0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5</div>
                 </div>
             </div>
-            <div class="honest" style="margin-top:32px;"><span>the hybrid is rare:</span> Most AI engineers have never operated at board level. Most executives have never shipped production AI systems. Elena can design, build, and explain AI systems to non-technical decision-makers in the same conversation.</div>
         </div>
     </div>
 
-    <!-- SLIDE 8: ASK -->
-    <div class="slide" id="slide-8">
-        <div class="card" style="text-align:center;max-width:800px;">
-            <div class="label">The Ask</div>
-            <h2>Two outcomes.<br><span class="accent">Both are welcome.</span></h2>
-            <p class="lead" style="margin:0 auto 40px;text-align:center;">The work is real. The systems are live. The honest goal is stable income — for the company, and for the founder.</p>
-            <div class="grid-2" style="margin-top:0;text-align:left;">
-                <div class="item" style="border-color:var(--border-accent);">
-                    <div class="item-title" style="color:var(--cyan);margin-bottom:12px;">Accelerator / Investment</div>
-                    <div class="item-body">Fix EspaLuz payment tracking. Verify VibeJob Hunter delivery. Hire one engineer. Extend infra runway. Small marketing budget to test retention signal at scale.</div>
+    <!-- 13. PARTNERSHIPS & COMMUNITY -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">13</span><span class="sep">//</span><span>MEMBERSHIPS & COMMUNITY</span></div>
+            <h2>Strategic memberships.<br><span class="grad">Organic channels.</span></h2>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile tile-glow">
+                    <div class="tag-mono">ECOSYSTEM · PANAMA</div>
+                    <h3 class="mt-s">Innovation Smart District (ISD)</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;">Local credibility. Access to Panama government and business leaders. Regional ecosystem support.</p>
+                    <div class="flex-wrap mt-s"><a href="https://www.isdistrict.com/" class="btn" target="_blank">Visit ISD</a></div>
                 </div>
-                <div class="item" style="border-color:var(--border-accent);">
-                    <div class="item-title" style="color:var(--cyan);margin-bottom:12px;">Founding AI Hire / Fractional</div>
-                    <div class="item-body">Someone who can design, build, and communicate AI systems end-to-end. Board-level operator + production AI builder. That combination is rare and verifiable.</div>
+                <div class="tile tile-glow">
+                    <div class="tag-mono">ECOSYSTEM · GLOBAL</div>
+                    <h3 class="mt-s">Decentralized AI Agent Alliance (DAIAA)</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;">Individual member. Global AI agent community. Industry recognition for independent builders.</p>
+                    <div class="flex-wrap mt-s"><a href="https://www.daiaa.org/" class="btn" target="_blank">Visit DAIAA</a></div>
                 </div>
             </div>
-            <div style="margin-top:40px;">
-                <a href="https://wa.me/50766623757" class="btn btn-primary" target="_blank">Try EspaLuz →</a>
-                <a href="https://t.me/aitcf_aideazz_bot" class="btn" target="_blank">CTO AIPA Bot</a>
-                <a href="https://t.me/vibejob_hunter_bot" class="btn" target="_blank">VibeJob Hunter</a>
-                <a href="https://aideazz.xyz" class="btn" target="_blank">aideazz.xyz</a>
+
+            <div class="bento bento-3 mt-m">
+                <div class="tile">
+                    <div class="tag-mono">SOCIAL</div>
+                    <div class="flex-wrap mt-s">
+                        <a href="https://www.youtube.com/@AIdeazz" class="btn" target="_blank">YouTube</a>
+                        <a href="https://x.com/reviceva" class="btn" target="_blank">X</a>
+                        <a href="https://www.linkedin.com/in/elenarevicheva/" class="btn" target="_blank">LinkedIn</a>
+                        <a href="https://www.instagram.com/elena_revicheva/" class="btn" target="_blank">Instagram</a>
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="tag-mono">COMMUNITY</div>
+                    <div class="flex-wrap mt-s">
+                        <a href="https://t.me/EspaLuz" class="btn" target="_blank">Telegram</a>
+                        <a href="https://discord.gg/RutK6kwp" class="btn" target="_blank">Discord</a>
+                    </div>
+                </div>
+                <div class="tile">
+                    <div class="tag-mono">WEB3</div>
+                    <div class="flex-wrap mt-s">
+                        <a href="https://orb.club/@aideazz" class="btn" target="_blank">Orb</a>
+                        <a href="https://farcaster.xyz/atuona" class="btn" target="_blank">Farcaster</a>
+                        <a href="https://mirror.xyz/0x116bB2352c3Bc5a671fe09f0CBfd9957Cb467dA5" class="btn" target="_blank">Mirror</a>
+                    </div>
+                </div>
             </div>
-            <div class="honest" style="margin-top:28px;text-align:left;"><span>panama city, utc-5 · remote · single mother · bootstrapped</span> — The agents are live. Try them before this call ends.</div>
+        </div>
+    </div>
+
+    <!-- 14. ASK + CONTACT -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">14</span><span class="sep">//</span><span data-i18n="ask.label">THE ASK · CONTACT</span></div>
+            <h2 data-i18n="ask.title">Hiring-ready.<br><span class="serif">Open to</span> <span class="grad">aligned investment.</span></h2>
+            <p class="lead" data-i18n="ask.lead">The work is real. The systems are live. The honest goal is stable income — joining a worthy team first, investment second.</p>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile tile-glow" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(0,229,255,0.02));">
+                    <div class="tag-mono" style="color:#00e5ff;">● PRIMARY · FOUNDING AI HIRE</div>
+                    <h3 class="mt-s" data-i18n="ask.a.t">Join the right team</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="ask.a.b">Full-time remote, founding / senior AI or applied-AI engineer. $3.5K–$5K+/mo USD. LATAM-friendly hours. Someone who can design, build, and ship AI systems end-to-end — board-level operator + production builder. Rare combination, fully verifiable above.</p>
+                </div>
+                <div class="tile tile-glow" style="border-color:rgba(168,85,247,0.35);">
+                    <div class="tag-mono" style="color:#c084fc;">● SECONDARY · ACCELERATOR / INVESTMENT</div>
+                    <h3 class="mt-s" data-i18n="ask.b.t">Fund the ecosystem</h3>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="ask.b.b">Fix EspaLuz payment tracking. Verify VibeJob Hunter delivery. Hire one engineer. Extend infra runway before Oracle credit grant expires. Small marketing budget to test retention at scale.</p>
+                </div>
+            </div>
+
+            <div class="tile mt-m" style="background:linear-gradient(135deg,rgba(0,229,255,0.04),rgba(168,85,247,0.04));">
+                <div class="tag-mono">DIRECT CONTACT · ELENA REVICHEVA</div>
+                <div class="bento bento-3 mt-m" style="gap:10px;">
+                    <div>
+                        <div style="font-size:0.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">EMAIL</div>
+                        <a href="mailto:aipa@aideazz.xyz" class="link" style="font-size:0.95rem;">aipa@aideazz.xyz</a>
+                    </div>
+                    <div>
+                        <div style="font-size:0.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">WHATSAPP</div>
+                        <a href="https://wa.me/50761666716" class="link" style="font-size:0.95rem;" target="_blank">+507 6166 6716</a>
+                    </div>
+                    <div>
+                        <div style="font-size:0.72rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">TELEGRAM</div>
+                        <a href="https://t.me/ElenaRevicheva" class="link" style="font-size:0.95rem;" target="_blank">@ElenaRevicheva</a>
+                    </div>
+                </div>
+                <div class="flex-wrap mt-m">
+                    <a href="https://aideazz.xyz" class="btn btn-primary" target="_blank">aideazz.xyz</a>
+                    <a href="https://aideazz.xyz/portfolio" class="btn" target="_blank" data-i18n="ask.btn.portfolio">Full Portfolio</a>
+                    <a href="https://wa.me/50766623757" class="btn" target="_blank" data-i18n="ask.btn.demo">Try EspaLuz Demo</a>
+                    <a href="https://github.com/ElenaRevicheva" class="btn" target="_blank">GitHub</a>
+                </div>
+            </div>
+
+            <div class="honest mt-m"><span>Panama City · UTC−5 · Remote · Bootstrapped</span> — Live agents—verifiable in minutes.</div>
         </div>
     </div>
 
 </div>
 
+<!-- Arrows -->
+<div class="arrow arrow-l" id="prev">←</div>
+<div class="arrow arrow-r" id="next">→</div>
+
 <!-- Nav dots -->
 <div class="nav" id="nav"></div>
 
-<!-- Arrows -->
-<div class="arrow arrow-left" id="prev">←</div>
-<div class="arrow arrow-right" id="next">→</div>
-
 <script>
+    // Translations (Spanish)
+    const translations = {
+        'hero.title': 'Agentes de IA adaptativos <span class="serif">que te ayudan a</span><br><span class="grad">prosperar en el camino.</span>',
+        'hero.lead': '10 agentes autónomos. 13 meses. Una desarrolladora. Menos de $15,000. Todos funcionando 24/7 en producción sobre infraestructura compartida.',
+        'hero.stat1': 'Agentes en producción',
+        'hero.stat2': 'Tiempo de construcción solo',
+        'hero.stat3': 'Capital total invertido',
+        'hero.stat4': 'Costo mensual infra',
+        'hero.btn2': 'La Fundadora',
+        'hero.btn3': 'Probar EspaLuz Insignia',
+        'prob.label': 'EL PROBLEMA',
+        'prob.title': 'La mayoría no puede pagar las herramientas<br>que usan los negocios de <span class="grad">alto rendimiento</span>.',
+        'prob.lead': 'Especialmente cuando te adaptas a un nuevo país, un nuevo idioma o una nueva carrera — sin equipo, sin presupuesto, sin red de seguridad.',
+        'prob.c1.t': 'Cambio cultural e idiomático',
+        'prob.c1.b': '280M+ personas navegando la vida diaria en un segundo idioma sin apoyo accesible y siempre disponible.',
+        'prob.c2.t': 'La búsqueda está rota',
+        'prob.c2.b': 'La búsqueda de empleo premia plantillas, no señales. Formularios ATS, ghosting, cero retroalimentación — especialmente para perfiles no tradicionales.',
+        'prob.c3.t': 'Constructores solos, sin equipo',
+        'prob.c3.b': 'Fundadores y equipos pequeños no pueden pagar el ancho de banda de ingeniería que sus ideas requieren.',
+        'sol.label': 'LA SOLUCIÓN',
+        'sol.title': 'Un ecosistema de agentes <span class="serif">autónomos</span>,<br>cada uno dueño de un <span class="grad">problema real</span> de punta a punta.',
+        'sol.lead': 'No es una plataforma. No es un wrapper. Cada agente es un sistema de producción: raspando, calificando, decidiendo, actuando, notificando — 24/7, sin input humano.',
+        'sol.c1.t': 'Una VM. Una base de datos. 10 agentes.',
+        'sol.c1.b': 'Todos los agentes comparten una VM Oracle Cloud y una Oracle Autonomous Database. Coordinan a través de tablas compartidas. ~$0/mes en créditos gratuitos de Oracle.',
+        'sol.c2.t': 'Consciente del costo por diseño',
+        'sol.c2.b': 'Claude Opus 4 para rutas críticas. Groq Llama 3.3 70B (tier gratuito) para análisis estándar. Razonamiento explícito de costo por llamada.',
+        'sol.c3.t': 'Interfaces de voz en cada agente',
+        'sol.c3.b': 'Transcripción Groq Whisper. Accesible vía WhatsApp y Telegram — sin instalación de app. Latencia sub-2s en EspaLuz.',
+        'sol.c4.t': 'Arnés de evaluación grado producción',
+        'sol.c4.b': '131 tests, 4 capas. Puntuación de consistencia LLM-como-juez. $0.03/run. Regresiones detectadas antes del despliegue.',
+        'ag.label': 'LO QUE ESTÁ EN VIVO',
+        'ag.title': '10 agentes. <span class="grad">Todos en producción.</span>',
+        'ag.lead': 'Cada agente corre 24/7 en Oracle Cloud, coordinando a través de tablas compartidas. Usuarios reales. Despliegues reales. Estado honesto.',
+        'ag.th1': 'Agente', 'ag.th2': 'Función', 'ag.th3': 'Plataforma', 'ag.th4': 'Estado',
+        'meth.label': 'METODOLOGÍA',
+        'meth.title': 'Una desarrolladora entregando<br><span class="grad">lo que la mayoría no puede.</span>',
+        'meth.lead': 'Claude Code y Cursor son el entorno de desarrollo real — no un atajo, no ruedas de entrenamiento. El flujo de trabajo permanente.',
+        'meth.c1.t': 'Idea → agente desplegado en días',
+        'meth.c1.b': 'Cada agente fue alcance, construido y desplegado a producción por una sola persona. 10 sistemas en 13 meses es la prueba.',
+        'meth.c2.t': 'Control arquitectónico total',
+        'meth.c2.b': 'Sin cajas negras. Sin comprensión delegada. Cada línea revisada, cada trade-off deliberado.',
+        'meth.c3.t': 'Iterando con usuarios reales',
+        'meth.c3.b': 'No en staging. No en demos. Suscriptores reales de WhatsApp, webhooks reales de GitHub, submissions reales de ATS.',
+        'meth.c4.t': 'Tier gratuito + Oracle Always Free',
+        'meth.c4.b': 'Enrutamiento multi-modelo. APIs de tier gratuito donde la calidad lo permite. ~$0/mes de operación durante créditos.',
+        'trac.label': 'TRACCIÓN — HONESTA',
+        'trac.title': 'Los números <span class="serif">tal como son.</span>',
+        'trac.s1': 'Suscriptores pagos EspaLuz — retenidos desde 2025, cero marketing',
+        'trac.s2': 'Tests en arnés VJH — 4 capas, $0.03/run',
+        'trac.s3': 'Reviews por CTO AIPA en 3 repos',
+        'trac.s4': 'Fases CMO autónomas — JSON-LD, blog, UTM, triaje, redirects',
+        'trac.s5': 'NFTs publicados por Atuona — pipeline automático',
+        'trac.s6': 'Endpoints ATS monitoreados por VibeJob Hunter',
+        'trac.s7': 'Líneas de código producción en el ecosistema',
+        'trac.s8': 'Países hispanohablantes que alcanza EspaLuz',
+        'fnd.label': 'LA FUNDADORA',
+        'fnd.title': 'Elena Revicheva<br><span class="serif">ejecutiva que</span> <span class="grad">entrega.</span>',
+        'fnd.r1': '<strong>Chief Legal Officer → Deputy CEO de Gobernanza Corporativa</strong> — infraestructura digital del e-government regional ruso. 7 años gobernanza a nivel junta, transformación digital empresarial, entornos altamente regulados. Decidía qué se construía y lo hacía rendir cuentas.',
+        'fnd.r2': '<strong>Reubicada en Ciudad de Panamá</strong> como madre soltera con una hija de un año. Sin red local, sin español, sin ingresos. Reconstruida desde cero.',
+        'fnd.r3': '<strong>Decisión:</strong> enseñarse a sí misma a construir sistemas de IA usando Claude Code y Cursor como metodología real — no como atajo.',
+        'fnd.r4': '<strong>10 agentes de IA en producción.</strong> 13 meses. Solo. Menos de $15,000. TypeScript, Python, SQL. 8+ servicios de IA integrados. 50K+ líneas.',
+        'ask.label': 'LA PETICIÓN · CONTACTO',
+        'ask.title': 'Lista para ser contratada.<br><span class="serif">Abierta a</span> <span class="grad">inversión alineada.</span>',
+        'ask.lead': 'El trabajo es real. Los sistemas están en vivo. La meta honesta es ingreso estable — primero unirme a un equipo digno, después inversión.',
+        'ask.a.t': 'Unirme al equipo correcto',
+        'ask.a.b': 'Remoto tiempo completo, ingeniera de IA fundadora / senior. $3.5K–$5K+/mes USD. Horario LATAM. Alguien que diseña, construye y entrega sistemas de IA de punta a punta — operadora a nivel junta + constructora de producción. Combinación rara, totalmente verificable arriba.',
+        'ask.b.t': 'Fondear el ecosistema',
+        'ask.b.b': 'Arreglar tracking de pagos de EspaLuz. Verificar entrega de VibeJob Hunter. Contratar un ingeniero. Extender runway antes de que expiren créditos Oracle. Presupuesto pequeño de marketing.',
+        'hero.sub': 'Construido para probar que puedo entregar. <span style="color:#00e5ff;">Meta principal: unirme al equipo correcto como ingeniera de IA fundadora / aplicada.</span> Inversión bienvenida — ingreso estable es la misión.',
+        'ask.btn.portfolio': 'Portafolio Completo',
+        'ask.btn.demo': 'Probar EspaLuz Demo',
+        'esp.sub': 'Español ↔ Inglés · contexto consciente de la familia · WhatsApp + Telegram + Web',
+        'esp.signal': 'Menos de 20 suscriptores pagos — pero han sido retenidos desde 2025 con <strong style="color:var(--text);">cero gasto en marketing</strong>. La gente pagó, se quedó, siguió usándolo. Esa es la señal de retención que vale la pena escalar.',
+    };
+
+    const originalEn = {};
+    let currentLang = 'en';
+
+    function saveOriginals() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            originalEn[el.dataset.i18n] = el.innerHTML;
+        });
+    }
+
+    function applyLang(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            if (lang === 'es' && translations[key]) {
+                el.innerHTML = translations[key];
+            } else if (lang === 'en' && originalEn[key]) {
+                el.innerHTML = originalEn[key];
+            }
+        });
+        document.querySelectorAll('.lang button').forEach(btn => {
+            btn.classList.toggle('on', btn.dataset.lang === lang);
+        });
+        localStorage.setItem('pitchLang', lang);
+    }
+
+    // Slide navigation
     const slides = document.querySelectorAll('.slide');
     const nav = document.getElementById('nav');
-    const counter = document.getElementById('counter');
+    const cnt = document.getElementById('cnt');
     const total = slides.length;
     let current = 0;
 
-    // Build dots
+    document.getElementById('tot').textContent = String(total).padStart(2, '0');
+
     slides.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => goTo(i));
-        nav.appendChild(dot);
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => goTo(i));
+        nav.appendChild(d);
     });
 
     function goTo(n) {
@@ -654,24 +1242,62 @@
         current = (n + total) % total;
         slides[current].classList.add('active');
         nav.children[current].classList.add('active');
-        counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+        slides[current].scrollTop = 0;
+        cnt.textContent = String(current + 1).padStart(2, '0');
+        runCounters(slides[current]);
+    }
+
+    // Number tick-up animation
+    function runCounters(scope) {
+        const els = scope.querySelectorAll('[data-count-to]');
+        els.forEach(el => {
+            const target = parseInt(el.dataset.countTo, 10);
+            const prefix = el.dataset.countPrefix || '';
+            const suffix = el.dataset.countSuffix || '';
+            const dur = 1400;
+            const start = performance.now();
+            function frame(now) {
+                const p = Math.min(1, (now - start) / dur);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const v = Math.round(target * eased);
+                el.textContent = prefix + v + suffix;
+                if (p < 1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+        });
     }
 
     document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
     document.getElementById('next').addEventListener('click', () => goTo(current + 1));
 
     document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') goTo(current + 1);
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+        if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
+        if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
     });
 
-    // Touch/swipe
-    let touchX = 0;
-    document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; });
+    let tx = 0;
+    document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', e => {
-        const dx = e.changedTouches[0].clientX - touchX;
+        const dx = e.changedTouches[0].clientX - tx;
         if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
     });
+
+    // Lang buttons
+    document.querySelectorAll('.lang button').forEach(btn => {
+        btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+
+    // Cursor spotlight
+    const spot = document.getElementById('spot');
+    document.addEventListener('mousemove', e => {
+        spot.style.left = e.clientX + 'px';
+        spot.style.top = e.clientY + 'px';
+    });
+
+    // Init
+    saveOriginals();
+    const saved = localStorage.getItem('pitchLang') || 'en';
+    if (saved === 'es') applyLang('es');
 </script>
 </body>
 </html>
