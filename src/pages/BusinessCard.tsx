@@ -937,7 +937,22 @@ export default function BusinessCard() {
                         <ul className="text-sm text-gray-200 space-y-3">
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 text-sm leading-5">✦</span>
-                            <span>{t('section2.openTo.hybrid.item1')}</span>
+                            <a
+                              href="/pitch.html"
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="relative group/link"
+                            >
+                              <span className="relative">
+                                {t('section2.openTo.hybrid.item1')}
+                                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-green-400 to-blue-400 group-hover/link:w-full transition-all duration-300" />
+                              </span>
+                              <span className="inline-flex items-center gap-1 ml-2 px-2 py-0.5 bg-gradient-to-r from-green-600 to-blue-600 rounded text-xs font-bold text-white opacity-0 group-hover/link:opacity-100 transition-opacity">
+                                {t('section2.openTo.hybrid.item1Button')}{' '}
+                                <span className="group-hover/link:translate-x-0.5 transition-transform">→</span>
+                              </span>
+                            </a>
                           </li>
                           <li className="flex items-start gap-2">
                             <span className="text-green-400 text-sm leading-5">✦</span>
