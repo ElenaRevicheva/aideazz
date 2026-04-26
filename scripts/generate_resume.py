@@ -332,9 +332,16 @@ def build_pdf(output_path):
     # ── TARGET ROLES ─────────────────────────────────────────────────────────
     story.append(Paragraph("TARGET ROLES", s['section_header']))
     story.append(Paragraph(
-        "Applied AI Engineer, Agent Systems Engineer (Application Layer), "
-        "AI Product Engineer, Agentic AI Engineer, Internal AI Tools Engineer",
+        "Applied AI Engineer · Agent Systems Engineer (Application Layer) · "
+        "AI Product Engineer · Agentic AI Engineer · Internal AI Tools Engineer · "
+        "AI Systems Operator · AI Automation Lead · AI Integration Specialist · "
+        "Internal AI Tools Lead · AI Operations / AI Program Manager · AI Solutions Architect",
         s['target_roles']))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph(
+        "Comfortable working across teams as an internal lead or embedded specialist, "
+        "designing and delivering AI-driven solutions from concept to production.",
+        s['body']))
 
     doc.build(story)
     print(f"PDF generated: {output_path}")
