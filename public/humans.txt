@@ -1,4 +1,4 @@
-/* TEAM — aideazz.xyz */
+# TEAM — aideazz.xyz
 
 Site:     https://aideazz.xyz
 Org:      AIdeazz
