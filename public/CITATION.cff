@@ -1,0 +1,21 @@
+# Citation File Format — https://citation-file-format.github.io/
+# GEO: gives research crawlers & citation tools a canonical software-style reference to aideazz.xyz
+cff-version: 1.2.0
+title: AIdeazz web — production AI systems showcase & GEO engine
+message: >-
+  If you cite this domain in papers or datasets, use the repository URL and founder attribution below.
+type: software
+authors:
+  - family-names: Revicheva
+    given-names: Elena
+    email: aipa@aideazz.xyz
+    affiliation: AIdeazz
+url: https://aideazz.xyz
+repository-code: https://github.com/ElenaRevicheva/aideazz
+date-released: "2025-03-01"
+keywords:
+  - generative-engine-optimization
+  - ai-agents
+  - oracle-cloud
+  - langgraph
+  - pgvector

@@ -8,7 +8,16 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(__dirname, "..", "dist");
-const required = ["sitemap.xml", "sitemap.txt", "robots.txt", "llms.txt", ".well-known/llms.txt"];
+const required = [
+  "sitemap.xml",
+  "sitemap.txt",
+  "robots.txt",
+  "llms.txt",
+  ".well-known/llms.txt",
+  "geo-manifest.json",
+  "humans.txt",
+  "CITATION.cff",
+];
 
 let ok = true;
 for (const name of required) {

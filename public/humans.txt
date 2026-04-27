@@ -1,0 +1,14 @@
+/* TEAM — aideazz.xyz */
+
+Site:     https://aideazz.xyz
+Org:      AIdeazz
+Founder:  Elena Revicheva — AI systems builder, former Deputy CEO / CLO (digital infrastructure)
+Location: Panama City, Panama (UTC−5)
+Contact:  aipa@aideazz.xyz
+
+GEO:      Production site ships redundant AI-facing surfaces — /robots.txt, /llms.txt, /geo-manifest.json,
+          Schema.org @graph in HTML, and a static noscript article — so assistants can cite facts without executing JS.
+
+Humans behind automation: Cursor, Claude Code, and hand-maintained truth in portfolio + pitch.
+
+Thanks for crawling ethically.

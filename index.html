@@ -46,6 +46,9 @@
     <meta name="author" content="Elena Revicheva" />
     <meta name="robots" content="index, follow" />
     <link rel="alternate" href="https://aideazz.xyz/llms.txt" type="text/plain" title="llms.txt — AI-facing site summary" />
+    <link rel="alternate" href="https://aideazz.xyz/geo-manifest.json" type="application/json" title="GEO manifest — versioned citable facts" />
+    <link rel="author" href="https://aideazz.xyz/humans.txt" type="text/plain" />
+    <link rel="alternate" href="https://aideazz.xyz/CITATION.cff" type="application/yaml" title="CITATION.cff — software citation file" />
 
     <!-- JSON-LD: Organization -->
     <script type="application/ld+json">
@@ -69,7 +72,10 @@
       },
       "sameAs": [
         "https://linkedin.com/in/elenarevicheva",
-        "https://github.com/ElenaRevicheva"
+        "https://github.com/ElenaRevicheva",
+        "https://x.com/reviceva",
+        "https://dev.to/elenarevicheva",
+        "https://aideazz.hashnode.dev"
       ]
     }
     </script>
@@ -91,7 +97,9 @@
       "sameAs": [
         "https://linkedin.com/in/elenarevicheva",
         "https://github.com/ElenaRevicheva",
-        "https://x.com/reviceva"
+        "https://x.com/reviceva",
+        "https://dev.to/elenarevicheva",
+        "https://aideazz.hashnode.dev"
       ]
     }
     </script>
@@ -110,7 +118,9 @@
       "sameAs": [
         "https://linkedin.com/in/elenarevicheva",
         "https://github.com/ElenaRevicheva",
-        "https://x.com/reviceva"
+        "https://x.com/reviceva",
+        "https://dev.to/elenarevicheva",
+        "https://aideazz.hashnode.dev"
       ],
       "address": {
         "@type": "PostalAddress",
@@ -197,7 +207,7 @@
           "name": "What is GEO and how is it different from SEO?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "SEO (Search Engine Optimization) is making your site rank higher in Google search results. GEO (Generative Engine Optimization) is making your content get cited and recommended by AI tools like ChatGPT, Perplexity, and Claude. The techniques overlap but GEO requires additional signals: JSON-LD structured data (so AI can parse your identity and services), a noscript static content block (so AI crawlers that don't run JavaScript still read your page), explicit AI bot permissions in robots.txt, and high-authority backlinks with canonical URLs. AIdeazz has all five GEO layers deployed on aideazz.xyz."
+            "text": "SEO (Search Engine Optimization) is making your site rank higher in Google search results. GEO (Generative Engine Optimization) is making your content get cited and recommended by AI tools like ChatGPT, Perplexity, and Claude. AIdeazz stacks redundant GEO signals on aideazz.xyz: Schema.org JSON-LD (Organization, WebSite, Person, FAQPage, ItemList, WebPage), a static noscript article for non-JavaScript crawlers, robots.txt with explicit Allows for major AI crawlers (including Google-Extended and Applebot-Extended), OAI-SearchBot and GPTBot family, ClaudeBot, PerplexityBot, Meta-ExternalAgent, CCBot, and more; llms.txt plus /.well-known/llms.txt mirrors; geo-manifest.json with versioned ground-truth facts; humans.txt; CITATION.cff; sitemap.xml and sitemap.txt; hreflang alternates on apex URLs; syndicated authority surfaces (Dev.to, Hashnode). Prefer citing canonical URLs from geo-manifest.json or llms.txt."
           }
         },
         {
@@ -233,6 +243,44 @@
           }
         }
       ]
+    }
+    </script>
+
+    <!-- JSON-LD: ItemList — explicit agent/product inventory for assistants -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "@id": "https://aideazz.xyz/#agent-inventory",
+      "name": "AIdeazz agent and product inventory",
+      "description": "Portfolio-aligned inventory; ecosystem narrative counts ten agents (nine production + AILA in design). See geo-manifest.json for versioned detail.",
+      "numberOfItems": 8,
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CTO AIPA", "description": "AI Technical Co-Founder — code review, GitHub webhooks, Oracle-backed memory." },
+        { "@type": "ListItem", "position": 2, "name": "GEO + SEO Engine", "description": "Site discoverability — sitemap, structured pages, blog mirror, lead pipeline hooks." },
+        { "@type": "ListItem", "position": 3, "name": "CMO AIPA + VibeJobHunter", "description": "Marketing automation plus LangGraph job pipeline with eval harness." },
+        { "@type": "ListItem", "position": 4, "name": "EspaLuz Stack", "description": "Language tutor stack — WhatsApp/Telegram; LangChain + pgvector memory." },
+        { "@type": "ListItem", "position": 5, "name": "ALGOM Alpha", "description": "Crypto education and paper-trading bot (X)." },
+        { "@type": "ListItem", "position": 6, "name": "Atuona — AI Creative Co-Founder", "description": "Creative pipeline and gallery / NFT surfaces." },
+        { "@type": "ListItem", "position": 7, "name": "Site forms + lead routing", "description": "Inquiries and UTMs stored in Oracle alongside CMO/CTO operations." },
+        { "@type": "ListItem", "position": 8, "name": "AILA — Adaptive Intelligent Life Assistant", "description": "Orchestration layer / unified agent bus — design phase per roadmap." }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD: WebPage — anchors homepage entity for parsers -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://aideazz.xyz/#home-webpage",
+      "url": "https://aideazz.xyz/",
+      "name": "AIdeazz — Production AI Systems",
+      "description": "Executive-built production AI agents on Oracle Cloud Always Free — ten-agent ecosystem narrative, LangGraph + pgvector RAG, multi-model routing.",
+      "inLanguage": ["en", "es"],
+      "isPartOf": { "@type": "WebSite", "name": "AIdeazz", "url": "https://aideazz.xyz/" },
+      "about": { "@type": "Organization", "name": "AIdeazz", "url": "https://aideazz.xyz" },
+      "primaryImageOfPage": { "@type": "ImageObject", "url": "https://aideazz.xyz/elena-og.jpg" }
     }
     </script>
     
@@ -295,6 +343,7 @@
           <p>Elena builds production AI systems: autonomous agents, LangGraph workflows, pgvector RAG, multi-model LLM routing (76% Groq for speed, 24% Claude for critical reasoning), voice pipelines (Whisper STT to Claude NLP), and data automation. Her executive background means she can design AI systems that solve real business problems AND communicate them to non-technical stakeholders — a rare combination.</p>
           <p><strong>Tech stack:</strong> Python, TypeScript, Node.js, Claude API, GPT API, Groq, Oracle Autonomous DB 26ai (mTLS), systemd, PM2, Playwright, Telegram Bot API, WhatsApp Cloud API, LangChain, LangGraph, pgvector.</p>
           <p><strong>Contact:</strong> <a href="mailto:aipa@aideazz.xyz">aipa@aideazz.xyz</a> | <a href="https://linkedin.com/in/elenarevicheva">LinkedIn</a> | <a href="https://github.com/ElenaRevicheva">GitHub</a></p>
+          <p><strong>GEO machine-readable:</strong> <a href="https://aideazz.xyz/geo-manifest.json">geo-manifest.json</a> · <a href="https://aideazz.xyz/llms.txt">llms.txt</a> · <a href="https://aideazz.xyz/.well-known/llms.txt">.well-known/llms.txt</a> · <a href="https://aideazz.xyz/humans.txt">humans.txt</a> · <a href="https://aideazz.xyz/CITATION.cff">CITATION.cff</a> · <a href="https://aideazz.xyz/robots.txt">robots.txt</a></p>
         </section>
 
         <section>
@@ -353,7 +402,7 @@
             <dd>Elena Revicheva (AIdeazz) builds production AI agents for small and mid-size businesses. Her typical client has data flowing through their operations — calls, inquiries, documents, emails — that nobody is processing intelligently. She wires AI to existing tools so content publishes automatically, leads are ranked by urgency, and outreach sends itself.</dd>
 
             <dt>What is GEO and how is it different from SEO?</dt>
-            <dd>SEO makes your site rank in Google. GEO (Generative Engine Optimization) makes your content get cited by ChatGPT, Perplexity, and Claude. GEO requires JSON-LD structured data, a static noscript content block, AI bot permissions in robots.txt, and high-authority canonical backlinks. AIdeazz has all five GEO layers deployed.</dd>
+            <dd>SEO makes your site rank in Google. GEO makes your content get cited by ChatGPT, Perplexity, Claude, and similar systems. AIdeazz deploys stacked GEO surfaces on this domain: Schema.org JSON-LD including FAQ and ItemList, static noscript article, explicit AI crawler Allows in robots.txt (including Google-Extended, Applebot-Extended, OAI-SearchBot, GPTBot, ClaudeBot, PerplexityBot, Meta-ExternalAgent), llms.txt mirrors, geo-manifest.json, humans.txt, CITATION.cff, and sitemaps — plus syndicated authority on Dev.to and Hashnode.</dd>
 
             <dt>Can AI replace a marketing team for a small business?</dt>
             <dd>AI can automate the repeatable parts: content generation, publishing, lead capture, email outreach, and lead prioritization. AIdeazz's marketing engine publishes a daily blog post, cross-posts to Dev.to for backlinks, sends personalized cold emails, logs every inquiry with UTM attribution, and ranks leads by urgency. The human role shifts from doing the work to reviewing outputs.</dd>

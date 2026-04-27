@@ -27,6 +27,13 @@ const STATIC_PAGES = [
   { path: "/blog", changefreq: "weekly", priority: "0.85" },
   { path: "/pitch.html", changefreq: "monthly", priority: "0.7" },
   { path: "/pitch-es.html", changefreq: "monthly", priority: "0.6" },
+  /* GEO — explicit in sitemap so crawlers discover machine-readable surfaces */
+  { path: "/llms.txt", changefreq: "monthly", priority: "0.55" },
+  { path: "/.well-known/llms.txt", changefreq: "monthly", priority: "0.55" },
+  { path: "/geo-manifest.json", changefreq: "monthly", priority: "0.55" },
+  { path: "/humans.txt", changefreq: "yearly", priority: "0.35" },
+  { path: "/CITATION.cff", changefreq: "yearly", priority: "0.35" },
+  { path: "/robots.txt", changefreq: "yearly", priority: "0.3" },
 ];
 
 const GQL = `
