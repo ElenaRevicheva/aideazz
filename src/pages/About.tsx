@@ -6,15 +6,15 @@ export default function About() {
     applyPageSeo({
       title: "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz",
       description:
-        "Elena Revicheva: 7 years as Deputy CEO in digital infrastructure, now building production AI systems. 9 AI agents running on Oracle Cloud at $0/month.",
+        "Elena Revicheva: 7 years as Deputy CEO in digital infrastructure, now building production AI systems. 10-agent ecosystem (9 in production) running on Oracle Cloud at $0/month.",
       canonicalUrl: `${SITE_ORIGIN}/about`,
       ogType: "profile",
       ogTitle: "Elena Revicheva — Executive-Turned-AI-Builder | AIdeazz",
       ogDescription:
-        "7 years board-level executive. 9 production AI agents at $0/month. I speak both languages — CEO and engineer.",
+        "7 years board-level executive. 10-agent ecosystem (9 in production). LangGraph + pgvector RAG live. $0/month on Oracle Cloud.",
       twitterTitle: "Elena Revicheva — Executive-Turned-AI-Builder",
       twitterDescription:
-        "7 years Deputy CEO. 9 production AI agents. $0/month infra. Multi-model LLM routing.",
+        "7 years Deputy CEO. 10-agent ecosystem (9 live). LangGraph stateful pipelines. pgvector RAG. $0/month infra.",
     });
 
     // JSON-LD Person schema for GEO
@@ -31,11 +31,11 @@ export default function About() {
       image: "https://aideazz.xyz/elena-og.jpg",
       jobTitle: "AI Systems Builder & Former Deputy CEO",
       description:
-        "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 9 autonomous agents, multi-model LLM routing, voice pipelines. $0/month on Oracle Cloud.",
+        "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 10-agent ecosystem (9 in production, AILA in design), LangGraph stateful pipelines, pgvector RAG, multi-model LLM routing, voice pipelines. $0/month on Oracle Cloud.",
       knowsAbout: [
-        "AI Agents", "Multi-model LLM Routing", "Claude API", "GPT API",
-        "Voice Pipelines", "Oracle Cloud", "Python", "TypeScript",
-        "AI Automation", "Multi-agent Orchestration",
+        "AI Agents", "Multi-model LLM Routing", "LangGraph", "pgvector RAG",
+        "Claude API", "GPT API", "Voice Pipelines", "Oracle Cloud",
+        "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration",
       ],
       sameAs: [
         "https://linkedin.com/in/elenarevicheva",
@@ -74,7 +74,7 @@ export default function About() {
               </div>
             </div>
             <p className="text-gray-300 text-lg leading-relaxed">
-              I spent seven years as a Deputy CEO running digital infrastructure programs at the board level. In 2025, I started building AI systems myself. I now run <strong className="text-white">9 production AI agents</strong> on a single Oracle Cloud server at <strong className="text-white">$0/month</strong> infrastructure cost.
+              I spent seven years as a Deputy CEO running digital infrastructure programs at the board level. In 2025, I started building AI systems myself. I now run a <strong className="text-white">10-agent ecosystem</strong> (9 in production, AILA in design) on a single Oracle Cloud server at <strong className="text-white">$0/month</strong> infrastructure cost.
             </p>
           </header>
 
@@ -93,7 +93,7 @@ export default function About() {
           <section className="mb-12 backdrop-blur-xl bg-white/[0.03] rounded-2xl p-8 border border-white/10">
             <h2 className="text-2xl font-bold mb-4 text-purple-300">Phase 2: Applied AI Builder (2025–Present)</h2>
             <p className="text-gray-300 leading-relaxed mb-6">
-              Self-taught using AI-assisted development tools (Cursor, Claude Code). I designed, built, and deployed 9 production AI systems — all running simultaneously on Oracle Cloud at zero monthly cost:
+              Self-taught using AI-assisted development tools (Cursor, Claude Code). I designed, built, and deployed 9 production AI systems (plus AILA in design) — all running simultaneously on Oracle Cloud at zero monthly cost:
             </p>
 
             <ol className="space-y-3 text-gray-300 mb-8 list-decimal list-inside">
@@ -111,10 +111,10 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-4 text-white">The Numbers</h3>
             <div className="grid grid-cols-2 gap-4 mb-6">
               {[
-                ["9 agents", "running in production 24/7"],
+                ["9 live", "agents in production 24/7 (10 total ecosystem)"],
                 ["$0/month", "Oracle Cloud Always Free"],
                 ["76% / 24%", "Groq (speed) / Claude (reasoning)"],
-                ["131 tests", "eval framework at $0.08/run"],
+                ["131 tests", "eval framework · LangGraph pipeline live"],
               ].map(([stat, label]) => (
                 <div key={stat} className="bg-white/5 rounded-xl p-4 border border-white/5">
                   <div className="text-2xl font-bold text-purple-300">{stat}</div>
@@ -125,7 +125,7 @@ export default function About() {
 
             <h3 className="text-xl font-semibold mb-3 text-white">Tech Stack</h3>
             <p className="text-gray-300">
-              Python, TypeScript, Node.js, Claude API, GPT API, Groq, Oracle Autonomous DB 26ai (mTLS), systemd, PM2, Playwright, Telegram Bot API, WhatsApp Cloud API, LangChain.
+              Python, TypeScript, Node.js, Claude API, GPT API, Groq, LangChain, LangGraph, pgvector (RAG), Oracle Autonomous DB 26ai (mTLS), systemd, PM2, Playwright, Telegram Bot API, WhatsApp Cloud API.
             </p>
           </section>
 

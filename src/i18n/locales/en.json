@@ -111,6 +111,7 @@
     "founderTitle": "Solo Founder, AI Entrepreneur & Vibe Coder",
     "founderLink": "Elena Revicheva, Business portfolio",
     "founderBio1": "Former IT Executive and CLO in Russian regional E-government, residing in Panama since 2022.",
+    "panamaDevSince": "Building AIdeazz solo since March 2025 — shipping continuously through April 2026.",
     "videoButtonText": "Long story - video short",
     "founderPhase1Title": "Executive Leadership (2011–2018)",
     "founderPhase1Desc": "7 years as Deputy CEO & CLO — board-level governance, enterprise digital transformation, and cross-functional programs in regulated environments.",
@@ -331,7 +332,7 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Executive-Turned-AI-Builder | 9 Production Agents | Founder @ AIdeazz",
+    "title": "Executive-Turned-AI-Builder | 10-Agent Ecosystem (9 Live) | Founder @ AIdeazz",
     "stats": "7 years Deputy CEO/CLO • 10-agent ecosystem (9 live · AILA in design) • LangGraph + pgvector RAG live • 76%/24% multi-model routing • 13 months solo-built",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
@@ -361,9 +362,9 @@
       "title": "Writing — AIdeazz | Elena Revicheva",
       "description": "Articles on building production AI systems, multi-agent operations, and what it takes to ship.",
       "ogTitle": "Writing — AIdeazz",
-      "ogDescription": "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned.",
+      "ogDescription": "Notes from a 10-agent ecosystem (9 in production, AILA in design) — architecture, trade-offs, and lessons learned.",
       "twitterTitle": "Writing — AIdeazz | Elena Revicheva",
-      "twitterDescription": "Production AI systems, multi-agent operations, and lessons from shipping nine agents on Oracle Cloud."
+      "twitterDescription": "Production AI systems, multi-agent operations, and lessons from shipping the AIdeazz agent fleet on Oracle Cloud."
     },
     "post": {
       "loading": "Loading article…",
@@ -388,8 +389,8 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "AI Technical Co-Founder",
-      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across 11 repos. Voice-to-code pipeline (WIP): NLP voice commands via Telegram — already handles reviews and queries, full code-on-the-go in progress.",
-      "traction": "11 repos monitored • 25+ code reviews • <$1/month cost • 99.9% uptime",
+      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across all 10 repos. Voice-to-code pipeline (WIP): NLP voice commands via Telegram — already handles reviews and queries, full code-on-the-go in progress.",
+      "traction": "10 repos monitored • 25+ code reviews • <$1/month cost • 99.9% uptime",
       "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "View on GitHub",
       "badge": "LIVE"
@@ -406,9 +407,9 @@
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "AI Marketing Co-Founder & Job Hunting Engine",
-      "desc": "Two agents in one: (1) Autonomous LinkedIn/Instagram content engine — daily bilingual EN/ES posts via Claude Sonnet 4, Make.com, Buffer. (2) 24/7 job hunting — scrapes 218 companies across Greenhouse, Lever, Ashby, Workable + Dice MCP, Claude-powered 100-point scoring, auto-apply to ATS forms, founder outreach with AI cover letters. Voice NLP (WIP): Telegram voice commands for job queries and controls, full natural-language orchestration in progress.",
-      "traction": "218 companies monitored • 8+ job sources • Hourly discovery cycles • Daily bilingual posting • <$1/month",
-      "tech": "Python, FastAPI, Claude Sonnet 4, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
+      "desc": "Two agents in one: (1) Autonomous LinkedIn/Instagram content engine — daily bilingual EN/ES posts via Claude Sonnet 4, Make.com, Buffer. (2) 24/7 job hunting with LangGraph stateful pipeline (live Apr 2026) — 7-node StateGraph (gate → score → route → submit → notify), SQLite checkpointer for deduplication, human-approval interrupt for borderline scores. Scrapes 218 companies across Greenhouse, Lever, Ashby. Claude-powered 100-point scoring. 131-test, 4-layer eval harness at $0.03/run. Verified delivery: real HTTP status + confirmation ID on every ATS submission.",
+      "traction": "218 companies monitored • 1,900+ jobs scanned • 131-test eval harness (L4: LLM-as-judge) • LangGraph pipeline live Apr 2026 • Daily bilingual posting",
+      "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "View on GitHub",
       "badge": "LIVE"
     },
@@ -468,7 +469,7 @@
       "strength6": "Infrastructure & DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "0→1 execution — 10 production agents shipped, all live 24/7",
       "strength8": "AI-assisted development — Claude Code, Cursor, rapid prototyping to production",
-      "strength9": "Bilingual product design (EN/ES) — i18n, localization across 19 countries"
+      "strength9": "Bilingual product design (EN/ES) — i18n, localization across 21 countries"
     },
     "openTo": {
       "title": "I am actually open to:",

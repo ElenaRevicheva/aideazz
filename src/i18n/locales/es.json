@@ -111,6 +111,7 @@
     "founderTitle": "Fundadora Solitaria, Emprendedora de IA y Vibe Coder",
     "founderLink": "Elena Revicheva, Portafolio de negocios",
     "founderBio1": "Antigua Ejecutiva de TI y CLO en E-gobierno regional ruso, residiendo en Panamá desde 2022.",
+    "panamaDevSince": "Construyendo AIdeazz en solitario desde marzo de 2025 — entregas continuas hasta abril de 2026.",
     "videoButtonText": "Historia larga - video corto",
     "founderPhase1Title": "Liderazgo Ejecutivo (2011–2018)",
     "founderPhase1Desc": "7 años como Vicepresidenta y CLO — gobernanza a nivel directivo, transformación digital empresarial y programas multifuncionales en entornos regulados.",
@@ -361,9 +362,9 @@
       "title": "Artículos — AIdeazz | Elena Revicheva",
       "description": "Textos sobre sistemas de IA en producción, operaciones multiagente y lo que implica publicar con fiabilidad.",
       "ogTitle": "Artículos — AIdeazz",
-      "ogDescription": "Notas de quien ejecuta varios agentes de IA en producción: arquitectura, trade-offs y lecciones.",
+      "ogDescription": "Notas desde un ecosistema de 10 agentes (9 en producción, AILA en diseño): arquitectura, trade-offs y lecciones.",
       "twitterTitle": "Artículos — AIdeazz | Elena Revicheva",
-      "twitterDescription": "IA en producción, operación multiagente y lecciones al mantener agentes en Oracle Cloud."
+      "twitterDescription": "IA en producción, operación multiagente y lecciones al operar la flota de agentes AIdeazz en Oracle Cloud."
     },
     "post": {
       "loading": "Cargando artículo…",
@@ -388,8 +389,8 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "Cofundador Técnico de IA",
-      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en 11 repos. Pipeline voz-a-código (WIP): comandos de voz NLP vía Telegram — ya maneja revisiones y consultas, código completo sobre la marcha en desarrollo.",
-      "traction": "11 repos monitoreados • 25+ revisiones de código • <$1/mes costo • 99.9% uptime",
+      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en los 10 repos. Pipeline voz-a-código (WIP): comandos de voz NLP vía Telegram — ya maneja revisiones y consultas, código completo sobre la marcha en desarrollo.",
+      "traction": "10 repos monitoreados • 25+ revisiones de código • <$1/mes costo • 99.9% uptime",
       "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
@@ -406,9 +407,9 @@
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "Cofundador de Marketing IA y Motor de Búsqueda de Empleo",
-      "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 — escanea 218 empresas en Greenhouse, Lever, Ashby, Workable + Dice MCP, scoring de 100 puntos con Claude, auto-apply a formularios ATS, outreach a founders con cover letters IA. NLP de voz (WIP): comandos de voz vía Telegram para consultas y controles de empleo, orquestación completa por lenguaje natural en desarrollo.",
-      "traction": "218 empresas monitoreadas • 8+ fuentes de empleo • Ciclos de descubrimiento cada hora • Publicación bilingüe diaria • <$1/mes",
-      "tech": "Python, FastAPI, Claude Sonnet 4, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
+      "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 con pipeline LangGraph stateful (en vivo abr 2026) — grafo de 7 nodos (gate → score → route → submit → notify), checkpointer SQLite para deduplicación, interrupción para aprobación humana en puntajes límite. Escanea 218 empresas en Greenhouse, Lever, Ashby. Scoring 100 puntos con Claude. 131 tests, 4 capas de evaluación a $0.03/run. Entrega verificada: HTTP status real + confirmation ID en cada envío ATS.",
+      "traction": "218 empresas monitoreadas • 1.900+ empleos escaneados • 131 tests de evaluación (L4: LLM-as-judge) • Pipeline LangGraph en vivo abr 2026 • Publicación bilingüe diaria",
+      "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
@@ -468,7 +469,7 @@
       "strength6": "Infraestructura y DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "Ejecución 0→1 — 10 agentes en producción lanzados, todos en vivo 24/7",
       "strength8": "Desarrollo asistido por IA — Claude Code, Cursor, prototipado rápido a producción",
-      "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 19 países"
+      "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 21 países"
     },
     "openTo": {
       "title": "Estoy abierta a:",

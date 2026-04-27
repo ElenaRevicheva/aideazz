@@ -1,5 +1,4 @@
 import esArticleOverrides from "@/i18n/blog-article-overrides.es.json";
-import aiAgentEsMd from "@/content/blog-translations/es/what-is-an-ai-agent-a-production-definition-from-the-field.md?raw";
 
 export type ArticleLocaleOverride = {
   title?: string;
@@ -12,10 +11,24 @@ type OverridesFile = Record<string, ArticleLocaleOverride>;
 
 const ES = esArticleOverrides as OverridesFile;
 
-/** Full Spanish markdown bodies (when present, replace remote English markdown). */
-const ES_BODY_BY_SLUG: Record<string, string> = {
-  "what-is-an-ai-agent-a-production-definition-from-the-field": aiAgentEsMd.trim(),
-};
+/** Any `src/content/blog-translations/es/<slug>.md` overrides English Hashnode body when locale is Spanish. */
+const esBodyModules = import.meta.glob<string>("../content/blog-translations/es/*.md", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
+
+function slugFromEsMdPath(filePath: string): string {
+  const base = filePath.split("/").pop() ?? "";
+  return base.replace(/\.md$/i, "");
+}
+
+const ES_BODY_BY_SLUG: Record<string, string> = {};
+for (const [path, raw] of Object.entries(esBodyModules)) {
+  const slug = slugFromEsMdPath(path);
+  const body = typeof raw === "string" ? raw.trim() : "";
+  if (slug && body) ES_BODY_BY_SLUG[slug] = body;
+}
 
 export function getArticleLocaleOverride(
   slug: string,

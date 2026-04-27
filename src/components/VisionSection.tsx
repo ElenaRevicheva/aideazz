@@ -156,7 +156,7 @@ const VisionSection = () => {
                       <h4 className="font-semibold text-white">Panama City 🇵🇦</h4>
                     </div>
                   <p className="text-gray-300 text-sm">
-                    Building AIdeazz as a solo AI dev since March 2025
+                    {t("vision.panamaDevSince")}
                   </p>
                   </div>
                 </motion.div>

@@ -10,5 +10,9 @@
   "why-i-run-production-ai-agents-on-oracle-clouds-free-tier": {
     "title": "Por qué mis agentes de IA en producción viven en el nivel gratuito de Oracle Cloud",
     "description": "Cómo encajar coste, fiabilidad y formas reales de operar agentes 24/7 en infra sin factura de cómpute."
+  },
+  "building-ai-language-tutors-on-whatsapp-the-technical-reality": {
+    "title": "Tutores de idiomas con IA en WhatsApp: la realidad técnica",
+    "description": "Por qué elegí WhatsApp frente a otra web app para EspaLuz: API Business, voz, pagos y hábitos — memoria, multi‑agente y límites de producción que casi nadie cuenta."
   }
 }

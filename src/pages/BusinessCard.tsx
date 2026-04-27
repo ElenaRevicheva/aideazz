@@ -63,7 +63,7 @@ export default function BusinessCard() {
   const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf' : '/Elena_Revicheva_Resume.pdf';
   const statsRef = useRef<HTMLDivElement>(null);
   const agentCount = useCountUp(10, 1200, isFlipped);
-  const monthCount = useCountUp(12, 1200, isFlipped);
+  const monthCount = useCountUp(13, 1200, isFlipped);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
@@ -122,8 +122,8 @@ export default function BusinessCard() {
         "url": "https://aideazz.xyz/portfolio",
         "image": "https://aideazz.xyz/elena-og.jpg",
         "jobTitle": "AI Systems Builder & Former Deputy CEO",
-        "description": "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 9 autonomous agents, multi-model LLM routing (76% Groq / 24% Claude), voice pipelines. $0/month infrastructure on Oracle Cloud.",
-        "knowsAbout": ["AI Agents", "Multi-model LLM Routing", "Claude API", "GPT API", "Whisper Voice Pipeline", "Oracle Cloud", "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration", "Telegram Bot Development", "WhatsApp API"],
+        "description": "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 10-agent ecosystem (9 in production, AILA in design), LangGraph stateful pipelines, pgvector RAG, multi-model LLM routing (76% Groq / 24% Claude), voice pipelines. $0/month on Oracle Cloud.",
+        "knowsAbout": ["AI Agents", "Multi-model LLM Routing", "LangGraph", "pgvector RAG", "Claude API", "GPT API", "Whisper Voice Pipeline", "Oracle Cloud", "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration", "Telegram Bot Development", "WhatsApp API"],
         "sameAs": [
           "https://linkedin.com/in/elenarevicheva",
           "https://github.com/ElenaRevicheva",
@@ -295,7 +295,7 @@ export default function BusinessCard() {
   const techStackByCategory = {
     "Backend": ["Python", "Node.js", "TypeScript", "Flask", "FastAPI", "Express.js", "Gunicorn"],
     "Frontend": ["React", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion", "i18next"],
-    "AI / LLM": ["Claude Opus 4", "Claude Sonnet 4", "Groq (Llama 3.3 70B)", "OpenAI GPT", "Whisper", "Flux Pro", "Luma Dream Machine", "edge-tts", "LangChain", "MCP", "Eliza OS"],
+    "AI / LLM": ["Claude Opus 4", "Claude Sonnet 4", "Groq (Llama 3.3 70B)", "OpenAI GPT", "Whisper", "Flux Pro", "Luma Dream Machine", "edge-tts", "LangChain", "LangGraph", "pgvector (RAG)", "MCP", "Eliza OS"],
     "Database & Infra": ["Oracle Autonomous DB 26ai (mTLS)", "PostgreSQL", "SQLite", "Oracle Cloud (OCI)", "systemd", "PM2", "Docker"],
     "Integrations": ["GitHub API", "Telegram Bot API", "WhatsApp Cloud API", "Twitter API v2", "PayPal IPN", "Buffer", "Make.com", "CCXT (5 exchanges)", "Playwright"],
     "Web3": ["Polygon", "Thirdweb SDK", "IPFS", "4everland", "MetaMask"]

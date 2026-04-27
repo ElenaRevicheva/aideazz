@@ -10,13 +10,13 @@ export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 export const HOME_SEO = {
   title: "AIdeazz - AI Personal Assistants That Evolve With You",
   description:
-    "AIdeazz builds production AI systems: 9 autonomous agents, multi-model LLM routing, voice pipelines, and AI automation — all running at $0/month on Oracle Cloud. Founded by Elena Revicheva.",
+    "AIdeazz builds production AI systems: 10-agent ecosystem (9 live, AILA in design), multi-model LLM routing, LangGraph stateful pipelines, pgvector RAG, voice pipelines — all at $0/month on Oracle Cloud. Founded by Elena Revicheva.",
   ogTitle: "AIdeazz — Production AI Systems by Elena Revicheva",
   ogDescription:
-    "9 production AI agents. Multi-model LLM routing. Voice pipelines. $0/month infrastructure. Built by an executive-turned-AI-builder.",
+    "10-agent ecosystem (9 in production). LangGraph stateful pipelines. pgvector RAG. Multi-model LLM routing. $0/month infrastructure. Built by an executive-turned-AI-builder.",
   twitterTitle: "AIdeazz — Production AI Systems by Elena Revicheva",
   twitterDescription:
-    "9 production AI agents. Multi-model routing (76% Groq / 24% Claude). Voice pipelines. All at $0/month.",
+    "10-agent ecosystem (9 live, AILA in design). LangGraph + pgvector RAG live. Multi-model routing (76% Groq / 24% Claude). All at $0/month.",
   canonicalUrl: `${SITE_ORIGIN}/`,
   ogType: "website" as const,
 };
