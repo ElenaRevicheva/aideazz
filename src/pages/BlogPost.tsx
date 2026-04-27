@@ -10,6 +10,13 @@ import { fetchHashnodePostBySlug } from "@/lib/hashnode-public";
 import { fetchDevtoPostByBlogSlug } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { BLOG_ES_API_ORIGIN } from "@/lib/blog-es-origin";
+
+type BlogEsBundleJson = {
+  title: string;
+  brief: string;
+  markdown: string;
+};
 
 export default function BlogPost() {
   const { t, i18n } = useTranslation();
@@ -28,6 +35,8 @@ export default function BlogPost() {
   } | null>(null);
   const [fromDevto, setFromDevto] = useState(false);
   const [remoteError, setRemoteError] = useState<string | null>(null);
+  const [serverEsBundle, setServerEsBundle] = useState<BlogEsBundleJson | null>(null);
+  const [serverEsLoading, setServerEsLoading] = useState(false);
 
   useEffect(() => {
     if (!slug || hasLocalBody) {
@@ -107,14 +116,66 @@ export default function BlogPost() {
     return getArticleLocaleOverride(slug, lang);
   }, [slug, lang]);
 
-  const displayTitle = loc.title || enTitle;
-  const displayDescription = loc.description || enDescription;
-  const displayBody = loc.body && loc.body.trim().length > 0 ? loc.body : enBody;
-  const hasEsBody = !!(loc.body && loc.body.trim().length > 0);
+  const hasBundledEsBody = !!(loc.body && loc.body.trim().length > 0);
+
+  useEffect(() => {
+    if (!slug) return;
+    if (!lang.toLowerCase().startsWith("es")) {
+      setServerEsBundle(null);
+      setServerEsLoading(false);
+      return;
+    }
+    if (hasBundledEsBody) {
+      setServerEsBundle(null);
+      setServerEsLoading(false);
+      return;
+    }
+    let cancelled = false;
+    setServerEsLoading(true);
+    const url = `${BLOG_ES_API_ORIGIN}/blog/es-bundle/${encodeURIComponent(slug)}`;
+    fetch(url)
+      .then(async (r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.json() as Promise<BlogEsBundleJson>;
+      })
+      .then((j) => {
+        if (!cancelled && j?.markdown?.trim()) setServerEsBundle(j);
+        else if (!cancelled) setServerEsBundle(null);
+      })
+      .catch(() => {
+        if (!cancelled) setServerEsBundle(null);
+      })
+      .finally(() => {
+        if (!cancelled) setServerEsLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, lang, hasBundledEsBody]);
+
+  const displayTitle = serverEsBundle?.title || loc.title || enTitle;
+  const displayDescription =
+    (serverEsBundle?.brief && serverEsBundle.brief.trim()) || loc.description || enDescription;
+  const displayBody =
+    (loc.body && loc.body.trim().length > 0 ? loc.body : "") ||
+    (serverEsBundle?.markdown?.trim() ?? "") ||
+    enBody;
+
+  const hasEsBody =
+    !!(loc.body && loc.body.trim().length > 0) ||
+    !!(serverEsBundle?.markdown && serverEsBundle.markdown.trim().length > 0);
+
   const showEnNotice =
     lang.toLowerCase().startsWith("es") &&
     !!(enBody && enBody.length > 0) &&
     !hasEsBody;
+
+  const showEsTranslating =
+    lang.toLowerCase().startsWith("es") &&
+    !hasBundledEsBody &&
+    serverEsLoading &&
+    !serverEsBundle?.markdown;
+
   /** Browsers / assistive tech: mark prose language (ES translation vs EN original). */
   const proseLang = hasEsBody ? "es" : "en";
 
@@ -168,7 +229,7 @@ export default function BlogPost() {
     return () => {
       s.remove();
     };
-  }, [slug, displayTitle, displayDescription, date, sourceUrl, lang]);
+  }, [slug, displayTitle, displayDescription, date, sourceUrl, lang, serverEsBundle?.title]);
 
   if (!slug) {
     return null;
@@ -249,21 +310,28 @@ export default function BlogPost() {
             lang={proseLang}
             className="prose prose-invert prose-purple max-w-none prose-headings:text-white prose-a:text-purple-400 prose-strong:text-white"
           >
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                img: ({ alt, ...props }) => (
-                  <img
-                    {...props}
-                    alt={alt?.trim() ? alt : t("blog.post.imageAlt")}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ),
-              }}
-            >
-              {displayBody}
-            </ReactMarkdown>
+            {showEsTranslating ? (
+              <div className="flex items-center gap-3 text-purple-300 py-12 not-prose">
+                <Loader2 className="w-6 h-6 animate-spin shrink-0" />
+                <span>{t("blog.post.translatingEs")}</span>
+              </div>
+            ) : (
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  img: ({ alt, ...props }) => (
+                    <img
+                      {...props}
+                      alt={alt?.trim() ? alt : t("blog.post.imageAlt")}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ),
+                }}
+              >
+                {displayBody}
+              </ReactMarkdown>
+            )}
           </div>
           {sourceUrl ? (
             <footer className="mt-12 pt-8 border-t border-white/10 text-sm text-gray-400">

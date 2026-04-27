@@ -8,12 +8,15 @@ import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-pu
 import { mergeDevtoOnlyInto, type MergedPostRow } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { BLOG_ES_API_ORIGIN } from "@/lib/blog-es-origin";
 
 export default function BlogIndex() {
   const { t, i18n } = useTranslation();
   const [merged, setMerged] = useState<MergedPostRow[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  /** Cached Spanish title/brief from CTO (after at least one es-bundle was generated for that slug). */
+  const [esMetaBySlug, setEsMetaBySlug] = useState<Record<string, { title: string; brief: string }>>({});
 
   const lang = i18n.resolvedLanguage ?? i18n.language;
 
@@ -62,6 +65,40 @@ export default function BlogIndex() {
     };
   }, []);
 
+  useEffect(() => {
+    if (loading || !merged?.length || !lang.toLowerCase().startsWith("es")) {
+      setEsMetaBySlug({});
+      return;
+    }
+    let cancelled = false;
+    void (async () => {
+      const entries = await Promise.all(
+        merged.map(async (p) => {
+          try {
+            const r = await fetch(
+              `${BLOG_ES_API_ORIGIN}/blog/es-meta/${encodeURIComponent(p.slug)}`
+            );
+            if (!r.ok) return null;
+            const j = (await r.json()) as { title?: string; brief?: string };
+            if (!j.title?.trim()) return null;
+            return [p.slug, { title: j.title.trim(), brief: (j.brief || "").trim() }] as const;
+          } catch {
+            return null;
+          }
+        })
+      );
+      if (cancelled) return;
+      const next: Record<string, { title: string; brief: string }> = {};
+      for (const e of entries) {
+        if (e) next[e[0]] = e[1];
+      }
+      setEsMetaBySlug(next);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [loading, merged, lang]);
+
   const posts = merged ?? [];
 
   return (
@@ -109,8 +146,9 @@ export default function BlogIndex() {
           <ul className="space-y-6">
             {posts.map((p) => {
               const o = getArticleLocaleOverride(p.slug, lang);
-              const title = o.title || p.title;
-              const desc = o.description || p.description;
+              const metaEs = esMetaBySlug[p.slug];
+              const title = metaEs?.title || o.title || p.title;
+              const desc = (metaEs?.brief || o.description || p.description || "").trim();
               return (
                 <li key={p.slug}>
                   <article className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 hover:border-purple-500/30 transition-colors shadow-lg shadow-purple-950/20">

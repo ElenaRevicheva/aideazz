@@ -4,6 +4,7 @@ https://aideazz.xyz/portfolio
 https://aideazz.xyz/blog
 https://aideazz.xyz/pitch.html
 https://aideazz.xyz/pitch-es.html
+https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-the-technical-reality
 https://aideazz.xyz/blog/what-is-an-ai-agent-a-production-definition-from-the-field
 https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier
 https://aideazz.xyz/blog/ai-automation-for-small-business-what-ships-vs-what-dies-in-slides

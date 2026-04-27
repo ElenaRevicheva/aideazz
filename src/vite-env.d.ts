@@ -11,4 +11,6 @@ interface ImportMetaEnv {
   readonly VITE_CTO_WEBHOOK_ORIGIN?: string;
   /** Google reCAPTCHA v3 site key (public); pair with RECAPTCHA_SECRET_KEY on CTO AIPA */
   readonly VITE_RECAPTCHA_SITE_KEY?: string;
+  /** CTO public origin for Spanish blog JSON (default https://webhook.aideazz.xyz/cto) */
+  readonly VITE_BLOG_ES_API_ORIGIN?: string;
 }
