@@ -7,6 +7,7 @@ import { getArticleLocaleOverride } from "@/lib/blog-article-locale";
 import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-public";
 import { mergeDevtoOnlyInto, type MergedPostRow } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function BlogIndex() {
   const { t, i18n } = useTranslation();
@@ -67,13 +68,16 @@ export default function BlogIndex() {
     <div className="min-h-screen bg-slate-950 text-white antialiased">
       <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950/60 to-slate-950 -z-10" />
       <main className="relative z-10 max-w-3xl mx-auto px-6 py-16">
-        <Link
-          to="/portfolio"
-          className="inline-flex items-center gap-2 text-purple-300 hover:text-white text-sm mb-10 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          {t("blog.backToPortfolio")}
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
+          <Link
+            to="/portfolio"
+            className="inline-flex items-center gap-2 text-purple-300 hover:text-white text-sm transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {t("blog.backToPortfolio")}
+          </Link>
+          <LanguageSwitcher />
+        </div>
         <header className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-purple-400" />

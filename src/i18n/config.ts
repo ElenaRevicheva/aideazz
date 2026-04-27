@@ -18,9 +18,11 @@ i18n
       escapeValue: false
     },
     detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage']
-    }
+      /** URL ?lng=es overrides stored preference (shareable Spanish links). */
+      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
+      lookupQuerystring: 'lng',
+      caches: ['localStorage'],
+    },
   });
 
 export default i18n;
