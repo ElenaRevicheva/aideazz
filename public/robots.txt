@@ -1,10 +1,14 @@
-# Canonical host: https://aideazz.xyz (apex). If www.aideazz.xyz is in use, set a 301 redirect
-# to apex in DNS / hosting (4everland) and pick the apex property in Google Search Console.
+# Canonical host: https://aideazz.xyz (apex). www → apex 301 in DNS/hosting + GSC property on apex.
+# GEO: explicit Allow for known AI/search crawlers (each can be tuned independently; training vs citations).
 
+# --- Classic search & previews ---
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 User-agent: Twitterbot
@@ -13,22 +17,70 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: ChatGPT-User
+User-agent: LinkedInBot
 Allow: /
 
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+# --- Google: Gemini / Vertex AI training signal (token — explicit opt-in to crawl use for AI) ---
+User-agent: Google-Extended
+Allow: /
+
+# --- Apple: Apple Intelligence training signal (token — explicit opt-in) ---
+User-agent: Applebot-Extended
+Allow: /
+
+# --- OpenAI: training, ChatGPT browsing, ChatGPT search / citations ---
 User-agent: GPTBot
 Allow: /
 
-User-agent: PerplexityBot
+User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# --- Anthropic ---
 User-agent: ClaudeBot
 Allow: /
 
+# --- Perplexity ---
+User-agent: PerplexityBot
+Allow: /
+
+# --- Meta (AI + link previews; UA strings vary — list common tokens) ---
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# --- Common Crawl (feeds many downstream models) ---
+User-agent: CCBot
+Allow: /
+
+# --- Other AI / ML crawlers often cited in GEO guides ---
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# --- Fallback: everyone else (must remain Allow for crawlers not listed above) ---
 User-agent: *
 Allow: /
 
-# Do not index stray config filenames if ever exposed at origin
+# Hard deny only junk paths (never index secrets-as-filenames at origin)
 Disallow: /.gitignore
 Disallow: /gitignore
 
