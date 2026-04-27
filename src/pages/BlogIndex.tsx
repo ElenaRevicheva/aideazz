@@ -1,29 +1,30 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
+import { useTranslation, Trans } from "react-i18next";
 import { getAllPosts } from "@/lib/blog";
 import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function BlogIndex() {
+  const { t, i18n } = useTranslation();
   const [merged, setMerged] = useState<ReturnType<typeof mergeHashnodeWithLocal> | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
 
+  const lang = i18n.resolvedLanguage ?? i18n.language;
+
   useEffect(() => {
     applyPageSeo({
-      title: "Writing — AIdeazz | Elena Revicheva",
-      description:
-        "Articles on building production AI systems, multi-agent operations, and what it takes to ship.",
+      title: t("blog.seo.title"),
+      description: t("blog.seo.description"),
       canonicalUrl: `${SITE_ORIGIN}/blog`,
-      ogTitle: "Writing — AIdeazz",
-      ogDescription:
-        "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned.",
-      twitterTitle: "Writing — AIdeazz | Elena Revicheva",
-      twitterDescription:
-        "Production AI systems, multi-agent operations, and lessons from shipping nine agents on Oracle Cloud.",
+      ogTitle: t("blog.seo.ogTitle"),
+      ogDescription: t("blog.seo.ogDescription"),
+      twitterTitle: t("blog.seo.twitterTitle"),
+      twitterDescription: t("blog.seo.twitterDescription"),
     });
-  }, []);
+  }, [t, lang]);
 
   useEffect(() => {
     let cancelled = false;
@@ -60,23 +61,24 @@ export default function BlogIndex() {
           className="inline-flex items-center gap-2 text-purple-300 hover:text-white text-sm mb-10 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Portfolio
+          {t("blog.backToPortfolio")}
         </Link>
         <header className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="w-8 h-8 text-purple-400" />
             <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
-              Writing
+              {t("blog.pageTitle")}
             </h1>
           </div>
           <p className="text-gray-300 text-lg max-w-2xl leading-relaxed">
-            Practical notes on <span className="text-white font-medium">AI in production</span> — how
-            multi-agent systems are wired, what breaks at scale, and how to think about cost and risk. New
-            posts appear here regularly; you can read each one in full on this site.
+            <Trans
+              i18nKey="blog.intro"
+              components={{ highlight: <span className="text-white font-medium" /> }}
+            />
           </p>
           {fetchError ? (
             <p className="text-gray-500 text-sm mt-4 border-l-2 border-amber-500/50 pl-3">
-              Showing saved articles. If the list looks incomplete, refresh in a moment.
+              {t("blog.fetchErrorHint")}
             </p>
           ) : null}
         </header>
@@ -84,10 +86,10 @@ export default function BlogIndex() {
         {loading ? (
           <div className="flex items-center gap-3 text-purple-300">
             <Loader2 className="w-5 h-5 animate-spin" />
-            <span>Loading articles…</span>
+            <span>{t("blog.loading")}</span>
           </div>
         ) : posts.length === 0 ? (
-          <p className="text-gray-400">No articles yet — check back soon.</p>
+          <p className="text-gray-400">{t("blog.empty")}</p>
         ) : (
           <ul className="space-y-6">
             {posts.map((p) => (
@@ -109,7 +111,7 @@ export default function BlogIndex() {
                       to={`/blog/${p.slug}`}
                       className="inline-flex items-center rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-purple-900/40"
                     >
-                      Read article
+                      {t("blog.readArticle")}
                     </Link>
                     {p.hashnodeUrl ? (
                       <a
@@ -118,7 +120,7 @@ export default function BlogIndex() {
                         rel="noopener noreferrer"
                         className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 underline-offset-4 hover:underline"
                       >
-                        Also on Hashnode
+                        {t("blog.alsoOnHashnode")}
                       </a>
                     ) : null}
                   </div>

@@ -429,40 +429,6 @@ export default function BusinessCard() {
                   </div>
                 </motion.header>
 
-                <motion.section
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 }}
-                  className="mb-10"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <div className="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/50 via-slate-900/70 to-slate-950/80 p-6 sm:p-7 flex flex-col lg:flex-row lg:items-center gap-6 shadow-[0_12px_40px_rgba(88,28,135,0.15)]">
-                    <div className="flex gap-4 flex-1 min-w-0">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600/40 to-pink-600/30 border border-white/10">
-                        <FileText className="w-6 h-6 text-purple-200" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-xs uppercase tracking-[0.2em] text-purple-300/90 font-semibold mb-2">
-                          {t("writing.badge")}
-                        </p>
-                        <p className="text-lg sm:text-xl font-semibold text-white leading-snug">
-                          {t("writing.title")}
-                        </p>
-                        <p className="text-sm text-gray-300 mt-2 max-w-2xl leading-relaxed">
-                          {t("writing.desc")}
-                        </p>
-                      </div>
-                    </div>
-                    <Link
-                      to="/blog"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-sm font-semibold text-white whitespace-nowrap shadow-lg shadow-purple-900/40 transition-all shrink-0"
-                    >
-                      {t("writing.cta")}
-                      <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </motion.section>
-
                 {/* AI CO-FOUNDERS SECTION */}
                 <motion.section 
                   initial={{ opacity: 0 }}
@@ -1142,10 +1108,33 @@ export default function BusinessCard() {
                     </div>
                   </div>
 
-                  <div className="mb-8 text-center">
-                    <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                      {t('cardBack.desc')}
-                    </p>
+                  <div className="mb-8" onClick={(e) => e.stopPropagation()}>
+                    <div className="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950/50 via-slate-900/70 to-slate-950/80 p-6 sm:p-7 flex flex-col lg:flex-row lg:items-center gap-6 shadow-[0_12px_40px_rgba(88,28,135,0.15)]">
+                      <div className="flex gap-4 flex-1 min-w-0">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600/40 to-pink-600/30 border border-white/10">
+                          <FileText className="w-6 h-6 text-purple-200" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs uppercase tracking-[0.2em] text-purple-300/90 font-semibold mb-2">
+                            {t("writing.badge")}
+                          </p>
+                          <p className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                            {t("writing.title")}
+                          </p>
+                          <p className="text-sm text-gray-300 mt-2 max-w-2xl leading-relaxed">
+                            {t("writing.desc")}
+                          </p>
+                        </div>
+                      </div>
+                      <Link
+                        to="/blog"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-sm font-semibold text-white whitespace-nowrap shadow-lg shadow-purple-900/40 transition-all shrink-0"
+                      >
+                        {t("writing.cta")}
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
                   </div>
 
                   <div className="mb-8 flex justify-center">
@@ -1160,6 +1149,12 @@ export default function BusinessCard() {
                       {t('section2.openTo.hybrid.item1Button')}
                       <ExternalLink className="w-4 h-4 shrink-0" />
                     </a>
+                  </div>
+
+                  <div className="mb-8 text-center">
+                    <p className="text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                      {t('cardBack.desc')}
+                    </p>
                   </div>
 
                   {/* VISION SECTION */}

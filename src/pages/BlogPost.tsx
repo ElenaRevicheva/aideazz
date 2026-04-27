@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { getPostBySlug } from "@/lib/blog";
 import { fetchHashnodePostBySlug } from "@/lib/hashnode-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function BlogPost() {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const local = slug ? getPostBySlug(slug) : undefined;
   const hasLocalBody = !!(local?.body && local.body.trim().length > 0);
@@ -121,7 +123,7 @@ export default function BlogPost() {
       <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
         <div className="flex items-center gap-3 text-purple-300">
           <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading article…</span>
+          <span>{t("blog.post.loading")}</span>
         </div>
       </div>
     );
@@ -131,9 +133,9 @@ export default function BlogPost() {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
         <div className="text-center">
-          <p className="text-gray-400 mb-6">Post not found.</p>
+          <p className="text-gray-400 mb-6">{t("blog.post.notFound")}</p>
           <Link to="/blog" className="text-purple-400 hover:text-purple-300">
-            ← Back to Writing
+            {t("blog.post.backToBlog")}
           </Link>
         </div>
       </div>
@@ -146,11 +148,11 @@ export default function BlogPost() {
         <p className="text-amber-400 text-center max-w-md">{remoteError}</p>
         {hashnodeUrl ? (
           <a href={hashnodeUrl} className="text-purple-400 hover:text-purple-300">
-            Read on Hashnode →
+            {t("blog.post.readOnHashnode")}
           </a>
         ) : null}
         <Link to="/blog" className="text-gray-400 hover:text-gray-300">
-          ← Back to Writing
+          {t("blog.post.backToBlog")}
         </Link>
       </div>
     );
@@ -165,7 +167,7 @@ export default function BlogPost() {
           className="inline-flex items-center gap-2 text-purple-300 hover:text-white text-sm mb-10 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          All posts
+          {t("blog.post.allPosts")}
         </Link>
         <article>
           <header className="mb-10">
@@ -182,7 +184,12 @@ export default function BlogPost() {
               remarkPlugins={[remarkGfm]}
               components={{
                 img: ({ alt, ...props }) => (
-                  <img {...props} alt={alt?.trim() ? alt : "Article illustration"} loading="lazy" decoding="async" />
+                  <img
+                    {...props}
+                    alt={alt?.trim() ? alt : t("blog.post.imageAlt")}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 ),
               }}
             >
@@ -194,29 +201,28 @@ export default function BlogPost() {
               <p>
                 {hasLocalBody ? (
                   <>
-                    Also on Hashnode:{" "}
+                    {t("blog.post.footerAlso")}{" "}
                     <a
                       href={hashnodeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
                     >
-                      view there <ExternalLink className="w-3 h-3 inline" />
+                      {t("blog.post.footerViewThere")} <ExternalLink className="w-3 h-3 inline" />
                     </a>
                   </>
                 ) : (
                   <>
-                    Source:{" "}
+                    {t("blog.post.footerSource")}{" "}
                     <a
                       href={hashnodeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
                     >
-                      Hashnode <ExternalLink className="w-3 h-3 inline" />
+                      {t("blog.post.footerHashnode")} <ExternalLink className="w-3 h-3 inline" />
                     </a>
-                    {" "}
-                    — full text synced for reading on AIdeazz.
+                    {t("blog.post.footerSynced")}
                   </>
                 )}
               </p>

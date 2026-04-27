@@ -346,6 +346,37 @@
     "desc": "Long-form notes on agents, infrastructure, and shipping — read in full on the blog. No hype, just what works in the real stack.",
     "cta": "Read articles"
   },
+  "blog": {
+    "backToPortfolio": "Portfolio",
+    "pageTitle": "Writing",
+    "intro": "Practical notes on <highlight>AI in production</highlight> — how multi-agent systems are wired, what breaks at scale, and how to think about cost and risk. New posts appear here regularly; you can read each one in full on this site.",
+    "fetchErrorHint": "Showing saved articles. If the list looks incomplete, refresh in a moment.",
+    "loading": "Loading articles…",
+    "empty": "No articles yet — check back soon.",
+    "readArticle": "Read article",
+    "alsoOnHashnode": "Also on Hashnode",
+    "seo": {
+      "title": "Writing — AIdeazz | Elena Revicheva",
+      "description": "Articles on building production AI systems, multi-agent operations, and what it takes to ship.",
+      "ogTitle": "Writing — AIdeazz",
+      "ogDescription": "Notes from someone running nine AI agents in production — architecture, trade-offs, and lessons learned.",
+      "twitterTitle": "Writing — AIdeazz | Elena Revicheva",
+      "twitterDescription": "Production AI systems, multi-agent operations, and lessons from shipping nine agents on Oracle Cloud."
+    },
+    "post": {
+      "loading": "Loading article…",
+      "notFound": "Post not found.",
+      "backToBlog": "← Back to Writing",
+      "readOnHashnode": "Read on Hashnode →",
+      "allPosts": "All posts",
+      "footerAlso": "Also on Hashnode:",
+      "footerViewThere": "view there",
+      "footerSource": "Source:",
+      "footerHashnode": "Hashnode",
+      "footerSynced": "— full text synced for reading on AIdeazz.",
+      "imageAlt": "Article illustration"
+    }
+  },
   "section1": {
     "title": "Live AI Products — Monetization Ready",
     "cofounderTitle": "AI Co-Founders — Autonomous & Live",

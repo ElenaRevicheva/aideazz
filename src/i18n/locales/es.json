@@ -346,6 +346,37 @@
     "desc": "Textos largos sobre agentes, infraestructura y despliegue — léelos completos en el blog. Sin humo: lo que funciona en producción.",
     "cta": "Ver artículos"
   },
+  "blog": {
+    "backToPortfolio": "Portafolio",
+    "pageTitle": "Artículos",
+    "intro": "Notas prácticas sobre <highlight>IA en producción</highlight>: cómo se cablean los sistemas multiagente, qué se rompe a escala y cómo pensar en coste y riesgo. Entradas nuevas con regularidad; puedes leer cada una completa en este sitio.",
+    "fetchErrorHint": "Mostrando artículos guardados. Si la lista se ve incompleta, actualiza en un momento.",
+    "loading": "Cargando artículos…",
+    "empty": "Aún no hay artículos — vuelve pronto.",
+    "readArticle": "Leer artículo",
+    "alsoOnHashnode": "También en Hashnode",
+    "seo": {
+      "title": "Artículos — AIdeazz | Elena Revicheva",
+      "description": "Textos sobre sistemas de IA en producción, operaciones multiagente y lo que implica publicar con fiabilidad.",
+      "ogTitle": "Artículos — AIdeazz",
+      "ogDescription": "Notas de quien ejecuta varios agentes de IA en producción: arquitectura, trade-offs y lecciones.",
+      "twitterTitle": "Artículos — AIdeazz | Elena Revicheva",
+      "twitterDescription": "IA en producción, operación multiagente y lecciones al mantener agentes en Oracle Cloud."
+    },
+    "post": {
+      "loading": "Cargando artículo…",
+      "notFound": "Artículo no encontrado.",
+      "backToBlog": "← Volver a artículos",
+      "readOnHashnode": "Leer en Hashnode →",
+      "allPosts": "Todas las entradas",
+      "footerAlso": "También en Hashnode:",
+      "footerViewThere": "ver allí",
+      "footerSource": "Fuente:",
+      "footerHashnode": "Hashnode",
+      "footerSynced": "— texto completo sincronizado para leer en AIdeazz.",
+      "imageAlt": "Ilustración del artículo"
+    }
+  },
   "section1": {
     "title": "Productos IA en Vivo — Listos para Monetización",
     "cofounderTitle": "Co-Fundadores de IA — Autónomos y en Vivo",
