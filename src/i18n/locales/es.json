@@ -355,6 +355,8 @@
     "empty": "Aún no hay artículos — vuelve pronto.",
     "readArticle": "Leer artículo",
     "alsoOnHashnode": "También en Hashnode",
+    "alsoOnDevto": "También en Dev.to",
+    "contentEnglishNotice": "El texto del artículo está en inglés (original). En este sitio los títulos pueden mostrarse en español.",
     "seo": {
       "title": "Artículos — AIdeazz | Elena Revicheva",
       "description": "Textos sobre sistemas de IA en producción, operaciones multiagente y lo que implica publicar con fiabilidad.",
@@ -374,6 +376,7 @@
       "footerSource": "Fuente:",
       "footerHashnode": "Hashnode",
       "footerSynced": "— texto completo sincronizado para leer en AIdeazz.",
+      "footerDevto": "Dev.to",
       "imageAlt": "Ilustración del artículo"
     }
   },

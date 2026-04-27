@@ -13,6 +13,7 @@ const PUBLIC = path.join(ROOT, "public");
 
 const SITE = "https://aideazz.xyz";
 const HASHNODE_HOST = process.env.VITE_HASHNODE_HOST?.trim() || "aideazz.hashnode.dev";
+const DEVTO_USERNAME = process.env.VITE_DEVTO_USERNAME?.trim() || "elenarevicheva";
 
 /** Same as src/lib/hashnode-public.ts — smoke tests not in sitemap */
 const EXCLUDED_SLUGS = new Set([
@@ -86,8 +87,37 @@ function dateOnly(iso) {
   return iso.slice(0, 10);
 }
 
+/** Slugs on dev.to only (Hashnode 404) — same inference as src/lib/devto-public.ts */
+async function fetchDevtoSlugsNotInHashnode(hashnodeSlugs) {
+  const have = new Set(hashnodeSlugs);
+  try {
+    const res = await fetch(
+      `https://dev.to/api/articles?username=${encodeURIComponent(DEVTO_USERNAME)}&per_page=100`
+    );
+    if (!res.ok) return [];
+    const arr = await res.json();
+    if (!Array.isArray(arr)) return [];
+    const out = [];
+    for (const a of arr) {
+      const path = a.path || "";
+      const seg = path.split("/").filter(Boolean).pop() || "";
+      const stripped = seg.replace(/-[a-z0-9]{3,6}$/i, "");
+      const slug =
+        stripped.length > 0 && stripped !== seg && stripped.length >= 24 ? stripped : seg;
+      if (!slug || have.has(slug)) continue;
+      have.add(slug);
+      out.push({ slug, publishedAt: a.published_at || "" });
+    }
+    return out;
+  } catch {
+    return [];
+  }
+}
+
 async function main() {
-  const posts = await fetchHashnodeSlugs();
+  const hn = await fetchHashnodeSlugs();
+  const extra = await fetchDevtoSlugsNotInHashnode(hn.map((p) => p.slug));
+  const posts = [...hn, ...extra];
   const fallbackDate = new Date().toISOString().slice(0, 10);
 
   const entries = [];
@@ -134,7 +164,7 @@ ${urlElements}
   fs.writeFileSync(path.join(PUBLIC, "sitemap.txt"), txt, "utf8");
 
   console.log(
-    `generate-sitemap: wrote ${entries.length} URLs (${posts.length} blog posts from Hashnode) → public/sitemap.xml, public/sitemap.txt`
+    `generate-sitemap: wrote ${entries.length} URLs (${hn.length} Hashnode + ${extra.length} dev.to-only blog) → public/sitemap.xml, public/sitemap.txt`
   );
 }
 

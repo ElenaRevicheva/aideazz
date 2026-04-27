@@ -1,0 +1,14 @@
+{
+  "geo-vs-seo-why-chatgpt-citations-matter-more-than-google-rankings": {
+    "title": "GEO frente a SEO: por qué las citas de ChatGPT importan más que el ranking en Google",
+    "description": "Durante seis meses vi cómo mis agentes en Oracle Cloud eran citados en ChatGPT y Perplexity, e invisibles en Google. Esto me obligó a replantear cómo estructurar la información para la IA generativa frente a la búsqueda clásica."
+  },
+  "what-is-an-ai-agent-a-production-definition-from-the-field": {
+    "title": "Qué es un agente de IA: una definición desde producción, no de marketing",
+    "description": "Definición concreta de un agente de IA para quien opera varios: observa, decide, actúa y persiste estado, frente a envoltorios de chat."
+  },
+  "why-i-run-production-ai-agents-on-oracle-clouds-free-tier": {
+    "title": "Por qué mis agentes de IA en producción viven en el nivel gratuito de Oracle Cloud",
+    "description": "Cómo encajar coste, fiabilidad y formas reales de operar agentes 24/7 en infra sin factura de cómpute."
+  }
+}

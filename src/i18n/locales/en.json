@@ -355,6 +355,8 @@
     "empty": "No articles yet — check back soon.",
     "readArticle": "Read article",
     "alsoOnHashnode": "Also on Hashnode",
+    "alsoOnDevto": "Also on Dev.to",
+    "contentEnglishNotice": "Article text is in English (original). Titles may be shown in Spanish on this site.",
     "seo": {
       "title": "Writing — AIdeazz | Elena Revicheva",
       "description": "Articles on building production AI systems, multi-agent operations, and what it takes to ship.",
@@ -374,6 +376,7 @@
       "footerSource": "Source:",
       "footerHashnode": "Hashnode",
       "footerSynced": "— full text synced for reading on AIdeazz.",
+      "footerDevto": "Dev.to",
       "imageAlt": "Article illustration"
     }
   },

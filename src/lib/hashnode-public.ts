@@ -125,18 +125,17 @@ function isoDateOnly(iso: string): string {
   return iso.slice(0, 10);
 }
 
-/** Merge local markdown posts with live Hashnode list; local body wins when slug matches Hashnode URL path. */
-export function mergeHashnodeWithLocal(
-  remote: HashnodeListNode[],
-  local: BlogPost[]
-): Array<{
+export type BlogMergeRow = {
   slug: string;
   title: string;
   description: string;
   date: string;
   hashnodeUrl: string;
   hasLocalBody: boolean;
-}> {
+};
+
+/** Merge local markdown posts with live Hashnode list; local body wins when slug matches Hashnode URL path. */
+export function mergeHashnodeWithLocal(remote: HashnodeListNode[], local: BlogPost[]): BlogMergeRow[] {
   const localBySlug = new Map(local.map((p) => [p.slug, p]));
   const localHashnodePath = new Map<string, BlogPost>();
   for (const p of local) {
@@ -152,14 +151,7 @@ export function mergeHashnodeWithLocal(
   }
 
   const seen = new Set<string>();
-  const merged: Array<{
-    slug: string;
-    title: string;
-    description: string;
-    date: string;
-    hashnodeUrl: string;
-    hasLocalBody: boolean;
-  }> = [];
+  const merged: BlogMergeRow[] = [];
 
   for (const r of remote) {
     if (EXCLUDED_SLUGS.has(r.slug)) continue;

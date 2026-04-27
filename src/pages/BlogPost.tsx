@@ -1,18 +1,21 @@
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getPostBySlug } from "@/lib/blog";
+import { getArticleLocaleOverride } from "@/lib/blog-article-locale";
 import { fetchHashnodePostBySlug } from "@/lib/hashnode-public";
+import { fetchDevtoPostByBlogSlug } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 export default function BlogPost() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.resolvedLanguage ?? i18n.language;
   const { slug } = useParams<{ slug: string }>();
   const local = slug ? getPostBySlug(slug) : undefined;
-  const hasLocalBody = !!(local?.body && local.body.trim().length > 0);
+  const hasLocalBody = !!(local?.body && local?.body.trim().length > 0);
 
   const [remoteLoading, setRemoteLoading] = useState(!hasLocalBody && !!slug);
   const [remoteMd, setRemoteMd] = useState<string | null>(null);
@@ -22,6 +25,7 @@ export default function BlogPost() {
     url: string;
     publishedAt: string;
   } | null>(null);
+  const [fromDevto, setFromDevto] = useState(false);
   const [remoteError, setRemoteError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -33,6 +37,7 @@ export default function BlogPost() {
     (async () => {
       setRemoteLoading(true);
       setRemoteError(null);
+      setFromDevto(false);
       try {
         const r = await fetchHashnodePostBySlug(slug);
         if (cancelled) return;
@@ -44,12 +49,42 @@ export default function BlogPost() {
             url: r.url,
             publishedAt: r.publishedAt,
           });
-        } else {
-          setRemoteMd(null);
-          setRemoteMeta(null);
+          return;
         }
+        const d = await fetchDevtoPostByBlogSlug(slug);
+        if (cancelled) return;
+        if (d) {
+          setRemoteMd(d.contentMarkdown);
+          setRemoteMeta({
+            title: d.title,
+            brief: d.brief,
+            url: d.url,
+            publishedAt: d.publishedAt,
+          });
+          setFromDevto(true);
+          return;
+        }
+        setRemoteMd(null);
+        setRemoteMeta(null);
       } catch (e) {
-        if (!cancelled) setRemoteError(e instanceof Error ? e.message : "Load failed");
+        if (!cancelled) {
+          setRemoteError(e instanceof Error ? e.message : "Load failed");
+          const d = await fetchDevtoPostByBlogSlug(slug!);
+          if (!cancelled && d) {
+            setRemoteError(null);
+            setRemoteMd(d.contentMarkdown);
+            setRemoteMeta({
+              title: d.title,
+              brief: d.brief,
+              url: d.url,
+              publishedAt: d.publishedAt,
+            });
+            setFromDevto(true);
+          } else {
+            setRemoteMd(null);
+            setRemoteMeta(null);
+          }
+        }
       } finally {
         if (!cancelled) setRemoteLoading(false);
       }
@@ -60,25 +95,42 @@ export default function BlogPost() {
   }, [slug, hasLocalBody]);
 
   const post = local;
-  const title = post?.title ?? remoteMeta?.title ?? "";
-  const description = post?.description ?? remoteMeta?.brief ?? "";
+  const enTitle = post?.title ?? remoteMeta?.title ?? "";
+  const enDescription = post?.description ?? remoteMeta?.brief ?? "";
   const date = post?.date ?? (remoteMeta?.publishedAt ? remoteMeta.publishedAt.slice(0, 10) : "");
-  const hashnodeUrl = post?.hashnodeUrl ?? remoteMeta?.url;
-  const bodyMd = hasLocalBody ? post!.body : remoteMd ?? "";
-  const showContent = hasLocalBody || (remoteMd && remoteMd.length > 0);
+  const sourceUrl = post?.hashnodeUrl ?? remoteMeta?.url;
+  const enBody = hasLocalBody ? post!.body : remoteMd ?? "";
+
+  const loc = useMemo(() => {
+    if (!slug) return {};
+    return getArticleLocaleOverride(slug, lang);
+  }, [slug, lang]);
+
+  const displayTitle = loc.title || enTitle;
+  const displayDescription = loc.description || enDescription;
+  const displayBody = loc.body && loc.body.trim().length > 0 ? loc.body : enBody;
+  const showEnNotice =
+    lang.toLowerCase().startsWith("es") &&
+    !!(enBody && enBody.length > 0) &&
+    !(loc.body && loc.body.trim().length > 0);
+
+  const showContent =
+    hasLocalBody ||
+    (typeof remoteMd === "string" && remoteMd.length > 0) ||
+    (typeof loc.body === "string" && loc.body.trim().length > 0);
 
   useEffect(() => {
-    if (!slug || !title) return;
+    if (!slug || !displayTitle) return;
     const url = `${SITE_ORIGIN}/blog/${slug}`;
-    const desc = (description || title).slice(0, 320);
+    const desc = (displayDescription || displayTitle).slice(0, 320);
     applyPageSeo({
-      title: `${title} | AIdeazz`,
+      title: `${displayTitle} | AIdeazz`,
       description: desc,
       canonicalUrl: url,
       ogType: "article",
-      ogTitle: title,
+      ogTitle: displayTitle,
       ogDescription: desc,
-      twitterTitle: title,
+      twitterTitle: displayTitle,
       twitterDescription: desc,
     });
 
@@ -87,8 +139,8 @@ export default function BlogPost() {
     const ld = {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: title,
-      description: description || title,
+      headline: displayTitle,
+      description: displayDescription || displayTitle,
       datePublished: date,
       dateModified: date,
       author: {
@@ -102,7 +154,7 @@ export default function BlogPost() {
         url: SITE_ORIGIN,
       },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
-      ...(hashnodeUrl ? { sameAs: hashnodeUrl } : {}),
+      ...(sourceUrl ? { sameAs: sourceUrl } : {}),
     };
     const s = document.createElement("script");
     s.type = "application/ld+json";
@@ -112,7 +164,7 @@ export default function BlogPost() {
     return () => {
       s.remove();
     };
-  }, [slug, title, description, date, hashnodeUrl]);
+  }, [slug, displayTitle, displayDescription, date, sourceUrl, lang]);
 
   if (!slug) {
     return null;
@@ -146,8 +198,8 @@ export default function BlogPost() {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 gap-4">
         <p className="text-amber-400 text-center max-w-md">{remoteError}</p>
-        {hashnodeUrl ? (
-          <a href={hashnodeUrl} className="text-purple-400 hover:text-purple-300">
+        {sourceUrl ? (
+          <a href={sourceUrl} className="text-purple-400 hover:text-purple-300">
             {t("blog.post.readOnHashnode")}
           </a>
         ) : null}
@@ -175,10 +227,17 @@ export default function BlogPost() {
               {date}
             </time>
             <h1 className="text-3xl md:text-4xl font-bold mt-3 bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-              {title}
+              {displayTitle}
             </h1>
-            {description ? <p className="text-gray-400 mt-4 text-lg">{description}</p> : null}
+            {displayDescription ? (
+              <p className="text-gray-400 mt-4 text-lg">{displayDescription}</p>
+            ) : null}
           </header>
+          {showEnNotice ? (
+            <p className="mb-8 text-sm text-gray-500 border-l-2 border-amber-500/50 pl-3">
+              {t("blog.contentEnglishNotice")}
+            </p>
+          ) : null}
           <div className="prose prose-invert prose-purple max-w-none prose-headings:text-white prose-a:text-purple-400 prose-strong:text-white">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
@@ -193,17 +252,31 @@ export default function BlogPost() {
                 ),
               }}
             >
-              {bodyMd}
+              {displayBody}
             </ReactMarkdown>
           </div>
-          {hashnodeUrl ? (
+          {sourceUrl ? (
             <footer className="mt-12 pt-8 border-t border-white/10 text-sm text-gray-400">
               <p>
-                {hasLocalBody ? (
+                {fromDevto && !post?.hashnodeUrl && !hasLocalBody ? (
+                  <>
+                    {t("blog.post.footerSource")}{" "}
+                    <a
+                      href={sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
+                    >
+                      {t("blog.post.footerDevto")} <ExternalLink className="w-3 h-3 inline" />
+                    </a>
+                    {" — "}
+                    {t("blog.post.footerSynced")}
+                  </>
+                ) : hasLocalBody ? (
                   <>
                     {t("blog.post.footerAlso")}{" "}
                     <a
-                      href={hashnodeUrl}
+                      href={sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
@@ -215,7 +288,7 @@ export default function BlogPost() {
                   <>
                     {t("blog.post.footerSource")}{" "}
                     <a
-                      href={hashnodeUrl}
+                      href={sourceUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
