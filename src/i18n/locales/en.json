@@ -39,7 +39,7 @@
     "functionality4": "Creates short avatar videos in Spanish and English — designed to engage children",
     "functionality5": "Sends voice messages with full bilingual content using AI voice synthesis",
     "functionality6": "Translates text inside images (OCR) using GPT-4o vision capabilities",
-    "functionality7": "Maintains emotional memory and context throughout the conversation",
+    "functionality7": "Remembers past conversations and surfaces relevant context in every reply — 2-layer persistent memory: recent history + long-term semantic recall via pgvector RAG (live April 2026)",
     "functionality8": "Adapts tone based on detected emotions and the user's personal profile",
     "telegramTitle": "Try on Telegram",
     "telegramSubtitle": "Chat with EspaLuz instantly",
@@ -115,15 +115,15 @@
     "founderPhase1Title": "Executive Leadership (2011–2018)",
     "founderPhase1Desc": "7 years as Deputy CEO & CLO — board-level governance, enterprise digital transformation, and cross-functional programs in regulated environments.",
     "founderPhase2Title": "Applied AI Builder (2025–Present)",
-    "founderPhase2Desc": "Self-taught via Cursor & Claude Code. 9 production AI agents on Oracle Cloud at $0/month. Multi-model routing: 76% Groq / 24% Claude.",
-    "founderStat1": "9 agents",
-    "founderStat1Label": "in production 24/7",
+    "founderPhase2Desc": "Self-taught via Cursor & Claude Code. 10-agent ecosystem (9 in production, AILA in design) on Oracle Cloud at $0/month. LangGraph stateful pipelines + pgvector RAG live. Multi-model routing: 76% Groq / 24% Claude. 131-test eval harness.",
+    "founderStat1": "9 live",
+    "founderStat1Label": "agents in production · AILA in design",
     "founderStat2": "$0/month",
     "founderStat2Label": "Oracle Cloud infra",
     "founderStat3": "76/24%",
     "founderStat3Label": "Groq / Claude routing",
-    "founderStat4": "12 months",
-    "founderStat4Label": "solo-built"
+    "founderStat4": "13 months",
+    "founderStat4Label": "solo-built · <$15K total"
   },
   "investor": {
     "badge": "Investment Opportunity",
@@ -332,7 +332,7 @@
   "header": {
     "name": "Elena Revicheva",
     "title": "Executive-Turned-AI-Builder | 9 Production Agents | Founder @ AIdeazz",
-    "stats": "7 years Deputy CEO/CLO • 9 AI agents on Oracle Cloud (24/7) • 76%/24% multi-model routing • 12 months solo-built",
+    "stats": "7 years Deputy CEO/CLO • 10-agent ecosystem (9 live · AILA in design) • LangGraph + pgvector RAG live • 76%/24% multi-model routing • 13 months solo-built",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
     "builder": "Builder & Founder",
@@ -378,6 +378,7 @@
       "footerSynced": "— full text synced for reading on AIdeazz.",
       "footerDevto": "Dev.to",
       "translatingEs": "Translating article to Spanish…",
+      "translationFailed": "Spanish translation unavailable",
       "imageAlt": "Article illustration"
     }
   },
@@ -439,15 +440,15 @@
       "text": "7 years in Russian E-government as Chief Executive in IT Project Management and CLO. Relocated to Panama in 2022 — transitioned from executive management to hands-on AI engineering, shipping 10 production agents solving real problems across language learning, job automation, code review, and content generation."
     },
     "timeline": {
-      "title": "March 2025 — March 2026",
-      "subtitle": "12 Months of Shipping",
+      "title": "March 2025 — April 2026",
+      "subtitle": "13 Months of Shipping",
       "keyStats": "Output:",
-      "stat1": "10 autonomous AI agents in production (TypeScript, Python, Node.js)",
-      "stat2": "8+ AI/ML services integrated (Claude, GPT, Whisper, Flux Pro, Luma, edge-tts, OCR, LangChain)"
+      "stat1": "10-agent ecosystem: 9 in production 24/7 + AILA in design (TypeScript, Python, Node.js)",
+      "stat2": "LangGraph stateful pipelines · pgvector RAG · LangChain · 131-test eval harness · 9 AI/ML services integrated"
     },
     "vibeAdvantage": {
       "title": "AI-ASSISTED DEVELOPMENT AT SCALE",
-      "desc": "10 production agents shipped in 12 months, solo, for <$15K total infrastructure cost — using Claude Code, Cursor, and multi-model orchestration:",
+      "desc": "10-agent ecosystem shipped in 13 months, solo, for <$15K total infrastructure cost — using Claude Code, Cursor, LangGraph, and multi-model orchestration:",
       "traditional": "Traditional Team:",
       "traditionalCost": "$900K+/year",
       "vibeCoding": "AI-Assisted Solo:",
@@ -467,7 +468,7 @@
       "strength6": "Infrastructure & DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "0→1 execution — 10 production agents shipped, all live 24/7",
       "strength8": "AI-assisted development — Claude Code, Cursor, rapid prototyping to production",
-      "strength9": "Bilingual product design (EN/ES) — i18n, localization across 21 countries"
+      "strength9": "Bilingual product design (EN/ES) — i18n, localization across 19 countries"
     },
     "openTo": {
       "title": "I am actually open to:",
@@ -488,7 +489,7 @@
         "item1": "I ship end-to-end — from architecture to production deployment to user feedback",
         "item1Button": "Pitch",
         "item2": "Founder discipline: I treat every project like my own — ownership, urgency, zero waste",
-        "item3": "7 years executive management + 12 months hands-on AI engineering = systems thinking + execution speed"
+        "item3": "7 years executive management + 13 months hands-on AI engineering = systems thinking + execution speed"
       },
       "closing": "Ready to build together."
     }

@@ -37,6 +37,7 @@ export default function BlogPost() {
   const [remoteError, setRemoteError] = useState<string | null>(null);
   const [serverEsBundle, setServerEsBundle] = useState<BlogEsBundleJson | null>(null);
   const [serverEsLoading, setServerEsLoading] = useState(false);
+  const [serverEsError, setServerEsError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!slug || hasLocalBody) {
@@ -123,27 +124,44 @@ export default function BlogPost() {
     if (!lang.toLowerCase().startsWith("es")) {
       setServerEsBundle(null);
       setServerEsLoading(false);
+      setServerEsError(null);
       return;
     }
     if (hasBundledEsBody) {
       setServerEsBundle(null);
       setServerEsLoading(false);
+      setServerEsError(null);
       return;
     }
     let cancelled = false;
     setServerEsLoading(true);
+    setServerEsError(null);
     const url = `${BLOG_ES_API_ORIGIN}/blog/es-bundle/${encodeURIComponent(slug)}`;
     fetch(url)
       .then(async (r) => {
-        if (!r.ok) throw new Error(String(r.status));
+        if (!r.ok) {
+          let msg = `HTTP ${r.status}`;
+          try {
+            const j = (await r.json()) as { error?: string };
+            if (j?.error) msg = j.error.slice(0, 420);
+          } catch {
+            /* ignore */
+          }
+          throw new Error(msg);
+        }
         return r.json() as Promise<BlogEsBundleJson>;
       })
       .then((j) => {
-        if (!cancelled && j?.markdown?.trim()) setServerEsBundle(j);
-        else if (!cancelled) setServerEsBundle(null);
+        if (!cancelled && j?.markdown?.trim()) {
+          setServerEsBundle(j);
+          setServerEsError(null);
+        } else if (!cancelled) setServerEsBundle(null);
       })
-      .catch(() => {
-        if (!cancelled) setServerEsBundle(null);
+      .catch((e) => {
+        if (!cancelled) {
+          setServerEsBundle(null);
+          setServerEsError(e instanceof Error ? e.message : String(e));
+        }
       })
       .finally(() => {
         if (!cancelled) setServerEsLoading(false);
@@ -301,6 +319,12 @@ export default function BlogPost() {
               <p className="text-gray-400 mt-4 text-lg">{displayDescription}</p>
             ) : null}
           </header>
+          {serverEsError && lang.toLowerCase().startsWith("es") ? (
+            <p className="mb-8 text-sm text-amber-400 border-l-2 border-amber-500/60 pl-3">
+              {t("blog.post.translationFailed")}
+              {serverEsError ? `: ${serverEsError}` : ""}
+            </p>
+          ) : null}
           {showEnNotice ? (
             <p className="mb-8 text-sm text-gray-500 border-l-2 border-amber-500/50 pl-3">
               {t("blog.contentEnglishNotice")}

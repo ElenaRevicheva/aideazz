@@ -39,7 +39,7 @@
     "functionality4": "Crea videos cortos de avatar en español e inglés — diseñados para involucrar a los niños",
     "functionality5": "Envía mensajes de voz con contenido bilingüe completo usando síntesis de voz de IA",
     "functionality6": "Traduce texto dentro de imágenes (OCR) usando las capacidades de visión de GPT-4o",
-    "functionality7": "Mantiene la memoria emocional y el contexto a lo largo de la conversación",
+    "functionality7": "Recuerda conversaciones pasadas y muestra contexto relevante en cada respuesta — memoria persistente de 2 capas: historial reciente + recuperación semántica a largo plazo vía pgvector RAG (en vivo desde abril 2026)",
     "functionality8": "Adapta el tono basándose en las emociones detectadas y el perfil personal del usuario",
     "telegramTitle": "Prueba en Telegram",
     "telegramSubtitle": "Chatea con EspaLuz al instante",
@@ -115,15 +115,15 @@
     "founderPhase1Title": "Liderazgo Ejecutivo (2011–2018)",
     "founderPhase1Desc": "7 años como Vicepresidenta y CLO — gobernanza a nivel directivo, transformación digital empresarial y programas multifuncionales en entornos regulados.",
     "founderPhase2Title": "Constructora de IA Aplicada (2025–Presente)",
-    "founderPhase2Desc": "Autodidacta con Cursor y Claude Code. 9 agentes de IA en producción en Oracle Cloud a $0/mes. Enrutamiento multi-modelo: 76% Groq / 24% Claude.",
-    "founderStat1": "9 agentes",
-    "founderStat1Label": "en producción 24/7",
+    "founderPhase2Desc": "Autodidacta con Cursor y Claude Code. Ecosistema de 10 agentes (9 en producción, AILA en diseño) en Oracle Cloud a $0/mes. LangGraph + pgvector RAG en vivo. Enrutamiento multi-modelo: 76% Groq / 24% Claude. 131 tests de evaluación.",
+    "founderStat1": "9 en vivo",
+    "founderStat1Label": "agentes en producción · AILA en diseño",
     "founderStat2": "$0/mes",
     "founderStat2Label": "infra Oracle Cloud",
     "founderStat3": "76/24%",
     "founderStat3Label": "Groq / Claude",
-    "founderStat4": "12 meses",
-    "founderStat4Label": "construido sola"
+    "founderStat4": "13 meses",
+    "founderStat4Label": "construido sola · <$15K total"
   },
   "investor": {
     "badge": "Oportunidad de Inversión",
@@ -331,8 +331,8 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Ejecutiva reconvertida en Constructora de IA | 9 Agentes en Producción | Fundadora @ AIdeazz",
-    "stats": "7 años Vice-CEO/CLO • 9 agentes IA en Oracle Cloud (24/7) • enrutamiento multi-modelo 76%/24% • 12 meses construido en solitario",
+    "title": "Ejecutiva reconvertida en Constructora de IA | 10 Agentes (9 en Producción) | Fundadora @ AIdeazz",
+    "stats": "7 años Vice-CEO/CLO • ecosistema 10 agentes (9 en vivo · AILA en diseño) • LangGraph + pgvector RAG en vivo • 76%/24% enrutamiento multi-modelo • 13 meses construido en solitario",
     "location": "Panamá",
     "bilingual": "Bilingüe EN/ES",
     "builder": "Builder & Fundadora",
@@ -378,6 +378,7 @@
       "footerSynced": "— texto completo sincronizado para leer en AIdeazz.",
       "footerDevto": "Dev.to",
       "translatingEs": "Traduciendo el artículo al español…",
+      "translationFailed": "No se pudo obtener la traducción al español",
       "imageAlt": "Ilustración del artículo"
     }
   },
@@ -439,15 +440,15 @@
       "text": "7 años en E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Reubicada a Panamá en 2022 — transición de gestión ejecutiva a ingeniería IA práctica, lanzando 10 agentes en producción que resuelven problemas reales en aprendizaje de idiomas, automatización de empleo, revisión de código y generación de contenido."
     },
     "timeline": {
-      "title": "Marzo 2025 — Marzo 2026",
-      "subtitle": "12 Meses de Producción",
+      "title": "Marzo 2025 — Abril 2026",
+      "subtitle": "13 Meses de Producción",
       "keyStats": "Resultado:",
-      "stat1": "10 agentes IA autónomos en producción (TypeScript, Python, Node.js)",
-      "stat2": "8+ servicios IA/ML integrados (Claude, GPT, Whisper, Flux Pro, Luma, edge-tts, OCR, LangChain)"
+      "stat1": "Ecosistema de 10 agentes: 9 en producción 24/7 + AILA en diseño (TypeScript, Python, Node.js)",
+      "stat2": "LangGraph pipelines · pgvector RAG · LangChain · 131 tests de evaluación · 9+ servicios IA/ML integrados"
     },
     "vibeAdvantage": {
       "title": "DESARROLLO ASISTIDO POR IA A ESCALA",
-      "desc": "10 agentes en producción lanzados en 12 meses, en solitario, por <$15K de costo total de infraestructura — usando Claude Code, Cursor y orquestación multi-modelo:",
+      "desc": "Ecosistema de 10 agentes lanzado en 13 meses, en solitario, por <$15K de costo total de infraestructura — usando Claude Code, Cursor, LangGraph y orquestación multi-modelo:",
       "traditional": "Equipo Tradicional:",
       "traditionalCost": "$900K+/año",
       "vibeCoding": "Solo con IA:",
@@ -467,7 +468,7 @@
       "strength6": "Infraestructura y DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "Ejecución 0→1 — 10 agentes en producción lanzados, todos en vivo 24/7",
       "strength8": "Desarrollo asistido por IA — Claude Code, Cursor, prototipado rápido a producción",
-      "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 21 países"
+      "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 19 países"
     },
     "openTo": {
       "title": "Estoy abierta a:",
@@ -488,7 +489,7 @@
         "item1": "Entrego de punta a punta — desde arquitectura hasta despliegue en producción y feedback de usuarios",
         "item1Button": "Pitch",
         "item2": "Disciplina de fundadora: trato cada proyecto como propio — ownership, urgencia, cero desperdicio",
-        "item3": "7 años de gestión ejecutiva + 12 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
+        "item3": "7 años de gestión ejecutiva + 13 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
       },
       "closing": "Lista para construir juntos."
     }
