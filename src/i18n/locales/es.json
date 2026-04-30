@@ -332,8 +332,8 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Ejecutiva reconvertida en Constructora de IA | 10 Agentes (9 en Producción) | Fundadora @ AIdeazz",
-    "stats": "7 años Vice-CEO/CLO • ecosistema 10 agentes (9 en vivo · AILA en diseño) • LangGraph + pgvector RAG en vivo • 76%/24% enrutamiento multi-modelo • 13 meses construido en solitario",
+    "title": "Ingeniera de IA Aplicada | 12 Agentes en Producción | Fundadora @ AIdeazz",
+    "stats": "7 años Vice-CEO/CLO • 12 agentes en vivo • LangGraph · pgvector RAG • desarrollo aumentado por IA (Cursor + Claude Code) • enrutamiento multi-modelo 76%/24%",
     "location": "Panamá",
     "bilingual": "Bilingüe EN/ES",
     "builder": "Builder & Fundadora",
@@ -388,10 +388,10 @@
     "cofounderTitle": "Co-Fundadores de IA — Autónomos y en Vivo",
     "cto": {
       "title": "CTO AIPA",
-      "subtitle": "Cofundador Técnico de IA",
-      "desc": "Agente autónomo de revisión de código y guía técnica. Enrutamiento multi-modelo (Claude Opus para crítico, Groq Llama para estándar), memoria persistente en Oracle DB, webhooks de GitHub en los 10 repos. Pipeline voz-a-código (WIP): comandos de voz NLP vía Telegram — ya maneja revisiones y consultas, código completo sobre la marcha en desarrollo.",
-      "traction": "10 repos monitoreados • 25+ revisiones de código • <$1/mes costo • 99.9% uptime",
-      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
+      "subtitle": "Cofundadora Técnica de IA",
+      "desc": "Sistema de IA autónomo para revisión de código, toma de decisiones técnicas y briefing diario en 12 repositorios activos de GitHub. Enrutamiento multi-modelo (Claude para análisis crítico/seguridad, Groq Llama 3.3 70B para velocidad), memoria persistente en Oracle DB, automatización de webhooks de GitHub. Pipeline de voz: notas de voz → Whisper → base de conocimiento Oracle. Sprint Briefing Agent (AWS Lambda): cron EventBridge a las 8AM hora de Panamá → lee actividad nocturna de 12 repos + recupera notas de voz desde Oracle → Groq agrupa señales → Claude redacta narrativa → OpenAI TTS genera MP3 → entregado por Telegram. Bucle de memoria bidireccional completo.",
+      "traction": "12 repos monitoreados • 25+ revisiones de código • ~$3/mes total • uptime 24/7 · cero reinicios por fallos",
+      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), OpenAI TTS, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },

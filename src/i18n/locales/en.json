@@ -332,8 +332,8 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Executive-Turned-AI-Builder | 10-Agent Ecosystem (9 Live) | Founder @ AIdeazz",
-    "stats": "7 years Deputy CEO/CLO • 10-agent ecosystem (9 live · AILA in design) • LangGraph + pgvector RAG live • 76%/24% multi-model routing • 13 months solo-built",
+    "title": "Applied AI Engineer | 12 Live Agents | Founder @ AIdeazz",
+    "stats": "7 yrs Deputy CEO/CLO • 12 live agents • LangGraph · pgvector RAG • AI-augmented (Cursor + Claude Code) • 76%/24% multi-model routing",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
     "builder": "Builder & Founder",
@@ -389,9 +389,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "AI Technical Co-Founder",
-      "desc": "Autonomous code review & technical guidance agent. Multi-tier model routing (Claude Opus for critical, Groq Llama for standard), persistent memory in Oracle DB, GitHub webhook automation across all 10 repos. Voice-to-code pipeline (WIP): NLP voice commands via Telegram — already handles reviews and queries, full code-on-the-go in progress.",
-      "traction": "10 repos monitored • 25+ code reviews • <$1/month cost • 99.9% uptime",
-      "tech": "TypeScript, Node.js, Express.js, Groq (Llama 3.3 70B), Claude Opus 4, Oracle Autonomous Database 26ai (mTLS), GitHub API, Telegram (Grammy), PM2",
+      "desc": "Autonomous AI system for code review, technical decision-making, and daily briefing across 12 active GitHub repos. Multi-tier model routing (Claude for critical/security, Groq Llama 3.3 70B for speed), persistent memory in Oracle DB, GitHub webhook automation. Voice input pipeline: voice notes → Whisper → Oracle knowledge base. Sprint Briefing Agent (AWS Lambda): EventBridge cron fires 8AM Panama → reads 12 repos' overnight activity + retrieves voice notes from Oracle → Groq clusters signals → Claude writes narrative → OpenAI TTS renders MP3 → delivered to Telegram. Full two-way memory loop.",
+      "traction": "12 repos monitored • 25+ code reviews • ~$3/month total • 24/7 uptime · zero crash-restarts",
+      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), OpenAI TTS, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
       "action": "View on GitHub",
       "badge": "LIVE"
     },
