@@ -6,31 +6,49 @@
   <title>AI Operations SOP — Elena Revicheva · AIdeazz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+    /* ─────────────────────────────────────
+       CSS CUSTOM PROPERTIES
+    ───────────────────────────────────── */
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @property --glow-opacity {
+      syntax: '<number>';
+      initial-value: 0;
+      inherits: false;
+    }
+
     :root {
-      --bg:        #07080f;
-      --bg2:       #0d0f1a;
-      --surface:   #111422;
-      --surface2:  #161927;
-      --border:    rgba(255,255,255,0.07);
-      --border2:   rgba(255,255,255,0.12);
+      --bg:        #060810;
+      --bg2:       #0b0d18;
+      --surface:   #0f1120;
+      --surface2:  #141729;
+      --border:    rgba(255,255,255,0.06);
+      --border2:   rgba(255,255,255,0.14);
       --violet:    #7c6fff;
-      --violet2:   #a89cff;
+      --violet2:   #b0a6ff;
       --cyan:      #00e5c3;
       --cyan2:     #5ffce0;
       --pink:      #ff6bcd;
       --amber:     #ffb547;
-      --green:     #3dffa0;
+      --green:     #39ff8f;
       --red:       #ff6b6b;
-      --text:      #f0f2ff;
-      --text2:     #9ca3c0;
-      --text3:     #5a6080;
+      --text:      #eef0ff;
+      --text2:     #8b93b8;
+      --text3:     #454d72;
+      --font-sans: 'Space Grotesk', system-ui, sans-serif;
+      --font-display: 'Syne', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: var(--font-sans);
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
@@ -39,37 +57,91 @@
     }
 
     /* ─────────────────────────────────────
-       NOISE + GRID BACKGROUND
+       AURORA BACKGROUND
     ───────────────────────────────────── */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .aurora-ring {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .55;
+    }
+    .aurora-ring:nth-child(1) {
+      width: 900px; height: 700px;
+      top: -300px; left: -200px;
+      background: conic-gradient(
+        from 0deg,
+        rgba(124,111,255,0.14) 0%,
+        rgba(0,229,195,0.10) 30%,
+        rgba(124,111,255,0.06) 60%,
+        rgba(124,111,255,0.14) 100%
+      );
+      animation: aurora-drift1 28s ease-in-out infinite alternate;
+    }
+    .aurora-ring:nth-child(2) {
+      width: 700px; height: 600px;
+      top: 35%; right: -250px;
+      background: conic-gradient(
+        from 120deg,
+        rgba(0,229,195,0.12) 0%,
+        rgba(61,255,143,0.07) 40%,
+        rgba(0,229,195,0.04) 70%,
+        rgba(0,229,195,0.12) 100%
+      );
+      animation: aurora-drift2 22s ease-in-out infinite alternate;
+    }
+    .aurora-ring:nth-child(3) {
+      width: 500px; height: 500px;
+      bottom: 5%; left: 15%;
+      background: conic-gradient(
+        from 240deg,
+        rgba(255,107,205,0.08) 0%,
+        rgba(124,111,255,0.06) 50%,
+        rgba(255,107,205,0.08) 100%
+      );
+      animation: aurora-drift3 35s ease-in-out infinite alternate;
+    }
+    @keyframes aurora-drift1 {
+      from { transform: translate(0,0) rotate(0deg) scale(1); }
+      to   { transform: translate(60px,80px) rotate(15deg) scale(1.1); }
+    }
+    @keyframes aurora-drift2 {
+      from { transform: translate(0,0) rotate(0deg) scale(1); }
+      to   { transform: translate(-50px,60px) rotate(-10deg) scale(1.08); }
+    }
+    @keyframes aurora-drift3 {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(40px,-40px) scale(1.12); }
+    }
+
+    /* Fine grid overlay */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(124,111,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124,111,255,0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
+        linear-gradient(rgba(124,111,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,111,255,0.025) 1px, transparent 1px);
+      background-size: 40px 40px;
       pointer-events: none;
       z-index: 0;
     }
-
-    /* ─────────────────────────────────────
-       GLOW ORBS
-    ───────────────────────────────────── */
-    .orb {
+    /* Noise grain */
+    body::after {
+      content: '';
       position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
       pointer-events: none;
       z-index: 0;
-      animation: orb-drift 18s ease-in-out infinite alternate;
-    }
-    .orb-1 { width: 600px; height: 600px; background: rgba(124,111,255,0.09); top: -200px; left: -150px; }
-    .orb-2 { width: 500px; height: 500px; background: rgba(0,229,195,0.07); top: 30%; right: -200px; animation-delay: -6s; }
-    .orb-3 { width: 400px; height: 400px; background: rgba(255,107,205,0.05); bottom: 10%; left: 20%; animation-delay: -12s; }
-    @keyframes orb-drift {
-      from { transform: translate(0,0) scale(1); }
-      to   { transform: translate(40px,60px) scale(1.1); }
+      opacity: .4;
     }
 
     /* ─────────────────────────────────────
@@ -78,7 +150,7 @@
     .wrap {
       position: relative;
       z-index: 1;
-      max-width: 1000px;
+      max-width: 1060px;
       margin: 0 auto;
       padding: 0 28px;
     }
@@ -88,237 +160,271 @@
     ───────────────────────────────────── */
     .hero {
       position: relative;
-      padding: 100px 0 80px;
+      padding: 120px 0 90px;
       text-align: center;
-      overflow: hidden;
+      z-index: 1;
     }
-    .hero-eyebrow {
+    .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(124,111,255,0.1);
-      border: 1px solid rgba(124,111,255,0.3);
+      gap: 10px;
+      padding: 7px 18px 7px 12px;
       border-radius: 100px;
-      padding: 6px 18px 6px 14px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--violet2);
-      margin-bottom: 32px;
+      color: var(--cyan2);
+      margin-bottom: 40px;
+      position: relative;
+      background: rgba(0,229,195,0.06);
+      border: 1px solid rgba(0,229,195,0.25);
     }
-    .hero-eyebrow .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
-      animation: pulse 2s ease-in-out infinite;
+    .hero-badge::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 100px;
+      padding: 1px;
+      background: conic-gradient(from var(--angle), var(--cyan), var(--violet), var(--cyan));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spin-border 4s linear infinite;
+      opacity: .5;
     }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50%      { opacity:.5; transform:scale(.7); }
+    @keyframes spin-border {
+      to { --angle: 360deg; }
+    }
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green), 0 0 24px rgba(57,255,143,0.4);
+      animation: badge-pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes badge-pulse {
+      0%,100% { opacity:1; transform:scale(1); box-shadow: 0 0 12px var(--green), 0 0 24px rgba(57,255,143,0.4); }
+      50%      { opacity:.6; transform:scale(.75); box-shadow: 0 0 6px var(--green); }
     }
     .hero h1 {
-      font-size: clamp(32px, 6vw, 64px);
+      font-family: var(--font-display);
+      font-size: clamp(38px, 7vw, 76px);
       font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #fff 0%, var(--violet2) 50%, var(--cyan) 100%);
+      line-height: 1.05;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 0%, var(--violet2) 45%, var(--cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    .hero-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: var(--cyan);
+      margin-left: 4px;
+      vertical-align: middle;
+      border-radius: 2px;
+      animation: blink 1.1s step-start infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0; }
+    }
     .hero-sub {
       font-size: 17px;
       color: var(--text2);
-      max-width: 560px;
-      margin: 0 auto 40px;
+      max-width: 580px;
+      margin: 24px auto 48px;
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.65;
     }
     .hero-meta {
       display: flex;
       justify-content: center;
-      gap: 0;
       flex-wrap: wrap;
-      border: 1px solid var(--border2);
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
-      background: rgba(255,255,255,0.02);
-      backdrop-filter: blur(12px);
+      background: rgba(15,17,32,0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border2);
+      box-shadow: 0 0 0 1px rgba(124,111,255,0.08) inset, 0 32px 64px rgba(0,0,0,0.4);
     }
     .hero-meta-item {
       flex: 1;
       min-width: 140px;
-      padding: 16px 20px;
+      padding: 18px 22px;
       border-right: 1px solid var(--border);
       text-align: center;
     }
     .hero-meta-item:last-child { border-right: none; }
     .hero-meta-item .label {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text3);
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
     .hero-meta-item .value {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 600;
       color: var(--text);
     }
     .hero-meta-item .value a { color: var(--cyan); text-decoration: none; }
     .status-live {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 7px;
       color: var(--green);
+      font-size: 13.5px;
     }
-    .status-live::before {
+    .status-live .ring {
+      position: relative;
+      width: 10px; height: 10px; flex-shrink: 0;
+    }
+    .status-live .ring::before,
+    .status-live .ring::after {
       content: '';
-      width: 7px; height: 7px; border-radius: 50%;
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+    }
+    .status-live .ring::before {
       background: var(--green);
       box-shadow: 0 0 8px var(--green);
-      animation: pulse 2s ease-in-out infinite;
+    }
+    .status-live .ring::after {
+      background: transparent;
+      border: 1.5px solid var(--green);
+      animation: ring-expand 2s ease-out infinite;
+    }
+    @keyframes ring-expand {
+      0%   { transform: scale(1); opacity: .8; }
+      100% { transform: scale(2.5); opacity: 0; }
     }
 
     /* ─────────────────────────────────────
-       STAT STRIP
+       BENTO STATS
     ───────────────────────────────────── */
-    .stat-strip {
+    .bento {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: auto auto;
       gap: 12px;
-      margin: 56px 0;
+      margin: 64px 0;
     }
-    .stat-card {
+    .bento-cell {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 16px 18px;
+      border-radius: 16px;
+      padding: 24px 22px 20px;
       text-align: center;
       position: relative;
       overflow: hidden;
-      transition: border-color .25s, transform .25s;
+      transition: border-color .3s, transform .3s;
     }
-    .stat-card::before {
+    /* Spinning gradient border on hover */
+    .bento-cell::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--violet), var(--cyan));
+      inset: -1px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from var(--angle),
+        var(--violet) 0deg,
+        var(--cyan) 90deg,
+        var(--pink) 180deg,
+        var(--violet) 360deg
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spin-border 3s linear infinite;
       opacity: 0;
-      transition: opacity .25s;
+      transition: opacity .35s;
+      z-index: 0;
     }
-    .stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
-    .stat-card:hover::before { opacity: 1; }
+    .bento-cell:hover { transform: translateY(-3px); border-color: transparent; }
+    .bento-cell:hover::before { opacity: 1; }
+    /* Subtle top highlight */
+    .bento-cell::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    }
+    .bento-1 { grid-column: span 2; }
+    .bento-2 { grid-column: span 1; }
+    .bento-wide { grid-column: span 2; }
     .stat-num {
-      font-size: 34px;
+      font-family: var(--font-display);
+      font-size: 46px;
       font-weight: 800;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       line-height: 1;
-      background: linear-gradient(135deg, var(--violet2), var(--cyan));
+      background: linear-gradient(135deg, var(--violet2) 0%, var(--cyan) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 6px;
+      position: relative; z-index: 1;
     }
-    .stat-label { font-size: 11.5px; color: var(--text3); font-weight: 500; line-height: 1.4; }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 500;
+      line-height: 1.45;
+      position: relative; z-index: 1;
+    }
 
     /* ─────────────────────────────────────
        SECTION HEADINGS
     ───────────────────────────────────── */
-    .section { margin-bottom: 72px; }
+    .section { margin-bottom: 80px; position: relative; }
     .section-head {
       display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 32px;
     }
     .section-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
+      width: 46px; height: 46px; min-width: 46px;
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
-      background: linear-gradient(135deg, rgba(124,111,255,.2), rgba(0,229,195,.15));
-      border: 1px solid rgba(124,111,255,.25);
+      font-size: 20px;
+      background: linear-gradient(135deg, rgba(124,111,255,.18), rgba(0,229,195,.12));
+      border: 1px solid rgba(124,111,255,.3);
+      box-shadow: 0 0 20px rgba(124,111,255,0.12);
+    }
+    .section-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--violet2);
+      margin-bottom: 4px;
     }
     .section-head h2 {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
     }
     .section-head p {
       font-size: 13.5px;
       color: var(--text2);
-      margin-top: 2px;
+      margin-top: 5px;
     }
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, var(--violet) 0%, transparent 60%);
-      opacity: .3;
-      margin-bottom: 28px;
-    }
-
-    /* ─────────────────────────────────────
-       AGENT TABLE
-    ───────────────────────────────────── */
-    .table-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13.5px;
-    }
-    thead th {
-      background: rgba(124,111,255,0.08);
-      color: var(--violet2);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 13px 16px;
-      text-align: left;
-      white-space: nowrap;
-      border-bottom: 1px solid var(--border);
-    }
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background .15s;
-    }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(124,111,255,0.04); }
-    td {
-      padding: 14px 16px;
-      vertical-align: top;
-      color: var(--text2);
-      line-height: 1.55;
-    }
-    td:first-child { color: var(--text); font-weight: 600; font-size: 13px; white-space: nowrap; }
-    td.id { color: var(--text3); font-size: 12px; font-weight: 500; }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-    .badge-pm2    { background: rgba(61,255,160,.1); color: var(--green); border: 1px solid rgba(61,255,160,.25); }
-    .badge-sysd   { background: rgba(0,229,195,.1);  color: var(--cyan);  border: 1px solid rgba(0,229,195,.25); }
-    .badge-lambda { background: rgba(255,181,71,.1); color: var(--amber); border: 1px solid rgba(255,181,71,.25); }
-    .badge-live   { background: rgba(61,255,160,.1); color: var(--green); border: 1px solid rgba(61,255,160,.2); }
-    .badge-design { background: rgba(90,96,128,.15); color: var(--text3); border: 1px solid rgba(90,96,128,.25); }
-    code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      background: rgba(124,111,255,0.12);
-      color: var(--violet2);
-      padding: 2px 7px;
-      border-radius: 5px;
+      background: linear-gradient(90deg, rgba(124,111,255,0.5) 0%, rgba(0,229,195,0.2) 40%, transparent 70%);
+      margin-bottom: 32px;
     }
 
     /* ─────────────────────────────────────
@@ -328,18 +434,90 @@
       display: flex;
       gap: 14px;
       background: rgba(124,111,255,0.06);
-      border: 1px solid rgba(124,111,255,0.2);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
+      border: 1px solid rgba(124,111,255,0.18);
+      border-left: 3px solid var(--violet);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-bottom: 28px;
       font-size: 13.5px;
       color: var(--text2);
-      line-height: 1.6;
+      line-height: 1.65;
     }
-    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout-icon { font-size: 17px; flex-shrink: 0; margin-top: 2px; }
     .callout strong { color: var(--text); }
-    .callout.warn { background: rgba(255,181,71,0.06); border-color: rgba(255,181,71,0.2); }
-    .callout.success { background: rgba(61,255,160,0.05); border-color: rgba(61,255,160,0.2); }
+    .callout.warn {
+      background: rgba(255,181,71,0.05);
+      border-color: rgba(255,181,71,0.18);
+      border-left-color: var(--amber);
+    }
+    .callout.success {
+      background: rgba(57,255,143,0.04);
+      border-color: rgba(57,255,143,0.18);
+      border-left-color: var(--green);
+    }
+
+    /* ─────────────────────────────────────
+       AGENT TABLE
+    ───────────────────────────────────── */
+    .table-scroll {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    thead th {
+      background: rgba(124,111,255,0.09);
+      color: var(--violet2);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 13px 16px;
+      text-align: left;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .18s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(124,111,255,0.05); }
+    td {
+      padding: 15px 16px;
+      vertical-align: top;
+      color: var(--text2);
+      line-height: 1.55;
+    }
+    td:first-child { color: var(--text3); font-size: 12px; font-weight: 500; font-family: var(--font-mono); }
+    td:nth-child(2) { color: var(--text); font-weight: 600; font-size: 13px; white-space: nowrap; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .badge-pm2    { background: rgba(57,255,143,.1);  color: var(--green);  border: 1px solid rgba(57,255,143,.25); }
+    .badge-sysd   { background: rgba(0,229,195,.1);   color: var(--cyan);   border: 1px solid rgba(0,229,195,.25); }
+    .badge-lambda { background: rgba(255,181,71,.1);  color: var(--amber);  border: 1px solid rgba(255,181,71,.25); }
+    .badge-live   { background: rgba(57,255,143,.1);  color: var(--green);  border: 1px solid rgba(57,255,143,.2); }
+    .badge-design { background: rgba(68,76,120,.2);   color: var(--text3);  border: 1px solid rgba(68,76,120,.35); }
+    code {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      background: rgba(124,111,255,0.14);
+      color: var(--violet2);
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 1px solid rgba(124,111,255,0.15);
+    }
 
     /* ─────────────────────────────────────
        HEALTH MONITOR
@@ -349,117 +527,139 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.25);
     }
     .health-list-head {
       display: grid;
-      grid-template-columns: 200px 1fr auto;
+      grid-template-columns: 220px 1fr auto;
       gap: 16px;
-      padding: 11px 20px;
-      background: rgba(124,111,255,0.07);
+      padding: 12px 22px;
+      background: rgba(124,111,255,0.08);
       border-bottom: 1px solid var(--border);
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text3);
     }
     .health-row {
       display: grid;
-      grid-template-columns: 200px 1fr auto;
+      grid-template-columns: 220px 1fr auto;
       gap: 16px;
-      padding: 14px 20px;
+      padding: 16px 22px;
       border-bottom: 1px solid var(--border);
       align-items: center;
-      transition: background .15s;
+      transition: background .18s;
     }
     .health-row:last-child { border-bottom: none; }
     .health-row:hover { background: rgba(255,255,255,0.02); }
     .health-name {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 11px;
       font-weight: 600;
       font-size: 13.5px;
     }
     .live-dot {
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 8px var(--green);
+      box-shadow: 0 0 10px var(--green), 0 0 20px rgba(57,255,143,0.3);
       flex-shrink: 0;
-      animation: pulse 2.5s ease-in-out infinite;
+      animation: badge-pulse 2.5s ease-in-out infinite;
     }
     .health-check { font-size: 13px; color: var(--text2); }
     .health-action {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
       color: var(--amber);
       white-space: nowrap;
+      background: rgba(255,181,71,0.06);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,181,71,0.15);
     }
 
     /* ─────────────────────────────────────
        PIPELINE
     ───────────────────────────────────── */
     .pipeline { display: flex; flex-direction: column; gap: 0; }
-    .pipeline-item {
-      display: flex;
-      gap: 0;
-    }
+    .pipeline-item { display: flex; gap: 0; }
     .pipeline-track {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 52px;
+      width: 56px;
       flex-shrink: 0;
     }
     .pipeline-num {
-      width: 36px; height: 36px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--violet), var(--cyan));
       display: flex; align-items: center; justify-content: center;
-      font-size: 13px;
+      font-family: var(--font-display);
+      font-size: 14px;
       font-weight: 700;
       color: #fff;
       flex-shrink: 0;
-      box-shadow: 0 0 20px rgba(124,111,255,0.4);
+      box-shadow: 0 0 24px rgba(124,111,255,0.5), 0 0 48px rgba(124,111,255,0.2);
+      z-index: 1;
+      position: relative;
     }
     .pipeline-line {
       width: 2px;
       flex: 1;
-      min-height: 32px;
-      background: linear-gradient(to bottom, rgba(124,111,255,0.5), rgba(0,229,195,0.15));
-      margin: 6px 0;
+      min-height: 40px;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(124,111,255,0.4) 0px,
+        rgba(124,111,255,0.4) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+      margin: 4px 0;
+      animation: dash-flow 1.5s linear infinite;
+    }
+    @keyframes dash-flow {
+      from { background-position: 0 0; }
+      to   { background-position: 0 -24px; }
     }
     .pipeline-body {
       flex: 1;
-      padding: 4px 0 36px 20px;
+      padding: 0 0 40px 24px;
     }
     .pipeline-item:last-child .pipeline-body { padding-bottom: 0; }
     .pipeline-item:last-child .pipeline-line { display: none; }
+    .pipeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      transition: border-color .25s, box-shadow .25s;
+      margin-top: 0;
+    }
+    .pipeline-card:hover {
+      border-color: rgba(124,111,255,0.3);
+      box-shadow: 0 0 0 1px rgba(124,111,255,0.08), 0 8px 32px rgba(0,0,0,0.3);
+    }
     .pipeline-channel {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--cyan);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .pipeline-body h3 {
+    .pipeline-card h3 {
       font-size: 15px;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 6px;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
-    .pipeline-body p {
+    .pipeline-card p {
       font-size: 13.5px;
       color: var(--text2);
-      line-height: 1.6;
-    }
-    .pipeline-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
+      line-height: 1.65;
     }
 
     /* ─────────────────────────────────────
@@ -467,42 +667,74 @@
     ───────────────────────────────────── */
     .rule-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 14px;
     }
     .rule-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 22px 22px 20px;
+      border-radius: 16px;
+      padding: 24px 24px 22px;
       position: relative;
       overflow: hidden;
-      transition: border-color .2s, transform .2s;
+      transition: transform .25s;
     }
-    .rule-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    /* Spin border on hover */
+    .rule-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: conic-gradient(
+        from var(--angle),
+        var(--violet) 0deg,
+        var(--cyan) 90deg,
+        var(--pink) 200deg,
+        transparent 280deg,
+        transparent 320deg,
+        var(--violet) 360deg
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      animation: spin-border 4s linear infinite;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .rule-card:hover { transform: translateY(-3px); }
+    .rule-card:hover::before { opacity: 1; }
+    /* Top gradient shimmer */
     .rule-card::after {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, rgba(124,111,255,0.04) 0%, transparent 60%);
-      pointer-events: none;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(124,111,255,0.5), rgba(0,229,195,0.4), transparent);
+      opacity: 0;
+      transition: opacity .3s;
     }
+    .rule-card:hover::after { opacity: 1; }
     .rule-num {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--violet2);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .rule-card h3 {
-      font-size: 14.5px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 9px;
       color: var(--text);
+      letter-spacing: -0.01em;
     }
-    .rule-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+    .rule-card p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
 
     /* ─────────────────────────────────────
        POSTMORTEM
@@ -510,85 +742,119 @@
     .pm-block {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.25);
     }
     .pm-block-head {
-      padding: 18px 24px;
+      padding: 20px 26px;
       border-bottom: 1px solid var(--border);
-      background: rgba(255,107,205,0.04);
+      background: linear-gradient(135deg, rgba(255,107,205,0.06), rgba(124,111,255,0.04));
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
-    .pm-block-head h3 { font-size: 15px; font-weight: 600; }
-    .pm-block-head p { font-size: 13px; color: var(--text2); margin-top: 2px; }
+    .pm-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(255,107,205,0.12);
+      border: 1px solid rgba(255,107,205,0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .pm-block-head h3 {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .pm-block-head p {
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
     .pm-row {
       display: grid;
-      grid-template-columns: 130px 1fr;
-      gap: 0;
+      grid-template-columns: 140px 1fr;
       border-bottom: 1px solid var(--border);
     }
     .pm-row:last-child { border-bottom: none; }
     .pm-label {
-      padding: 16px 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      padding: 18px 22px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text3);
       border-right: 1px solid var(--border);
       display: flex;
       align-items: flex-start;
-      padding-top: 18px;
+      padding-top: 20px;
     }
     .pm-value {
-      padding: 16px 20px;
+      padding: 18px 22px;
       font-size: 13.5px;
       color: var(--text2);
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
     /* ─────────────────────────────────────
-       STACK TABLE
+       TECH STACK
     ───────────────────────────────────── */
     .stack-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+      gap: 10px;
     }
     .stack-row {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px 20px;
+      padding: 15px 20px;
       display: flex;
-      gap: 16px;
+      gap: 18px;
       align-items: flex-start;
-      transition: border-color .2s;
+      transition: border-color .2s, background .2s;
     }
-    .stack-row:hover { border-color: var(--border2); }
+    .stack-row:hover {
+      border-color: rgba(124,111,255,0.2);
+      background: rgba(124,111,255,0.03);
+    }
     .stack-category {
-      font-size: 11px;
-      font-weight: 700;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--violet2);
-      min-width: 140px;
+      min-width: 150px;
       flex-shrink: 0;
-      padding-top: 2px;
+      padding-top: 1px;
     }
-    .stack-tools { font-size: 13.5px; color: var(--text2); line-height: 1.55; }
+    .stack-tools {
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.55;
+    }
 
     /* ─────────────────────────────────────
        FOOTER
     ───────────────────────────────────── */
     .footer {
       border-top: 1px solid var(--border);
-      padding: 36px 0 40px;
+      padding: 40px 0 44px;
       text-align: center;
       position: relative;
       z-index: 1;
+      margin-top: 20px;
+    }
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--violet), var(--cyan), transparent);
     }
     .footer p { font-size: 13px; color: var(--text3); }
     .footer a { color: var(--cyan); text-decoration: none; }
@@ -596,8 +862,8 @@
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 24px;
-      margin-bottom: 14px;
+      gap: 28px;
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
     .footer-links a {
@@ -606,48 +872,55 @@
       color: var(--text2);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       transition: color .2s;
+      text-decoration: none;
     }
-    .footer-links a:hover { color: var(--cyan); text-decoration: none; }
+    .footer-links a:hover { color: var(--cyan); }
 
     /* ─────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────── */
-    @media (max-width: 700px) {
-      .stat-strip { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 760px) {
+      .bento { grid-template-columns: repeat(2, 1fr); }
+      .bento-1, .bento-wide { grid-column: span 2; }
       .hero-meta { flex-direction: column; }
       .hero-meta-item { border-right: none; border-bottom: 1px solid var(--border); }
       .health-list-head,
-      .health-row { grid-template-columns: 1fr; gap: 4px; }
-      .health-action { padding-bottom: 8px; }
+      .health-row { grid-template-columns: 1fr; gap: 6px; }
+      .health-action { width: fit-content; }
       .stack-grid { grid-template-columns: 1fr; }
       .stack-row { flex-direction: column; gap: 4px; }
       .stack-category { min-width: unset; }
       .pm-row { grid-template-columns: 1fr; }
-      .pm-label { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+      .pm-label { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
     }
     @media (max-width: 480px) {
-      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .bento { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 36px; }
+      .rule-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
+<!-- Aurora -->
+<div class="aurora">
+  <div class="aurora-ring"></div>
+  <div class="aurora-ring"></div>
+  <div class="aurora-ring"></div>
+</div>
 
 <!-- ══════════════════════════════════
      HERO
 ══════════════════════════════════ -->
 <div class="hero">
   <div class="wrap">
-    <div class="hero-eyebrow">
-      <span class="dot"></span>
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
       Standard Operating Procedure · AI Infrastructure
     </div>
-    <h1>AI Agent Operations<br>Runbook</h1>
+    <h1>AI Agent Operations<br>Runbook<span class="hero-cursor"></span></h1>
     <p class="hero-sub">How a 10-agent autonomous AI ecosystem is architected, deployed, monitored, and kept alive in production — zero manual intervention.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -664,7 +937,12 @@
       </div>
       <div class="hero-meta-item">
         <div class="label">Status</div>
-        <div class="value"><span class="status-live">Live in production</span></div>
+        <div class="value">
+          <span class="status-live">
+            <span class="ring"></span>
+            Live in production
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -672,25 +950,25 @@
 
 <div class="wrap" style="position:relative;z-index:1;">
 
-  <!-- STATS -->
-  <div class="stat-strip">
-    <div class="stat-card">
+  <!-- BENTO STATS -->
+  <div class="bento">
+    <div class="bento-cell bento-1">
       <div class="stat-num">10</div>
       <div class="stat-label">Production agents running</div>
     </div>
-    <div class="stat-card">
+    <div class="bento-cell bento-2">
       <div class="stat-num">3</div>
       <div class="stat-label">Infrastructure layers</div>
     </div>
-    <div class="stat-card">
+    <div class="bento-cell bento-2">
       <div class="stat-num">5m</div>
       <div class="stat-label">Health check interval</div>
     </div>
-    <div class="stat-card">
+    <div class="bento-cell bento-2">
       <div class="stat-num">7+</div>
-      <div class="stat-label">External API integrations</div>
+      <div class="stat-label">API integrations</div>
     </div>
-    <div class="stat-card">
+    <div class="bento-cell bento-wide">
       <div class="stat-num">0</div>
       <div class="stat-label">Manual steps in content pipeline</div>
     </div>
@@ -703,6 +981,7 @@
     <div class="section-head">
       <div class="section-icon">🤖</div>
       <div>
+        <div class="section-label">Section 01</div>
         <h2>Agent Inventory</h2>
         <p>Every agent must have: auto-restart on failure · health check · keep-alive coverage</p>
       </div>
@@ -716,7 +995,7 @@
       <table>
         <thead>
           <tr>
-            <th style="width:36px">#</th>
+            <th style="width:42px">#</th>
             <th>Agent</th>
             <th>What it does</th>
             <th>Runtime</th>
@@ -725,77 +1004,77 @@
         </thead>
         <tbody>
           <tr>
-            <td class="id">1</td>
+            <td>01</td>
             <td>EspaLuz WhatsApp</td>
             <td>Spanish tutoring bot via WhatsApp. Handles conversation, exercises, corrections at scale.</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">2</td>
+            <td>02</td>
             <td>EspaLuz Telegram</td>
             <td>Same tutoring experience on Telegram with 2-layer memory: LangChain retrieval + pgvector RAG (1536-dim ivfflat index).</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">3</td>
+            <td>03</td>
             <td>EspaLuz Influencer</td>
             <td>Instagram content automation. Even calendar days: checks for pending CTO milestone → generates caption via Groq → posts via Make.com webhook → Instagram.</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">4</td>
+            <td>04</td>
             <td>Algom Alpha <em style="color:var(--text3);font-weight:400">(@reviceva)</em></td>
             <td>X/Twitter automation hub. Posts crypto-education content every 3–10 min. Every 5th slot picks up CTO milestone. Filtered stream monitors "fractional CTO / AI engineer hiring" keywords across all of X → auto-like + follow. Engagement bot replies @mentions via Groq (max 2/run), follows substantive commenters (max 3/run). Auto-follow-back via Account Activity API webhook.</td>
             <td><span class="badge badge-pm2">PM2</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">5</td>
+            <td>05</td>
             <td>VibeJob Hunter</td>
             <td>Autonomous job-search pipeline. 3-layer eval harness (117 tests, $0 API cost), LangGraph routing, ATS integrations. Gate bug fixed Apr 28 (was silently discarding 100% of jobs).</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">6</td>
+            <td>06</td>
             <td>CMO AIPA</td>
             <td>Daily 20:00 Panama: picks up CTO milestone → LinkedIn post via Claude → async Hashnode + dev.to crosspost. Lead ingestion: 150–250 companies/month (Hacker News + GitHub + Product Hunt) → Hunter.io enrichment → HubSpot CRM push.</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">7</td>
+            <td>07</td>
             <td>OpenClaw Shortlist</td>
             <td>Telegram bot delivering curated job shortlists. Standalone gateway service.</td>
             <td><span class="badge badge-sysd">systemd</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">8</td>
+            <td>08</td>
             <td>CTO AIPA</td>
             <td>Core orchestration layer. GitHub webhooks (10 repos) → Groq/Claude code review → milestone detection → CMO notification. Express API on port 3000. Telegram commands for tasks, leads, board briefing, outreach ops. Oracle Autonomous DB backend.</td>
             <td><span class="badge badge-pm2">PM2</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">8.1</td>
+            <td>08.1</td>
             <td>Sprint Briefing</td>
             <td>AWS Lambda. EventBridge fires daily 8AM Panama. Reads voice notes + tasks + diary from Oracle → Claude generates briefing script → OpenAI TTS → Telegram audio message.</td>
             <td><span class="badge badge-lambda">Lambda</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">9</td>
+            <td>09</td>
             <td>Atuona CCF</td>
             <td>Creative co-founder assistant. Same PM2 process as CTO AIPA, distinct Telegram bot persona. Public site: atuona.xyz on 4everland.</td>
             <td><span class="badge badge-pm2">PM2</span></td>
             <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td class="id">10</td>
+            <td>10</td>
             <td>AILA</td>
             <td>Adaptive Intelligent Life Assistant — architecture documented. CTO AIPA serves as interim conductor via shared database tables.</td>
             <td>—</td>
@@ -813,6 +1092,7 @@
     <div class="section-head">
       <div class="section-icon">🩺</div>
       <div>
+        <div class="section-label">Section 02</div>
         <h2>Health Monitoring</h2>
         <p>One bash script · cron every 5 min · restarts only the unhealthy agent</p>
       </div>
@@ -863,6 +1143,7 @@
     <div class="section-head">
       <div class="section-icon">🚀</div>
       <div>
+        <div class="section-label">Section 03</div>
         <h2>Automated Content Pipeline</h2>
         <p>From git commit to 5 channels — zero human steps</p>
       </div>
@@ -947,6 +1228,7 @@
     <div class="section-head">
       <div class="section-icon">📋</div>
       <div>
+        <div class="section-label">Section 04</div>
         <h2>Deployment Rules</h2>
         <p>Non-negotiable constraints applied on every deploy to every agent</p>
       </div>
@@ -954,32 +1236,32 @@
     <div class="divider"></div>
     <div class="rule-grid">
       <div class="rule-card">
-        <div class="rule-num">Rule 01</div>
+        <div class="rule-num">Rule · 01</div>
         <h3>One clone per repo</h3>
         <p>Every GitHub repo has exactly one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are permanently forbidden.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule 02</div>
+        <div class="rule-num">Rule · 02</div>
         <h3>Build before restart</h3>
         <p><code>git pull</code> → build passes → <code>pm2 restart --update-env</code>. If the build fails, the running process stays up. Never restart a broken build into production.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule 03</div>
+        <div class="rule-num">Rule · 03</div>
         <h3>Secrets isolation</h3>
         <p>Each agent has its own <code>.env</code> file. No secrets in source control. Database wallet files deployed separately from code. TypeScript strict mode — no <code>any</code> types, no hardcoded credentials.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule 04</div>
+        <div class="rule-num">Rule · 04</div>
         <h3>PM2 persistence</h3>
         <p><code>pm2 startup</code> + <code>pm2 save</code> required on every new agent. Processes survive server reboots. <code>max_restarts</code> and <code>autorestart: true</code> in every ecosystem config.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule 05</div>
+        <div class="rule-num">Rule · 05</div>
         <h3>No silent failures</h3>
         <p>All agents catch and log uncaught exceptions before exit. PM2/systemd sees the cause before restart. Health script provides 5-minute SLA on failure detection.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule 06</div>
+        <div class="rule-num">Rule · 06</div>
         <h3>Verify after every deploy</h3>
         <p>After deploy: check HTTP health endpoint returns 200 · check PM2 logs show "Connected" · test one Telegram command end-to-end. No deploy is done until all three pass.</p>
       </div>
@@ -993,6 +1275,7 @@
     <div class="section-head">
       <div class="section-icon">🔍</div>
       <div>
+        <div class="section-label">Section 05</div>
         <h2>Postmortem Format</h2>
         <p>Example: HubSpot Duplicate Loop — May 10, 2026</p>
       </div>
@@ -1000,6 +1283,7 @@
     <div class="divider"></div>
     <div class="pm-block">
       <div class="pm-block-head">
+        <div class="pm-icon">🔁</div>
         <div>
           <h3>HubSpot Duplicate Posting Loop</h3>
           <p>Same tweet posted twice, ~6 minutes apart, on every automation cycle</p>
@@ -1026,7 +1310,7 @@
         <div class="pm-value">Live API call confirmed: <code>{"pending": [], "total": 0}</code>. All items show both fields set. Monitored for two full cycles — no duplicates.</div>
       </div>
       <div class="pm-row">
-        <div class="pm-label">Resolution time</div>
+        <div class="pm-label">Resolution</div>
         <div class="pm-value">~2 hours from symptom to confirmed fix. Documented same day in infrastructure SOP.</div>
       </div>
     </div>
@@ -1043,6 +1327,7 @@
     <div class="section-head">
       <div class="section-icon">⚙️</div>
       <div>
+        <div class="section-label">Section 06</div>
         <h2>Tech Stack Reference</h2>
         <p>Full tooling inventory across all 10 agents</p>
       </div>
@@ -1062,7 +1347,7 @@
         <div class="stack-tools">HubSpot CRM v3 (contacts · companies · deals · v4 associations) · Hunter.io enrichment · Resend email delivery</div>
       </div>
       <div class="stack-row">
-        <div class="stack-category">Social Automation</div>
+        <div class="stack-category">Social</div>
         <div class="stack-tools">Twitter API v2 (Account Activity, filtered stream, engagement bot) · Make.com webhooks (LinkedIn · Instagram) · Telegram Bot API</div>
       </div>
       <div class="stack-row">
@@ -1070,7 +1355,7 @@
         <div class="stack-tools">Claude Sonnet / Haiku · Groq llama-3.3-70b (fast fallback) · OpenAI TTS · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
-        <div class="stack-category">Lead Generation</div>
+        <div class="stack-category">Lead Gen</div>
         <div class="stack-tools">Hacker News Algolia API · GitHub REST API · Product Hunt GraphQL · 150–250 companies/month</div>
       </div>
       <div class="stack-row">
