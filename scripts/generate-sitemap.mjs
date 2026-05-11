@@ -27,6 +27,7 @@ const STATIC_PAGES = [
   { path: "/blog", changefreq: "weekly", priority: "0.85" },
   { path: "/pitch.html", changefreq: "monthly", priority: "0.7" },
   { path: "/pitch-es.html", changefreq: "monthly", priority: "0.6" },
+  { path: "/sop-ai-ops.html", changefreq: "weekly", priority: "0.72" },
   /* GEO — explicit in sitemap so crawlers discover machine-readable surfaces */
   { path: "/llms.txt", changefreq: "monthly", priority: "0.55" },
   { path: "/.well-known/llms.txt", changefreq: "monthly", priority: "0.55" },

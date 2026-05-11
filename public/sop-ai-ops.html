@@ -3,67 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="How AIdeazz runs nine live AI products plus one in design: ownership map, reliability practices, go-to-market automation, and stack—for founders who want proof, not buzzwords." />
+  <meta name="color-scheme" content="dark" />
   <title>AI Operations SOP — Elena Revicheva · AIdeazz</title>
+  <link rel="canonical" href="https://aideazz.xyz/sop-ai-ops.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-05-11","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
+  </script>
 
   <style>
     @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
 
     :root {
-      --bg:       #070810;
-      --bg2:      #0c0e1c;
-      --surface:  #0f1122;
-      --s2:       #141629;
-      --border:   rgba(255,255,255,0.07);
-      --border2:  rgba(255,255,255,0.13);
-      --violet:   #7c6fff;
-      --v2:       #a89cff;
-      --cyan:     #00e5c3;
-      --c2:       #5ffce0;
-      --green:    #3dff96;
-      --amber:    #ffb547;
-      --pink:     #ff6bcd;
-      --text:     #eef0ff;
-      --t2:       #8892b8;
-      --t3:       #444d74;
-      --mono:     'JetBrains Mono', monospace;
+      --bg:       #06070f;
+      --bg2:      #0b0d18;
+      --surface:  #101322;
+      --s2:       #16192e;
+      --border:   rgba(255,255,255,0.09);
+      --border2:  rgba(255,255,255,0.14);
+      --violet:   #8b7cff;
+      --v2:       #b8aeff;
+      --cyan:     #00d9be;
+      --c2:       #5eead4;
+      --green:    #34d399;
+      --amber:    #fbbf24;
+      --pink:     #f472b6;
+      --text:     #f1f3ff;
+      --t2:       #a8b0d4;
+      --t3:       #7c849f;
+      --mono:     'JetBrains Mono', ui-monospace, monospace;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      font-size: 15px;
-      line-height: 1.7;
+      font-size: 16px;
+      line-height: 1.65;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       font-feature-settings: 'cv01','cv02','cv05','ss01';
     }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+    }
+
+    a:focus-visible { border-radius: 4px; }
 
     /* ── Grid + orbs ──────────────────── */
     body::before {
       content: '';
       position: fixed; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(124,111,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124,111,255,.03) 1px, transparent 1px);
-      background-size: 44px 44px;
+        linear-gradient(rgba(124,111,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,111,255,.035) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
     }
     .orb {
       position: fixed; border-radius: 50%;
       filter: blur(110px); pointer-events: none; z-index: 0;
     }
-    .orb-a { width:700px;height:700px; background:rgba(124,111,255,.07); top:-200px;left:-150px;
+    .orb-a { width:700px;height:700px; background:rgba(124,111,255,.08); top:-200px;left:-150px;
               animation: drift 22s ease-in-out infinite alternate; }
-    .orb-b { width:550px;height:550px; background:rgba(0,229,195,.06); top:30%;right:-200px;
+    .orb-b { width:550px;height:550px; background:rgba(0,229,195,.07); top:30%;right:-200px;
               animation: drift 28s ease-in-out infinite alternate-reverse; }
-    .orb-c { width:380px;height:380px; background:rgba(255,107,205,.05); bottom:10%;left:20%;
+    .orb-c { width:380px;height:380px; background:rgba(255,107,205,.06); bottom:10%;left:20%;
               animation: drift 18s ease-in-out infinite alternate; }
     @keyframes drift {
       from { transform: translate(0,0) scale(1); }
@@ -71,17 +95,62 @@
     }
 
     /* ── Layout ───────────────────────── */
-    .wrap { position:relative; z-index:1; max-width:1040px; margin:0 auto; padding:0 28px; }
+    .wrap { position:relative; z-index:1; max-width:1120px; margin:0 auto; padding:0 24px; }
+
+    /* ── Sticky TOC (2026 doc UX) ─────── */
+    .toc-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 0 -24px 32px;
+      padding: 12px 24px;
+      background: rgba(6,7,15,.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .toc-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .toc-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--t3);
+      margin-right: 8px;
+    }
+    .toc-inner a {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--t2);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .toc-inner a:hover {
+      color: var(--text);
+      background: rgba(139,124,255,.1);
+      border-color: rgba(139,124,255,.25);
+    }
 
     /* ── Hero ─────────────────────────── */
-    .hero { padding:110px 0 80px; text-align:center; position:relative; z-index:1; }
+    .hero { padding:72px 0 48px; text-align:center; position:relative; z-index:1; }
 
     .live-badge {
       display:inline-flex; align-items:center; gap:9px;
-      background:rgba(0,229,195,.07); border:1px solid rgba(0,229,195,.22);
-      border-radius:100px; padding:6px 18px 6px 12px;
-      font-size:11.5px; font-weight:600; letter-spacing:.1em;
-      text-transform:uppercase; color:var(--c2); margin-bottom:36px;
+      background:rgba(0,229,195,.09); border:1px solid rgba(0,229,195,.28);
+      border-radius:100px; padding:7px 18px 7px 12px;
+      font-size:11px; font-weight:600; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--c2); margin-bottom:28px;
       position:relative;
     }
     .live-badge::before {
@@ -89,7 +158,7 @@
       background:conic-gradient(from var(--angle), var(--cyan), var(--violet), var(--pink), var(--cyan));
       -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor; mask-composite: exclude;
-      animation: spin-border 5s linear infinite; opacity:.45;
+      animation: spin-border 5s linear infinite; opacity:.4;
     }
     @keyframes spin-border { to { --angle:360deg; } }
     .pulse-dot {
@@ -100,37 +169,48 @@
     }
     @keyframes pulse-glow {
       0%,100% { opacity:1; box-shadow:0 0 10px var(--green),0 0 20px rgba(61,255,150,.35); }
-      50%      { opacity:.55; box-shadow:0 0 4px var(--green); }
+      50%      { opacity:.65; box-shadow:0 0 4px var(--green); }
     }
 
+    /* Solid headline + gradient accent — readable everywhere (no clip-only title) */
     .hero h1 {
-      font-size: clamp(36px, 6.5vw, 68px);
+      font-size: clamp(2rem, 5.5vw, 3.35rem);
       font-weight: 800;
-      letter-spacing: -0.045em;
-      line-height: 1.06;
-      margin-bottom: 22px;
-      background: linear-gradient(140deg, #fff 0%, var(--v2) 50%, var(--cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      letter-spacing: -0.038em;
+      line-height: 1.12;
+      margin-bottom: 18px;
+      color: var(--text);
+      text-shadow: 0 0 42px rgba(139,124,255,.15);
     }
+    .hero h1 span.grad {
+      background: linear-gradient(125deg, #fff 0%, var(--v2) 45%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      /* If clip unsupported, wrapper still shows parent color on "Operations" line break */
+    }
+    @supports not (background-clip: text) {
+      .hero h1 span.grad { color: var(--v2); background: none; }
+    }
+
     .hero-sub {
-      font-size:17px; color:var(--t2); max-width:560px;
-      margin:0 auto 44px; font-weight:400; line-height:1.65;
+      font-size:1.05rem; color:var(--t2); max-width:620px;
+      margin:0 auto 36px; font-weight:400; line-height:1.62;
     }
     .meta-bar {
       display:flex; flex-wrap:wrap; justify-content:center;
-      max-width:700px; margin:0 auto;
-      background:rgba(15,17,34,.85); backdrop-filter:blur(18px);
+      max-width:760px; margin:0 auto;
+      background:rgba(16,19,34,.92); backdrop-filter:blur(18px);
       border:1px solid var(--border2); border-radius:14px;
-      box-shadow:0 24px 64px rgba(0,0,0,.5);
+      box-shadow:0 24px 64px rgba(0,0,0,.45);
       overflow:hidden;
     }
     .meta-item { flex:1; min-width:140px; padding:17px 20px; text-align:center; border-right:1px solid var(--border); }
     .meta-item:last-child { border-right:none; }
-    .meta-label { font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px; }
-    .meta-val   { font-size:13.5px;font-weight:600;color:var(--text); }
+    .meta-label { font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:6px; }
+    .meta-val   { font-size:14px;font-weight:600;color:var(--text); }
     .meta-val a { color:var(--cyan);text-decoration:none; }
+    .meta-val a:hover { text-decoration: underline; }
     .status-live { display:inline-flex;align-items:center;gap:7px;color:var(--green); }
     .status-ring {
       position:relative; width:10px;height:10px;flex-shrink:0;
@@ -139,16 +219,28 @@
     .status-ring::after  { content:'';position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--green);animation:ring-out 2s ease-out infinite; }
     @keyframes ring-out { 0%{transform:scale(1);opacity:.8} 100%{transform:scale(2.6);opacity:0} }
 
+    .doc-source {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--t2);
+    }
+    .doc-source a {
+      color: var(--cyan);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .doc-source a:hover { text-decoration: underline; }
+
     /* ── Bento Stats ──────────────────── */
     .bento {
       display:grid;
       grid-template-columns:2fr 1fr 1fr 1fr 2fr;
       gap:10px;
-      margin:60px 0;
+      margin:48px 0 56px;
     }
     .b-card {
       background:var(--surface); border:1px solid var(--border);
-      border-radius:14px; padding:26px 20px 22px; text-align:center;
+      border-radius:14px; padding:22px 18px 20px; text-align:center;
       position:relative; overflow:hidden;
       transition:border-color .25s, transform .25s;
     }
@@ -163,113 +255,164 @@
     .b-card:hover::before { opacity:1; }
     .b-card::after {
       content:''; position:absolute; top:0;left:12%;right:12%;height:1px;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
     }
     .b-num {
-      font-size:44px;font-weight:800;letter-spacing:-.06em;line-height:1;
-      background:linear-gradient(135deg,var(--v2),var(--cyan));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      margin-bottom:7px; position:relative; z-index:1;
+      font-size:40px;font-weight:800;letter-spacing:-.06em;line-height:1;
+      color: var(--v2);
+      margin-bottom:8px; position:relative; z-index:1;
     }
-    .b-label { font-size:12px;color:var(--t3);font-weight:500;line-height:1.45;position:relative;z-index:1; }
+    .b-card:nth-child(1) .b-num { color: #c4b8ff; }
+    .b-card:nth-child(3) .b-num { color: var(--cyan); }
+    .b-label { font-size:12px;color:var(--t2);font-weight:500;line-height:1.45;position:relative;z-index:1; }
 
     /* ── Section header ───────────────── */
-    .section { margin-bottom:76px; }
-    .section-head { display:flex;align-items:flex-start;gap:16px;margin-bottom:28px; }
+    .section { margin-bottom:72px; scroll-margin-top: 72px; }
+    .section-head { display:flex;align-items:flex-start;gap:16px;margin-bottom:24px; }
     .s-icon {
       width:44px;height:44px;min-width:44px;border-radius:11px;
       display:flex;align-items:center;justify-content:center;font-size:19px;
-      background:linear-gradient(135deg,rgba(124,111,255,.18),rgba(0,229,195,.1));
-      border:1px solid rgba(124,111,255,.28);
-      box-shadow:0 0 18px rgba(124,111,255,.1);
+      background:linear-gradient(135deg,rgba(124,111,255,.22),rgba(0,229,195,.12));
+      border:1px solid rgba(124,111,255,.32);
+      box-shadow:0 0 18px rgba(124,111,255,.12);
     }
     .s-eyebrow {
-      font-size:10.5px;font-weight:700;letter-spacing:.14em;
+      font-size:10px;font-weight:700;letter-spacing:.14em;
       text-transform:uppercase;color:var(--violet);margin-bottom:4px;
       font-family:var(--mono);
     }
-    .section-head h2 { font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1.2; }
-    .section-head p  { font-size:13.5px;color:var(--t2);margin-top:4px; }
+    .section-head h2 { font-size:1.35rem;font-weight:700;letter-spacing:-.03em;line-height:1.25;color:var(--text); }
+    .section-head p  { font-size:14px;color:var(--t2);margin-top:6px;line-height:1.55; }
     .divider {
-      height:1px; margin-bottom:28px;
-      background:linear-gradient(90deg,rgba(124,111,255,.45),rgba(0,229,195,.2),transparent 65%);
+      height:1px; margin-bottom:24px;
+      background:linear-gradient(90deg,rgba(124,111,255,.5),rgba(0,229,195,.25),transparent 70%);
+    }
+
+    .exec-banner {
+      background: linear-gradient(135deg, rgba(139,124,255,.1), rgba(0,217,190,.06));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      font-size: 15px;
+      color: var(--t2);
+      line-height: 1.65;
+    }
+    .exec-banner strong { color: var(--text); font-weight: 600; }
+    .exec-banner ul { margin: 12px 0 0 1.15rem; padding: 0; }
+    .exec-banner li { margin-bottom: 6px; }
+
+    /* ── Radar chips ──────────────────── */
+    .radar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .radar span {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--t2);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(139,124,255,.07);
+      border: 1px solid rgba(139,124,255,.2);
     }
 
     /* ── Callout ──────────────────────── */
     .callout {
       display:flex; gap:13px;
-      background:rgba(124,111,255,.05);
-      border:1px solid rgba(124,111,255,.16);
+      background:rgba(124,111,255,.07);
+      border:1px solid rgba(124,111,255,.22);
       border-left:3px solid var(--violet);
       border-radius:0 10px 10px 0;
-      padding:15px 18px; margin-bottom:24px;
-      font-size:13.5px; color:var(--t2); line-height:1.65;
+      padding:16px 18px; margin-bottom:22px;
+      font-size:14px; color:var(--t2); line-height:1.62;
     }
     .callout-icon { font-size:16px;flex-shrink:0;margin-top:2px; }
     .callout strong { color:var(--text); }
-    .callout.amber { background:rgba(255,181,71,.05);border-color:rgba(255,181,71,.18);border-left-color:var(--amber); }
-    .callout.green  { background:rgba(61,255,150,.04);border-color:rgba(61,255,150,.16);border-left-color:var(--green); }
+    .callout.amber { background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.22);border-left-color:var(--amber); }
+    .callout.green  { background:rgba(52,211,153,.06);border-color:rgba(52,211,153,.18);border-left-color:var(--green); }
 
     /* ── Table ────────────────────────── */
-    .tbl-wrap { overflow-x:auto;border-radius:13px;border:1px solid var(--border);background:var(--surface);box-shadow:0 4px 28px rgba(0,0,0,.3); }
-    table { width:100%;border-collapse:collapse;font-size:13.5px; }
+    .tbl-wrap {
+      overflow-x:auto;border-radius:13px;border:1px solid var(--border);
+      background:var(--surface);box-shadow:0 4px 28px rgba(0,0,0,.35);
+      -webkit-overflow-scrolling: touch;
+    }
+    table { width:100%;min-width:880px;border-collapse:collapse;font-size:13.5px; }
     thead th {
-      background:rgba(124,111,255,.08);
-      color:var(--violet);
-      font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-      padding:12px 16px;text-align:left;white-space:nowrap;
+      background:rgba(139,124,255,.12);
+      color:var(--text);
+      font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+      padding:13px 14px;text-align:left;white-space:nowrap;
       border-bottom:1px solid var(--border);
     }
     tbody tr { border-bottom:1px solid var(--border);transition:background .15s; }
     tbody tr:last-child { border-bottom:none; }
-    tbody tr:hover { background:rgba(124,111,255,.04); }
-    td { padding:14px 16px;vertical-align:top;color:var(--t2);line-height:1.55; }
-    td.tid { color:var(--t3);font-size:11.5px;font-weight:500;font-family:var(--mono);white-space:nowrap; }
-    td.tname { color:var(--text);font-weight:600;font-size:13px;white-space:nowrap; }
+    tbody tr:hover { background:rgba(139,124,255,.06); }
+    td { padding:14px 14px;vertical-align:top;color:var(--t2);line-height:1.55; }
+    td.tid { color:var(--t3);font-size:11px;font-weight:600;font-family:var(--mono);white-space:nowrap; }
+    td.tname { color:var(--text);font-weight:600;font-size:13px; }
+    .agent-links {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      font-family: var(--mono);
+    }
+    .agent-links a {
+      color: var(--cyan);
+      text-decoration: none;
+      opacity: .92;
+    }
+    .agent-links a:hover { opacity: 1; text-decoration: underline; }
     .badge {
       display:inline-flex;align-items:center;gap:4px;
-      font-size:10.5px;font-weight:700;padding:3px 9px;
+      font-size:10px;font-weight:700;padding:4px 10px;
       border-radius:100px;white-space:nowrap;letter-spacing:.04em;
     }
-    .b-pm2    { background:rgba(61,255,150,.09); color:var(--green); border:1px solid rgba(61,255,150,.22); }
-    .b-sysd   { background:rgba(0,229,195,.09);  color:var(--cyan);  border:1px solid rgba(0,229,195,.22); }
-    .b-lambda { background:rgba(255,181,71,.09); color:var(--amber); border:1px solid rgba(255,181,71,.22); }
-    .b-live   { background:rgba(61,255,150,.09); color:var(--green); border:1px solid rgba(61,255,150,.2); }
-    .b-design { background:rgba(68,76,120,.18);  color:var(--t3);    border:1px solid rgba(68,76,120,.3); }
-    .b-block  { background:rgba(255,107,107,.08);color:#ff8080;      border:1px solid rgba(255,107,107,.2); }
+    .b-pm2    { background:rgba(52,211,153,.12); color:#6ee7b7; border:1px solid rgba(52,211,153,.28); }
+    .b-sysd   { background:rgba(0,229,195,.1);  color:var(--c2);  border:1px solid rgba(0,229,195,.28); }
+    .b-lambda { background:rgba(251,191,36,.1); color:var(--amber); border:1px solid rgba(251,191,36,.28); }
+    .b-live   { background:rgba(52,211,153,.1); color:#6ee7b7; border:1px solid rgba(52,211,153,.24); }
+    .b-design { background:rgba(124,131,168,.14);  color:var(--t2);    border:1px solid rgba(124,131,168,.28); }
+    .b-block  { background:rgba(248,113,113,.1);color:#fca5a5;      border:1px solid rgba(248,113,113,.22); }
 
     code {
       font-family:var(--mono);font-size:11.5px;
-      background:rgba(124,111,255,.13);color:var(--v2);
-      padding:2px 7px;border-radius:5px;border:1px solid rgba(124,111,255,.14);
+      background:rgba(139,124,255,.15);color:var(--v2);
+      padding:2px 7px;border-radius:5px;border:1px solid rgba(139,124,255,.2);
     }
 
     /* ── Health list ──────────────────── */
     .health-list { background:var(--surface);border:1px solid var(--border);border-radius:13px;overflow:hidden; }
     .health-head {
       display:grid;grid-template-columns:220px 1fr auto;gap:12px;
-      padding:11px 20px;background:rgba(124,111,255,.07);
+      padding:12px 18px;background:rgba(139,124,255,.09);
       border-bottom:1px solid var(--border);
-      font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
+      font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);
     }
     .health-row {
       display:grid;grid-template-columns:220px 1fr auto;gap:12px;
-      padding:15px 20px;border-bottom:1px solid var(--border);
+      padding:15px 18px;border-bottom:1px solid var(--border);
       align-items:center;transition:background .15s;
     }
     .health-row:last-child { border-bottom:none; }
-    .health-row:hover { background:rgba(255,255,255,.015); }
-    .h-name { display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px; }
+    .health-row:hover { background:rgba(255,255,255,.02); }
+    .h-name { display:flex;align-items:center;gap:10px;font-weight:600;font-size:13.5px;color:var(--text); }
     .ldot {
       width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;
-      box-shadow:0 0 10px var(--green),0 0 20px rgba(61,255,150,.3);
+      box-shadow:0 0 10px var(--green),0 0 20px rgba(52,211,153,.25);
       animation:pulse-glow 2.5s ease-in-out infinite;
     }
     .h-check { font-size:13px;color:var(--t2); }
     .h-action {
-      font-family:var(--mono);font-size:10.5px;color:var(--amber);
-      white-space:nowrap;background:rgba(255,181,71,.06);
-      padding:4px 10px;border-radius:6px;border:1px solid rgba(255,181,71,.14);
+      font-family:var(--mono);font-size:10px;color:var(--amber);
+      white-space:nowrap;background:rgba(251,191,36,.08);
+      padding:5px 10px;border-radius:6px;border:1px solid rgba(251,191,36,.2);
     }
 
     /* ── Pipeline ─────────────────────── */
@@ -280,14 +423,14 @@
       width:38px;height:38px;border-radius:50%;
       background:linear-gradient(135deg,var(--violet),var(--cyan));
       display:flex;align-items:center;justify-content:center;
-      font-size:13px;font-weight:700;color:#fff;flex-shrink:0;z-index:1;
-      box-shadow:0 0 22px rgba(124,111,255,.45);
+      font-size:13px;font-weight:700;color:#0a0c14;flex-shrink:0;z-index:1;
+      box-shadow:0 0 22px rgba(124,111,255,.4);
     }
     .p-line {
       width:2px;flex:1;min-height:36px;
       background:repeating-linear-gradient(
         to bottom,
-        rgba(124,111,255,.4) 0,rgba(124,111,255,.4) 6px,
+        rgba(124,111,255,.45) 0,rgba(124,111,255,.45) 6px,
         transparent 6px,transparent 12px
       );
       margin:4px 0;
@@ -302,10 +445,10 @@
       border-radius:13px;padding:18px 20px;
       transition:border-color .22s,box-shadow .22s;
     }
-    .p-card:hover { border-color:rgba(124,111,255,.28);box-shadow:0 6px 28px rgba(0,0,0,.28); }
-    .p-channel { font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:5px; }
-    .p-card h3 { font-size:14.5px;font-weight:600;color:var(--text);margin-bottom:5px;letter-spacing:-.01em; }
-    .p-card p  { font-size:13.5px;color:var(--t2);line-height:1.65; }
+    .p-card:hover { border-color:rgba(139,124,255,.3);box-shadow:0 6px 28px rgba(0,0,0,.25); }
+    .p-channel { font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:6px; }
+    .p-card h3 { font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px;letter-spacing:-.01em; }
+    .p-card p  { font-size:14px;color:var(--t2);line-height:1.62; }
 
     /* ── Rule cards ───────────────────── */
     .rule-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px; }
@@ -325,63 +468,64 @@
     .rule-card:hover::before { opacity:1; }
     .rule-card::after {
       content:'';position:absolute;top:0;left:0;right:0;height:1px;
-      background:linear-gradient(90deg,transparent,rgba(124,111,255,.5),rgba(0,229,195,.4),transparent);
+      background:linear-gradient(90deg,transparent,rgba(139,124,255,.45),rgba(0,229,195,.35),transparent);
       opacity:0;transition:opacity .28s;
     }
     .rule-card:hover::after { opacity:1; }
-    .rule-num { font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--v2);margin-bottom:9px; }
-    .rule-card h3 { font-size:14.5px;font-weight:700;margin-bottom:8px;color:var(--text);letter-spacing:-.01em; }
+    .rule-num { font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--v2);margin-bottom:9px; }
+    .rule-card h3 { font-size:15px;font-weight:700;margin-bottom:8px;color:var(--text);letter-spacing:-.01em; }
     .rule-card p  { font-size:13px;color:var(--t2);line-height:1.65; }
 
     /* ── Postmortem ───────────────────── */
     .pm-block { background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden; }
     .pm-head {
-      padding:18px 24px;border-bottom:1px solid var(--border);
-      background:linear-gradient(135deg,rgba(255,107,205,.06),rgba(124,111,255,.03));
+      padding:18px 22px;border-bottom:1px solid var(--border);
+      background:linear-gradient(135deg,rgba(244,114,182,.08),rgba(139,124,255,.05));
       display:flex;align-items:center;gap:14px;
     }
     .pm-icon-box {
       width:36px;height:36px;border-radius:9px;flex-shrink:0;
-      background:rgba(255,107,205,.11);border:1px solid rgba(255,107,205,.22);
+      background:rgba(244,114,182,.14);border:1px solid rgba(244,114,182,.28);
       display:flex;align-items:center;justify-content:center;font-size:16px;
     }
-    .pm-head h3 { font-size:15px;font-weight:700;letter-spacing:-.01em; }
+    .pm-head h3 { font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text); }
     .pm-head p  { font-size:13px;color:var(--t2);margin-top:2px; }
     .pm-row { display:grid;grid-template-columns:130px 1fr;border-bottom:1px solid var(--border); }
     .pm-row:last-child { border-bottom:none; }
     .pm-lbl {
-      padding:16px 18px;font-family:var(--mono);font-size:10.5px;font-weight:600;
+      padding:16px 18px;font-family:var(--mono);font-size:10px;font-weight:600;
       letter-spacing:.1em;text-transform:uppercase;color:var(--t3);
       border-right:1px solid var(--border);display:flex;align-items:flex-start;padding-top:18px;
     }
-    .pm-val { padding:16px 20px;font-size:13.5px;color:var(--t2);line-height:1.7; }
+    .pm-val { padding:16px 20px;font-size:14px;color:var(--t2);line-height:1.68; }
 
     /* ── Stack ────────────────────────── */
-    .stack-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(430px,1fr));gap:9px; }
+    .stack-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:9px; }
     .stack-row {
       background:var(--surface);border:1px solid var(--border);border-radius:11px;
       padding:14px 18px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s;
     }
-    .stack-row:hover { border-color:rgba(124,111,255,.18); }
-    .stack-cat { font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--v2);min-width:148px;flex-shrink:0;padding-top:1px; }
-    .stack-tools { font-size:13.5px;color:var(--t2);line-height:1.55; }
+    .stack-row:hover { border-color:rgba(139,124,255,.22); }
+    .stack-cat { font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--v2);min-width:148px;flex-shrink:0;padding-top:2px; }
+    .stack-tools { font-size:14px;color:var(--t2);line-height:1.55; }
 
     /* ── Footer ───────────────────────── */
     .footer {
-      border-top:1px solid var(--border);padding:36px 0 42px;
-      text-align:center;position:relative;z-index:1;margin-top:20px;
+      border-top:1px solid var(--border);padding:36px 0 48px;
+      text-align:center;position:relative;z-index:1;margin-top:12px;
     }
     .footer::before {
       content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
-      width:180px;height:1px;background:linear-gradient(90deg,transparent,var(--violet),var(--cyan),transparent);
+      width:200px;height:1px;background:linear-gradient(90deg,transparent,var(--violet),var(--cyan),transparent);
     }
     .footer p   { font-size:13px;color:var(--t3); }
     .footer a   { color:var(--cyan);text-decoration:none; }
+    .footer a:hover { text-decoration: underline; }
     .footer-links {
       display:flex;justify-content:center;gap:26px;margin-bottom:14px;flex-wrap:wrap;
     }
     .footer-links a {
-      font-size:13.5px;font-weight:500;color:var(--t2);
+      font-size:14px;font-weight:500;color:var(--t2);
       display:flex;align-items:center;gap:6px;transition:color .2s;text-decoration:none;
     }
     .footer-links a:hover { color:var(--cyan); }
@@ -390,24 +534,41 @@
     @media(max-width:800px) {
       .bento { grid-template-columns:1fr 1fr 1fr; }
       .bento .b-card:first-child,.bento .b-card:last-child { grid-column:span 3; }
-      .health-head,.health-row { grid-template-columns:1fr;gap:5px; }
-      .h-action { width:fit-content;margin-top:2px; }
+      .health-head,.health-row { grid-template-columns:1fr;gap:6px; }
+      .h-action { width:fit-content;margin-top:4px; }
       .stack-grid { grid-template-columns:1fr; }
-      .stack-row  { flex-direction:column;gap:3px; }
+      .stack-row  { flex-direction:column;gap:4px; }
       .stack-cat  { min-width:unset; }
       .pm-row { grid-template-columns:1fr; }
       .pm-lbl { border-right:none;border-bottom:1px solid var(--border);padding-bottom:6px; }
       .meta-bar { flex-direction:column; }
       .meta-item { border-right:none;border-bottom:1px solid var(--border); }
+      .toc-inner { gap: 6px; }
     }
     @media(max-width:520px) {
       .bento { grid-template-columns:1fr 1fr; }
       .bento .b-card:first-child,.bento .b-card:last-child { grid-column:span 2; }
       .rule-grid { grid-template-columns:1fr; }
     }
+
+    @media (prefers-contrast: more) {
+      :root {
+        --text: #ffffff;
+        --t2: #e2e6f5;
+        --border: rgba(255,255,255,0.22);
+      }
+      .hero h1 span.grad {
+        color: var(--text);
+        background: none;
+        -webkit-text-fill-color: unset;
+      }
+    }
   </style>
 </head>
 <body>
+
+<a href="#main" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
+<style>.skip-link:focus { position: fixed; left: 12px; top: 12px; width: auto; height: auto; padding: 10px 14px; background: var(--surface); border: 1px solid var(--cyan); z-index: 999; }</style>
 
 <div class="orb orb-a"></div>
 <div class="orb orb-b"></div>
@@ -416,9 +577,9 @@
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="live-badge"><span class="pulse-dot"></span>Standard Operating Procedure · AI Infrastructure</div>
-    <h1>AI Agent Operations<br>Runbook</h1>
-    <p class="hero-sub">How a 10-agent autonomous AI ecosystem is architected, deployed, monitored, and kept alive in production — zero manual intervention.</p>
+    <div class="live-badge"><span class="pulse-dot"></span>Operations playbook · AI infrastructure</div>
+    <h1><span class="grad">AI Agent Operations</span><br />Runbook</h1>
+    <p class="hero-sub"><strong>AIdeazz is not a demo.</strong> Nine autonomous agents ship customer value today (tutoring, social, jobs, CRM, orchestration); one orchestration slot is reserved for AILA. Below is how reliability, releases, and revenue-facing automation are governed—plain language first, engineering depth where it earns trust.</p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Author</div>
@@ -426,7 +587,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Product</div>
-        <div class="meta-val"><a href="https://aideazz.xyz/portfolio" target="_blank">aideazz.xyz/portfolio</a></div>
+        <div class="meta-val"><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">aideazz.xyz/portfolio</a></div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Updated</div>
@@ -439,34 +600,62 @@
         </div>
       </div>
     </div>
+    <p class="doc-source"><strong>For engineers:</strong> repo layout, server paths, and incident write-ups live in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">ORACLE_ALL_PRODUCTS_RESILIENCE.md</a>. This page stays founder-readable and avoids hostnames, ports, and secrets.</p>
   </div>
 </div>
 
-<div class="wrap">
+  <div class="wrap" id="main">
+
+  <div class="exec-banner" role="region" aria-label="Executive summary">
+    <strong>What a business owner should take away</strong>
+    <ul>
+      <li><strong>Coverage:</strong> tutoring (WhatsApp + Telegram), growth &amp; education social (X + Instagram), job hunter + shortlists, marketing co-founder (site + CRM pipeline), CTO-grade orchestration, creative co-founder persona, daily voice briefing—wired together intentionally.</li>
+      <li><strong>Risk control:</strong> watchdog scripts, restart policies, and separation of secrets mean failures tend to be <em>local</em> (one bot) not existential (whole fleet).</li>
+      <li><strong>GTM leverage:</strong> meaningful releases can propagate to LinkedIn, blogs, X, and Instagram without manual copy-paste—governed by commit rules so internal churn never spammed customers.</li>
+    </ul>
+  </div>
+
+  <nav class="toc-bar" aria-label="Page sections">
+    <div class="toc-inner">
+      <span class="toc-label">Jump</span>
+      <a href="#agents">Products &amp; agents</a>
+      <a href="#health">Reliability</a>
+      <a href="#pipeline">Go-to-market automation</a>
+      <a href="#deploy">Release discipline</a>
+      <a href="#postmortem">Incident example</a>
+      <a href="#stack">Stack</a>
+    </div>
+  </nav>
 
   <!-- BENTO STATS -->
   <div class="bento">
-    <div class="b-card"><div class="b-num">10</div><div class="b-label">Production agents running</div></div>
-    <div class="b-card"><div class="b-num">3</div><div class="b-label">Infrastructure layers</div></div>
-    <div class="b-card"><div class="b-num">5m</div><div class="b-label">Health check interval</div></div>
-    <div class="b-card"><div class="b-num">7+</div><div class="b-label">API integrations</div></div>
-    <div class="b-card"><div class="b-num">0</div><div class="b-label">Manual steps in content pipeline</div></div>
+    <div class="b-card"><div class="b-num">10</div><div class="b-label">Tracked capabilities · 9 live · 1 roadmap (AILA)</div></div>
+    <div class="b-card"><div class="b-num">3</div><div class="b-label">Infrastructure layers · Oracle · AWS · static edge</div></div>
+    <div class="b-card"><div class="b-num">5m</div><div class="b-label">Automated health cadence</div></div>
+    <div class="b-card"><div class="b-num">8</div><div class="b-label">Codebases on the primary compute host</div></div>
+    <div class="b-card"><div class="b-num">0</div><div class="b-label">Manual steps in milestone → social pipeline</div></div>
   </div>
 
   <!-- §1 AGENT INVENTORY -->
-  <div class="section">
+  <div class="section" id="agents">
     <div class="section-head">
-      <div class="s-icon">🤖</div>
+      <div class="s-icon" aria-hidden="true">🤖</div>
       <div>
         <div class="s-eyebrow">Section 01</div>
-        <h2>Agent Inventory</h2>
-        <p>Every agent must have: auto-restart on failure · health check · keep-alive coverage</p>
+        <h2>Products &amp; agents</h2>
+        <p>Each row is a <strong>shipping capability</strong>—what customers or partners touch—with how it runs underneath (Linux services, process supervisor, or serverless). Naming matches the internal resilience matrix without exposing infrastructure coordinates.</p>
       </div>
     </div>
     <div class="divider"></div>
+    <div class="radar" aria-label="Cross-cutting capabilities">
+      <span>CRM pipeline (HubSpot) + prospecting from hiring boards &amp; product launches</span>
+      <span>X growth automation (stream listening + engagement + alerts)</span>
+      <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
+      <span>Executive rhythm: Trello digests to Telegram</span>
+    </div>
     <div class="callout">
       <span class="callout-icon">📌</span>
-      <div><strong>Non-negotiable rule:</strong> One GitHub repo = one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are permanently forbidden — this doc is the canonical path map.</div>
+      <div><strong>Operational invariant:</strong> exactly one deployed checkout per GitHub repository—prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
     </div>
     <div class="tbl-wrap">
       <table>
@@ -474,7 +663,7 @@
           <tr>
             <th style="width:40px">#</th>
             <th>Agent</th>
-            <th>What it does</th>
+            <th>Role (business + ops)</th>
             <th>Runtime</th>
             <th>Status</th>
           </tr>
@@ -482,78 +671,144 @@
         <tbody>
           <tr>
             <td class="tid">01</td>
-            <td class="tname">EspaLuz WhatsApp</td>
-            <td>Spanish tutoring bot via WhatsApp. Handles conversation, exercises, corrections at scale. Systemd service: <code>espaluz-whatsapp</code>.</td>
+            <td class="tname">
+              EspaLuz WhatsApp
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/EspaLuzWhatsApp" target="_blank" rel="noopener">repo</a>
+                <a href="http://wa.me/50766623757" target="_blank" rel="noopener">wa.me</a>
+              </div>
+            </td>
+            <td><strong>Channel:</strong> Spanish tutoring on WhatsApp—conversation, drills, corrections.<br /><span style="color:var(--t3);font-size:12.5px;">Runs as a managed Linux service (<code>espaluz-whatsapp</code>) with automated health checks.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">02</td>
-            <td class="tname">EspaLuz Telegram</td>
-            <td>Same tutoring experience on Telegram. 2-layer memory live Apr 25: LangChain retrieval + pgvector RAG (1536-dim ivfflat index, <code>espaluz_rag.py</code>). Service: <code>espaluz-familybot</code>.</td>
+            <td class="tname">
+              EspaLuz Telegram
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/EspaLuzFamilybot" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/EspaLuzFamily_bot" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </td>
+            <td><strong>Channel:</strong> Same tutoring product on Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Two-layer memory: retrieval + pgvector RAG (<code>espaluz_rag.py</code>). Service <code>espaluz-familybot</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">03</td>
-            <td class="tname">EspaLuz Influencer</td>
-            <td>Instagram automation. Even calendar days at 18:00 Panama: checks for pending CTO milestone → Groq caption → Make.com webhook → Instagram. Falls through to regular content if no milestone. Service: <code>espaluz-influencer</code>.</td>
+            <td class="tname">
+              EspaLuz Influencer
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/EspaLuz_Influencer" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/Influencer_EspaLuz_bot" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </td>
+            <td><strong>Brand:</strong> Instagram publishing on a disciplined schedule; can spotlight real shipping milestones in consumer-friendly copy.<br /><span style="color:var(--t3);font-size:12.5px;">Groq captions + Make.com media handoff. Unit <code>espaluz-influencer</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">04</td>
-            <td class="tname">Algom Alpha <em style="color:var(--t3);font-weight:400">(@reviceva)</em></td>
-            <td>X/Twitter automation hub. Posts crypto-education content every 3–10 min. Every 5th slot picks up CTO milestone. Filtered stream monitors "fractional CTO / AI engineer hiring" keywords across all of X → auto-like + follow. Engagement bot replies @mentions via Groq every 45 min (max 2/run), follows substantive commenters (max 3/run). Auto-follow-back via Account Activity API. PM2 apps: <code>dragontrade-main</code>, <code>dragontrade-dashboard</code>, <code>dragontrade-bybit</code>, <code>dragontrade-binance</code>.</td>
+            <td class="tname">
+              Algom Alpha <span style="color:var(--t3);font-weight:400">(@reviceva)</span>
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/dragontrade-agent" target="_blank" rel="noopener">repo</a>
+                <a href="https://x.com/reviceva" target="_blank" rel="noopener">X</a>
+              </div>
+            </td>
+            <td><strong>Growth:</strong> Always-on X presence (education + narrative); folds major releases into the timeline without sounding like raw developer logs.<br /><span style="color:var(--t3);font-size:12.5px;">Stream sampling, engagement runner, and account-activity hooks coordinated with the CTO bot for alerts / follow-back. PM2 workers include <code>dragontrade-main</code> and satellite processes.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">05</td>
-            <td class="tname">VibeJob Hunter</td>
-            <td>Autonomous job-search pipeline. 3-layer eval harness (117 tests, $0 API cost), LangGraph routing, ATS integrations. Gate bug fixed Apr 28 (was silently discarding 100% of jobs). Shares repo with CMO (#6): <code>VibeJobHunterAIPA_AIMCF</code>. Service: <code>vibejobhunter</code>.</td>
+            <td class="tname">
+              VibeJob Hunter
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/vibejob_hunter_bot" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </td>
+            <td><strong>Product:</strong> Autonomous job hunt pipeline—evaluation harness, routing, ATS integrations.<br /><span style="color:var(--t3);font-size:12.5px;">Shares codebase with the marketing co-founder agent. Worker <code>vibejobhunter</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">06</td>
-            <td class="tname">CMO AIPA</td>
-            <td>Daily 20:00 Panama: picks up CTO milestone → LinkedIn post via Claude → async Hashnode + dev.to crosspost. Lead ingestion: 150–250 companies/month (HN Algolia + GitHub + Product Hunt) → Hunter.io enrichment → HubSpot CRM push. Same repo as #5, separate service: <code>vibejobhunter-web</code>.</td>
+            <td class="tname">
+              AI Marketing Co-Founder (CMO AIPA)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF" target="_blank" rel="noopener">repo</a>
+                <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
+              </div>
+            </td>
+            <td><strong>Revenue narrative:</strong> LinkedIn cadence, long-form syndication, CRM hygiene—turns engineering momentum into market-facing proof.<br /><span style="color:var(--t3);font-size:12.5px;">Claude + connectors for social; Hunter.io enrichment → HubSpot. Paired FastAPI bridge <code>vibejobhunter-web</code> exposes an internal health route.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">07</td>
-            <td class="tname">OpenClaw Shortlist</td>
-            <td>Telegram bot delivering curated job shortlists. Standalone gateway service: <code>openclaw-gateway</code>.</td>
+            <td class="tname">
+              OpenClaw Vibejob Shortlist
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/openclaw-vibejob-shortlist" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/OpenClaw_VibeJobsList_bot" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </td>
+            <td><strong>UX:</strong> Curated job shortlists delivered inside Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Standalone gateway service <code>openclaw-gateway</code>; probed via private health URL on the app host.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">08</td>
-            <td class="tname">CTO AIPA</td>
-            <td>Core orchestration layer. GitHub webhooks (10 repos) → Groq/Claude code review → milestone detection → CMO notification. Express API with HTTP health endpoint. Telegram commands for tasks, leads, board briefing, outreach ops. Oracle Autonomous DB backend (thick mode, mTLS wallet). PM2 app: <code>cto-aipa</code>.</td>
+            <td class="tname">
+              Tech Co-Founder (CTO AIPA)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">Telegram</a>
+              </div>
+            </td>
+            <td><strong>Control tower:</strong> Watches repositories, scores riskier changes, broadcasts milestones to marketing, runs outreach/board workflows.<br /><span style="color:var(--t3);font-size:12.5px;">Express orchestrator under PM2 (<code>cto-aipa</code>), Oracle Autonomous DB via wallet-based TLS—credentials never live in this HTML.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">08.1</td>
-            <td class="tname">Sprint Briefing</td>
-            <td>AWS Lambda, EventBridge fires daily at 8AM Panama. Reads voice notes + tasks + diary via authenticated REST proxy on CTO AIPA → Claude generates briefing script → OpenAI TTS → Telegram audio. Voice notes fixed May 3.</td>
+            <td class="tname">
+              Sprint Briefing (Sprinter)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
+              </div>
+            </td>
+            <td><strong>Founder ritual:</strong> Daily audio briefing synthesized from tasks, notes, and captures.<br /><span style="color:var(--t3);font-size:12.5px;">AWS Lambda on a schedule; pulls context through the CTO service over HTTPS with shared-secret auth—no database wallet inside Lambda.</span></td>
             <td><span class="badge b-lambda">Lambda</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">09</td>
-            <td class="tname">Atuona CCF</td>
-            <td>Creative co-founder assistant. Same PM2 process as CTO AIPA (<code>cto-aipa</code>), distinct Telegram bot persona. Shares the same VM deploy directory as CTO AIPA.</td>
+            <td class="tname">
+              Creative Co-Founder (Atuona CCF)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
+                <a href="https://t.me/Atuona_AI_CCF_AIdeazz_bot" target="_blank" rel="noopener">Telegram</a>
+                <a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a>
+              </div>
+            </td>
+            <td><strong>Creative partner:</strong> Separate bot persona + public studio site—same reliability envelope as the CTO stack.<br /><span style="color:var(--t3);font-size:12.5px;">Single PM2 orchestrator binary; site ships via static edge hosting.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">10</td>
-            <td class="tname">AILA</td>
-            <td>Adaptive Intelligent Life Assistant — repo exists, architecture documented, no code deployed yet. CTO AIPA serves as interim conductor via <code>agent_outcomes</code> table in Oracle.</td>
+            <td class="tname">
+              AILA
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/AILA" target="_blank" rel="noopener">repo</a>
+              </div>
+            </td>
+            <td><strong>Roadmap:</strong> Long-horizon personal orchestration—documented architecture, not yet a standalone production process.<br /><span style="color:var(--t3);font-size:12.5px;">Interim coordination fields live in Oracle until AILA ships.</span></td>
             <td>—</td>
             <td><span class="badge b-design">In design</span></td>
           </tr>
@@ -563,19 +818,19 @@
   </div>
 
   <!-- §2 HEALTH MONITORING -->
-  <div class="section">
+  <div class="section" id="health">
     <div class="section-head">
-      <div class="s-icon">🩺</div>
+      <div class="s-icon" aria-hidden="true">🩺</div>
       <div>
         <div class="s-eyebrow">Section 02</div>
-        <h2>Health Monitoring</h2>
-        <p>One bash script · cron every 5 min · restarts only the unhealthy agent</p>
+        <h2>Reliability &amp; uptime practice</h2>
+        <p><strong>For founders:</strong> scheduled probes ask each product whether it still responds. <strong>For engineers:</strong> one bash driver on the primary Oracle VM runs roughly every five minutes; keep-alive traffic avoids idle reclamation; systemd caps restart storms.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="callout">
       <span class="callout-icon">⚡</span>
-      <div>A single health script checks each agent independently and restarts only the unhealthy one — no global restarts, no false positives. A separate keep-alive script runs every 4 hours to prevent Oracle Cloud idle reclamation. <strong>All systemd services run with <code>Restart=always</code>, <code>RestartSec=10</code>, <code>StartLimitBurst=10</code>.</strong></div>
+      <div><strong>No noisy herd restarts:</strong> failed probes recycle only the affected unit. Concrete URLs and scripts remain in the private appendix—not pasted here.</div>
     </div>
     <div class="health-list">
       <div class="health-head">
@@ -585,51 +840,56 @@
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>CTO AIPA + Atuona</div>
-        <div class="h-check">HTTP GET loopback health endpoint → expect 200</div>
+        <div class="h-check">Orchestrator HTTP OK via localhost probe</div>
         <div class="h-action">pm2 restart cto-aipa</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>EspaLuz WhatsApp</div>
-        <div class="h-check">HTTP GET loopback webhook endpoint → expect 200</div>
+        <div class="h-check">Tutoring webhook answers OK from localhost</div>
         <div class="h-action">systemctl restart espaluz-whatsapp</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>VibeJob Hunter + CMO</div>
-        <div class="h-check">HTTP GET loopback health endpoint → expect 200</div>
-        <div class="h-action">systemctl restart vibejobhunter-web</div>
+        <div class="h-check">Marketing bridge health endpoint OK internally</div>
+        <div class="h-action">systemctl restart vibejobhunter-web vibejobhunter</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>OpenClaw Shortlist</div>
-        <div class="h-check">HTTP GET loopback gateway endpoint → expect 200</div>
+        <div class="h-check">HTTP GET gateway loopback → 200</div>
         <div class="h-action">systemctl restart openclaw-gateway</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>Sprint Briefing</div>
-        <div class="h-check">CloudWatch logs + EventBridge schedule</div>
-        <div class="h-action">AWS Lambda auto-retry</div>
+        <div class="h-check">CloudWatch + EventBridge schedule</div>
+        <div class="h-action">Lambda retries / DLQ policy</div>
+      </div>
+      <div class="health-row">
+        <div class="h-name"><span class="ldot"></span>PM2 stacks (e.g. Algom)</div>
+        <div class="h-check">cron HTTP + <code>pm2 jlist</code> status online</div>
+        <div class="h-action">pm2 restart &lt;app&gt;</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>All systemd agents</div>
         <div class="h-check">Process liveness via systemctl</div>
-        <div class="h-action">Auto via systemd restart policy</div>
+        <div class="h-action">systemd restart policy</div>
       </div>
     </div>
   </div>
 
   <!-- §3 CONTENT PIPELINE -->
-  <div class="section">
+  <div class="section" id="pipeline">
     <div class="section-head">
-      <div class="s-icon">🚀</div>
+      <div class="s-icon" aria-hidden="true">🚀</div>
       <div>
         <div class="s-eyebrow">Section 03</div>
-        <h2>Automated Content Pipeline</h2>
-        <p>From git commit to 5 channels — zero human steps</p>
+        <h2>Go-to-market automation</h2>
+        <p>When engineering ships something <em>worth talking about</em>, the stack fans it out across LinkedIn, blogs, X, and Instagram—without a human retyping the same story five times.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="callout">
       <span class="callout-icon">🔀</span>
-      <div>Only commits prefixed <code>feat:</code>, <code>launch:</code>, or <code>release:</code> trigger the pipeline. <code>fix:</code>, <code>chore:</code>, <code>docs:</code>, <code>refactor:</code> are silently skipped — internal work, not audience-facing announcements.</div>
+      <div><strong>Quality gate:</strong> only commits tagged <code>feat:</code>, <code>launch:</code>, or <code>release:</code> notify the marketing agent. Housekeeping commits (<code>fix:</code>, <code>docs:</code>, <code>chore:</code>, …) stay invisible to customers.</div>
     </div>
     <div class="pipeline">
       <div class="p-item">
@@ -638,7 +898,7 @@
           <div class="p-card">
             <div class="p-channel">GitHub Webhook</div>
             <h3>Commit detected → CTO AIPA</h3>
-            <p>Push event hits the webhook endpoint. Groq/Claude reviews diff, detects milestone prefix, queues milestone text in the pending updates store.</p>
+            <p>Push events hit the secured webhook. Groq/Claude review diffs, classify milestones, enqueue pending updates for downstream marketers.</p>
           </div>
         </div>
       </div>
@@ -647,8 +907,8 @@
         <div class="p-body">
           <div class="p-card">
             <div class="p-channel">LinkedIn · 20:00 Panama</div>
-            <h3>CMO generates + posts to LinkedIn</h3>
-            <p>CMO service picks up pending milestone, generates post via Claude Sonnet, delivers via Make.com webhook. No manual copy-paste at any step.</p>
+            <h3>CMO generates + posts</h3>
+            <p>Claude Sonnet copy → Make.com delivery. Zero manual paste.</p>
           </div>
         </div>
       </div>
@@ -657,8 +917,8 @@
         <div class="p-body">
           <div class="p-card">
             <div class="p-channel">Hashnode + dev.to · Async</div>
-            <h3>Long-form blog crosspost fires</h3>
-            <p>After LinkedIn: <code>blog_publisher.py</code> runs fire-and-forget. Long-form essay on Hashnode, canonical backlink from dev.to (DA~90) pointing to aideazz.xyz.</p>
+            <h3>Blog crosspost</h3>
+            <p><code>blog_publisher.py</code> fires after LinkedIn: Hashnode essay + dev.to canonical backlink to aideazz.xyz.</p>
           </div>
         </div>
       </div>
@@ -666,9 +926,9 @@
         <div class="p-track"><div class="p-num">4</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">X / Twitter · Next 5th slot</div>
-            <h3>Algom Alpha posts tweet</h3>
-            <p><code>x-tech-updater.js</code> checks for pending milestone on every 5th post cycle. Writes in plain language via Claude Haiku — no commit syntax, no jargon.</p>
+            <div class="p-channel">X · Every 5th post slot</div>
+            <h3>Algom Alpha tweet</h3>
+            <p><code>x-tech-updater.js</code> merges milestones in plain language (Haiku / Groq), guarded against duplicate queue states.</p>
           </div>
         </div>
       </div>
@@ -676,9 +936,9 @@
         <div class="p-track"><div class="p-num">5</div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Instagram · Next even calendar day</div>
-            <h3>EspaLuz Influencer posts with image</h3>
-            <p>Checks for milestone at 18:00 Panama on even days. Generates caption, posts with brand image via Make.com → Instagram. Falls through to regular content if no milestone queued.</p>
+            <div class="p-channel">Instagram · Even days 18:00 Panama</div>
+            <h3>EspaLuz Influencer</h3>
+            <p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending.</p>
           </div>
         </div>
       </div>
@@ -686,58 +946,58 @@
   </div>
 
   <!-- §4 DEPLOYMENT RULES -->
-  <div class="section">
+  <div class="section" id="deploy">
     <div class="section-head">
-      <div class="s-icon">📋</div>
+      <div class="s-icon" aria-hidden="true">📋</div>
       <div>
         <div class="s-eyebrow">Section 04</div>
-        <h2>Deployment Rules</h2>
-        <p>Non-negotiable constraints applied on every deploy to every agent</p>
+        <h2>Release discipline</h2>
+        <p>Board-friendly translation: we ship like a product company—predictable processes, isolated secrets, verifiable rollouts—even though agents move faster than most teams.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="rule-grid">
       <div class="rule-card">
         <div class="rule-num">Rule · 01</div>
-        <h3>One clone per repo</h3>
-        <p>Every GitHub repo has exactly one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are permanently forbidden.</p>
+        <h3>One live checkout per codebase</h3>
+        <p>Eliminates “which folder is prod?” debates; paired bots share code intentionally but never duplicate repos.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 02</div>
-        <h3>Build before restart</h3>
-        <p><code>git pull</code> → build passes → <code>pm2 restart --update-env</code>. If the build fails, the running process stays up. Never restart a broken build into production.</p>
+        <h3>Green build, then swap</h3>
+        <p>Pull latest → compile/tests succeed → only then restart supervised processes. Broken artifacts never replace what customers already rely on.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 03</div>
         <h3>Secrets isolation</h3>
-        <p>Each agent has its own <code>.env</code> file. No secrets in source control. Oracle wallet files deployed separately. TypeScript strict mode — no <code>any</code> types, no hardcoded credentials.</p>
+        <p>Each bot owns its environment file; crypto wallets never touch GitHub; TypeScript strict mode catches sloppy typings before prod.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 04</div>
         <h3>PM2 persistence</h3>
-        <p><code>pm2 startup</code> + <code>pm2 save</code> required on every new agent. Processes survive server reboots. <code>max_restarts</code> and <code>autorestart: true</code> in every ecosystem config.</p>
+        <p><code>pm2 startup</code> + <code>pm2 save</code> on every new process; ecosystem files set <code>max_restarts</code> + autorestart.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 05</div>
         <h3>No silent failures</h3>
-        <p>All agents catch and log uncaught exceptions before exit. PM2/systemd sees the cause before restart. Health script provides 5-minute SLA on failure detection.</p>
+        <p>Crash handlers log before exit so supervisors show why something died; watchdog cadence targets ~5 minute detection.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 06</div>
-        <h3>Verify after every deploy</h3>
-        <p>After deploy: check HTTP health endpoint returns 200 · check PM2 logs show "Connected" · test one Telegram command end-to-end. No deploy is done until all three pass.</p>
+        <h3>Verify after deploy</h3>
+        <p>Health signal green, database connectivity logs clean, one real Telegram interaction—all pass before the incident is closed.</p>
       </div>
     </div>
   </div>
 
   <!-- §5 POSTMORTEM -->
-  <div class="section">
+  <div class="section" id="postmortem">
     <div class="section-head">
-      <div class="s-icon">🔍</div>
+      <div class="s-icon" aria-hidden="true">🔍</div>
       <div>
         <div class="s-eyebrow">Section 05</div>
-        <h2>Postmortem Format</h2>
-        <p>Example: HubSpot Duplicate Loop — May 10, 2026</p>
+        <h2>Incident response template</h2>
+        <p><strong>For stakeholders:</strong> regressions are handled like financial reconciliations—symptoms, compounded causes, fix, proof—so the same automation trap rarely strikes twice.</p>
       </div>
     </div>
     <div class="divider"></div>
@@ -745,47 +1005,47 @@
       <div class="pm-head">
         <div class="pm-icon-box">🔁</div>
         <div>
-          <h3>HubSpot Duplicate Posting Loop</h3>
-          <p>Same tweet posted twice, ~6 minutes apart, on every automation cycle</p>
+          <h3>HubSpot duplicate posting loop</h3>
+          <p>May 10, 2026 — same milestone tweet emitted twice ~6 minutes apart</p>
         </div>
       </div>
       <div class="pm-row">
         <div class="pm-lbl">Symptom</div>
-        <div class="pm-val">HubSpot milestone items kept reappearing as pending on every <code>x-tech-updater.js</code> cycle. Same tweet posted twice within 6 minutes.</div>
+        <div class="pm-val">Pending HubSpot milestones resurfaced every <code>x-tech-updater.js</code> cycle.</div>
       </div>
       <div class="pm-row">
         <div class="pm-lbl">Root causes</div>
         <div class="pm-val">
-          Three compounding bugs: (1) <strong>Field name mismatch</strong> — pipeline wrote <code>posted: true</code>, GET filter checked <code>posted_x</code> — items always passed the filter. (2) <strong>Timestamp field mismatch</strong> — mark endpoint matched on <code>timestamp</code>, old items only had <code>received_at</code> — mark never stuck. (3) <strong>5 backlog items</strong> had neither field set — they would serve as pending forever.
+          Triple mismatch: legacy <code>posted</code> vs filter on <code>posted_x</code>; mark endpoint keyed on <code>timestamp</code> while older rows used <code>received_at</code>; backlog needed <code>posted_x</code> backfill.
         </div>
       </div>
       <div class="pm-row">
         <div class="pm-lbl">Fix applied</div>
-        <div class="pm-val">Updated GET filter to exclude both fields. Rewrote mark endpoint with 3-tier matching: <code>timestamp</code> → <code>received_at</code> → title fallback. Backfilled 5 stale records to <code>posted_x: true</code>.</div>
+        <div class="pm-val">GET excludes either flag; mark endpoint tries timestamp → received_at → title; JS client sends title for fallback matching.</div>
       </div>
       <div class="pm-row">
         <div class="pm-lbl">Verified by</div>
-        <div class="pm-val">Live API call confirmed: <code>{"ok": true, "pending": [], "total": 0, "held": true}</code>. All 4 HubSpot items show both fields set. Monitored for two full cycles — no duplicates.</div>
+        <div class="pm-val">API snapshot <code>{"ok": true, "pending": [], "total": 0, "held": true}</code> + two full automation cycles without duplication.</div>
       </div>
       <div class="pm-row">
         <div class="pm-lbl">Resolution</div>
-        <div class="pm-val">~2 hours from symptom to confirmed fix. Documented same day in infrastructure SOP.</div>
+        <div class="pm-val">≈2 hours from detection → patched APIs → verified on live automation cycles. Full narrative retained in the engineering appendix linked below.</div>
       </div>
     </div>
     <div class="callout amber" style="margin-top:14px;">
       <span class="callout-icon">📝</span>
-      <div><strong>SOP update rule:</strong> Every postmortem adds a new section to this document with root cause, fix, and verification steps — so the same issue takes zero hours next time.</div>
+      <div><strong>SOP update rule:</strong> materially production-facing incidents earn the same structured write-up internally—so institutional memory compounds instead of resetting.</div>
     </div>
   </div>
 
   <!-- §6 TECH STACK -->
-  <div class="section">
+  <div class="section" id="stack">
     <div class="section-head">
-      <div class="s-icon">⚙️</div>
+      <div class="s-icon" aria-hidden="true">⚙️</div>
       <div>
         <div class="s-eyebrow">Section 06</div>
-        <h2>Tech Stack Reference</h2>
-        <p>Full tooling inventory across all 10 agents</p>
+        <h2>Stack reference</h2>
+        <p>Boring reliability primitives where uptime matters; sharp AI + CRM + social APIs where differentiation matters.</p>
       </div>
     </div>
     <div class="divider"></div>
@@ -796,39 +1056,39 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Databases</div>
-        <div class="stack-tools">Oracle Autonomous DB (mTLS wallet, thick mode, 10+ tables) · PostgreSQL + pgvector (RAG, 1536-dim ivfflat)</div>
+        <div class="stack-tools">Oracle Autonomous DB (walleted TLS, thick mode, multi-table estate) · PostgreSQL + pgvector (1536-d RAG)</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">CRM & Outreach</div>
-        <div class="stack-tools">HubSpot CRM v3 (contacts · companies · deals · v4 associations) · Hunter.io enrichment · Resend email delivery</div>
+        <div class="stack-tools">HubSpot CRM v3 + v4 associations · Hunter.io · Resend</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Social</div>
-        <div class="stack-tools">Twitter API v2 (Account Activity API, filtered stream, engagement bot) · Make.com webhooks (LinkedIn · Instagram) · Telegram Bot API</div>
+        <div class="stack-tools">X API v2 (Account Activity, filtered stream, engagement worker) · Make.com · Telegram Bot API</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">AI / LLMs</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq llama-3.3-70b (fast inference) · OpenAI TTS (Whisper) · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · OpenAI TTS / Whisper · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Lead Gen</div>
-        <div class="stack-tools">Hacker News Algolia API · GitHub REST API · Product Hunt GraphQL · 150–250 companies/month ingested</div>
+        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL — ~150–250 net-new companies/month after filtering</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Hosting / CDN</div>
-        <div class="stack-tools">Oracle Cloud Ubuntu VM (12 GB RAM, VM.Standard.E5.Flex) · AWS Lambda · 4everland (IPFS static sites) · Cloudflare DNS</div>
+        <div class="stack-tools">OCI Ubuntu VM (VM.Standard.E5.Flex, 12 GB) · AWS Lambda · 4everland IPFS frontends · Cloudflare DNS</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Monitoring</div>
-        <div class="stack-tools">Custom bash health script (cron every 5 min) · PM2 logs · CloudWatch · curl HTTP probing · OCI keep-alive (cron every 4h)</div>
+        <div class="stack-tools">Cron health driver · PM2 logs · CloudWatch · curl probes · OCI keep-alive</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Content & SEO</div>
-        <div class="stack-tools">Hashnode GraphQL · dev.to API · GA4 Data API (JWT) · Google Search Console · GEO v4 (llms.txt, AI crawler tokens)</div>
+        <div class="stack-tools">Hashnode GraphQL · dev.to · GA4 · Google Search Console · GEO pack (llms.txt, crawler tokens)</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Project Mgmt</div>
-        <div class="stack-tools">Trello API (daily + weekly briefings via Telegram bot) · GitHub webhooks (10 repos, CI code review)</div>
+        <div class="stack-tools">Trello API (daily + weekly Telegram briefings) · GitHub webhooks across the fleet</div>
       </div>
     </div>
   </div>
@@ -839,11 +1099,12 @@
 <div class="footer">
   <div class="wrap">
     <div class="footer-links">
-      <a href="https://aideazz.xyz" target="_blank">🌐 aideazz.xyz</a>
-      <a href="https://linkedin.com/in/elenarevicheva" target="_blank">💼 LinkedIn</a>
+      <a href="https://aideazz.xyz" target="_blank" rel="noopener">🌐 aideazz.xyz</a>
+      <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">📄 Engineering appendix</a>
     </div>
     <p>Elena Revicheva · AI Engineer & Founder · Built &amp; maintained in production since 2026</p>
-    <p style="margin-top:8px;font-size:12px;">Sanitized public overview — internal paths, credentials, and server details not included.</p>
+    <p style="margin-top:10px;font-size:12px;color:var(--t3);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55;">Public page by design: no IP addresses, ports, webhook paths, bearer tokens, SSH instructions, or wallet material. The GitHub appendix is for engineers and may include deeper infrastructure detail—treat distribution accordingly.</p>
   </div>
 </div>
 
