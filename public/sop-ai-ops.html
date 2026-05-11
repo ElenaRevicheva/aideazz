@@ -4,682 +4,1106 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Operations SOP — Elena Revicheva · AIdeazz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --border: #2a2d3e;
-      --accent: #6c63ff;
-      --accent2: #00d4aa;
-      --text: #e8eaf0;
-      --muted: #8b90a7;
-      --danger: #ff6b6b;
-      --warn: #ffa94d;
-      --success: #51cf66;
+      --bg:        #07080f;
+      --bg2:       #0d0f1a;
+      --surface:   #111422;
+      --surface2:  #161927;
+      --border:    rgba(255,255,255,0.07);
+      --border2:   rgba(255,255,255,0.12);
+      --violet:    #7c6fff;
+      --violet2:   #a89cff;
+      --cyan:      #00e5c3;
+      --cyan2:     #5ffce0;
+      --pink:      #ff6bcd;
+      --amber:     #ffb547;
+      --green:     #3dffa0;
+      --red:       #ff6b6b;
+      --text:      #f0f2ff;
+      --text2:     #9ca3c0;
+      --text3:     #5a6080;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
       font-size: 15px;
+      overflow-x: hidden;
     }
-    a { color: var(--accent2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    /* ── Header ── */
-    .header {
-      background: linear-gradient(135deg, #1a1d27 0%, #12141e 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 48px 0 40px;
+    /* ─────────────────────────────────────
+       NOISE + GRID BACKGROUND
+    ───────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124,111,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,111,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─────────────────────────────────────
+       GLOW ORBS
+    ───────────────────────────────────── */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      animation: orb-drift 18s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(124,111,255,0.09); top: -200px; left: -150px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(0,229,195,0.07); top: 30%; right: -200px; animation-delay: -6s; }
+    .orb-3 { width: 400px; height: 400px; background: rgba(255,107,205,0.05); bottom: 10%; left: 20%; animation-delay: -12s; }
+    @keyframes orb-drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(40px,60px) scale(1.1); }
+    }
+
+    /* ─────────────────────────────────────
+       LAYOUT
+    ───────────────────────────────────── */
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ─────────────────────────────────────
+       HERO
+    ───────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 100px 0 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,111,255,0.1);
+      border: 1px solid rgba(124,111,255,0.3);
+      border-radius: 100px;
+      padding: 6px 18px 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--violet2);
+      margin-bottom: 32px;
+    }
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.5; transform:scale(.7); }
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #fff 0%, var(--violet2) 50%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      overflow: hidden;
+      max-width: 680px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(12px);
+    }
+    .hero-meta-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
       text-align: center;
     }
-    .header .badge {
-      display: inline-block;
-      background: rgba(108,99,255,0.15);
-      border: 1px solid rgba(108,99,255,0.4);
-      color: var(--accent);
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-item .label {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 4px 14px;
-      border-radius: 20px;
-      margin-bottom: 18px;
+      color: var(--text3);
+      margin-bottom: 4px;
     }
-    .header h1 {
-      font-size: clamp(24px, 4vw, 38px);
+    .hero-meta-item .value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .hero-meta-item .value a { color: var(--cyan); text-decoration: none; }
+    .status-live {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--green);
+    }
+    .status-live::before {
+      content: '';
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* ─────────────────────────────────────
+       STAT STRIP
+    ───────────────────────────────────── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin: 56px 0;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 16px 18px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--cyan));
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .stat-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-num {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--violet2), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+    .stat-label { font-size: 11.5px; color: var(--text3); font-weight: 500; line-height: 1.4; }
+
+    /* ─────────────────────────────────────
+       SECTION HEADINGS
+    ───────────────────────────────────── */
+    .section { margin-bottom: 72px; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .section-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(124,111,255,.2), rgba(0,229,195,.15));
+      border: 1px solid rgba(124,111,255,.25);
+    }
+    .section-head h2 {
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 10px;
     }
-    .header h1 span { color: var(--accent); }
-    .header p {
-      color: var(--muted);
-      font-size: 15px;
-      max-width: 560px;
-      margin: 0 auto 24px;
+    .section-head p {
+      font-size: 13.5px;
+      color: var(--text2);
+      margin-top: 2px;
     }
-    .meta-row {
-      display: flex;
-      justify-content: center;
-      gap: 28px;
-      flex-wrap: wrap;
-    }
-    .meta-item {
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .meta-item strong { color: var(--text); }
-
-    /* ── Layout ── */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .content { padding: 52px 0 80px; }
-
-    /* ── Sections ── */
-    .section { margin-bottom: 56px; }
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--border);
-    }
-    .section-num {
-      background: var(--accent);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .section h2 {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--violet) 0%, transparent 60%);
+      opacity: .3;
+      margin-bottom: 28px;
     }
 
-    /* ── Tables ── */
-    .table-wrap { overflow-x: auto; margin: 0 -4px; }
+    /* ─────────────────────────────────────
+       AGENT TABLE
+    ───────────────────────────────────── */
+    .table-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 13.5px;
     }
     thead th {
-      background: rgba(108,99,255,0.12);
-      color: var(--accent);
+      background: rgba(124,111,255,0.08);
+      color: var(--violet2);
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 11px 16px;
+      padding: 13px 16px;
       text-align: left;
+      white-space: nowrap;
       border-bottom: 1px solid var(--border);
     }
-    tbody tr { border-bottom: 1px solid var(--border); }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(255,255,255,0.025); }
-    td {
-      padding: 13px 16px;
-      vertical-align: top;
-      color: var(--text);
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
     }
-    td:first-child { font-weight: 500; }
-    .tag {
-      display: inline-block;
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(124,111,255,0.04); }
+    td {
+      padding: 14px 16px;
+      vertical-align: top;
+      color: var(--text2);
+      line-height: 1.55;
+    }
+    td:first-child { color: var(--text); font-weight: 600; font-size: 13px; white-space: nowrap; }
+    td.id { color: var(--text3); font-size: 12px; font-weight: 500; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       font-size: 11px;
       font-weight: 600;
-      padding: 2px 9px;
-      border-radius: 12px;
+      padding: 3px 10px;
+      border-radius: 100px;
       white-space: nowrap;
     }
-    .tag-pm2 { background: rgba(81,207,102,0.15); color: var(--success); border: 1px solid rgba(81,207,102,0.3); }
-    .tag-systemd { background: rgba(0,212,170,0.12); color: var(--accent2); border: 1px solid rgba(0,212,170,0.3); }
-    .tag-lambda { background: rgba(255,169,77,0.15); color: var(--warn); border: 1px solid rgba(255,169,77,0.3); }
-    .tag-ok { background: rgba(81,207,102,0.12); color: var(--success); }
-    .tag-planned { background: rgba(139,144,167,0.15); color: var(--muted); }
-
-    /* ── Cards ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+    .badge-pm2    { background: rgba(61,255,160,.1); color: var(--green); border: 1px solid rgba(61,255,160,.25); }
+    .badge-sysd   { background: rgba(0,229,195,.1);  color: var(--cyan);  border: 1px solid rgba(0,229,195,.25); }
+    .badge-lambda { background: rgba(255,181,71,.1); color: var(--amber); border: 1px solid rgba(255,181,71,.25); }
+    .badge-live   { background: rgba(61,255,160,.1); color: var(--green); border: 1px solid rgba(61,255,160,.2); }
+    .badge-design { background: rgba(90,96,128,.15); color: var(--text3); border: 1px solid rgba(90,96,128,.25); }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: rgba(124,111,255,0.12);
+      color: var(--violet2);
+      padding: 2px 7px;
+      border-radius: 5px;
     }
-    .card {
+
+    /* ─────────────────────────────────────
+       CALLOUT
+    ───────────────────────────────────── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      background: rgba(124,111,255,0.06);
+      border: 1px solid rgba(124,111,255,0.2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout strong { color: var(--text); }
+    .callout.warn { background: rgba(255,181,71,0.06); border-color: rgba(255,181,71,0.2); }
+    .callout.success { background: rgba(61,255,160,0.05); border-color: rgba(61,255,160,0.2); }
+
+    /* ─────────────────────────────────────
+       HEALTH MONITOR
+    ───────────────────────────────────── */
+    .health-list {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
+      border-radius: 14px;
+      overflow: hidden;
     }
-    .card h3 {
-      font-size: 14px;
+    .health-list-head {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 16px;
+      padding: 11px 20px;
+      background: rgba(124,111,255,0.07);
+      border-bottom: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+    }
+    .health-row {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      transition: background .15s;
+    }
+    .health-row:last-child { border-bottom: none; }
+    .health-row:hover { background: rgba(255,255,255,0.02); }
+    .health-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 13.5px;
+    }
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      flex-shrink: 0;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .health-check { font-size: 13px; color: var(--text2); }
+    .health-action {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: var(--amber);
+      white-space: nowrap;
+    }
+
+    /* ─────────────────────────────────────
+       PIPELINE
+    ───────────────────────────────────── */
+    .pipeline { display: flex; flex-direction: column; gap: 0; }
+    .pipeline-item {
+      display: flex;
+      gap: 0;
+    }
+    .pipeline-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 52px;
+      flex-shrink: 0;
+    }
+    .pipeline-num {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--violet), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 0 20px rgba(124,111,255,0.4);
+    }
+    .pipeline-line {
+      width: 2px;
+      flex: 1;
+      min-height: 32px;
+      background: linear-gradient(to bottom, rgba(124,111,255,0.5), rgba(0,229,195,0.15));
+      margin: 6px 0;
+    }
+    .pipeline-body {
+      flex: 1;
+      padding: 4px 0 36px 20px;
+    }
+    .pipeline-item:last-child .pipeline-body { padding-bottom: 0; }
+    .pipeline-item:last-child .pipeline-line { display: none; }
+    .pipeline-channel {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+    .pipeline-body h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .pipeline-body p {
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+    .pipeline-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    /* ─────────────────────────────────────
+       RULE CARDS
+    ───────────────────────────────────── */
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+    }
+    .rule-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 22px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .2s;
+    }
+    .rule-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .rule-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(124,111,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .rule-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--violet2);
+      margin-bottom: 8px;
+    }
+    .rule-card h3 {
+      font-size: 14.5px;
       font-weight: 600;
       margin-bottom: 8px;
       color: var(--text);
     }
-    .card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .card .card-tag {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--accent);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
+    .rule-card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
 
-    /* ── Code blocks ── */
-    pre {
-      background: #12141e;
+    /* ─────────────────────────────────────
+       POSTMORTEM
+    ───────────────────────────────────── */
+    .pm-block {
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px 20px;
-      font-size: 13px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      overflow-x: auto;
-      color: var(--accent2);
-      line-height: 1.6;
+      border-radius: 14px;
+      overflow: hidden;
     }
-    code {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      background: rgba(108,99,255,0.12);
-      color: var(--accent);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 12.5px;
-    }
-
-    /* ── Callouts ── */
-    .callout {
-      border-left: 3px solid var(--accent);
-      background: rgba(108,99,255,0.07);
-      border-radius: 0 8px 8px 0;
-      padding: 16px 20px;
-      margin: 20px 0;
-      font-size: 14px;
-    }
-    .callout.success { border-color: var(--success); background: rgba(81,207,102,0.06); }
-    .callout.warn { border-color: var(--warn); background: rgba(255,169,77,0.06); }
-    .callout strong { color: var(--text); }
-
-    /* ── Pipeline ── */
-    .pipeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-    .pipeline-step {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .pipeline-line {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .pipeline-dot {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(108,99,255,0.2);
-      border: 2px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .pipeline-connector {
-      width: 2px;
-      flex: 1;
-      min-height: 28px;
-      background: linear-gradient(to bottom, var(--accent), var(--border));
-      margin: 4px 0;
-    }
-    .pipeline-content {
-      padding: 6px 0 28px;
-      flex: 1;
-    }
-    .pipeline-content h4 {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .pipeline-content p { font-size: 13px; color: var(--muted); }
-
-    /* ── Postmortem ── */
-    .pm-table { width: 100%; }
-    .pm-table td:first-child {
-      width: 140px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding-right: 20px;
-      white-space: nowrap;
-    }
-
-    /* ── Health script ── */
-    .health-row {
+    .pm-block-head {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,107,205,0.04);
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-      font-size: 13.5px;
     }
-    .health-row:last-child { border-bottom: none; }
-    .health-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); flex-shrink: 0; }
-    .health-name { font-weight: 500; min-width: 200px; }
-    .health-check { color: var(--muted); font-size: 12.5px; flex: 1; }
-    .health-action { font-size: 12px; color: var(--warn); font-family: monospace; }
-
-    /* ── Stats bar ── */
-    .stats {
+    .pm-block-head h3 { font-size: 15px; font-weight: 600; }
+    .pm-block-head p { font-size: 13px; color: var(--text2); margin-top: 2px; }
+    .pm-row {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-      margin: 24px 0;
+      grid-template-columns: 130px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
     }
-    .stat {
+    .pm-row:last-child { border-bottom: none; }
+    .pm-label {
+      padding: 16px 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text3);
+      border-right: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      padding-top: 18px;
+    }
+    .pm-value {
+      padding: 16px 20px;
+      font-size: 13.5px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────
+       STACK TABLE
+    ───────────────────────────────────── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 12px;
+    }
+    .stack-row {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 16px;
-      text-align: center;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: border-color .2s;
     }
-    .stat .num {
-      font-size: 28px;
+    .stack-row:hover { border-color: var(--border2); }
+    .stack-category {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -0.02em;
-      line-height: 1;
-      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--violet2);
+      min-width: 140px;
+      flex-shrink: 0;
+      padding-top: 2px;
     }
-    .stat .label { font-size: 12px; color: var(--muted); }
+    .stack-tools { font-size: 13.5px; color: var(--text2); line-height: 1.55; }
 
-    /* ── Footer ── */
+    /* ─────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────── */
     .footer {
       border-top: 1px solid var(--border);
-      padding: 28px 0;
+      padding: 36px 0 40px;
       text-align: center;
-      color: var(--muted);
-      font-size: 13px;
+      position: relative;
+      z-index: 1;
     }
-    .footer a { color: var(--accent2); }
+    .footer p { font-size: 13px; color: var(--text3); }
+    .footer a { color: var(--cyan); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--cyan); text-decoration: none; }
 
-    @media (max-width: 600px) {
-      .meta-row { gap: 14px; }
-      .card-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .health-name { min-width: 140px; }
+    /* ─────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────── */
+    @media (max-width: 700px) {
+      .stat-strip { grid-template-columns: repeat(3, 1fr); }
+      .hero-meta { flex-direction: column; }
+      .hero-meta-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .health-list-head,
+      .health-row { grid-template-columns: 1fr; gap: 4px; }
+      .health-action { padding-bottom: 8px; }
+      .stack-grid { grid-template-columns: 1fr; }
+      .stack-row { flex-direction: column; gap: 4px; }
+      .stack-category { min-width: unset; }
+      .pm-row { grid-template-columns: 1fr; }
+      .pm-label { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    }
+    @media (max-width: 480px) {
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
-<div class="header">
-  <div class="container">
-    <div class="badge">Standard Operating Procedure</div>
-    <h1>AI Agent <span>Operations</span> Runbook</h1>
-    <p>How a 10-agent autonomous AI ecosystem is built, deployed, monitored, and kept alive in production.</p>
-    <div class="meta-row">
-      <span class="meta-item"><strong>Author</strong> Elena Revicheva</span>
-      <span class="meta-item"><strong>Product</strong> AIdeazz · <a href="https://aideazz.xyz" target="_blank">aideazz.xyz</a></span>
-      <span class="meta-item"><strong>Last updated</strong> May 2026</span>
-      <span class="meta-item"><strong>Status</strong> <span style="color:var(--success)">● Live</span></span>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Standard Operating Procedure · AI Infrastructure
+    </div>
+    <h1>AI Agent Operations<br>Runbook</h1>
+    <p class="hero-sub">How a 10-agent autonomous AI ecosystem is architected, deployed, monitored, and kept alive in production — zero manual intervention.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Author</div>
+        <div class="value">Elena Revicheva</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Product</div>
+        <div class="value"><a href="https://aideazz.xyz" target="_blank">aideazz.xyz</a></div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Updated</div>
+        <div class="value">May 2026</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Status</div>
+        <div class="value"><span class="status-live">Live in production</span></div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container content">
+<div class="wrap" style="position:relative;z-index:1;">
 
-  <!-- ── SUMMARY STATS ── -->
-  <div class="stats">
-    <div class="stat"><div class="num">10</div><div class="label">Production agents</div></div>
-    <div class="stat"><div class="num">3</div><div class="label">Infra layers (Oracle · AWS · 4everland)</div></div>
-    <div class="stat"><div class="num">5 min</div><div class="label">Health check interval</div></div>
-    <div class="stat"><div class="num">7+</div><div class="label">External API integrations</div></div>
-    <div class="stat"><div class="num">0</div><div class="label">Manual posts in pipeline</div></div>
+  <!-- STATS -->
+  <div class="stat-strip">
+    <div class="stat-card">
+      <div class="stat-num">10</div>
+      <div class="stat-label">Production agents running</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Infrastructure layers</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5m</div>
+      <div class="stat-label">Health check interval</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">7+</div>
+      <div class="stat-label">External API integrations</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Manual steps in content pipeline</div>
+    </div>
   </div>
 
-  <!-- ── 1. AGENT INVENTORY ── -->
+  <!-- ══════════════════════════════════
+       1. AGENT INVENTORY
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">1</div>
-      <h2>Agent Inventory</h2>
+    <div class="section-head">
+      <div class="section-icon">🤖</div>
+      <div>
+        <h2>Agent Inventory</h2>
+        <p>Every agent must have: auto-restart on failure · health check · keep-alive coverage</p>
+      </div>
     </div>
+    <div class="divider"></div>
     <div class="callout">
-      <strong>Rule:</strong> Every agent must have (1) automatic restart on failure, (2) a health-check endpoint or process liveness probe, (3) included in the keep-alive schedule. One clone per repo. No duplicate working trees.
+      <span class="callout-icon">📌</span>
+      <div><strong>Non-negotiable rule:</strong> One GitHub repo = one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are permanently forbidden — this doc is the canonical path map.</div>
     </div>
-    <div class="table-wrap">
+    <div class="table-scroll">
       <table>
         <thead>
           <tr>
-            <th>#</th>
+            <th style="width:36px">#</th>
             <th>Agent</th>
             <th>What it does</th>
-            <th>Process manager</th>
+            <th>Runtime</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td><strong>EspaLuz WhatsApp</strong></td>
-            <td>Spanish-language tutoring bot on WhatsApp (+507 number). Handles conversation, exercises, corrections.</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">1</td>
+            <td>EspaLuz WhatsApp</td>
+            <td>Spanish tutoring bot via WhatsApp. Handles conversation, exercises, corrections at scale.</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>2</td>
-            <td><strong>EspaLuz Telegram</strong></td>
-            <td>Same tutoring experience on Telegram. 2-layer memory: LangChain retrieval + pgvector RAG (1536-dim ivfflat index).</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">2</td>
+            <td>EspaLuz Telegram</td>
+            <td>Same tutoring experience on Telegram with 2-layer memory: LangChain retrieval + pgvector RAG (1536-dim ivfflat index).</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>3</td>
-            <td><strong>EspaLuz Influencer</strong></td>
-            <td>Instagram content bot. On even calendar days checks for pending CTO milestone; generates caption via Groq, posts via Make.com → Instagram. Falls through to regular content if no milestone.</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">3</td>
+            <td>EspaLuz Influencer</td>
+            <td>Instagram content automation. Even calendar days: checks for pending CTO milestone → generates caption via Groq → posts via Make.com webhook → Instagram.</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>4</td>
-            <td><strong>Algom Alpha</strong> <em>(@reviceva)</em></td>
-            <td>X/Twitter automation: posts crypto-education content every 3–10 min; every 5th slot picks up a CTO milestone. Filtered stream monitors keywords ("fractional CTO", "AI engineer hiring") across all of X → auto-like + follow high-intent accounts. Engagement bot replies to @mentions via Groq-generated responses (max 2/run), follows substantive commenters (max 3/run, 20/day). Auto-follow-back on new followers via Account Activity API webhook.</td>
-            <td><span class="tag tag-pm2">PM2</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">4</td>
+            <td>Algom Alpha <em style="color:var(--text3);font-weight:400">(@reviceva)</em></td>
+            <td>X/Twitter automation hub. Posts crypto-education content every 3–10 min. Every 5th slot picks up CTO milestone. Filtered stream monitors "fractional CTO / AI engineer hiring" keywords across all of X → auto-like + follow. Engagement bot replies @mentions via Groq (max 2/run), follows substantive commenters (max 3/run). Auto-follow-back via Account Activity API webhook.</td>
+            <td><span class="badge badge-pm2">PM2</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>5</td>
-            <td><strong>VibeJob Hunter</strong></td>
-            <td>Autonomous job-search pipeline. Fetches listings, scores them with a 3-layer eval harness (117 tests, $0 API cost), applies via ATS integrations. LangGraph routing gate — gate bug fixed Apr 28 (was silently discarding 100% of jobs).</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">5</td>
+            <td>VibeJob Hunter</td>
+            <td>Autonomous job-search pipeline. 3-layer eval harness (117 tests, $0 API cost), LangGraph routing, ATS integrations. Gate bug fixed Apr 28 (was silently discarding 100% of jobs).</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>6</td>
-            <td><strong>AI Marketing Co-Founder (CMO)</strong></td>
-            <td>At 20:00 Panama daily: picks up pending CTO milestone → generates LinkedIn post via Claude → fires Hashnode + dev.to blog crosspost (async). Lead ingestion pipeline: 150–250 companies/month from Hacker News, 20–30 from GitHub, 30–50 from Product Hunt. HubSpot CRM push for verified emails.</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">6</td>
+            <td>CMO AIPA</td>
+            <td>Daily 20:00 Panama: picks up CTO milestone → LinkedIn post via Claude → async Hashnode + dev.to crosspost. Lead ingestion: 150–250 companies/month (Hacker News + GitHub + Product Hunt) → Hunter.io enrichment → HubSpot CRM push.</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>7</td>
-            <td><strong>OpenClaw VibeJob Shortlist</strong></td>
-            <td>Telegram bot delivering curated job shortlists. Gateway service on port 18789.</td>
-            <td><span class="tag tag-systemd">systemd</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">7</td>
+            <td>OpenClaw Shortlist</td>
+            <td>Telegram bot delivering curated job shortlists. Standalone gateway service.</td>
+            <td><span class="badge badge-sysd">systemd</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>8</td>
-            <td><strong>CTO AIPA</strong></td>
-            <td>Core orchestration layer. GitHub webhooks (10 repos) → code review via Groq/Claude → milestone detection → notifies CMO pipeline. Express server on port 3000. Telegram bot commands for tasks, leads, board briefing, outreach. Oracle Autonomous DB backend.</td>
-            <td><span class="tag tag-pm2">PM2</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">8</td>
+            <td>CTO AIPA</td>
+            <td>Core orchestration layer. GitHub webhooks (10 repos) → Groq/Claude code review → milestone detection → CMO notification. Express API on port 3000. Telegram commands for tasks, leads, board briefing, outreach ops. Oracle Autonomous DB backend.</td>
+            <td><span class="badge badge-pm2">PM2</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>8.1</td>
-            <td><strong>Sprint Briefing (Sprinter)</strong></td>
-            <td>AWS Lambda. Fires at 8:00 AM Panama via EventBridge cron. Reads voice notes + tasks + diary from Oracle knowledge_base via HTTP proxy → Claude generates audio briefing script → OpenAI TTS → Telegram audio message.</td>
-            <td><span class="tag tag-lambda">AWS Lambda</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">8.1</td>
+            <td>Sprint Briefing</td>
+            <td>AWS Lambda. EventBridge fires daily 8AM Panama. Reads voice notes + tasks + diary from Oracle → Claude generates briefing script → OpenAI TTS → Telegram audio message.</td>
+            <td><span class="badge badge-lambda">Lambda</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>9</td>
-            <td><strong>Atuona (Creative Co-Founder)</strong></td>
-            <td>Creative assistant persona. Same PM2 process as CTO AIPA, distinct Telegram bot identity. Public site: atuona.xyz on 4everland.</td>
-            <td><span class="tag tag-pm2">PM2</span></td>
-            <td><span class="tag tag-ok">✓ Running</span></td>
+            <td class="id">9</td>
+            <td>Atuona CCF</td>
+            <td>Creative co-founder assistant. Same PM2 process as CTO AIPA, distinct Telegram bot persona. Public site: atuona.xyz on 4everland.</td>
+            <td><span class="badge badge-pm2">PM2</span></td>
+            <td><span class="badge badge-live">● Live</span></td>
           </tr>
           <tr>
-            <td>10</td>
-            <td><strong>AILA</strong></td>
-            <td>Adaptive Intelligent Life Assistant. Architecture documented; not yet deployed. CTO AIPA serves as interim conductor via shared database.</td>
+            <td class="id">10</td>
+            <td>AILA</td>
+            <td>Adaptive Intelligent Life Assistant — architecture documented. CTO AIPA serves as interim conductor via shared database tables.</td>
             <td>—</td>
-            <td><span class="tag tag-planned">In design</span></td>
+            <td><span class="badge badge-design">In design</span></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ── 2. HEALTH MONITORING ── -->
+  <!-- ══════════════════════════════════
+       2. HEALTH MONITORING
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">2</div>
-      <h2>Health Monitoring — Automated Every 5 Minutes</h2>
+    <div class="section-head">
+      <div class="section-icon">🩺</div>
+      <div>
+        <h2>Health Monitoring</h2>
+        <p>One bash script · cron every 5 min · restarts only the unhealthy agent</p>
+      </div>
     </div>
-    <p style="color:var(--muted); margin-bottom:20px; font-size:14px;">
-      A single bash script runs via cron every 5 minutes. It checks each agent independently and restarts only the unhealthy one — no global restarts. A keep-alive script runs every 4 hours to prevent cloud-provider idle reclamation.
-    </p>
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden;">
-      <div class="health-row" style="background:rgba(108,99,255,0.06); font-size:12px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em;">
-        <div style="width:8px"></div>
-        <div class="health-name">Agent</div>
-        <div class="health-check">Health check method</div>
-        <div class="health-action">On failure</div>
+    <div class="divider"></div>
+    <div class="callout">
+      <span class="callout-icon">⚡</span>
+      <div>A single health script checks each agent independently and restarts only the unhealthy one — no global restarts, no false positives. A separate keep-alive script runs every 4 hours to prevent cloud-provider idle reclamation. <strong>All systemd services run with <code>Restart=always</code>, <code>RestartSec=10</code>, <code>StartLimitBurst=10</code>.</strong></div>
+    </div>
+    <div class="health-list">
+      <div class="health-list-head">
+        <div>Agent</div>
+        <div>Health check method</div>
+        <div>Recovery action</div>
       </div>
       <div class="health-row">
-        <div class="health-dot"></div>
-        <div class="health-name">CTO AIPA + Atuona</div>
+        <div class="health-name"><span class="live-dot"></span>CTO AIPA + Atuona</div>
         <div class="health-check">HTTP GET port 3000 → expect 200</div>
         <div class="health-action">pm2 restart cto-aipa</div>
       </div>
       <div class="health-row">
-        <div class="health-dot"></div>
-        <div class="health-name">EspaLuz WhatsApp</div>
+        <div class="health-name"><span class="live-dot"></span>EspaLuz WhatsApp</div>
         <div class="health-check">HTTP GET /webhook → expect 200</div>
         <div class="health-action">systemctl restart espaluz-whatsapp</div>
       </div>
       <div class="health-row">
-        <div class="health-dot"></div>
-        <div class="health-name">VibeJob Hunter + CMO</div>
+        <div class="health-name"><span class="live-dot"></span>VibeJob Hunter + CMO</div>
         <div class="health-check">HTTP GET /health → expect 200</div>
-        <div class="health-action">systemctl restart vibejobhunter-web vibejobhunter</div>
+        <div class="health-action">systemctl restart vibejobhunter-web</div>
       </div>
       <div class="health-row">
-        <div class="health-dot"></div>
-        <div class="health-name">Sprint Briefing</div>
+        <div class="health-name"><span class="live-dot"></span>Sprint Briefing</div>
         <div class="health-check">CloudWatch logs + EventBridge schedule</div>
         <div class="health-action">AWS Lambda auto-retry</div>
       </div>
       <div class="health-row">
-        <div class="health-dot"></div>
-        <div class="health-name">All systemd agents</div>
-        <div class="health-check">Restart=always · RestartSec=10 · StartLimitBurst=10</div>
-        <div class="health-action">Auto (systemd policy)</div>
+        <div class="health-name"><span class="live-dot"></span>All systemd agents</div>
+        <div class="health-check">Process liveness via systemctl</div>
+        <div class="health-action">Auto via systemd restart policy</div>
       </div>
     </div>
   </div>
 
-  <!-- ── 3. CTO→ALL CHANNELS PIPELINE ── -->
+  <!-- ══════════════════════════════════
+       3. CONTENT PIPELINE
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">3</div>
-      <h2>Automated Content Pipeline — Commit to All Channels</h2>
+    <div class="section-head">
+      <div class="section-icon">🚀</div>
+      <div>
+        <h2>Automated Content Pipeline</h2>
+        <p>From git commit to 5 channels — zero human steps</p>
+      </div>
     </div>
-    <p style="color:var(--muted); margin-bottom:28px; font-size:14px;">
-      When a meaningful code milestone ships (commit prefixed <code>feat:</code>, <code>launch:</code>, or <code>release:</code>), the following fires automatically. <code>fix:</code>, <code>chore:</code>, <code>docs:</code> commits are silently skipped.
-    </p>
+    <div class="divider"></div>
+    <div class="callout">
+      <span class="callout-icon">🔀</span>
+      <div>Only commits prefixed <code>feat:</code>, <code>launch:</code>, or <code>release:</code> trigger the pipeline. <code>fix:</code>, <code>chore:</code>, <code>docs:</code>, <code>refactor:</code> are silently skipped — internal work, not audience-facing announcements.</div>
+    </div>
     <div class="pipeline">
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">1</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content">
-          <h4>GitHub webhook → CTO AIPA</h4>
-          <p>Push event hits <code>webhook.aideazz.xyz/cto/webhook/github</code>. Groq/Claude reviews diff, detects milestone prefix, queues milestone text.</p>
+      <div class="pipeline-item">
+        <div class="pipeline-track">
+          <div class="pipeline-num">1</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-card">
+            <div class="pipeline-channel">GitHub Webhook</div>
+            <h3>Commit detected → CTO AIPA</h3>
+            <p>Push event hits the webhook endpoint. Groq/Claude reviews diff, detects milestone prefix, queues milestone text in the pending updates store.</p>
+          </div>
         </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">2</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content">
-          <h4>Milestone queued → CMO notified</h4>
-          <p>CTO AIPA calls <code>POST /api/tech-update</code> on CMO service (localhost). Item lands in <code>pending_tech_updates.json</code>.</p>
+      <div class="pipeline-item">
+        <div class="pipeline-track">
+          <div class="pipeline-num">2</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-card">
+            <div class="pipeline-channel">LinkedIn · 20:00 Panama</div>
+            <h3>CMO generates + posts to LinkedIn</h3>
+            <p>CMO service picks up pending milestone, generates post via Claude Sonnet, delivers via Make.com webhook. No manual copy-paste at any step.</p>
+          </div>
         </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">3</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content">
-          <h4>LinkedIn post — 20:00 Panama</h4>
-          <p>CMO picks up milestone, generates LinkedIn post via Claude, delivers via Make.com webhook. No manual copy-paste.</p>
+      <div class="pipeline-item">
+        <div class="pipeline-track">
+          <div class="pipeline-num">3</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-card">
+            <div class="pipeline-channel">Hashnode + dev.to · Async</div>
+            <h3>Long-form blog crosspost fires</h3>
+            <p>After LinkedIn: blog_publisher runs fire-and-forget. Long-form essay on Hashnode, canonical backlink from dev.to (DA~90) pointing to aideazz.xyz.</p>
+          </div>
         </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">4</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content">
-          <h4>Hashnode + dev.to blog — fire-and-forget</h4>
-          <p>After LinkedIn post: <code>blog_publisher.py</code> runs async. Long-form essay on Hashnode, canonical backlink from dev.to (DA~90).</p>
+      <div class="pipeline-item">
+        <div class="pipeline-track">
+          <div class="pipeline-num">4</div>
+          <div class="pipeline-line"></div>
+        </div>
+        <div class="pipeline-body">
+          <div class="pipeline-card">
+            <div class="pipeline-channel">X / Twitter · Next 5th slot</div>
+            <h3>Algom Alpha posts tweet</h3>
+            <p>x-tech-updater checks for pending milestone on every 5th post cycle. Writes in plain language via Claude Haiku — no commit syntax, no jargon.</p>
+          </div>
         </div>
       </div>
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">5</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content">
-          <h4>X/Twitter — next 5th tweet slot</h4>
-          <p>Algom Alpha's <code>x-tech-updater.js</code> checks for pending milestone on every 5th post. Writes tweet in plain language via Claude Haiku (no jargon).</p>
+      <div class="pipeline-item">
+        <div class="pipeline-track">
+          <div class="pipeline-num">5</div>
         </div>
-      </div>
-      <div class="pipeline-step">
-        <div class="pipeline-line"><div class="pipeline-dot">6</div><div class="pipeline-connector"></div></div>
-        <div class="pipeline-content" style="padding-bottom:0">
-          <h4>Instagram — next even calendar day</h4>
-          <p>EspaLuz Influencer checks for milestone at 18:00 Panama on even days. Generates caption, posts with brand image via Make.com.</p>
+        <div class="pipeline-body">
+          <div class="pipeline-card">
+            <div class="pipeline-channel">Instagram · Next even calendar day</div>
+            <h3>EspaLuz Influencer posts with image</h3>
+            <p>Checks for milestone at 18:00 Panama on even days. Generates caption, posts with brand image via Make.com → Instagram. Falls through to regular content if no milestone queued.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ── 4. DEPLOYMENT METHODOLOGY ── -->
+  <!-- ══════════════════════════════════
+       4. DEPLOYMENT RULES
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">4</div>
-      <h2>Deployment Methodology</h2>
+    <div class="section-head">
+      <div class="section-icon">📋</div>
+      <div>
+        <h2>Deployment Rules</h2>
+        <p>Non-negotiable constraints applied on every deploy to every agent</p>
+      </div>
     </div>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-tag">Rule #1</div>
+    <div class="divider"></div>
+    <div class="rule-grid">
+      <div class="rule-card">
+        <div class="rule-num">Rule 01</div>
         <h3>One clone per repo</h3>
-        <p>Every GitHub repo has exactly one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are forbidden.</p>
+        <p>Every GitHub repo has exactly one working directory on the VM. Agents sharing a repo share one directory and differ only by process name. Duplicate clones are permanently forbidden.</p>
       </div>
-      <div class="card">
-        <div class="card-tag">Rule #2</div>
-        <h3>Deploy sequence</h3>
-        <p><code>git pull</code> → <code>npm run build</code> (or equivalent) → <code>pm2 restart --update-env</code>. Build must pass before restart. TypeScript strict mode always.</p>
+      <div class="rule-card">
+        <div class="rule-num">Rule 02</div>
+        <h3>Build before restart</h3>
+        <p><code>git pull</code> → build passes → <code>pm2 restart --update-env</code>. If the build fails, the running process stays up. Never restart a broken build into production.</p>
       </div>
-      <div class="card">
-        <div class="card-tag">Rule #3</div>
-        <h3>Environment isolation</h3>
-        <p>Each agent has its own <code>.env</code>. Secrets never in source control. Database wallet files deployed separately from code. Credentials rotated on compromise, not on schedule.</p>
+      <div class="rule-card">
+        <div class="rule-num">Rule 03</div>
+        <h3>Secrets isolation</h3>
+        <p>Each agent has its own <code>.env</code> file. No secrets in source control. Database wallet files deployed separately from code. TypeScript strict mode — no <code>any</code> types, no hardcoded credentials.</p>
       </div>
-      <div class="card">
-        <div class="card-tag">Rule #4</div>
+      <div class="rule-card">
+        <div class="rule-num">Rule 04</div>
         <h3>PM2 persistence</h3>
-        <p><code>pm2 startup</code> + <code>pm2 save</code> on every new agent. Processes survive server reboots. <code>max_restarts</code> and <code>autorestart: true</code> in ecosystem config.</p>
+        <p><code>pm2 startup</code> + <code>pm2 save</code> required on every new agent. Processes survive server reboots. <code>max_restarts</code> and <code>autorestart: true</code> in every ecosystem config.</p>
       </div>
-      <div class="card">
-        <div class="card-tag">Rule #5</div>
+      <div class="rule-card">
+        <div class="rule-num">Rule 05</div>
         <h3>No silent failures</h3>
-        <p>All agents log uncaught exceptions before exit. PM2/systemd sees the cause before restart. Health script provides 5-min SLA on detection.</p>
+        <p>All agents catch and log uncaught exceptions before exit. PM2/systemd sees the cause before restart. Health script provides 5-minute SLA on failure detection.</p>
       </div>
-      <div class="card">
-        <div class="card-tag">Rule #6</div>
-        <h3>Verify after deploy</h3>
-        <p>After every deploy: check HTTP health endpoint returns 200, check PM2 logs show "Connected" state, test one Telegram command to confirm end-to-end path.</p>
+      <div class="rule-card">
+        <div class="rule-num">Rule 06</div>
+        <h3>Verify after every deploy</h3>
+        <p>After deploy: check HTTP health endpoint returns 200 · check PM2 logs show "Connected" · test one Telegram command end-to-end. No deploy is done until all three pass.</p>
       </div>
     </div>
   </div>
 
-  <!-- ── 5. POSTMORTEM EXAMPLE ── -->
+  <!-- ══════════════════════════════════
+       5. POSTMORTEM
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">5</div>
-      <h2>Postmortem Format — Example: HubSpot Duplicate Loop (May 10, 2026)</h2>
+    <div class="section-head">
+      <div class="section-icon">🔍</div>
+      <div>
+        <h2>Postmortem Format</h2>
+        <p>Example: HubSpot Duplicate Loop — May 10, 2026</p>
+      </div>
     </div>
-    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:24px;">
-      <table class="pm-table" style="border:none;">
-        <tbody>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td>Symptom</td>
-            <td>Same tweet posted twice, ~6 minutes apart. HubSpot milestone items kept reappearing as pending on every automation cycle.</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td>Root causes</td>
-            <td>
-              Three compounding bugs: (1) field name mismatch — pipeline wrote <code>posted: true</code>, filter checked <code>posted_x</code> — items always passed. (2) timestamp field mismatch — mark endpoint matched on <code>timestamp</code>, old items only had <code>received_at</code> — mark never stuck. (3) Five backlog items had neither field set.
-            </td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td>Fix</td>
-            <td>Updated GET filter to exclude both fields. Rewrote mark endpoint with 3-tier matching: timestamp → received_at → title fallback. Backfilled 5 stale records manually.</td>
-          </tr>
-          <tr style="border-bottom:1px solid var(--border)">
-            <td>Verification</td>
-            <td>Live API call confirmed: <code>{"pending": [], "total": 0}</code>. All 4 HubSpot items show both fields set. Monitored for two cycles — no duplicates.</td>
-          </tr>
-          <tr>
-            <td>Time to resolution</td>
-            <td>~2 hours from symptom to confirmed fix. Documented same day.</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="divider"></div>
+    <div class="pm-block">
+      <div class="pm-block-head">
+        <div>
+          <h3>HubSpot Duplicate Posting Loop</h3>
+          <p>Same tweet posted twice, ~6 minutes apart, on every automation cycle</p>
+        </div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-label">Symptom</div>
+        <div class="pm-value">HubSpot milestone items kept reappearing as pending on every cycle. Same tweet posted twice within 6 minutes.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-label">Root causes</div>
+        <div class="pm-value">
+          Three compounding bugs: (1) field name mismatch — pipeline wrote <code>posted: true</code>, GET filter checked <code>posted_x</code> — items always passed the filter.
+          (2) Timestamp field mismatch — mark endpoint matched on <code>timestamp</code>, old items only had <code>received_at</code> — mark never stuck.
+          (3) Five backlog items had neither field set — they would serve as pending forever.
+        </div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-label">Fix applied</div>
+        <div class="pm-value">Updated GET filter to exclude both fields. Rewrote mark endpoint with 3-tier matching: timestamp → received_at → title fallback. Backfilled 5 stale records manually.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-label">Verified by</div>
+        <div class="pm-value">Live API call confirmed: <code>{"pending": [], "total": 0}</code>. All items show both fields set. Monitored for two full cycles — no duplicates.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-label">Resolution time</div>
+        <div class="pm-value">~2 hours from symptom to confirmed fix. Documented same day in infrastructure SOP.</div>
+      </div>
     </div>
     <div class="callout warn" style="margin-top:16px;">
-      <strong>SOP update triggered:</strong> Every postmortem adds a new section to this document with root cause, fix, and verification steps — so the next person (or future self) doesn't spend 2 hours on the same issue.
+      <span class="callout-icon">📝</span>
+      <div><strong>SOP update rule:</strong> Every postmortem adds a new section to this document with root cause, fix, and verification steps — so the same issue takes zero hours next time.</div>
     </div>
   </div>
 
-  <!-- ── 6. STACK REFERENCE ── -->
+  <!-- ══════════════════════════════════
+       6. TECH STACK
+  ══════════════════════════════════ -->
   <div class="section">
-    <div class="section-header">
-      <div class="section-num">6</div>
-      <h2>Tech Stack Reference</h2>
+    <div class="section-head">
+      <div class="section-icon">⚙️</div>
+      <div>
+        <h2>Tech Stack Reference</h2>
+        <p>Full tooling inventory across all 10 agents</p>
+      </div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Category</th><th>Tools</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Process management</td><td>PM2, systemd, AWS Lambda + EventBridge</td></tr>
-          <tr><td>Databases</td><td>Oracle Autonomous DB (mTLS wallet), PostgreSQL + pgvector (RAG)</td></tr>
-          <tr><td>CRM & outreach</td><td>HubSpot CRM v3 API (contacts · companies · deals · associations), Hunter.io enrichment, Resend email delivery</td></tr>
-          <tr><td>Social automation</td><td>Twitter API v2 (Account Activity API, filtered stream, engagement bot), Make.com webhooks (LinkedIn · Instagram), Telegram Bot API</td></tr>
-          <tr><td>AI / LLMs</td><td>Claude Sonnet / Haiku (Anthropic), Groq llama-3.3-70b (fast fallback), OpenAI TTS</td></tr>
-          <tr><td>Lead generation</td><td>Hacker News Algolia API, GitHub REST API, Product Hunt GraphQL</td></tr>
-          <tr><td>Hosting / CDN</td><td>Oracle Cloud (Ubuntu VM), AWS Lambda, 4everland (IPFS static sites)</td></tr>
-          <tr><td>Monitoring</td><td>Custom bash health script (cron every 5 min), PM2 logs, CloudWatch, curl HTTP probing</td></tr>
-          <tr><td>Content pipeline</td><td>Hashnode GraphQL API, dev.to API, GA4 Data API (JWT auth), Google Search Console</td></tr>
-          <tr><td>Project management</td><td>Trello API (automated daily + weekly board briefings via Telegram)</td></tr>
-        </tbody>
-      </table>
+    <div class="divider"></div>
+    <div class="stack-grid">
+      <div class="stack-row">
+        <div class="stack-category">Process Mgmt</div>
+        <div class="stack-tools">PM2 · systemd · AWS Lambda + EventBridge</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Databases</div>
+        <div class="stack-tools">Oracle Autonomous DB (mTLS wallet, 10+ tables) · PostgreSQL + pgvector (RAG, 1536-dim)</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">CRM & Outreach</div>
+        <div class="stack-tools">HubSpot CRM v3 (contacts · companies · deals · v4 associations) · Hunter.io enrichment · Resend email delivery</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Social Automation</div>
+        <div class="stack-tools">Twitter API v2 (Account Activity, filtered stream, engagement bot) · Make.com webhooks (LinkedIn · Instagram) · Telegram Bot API</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">AI / LLMs</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq llama-3.3-70b (fast fallback) · OpenAI TTS · LangChain · LangGraph</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Lead Generation</div>
+        <div class="stack-tools">Hacker News Algolia API · GitHub REST API · Product Hunt GraphQL · 150–250 companies/month</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Hosting / CDN</div>
+        <div class="stack-tools">Oracle Cloud Ubuntu VM · AWS Lambda · 4everland (IPFS static sites) · Cloudflare (DNS + redirects)</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Monitoring</div>
+        <div class="stack-tools">Custom bash health script (cron every 5 min) · PM2 logs · CloudWatch · curl HTTP probing · OCI keep-alive</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Content & SEO</div>
+        <div class="stack-tools">Hashnode GraphQL · dev.to API · GA4 Data API (JWT) · Google Search Console · GEO v4 (llms.txt, AI crawler tokens)</div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Project Mgmt</div>
+        <div class="stack-tools">Trello API (automated daily + weekly briefings via Telegram bot) · GitHub webhooks (10 repos, CI code review)</div>
+      </div>
     </div>
   </div>
 
-</div><!-- /container -->
+</div><!-- /wrap -->
 
-<!-- ── FOOTER ── -->
+<!-- FOOTER -->
 <div class="footer">
-  <div class="container">
-    <p>Elena Revicheva · AI Engineer & Founder · <a href="https://aideazz.xyz" target="_blank">aideazz.xyz</a> · <a href="https://linkedin.com/in/elenarevicheva" target="_blank">LinkedIn</a></p>
-    <p style="margin-top:6px; font-size:12px; color:#555">This document is a sanitized public overview. Internal paths, credentials, and server details are not included.</p>
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="https://aideazz.xyz" target="_blank">🌐 aideazz.xyz</a>
+      <a href="https://linkedin.com/in/elenarevicheva" target="_blank">💼 LinkedIn</a>
+      <a href="https://atuona.xyz" target="_blank">✨ atuona.xyz</a>
+    </div>
+    <p>Elena Revicheva · AI Engineer & Founder · Built & maintained in production since 2026</p>
+    <p style="margin-top:8px; font-size:12px; color:var(--text3);">Sanitized public overview — internal paths, credentials, and server details not included.</p>
   </div>
 </div>
 
