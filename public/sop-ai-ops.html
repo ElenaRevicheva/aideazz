@@ -1148,7 +1148,7 @@
         </div>
       </div>
     </div>
-    <p class="doc-source"><strong>For engineers:</strong> repo layout, server paths, and incident write-ups live in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">ORACLE_ALL_PRODUCTS_RESILIENCE.md</a>. This page stays founder-readable and avoids hostnames, ports, and secrets.</p>
+    <p class="doc-source"><strong>For engineers:</strong> repo layout, deploy paths, and full incident write-ups live in the <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">engineering appendix</a>. This page stays founder-readable — no hostnames, ports, or secrets.</p>
   </div>
 </div>
 
@@ -1180,7 +1180,7 @@
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="10" data-duration="1400">0</div><div class="b-label">Tracked capabilities · 9 live · 1 roadmap (AILA)</div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="3" data-duration="1200">0</div><div class="b-label">Infrastructure layers · Oracle · AWS · static edge</div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="5" data-suffix="m" data-duration="1500">0</div><div class="b-label">Automated health cadence</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="8" data-duration="1300">0</div><div class="b-label">Codebases on the primary compute host</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="8" data-duration="1300">0</div><div class="b-label">Repos powering live products · all on one server</div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</div><div class="b-label">Manual steps in milestone → social pipeline</div></div>
   </div>
 
@@ -1341,7 +1341,6 @@
               <div class="agent-links">
                 <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
                 <a href="https://t.me/Atuona_AI_CCF_AIdeazz_bot" target="_blank" rel="noopener">Telegram</a>
-                <a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a>
               </div>
             </td>
             <td><strong>Creative partner:</strong> Separate bot persona + public studio site—same reliability envelope as the CTO stack.<br /><span style="color:var(--t3);font-size:12.5px;">Single PM2 orchestrator binary; site ships via static edge hosting.</span></td>
@@ -1522,8 +1521,8 @@
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 04</div>
-        <h3>PM2 persistence</h3>
-        <p><code>pm2 startup</code> + <code>pm2 save</code> on every new process; ecosystem files set <code>max_restarts</code> + autorestart.</p>
+        <h3>Crash-proof process registry</h3>
+        <p>Every agent process is registered to auto-start on server boot and auto-restart on failure—no manual babysitting after a power cycle or kernel update.</p>
       </div>
       <div class="rule-card">
         <div class="rule-num">Rule · 05</div>
@@ -1604,7 +1603,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Databases</div>
-        <div class="stack-tools">Oracle Autonomous DB (walleted TLS, thick mode, multi-table estate) · PostgreSQL + pgvector (1536-d RAG)</div>
+        <div class="stack-tools">Oracle Autonomous DB (enterprise-grade encrypted connection, multi-table estate) · PostgreSQL + pgvector (semantic memory for tutoring agents)</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">CRM & Outreach</div>
