@@ -483,7 +483,7 @@
           <tr>
             <td class="tid">01</td>
             <td class="tname">EspaLuz WhatsApp</td>
-            <td>Spanish tutoring bot via WhatsApp. Handles conversation, exercises, corrections at scale. Systemd service: <code>espaluz-whatsapp</code>, port 8081.</td>
+            <td>Spanish tutoring bot via WhatsApp. Handles conversation, exercises, corrections at scale. Systemd service: <code>espaluz-whatsapp</code>.</td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
@@ -518,35 +518,35 @@
           <tr>
             <td class="tid">06</td>
             <td class="tname">CMO AIPA</td>
-            <td>Daily 20:00 Panama: picks up CTO milestone → LinkedIn post via Claude → async Hashnode + dev.to crosspost. Lead ingestion: 150–250 companies/month (HN Algolia + GitHub + Product Hunt) → Hunter.io enrichment → HubSpot CRM push. Same repo as #5, separate service: <code>vibejobhunter-web</code>, port 8080.</td>
+            <td>Daily 20:00 Panama: picks up CTO milestone → LinkedIn post via Claude → async Hashnode + dev.to crosspost. Lead ingestion: 150–250 companies/month (HN Algolia + GitHub + Product Hunt) → Hunter.io enrichment → HubSpot CRM push. Same repo as #5, separate service: <code>vibejobhunter-web</code>.</td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">07</td>
             <td class="tname">OpenClaw Shortlist</td>
-            <td>Telegram bot delivering curated job shortlists. Standalone gateway service: <code>openclaw-gateway</code>, port 18789.</td>
+            <td>Telegram bot delivering curated job shortlists. Standalone gateway service: <code>openclaw-gateway</code>.</td>
             <td><span class="badge b-sysd">systemd</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">08</td>
             <td class="tname">CTO AIPA</td>
-            <td>Core orchestration layer. GitHub webhooks (10 repos) → Groq/Claude code review → milestone detection → CMO notification. Express API on port 3000. Telegram commands for tasks, leads, board briefing, outreach ops. Oracle Autonomous DB backend (thick mode, mTLS wallet). PM2 app: <code>cto-aipa</code>.</td>
+            <td>Core orchestration layer. GitHub webhooks (10 repos) → Groq/Claude code review → milestone detection → CMO notification. Express API with HTTP health endpoint. Telegram commands for tasks, leads, board briefing, outreach ops. Oracle Autonomous DB backend (thick mode, mTLS wallet). PM2 app: <code>cto-aipa</code>.</td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">08.1</td>
             <td class="tname">Sprint Briefing</td>
-            <td>AWS Lambda (<code>sprint-briefing-agent</code>). EventBridge fires daily at 8AM Panama (<code>cron(0 13 * * ? *)</code>). Reads voice notes + tasks + diary via REST proxy on CTO AIPA (<code>/cto/sprint-knowledge</code>) → Claude generates briefing script → OpenAI TTS → Telegram audio. Voice notes fixed May 3.</td>
+            <td>AWS Lambda, EventBridge fires daily at 8AM Panama. Reads voice notes + tasks + diary via authenticated REST proxy on CTO AIPA → Claude generates briefing script → OpenAI TTS → Telegram audio. Voice notes fixed May 3.</td>
             <td><span class="badge b-lambda">Lambda</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
           <tr>
             <td class="tid">09</td>
             <td class="tname">Atuona CCF</td>
-            <td>Creative co-founder assistant. Same PM2 process as CTO AIPA (<code>cto-aipa</code>), distinct Telegram bot persona. Same deploy path: <code>/home/ubuntu/cto-aipa</code>.</td>
+            <td>Creative co-founder assistant. Same PM2 process as CTO AIPA (<code>cto-aipa</code>), distinct Telegram bot persona. Shares the same VM deploy directory as CTO AIPA.</td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
@@ -585,22 +585,22 @@
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>CTO AIPA + Atuona</div>
-        <div class="h-check">HTTP GET <code>127.0.0.1:3000/</code> → expect 200</div>
+        <div class="h-check">HTTP GET loopback health endpoint → expect 200</div>
         <div class="h-action">pm2 restart cto-aipa</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>EspaLuz WhatsApp</div>
-        <div class="h-check">HTTP GET <code>127.0.0.1:8081/webhook</code> → expect 200</div>
+        <div class="h-check">HTTP GET loopback webhook endpoint → expect 200</div>
         <div class="h-action">systemctl restart espaluz-whatsapp</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>VibeJob Hunter + CMO</div>
-        <div class="h-check">HTTP GET <code>127.0.0.1:8080/health</code> → expect 200</div>
+        <div class="h-check">HTTP GET loopback health endpoint → expect 200</div>
         <div class="h-action">systemctl restart vibejobhunter-web</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>OpenClaw Shortlist</div>
-        <div class="h-check">HTTP GET <code>127.0.0.1:18789/</code> → expect 200</div>
+        <div class="h-check">HTTP GET loopback gateway endpoint → expect 200</div>
         <div class="h-action">systemctl restart openclaw-gateway</div>
       </div>
       <div class="health-row">
