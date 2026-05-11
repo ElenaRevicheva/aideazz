@@ -112,13 +112,12 @@ const VibeCodingSection = () => {
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
-                  className="text-5xl relative z-10"
-                  style={{ 
-                    filter: 'hue-rotate(-20deg) saturate(1.5) brightness(1.2)',
-                    textShadow: '0 0 20px rgba(251, 113, 133, 0.8), 0 0 40px rgba(244, 63, 94, 0.6)'
+                  className="relative z-10"
+                  style={{
+                    filter: 'drop-shadow(0 0 12px rgba(251, 113, 133, 0.7)) drop-shadow(0 0 24px rgba(244, 63, 94, 0.5))'
                   }}
                 >
-                  🧠
+                  <Brain className="w-14 h-14 text-pink-400" />
                 </motion.div>
               </div>
               <h3 className="text-3xl font-bold font-poppins text-center">
