@@ -1,4 +1,4 @@
-import { Layers, ShoppingCart, Users, Zap, Coins, GitBranch, Heart } from "lucide-react";
+import { Layers, ShoppingCart, Users, Zap, Coins, GitBranch, Heart, FileText, ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
@@ -41,6 +41,22 @@ const AIdeazzPlatformSection = () => {
               <strong className="text-blue-300">{t("platform.description4")}</strong> {t("platform.description4Detail")}
             </p>
           </div>
+        </div>
+
+        {/* SOP proof-of-operations link */}
+        <div className="flex justify-center mb-14">
+          <a
+            href="/sop-ai-ops.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-xl border border-purple-500/30 bg-white/[0.04] hover:bg-purple-500/10 hover:border-purple-400/50 transition-all duration-300 backdrop-blur-sm"
+          >
+            <FileText className="w-4 h-4 text-purple-300 flex-shrink-0" />
+            <span className="text-sm font-semibold text-gray-200 group-hover:text-white transition-colors">
+              AI Operations SOP — how all 10 agents run in production
+            </span>
+            <ArrowUpRight className="w-4 h-4 text-purple-400 group-hover:text-purple-200 transition-colors flex-shrink-0" />
+          </a>
         </div>
 
         {/* Key Features */}
