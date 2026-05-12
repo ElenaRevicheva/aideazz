@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="How AIdeazz runs nine live AI products plus one in design: ownership map, reliability practices, go-to-market automation, and stack—for founders who want proof, not buzzwords." />
+  <meta name="description" content="Cómo opera AIdeazz nueve productos de IA en producción y uno en roadmap: mapa de propiedad, fiabilidad, automatización GTM y stack—para quien necesita evidencia operativa, no eslóganes." />
   <meta name="color-scheme" content="dark" />
-  <title>AI Operations SOP — Elena Revicheva · AIdeazz</title>
-  <link rel="canonical" href="https://aideazz.xyz/sop-ai-ops.html" />
+  <title>Manual de operaciones IA — Elena Revicheva · AIdeazz</title>
+  <link rel="canonical" href="https://aideazz.xyz/sop-ai-ops-es.html" />
   <link rel="alternate" hreflang="es" href="https://aideazz.xyz/sop-ai-ops-es.html" />
   <link rel="alternate" hreflang="en" href="https://aideazz.xyz/sop-ai-ops.html" />
   <link rel="alternate" hreflang="x-default" href="https://aideazz.xyz/sop-ai-ops.html" />
@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-05-11","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"Manual de operaciones de agentes de IA","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-05-11","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"inLanguage":"es"}
   </script>
 
   <style>
@@ -1116,7 +1116,7 @@
 </head>
 <body>
 
-<a href="#main" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
+<a href="#main" class="skip-link" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Ir al contenido</a>
 <style>.skip-link:focus { position: fixed; left: 12px; top: 12px; width: auto; height: auto; padding: 10px 14px; background: var(--surface-solid); border: 1px solid var(--cyan); z-index: 999; border-radius: 10px; font-weight: 600; }</style>
 
 <div class="ambient" aria-hidden="true">
@@ -1129,65 +1129,65 @@
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="live-badge"><span class="pulse-dot"></span>Operations playbook · AI infrastructure</div>
-    <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops-es.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">Versión en español →</a></p>
-    <h1><span class="grad">AI Agent Operations</span><br />Runbook</h1>
-    <p class="hero-sub"><strong>AIdeazz is not a demo.</strong> Nine autonomous agents ship customer value today (tutoring, social, jobs, CRM, orchestration); one orchestration slot is reserved for AILA. Below is how reliability, releases, and revenue-facing automation are governed—plain language first, engineering depth where it earns trust.</p>
+    <div class="live-badge"><span class="pulse-dot"></span>Manual de operaciones · Infraestructura de IA</div>
+    <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">English version →</a></p>
+    <h1><span class="grad">Operaciones de agentes IA</span><br />Manual de producción</h1>
+    <p class="hero-sub"><strong>AIdeazz no es una demo.</strong> Nueve agentes autónomos ya entregan valor (tutoría, redes, empleos, CRM, orquestación); un hueco de orquestación está reservado para AILA. Abajo está cómo se gobiernan fiabilidad, releases y automatización cara al ingreso: primero en lenguaje claro y, donde suma credibilidad, profundidad de ingeniería.</p>
     <div class="meta-bar">
       <div class="meta-item">
-        <div class="meta-label">Author</div>
+        <div class="meta-label">Autora</div>
         <div class="meta-val">Elena Revicheva</div>
       </div>
       <div class="meta-item">
-        <div class="meta-label">Product</div>
+        <div class="meta-label">Producto</div>
         <div class="meta-val"><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">aideazz.xyz/portfolio</a></div>
       </div>
       <div class="meta-item">
-        <div class="meta-label">Updated</div>
-        <div class="meta-val">May 2026</div>
+        <div class="meta-label">Actualizado</div>
+        <div class="meta-val">mayo de 2026</div>
       </div>
       <div class="meta-item">
-        <div class="meta-label">Status</div>
+        <div class="meta-label">Estado</div>
         <div class="meta-val">
-          <span class="status-live"><span class="status-ring"></span>Live in production</span>
+          <span class="status-live"><span class="status-ring"></span>Activo en producción</span>
         </div>
       </div>
     </div>
-    <p class="doc-source"><strong>For engineers:</strong> authoritative product details—canonical agent list, GitHub repos, Oracle VM deploy paths, systemd/PM2 names, health checks, local Windows clones, and resilience postmortems—are maintained in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener"><code>ORACLE_ALL_PRODUCTS_RESILIENCE.md</code></a> (engineering appendix). This public page stays founder-readable: no IPs, ports, or secrets.</p>
+    <p class="doc-source"><strong>Para ingeniería:</strong> el detalle autoritativo de cada producto—lista canónica de agentes, repos de GitHub, rutas de despliegue en Oracle, nombres systemd/PM2, comprobaciones de salud, clones locales en Windows y postmortems de resiliencia—vive en <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener"><code>ORACLE_ALL_PRODUCTS_RESILIENCE.md</code></a> (anexo técnico). Esta página pública sigue siendo legible para founders: sin IPs, puertos ni secretos.</p>
   </div>
 </div>
 
   <div class="wrap" id="main">
 
-  <div class="exec-banner" role="region" aria-label="Executive summary">
-    <strong>What a business owner should take away</strong>
+  <div class="exec-banner" role="region" aria-label="Resumen ejecutivo">
+    <strong>Qué debe quedarle claro al negocio</strong>
     <ul>
-      <li><strong>Coverage:</strong> tutoring (WhatsApp + Telegram), growth &amp; education social (X + Instagram), job hunter + shortlists, marketing co-founder (site + CRM pipeline), CTO-grade orchestration, creative co-founder persona, daily voice briefing—wired together intentionally.</li>
-      <li><strong>Risk control:</strong> watchdog scripts, restart policies, and separation of secrets mean failures tend to be <em>local</em> (one bot) not existential (whole fleet).</li>
-      <li><strong>GTM leverage:</strong> meaningful releases can propagate to LinkedIn, blogs, X, and Instagram without manual copy-paste—governed by commit rules so internal churn never spammed customers.</li>
-      <li><strong>Why this document exists:</strong> the ecosystem runs a GEO + SEO layer—<a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">aideazz.xyz</a> with structured content, AI-crawler signals, and bilingual blog publishing. This SOP is part of that layer: a public proof of operational maturity so search engines <em>and</em> AI assistants can surface the right agent for the right need, rather than guessing.</li>
+      <li><strong>Cobertura:</strong> tutoría (WhatsApp + Telegram), crecimiento y educación en redes (X + Instagram), caza de empleos + shortlists, co‑fundadora de marketing (web + CRM), orquestación tipo CTO, persona co‑fundadora creativa, briefing diario por voz—todo cableado de forma deliberada.</li>
+      <li><strong>Riesgo:</strong> watchdogs, políticas de reinicio y aislamiento de secretos hacen que los fallos suelan ser <em>locales</em> (un bot), no sistémicos (toda la flota).</li>
+      <li><strong>Palanca GTM:</strong> lanzamientos con sustancia se propagan a LinkedIn, blogs, X e Instagram sin copiar y pegar—gobernados por reglas de commit para que el ruido interno no llegue como spam al cliente.</li>
+      <li><strong>Para qué sirve este doc:</strong> el ecosistema corre una capa GEO + SEO sobre <a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">aideazz.xyz</a> con contenido estructurado, señales para crawlers de IA y publicación bilíngüe en blog. Este manual es parte de esa capa: evidencia pública de madurez operativa para que buscadores <em>y</em> asistentes sugieran el agente adecuado sin adivinar.</li>
     </ul>
   </div>
 
-  <nav class="toc-bar" aria-label="Page sections">
+  <nav class="toc-bar" aria-label="Secciones de la página">
     <div class="toc-inner">
-      <span class="toc-label">Jump</span>
-      <a href="#agents">Products &amp; agents</a>
-      <a href="#health">Reliability</a>
-      <a href="#pipeline">Go-to-market automation</a>
-      <a href="#deploy">Release discipline</a>
-      <a href="#postmortem">Incident example</a>
+      <span class="toc-label">Ir a</span>
+      <a href="#agents">Productos y agentes</a>
+      <a href="#health">Fiabilidad</a>
+      <a href="#pipeline">Automatización GTM</a>
+      <a href="#deploy">Disciplina de release</a>
+      <a href="#postmortem">Incidente ejemplo</a>
       <a href="#stack">Stack</a>
     </div>
   </nav>
 
   <!-- BENTO STATS (counts animate on scroll into view) -->
   <div class="bento" id="bento-stats">
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="10" data-duration="1400">0</div><div class="b-label">Tracked capabilities · 9 live · 1 roadmap (AILA)</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="3" data-duration="1200">0</div><div class="b-label">Infrastructure layers · Oracle · AWS · static edge</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="5" data-suffix="m" data-duration="1500">0</div><div class="b-label">Automated health cadence</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="8" data-duration="1300">0</div><div class="b-label">Repos powering live products · all on one server</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</div><div class="b-label">Manual steps in milestone → social pipeline</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="10" data-duration="1400">0</div><div class="b-label">Capacidades registradas · 9 en vivo · 1 roadmap (AILA)</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="3" data-duration="1200">0</div><div class="b-label">Capas de infraestructura · Oracle · AWS · edge estático</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="5" data-suffix="m" data-duration="1500">0</div><div class="b-label">Cadencia de salud automatizada</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="8" data-duration="1300">0</div><div class="b-label">Repos con productos vivos · servidor principal único</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</div><div class="b-label">Pasos automatizados en hito → red social · 0 manuales</div></div>
   </div>
 
   <!-- §1 AGENT INVENTORY -->
@@ -1195,31 +1195,31 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M9 2v2M2 15h2M2 9h2M22 15h-2M22 9h-2M15 22v-2M9 22v-2"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 01</div>
-        <h2>Products &amp; agents</h2>
-        <p>Each row is a <strong>shipping capability</strong>—what customers or partners touch—with how it runs underneath (Linux services, process supervisor, or serverless). Naming matches the internal resilience matrix without exposing infrastructure coordinates.</p>
+        <div class="s-eyebrow">Sección 01</div>
+        <h2>Productos y agentes</h2>
+        <p>Cada fila es una <strong>capacidad en producción</strong>—lo que tocan clientes o partners—con la forma en que corre por debajo (servicios Linux, supervisor de procesos o serverless). Los nombres alineados con la matriz interna de resiliencia, sin exponer coordenadas de infraestructura.</p>
       </div>
     </div>
     <div class="divider"></div>
-    <div class="radar" aria-label="Cross-cutting capabilities">
-      <span>GEO + SEO infrastructure · aideazz.xyz · AI-crawler signals · bilingual blog · lead capture → Oracle</span>
-      <span>CRM pipeline (HubSpot) + prospecting from hiring boards &amp; product launches</span>
-      <span>X growth automation (stream listening + engagement + alerts)</span>
-      <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
-      <span>Executive rhythm: Trello digests to Telegram</span>
+    <div class="radar" aria-label="Capacidades transversales">
+      <span>GEO + SEO · aideazz.xyz · señales para crawlers de IA · blog bilíngüe · captación → Oracle</span>
+      <span>CRM (HubSpot) + prospección desde tableros de empleo y lanzamientos de producto</span>
+      <span>Automación de crecimiento en X (stream + engagement + alertas)</span>
+      <span>Audio mañanero por AWS Lambda + puente seguro CTO</span>
+      <span>Ritmo ejecutivo: resúmenes Trello a Telegram</span>
     </div>
     <div class="callout">
-      <div><strong>Operational invariant:</strong> exactly one deployed checkout per GitHub repository—prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
+      <div><strong>Invariante operativa:</strong> exactamente un checkout desplegado por repositorio de GitHub—evita drift de versión, secretos duplicados e incidentes de “¿qué carpeta es prod?”. Pares como CTO + co‑fundadora creativa comparten codebase a propósito pero ejecutan interfaces/personalidades distintas.</div>
     </div>
     <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
             <th style="width:40px">#</th>
-            <th>Agent</th>
-            <th>Role (business + ops)</th>
+            <th>Agente</th>
+            <th>Rol (negocio + ops)</th>
             <th>Runtime</th>
-            <th>Status</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody>
@@ -1232,9 +1232,9 @@
                 <a href="http://wa.me/50766623757" target="_blank" rel="noopener">wa.me</a>
               </div>
             </td>
-            <td><strong>Channel:</strong> Spanish tutoring on WhatsApp—conversation, drills, corrections.<br /><span style="color:var(--t3);font-size:12.5px;">Runs as a managed Linux service (<code>espaluz-whatsapp</code>) with automated health checks.</span></td>
+            <td><strong>Canal:</strong> tutoría de español en WhatsApp—conversación, ejercicios, correcciones.<br /><span style="color:var(--t3);font-size:12.5px;">Servicio Linux gestionado (<code>espaluz-whatsapp</code>) con comprobaciones de salud automatizadas.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">02</td>
@@ -1245,9 +1245,9 @@
                 <a href="https://t.me/EspaLuzFamily_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>Channel:</strong> Same tutoring product on Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Two-layer memory: retrieval + pgvector RAG (<code>espaluz_rag.py</code>). Service <code>espaluz-familybot</code>.</span></td>
+            <td><strong>Canal:</strong> mismo producto de tutoría en Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Memoria en dos capas: recuperación + RAG pgvector (<code>espaluz_rag.py</code>). Servicio <code>espaluz-familybot</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">03</td>
@@ -1258,9 +1258,9 @@
                 <a href="https://t.me/Influencer_EspaLuz_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>Brand:</strong> Instagram publishing on a disciplined schedule; can spotlight real shipping milestones in consumer-friendly copy.<br /><span style="color:var(--t3);font-size:12.5px;">Groq captions + Make.com media handoff. Unit <code>espaluz-influencer</code>.</span></td>
+            <td><strong>Marca:</strong> publicación Instagram con calendario disciplinado; puede destacar hitos reales en copy cercano al consumidor.<br /><span style="color:var(--t3);font-size:12.5px;">Subtítulos Groq + entrega multimedia Make.com. Unidad <code>espaluz-influencer</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">04</td>
@@ -1271,9 +1271,9 @@
                 <a href="https://x.com/reviceva" target="_blank" rel="noopener">X</a>
               </div>
             </td>
-            <td><strong>Growth:</strong> Always-on X presence (education + narrative); folds major releases into the timeline without sounding like raw developer logs.<br /><span style="color:var(--t3);font-size:12.5px;">Stream sampling, engagement runner, and account-activity hooks coordinated with the CTO bot for alerts / follow-back. PM2 workers include <code>dragontrade-main</code> and satellite processes.</span></td>
+            <td><strong>Crecimiento:</strong> presencia continua en X (educación + narrativa); incorpora lanzamientos mayores sin sonar como log crudo.<br /><span style="color:var(--t3);font-size:12.5px;">Muestreo de streams, runner de engagement y hooks de cuenta coordinados con el bot CTO para alertas / seguimiento. Workers PM2: <code>dragontrade-main</code> y satélites.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">05</td>
@@ -1284,9 +1284,9 @@
                 <a href="https://t.me/vibejob_hunter_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>Product:</strong> Autonomous job hunt pipeline—evaluation harness, routing, ATS integrations.<br /><span style="color:var(--t3);font-size:12.5px;">Shares codebase with the marketing co-founder agent. Worker <code>vibejobhunter</code>.</span></td>
+            <td><strong>Producto:</strong> tubería autónoma de búsqueda de empleo—harness de evaluación, enrutado, integraciones ATS.<br /><span style="color:var(--t3);font-size:12.5px;">Comparte codebase con la agente de marketing co‑fundadora. Worker <code>vibejobhunter</code>.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">06</td>
@@ -1298,9 +1298,9 @@
                 <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
               </div>
             </td>
-            <td><strong>Revenue narrative:</strong> LinkedIn cadence, long-form syndication, CRM hygiene—turns engineering momentum into market-facing proof.<br /><span style="color:var(--t3);font-size:12.5px;">Claude + connectors for social; Hunter.io enrichment → HubSpot. Paired FastAPI bridge <code>vibejobhunter-web</code> exposes an internal health route.</span></td>
+            <td><strong>Narrativa de revenue:</strong> cadencia LinkedIn, sindicación larga, higiene CRM—convierte el ritmo de ingeniería en prueba de mercado.<br /><span style="color:var(--t3);font-size:12.5px;">Claude + conectores sociales; Hunter.io → HubSpot. Puente FastAPI <code>vibejobhunter-web</code> expone salud interna.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">07</td>
@@ -1311,9 +1311,9 @@
                 <a href="https://t.me/OpenClaw_VibeJobsList_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>UX:</strong> Curated job shortlists delivered inside Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Standalone gateway service <code>openclaw-gateway</code>; probed via private health URL on the app host.</span></td>
+            <td><strong>UX:</strong> shortlists de empleo curadas dentro de Telegram.<br /><span style="color:var(--t3);font-size:12.5px;">Servicio puerta de enlace <code>openclaw-gateway</code>; sondado por URL privada en el host de la app.</span></td>
             <td><span class="badge b-sysd">systemd</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">08</td>
@@ -1324,9 +1324,9 @@
                 <a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>Control tower:</strong> Watches repositories, scores riskier changes, broadcasts milestones to marketing, runs outreach/board workflows.<br /><span style="color:var(--t3);font-size:12.5px;">Express orchestrator under PM2 (<code>cto-aipa</code>), Oracle Autonomous DB via wallet-based TLS—credentials never live in this HTML.</span></td>
+            <td><strong>Torre de control:</strong> observa repos, puntúa cambios más riesgosos, difunde hitos al marketing y corre flujos de outreach/board.<br /><span style="color:var(--t3);font-size:12.5px;">Orquestador Express bajo PM2 (<code>cto-aipa</code>), Oracle Autonomous DB por TLS—credenciales nunca incluidas en este HTML.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">08.1</td>
@@ -1336,9 +1336,9 @@
                 <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
               </div>
             </td>
-            <td><strong>Founder ritual:</strong> Daily audio briefing synthesized from tasks, notes, and captures.<br /><span style="color:var(--t3);font-size:12.5px;">AWS Lambda on a schedule; pulls context through the CTO service over HTTPS with shared-secret auth—no database wallet inside Lambda.</span></td>
+            <td><strong>Ritual fundadora:</strong> briefing audio diario sintetizado de tareas, notas y capturas.<br /><span style="color:var(--t3);font-size:12.5px;">AWS Lambda programada; contexto desde el servicio CTO por HTTPS con secreto compartido—sin wallet de DB dentro de Lambda.</span></td>
             <td><span class="badge b-lambda">Lambda</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">09</td>
@@ -1349,9 +1349,9 @@
                 <a href="https://t.me/Atuona_AI_CCF_AIdeazz_bot" target="_blank" rel="noopener">Telegram</a>
               </div>
             </td>
-            <td><strong>Creative partner:</strong> Separate bot persona + public studio site—same reliability envelope as the CTO stack.<br /><span style="color:var(--t3);font-size:12.5px;">Single PM2 orchestrator binary; site ships via static edge hosting.</span></td>
+            <td><strong>Partner creativa:</strong> persona de bot aparte + sitio estudio público—mismo sobre de fiabilidad que el stack CTO.<br /><span style="color:var(--t3);font-size:12.5px;">Binario único PM2; sitio en edge hosting estático.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
-            <td><span class="badge b-live">● Live</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
           </tr>
           <tr>
             <td class="tid">10</td>
@@ -1361,9 +1361,9 @@
                 <a href="https://github.com/ElenaRevicheva/AILA" target="_blank" rel="noopener">repo</a>
               </div>
             </td>
-            <td><strong>Roadmap:</strong> Long-horizon personal orchestration—documented architecture, not yet a standalone production process.<br /><span style="color:var(--t3);font-size:12.5px;">Interim coordination fields live in Oracle until AILA ships.</span></td>
+            <td><strong>Roadmap:</strong> orquestación personal de largo plazo—arquitectura documentada; aún no proceso productivo autónomo.<br /><span style="color:var(--t3);font-size:12.5px;">Campos de coordinación provisional en Oracle hasta que AILA salga.</span></td>
             <td>—</td>
-            <td><span class="badge b-design">In design</span></td>
+            <td><span class="badge b-design">En diseño</span></td>
           </tr>
         </tbody>
       </table>
@@ -1375,55 +1375,55 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 02</div>
-        <h2>Reliability &amp; uptime practice</h2>
-        <p><strong>For founders:</strong> scheduled probes ask each product whether it still responds. <strong>For engineers:</strong> one bash driver on the primary Oracle VM runs roughly every five minutes; keep-alive traffic avoids idle reclamation; systemd caps restart storms.</p>
+        <div class="s-eyebrow">Sección 02</div>
+        <h2>Fiabilidad y disponibilidad</h2>
+        <p><strong>Para fundadores:</strong> sondas programadas preguntan a cada producto si sigue respondiendo. <strong>Para ingeniería:</strong> un driver bash en la VM Oracle primaria cada ~cinco minutos; tráfico keep‑alive evita reclamaciones por idle; systemd limita tormentas de reinicio.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="callout">
-      <div><strong>No noisy herd restarts:</strong> failed probes recycle only the affected unit. Concrete URLs and scripts remain in the private appendix—not pasted here.</div>
+      <div><strong>Sin reinicios en manada:</strong> si falla una sonda sólo recicla esa unidad. URLs concretos y scripts viven en el anexo privado—no están aquí.</div>
     </div>
     <div class="health-list">
       <div class="health-head">
-        <div>Agent</div>
-        <div>Health check method</div>
-        <div>Recovery action</div>
+        <div>Agente</div>
+        <div>Método de salud</div>
+        <div>Recuperación</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>CTO AIPA + Atuona</div>
-        <div class="h-check">Orchestrator HTTP OK via localhost probe</div>
+        <div class="h-check">HTTP del orquestador OK vía localhost</div>
         <div class="h-action">pm2 restart cto-aipa</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>EspaLuz WhatsApp</div>
-        <div class="h-check">Tutoring webhook answers OK from localhost</div>
+        <div class="h-check">Webhook tutoría OK desde localhost</div>
         <div class="h-action">systemctl restart espaluz-whatsapp</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>VibeJob Hunter + CMO</div>
-        <div class="h-check">Marketing bridge health endpoint OK internally</div>
+        <div class="h-check">Puente marketing /health OK internamente</div>
         <div class="h-action">systemctl restart vibejobhunter-web vibejobhunter</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>OpenClaw Shortlist</div>
-        <div class="h-check">HTTP GET gateway loopback → 200</div>
+        <div class="h-check">HTTP GET puerta loopback → 200</div>
         <div class="h-action">systemctl restart openclaw-gateway</div>
       </div>
       <div class="health-row">
         <div class="h-name"><span class="ldot"></span>Sprint Briefing</div>
-        <div class="h-check">CloudWatch + EventBridge schedule</div>
-        <div class="h-action">Lambda retries / DLQ policy</div>
+        <div class="h-check">CloudWatch + cronograma EventBridge</div>
+        <div class="h-action">reintentos Lambda / política DLQ</div>
       </div>
       <div class="health-row">
-        <div class="h-name"><span class="ldot"></span>PM2 stacks (e.g. Algom)</div>
-        <div class="h-check">cron HTTP + <code>pm2 jlist</code> status online</div>
+        <div class="h-name"><span class="ldot"></span>Stacks PM2 (p.&nbsp;j. Algom)</div>
+        <div class="h-check">HTTP cron + estado <code>pm2 jlist</code> online</div>
         <div class="h-action">pm2 restart &lt;app&gt;</div>
       </div>
       <div class="health-row">
-        <div class="h-name"><span class="ldot"></span>All systemd agents</div>
-        <div class="h-check">Process liveness via systemctl</div>
-        <div class="h-action">systemd restart policy</div>
+        <div class="h-name"><span class="ldot"></span>Todos los agentes systemd</div>
+        <div class="h-check">vivacidad por systemctl</div>
+        <div class="h-action">policy de reinicio systemd</div>
       </div>
     </div>
   </div>
@@ -1433,23 +1433,23 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 03</div>
-        <h2>Go-to-market automation</h2>
-        <p>When engineering ships something <em>worth talking about</em>, the stack fans it out across LinkedIn, blogs, X, and Instagram—without a human retyping the same story five times.</p>
+        <div class="s-eyebrow">Sección 03</div>
+        <h2>Automatización de go-to-market (GTM)</h2>
+        <p>Cuando ingeniería despacha algo <em>digno de contar</em>, el stack lo expande por LinkedIn, blogs, X e Instagram—sin reescribir cinco veces la misma historia.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="callout">
-      <div><strong>Quality gate:</strong> only commits tagged <code>feat:</code>, <code>launch:</code>, or <code>release:</code> notify the marketing agent. Housekeeping commits (<code>fix:</code>, <code>docs:</code>, <code>chore:</code>, …) stay invisible to customers.</div>
+      <div><strong>Puerta de calidad:</strong> sólo los commits marcados <code>feat:</code>, <code>launch:</code> o <code>release:</code> disparan marketing. Mantenimiento (<code>fix:</code>, <code>docs:</code>, <code>chore:</code>, …) queda invisible al cliente.</div>
     </div>
     <div class="pipeline">
       <div class="p-item">
         <div class="p-track"><div class="p-num">1</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">GitHub Webhook</div>
-            <h3>Commit detected → CTO AIPA</h3>
-            <p>Push events hit the secured webhook. Groq/Claude review diffs, classify milestones, enqueue pending updates for downstream marketers.</p>
+            <div class="p-channel">Webhook GitHub</div>
+            <h3>Commit detectado → CTO AIPA</h3>
+            <p>Llegan pushes al webhook protegido. Groq/Claude revisan diffs, clasifican hitos y encolan actualizaciones para marketing descendente.</p>
           </div>
         </div>
       </div>
@@ -1457,9 +1457,9 @@
         <div class="p-track"><div class="p-num">2</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">LinkedIn · 20:00 Panama</div>
-            <h3>CMO generates + posts</h3>
-            <p>Claude Sonnet copy → Make.com delivery. Zero manual paste.</p>
+            <div class="p-channel">LinkedIn · 20:00 Panamá</div>
+            <h3>CMO redacta y publica</h3>
+            <p>Copy Claude Sonnet → entrega Make.com. Cero pegado manual.</p>
           </div>
         </div>
       </div>
@@ -1467,9 +1467,9 @@
         <div class="p-track"><div class="p-num">3</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Hashnode + dev.to · Async</div>
-            <h3>Blog crosspost</h3>
-            <p><code>blog_publisher.py</code> fires after LinkedIn: Hashnode essay + dev.to canonical backlink to aideazz.xyz.</p>
+            <div class="p-channel">Hashnode + dev.to · Asíncrono</div>
+            <h3>Crosspost blog</h3>
+            <p><code>blog_publisher.py</code> después de LinkedIn: ensayo Hashnode + enlace canónico dev.to → aideazz.xyz.</p>
           </div>
         </div>
       </div>
@@ -1477,9 +1477,9 @@
         <div class="p-track"><div class="p-num">4</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">X · Every 5th post slot</div>
-            <h3>Algom Alpha tweet</h3>
-            <p><code>x-tech-updater.js</code> merges milestones in plain language (Haiku / Groq), guarded against duplicate queue states.</p>
+            <div class="p-channel">X · cada 5.º hueco publicación</div>
+            <h3>Tweet Algom Alpha</h3>
+            <p><code>x-tech-updater.js</code> fusiona hitos en lenguaje llano (Haiku / Groq), con salvaguarda contra colas duplicadas.</p>
           </div>
         </div>
       </div>
@@ -1487,9 +1487,9 @@
         <div class="p-track"><div class="p-num">5</div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Instagram · Even days 18:00 Panama</div>
+            <div class="p-channel">Instagram · días pares 18:00 Panamá</div>
             <h3>EspaLuz Influencer</h3>
-            <p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending.</p>
+            <p>Caption consciencia de hitos + canal Make.com; fallback a fila estándar si no hay pendientes.</p>
           </div>
         </div>
       </div>
@@ -1501,42 +1501,42 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 04</div>
-        <h2>Release discipline</h2>
-        <p>Board-friendly translation: we ship like a product company—predictable processes, isolated secrets, verifiable rollouts—even though agents move faster than most teams.</p>
+        <div class="s-eyebrow">Sección 04</div>
+        <h2>Disciplina de release</h2>
+        <p>Versión “junta amigable”: despachamos como empresa de producto—procesos predecibles, secretos aislados, rollouts verificables—aun cuando los agentes van más rápido que la mayoría de equipos.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="rule-grid">
       <div class="rule-card">
-        <div class="rule-num">Rule · 01</div>
-        <h3>One live checkout per codebase</h3>
-        <p>Eliminates “which folder is prod?” debates; paired bots share code intentionally but never duplicate repos.</p>
+        <div class="rule-num">Regla · 01</div>
+        <h3>Un checkout vivo por codebase</h3>
+        <p>Evita el debate “¿qué carpeta es prod?”; los bots pareados comparten código a propósito pero jamás duplican repos.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule · 02</div>
-        <h3>Green build, then swap</h3>
-        <p>Pull latest → compile/tests succeed → only then restart supervised processes. Broken artifacts never replace what customers already rely on.</p>
+        <div class="rule-num">Regla · 02</div>
+        <h3>Build verde, luego swap</h3>
+        <p>Pull último → compilación/tests OK → sólo entonces reiniciar procesos supervisados. Artefactos rotos no sustituyen lo que los clientes ya usan.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule · 03</div>
-        <h3>Secrets isolation</h3>
-        <p>Each bot owns its environment file; crypto wallets never touch GitHub; TypeScript strict mode catches sloppy typings before prod.</p>
+        <div class="rule-num">Regla · 03</div>
+        <h3>Aislamiento de secretos</h3>
+        <p>Cada bot tiene su .env; wallets cripto nunca van a GitHub; TypeScript strict atrapa tipos flojos antes de prod.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule · 04</div>
-        <h3>Crash-proof process registry</h3>
-        <p>Every agent process is registered to auto-start on server boot and auto-restart on failure—no manual babysitting after a power cycle or kernel update.</p>
+        <div class="rule-num">Regla · 04</div>
+        <h3>Registro de proceso anti‑caída</h3>
+        <p>Cada proceso está registrado para arranque al boot y auto‑reinicio ante fallos—sin niñera manual tras power cycle o upgrade de kernel.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule · 05</div>
-        <h3>No silent failures</h3>
-        <p>Crash handlers log before exit so supervisors show why something died; watchdog cadence targets ~5 minute detection.</p>
+        <div class="rule-num">Regla · 05</div>
+        <h3>Sin fallos silenciosos</h3>
+        <p>Handlers de crash loguean antes de salir; supervisores muestran por qué murió algo; watchdog busca ventana ~5&nbsp;min.</p>
       </div>
       <div class="rule-card">
-        <div class="rule-num">Rule · 06</div>
-        <h3>Verify after deploy</h3>
-        <p>Health signal green, database connectivity logs clean, one real Telegram interaction—all pass before the incident is closed.</p>
+        <div class="rule-num">Regla · 06</div>
+        <h3>Verificar tras desplegar</h3>
+        <p>Salud verde, logs DB limpios, una interacción real Telegram—todo pasa antes de cerrar incidente.</p>
       </div>
     </div>
   </div>
@@ -1546,9 +1546,9 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 05</div>
-        <h2>Incident response template</h2>
-        <p><strong>For stakeholders:</strong> regressions are handled like financial reconciliations—symptoms, compounded causes, fix, proof—so the same automation trap rarely strikes twice.</p>
+        <div class="s-eyebrow">Sección 05</div>
+        <h2>Plantilla de respuesta a incidentes</h2>
+        <p><strong>Para stakeholders:</strong> tratamos las regresiones como conciliación financiera—síntoma, causas compuestas, fix, prueba—para que la misma trampa de automatización casi no repita.</p>
       </div>
     </div>
     <div class="divider"></div>
@@ -1556,35 +1556,35 @@
       <div class="pm-head">
         <div class="pm-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
         <div>
-          <h3>HubSpot duplicate posting loop</h3>
-          <p>May 10, 2026 — same milestone tweet emitted twice ~6 minutes apart</p>
+          <h3>Bucle de publicaciones duplicadas HubSpot</h3>
+          <p>10 may 2026 — mismo tweet de hito emitido dos veces ~6&nbsp;min aparte</p>
         </div>
       </div>
       <div class="pm-row">
-        <div class="pm-lbl">Symptom</div>
-        <div class="pm-val">Pending HubSpot milestones resurfaced every <code>x-tech-updater.js</code> cycle.</div>
+        <div class="pm-lbl">Síntoma</div>
+        <div class="pm-val">Los hitos HubSpot pendientes reaparecían cada ciclo de <code>x-tech-updater.js</code>.</div>
       </div>
       <div class="pm-row">
-        <div class="pm-lbl">Root causes</div>
+        <div class="pm-lbl">Causas raíz</div>
         <div class="pm-val">
-          Triple mismatch: legacy <code>posted</code> vs filter on <code>posted_x</code>; mark endpoint keyed on <code>timestamp</code> while older rows used <code>received_at</code>; backlog needed <code>posted_x</code> backfill.
+          Triple desajuste: legacy <code>posted</code> vs filtro en <code>posted_x</code>; endpoint marcar con clave <code>timestamp</code> mientras filas antiguas usaban <code>received_at</code>; backlog necesitó backfill de <code>posted_x</code>.
         </div>
       </div>
       <div class="pm-row">
-        <div class="pm-lbl">Fix applied</div>
-        <div class="pm-val">GET excludes either flag; mark endpoint tries timestamp → received_at → title; JS client sends title for fallback matching.</div>
+        <div class="pm-lbl">Fix aplicado</div>
+        <div class="pm-val">GET excluye cualquiera de las banderas; mark intenta timestamp → received_at → título; el cliente JS envía título para matching de respaldo.</div>
       </div>
       <div class="pm-row">
-        <div class="pm-lbl">Verified by</div>
-        <div class="pm-val">API snapshot <code>{"ok": true, "pending": [], "total": 0, "held": true}</code> + two full automation cycles without duplication.</div>
+        <div class="pm-lbl">Verificado por</div>
+        <div class="pm-val">Snapshot API <code>{"ok": true, "pending": [], "total": 0, "held": true}</code> + dos ciclos completos sin duplicados.</div>
       </div>
       <div class="pm-row">
-        <div class="pm-lbl">Resolution</div>
-        <div class="pm-val">≈2 hours from detection → patched APIs → verified on live automation cycles. Full narrative retained in the engineering appendix linked below.</div>
+        <div class="pm-lbl">Resolución</div>
+        <div class="pm-val">≈2&nbsp;h desde detección → APIs parcheadas → verificado en ciclos vivos. Relato íntegro conservado en el anexo técnico enlazado abajo.</div>
       </div>
     </div>
     <div class="callout amber" style="margin-top:14px;">
-      <div><strong>SOP update rule:</strong> materially production-facing incidents earn the same structured write-up internally—so institutional memory compounds instead of resetting.</div>
+      <div><strong>Regla de actualización del SOP:</strong> cualquier incidente con impacto real en prod merece el mismo formato internamente—así la memoria institucional se acumula en lugar de borrarse.</div>
     </div>
   </div>
 
@@ -1593,52 +1593,52 @@
     <div class="section-head">
       <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
       <div>
-        <div class="s-eyebrow">Section 06</div>
-        <h2>Stack reference</h2>
-        <p>Boring reliability primitives where uptime matters; sharp AI + CRM + social APIs where differentiation matters.</p>
+        <div class="s-eyebrow">Sección 06</div>
+        <h2>Referencia de stack</h2>
+        <p>Primitivas aburridas de uptime donde cuenta la disponibilidad; APIs afiladas de IA + CRM + redes donde cuenta la diferenciación.</p>
       </div>
     </div>
     <div class="divider"></div>
     <div class="stack-grid">
       <div class="stack-row">
-        <div class="stack-cat">Process Mgmt</div>
+        <div class="stack-cat">Gestión de procesos</div>
         <div class="stack-tools">PM2 · systemd · AWS Lambda + EventBridge</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Databases</div>
-        <div class="stack-tools">Oracle Autonomous DB (enterprise-grade encrypted connection, multi-table estate) · PostgreSQL + pgvector (semantic memory for tutoring agents)</div>
+        <div class="stack-cat">Bases de datos</div>
+        <div class="stack-tools">Oracle Autonomous DB (conexión cifrada de grado empresarial, múltiples tablas) · PostgreSQL + pgvector (memoria semántica tutorías)</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">CRM & Outreach</div>
-        <div class="stack-tools">HubSpot CRM v3 + v4 associations · Hunter.io · Resend</div>
+        <div class="stack-cat">CRM &amp; alcance</div>
+        <div class="stack-tools">HubSpot CRM v3 + asociaciones v4 · Hunter.io · Resend</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Social</div>
-        <div class="stack-tools">X API v2 (Account Activity, filtered stream, engagement worker) · Make.com · Telegram Bot API</div>
+        <div class="stack-cat">Redes sociales</div>
+        <div class="stack-tools">X API v2 (Account Activity, stream filtrado, worker de engagement) · Make.com · Telegram Bot API</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">AI / LLMs</div>
+        <div class="stack-cat">IA / LLM</div>
         <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · OpenAI TTS / Whisper · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Lead Gen</div>
-        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL — ~150–250 net-new companies/month after filtering</div>
+        <div class="stack-cat">Generación de leads</div>
+        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL — ~150–250 empresas nuevas netas/mes tras filtros</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Hosting / CDN</div>
-        <div class="stack-tools">OCI Ubuntu VM (VM.Standard.E5.Flex, 12 GB) · AWS Lambda · 4everland IPFS frontends · Cloudflare DNS</div>
+        <div class="stack-tools">VM OCI Ubuntu (VM.Standard.E5.Flex, 12&nbsp;GB) · AWS Lambda · frontends IPFS 4everland · DNS Cloudflare</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Monitoring</div>
-        <div class="stack-tools">Cron health driver · PM2 logs · CloudWatch · curl probes · OCI keep-alive</div>
+        <div class="stack-cat">Monitoreo</div>
+        <div class="stack-tools">Driver salud cron · logs PM2 · CloudWatch · probes curl · keep‑alive OCI</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Content & SEO</div>
-        <div class="stack-tools">Hashnode GraphQL · dev.to · GA4 · Google Search Console · GEO pack (llms.txt, crawler tokens)</div>
+        <div class="stack-cat">Contenido y SEO</div>
+        <div class="stack-tools">Hashnode GraphQL · dev.to · GA4 · Search Console · pack GEO (llms.txt, tokens crawler)</div>
       </div>
       <div class="stack-row">
-        <div class="stack-cat">Project Mgmt</div>
-        <div class="stack-tools">Trello API (daily + weekly Telegram briefings) · GitHub webhooks across the fleet</div>
+        <div class="stack-cat">Gestión de proyecto</div>
+        <div class="stack-tools">API Trello (briefings Telegram diarios + semanales) · webhooks GitHub en la flota</div>
       </div>
     </div>
   </div>
@@ -1651,10 +1651,10 @@
     <div class="footer-links">
       <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
       <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">Engineering appendix</a>
+      <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">Anexo de ingeniería</a>
     </div>
-    <p>Elena Revicheva · AI Engineer & Founder · Built &amp; maintained in production since 2026</p>
-    <p style="margin-top:10px;font-size:12px;color:var(--t3);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55;">Public page by design: no IP addresses, ports, webhook paths, bearer tokens, SSH instructions, or wallet material. The GitHub appendix is for engineers and may include deeper infrastructure detail—treat distribution accordingly.</p>
+    <p>Elena Revicheva · ingeniera IA y fundadora · Construido y mantenido en producción desde 2026</p>
+    <p style="margin-top:10px;font-size:12px;color:var(--t3);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55;">Página pública por diseño: sin IPs, puertos, rutas de webhook, bearer tokens, SSH ni material de wallets. El anexo GitHub está pensado para ingeniería—compártalo con criterio.</p>
   </div>
 </div>
 
