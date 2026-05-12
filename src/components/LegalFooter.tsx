@@ -55,6 +55,21 @@ const LegalFooter = () => {
           </div>
         </div>
 
+        {/* Policies — single URL for payment partners & users */}
+        <div className="mt-8 pt-6 border-t border-white/10">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3">
+            <a
+              href="/policies.html"
+              className="inline-flex items-center justify-center rounded-lg border border-amber-400/40 bg-amber-400/10 px-4 py-2.5 text-sm font-medium text-amber-200 hover:bg-amber-400/15 transition-colors"
+            >
+              {t("footer.policiesCta")}
+            </a>
+            <span className="text-gray-500 text-xs sm:text-sm text-center sm:text-left max-w-xl">
+              {t("footer.policiesBlurb")}
+            </span>
+          </div>
+        </div>
+
         {/* Bottom Section with existing content */}
         <div className="mt-8 pt-6 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
