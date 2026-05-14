@@ -195,16 +195,6 @@ export default function BlogIndex() {
                       >
                         {t("blog.readArticle")}
                       </Link>
-                      {p.hashnodeUrl ? (
-                        <a
-                          href={p.hashnodeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 underline-offset-4 hover:underline"
-                        >
-                          {t("blog.alsoOnHashnode")}
-                        </a>
-                      ) : null}
                       {p.devtoUrl ? (
                         <a
                           href={p.devtoUrl}

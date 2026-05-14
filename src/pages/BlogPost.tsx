@@ -387,7 +387,7 @@ export default function BlogPost() {
                     {" — "}
                     {t("blog.post.footerSynced")}
                   </>
-                ) : hasLocalBody ? (
+                ) : (
                   <>
                     {t("blog.post.footerAlso")}{" "}
                     <a
@@ -398,19 +398,6 @@ export default function BlogPost() {
                     >
                       {t("blog.post.footerViewThere")} <ExternalLink className="w-3 h-3 inline" />
                     </a>
-                  </>
-                ) : (
-                  <>
-                    {t("blog.post.footerSource")}{" "}
-                    <a
-                      href={sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-purple-400 hover:text-purple-300 inline-flex items-center gap-1"
-                    >
-                      {t("blog.post.footerHashnode")} <ExternalLink className="w-3 h-3 inline" />
-                    </a>
-                    {t("blog.post.footerSynced")}
                   </>
                 )}
               </p>

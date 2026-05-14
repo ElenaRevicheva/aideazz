@@ -3,7 +3,6 @@ title: "From Boardroom to Build: What Running Nine Production AI Agents Actually
 description: "Executive-turned-AI-builder on production agents, multi-model routing, and GEO — infrastructure, not demos."
 date: "2026-04-09"
 slug: "from-boardroom-to-build-what-running-nine-production-ai-agents-actually-means"
-hashnodeUrl: "https://aideazz.hashnode.dev/from-boardroom-to-build-what-running-nine-production-ai-agents-actually-means"
 ---
 
 # From Boardroom to Build: What Running Nine Production AI Agents Actually Means
