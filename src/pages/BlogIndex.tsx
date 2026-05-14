@@ -4,7 +4,7 @@ import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { getAllPosts } from "@/lib/blog";
 import { getArticleLocaleOverride } from "@/lib/blog-article-locale";
-import { fetchHashnodePostList, mergeHashnodeWithLocal } from "@/lib/hashnode-public";
+import { mergeHashnodeWithLocal } from "@/lib/hashnode-public";
 import { mergeDevtoOnlyInto, type MergedPostRow } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -38,13 +38,38 @@ export default function BlogIndex() {
       setLoading(true);
       setFetchError(null);
       try {
-        const remote = await fetchHashnodePostList(40);
+        // Primary: Oracle cache (written at publish time, always up to date)
+        const oracleRes = await fetch(`${BLOG_ES_API_ORIGIN}/blog/posts`).catch(() => null);
+        const oracleJson = oracleRes?.ok
+          ? (await oracleRes.json() as { posts: { title: string; slug: string; url: string; publishedAt: string }[] })
+          : null;
         if (cancelled) return;
+
+        // Build MergedPostRow list from Oracle posts
+        const oraclePosts: MergedPostRow[] = (oracleJson?.posts ?? []).map(p => ({
+          slug: p.slug,
+          title: p.title,
+          description: "",
+          date: (p.publishedAt || "").slice(0, 10),
+          hashnodeUrl: "",
+          hasLocalBody: false,
+          devtoUrl: undefined,
+        }));
+
+        // Merge local markdown + dev.to-only posts (catches older posts not in Oracle cache)
         const local = getAllPosts();
-        const base = mergeHashnodeWithLocal(remote, local);
+        const base = mergeHashnodeWithLocal([], local);
         const withDev = await mergeDevtoOnlyInto(base);
         if (cancelled) return;
-        setMerged(withDev);
+
+        // Merge Oracle posts on top (deduplicate by slug, Oracle takes priority for newest)
+        const oracleSlugs = new Set(oraclePosts.map(p => p.slug));
+        const merged = [
+          ...oraclePosts,
+          ...withDev.filter(p => !oracleSlugs.has(p.slug)),
+        ].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+        setMerged(merged);
       } catch (e) {
         if (!cancelled) {
           setFetchError(e instanceof Error ? e.message : "Could not load latest articles");

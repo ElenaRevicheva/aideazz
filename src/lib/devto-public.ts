@@ -58,12 +58,17 @@ export async function fetchDevtoUserArticles(
   perPage = 100
 ): Promise<DevtoListItem[]> {
   try {
-    const res = await fetch(
-      `https://dev.to/api/articles?username=${encodeURIComponent(DEVTO_USERNAME)}&per_page=${perPage}`
-    );
-    if (!res.ok) return [];
-    const j = (await res.json()) as DevtoListItem[];
-    return Array.isArray(j) ? j : [];
+    // Dev.to's large-page responses can be cached and miss the newest articles.
+    // Always fetch a small first page to capture recent posts, then merge.
+    const base = `https://dev.to/api/articles?username=${encodeURIComponent(DEVTO_USERNAME)}`;
+    const [recent, bulk] = await Promise.all([
+      fetch(`${base}&per_page=9`).then(r => r.ok ? r.json() as Promise<DevtoListItem[]> : []),
+      perPage > 9 ? fetch(`${base}&per_page=${perPage}`).then(r => r.ok ? r.json() as Promise<DevtoListItem[]> : []) : Promise.resolve([]),
+    ]);
+    const recentList = Array.isArray(recent) ? recent : [];
+    const bulkList = Array.isArray(bulk) ? bulk : [];
+    const seen = new Set(recentList.map(a => a.id));
+    return [...recentList, ...bulkList.filter(a => !seen.has(a.id))];
   } catch {
     return [];
   }

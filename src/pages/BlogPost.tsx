@@ -6,7 +6,6 @@ import { ArrowLeft, ExternalLink, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { getPostBySlug } from "@/lib/blog";
 import { getArticleLocaleOverride } from "@/lib/blog-article-locale";
-import { fetchHashnodePostBySlug } from "@/lib/hashnode-public";
 import { fetchDevtoPostByBlogSlug } from "@/lib/devto-public";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -50,18 +49,6 @@ export default function BlogPost() {
       setRemoteError(null);
       setFromDevto(false);
       try {
-        const r = await fetchHashnodePostBySlug(slug);
-        if (cancelled) return;
-        if (r) {
-          setRemoteMd(r.contentMarkdown);
-          setRemoteMeta({
-            title: r.title,
-            brief: r.brief,
-            url: r.url,
-            publishedAt: r.publishedAt,
-          });
-          return;
-        }
         const d = await fetchDevtoPostByBlogSlug(slug);
         if (cancelled) return;
         if (d) {
@@ -80,21 +67,8 @@ export default function BlogPost() {
       } catch (e) {
         if (!cancelled) {
           setRemoteError(e instanceof Error ? e.message : "Load failed");
-          const d = await fetchDevtoPostByBlogSlug(slug!);
-          if (!cancelled && d) {
-            setRemoteError(null);
-            setRemoteMd(d.contentMarkdown);
-            setRemoteMeta({
-              title: d.title,
-              brief: d.brief,
-              url: d.url,
-              publishedAt: d.publishedAt,
-            });
-            setFromDevto(true);
-          } else {
-            setRemoteMd(null);
-            setRemoteMeta(null);
-          }
+          setRemoteMd(null);
+          setRemoteMeta(null);
         }
       } finally {
         if (!cancelled) setRemoteLoading(false);
