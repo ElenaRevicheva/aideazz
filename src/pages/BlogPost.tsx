@@ -17,6 +17,22 @@ type BlogEsBundleJson = {
   markdown: string;
 };
 
+/** Parse **Q: ...** / A: ... pairs from the FAQ section of article markdown. */
+function parseFaqFromMarkdown(markdown: string): { q: string; a: string }[] {
+  const faqStart = markdown.search(/^## Frequently Asked Questions/m);
+  if (faqStart === -1) return [];
+  const faqSection = markdown.slice(faqStart);
+  const pairs: { q: string; a: string }[] = [];
+  const qRegex = /\*\*Q:\s*(.+?)\*\*\s*\nA:\s*(.+?)(?=\n\*\*Q:|\n##|$)/gs;
+  let match: RegExpExecArray | null;
+  while ((match = qRegex.exec(faqSection)) !== null) {
+    const q = match[1]?.trim();
+    const a = match[2]?.replace(/\n/g, " ").trim();
+    if (q && a) pairs.push({ q, a });
+  }
+  return pairs;
+}
+
 export default function BlogPost() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? i18n.language;
@@ -218,10 +234,33 @@ export default function BlogPost() {
     s.setAttribute("data-blog-article-ld", "true");
     s.textContent = JSON.stringify(ld);
     document.head.appendChild(s);
+
+    // Inject FAQPage JSON-LD if the article body contains a FAQ section
+    const existingFaq = document.querySelector("script[data-blog-faq-ld]");
+    if (existingFaq) existingFaq.remove();
+    const faqPairs = parseFaqFromMarkdown(displayBody);
+    if (faqPairs.length >= 2) {
+      const faqLd = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqPairs.map(({ q, a }) => ({
+          "@type": "Question",
+          name: q,
+          acceptedAnswer: { "@type": "Answer", text: a },
+        })),
+      };
+      const faqScript = document.createElement("script");
+      faqScript.type = "application/ld+json";
+      faqScript.setAttribute("data-blog-faq-ld", "true");
+      faqScript.textContent = JSON.stringify(faqLd);
+      document.head.appendChild(faqScript);
+    }
+
     return () => {
       s.remove();
+      document.querySelector("script[data-blog-faq-ld]")?.remove();
     };
-  }, [slug, displayTitle, displayDescription, date, sourceUrl, lang, serverEsBundle?.title]);
+  }, [slug, displayTitle, displayDescription, date, sourceUrl, lang, serverEsBundle?.title, displayBody]);
 
   if (!slug) {
     return null;
