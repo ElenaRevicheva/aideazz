@@ -36,6 +36,20 @@ const CtoRedirect = () => {
   );
 };
 
+/** Income ops dashboard is a separate static app under /public/ops — full navigation required */
+const IncomeOpsEntry = () => {
+  useLayoutEffect(() => {
+    window.location.replace(
+      "/ops/" + window.location.search + window.location.hash,
+    );
+  }, []);
+  return (
+    <div style={{ padding: 40, fontFamily: "sans-serif", color: "#64748b" }}>
+      Loading income ops…
+    </div>
+  );
+};
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -51,6 +65,9 @@ const App = () => (
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/card" element={<Navigate to="/portfolio" replace />} />
+          {/* Static app in public/ops — full page load */}
+          <Route path="/ops" element={<IncomeOpsEntry />} />
+          <Route path="/ops/" element={<IncomeOpsEntry />} />
           {/* Explicit + splat so /cto/leads/dashboard always matches (SPA hosts + RR6) */}
           <Route path="/cto/leads/dashboard" element={<CtoRedirect />} />
           <Route path="/cto/*" element={<CtoRedirect />} />

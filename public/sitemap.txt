@@ -12,6 +12,13 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/geo-vs-seo-making-your-content-quotable-by-ai-search-engines
+https://aideazz.xyz/blog/geo-vs-seo-why-chatgpt-citations-matter-more-than-google-rankings
+https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production
+https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier
+https://aideazz.xyz/blog/ai-automation-for-small-business-why-most-projects-die-before-launch
+https://aideazz.xyz/blog/ai-for-construction-business-wiring-documents-field-data-and-human-handoffs
+https://aideazz.xyz/blog/multi-model-llm-routing-why-i-send-76-to-groq
 https://aideazz.xyz/blog/ai-assisted-development-how-i-ship-production-code-without-a-cs-degree
 https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0-infrastructure-production-reality
 https://aideazz.xyz/blog/autonomous-job-search-ai-engineering-ethics-into-multi-agent-systems
@@ -27,9 +34,7 @@ https://aideazz.xyz/blog/how-i-ship-typescript-without-a-cs-degree-ai-assisted-d
 https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0month-infrastructure
 https://aideazz.xyz/blog/why-im-not-building-autonomous-job-search-ai-yet
 https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-the-technical-reality
-https://aideazz.xyz/blog/geo-vs-seo-why-chatgpt-citations-matter-more-than-google-rankings
 https://aideazz.xyz/blog/what-is-an-ai-agent-a-production-definition-from-the-field
-https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier
 https://aideazz.xyz/blog/ai-automation-for-small-business-what-ships-vs-what-dies-in-slides
 https://aideazz.xyz/blog/wiring-ai-into-construction-operations-beyond-the-demo-trap
 https://aideazz.xyz/blog/multi-model-llm-routing-why-76-of-your-inference-shouldnt-touch-gpt-4
@@ -37,5 +42,4 @@ https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0-infrastructure-a-pr
 https://aideazz.xyz/blog/building-autonomous-job-search-ai-technical-architecture-and-ethical-boundaries
 https://aideazz.xyz/blog/building-production-ai-language-tutors-on-whatsapp-architecture-lessons-from-espaluz
 https://aideazz.xyz/blog/geo-vs-seo-making-your-technical-content-quotable-by-ai
-https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production
 https://aideazz.xyz/blog/oracle-cloud-free-tier-for-production-ai-agents-what-actually-works

@@ -110,7 +110,10 @@ export default function BlogPost() {
   const post = local;
   const enTitle = post?.title ?? remoteMeta?.title ?? backendMeta?.title ?? "";
   const enDescription = post?.description ?? remoteMeta?.brief ?? "";
-  const date = post?.date ?? (remoteMeta?.publishedAt ? remoteMeta.publishedAt.slice(0, 10) : "") || (backendMeta?.publishedAt ? backendMeta.publishedAt.slice(0, 10) : "");
+  const date =
+    post?.date ??
+    ((remoteMeta?.publishedAt ? remoteMeta.publishedAt.slice(0, 10) : "") ||
+      (backendMeta?.publishedAt ? backendMeta.publishedAt.slice(0, 10) : ""));
   const sourceUrl = post?.hashnodeUrl ?? remoteMeta?.url ?? backendMeta?.devtoUrl ?? undefined;
   const enBody = hasLocalBody ? post!.body : remoteMd ?? backendMd ?? "";
 

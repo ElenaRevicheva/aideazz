@@ -1,3 +1,4 @@
+# Static files under /ops/* are served from public/ops (income ops dashboard). SPA fallback below must not mask them — most hosts resolve real files first.
 
 /.gitignore    /    301
 /card          /portfolio    301
