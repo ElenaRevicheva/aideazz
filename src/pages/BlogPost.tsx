@@ -50,6 +50,8 @@ export default function BlogPost() {
   } | null>(null);
   const [fromDevto, setFromDevto] = useState(false);
   const [remoteError, setRemoteError] = useState<string | null>(null);
+  const [backendMd, setBackendMd] = useState<string | null>(null);
+  const [backendMeta, setBackendMeta] = useState<{ title: string; publishedAt: string; devtoUrl: string | null } | null>(null);
   const [serverEsBundle, setServerEsBundle] = useState<BlogEsBundleJson | null>(null);
   const [serverEsLoading, setServerEsLoading] = useState(false);
   const [serverEsError, setServerEsError] = useState<string | null>(null);
@@ -64,31 +66,41 @@ export default function BlogPost() {
       setRemoteLoading(true);
       setRemoteError(null);
       setFromDevto(false);
-      try {
-        const d = await fetchDevtoPostByBlogSlug(slug);
-        if (cancelled) return;
-        if (d) {
-          setRemoteMd(d.contentMarkdown);
-          setRemoteMeta({
-            title: d.title,
-            brief: d.brief,
-            url: d.url,
-            publishedAt: d.publishedAt,
-          });
-          setFromDevto(true);
-          return;
-        }
+
+      // Fetch Dev.to and backend cache in parallel; backend is the reliable fallback
+      const backendUrl = `${BLOG_ES_API_ORIGIN}/blog/post/${encodeURIComponent(slug)}`;
+      const [devtoResult, backendResult] = await Promise.allSettled([
+        fetchDevtoPostByBlogSlug(slug),
+        fetch(backendUrl).then(async (r) => {
+          if (!r.ok) return null;
+          const j = (await r.json()) as { title: string; markdown: string; publishedAt: string; devtoUrl: string | null };
+          return j?.markdown?.trim() ? j : null;
+        }).catch(() => null),
+      ]);
+
+      if (cancelled) return;
+
+      // Prefer Dev.to (canonical, has brief); fall back to Oracle cache
+      const devto = devtoResult.status === "fulfilled" ? devtoResult.value : null;
+      const backend = backendResult.status === "fulfilled" ? backendResult.value : null;
+
+      if (devto) {
+        setRemoteMd(devto.contentMarkdown);
+        setRemoteMeta({ title: devto.title, brief: devto.brief, url: devto.url, publishedAt: devto.publishedAt });
+        setFromDevto(true);
+      } else if (backend) {
+        setBackendMd(backend.markdown);
+        setBackendMeta({ title: backend.title, publishedAt: backend.publishedAt, devtoUrl: backend.devtoUrl });
         setRemoteMd(null);
         setRemoteMeta(null);
-      } catch (e) {
-        if (!cancelled) {
-          setRemoteError(e instanceof Error ? e.message : "Load failed");
-          setRemoteMd(null);
-          setRemoteMeta(null);
-        }
-      } finally {
-        if (!cancelled) setRemoteLoading(false);
+      } else {
+        const err = devtoResult.status === "rejected" ? (devtoResult.reason instanceof Error ? devtoResult.reason.message : "Load failed") : null;
+        if (err) setRemoteError(err);
+        setRemoteMd(null);
+        setRemoteMeta(null);
       }
+
+      if (!cancelled) setRemoteLoading(false);
     })();
     return () => {
       cancelled = true;
@@ -96,11 +108,11 @@ export default function BlogPost() {
   }, [slug, hasLocalBody]);
 
   const post = local;
-  const enTitle = post?.title ?? remoteMeta?.title ?? "";
+  const enTitle = post?.title ?? remoteMeta?.title ?? backendMeta?.title ?? "";
   const enDescription = post?.description ?? remoteMeta?.brief ?? "";
-  const date = post?.date ?? (remoteMeta?.publishedAt ? remoteMeta.publishedAt.slice(0, 10) : "");
-  const sourceUrl = post?.hashnodeUrl ?? remoteMeta?.url;
-  const enBody = hasLocalBody ? post!.body : remoteMd ?? "";
+  const date = post?.date ?? (remoteMeta?.publishedAt ? remoteMeta.publishedAt.slice(0, 10) : "") || (backendMeta?.publishedAt ? backendMeta.publishedAt.slice(0, 10) : "");
+  const sourceUrl = post?.hashnodeUrl ?? remoteMeta?.url ?? backendMeta?.devtoUrl ?? undefined;
+  const enBody = hasLocalBody ? post!.body : remoteMd ?? backendMd ?? "";
 
   const loc = useMemo(() => {
     if (!slug) return {};
@@ -190,6 +202,7 @@ export default function BlogPost() {
   const showContent =
     hasLocalBody ||
     (typeof remoteMd === "string" && remoteMd.length > 0) ||
+    (typeof backendMd === "string" && backendMd.length > 0) ||
     (typeof loc.body === "string" && loc.body.trim().length > 0);
 
   useEffect(() => {
