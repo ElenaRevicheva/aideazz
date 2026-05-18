@@ -44,16 +44,31 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-# --- Anthropic ---
+# --- Anthropic: training + search indexing + user fetch + Claude Code ---
 User-agent: ClaudeBot
 Allow: /
 
-# --- Perplexity ---
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: claude-code
+Allow: /
+
+# --- Perplexity: indexing + user-triggered fetch ---
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
 Allow: /
 
 # --- Meta (AI + link previews; UA strings vary — list common tokens) ---
 User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
 Allow: /
 
 User-agent: FacebookBot
@@ -70,10 +85,25 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
+User-agent: cohere-training-data-crawler
+Allow: /
+
 User-agent: Diffbot
 Allow: /
 
 User-agent: Bytespider
+Allow: /
+
+# --- Mistral: Le Chat user-triggered fetch ---
+User-agent: MistralAI-User
+Allow: /
+
+# --- DuckDuckGo AI search + citations ---
+User-agent: DuckAssistBot
+Allow: /
+
+# --- Brave Search AI ---
+User-agent: Bravebot
 Allow: /
 
 # --- Fallback: everyone else (must remain Allow for crawlers not listed above) ---
