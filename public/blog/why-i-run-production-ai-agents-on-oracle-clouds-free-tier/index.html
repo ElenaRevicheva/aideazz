@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I Run Production AI Agents on Oracle Cloud's Free Tier | AIdeazz</title>
+  <meta name="description" content="When I tell other builders I run production AI agents on Oracle Cloud's free tier, I get the same look every time. The one that says "why would you do that to yourself?" But after shipping dozens of …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Why I Run Production AI Agents on Oracle Cloud's Free Tier">
+  <meta property="og:description" content="When I tell other builders I run production AI agents on Oracle Cloud's free tier, I get the same look every time. The one that says "why would you do that to yourself?" But after shipping dozens of …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-05-14T19:31:21.241Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why I Run Production AI Agents on Oracle Cloud's Free Tier">
+  <meta name="twitter:description" content="When I tell other builders I run production AI agents on Oracle Cloud's free tier, I get the same look every time. The one that says "why would you do that to yourself?" But after shipping dozens of …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Why I Run Production AI Agents on Oracle Cloud's Free Tier",
+  "description": "When I tell other builders I run production AI agents on Oracle Cloud's free tier, I get the same look every time. The one that says \"why would you do that to yourself?\" But after shipping dozens of …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-05-14T19:31:21.241Z",
+  "dateModified": "2026-05-14T19:31:21.241Z",
+  "url": "https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/why-i-run-production-ai-agents-on-oracle-clouds-free-tier"
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Why I Run Production AI Agents on Oracle Cloud's Free Tier</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-05-14T19:31:21.241Z">May 14, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>When I tell other builders I run production AI agents on Oracle Cloud's free tier, I get the same look every time. The one that says "why would you do that to yourself?" But after shipping dozens of autonomous agents from Panama, I've learned something counterintuitive: Oracle's free infrastructure forces architectural decisions that make systems more reliable, not less.</p>
+<h2>The Always Free Reality Check</h2>
+<p>Oracle Cloud's Always Free tier isn't generous in the way developers expect. You get:<br><ul><li>2 AMD-based Compute VMs (1/8 OCPU, 1 GB memory each) </li><br><li>2 Autonomous Databases (20 GB storage each)</li><br><li>10 GB object storage</li><br><li>10 TB outbound data transfer per month</li></ul></p>
+<p>That's it. No GPU access. No fancy vector databases. No managed Kubernetes. Just basic compute, storage, and Oracle's flagship autonomous database.</p>
+<p>Most developers see these limits and move on. I saw constraints that would force me to build leaner agents. After burning through $3,000 in AWS bills for a client's "simple" chatbot that spiraled into complexity, I needed a different approach.</p>
+<p>The revelation came when building a WhatsApp order-taking agent for a Panama City restaurant. Instead of spinning up a t3.medium instance and calling it a day, Oracle's limits forced me to think in terms of compute scheduling. The agent didn't need to be always-on — it needed to wake up, process messages in batches, update the database, and sleep.</p>
+<p>This pattern of intermittent compute became the foundation for everything I've built since.</p>
+<h2>Autonomous Database: The Overlooked Workhorse</h2>
+<p>Oracle's Autonomous Database changes how you think about persistence for agents. It's not just a managed database — it's a database that handles its own indexing, backup, patching, and performance tuning. For AI agents, this translates to:</p>
+<p><strong>Built-in JSON document store</strong>: Agent memory, conversation state, and tool outputs live naturally as JSON documents. No ORM complexity.</p>
+<p><strong>Automatic scaling</strong>: The free tier auto-scales between 0.02 and 0.2 OCPUs based on workload. Your agent's 3 AM batch processing doesn't consume your daytime capacity.</p>
+<p><strong>Native REST APIs</strong>: Every Autonomous Database exposes REST endpoints for your data. Your agent can query its memory without maintaining connection pools.</p>
+<p>Here's what this looks like in practice. My document processing agent stores extraction results like this:</p>
+<p><pre><code class="language-python"># Simplified version of production code
+async def store_extraction(self, doc_id: str, extraction: dict):
+    await self.odb.insert_json(
+        collection='extractions',
+        document={
+            '_id': doc_id,
+            'timestamp': datetime.utcnow().isoformat(),
+            'source': extraction['source'],
+            'entities': extraction['entities'],
+            'confidence': extraction['confidence_scores'],
+            'model_used': self.current_model,
+            'processing_time_ms': extraction['duration']
+        }
+    )
+</code></pre></p>
+<p>The database handles indexing on <code>_id</code>, <code>timestamp</code>, and any nested JSON paths I query frequently. No manual index management. No migration scripts.</p>
+<h2>mTLS by Default: Security Without the Ceremony</h2>
+<p>Every connection to Oracle Cloud infrastructure uses mutual TLS. This isn't optional — it's enforced at the infrastructure level. Your agents authenticate with client certificates, not just passwords or API keys.</p>
+<p>This seemed like overkill until I had a client whose previous chatbot was compromised through a misconfigured Redis instance. The attacker injected prompt instructions through the cache layer. With mTLS, even if someone discovers your connection string, they can't connect without the client certificate.</p>
+<p>Setting it up requires downloading a wallet file (a zip containing certificates and connection strings) and pointing your database drivers to it:</p>
+<p><pre><code class="language-python"># Oracle Autonomous Database connection
+connection = oracledb.connect(
+    user="agent_user",
+    password=os.environ['ODB_PASSWORD'],
+    dsn="agentdb_high",
+    config_dir="/opt/oracle/wallet",
+    wallet_location="/opt/oracle/wallet",
+    wallet_password=os.environ['WALLET_PASSWORD']
+)
+</code></pre></p>
+<p>The friction of certificate management pays off when you're storing conversation history, extracted PII, or business logic. I've never had to write a security postmortem for an Oracle-hosted agent.</p>
+<h2>Process Supervision: The Boring Part That Matters</h2>
+<p>The free tier VMs are small, but they're actual VMs, not containers that might get recycled. This means you need real process supervision. Here's what I learned the hard way:</p>
+<p><strong>systemd is your friend</strong>: Every agent runs as a systemd service with automatic restarts. No custom process managers.</p>
+<p><strong>Memory limits are real</strong>: A 1 GB VM running Python leaves you about 600 MB for your agent after the OS. Memory leaks kill processes fast.</p>
+<p><strong>Disk fills up</strong>: 47 GB might seem like plenty until your agent starts logging every LLM response. Implement log rotation early.</p>
+<p>Here's a production systemd unit file for a Telegram agent:</p>
+<p><pre><code class="language-ini">[Unit]
+Description=Telegram Support Agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agent
+WorkingDirectory=/opt/agents/telegram
+Environment="PYTHONPATH=/opt/agents/telegram"
+Environment="OCI_CONFIG_FILE=/home/agent/.oci/config"
+ExecStart=/opt/agents/telegram/venv/bin/python -m agent.main
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Memory limits
+MemoryMax=600M
+MemorySwapMax=0
+
+# CPU limits
+CPUQuota=80%
+
+[Install]
+WantedBy=multi-user.target
+</code></pre></p>
+<p>The <code>MemoryMax</code> and <code>CPUQuota</code> settings prevent one misbehaving agent from taking down the entire VM. When the agent hits memory limits, systemd restarts it cleanly.</p>
+<h2>Multi-Model Routing on Minimal Resources</h2>
+<p>Running Claude, GPT-4, and Groq inference on 1 GB of RAM sounds impossible because it is. The free tier forces a routing architecture where your agents are coordinators, not inference hosts.</p>
+<p>My production setup:<br><ul><li><strong>Groq</strong>: High-volume, low-latency tasks (intent classification, entity extraction)</li><br><li><strong>Claude</strong>: Complex reasoning, nuanced responses, safety-critical decisions</li><br><li><strong>GPT-4</strong>: Fallback for specific capabilities (function calling, structured outputs)</li></ul></p>
+<p>The routing logic lives in a base agent class:</p>
+<p><pre><code class="language-python">class ModelRouter:
+    def __init__(self):
+        self.groq_client = Groq(api_key=os.environ['GROQ_KEY'])
+        self.claude_client = anthropic.Anthropic(api_key=os.environ['CLAUDE_KEY'])
+        self.openai_client = openai.OpenAI(api_key=os.environ['OPENAI_KEY'])
+        
+    async def route_completion(self, task_type: str, prompt: str, **kwargs):
+        if task_type == 'classification':
+            return await self._groq_complete(prompt, model='mixtral-8x7b-32768')
+        elif task_type == 'analysis':
+            return await self._claude_complete(prompt, model='claude-3-opus')
+        elif task_type == 'function_call':
+            return await self._openai_complete(prompt, model='gpt-4')
+        else:
+            # Fallback to cheapest option
+            return await self._groq_complete(prompt)
+</code></pre></p>
+<p>This architecture means a single VM can handle hundreds of concurrent conversations by offloading inference to APIs while maintaining state locally.</p>
+<h2>Operational Lessons from Constraint</h2>
+<p>After two years of running agents on Oracle's free tier, patterns emerged:</p>
+<p><strong>Batch everything</strong>: Instead of processing messages as they arrive, accumulate them and process in batches. This lets you shut down agents between runs, saving memory.</p>
+<p><strong>State in database, not memory</strong>: Every piece of agent state lives in Autonomous Database. Agents can restart without losing context.</p>
+<p><strong>Monitoring through database</strong>: Since Autonomous Database includes performance insights, you can monitor agent behavior through SQL queries instead of external APM tools.</p>
+<p><strong>Geographic arbitrage</strong>: Oracle's free tier is available in all regions. I run agents in São Paulo for Latin American clients, Mumbai for Asian clients. Latency matters for conversational AI.</p>
+<p>The most surprising outcome? These constraints led to more reliable systems. When you can't throw resources at problems, you build better architectures. My Oracle-hosted agents have better uptime than the over-provisioned AWS deployments they replaced.</p>
+<h2>Gotchas and Realistic Expectations</h2>
+<p>Oracle Cloud's free tier has sharp edges:</p>
+<p><strong>Account suspension</strong>: Oracle suspends idle accounts. You need real workloads running to keep your account active.</p>
+<p><strong>No support</strong>: Free tier accounts get no support. When region-wide issues occur (rare but happens), you wait like everyone else.</p>
+<p><strong>Upgrade pressure</strong>: Oracle regularly emails about upgrading. The emails look urgent but you can ignore them if you're within free tier limits.</p>
+<p><strong>API availability</strong>: Some OCI services aren't available in all regions on free tier. Check region availability before architecting.</p>
+<p><strong>Learning curve</strong>: Oracle's documentation assumes enterprise experience. Budget time for learning OCI concepts.</p>
+<h2>The Unexpected Benefit</h2>
+<p>Building on extreme constraints taught me to see infrastructure differently. When a client now asks for an AI agent, I don't start with "what's your budget?" I start with "what's the minimum compute needed?"</p>
+<p>This shift matters because AI agent economics are broken. Most agents lose money on every interaction when you factor in infrastructure. By proving agents can run profitably on free infrastructure, we change the conversation from "can we afford AI?" to "what problems should AI solve?"</p>
+<p>Oracle's free tier isn't for everyone. If you need GPUs, managed vector databases, or always-on compute, look elsewhere. But if you're building practical agents that solve real problems — document extraction, customer support, order processing — the constraints might be exactly what you need.</p>
+<p>The restaurant WhatsApp agent I mentioned earlier? Still running on the same free tier account after 18 months. It's processed over 50,000 orders, saved the owner 20 hours per week, and costs exactly $0 in infrastructure.</p>
+<p>That's the real lesson: sometimes the best infrastructure is the one that forces you to build better software.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
