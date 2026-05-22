@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What a Fractional CTO Actually Ships at an AI Startup | AIdeazz</title>
+  <meta name="description" content="You're building an AI product. You've got a working prototype, maybe some early users. The technical decisions are piling up: should you commit to OpenAI or build provider abstraction? Is your Docker…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/what-a-fractional-cto-actually-ships-at-an-ai-startup">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What a Fractional CTO Actually Ships at an AI Startup">
+  <meta property="og:description" content="You're building an AI product. You've got a working prototype, maybe some early users. The technical decisions are piling up: should you commit to OpenAI or build provider abstraction? Is your Docker…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/what-a-fractional-cto-actually-ships-at-an-ai-startup">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-05-22T19:31:32.432Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What a Fractional CTO Actually Ships at an AI Startup">
+  <meta name="twitter:description" content="You're building an AI product. You've got a working prototype, maybe some early users. The technical decisions are piling up: should you commit to OpenAI or build provider abstraction? Is your Docker…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What a Fractional CTO Actually Ships at an AI Startup",
+  "description": "You're building an AI product. You've got a working prototype, maybe some early users. The technical decisions are piling up: should you commit to OpenAI or build provider abstraction? Is your Docker…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-05-22T19:31:32.432Z",
+  "dateModified": "2026-05-22T19:31:32.432Z",
+  "url": "https://aideazz.xyz/blog/what-a-fractional-cto-actually-ships-at-an-ai-startup",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/what-a-fractional-cto-actually-ships-at-an-ai-startup"
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">What a Fractional CTO Actually Ships at an AI Startup</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-05-22T19:31:32.432Z">May 22, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>You're building an AI product. You've got a working prototype, maybe some early users. The technical decisions are piling up: should you commit to OpenAI or build provider abstraction? Is your Docker Compose setup going to scale? When do you need Kubernetes? You know you need senior technical leadership, but you can't afford a $300k full-time CTO yet. Enter the fractional CTO — but what do they actually do beyond "strategic guidance"?</p>
+<p>I've been on both sides: as a technical executive at scale and now building multi-agent systems at AIdeazz. Here's what fractional CTO work looks like in practice, based on real architecture decisions, vendor negotiations, and the unglamorous reality of shipping AI products.</p>
+<h2>The Architecture Decisions That Actually Matter</h2>
+<p>Most AI startups face the same early architecture crossroads. The fractional CTO's job isn't to build your product — it's to ensure you don't paint yourself into corners that cost six figures to escape.</p>
+<p>Take LLM provider strategy. Everyone starts with OpenAI because it works. But I've watched startups burn $50k/month on GPT-4 for tasks that Groq's Llama could handle at 1/10th the cost. The fractional CTO builds the abstraction layer early — not because you need it today, but because migrating 100k users off a hardcoded provider is a nightmare.</p>
+<p>At AIdeazz, we route between Groq, Claude, and local models based on task complexity. Customer service queries hit Groq's Llama 3.1 70B. Complex reasoning goes to Claude. The routing logic is 200 lines of Python, but it cuts costs by 85% while maintaining quality. A fractional CTO implements this pattern on day 30, not after you're hemorrhaging cash at scale.</p>
+<p>Infrastructure choices compound similarly. That EC2 instance running your prototype? Fine for 1,000 users. But the fractional CTO knows you'll need autoscaling at 10,000 and geographic distribution at 100,000. They don't over-engineer — they build hooks for future scaling. Our Oracle Cloud setup started with a single compute instance but included load balancer configs and database replication templates from day one. When we needed to scale for enterprise clients, it took hours, not weeks.</p>
+<p>The real value: knowing which battles to fight. Kubernetes on day one? Overkill. But hardcoding AWS services when you're negotiating enterprise contracts that might require Azure? That's a future migration nightmare a fractional CTO prevents.</p>
+<h2>Vendor Lock-in: The Tax You Don't See Coming</h2>
+<p>Every AI startup accumulates vendor dependencies like barnacles. The fractional CTO's unglamorous job: preventing lock-in that kills your margins or blocks enterprise deals.</p>
+<p>Start with the obvious: cloud providers. AWS makes it so easy — Lambda for functions, SageMaker for models, Cognito for auth. Suddenly you're paying 30% margins to Amazon forever. We run AIdeazz on Oracle Cloud not because it's trendy, but because:<br><ul><li>50% lower compute costs for our workload</li><br><li>Better GPU availability (try getting H100s on AWS)</li><br><li>Negotiable enterprise agreements</li></ul></p>
+<p>But the real lock-in happens in subtle places. That nice Pinecone vector database? Great product, but at $70/million vectors, your RAG system becomes a financial liability at scale. A fractional CTO builds with pgvector initially — same functionality, 90% lower cost, migrate to specialized solutions only when needed.</p>
+<p>Authentication is another trap. Auth0 charges per monthly active user. Seems reasonable until you realize their B2C pricing means your consumer app is subsidizing enterprise features you don't use. We've migrated three startups from Auth0 to Supabase Auth, saving $30k+/year each. The migration? Two weeks with proper abstraction, six months without.</p>
+<p>Even AI-specific tools create lock-in. LangChain's abstractions seem helpful until you realize you're debugging their metacode instead of your actual logic. Weights & Biases for experiment tracking? Excellent product, but $500/user/month adds up. A fractional CTO builds thin wrappers around these tools, making future migrations possible without rewriting core logic.</p>
+<p>The principle: every vendor decision should be reversible with less than two weeks of engineering effort. If it's not, you're accepting lock-in. Make that choice consciously, not by default.</p>
+<h2>The Full-Time Hire Transition</h2>
+<p>The hardest part of fractional CTO work: knowing when to fire yourself. Most fractional engagements should end with a full-time hire. The question is when and how.</p>
+<p>Wrong answer: when you raise Series A. I've seen startups hire CTO number two at $400k because "that's what Series A companies do," only to discover they needed an architect, not an executive. The fractional CTO stays until you need daily technical leadership, not until you hit arbitrary milestones.</p>
+<p>For AI startups, the trigger is usually one of three things:<br>1. Technical debt exceeds one person's mental model<br>2. You're building multiple products simultaneously  <br>3. Engineering team exceeds 5-6 people</p>
+<p>At AIdeazz, I'm both founder and technical lead because we're focused on a single platform. But when we spun up WhatsApp agents alongside Telegram, the context switching killed velocity. That's when you need dedicated technical leadership.</p>
+<p>The transition itself requires planning. A good fractional CTO:<br><ul><li>Documents architecture decisions in ADRs (Architecture Decision Records)</li><br><li>Builds onboarding runbooks for their replacement</li><br><li>Identifies the specific CTO profile you need</li></ul></p>
+<p>That last point matters. Building consumer AI? You need a CTO who's scaled high-traffic systems. Enterprise sales? Someone who's survived SOC 2 audits and security reviews. The fractional CTO should define this profile based on your next 18 months, not your current state.</p>
+<p>Handoff typically takes 4-6 weeks of overlap. Week 1-2: brain dump and architecture walkthrough. Week 3-4: shadowing decisions and reviews. Week 5-6: new CTO leads, fractional advises. Then you transition to advisory — monthly check-ins, available for critical decisions, but not blocking daily execution.</p>
+<h2>Real Constraints and Tradeoffs</h2>
+<p>Let's talk about what fractional CTO work isn't. You're not getting someone to code your MVP — hire developers for that. You're not getting 40 hours/week — expect 10-20 hours. You're not getting someone who'll stick around for five years — plan for 6-18 months.</p>
+<p>The constraints shape the engagement. At 15 hours/week, a fractional CTO can:<br><ul><li>Review architecture decisions and PRs</li><br><li>Lead technical interviews  </li><br><li>Negotiate vendor contracts</li><br><li>Design system architecture</li><br><li>Mentor senior developers</li></ul></p>
+<p>They can't:<br><ul><li>Write production code regularly</li><br><li>Be on-call for incidents</li><br><li>Attend every meeting</li><br><li>Manage day-to-day sprint planning</li></ul></p>
+<p>Cost reality check: expect $10-30k/month for an experienced fractional CTO. Sounds expensive? A full-time CTO at the same level costs $25-40k/month plus equity. The math works when you need strategic decisions, not daily management.</p>
+<p>The biggest failure mode: treating a fractional CTO like a part-time employee. They're consultants with aligned incentives. Structure the engagement around deliverables, not hours. "Reduce AWS costs by 40%" beats "work 15 hours/week."</p>
+<p>Geographic arbitrage applies here too. A Bay Area fractional CTO might charge $500/hour. The same expertise from Eastern Europe or Latin America? $150-250/hour. I operate from Panama — same quality, different cost structure.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do I know if I need a fractional CTO versus a senior developer?</strong><br>A: You need a fractional CTO when facing decisions with 6+ month consequences: architecture choices, vendor selection, hiring technical leaders. If you need features built, hire developers. If you need to decide whether to use microservices or build a monolith, that's fractional CTO territory.</p>
+<p><strong>Q: What's the typical engagement structure for a fractional CTO?</strong><br>A: Most engagements run 10-20 hours/week for 6-12 months, structured as monthly retainers ($10-30k) rather than hourly. Expect weekly architecture reviews, monthly strategic planning, and on-demand availability for critical decisions. Everything should be documented for eventual handoff.</p>
+<p><strong>Q: Can a fractional CTO help with fundraising?</strong><br>A: Yes, but specifically for technical due diligence and architecture presentation. They'll review your tech stack with investor CTOs, explain technical moats, and validate your hiring/scaling plans. They won't pitch your business model or run the fundraising process.</p>
+<p><strong>Q: Should our fractional CTO write code?</strong><br>A: Occasionally for prototypes or architectural proofs-of-concept, but not production features. If they're coding regularly, you're using an expensive developer, not a CTO. Their code should demonstrate patterns for your team to implement, not ship features.</p>
+<p><strong>Q: How do we handle IP and confidentiality with a fractional CTO?</strong><br>A: Standard contracts include NDA, work-for-hire IP assignment, and non-compete clauses for direct competitors. Most fractional CTOs work with multiple non-competing startups simultaneously. Ensure contracts explicitly assign all architectural decisions and documentation to your company.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
