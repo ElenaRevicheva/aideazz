@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Is an AI Agent: A Builder's Definition from Production | AIdeazz</title>
+  <meta name="description" content="Everyone's building "AI agents" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily acro…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What Is an AI Agent: A Builder's Definition from Production">
+  <meta property="og:description" content="Everyone's building "AI agents" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily acro…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-05-15T19:31:16.821Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What Is an AI Agent: A Builder's Definition from Production">
+  <meta name="twitter:description" content="Everyone's building "AI agents" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily acro…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What Is an AI Agent: A Builder's Definition from Production",
+  "description": "Everyone's building \"AI agents\" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily acro…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-05-15T19:31:16.821Z",
+  "dateModified": "2026-05-15T19:31:16.821Z",
+  "url": "https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production"
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">What Is an AI Agent: A Builder's Definition from Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-05-15T19:31:16.821Z">May 15, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>Everyone's building "AI agents" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily across Telegram and WhatsApp.</p>
+<h2>The Production Definition: Observe → Decide → Act → Persist</h2>
+<p>An AI agent is software that maintains state across interactions while autonomously executing multi-step workflows. Not "chat + function calling." Not "GPT wrapper with memory."</p>
+<p>The core loop:<br><ul><li><strong>Observe</strong>: Ingest data from multiple sources (webhooks, APIs, user messages, scheduled triggers)</li><br><li><strong>Decide</strong>: Route to appropriate models based on task complexity and cost constraints</li><br><li><strong>Act</strong>: Execute workflows spanning multiple systems and services</li><br><li><strong>Persist</strong>: Maintain context and state across sessions, users, and time</li></ul></p>
+<p>My WhatsApp invoice processor doesn't just extract data—it maintains conversation state across days, remembers user preferences, autonomously retries failed OCR attempts, and escalates to human review when confidence drops below thresholds. That's an agent.</p>
+<h2>Architecture Reality: What Production Agents Actually Need</h2>
+<p>Running agents at scale on Oracle Cloud Infrastructure taught me the non-negotiables:</p>
+<p><strong>State Management</strong>  <br>Agents die without proper state persistence. We use Oracle Autonomous Database for conversation history, user context, and workflow state. Redis handles session caching. Every agent maintains:<br><ul><li>Conversation memory (last 10-50 messages depending on use case)</li><br><li>User profile data (preferences, permissions, usage patterns)</li><br><li>Workflow state machines (current step, pending actions, retry counts)</li><br><li>Cross-session context (previous interactions, learned patterns)</li></ul></p>
+<p><strong>Model Routing</strong>  <br>Single-model agents fail in production. We route dynamically:<br><ul><li>Groq's Llama 70B for high-volume, low-latency tasks (€0.0008/1K tokens)</li><br><li>Claude 3.5 Sonnet for complex reasoning and code generation</li><br><li>GPT-4 Vision for document processing when OCR confidence is low</li><br><li>Local Whisper models for voice transcription</li></ul></p>
+<p>The router itself is a lightweight classifier that considers: token cost, latency requirements, task complexity, and current queue depths.</p>
+<p><strong>Error Handling</strong>  <br>Agents fail constantly. Network timeouts, model hallucinations, API rate limits, malformed responses. Production agents need:<br><ul><li>Exponential backoff with jitter for API retries</li><br><li>Fallback models for critical paths</li><br><li>Human escalation workflows</li><br><li>Graceful degradation (partial results > no results)</li></ul></p>
+<h2>The Difference: Agents vs Chat Wrappers</h2>
+<p>Most "AI agents" are chat interfaces with function calling. Here's how to spot the difference:</p>
+<p><strong>Chat Wrapper Characteristics:</strong><br><ul><li>Stateless between conversations</li><br><li>Single model dependency</li><br><li>Synchronous request/response only</li><br><li>No autonomous execution</li><br><li>Context limited to current session</li></ul></p>
+<p><strong>True Agent Characteristics:</strong><br><ul><li>Maintains state across weeks/months</li><br><li>Multi-model orchestration</li><br><li>Asynchronous, event-driven execution</li><br><li>Autonomous decision-making within bounds</li><br><li>Context spans users, sessions, and systems</li></ul></p>
+<p>My logistics coordination agent doesn't wait for commands. It monitors shipment webhooks, detects delays, calculates impact across supply chains, notifies affected parties, and suggests rerouting options—all before a human notices the delay.</p>
+<h2>Multi-Agent Coordination: The Next Complexity Level</h2>
+<p>Single agents are straightforward. Multi-agent systems are where architecture decisions compound.</p>
+<p>In our Oracle Cloud setup, agents communicate through:<br><ul><li><strong>Message queues</strong> (Oracle Streaming) for async coordination</li><br><li><strong>Shared state stores</strong> for collaborative workflows  </li><br><li><strong>Event buses</strong> for system-wide notifications</li><br><li><strong>Consensus protocols</strong> for conflicting decisions</li></ul></p>
+<p>Example: Our customer service system runs three agent types:<br>1. <strong>Intake agents</strong>: Classify requests, extract entities, route to specialists<br>2. <strong>Specialist agents</strong>: Domain-specific problem solvers (billing, technical, logistics)<br>3. <strong>QA agents</strong>: Monitor other agents' responses, flag anomalies, trigger retraining</p>
+<p>They share context through a distributed cache but maintain separate decision loops. When the billing agent needs shipping data, it queries the logistics agent through our internal API—not direct database access.</p>
+<h2>Building Your First Real Agent</h2>
+<p>Skip the tutorials building "email summarizers." Here's a production-worthy starting point:</p>
+<p><strong>Document Processing Agent</strong> (what we deploy for SMB clients):<br>1. Monitor email inbox or cloud folder<br>2. Classify document type (invoice, PO, contract)<br>3. Extract structured data using appropriate model<br>4. Validate against business rules<br>5. Push to ERP/accounting system<br>6. Handle exceptions with human escalation</p>
+<p><strong>Technical stack:</strong><br><ul><li>Python + FastAPI for agent service</li><br><li>Celery + Redis for task queue</li><br><li>PostgreSQL for state persistence</li><br><li>Webhook endpoints for email/cloud triggers</li><br><li>Docker + Kubernetes for deployment</li></ul></p>
+<p><strong>Cost reality:</strong> Running this for 1,000 documents/month:<br><ul><li>Infrastructure: ~€50 (Oracle Cloud Always Free tier covers most)</li><br><li>Model API costs: €20-80 depending on document complexity</li><br><li>Development: 2-3 weeks for MVP, 2-3 months for production-ready</li></ul></p>
+<h2>Common Failure Modes I've Seen</h2>
+<p><strong>1. Infinite Loops</strong>  <br>Agent decides to call itself recursively. Solution: Implement call stack depth limits and circuit breakers.</p>
+<p><strong>2. Context Pollution</strong>  <br>Agent accumulates irrelevant context over time, degrading performance. Solution: Sliding window memory with relevance scoring.</p>
+<p><strong>3. Cost Explosion</strong>  <br>Agent makes unnecessary API calls or uses expensive models for simple tasks. Solution: Implement cost tracking per workflow and model routing logic.</p>
+<p><strong>4. Hallucinated Actions</strong>  <br>Agent invents functions or parameters that don't exist. Solution: Strict action validation against predefined schemas.</p>
+<p><strong>5. State Corruption</strong>  <br>Concurrent updates corrupt agent state. Solution: Implement proper locking mechanisms and state versioning.</p>
+<h2>The Business Reality</h2>
+<p>After building agents for logistics companies, government contractors, and financial services, the pattern is clear: successful agents handle narrow, well-defined workflows with clear success metrics.</p>
+<p>My most successful deployment? A procurement agent that:<br><ul><li>Monitors supplier catalogs for price changes</li><br><li>Compares against contract terms</li><br><li>Flags discrepancies to procurement team</li><br><li>Generates monthly savings reports</li></ul></p>
+<p>Boring? Yes. Valuable? It saves one client €200K annually in overcharges.</p>
+<p>The failures? Always overambitious "general purpose" agents that tried to handle everything. Constraint is feature, not bug.</p>
+<h2>Moving Beyond Demos</h2>
+<p>The gap between demo and production agents is massive. Demo agents work on happy paths with perfect inputs. Production agents handle:</p>
+<ul><li>Malformed data (PDFs with tables, handwritten notes, mixed languages)</li>
+<li>Intermittent failures (network issues, service outages, rate limits)</li>
+<li>Adversarial inputs (prompt injections, deliberately confusing requests)</li>
+<li>Scale (thousands of concurrent conversations, millions of state transitions)</li>
+<li>Compliance (audit trails, data residency, privacy regulations)</li></ul>
+<p>If you're building agents, start narrow. Pick one workflow. Handle every edge case. Add monitoring. Then expand.</p>
+<p>The market's flooded with "AI agent frameworks" that abstract away the complexity. They work for demos. For production, you need to understand the plumbing: state management, error handling, cost control, and operational monitoring.</p>
+<p>That's what an AI agent actually is—not a chatbot with memory, but an autonomous system that observes, decides, acts, and persists, handling real workflows with real constraints.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: What's the minimum viable agent architecture for a startup?</strong><br>A: Single Python service with FastAPI, PostgreSQL for state, Redis for caching, and Celery for async tasks. Deploy on a single VM initially. This handles 1,000s of daily interactions before needing horizontal scaling.</p>
+<p><strong>Q: How do you prevent agents from making costly mistakes autonomously?</strong><br>A: Implement approval workflows for high-risk actions, set spending limits per time period, and use canary deployments where agents operate in shadow mode before getting write permissions. We also log every decision for audit trails.</p>
+<p><strong>Q: Should I use LangChain/similar frameworks or build from scratch?</strong><br>A: Start with frameworks for prototypes, but expect to replace components as you scale. Most frameworks optimize for flexibility over production concerns like cost control and error handling. We use LangChain for experiments, custom code for production.</p>
+<p><strong>Q: What's the typical latency for multi-step agent workflows?</strong><br>A: Depends on complexity, but our invoice processing agent averages 8-12 seconds for: receive document → OCR → extract data → validate → update database → send confirmation. User-facing chat agents target sub-2 second responses by preprocessing and caching common paths.</p>
+<p><strong>Q: How do you handle agent testing and deployment?</strong><br>A: Three-stage pipeline: (1) Unit tests for individual components with mocked LLM responses, (2) Integration tests using recorded real interactions, (3) Shadow mode in production for 48-72 hours before full deployment. Rollback is one-click through feature flags.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
