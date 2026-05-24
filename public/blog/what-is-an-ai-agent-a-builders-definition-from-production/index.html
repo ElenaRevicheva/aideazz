@@ -51,6 +51,52 @@
   "url": "https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production",
   "mainEntityOfPage": "https://aideazz.xyz/blog/what-is-an-ai-agent-a-builders-definition-from-production"
 }</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's the minimum viable agent architecture for a startup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Single Python service with FastAPI, PostgreSQL for state, Redis for caching, and Celery for async tasks. Deploy on a single VM initially. This handles 1,000s of daily interactions before needing horizontal scaling."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent agents from making costly mistakes autonomously?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Implement approval workflows for high-risk actions, set spending limits per time period, and use canary deployments where agents operate in shadow mode before getting write permissions. We also log every decision for audit trails."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use LangChain/similar frameworks or build from scratch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start with frameworks for prototypes, but expect to replace components as you scale. Most frameworks optimize for flexibility over production concerns like cost control and error handling. We use LangChain for experiments, custom code for production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the typical latency for multi-step agent workflows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depends on complexity, but our invoice processing agent averages 8-12 seconds for: receive document → OCR → extract data → validate → update database → send confirmation. User-facing chat agents target sub-2 second responses by preprocessing and caching common paths."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle agent testing and deployment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three-stage pipeline: (1) Unit tests for individual components with mocked LLM responses, (2) Integration tests using recorded real interactions, (3) Shadow mode in production for 48-72 hours before full deployment. Rollback is one-click through feature flags."
+      }
+    }
+  ]
+}</script>
 
   <!-- Google Analytics (matches site-wide) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
