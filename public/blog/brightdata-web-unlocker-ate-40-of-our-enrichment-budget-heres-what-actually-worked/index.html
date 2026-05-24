@@ -51,6 +51,52 @@
   "url": "https://aideazz.xyz/blog/brightdata-web-unlocker-ate-40-of-our-enrichment-budget-heres-what-actually-worked",
   "mainEntityOfPage": "https://aideazz.xyz/blog/brightdata-web-unlocker-ate-40-of-our-enrichment-budget-heres-what-actually-worked"
 }</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use residential proxies at $500/month unlimited instead of BrightData's per-request pricing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We tested three residential proxy providers. All had 40-60% success rates on LinkedIn and corporate sites versus BrightData's 94%. The time spent debugging and retrying ate up any savings. At our scale (50K leads/month), reliability beats price."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your false positive rate on executive email detection specifically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "31% when scraping from company websites directly. We now validate via SMTP checking (adds $0.02/email) which drops false positives to 8%. The validation cost is worth avoiding bounced emails that hurt sender reputation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle LinkedIn's aggressive rate limiting without getting blocked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We don't scrape LinkedIn profiles anymore. BrightData handles some of it, but we switched to the official LinkedIn API for company data and only use Web Unlocker for extracting specific executives mentioned in news articles. Cost dropped 70% with better data quality."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which enrichment signals had zero correlation with purchase intent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Social media follower counts (r=0.03), website traffic estimates (r=0.08), and number of blog posts (r=-0.02). We wasted two months scraping these vanity metrics. Focus on hiring signals and technology changes instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you share the exact regex patterns that work for extracting budget indicators from job postings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key patterns: \"budget of \\$?(\\d+[KMB]?)\" catches explicit mentions. \"manage|oversee|control.*\\$?(\\d+[KMB]?)\" for responsibility indicators. But the highest signal is counting senior tech roles. 5+ senior positions = 85% correlation with $50K+ budgets."
+      }
+    }
+  ]
+}</script>
 
   <!-- Google Analytics (matches site-wide) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
