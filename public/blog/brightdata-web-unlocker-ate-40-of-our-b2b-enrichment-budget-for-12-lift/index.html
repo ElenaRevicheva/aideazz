@@ -51,6 +51,52 @@
   "url": "https://aideazz.xyz/blog/brightdata-web-unlocker-ate-40-of-our-b2b-enrichment-budget-for-12-lift",
   "mainEntityOfPage": "https://aideazz.xyz/blog/brightdata-web-unlocker-ate-40-of-our-b2b-enrichment-budget-for-12-lift"
 }</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use Clay or Clearbit instead of building custom scrapers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clay costs $349/month minimum and still charges for enrichment credits. Our 47,000 lead batch would have been $4,700+ on Clay. Custom gives us control over exactly which signals we extract and costs 80% less at scale."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle sites that block even BrightData Web Unlocker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We don't. If a company invests that heavily in anti-scraping, they're not a fit for automated outbound anyway. Move on to easier targets — there are millions of them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the false positive rate on blog frequency detection specifically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "11% false positive rate, mostly from sites that bulk-import old content with new dates. We filter by checking if multiple posts have identical timestamps or if publication dates are all on the same day of the week."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Cloud for this workload instead of AWS Lambda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oracle gives us 4 OCPU ARM instances in the always-free tier. Perfect for our Telegram notification agents and cron-based scrapers. Lambda would cost $200+/month for the same throughput."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is $0.022 per enriched lead actually good compared to manual SDR research?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An SDR spending 2 minutes per lead at $20/hour costs $0.67 per lead. We're 30x cheaper and find signals they'd miss. The key is filtering to only high-intent signals worth human follow-up."
+      }
+    }
+  ]
+}</script>
 
   <!-- Google Analytics (matches site-wide) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
