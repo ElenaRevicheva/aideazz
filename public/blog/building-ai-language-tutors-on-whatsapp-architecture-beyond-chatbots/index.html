@@ -51,6 +51,52 @@
   "url": "https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-architecture-beyond-chatbots",
   "mainEntityOfPage": "https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-architecture-beyond-chatbots"
 }</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle WhatsApp Business API costs at scale?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WhatsApp charges $0.005-0.08 per conversation (24-hour window), varying by country. I pass this to users as part of the service fee. At 400 users averaging 3 conversations/month, it's roughly $72 monthly — negligible compared to infrastructure costs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can this architecture work for other domains beyond language learning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but with caveats. Coaching, customer support, and educational bots work well. Complex workflows requiring visual interfaces don't. I tested a coding tutor — the lack of syntax highlighting and code formatting killed the experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent abuse without rate limiting legitimate learners?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three-tier system: free users get 50 messages, paid users get 500 daily, and I maintain a Redis blacklist for obvious abuse. The payment gate solves 95% of abuse. Legitimate learners rarely exceed 100 messages per day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the latency breakdown for voice message processing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Upload to Oracle: 200ms. Transcode opus to WAV: 400ms. Whisper inference: 6-8 seconds for 60-second audio. TTS generation: 1-2 seconds. Total round trip: 8-11 seconds. Users expect some delay with voice, so this feels acceptable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Cloud over AWS/GCP for production AI workloads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Always Free tier's 4 ARM cores and 24GB RAM handles my entire stack. AWS charges $140/month for equivalent compute. Oracle's ARM instances run Whisper inference surprisingly well. I only pay for block storage ($12/month for 200GB)."
+      }
+    }
+  ]
+}</script>
 
   <!-- Google Analytics (matches site-wide) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
