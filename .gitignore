@@ -25,3 +25,10 @@ dist-ssr
 
 # Separate repositories
 Business-portfolio
+
+# Pitch deck local artifacts (PDFs are committed, but not previews / backups)
+pitch-pdf/qa-pages/
+pitch-pdf/preview-*.png
+public/*.backup-*
+dist/*.backup-*
+

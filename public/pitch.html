@@ -566,10 +566,29 @@
                 display: none !important;
             }
 
-            /* Hide CTA rows in PDF — prevents orphan button strips and huge empty margins */
+            /* Hide CTA rows in PDF — prevents orphan button strips and huge empty margins.
+               EXCEPTION: buttons INSIDE tiles are content (e.g. partnerships SOCIAL/COMMUNITY/WEB3
+               tiles, agent spotlight CTAs) — they would leave empty tiles if hidden. */
             #deck a.btn,
             #deck .flex-wrap.mt-l {
                 display: none !important;
+            }
+            #deck .tile a.btn,
+            #deck .tile .flex-wrap.mt-l,
+            #deck .tile .flex-wrap.mt-s,
+            #deck .tile .flex-wrap.mt-m {
+                display: inline-flex !important;
+            }
+            #deck .tile .flex-wrap.mt-s,
+            #deck .tile .flex-wrap.mt-m,
+            #deck .tile .flex-wrap.mt-l {
+                display: flex !important;
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+            #deck .tile a.btn {
+                font-size: 0.72rem !important;
+                padding: 4px 10px !important;
             }
 
             .grid-bg {
@@ -622,6 +641,70 @@
                 animation: none !important;
                 transition: none !important;
             }
+
+            /* PDF slimming: kill expensive background effects (noise SVG, mesh gradient, dot-grid mask).
+               Keeps the dark background + tile colors but cuts PDF size by ~10x. */
+            body::before,
+            body::after,
+            .grid-bg {
+                display: none !important;
+            }
+            body {
+                background: var(--bg) !important;
+            }
+
+            /* PDF density: tighten spacing so each slide fits on ONE A4 landscape page.
+               Without this, dense slides (agents table, CMO 6-phase grid, BD hackathon) overflow
+               onto a half-empty second page and look unprofessional. */
+            #deck > .slide {
+                padding: 4mm 8mm !important;
+            }
+            .shell { max-width: none !important; }
+
+            .strip { margin-bottom: 14px !important; font-size: 0.62rem !important; }
+            h1 { font-size: 2.4rem !important; margin-bottom: 12px !important; line-height: 1.0 !important; }
+            h2 { font-size: 1.7rem !important; margin-bottom: 10px !important; line-height: 1.05 !important; }
+            h3 { font-size: 0.98rem !important; margin-bottom: 6px !important; }
+            .lead { font-size: 0.86rem !important; margin-bottom: 16px !important; max-width: 820px !important; line-height: 1.5 !important; }
+
+            .bento { gap: 10px !important; }
+            .tile { padding: 12px 14px !important; }
+            .tile h3 { margin-top: 6px !important; }
+            .feat { margin-bottom: 6px !important; gap: 8px !important; }
+            .feat strong { font-size: 0.88rem !important; }
+            .feat div { line-height: 1.45 !important; }
+
+            .stat-big { font-size: 2.2rem !important; line-height: 1.0 !important; }
+            .stat-sub { font-size: 0.7rem !important; margin-top: 4px !important; }
+
+            .mt-s { margin-top: 6px !important; }
+            .mt-m { margin-top: 12px !important; }
+            .mt-l { margin-top: 16px !important; }
+
+            /* Agents table — compact rows so all 10 fit on one page */
+            .tbl th, .tbl td {
+                padding: 6px 12px !important;
+                font-size: 0.78rem !important;
+                line-height: 1.35 !important;
+            }
+            .pill { font-size: 0.62rem !important; padding: 2px 8px !important; }
+
+            /* Founder timeline tightening */
+            .tl-row { padding: 8px 0 !important; }
+            .tl-yr { font-size: 0.78rem !important; }
+            .tl-txt { font-size: 0.82rem !important; line-height: 1.5 !important; }
+
+            /* Honest blockquote — smaller in PDF */
+            .honest { font-size: 0.78rem !important; padding: 8px 12px !important; margin-top: 10px !important; }
+
+            /* Hero stat tiles slightly smaller */
+            .hero-eyebrow { font-size: 0.62rem !important; margin-bottom: 8px !important; }
+
+            /* Keep cards from splitting awkwardly across pages */
+            .tile, .feat, .tl-row, .spot, table {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
         }
     </style>
 </head>
@@ -647,19 +730,20 @@
     <!-- 1. HERO -->
     <div class="slide active" data-slide>
         <div class="shell" style="margin-top:60px;">
-            <div class="hero-eyebrow">AIDEAZZ · APRIL 2026 · PANAMA CITY</div>
+            <div class="hero-eyebrow">AIDEAZZ · MAY 2026 · PANAMA CITY</div>
             <div class="flex-wrap" style="gap:8px;margin:10px 0 18px;">
+                <span class="tag-mono" style="background:linear-gradient(135deg,rgba(255,176,0,0.15),rgba(255,0,110,0.10));border:1px solid rgba(255,176,0,0.5);color:#ffb000;padding:6px 12px;border-radius:999px;font-size:0.7rem;">● BRIGHT DATA · WEB DATA UNLOCKED · MAY 2026</span>
                 <span class="tag-mono" style="background:rgba(0,229,255,0.08);border:1px solid var(--border-cyan);color:#00e5ff;padding:6px 12px;border-radius:999px;font-size:0.7rem;">● OPEN TO FOUNDING AI HIRE ROLES</span>
                 <span class="tag-mono" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.4);color:#c084fc;padding:6px 12px;border-radius:999px;font-size:0.7rem;">● ACCELERATOR CONVERSATIONS</span>
             </div>
             <h1 data-i18n="hero.title">Adaptive AI agents <span class="serif">that help you</span><br><span class="grad">thrive on the go.</span></h1>
-            <p class="lead" data-i18n="hero.lead">10 autonomous agents. 13 months. One developer. Under $15,000. All running 24/7 in production on shared infrastructure.</p>
+            <p class="lead" data-i18n="hero.lead">9 autonomous agents in production + AILA blueprint. 13 months. One developer. Under $15,000. All running 24/7 on shared infrastructure.</p>
             <p class="lead" data-i18n="hero.sub" style="margin-top:12px;font-size:1rem;color:var(--muted);max-width:720px;">Built to prove I can ship. <span style="color:#00e5ff;">Primary goal: join the right team as a founding AI / applied-AI engineer.</span> Investment is welcome — stable income is the mission.</p>
 
             <div class="bento bento-4 mt-m">
                 <div class="tile tile-glow">
-                    <div class="stat-big">10</div>
-                    <div class="stat-sub" data-i18n="hero.stat1">Agents live in production</div>
+                    <div class="stat-big">9<span style="font-size:1.4rem;color:var(--muted);">+1</span></div>
+                    <div class="stat-sub" data-i18n="hero.stat1">Agents in production · 1 blueprint (AILA)</div>
                 </div>
                 <div class="tile tile-glow">
                     <div class="stat-big">13<span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
@@ -720,7 +804,7 @@
             <div class="bento bento-2 mt-m">
                 <div class="tile tile-glow">
                     <div class="tag-mono">INFRASTRUCTURE</div>
-                    <h3 class="mt-s" data-i18n="sol.c1.t">One VM. One database. 10 agents.</h3>
+                    <h3 class="mt-s" data-i18n="sol.c1.t">One VM. One database. 9 agents + blueprint.</h3>
                     <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c1.b">All agents share one Oracle Cloud VM and one Oracle Autonomous Database. Coordinate through shared tables. ~$0/month on Oracle free credit grant.</p>
                 </div>
                 <div class="tile tile-glow">
@@ -746,8 +830,8 @@
     <div class="slide" data-slide>
         <div class="shell">
             <div class="strip"><span class="accent">04</span><span class="sep">//</span><span data-i18n="ag.label">WHAT'S LIVE</span></div>
-            <h2 data-i18n="ag.title">10 agents. <span class="grad">All in production.</span></h2>
-            <p class="lead" data-i18n="ag.lead">Every agent below runs 24/7 on Oracle Cloud, coordinating through shared database tables. Real users. Real deploys. Honest status.</p>
+            <h2 data-i18n="ag.title">9 agents in production. <span class="grad">1 blueprint.</span></h2>
+            <p class="lead" data-i18n="ag.lead">Every agent below runs 24/7 on Oracle Cloud, coordinating through shared database tables. Verifiable via <span class="mono" style="color:var(--cyan);">pm2 list</span> + <span class="mono" style="color:var(--cyan);">systemctl is-active</span>. Real users. Real deploys. AILA is the next-layer architecture blueprint, not yet deployed.</p>
 
             <div class="tile" style="padding:10px 6px;">
                 <table class="tbl">
@@ -950,10 +1034,60 @@
         </div>
     </div>
 
-    <!-- 9. METHODOLOGY -->
+    <!-- 9. BRIGHT DATA HACKATHON · WEB DATA UNLOCKED -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">09</span><span class="sep">//</span><span data-i18n="meth.label">METHODOLOGY</span></div>
+            <div class="strip"><span class="accent">09</span><span class="sep">//</span><span style="color:#ffb000;">BRIGHT DATA · WEB DATA UNLOCKED · TRACK 1 · GTM INTELLIGENCE</span></div>
+            <h2>Claude itself <span class="serif">uses Bright Data</span> —<br><span class="grad">autonomously, in production.</span></h2>
+            <p class="lead">The same <span class="mono" style="color:var(--cyan);">cto-aipa</span> Node process that runs the 9-agent ecosystem now exposes 4 Bright Data products to an autonomous Claude tool-use loop. The agent decides what to search, which pages to scrape, and when to stop. Built on top of an existing production system, not a tutorial demo.</p>
+
+            <div class="bento bento-2 mt-m">
+                <div class="tile tile-glow" style="border-color:rgba(255,176,0,0.35);background:linear-gradient(135deg,rgba(255,176,0,0.04),rgba(255,0,110,0.02));">
+                    <div class="tag-mono" style="color:#ffb000;">4 PRODUCTS · ONE SHARED TOKEN</div>
+                    <div class="feat"><span class="bullet" style="color:#ffb000;">01</span><div><strong>Web Unlocker</strong> <span class="mono" style="color:var(--muted);font-size:0.78rem;">→ bdFetch()</span><br><span style="font-size:0.82rem;color:var(--muted);">Auto-enriches every HubSpot deal with founder, tech stack, funding. Powers VibeJob Hunter LinkedIn Jobs (120/cycle).</span></div></div>
+                    <div class="feat"><span class="bullet" style="color:#ffb000;">02</span><div><strong>SERP API</strong> <span class="mono" style="color:var(--muted);font-size:0.78rem;">→ bdSerpSearch() via WU proxy + brd_json=1</span><br><span style="font-size:0.82rem;color:var(--muted);">Replaced paid SerpAPI. One credential set, lower cost, same JSON shape.</span></div></div>
+                    <div class="feat"><span class="bullet" style="color:#ffb000;">03</span><div><strong>Scraping Browser</strong> <span class="mono" style="color:var(--muted);font-size:0.78rem;">→ bdScrapingBrowserFetch() + bdSmartFetch() orchestrator</span><br><span style="font-size:0.82rem;color:var(--muted);">Try Web Unlocker first → escalate to Scraping Browser only when JS-gated or thin. Cost-aware by design.</span></div></div>
+                    <div class="feat"><span class="bullet" style="color:#ffb000;">04</span><div><strong>MCP Server</strong> <span class="mono" style="color:var(--muted);font-size:0.78rem;">→ .mcp.json · @brightdata/mcp</span><br><span style="font-size:0.82rem;color:var(--muted);">Bright Data exposed directly to Claude Code IDE for in-editor live web research.</span></div></div>
+                </div>
+
+                <div class="tile tile-glow" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(168,85,247,0.03));">
+                    <div class="tag-mono" style="color:#00e5ff;">AUTONOMOUS CLAUDE LOOP · LIVE PROOF</div>
+                    <h3 class="mt-s">/research_company decircle.io</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0 10px;">
+                        <div style="text-align:center;padding:10px;background:rgba(0,229,255,0.05);border-radius:8px;border:1px solid var(--border-cyan);">
+                            <div style="font-size:1.6rem;font-weight:800;color:#00e5ff;font-family:var(--mono);">86<span style="font-size:0.9rem;color:var(--muted);">s</span></div>
+                            <div style="font-size:0.7rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">END-TO-END</div>
+                        </div>
+                        <div style="text-align:center;padding:10px;background:rgba(0,229,255,0.05);border-radius:8px;border:1px solid var(--border-cyan);">
+                            <div style="font-size:1.6rem;font-weight:800;color:#00e5ff;font-family:var(--mono);">7</div>
+                            <div style="font-size:0.7rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">BD CALLS (CLAUDE CHOSE)</div>
+                        </div>
+                        <div style="text-align:center;padding:10px;background:rgba(0,229,255,0.05);border-radius:8px;border:1px solid var(--border-cyan);">
+                            <div style="font-size:1.6rem;font-weight:800;color:#00e5ff;font-family:var(--mono);">3</div>
+                            <div style="font-size:0.7rem;color:var(--muted);font-family:var(--mono);letter-spacing:0.1em;">TOOLS · 1 LOOP</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:12px;margin-top:8px;">
+                        <div class="tag-mono" style="font-size:0.62rem;color:var(--muted);margin-bottom:6px;">SENDABLE PITCH ANGLE — output to Telegram</div>
+                        <p style="font-style:italic;font-size:0.88rem;line-height:1.5;color:var(--text);">"Saw you're hiring a Head of BD to build Midas's distribution engine — would a 2-week AI marketing sprint make sense?"</p>
+                    </div>
+                    <div class="tag-mono mt-m" style="color:#00e5ff;">3 TELEGRAM COMMANDS · /menu BUSINESS WIRING</div>
+                    <div style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);line-height:1.8;margin-top:6px;">
+                        <span style="color:var(--cyan);">/research_company</span> &nbsp;→ CLIENT pitch + HOT/WARM/COLD verdict<br>
+                        <span style="color:var(--cyan);">/research_employer</span> &nbsp;→ HIRING intel + application angle<br>
+                        <span style="color:var(--cyan);">/research_competitor</span> &nbsp;→ SEO/AEO blog topic gaps
+                    </div>
+                </div>
+            </div>
+
+            <div class="honest mt-m"><span>honest scope:</span> The 9-agent production system and the Web Unlocker integration existed before the hackathon. Hackathon-week net-new: 3 more Bright Data products integrated under one shared credential set, the autonomous Claude tool-use loop in <span class="mono" style="color:var(--cyan);">src/research-agent.ts</span>, and the 3 operator-facing Telegram commands. Shipped, tested, verified live within hackathon week.</div>
+        </div>
+    </div>
+
+    <!-- 10. METHODOLOGY -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">10</span><span class="sep">//</span><span data-i18n="meth.label">METHODOLOGY</span></div>
             <h2 data-i18n="meth.title">One developer shipping<br><span class="grad">what most teams can't.</span></h2>
             <p class="lead" data-i18n="meth.lead">Claude Code and Cursor are the actual development environment — not a shortcut, not training wheels. The permanent workflow.</p>
 
@@ -961,7 +1095,7 @@
                 <div class="tile tile-glow">
                     <div class="tag-mono">VELOCITY</div>
                     <h3 class="mt-s" data-i18n="meth.c1.t">Idea → deployed agent in days</h3>
-                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c1.b">Every agent was scoped, built, and shipped to production by one person. 10 systems in 13 months is the proof.</p>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="meth.c1.b">Every agent was scoped, built, and shipped to production by one person. 9 systems shipped + AILA blueprint in 13 months is the proof.</p>
                 </div>
                 <div class="tile tile-glow">
                     <div class="tag-mono">OWNERSHIP</div>
@@ -987,7 +1121,7 @@
     <!-- 10. TRACTION -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">10</span><span class="sep">//</span><span data-i18n="trac.label">TRACTION — HONEST</span></div>
+            <div class="strip"><span class="accent">11</span><span class="sep">//</span><span data-i18n="trac.label">TRACTION — HONEST</span></div>
             <h2 data-i18n="trac.title">The numbers <span class="serif">as they are.</span></h2>
 
             <div class="bento bento-4 mt-m">
@@ -1032,7 +1166,7 @@
     <!-- 11. FOUNDER -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">11</span><span class="sep">//</span><span data-i18n="fnd.label">THE FOUNDER</span></div>
+            <div class="strip"><span class="accent">12</span><span class="sep">//</span><span data-i18n="fnd.label">THE FOUNDER</span></div>
             <h2 data-i18n="fnd.title">Elena Revicheva<br><span class="serif">executive who</span> <span class="grad">ships.</span></h2>
 
             <div class="tl mt-m">
@@ -1049,8 +1183,8 @@
                     <div class="tl-txt" data-i18n="fnd.r3"><strong>Decision:</strong> teach herself to build AI systems using Claude Code and Cursor as the actual methodology — not a shortcut.</div>
                 </div>
                 <div class="tl-row">
-                    <div class="tl-yr">Apr 2026</div>
-                    <div class="tl-txt" data-i18n="fnd.r4"><strong>10 production AI agents.</strong> 13 months. Solo. Under $15,000. TypeScript, Python, SQL. 8+ AI services integrated. 50K+ lines across the ecosystem.</div>
+                    <div class="tl-yr">May 2026</div>
+                    <div class="tl-txt" data-i18n="fnd.r4"><strong>9 production AI agents</strong> + AILA architecture blueprint. 13 months. Solo. Under $15,000. TypeScript, Python, SQL. 8+ AI services integrated. 50K+ lines across the ecosystem. <strong style="color:#ffb000;">Bright Data Web Data UNLOCKED hackathon submission shipped.</strong></div>
                 </div>
             </div>
 
@@ -1061,7 +1195,7 @@
     <!-- 12. WEB3 INFRASTRUCTURE -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">12</span><span class="sep">//</span><span>WEB3 INFRASTRUCTURE · BUILT, NOT PITCHED</span></div>
+            <div class="strip"><span class="accent">13</span><span class="sep">//</span><span>WEB3 INFRASTRUCTURE · BUILT, NOT PITCHED</span></div>
             <h2>On-chain infrastructure <span class="serif">exists.</span><br><span class="grad">Not the investment thesis.</span></h2>
             <p class="lead">Deployed on Polygon during the 2025 build cycle. All contracts verifiable on-chain. Included for completeness — not as the value proposition.</p>
 
@@ -1096,7 +1230,7 @@
     <!-- 13. PARTNERSHIPS & COMMUNITY -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">13</span><span class="sep">//</span><span>MEMBERSHIPS & COMMUNITY</span></div>
+            <div class="strip"><span class="accent">14</span><span class="sep">//</span><span>MEMBERSHIPS & COMMUNITY</span></div>
             <h2>Strategic memberships.<br><span class="grad">Organic channels.</span></h2>
 
             <div class="bento bento-2 mt-m">
@@ -1146,7 +1280,7 @@
     <!-- 14. ASK + CONTACT -->
     <div class="slide" data-slide>
         <div class="shell">
-            <div class="strip"><span class="accent">14</span><span class="sep">//</span><span data-i18n="ask.label">THE ASK · CONTACT</span></div>
+            <div class="strip"><span class="accent">15</span><span class="sep">//</span><span data-i18n="ask.label">THE ASK · CONTACT</span></div>
             <h2 data-i18n="ask.title">Hiring-ready.<br><span class="serif">Open to</span> <span class="grad">aligned investment.</span></h2>
             <p class="lead" data-i18n="ask.lead">The work is real. The systems are live. The honest goal is stable income — joining a worthy team first, investment second.</p>
 
