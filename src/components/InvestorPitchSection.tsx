@@ -1,4 +1,4 @@
-import { TrendingUp, Target, Zap, Globe, Users, DollarSign } from "lucide-react";
+import { TrendingUp, Target, Zap, Globe, Users, DollarSign, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
@@ -205,6 +205,16 @@ const InvestorPitchSection = () => {
               >
                 <a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener noreferrer">
                   {t("investor.pitchDeckButton")}
+                </a>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-purple-500/50 hover:border-purple-400 text-purple-300 hover:text-purple-200 px-8 py-3 rounded-full font-semibold backdrop-blur-sm hover:bg-purple-500/10 transition-all duration-300"
+                asChild
+              >
+                <a href="https://podcast.aideazz.xyz" target="_blank" rel="noopener noreferrer">
+                  <Headphones className="mr-2 w-5 h-5" />
+                  Podcast
                 </a>
               </Button>
             </div>
