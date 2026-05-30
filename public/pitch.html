@@ -742,19 +742,19 @@
 
             <div class="bento bento-4 mt-m">
                 <div class="tile tile-glow">
-                    <div class="stat-big">9<span style="font-size:1.4rem;color:var(--muted);">+1</span></div>
+                    <div class="stat-big"><span class="count" data-to="9">0</span><span style="font-size:1.4rem;color:var(--muted);">+1</span></div>
                     <div class="stat-sub" data-i18n="hero.stat1">Agents in production · 1 blueprint (AILA)</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big">13<span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
+                    <div class="stat-big"><span class="count" data-to="13">0</span><span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
                     <div class="stat-sub" data-i18n="hero.stat2">Solo build time</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big">&lt;$15K</div>
+                    <div class="stat-big">&lt;$<span class="count" data-to="15">0</span>K</div>
                     <div class="stat-sub" data-i18n="hero.stat3">Total capital invested</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big">~$0</div>
+                    <div class="stat-big">~$<span class="count" data-to="0">0</span></div>
                     <div class="stat-sub" data-i18n="hero.stat4">Monthly infra cost</div>
                 </div>
             </div>
@@ -763,6 +763,7 @@
                 <a href="https://aideazz.xyz" class="btn btn-primary">aideazz.xyz →</a>
                 <a href="https://aideazz.xyz/portfolio" class="btn" data-i18n="hero.btn2">The Founder</a>
                 <a href="https://wa.me/50766623757" class="btn" data-i18n="hero.btn3">Try Flagship EspaLuz</a>
+                <a href="https://podcast.aideazz.xyz" class="btn" target="_blank" rel="noopener">AIdeazz Podcast</a>
             </div>
         </div>
     </div>
@@ -1515,6 +1516,32 @@
     saveOriginals();
     const saved = localStorage.getItem('pitchLang') || 'en';
     if (saved === 'es') applyLang('es');
+</script>
+<script>
+    // Dynamic count-up for hero stat numbers (additive; animates 0 -> data-to when visible)
+    (function () {
+        function animate(el) {
+            var to = parseFloat(el.getAttribute('data-to')) || 0, dur = 1200, start = null;
+            if (to === 0) { el.textContent = '0'; return; }
+            function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(eased * to).toString();
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+        var els = document.querySelectorAll('.count');
+        if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            els.forEach(function (e) { e.textContent = e.getAttribute('data-to'); });
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { animate(en.target); io.unobserve(en.target); } });
+        }, { threshold: 0.4 });
+        els.forEach(function (e) { io.observe(e); });
+    })();
 </script>
 </body>
 </html>
