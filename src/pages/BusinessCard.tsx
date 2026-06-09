@@ -1318,8 +1318,10 @@ export default function BusinessCard() {
                     >
                       <Linkedin className="w-4 h-4" /> {t('cardBack.linkedin')}
                     </a>
-                    <a 
-                      href="mailto:aipa@aideazz.xyz"
+                    <a
+                      href="https://calendly.com/elena_revicheva/coffee-chat"
+                      target="_blank"
+                      rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
