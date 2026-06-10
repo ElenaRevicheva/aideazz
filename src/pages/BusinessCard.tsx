@@ -60,7 +60,9 @@ export default function BusinessCard() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const isSpanish = (i18n.resolvedLanguage ?? i18n.language).toLowerCase().startsWith('es');
-  const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf' : '/Elena_Revicheva_Resume.pdf';
+  // ?v= cache-buster: forces returning browsers to fetch the fresh PDF AND drop
+  // their stale favicon mapping for the old URL (Chrome caches favicons per-URL).
+  const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf?v=20260609' : '/Elena_Revicheva_Resume.pdf?v=20260609';
   const statsRef = useRef<HTMLDivElement>(null);
   const agentCount = useCountUp(10, 1200, isFlipped);
   const monthCount = useCountUp(13, 1200, isFlipped);
