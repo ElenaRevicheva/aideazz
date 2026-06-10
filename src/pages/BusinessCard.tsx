@@ -420,8 +420,12 @@ export default function BusinessCard() {
                         <FileText className="w-4 h-4" />
                         {t('header.resumeButton')}
                       </a>
-                      <a href="mailto:aipa@aideazz.xyz"
-                        onClick={(e) => e.stopPropagation()}
+                      <a href="#portfolio-inquiry-form"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
                         <Mail className="w-4 h-4"/> {t('header.contactButton')}
                       </a>
