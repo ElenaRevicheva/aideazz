@@ -45,16 +45,30 @@ export default function BlogIndex() {
           : null;
         if (cancelled) return;
 
+        // Full-timestamp sort keys per slug (date-only keys made same-day posts
+        // sort arbitrarily — June 11 2026: 4 posts published the same day rendered
+        // oldest-first, hiding the newest below the fold).
+        const sortKeyBySlug = new Map<string, string>();
+
+        // dev.to cross-post slugs carry a short random suffix containing a digit
+        // (initial-failure-51hn). Normalize for dedupe so the dev.to copy of a
+        // post never renders alongside the Oracle/local copy.
+        const normSlug = (s: string) =>
+          s.replace(/-(?=[a-z0-9]{3,6}$)[a-z]*\d[a-z0-9]*$/i, "");
+
         // Build MergedPostRow list from Oracle posts
-        const oraclePosts: MergedPostRow[] = (oracleJson?.posts ?? []).map(p => ({
-          slug: p.slug,
-          title: p.title,
-          description: "",
-          date: (p.publishedAt || "").slice(0, 10),
-          hashnodeUrl: "",
-          hasLocalBody: false,
-          devtoUrl: p.devtoUrl || undefined,
-        }));
+        const oraclePosts: MergedPostRow[] = (oracleJson?.posts ?? []).map(p => {
+          sortKeyBySlug.set(p.slug, p.publishedAt || "");
+          return {
+            slug: p.slug,
+            title: p.title,
+            description: "",
+            date: (p.publishedAt || "").slice(0, 10),
+            hashnodeUrl: "",
+            hasLocalBody: false,
+            devtoUrl: p.devtoUrl || undefined,
+          };
+        });
 
         // Merge local markdown + dev.to-only posts (catches older posts not in Oracle cache)
         const local = getAllPosts();
@@ -62,12 +76,16 @@ export default function BlogIndex() {
         const withDev = await mergeDevtoOnlyInto(base);
         if (cancelled) return;
 
-        // Merge Oracle posts on top (deduplicate by slug, Oracle takes priority for newest)
-        const oracleSlugs = new Set(oraclePosts.map(p => p.slug));
+        // Merge Oracle posts on top (dedupe on NORMALIZED slug, Oracle wins)
+        const oracleSlugKeys = new Set(oraclePosts.map(p => normSlug(p.slug)));
         const merged = [
           ...oraclePosts,
-          ...withDev.filter(p => !oracleSlugs.has(p.slug)),
-        ].sort((a, b) => (a.date < b.date ? 1 : -1));
+          ...withDev.filter(p => !oracleSlugKeys.has(normSlug(p.slug))),
+        ].sort((a, b) => {
+          const ka = sortKeyBySlug.get(a.slug) || a.date || "";
+          const kb = sortKeyBySlug.get(b.slug) || b.date || "";
+          return ka < kb ? 1 : ka > kb ? -1 : 0;
+        });
 
         setMerged(merged);
       } catch (e) {
