@@ -41,7 +41,7 @@ export default function BlogIndex() {
         // Primary: Oracle cache (written at publish time, always up to date)
         const oracleRes = await fetch(`${BLOG_ES_API_ORIGIN}/blog/posts`).catch(() => null);
         const oracleJson = oracleRes?.ok
-          ? (await oracleRes.json() as { posts: { title: string; slug: string; url: string; publishedAt: string }[] })
+          ? (await oracleRes.json() as { posts: { title: string; slug: string; url: string; publishedAt: string; devtoUrl?: string }[] })
           : null;
         if (cancelled) return;
 
@@ -53,7 +53,7 @@ export default function BlogIndex() {
           date: (p.publishedAt || "").slice(0, 10),
           hashnodeUrl: "",
           hasLocalBody: false,
-          devtoUrl: undefined,
+          devtoUrl: p.devtoUrl || undefined,
         }));
 
         // Merge local markdown + dev.to-only posts (catches older posts not in Oracle cache)
