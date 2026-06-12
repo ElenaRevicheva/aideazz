@@ -6,6 +6,9 @@
   <meta name="description" content="Cómo opera AIdeazz nueve productos de IA en producción y uno en roadmap: mapa de propiedad, fiabilidad, automatización GTM y stack—para quien necesita evidencia operativa, no eslóganes." />
   <meta name="color-scheme" content="dark" />
   <title>Manual de operaciones IA — Elena Revicheva · AIdeazz</title>
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=2" />
+  <link rel="shortcut icon" href="/faviconnew.png?v=2" />
+  <link rel="apple-touch-icon" href="/faviconnew.png?v=2" />
   <link rel="canonical" href="https://aideazz.xyz/sop-ai-ops-es.html" />
   <link rel="alternate" hreflang="es" href="https://aideazz.xyz/sop-ai-ops-es.html" />
   <link rel="alternate" hreflang="en" href="https://aideazz.xyz/sop-ai-ops.html" />
@@ -15,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"Manual de operaciones de agentes de IA","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-05-11","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"inLanguage":"es"}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"Manual de operaciones de agentes de IA","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-06-12","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"inLanguage":"es"}
   </script>
 
   <style>
@@ -1144,7 +1147,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Actualizado</div>
-        <div class="meta-val">mayo de 2026</div>
+        <div class="meta-val">junio de 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Estado</div>
@@ -1207,6 +1210,8 @@
       <span>Automación de crecimiento en X (stream + engagement + alertas)</span>
       <span>Audio mañanero por AWS Lambda + puente seguro CTO</span>
       <span>Ritmo ejecutivo: resúmenes Trello a Telegram</span>
+      <span>Capa de web en vivo: Bright Data Web Unlocker · SERP · Scraping Browser + agente de investigación autónomo con Claude (/research_company · /research_employer · /research_competitor en Telegram)</span>
+      <span>Failover LLM de 3 niveles: Claude → Groq → Grok (xAI) — el motor de contenido sobrevive a la caída de cualquier proveedor</span>
     </div>
     <div class="callout">
       <div><strong>Invariante operativa:</strong> exactamente un checkout desplegado por repositorio de GitHub—evita drift de versión, secretos duplicados e incidentes de “¿qué carpeta es prod?”. Pares como CTO + co‑fundadora creativa comparten codebase a propósito pero ejecutan interfaces/personalidades distintas.</div>
@@ -1467,9 +1472,9 @@
         <div class="p-track"><div class="p-num">3</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Hashnode + dev.to · Asíncrono</div>
-            <h3>Crosspost blog</h3>
-            <p><code>blog_publisher.py</code> después de LinkedIn: ensayo Hashnode + enlace canónico dev.to → aideazz.xyz.</p>
+            <div class="p-channel">Blog diario · aideazz.xyz/blog + dev.to</div>
+            <h3>Publicación bilingüe (EN/ES)</h3>
+            <p>El publicador diario de blog envía artículos a aideazz.xyz/blog con crosspost a dev.to (&ldquo;Also on Dev.to&rdquo;). Mutex de ventana deslizante, dedup por título y notificación siempre a Telegram evitan dobles publicaciones silenciosas.</p>
           </div>
         </div>
       </div>
@@ -1583,6 +1588,31 @@
         <div class="pm-val">≈2&nbsp;h desde detección → APIs parcheadas → verificado en ciclos vivos. Relato íntegro conservado en el anexo técnico enlazado abajo.</div>
       </div>
     </div>
+    <div class="pm-block" style="margin-top:18px;">
+      <div class="pm-head">
+        <div class="pm-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+        <div>
+          <h3>El bucle de engagement que nunca corrió</h3>
+          <p>25 may 2026 — la config decía &ldquo;32 engagements/día&rdquo;; los logs decían cero ciclos completados</p>
+        </div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Síntoma</div>
+        <div class="pm-val">Pedí a los logs que probaran la tasa de engagement declarada. El banner de arranque apareció 4.357 veces; la línea de acción &ldquo;ciclo completado&rdquo; apareció <strong>cero</strong> veces. El comportamiento nunca ocurrió, dijera lo que dijera la config.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Causas raíz</div>
+        <div class="pm-val">Tres capas: la primera corrida de engagement estaba programada 5&nbsp;min tras el arranque; el proceso era reiniciado cada 5&nbsp;min por un cron externo; y ese cron era un health check cuyo <code>grep</code> nunca coincidía con la salida de tabla de PM2—así juzgaba muerto a un proceso sano, para siempre.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Fix aplicado</div>
+        <div class="pm-val">Health check reescrito para leer estado estructurado: <code>pm2 jlist | jq</code> sobre el campo de estado del proceso en vez de hacer grep al texto renderizado. El proceso se mantuvo arriba; el primer ciclo de engagement de la historia del bot disparó el mismo día, con respuestas y follows reales verificados en logs.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Regla ganada</div>
+        <div class="pm-val"><strong>Verifica desde los logs, no desde la config.</strong> Nunca declares comportamiento de un agente sin hacer grep a la línea de ACCIÓN (no a la de setup). El fix ya es regla operativa estándar en toda la flota.</div>
+      </div>
+    </div>
     <div class="callout amber" style="margin-top:14px;">
       <div><strong>Regla de actualización del SOP:</strong> cualquier incidente con impacto real en prod merece el mismo formato internamente—así la memoria institucional se acumula en lugar de borrarse.</div>
     </div>
@@ -1618,11 +1648,11 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">IA / LLM</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · OpenAI TTS / Whisper · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, failover nivel 3) · OpenAI TTS / Whisper con reintentos + cadena de respaldo · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Generación de leads</div>
-        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL — ~150–250 empresas nuevas netas/mes tras filtros</div>
+        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL · Bright Data (SERP API + Web Unlocker + Scraping Browser — reemplazó a SerpAPI de pago) — ~150–250 empresas nuevas netas/mes tras filtros</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Hosting / CDN</div>
@@ -1634,7 +1664,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Contenido y SEO</div>
-        <div class="stack-tools">Hashnode GraphQL · dev.to · GA4 · Search Console · pack GEO (llms.txt, tokens crawler)</div>
+        <div class="stack-tools">Blog diario bilingüe (EN/ES, aideazz.xyz/blog) · crosspost dev.to · GA4 · Search Console · pack GEO (llms.txt, tokens crawler) · FAQPage JSON-LD (AEO)</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Gestión de proyecto</div>
