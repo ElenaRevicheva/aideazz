@@ -536,21 +536,21 @@ export default function BusinessCard() {
                             <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-blue-300">CTO AIPA</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Code Review</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Control Tower</p>
                         </div>
                         <div className="text-center">
                           <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-1.5">
                             <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-emerald-300">CMO AIPA</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Job Hunting</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Marketing & CRM</p>
                         </div>
                         <div className="text-center">
                           <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1.5">
                             <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-cyan-300">VibeJob</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Applications</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Job Hunting</p>
                         </div>
                       </div>
 
@@ -607,6 +607,24 @@ export default function BusinessCard() {
                     <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
                       An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them.
                     </p>
+
+                    {/* Shared engine capabilities — what the whole fleet runs on */}
+                    <div className="mt-5 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
+                      {[
+                        'HubSpot CRM — multi-agent lead pipeline',
+                        'Bright Data — live-web research agent',
+                        'Bilingual daily blog — GEO · SEO · AEO',
+                        'Daily voice briefing — AWS Lambda',
+                        '3-tier LLM failover — Claude → Groq → Grok',
+                      ].map((cap) => (
+                        <span
+                          key={cap}
+                          className="text-[9px] sm:text-[10px] px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 text-purple-200/90 whitespace-nowrap"
+                        >
+                          {cap}
+                        </span>
+                      ))}
+                    </div>
 
                     {/* Operations runbook link — how this fleet is actually run */}
                     <div className="mt-5 flex justify-center">
