@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-05-11","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-06-12","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
   </script>
 
   <style>
@@ -1144,7 +1144,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Updated</div>
-        <div class="meta-val">May 2026</div>
+        <div class="meta-val">June 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
@@ -1207,6 +1207,8 @@
       <span>X growth automation (stream listening + engagement + alerts)</span>
       <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
       <span>Executive rhythm: Trello digests to Telegram</span>
+      <span>Live web data layer: Bright Data Web Unlocker · SERP · Scraping Browser + autonomous Claude research agent (/research_company · /research_employer · /research_competitor in Telegram)</span>
+      <span>3-tier LLM failover: Claude → Groq → Grok (xAI) — content engine survives any single provider outage</span>
     </div>
     <div class="callout">
       <div><strong>Operational invariant:</strong> exactly one deployed checkout per GitHub repository—prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
@@ -1467,9 +1469,9 @@
         <div class="p-track"><div class="p-num">3</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Hashnode + dev.to · Async</div>
-            <h3>Blog crosspost</h3>
-            <p><code>blog_publisher.py</code> fires after LinkedIn: Hashnode essay + dev.to canonical backlink to aideazz.xyz.</p>
+            <div class="p-channel">Daily blog · aideazz.xyz/blog + dev.to</div>
+            <h3>Bilingual blog publish (EN/ES)</h3>
+            <p>The daily blog publisher ships articles to aideazz.xyz/blog with dev.to crosspost (&ldquo;Also on Dev.to&rdquo;). Sliding-window mutex, title dedup, and always-notify Telegram guard against silent double publishes.</p>
           </div>
         </div>
       </div>
@@ -1583,6 +1585,31 @@
         <div class="pm-val">≈2 hours from detection → patched APIs → verified on live automation cycles. Full narrative retained in the engineering appendix linked below.</div>
       </div>
     </div>
+    <div class="pm-block" style="margin-top:18px;">
+      <div class="pm-head">
+        <div class="pm-icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></div>
+        <div>
+          <h3>The engagement loop that never ran</h3>
+          <p>May 25, 2026 — config said &ldquo;32 engagements/day&rdquo;; logs said zero cycles had ever completed</p>
+        </div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Symptom</div>
+        <div class="pm-val">Asked the logs to prove a claimed engagement rate. Startup banner found 4,357 times; cycle-completed action line found <strong>zero</strong> times. The behavior never happened, no matter what the config said.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Root causes</div>
+        <div class="pm-val">Three layers deep: the first engagement run was scheduled 5 minutes after startup; the process was being restarted every 5 minutes by an external cron; and that cron was a health check whose <code>grep</code> never matched PM2&rsquo;s box-drawing table output—so it judged a healthy process dead, forever.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Fix applied</div>
+        <div class="pm-val">Health check rewritten to read structured state: <code>pm2 jlist | jq</code> on the process status field instead of grepping rendered text. Process stayed up; the first engagement cycle in the bot&rsquo;s history fired the same day, with real replies and follows verified from logs.</div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-lbl">Rule earned</div>
+        <div class="pm-val"><strong>Verify from logs, not config.</strong> Never claim agent behavior without grepping for the ACTION line (not the setup line). The fix is now a standing operating rule across the fleet.</div>
+      </div>
+    </div>
     <div class="callout amber" style="margin-top:14px;">
       <div><strong>SOP update rule:</strong> materially production-facing incidents earn the same structured write-up internally—so institutional memory compounds instead of resetting.</div>
     </div>
@@ -1618,11 +1645,11 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">AI / LLMs</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · OpenAI TTS / Whisper · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, tier-3 failover) · OpenAI TTS / Whisper with retry + provider-fallback chain · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Lead Gen</div>
-        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL — ~150–250 net-new companies/month after filtering</div>
+        <div class="stack-tools">HN Algolia · GitHub REST · Product Hunt GraphQL · Bright Data (SERP API + Web Unlocker + Scraping Browser — replaced paid SerpAPI) — ~150–250 net-new companies/month after filtering</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Hosting / CDN</div>
@@ -1634,7 +1661,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Content & SEO</div>
-        <div class="stack-tools">Hashnode GraphQL · dev.to · GA4 · Google Search Console · GEO pack (llms.txt, crawler tokens)</div>
+        <div class="stack-tools">Bilingual daily blog (EN/ES, aideazz.xyz/blog) · dev.to crosspost · GA4 · Google Search Console · GEO pack (llms.txt, crawler tokens) · FAQPage JSON-LD (AEO)</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Project Mgmt</div>
