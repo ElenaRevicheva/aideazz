@@ -123,7 +123,7 @@ export default function BusinessCard() {
         "name": "Elena Revicheva",
         "url": "https://aideazz.xyz/portfolio",
         "image": "https://aideazz.xyz/elena-og.jpg",
-        "jobTitle": "Applied AI Engineer & AI Systems Builder — Agents, CRM & Revenue Automation",
+        "jobTitle": "Applied AI Engineer & AI Systems Builder — Agents, AI Marketing, CRM & Revenue Automation",
         "description": "Executive-turned-AI-builder. 7 years Deputy CEO/CLO in digital infrastructure. Ships production AI systems: 10-agent ecosystem (9 in production, AILA in design), LangGraph stateful pipelines, pgvector RAG, multi-model LLM routing (76% Groq / 24% Claude), voice pipelines. $0/month on Oracle Cloud.",
         "knowsAbout": ["AI Agents", "Multi-model LLM Routing", "LangGraph", "pgvector RAG", "Claude API", "GPT API", "Whisper Voice Pipeline", "Oracle Cloud", "Python", "TypeScript", "AI Automation", "Multi-agent Orchestration", "Telegram Bot Development", "WhatsApp API"],
         "sameAs": [
