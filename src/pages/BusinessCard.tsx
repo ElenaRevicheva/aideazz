@@ -65,7 +65,7 @@ export default function BusinessCard() {
   const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf?v=20260609' : '/Elena_Revicheva_Resume.pdf?v=20260609';
   const statsRef = useRef<HTMLDivElement>(null);
   const agentCount = useCountUp(10, 1200, isFlipped);
-  const monthCount = useCountUp(13, 1200, isFlipped);
+  const monthCount = useCountUp(15, 1200, isFlipped);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'es' : 'en';
@@ -607,6 +607,21 @@ export default function BusinessCard() {
                     <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
                       An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them.
                     </p>
+
+                    {/* Operations runbook link — how this fleet is actually run */}
+                    <div className="mt-5 flex justify-center">
+                      <a
+                        href={isSpanish ? '/sop-ai-ops-es.html' : '/sop-ai-ops.html'}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/30 hover:border-purple-400/50 text-xs sm:text-sm font-semibold text-purple-200 transition-all"
+                      >
+                        <FileText className="w-4 h-4 shrink-0" />
+                        {isSpanish ? 'Cómo opero esta flota — Runbook de Operaciones' : 'How I operate this fleet — Ops Runbook'}
+                        <ExternalLink className="w-4 h-4 shrink-0" />
+                      </a>
+                    </div>
                   </div>
                 </motion.div>
 

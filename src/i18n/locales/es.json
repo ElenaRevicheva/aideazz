@@ -391,9 +391,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "Cofundadora Técnica de IA",
-      "desc": "Sistema de IA autónomo para revisión de código, toma de decisiones técnicas y briefing diario en 12 repositorios activos de GitHub. Enrutamiento multi-modelo (Claude para análisis crítico/seguridad, Groq Llama 3.3 70B para velocidad), memoria persistente en Oracle DB, automatización de webhooks de GitHub. Pipeline de voz: notas de voz → Whisper → base de conocimiento Oracle. Sprint Briefing Agent (AWS Lambda): cron EventBridge a las 8AM hora de Panamá → lee actividad nocturna de 12 repos + recupera notas de voz desde Oracle → Groq agrupa señales → Claude redacta narrativa → OpenAI TTS genera MP3 → entregado por Telegram. Bucle de memoria bidireccional completo.",
-      "traction": "12 repos monitoreados • 25+ revisiones de código • ~$3/mes total • uptime 24/7 · cero reinicios por fallos",
-      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), OpenAI TTS, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
+      "desc": "Sistema de IA autónomo para revisión de código, toma de decisiones técnicas y briefing diario en 12 repositorios activos de GitHub. Failover LLM de tres niveles (Claude para análisis crítico/seguridad → Groq Llama 3.3 70B para velocidad → Grok/xAI de respaldo) mantiene el motor activo ante la caída de cualquier proveedor. Memoria persistente en Oracle DB, automatización de webhooks de GitHub. Pipeline de voz: notas de voz → Whisper (con reintentos + respaldo OpenAI) → base de conocimiento Oracle. Capa de web en vivo vía Bright Data (Web Unlocker · SERP · Scraping Browser) impulsa un agente de investigación autónomo con Claude — /research_company, /research_employer, /research_competitor — que devuelve veredictos y ángulos listos para enviar en ~90s. Sprint Briefing Agent (AWS Lambda): cron EventBridge a las 8AM hora de Panamá → lee actividad nocturna de 12 repos + recupera notas de voz desde Oracle → Groq agrupa señales → Claude redacta narrativa → OpenAI TTS genera MP3 → entregado por Telegram. Bucle de memoria bidireccional completo.",
+      "traction": "12 repos monitoreados • 25+ revisiones de código • failover LLM de 3 niveles • ~$3/mes total • uptime 24/7 · cero reinicios por fallos",
+      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), Grok (xAI), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI TTS/Whisper, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
@@ -402,16 +402,16 @@
       "subtitle": "Visibilidad en Google, respuestas de IA y blog automático",
       "desc": "El SEO es la parte clásica: un mapa claro de páginas para Google (sitemap, sitio bilingüe EN/ES, datos estructurados). El GEO aplica la misma idea a las respuestas de IA: hechos y autoría en tu dominio para que los asistentes te citen bien, sin relleno de palabras clave. La automatización lo une: con calendario, posts largos se redactan y publican en el blog externo y se reflejan aquí; sindicación opcional; cada corrida queda en Oracle. Los formularios guardan consultas y etiquetas de campaña en el mismo almacén de leads que ya usan CMO y CTO.",
       "traction": "Sitemap + páginas estructuradas en vivo • Blog en piloto automático (opt-in) • Sindicación opcional • Leads + UTM en Oracle",
-      "tech": "Vite, React, Hashnode, Dev.to, Claude, Google Search Console (opcional), GA4, reCAPTCHA Enterprise, Oracle DB, cron CTO AIPA",
+      "tech": "Vite, React, blog diario bilingüe (aideazz.xyz/blog), crosspost Dev.to, FAQPage JSON-LD (AEO), Claude, Google Search Console (opcional), GA4, reCAPTCHA Enterprise, Oracle DB, cron CTO AIPA",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
     "cmo": {
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "Cofundador de Marketing IA y Motor de Búsqueda de Empleo",
-      "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 con pipeline LangGraph stateful (en vivo abr 2026) — grafo de 7 nodos (gate → score → route → submit → notify), checkpointer SQLite para deduplicación, interrupción para aprobación humana en puntajes límite. Escanea 218 empresas en Greenhouse, Lever, Ashby. Scoring 100 puntos con Claude. 131 tests, 4 capas de evaluación a $0.03/run. Entrega verificada: HTTP status real + confirmation ID en cada envío ATS.",
+      "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 con pipeline LangGraph stateful (en vivo abr 2026) — grafo de 7 nodos (gate → score → route → submit → notify), checkpointer SQLite para deduplicación, interrupción para aprobación humana en puntajes límite. Escanea 218 empresas en Greenhouse, Lever, Ashby. Scoring 100 puntos con Claude. 131 tests, 4 capas de evaluación a $0.03/run. Entrega verificada: HTTP status real + confirmation ID en cada envío ATS. Investigación de web en vivo vía Bright Data alimenta un agente Claude autónomo que perfila empresas y empleadores bajo demanda.",
       "traction": "218 empresas monitoreadas • 1.900+ empleos escaneados • 131 tests de evaluación (L4: LLM-as-judge) • Pipeline LangGraph en vivo abr 2026 • Publicación bilingüe diaria",
-      "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
+      "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Bright Data, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
@@ -443,15 +443,15 @@
       "text": "7 años en E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Reubicada a Panamá en 2022 — transición de gestión ejecutiva a ingeniería IA práctica, lanzando 10 agentes en producción que resuelven problemas reales en aprendizaje de idiomas, automatización de empleo, revisión de código y generación de contenido."
     },
     "timeline": {
-      "title": "Marzo 2025 — Abril 2026",
-      "subtitle": "13 Meses de Producción",
+      "title": "Marzo 2025 — Junio 2026",
+      "subtitle": "15 Meses de Producción",
       "keyStats": "Resultado:",
       "stat1": "Ecosistema de 10 agentes: 9 en producción 24/7 + AILA en diseño (TypeScript, Python, Node.js)",
       "stat2": "LangGraph pipelines · pgvector RAG · LangChain · 131 tests de evaluación · 9+ servicios IA/ML integrados"
     },
     "vibeAdvantage": {
       "title": "DESARROLLO ASISTIDO POR IA A ESCALA",
-      "desc": "Ecosistema de 10 agentes lanzado en 13 meses, en solitario, por <$15K de costo total de infraestructura — usando Claude Code, Cursor, LangGraph y orquestación multi-modelo:",
+      "desc": "Ecosistema de 10 agentes lanzado en 15 meses, en solitario, por <$15K de costo total de infraestructura — usando Claude Code, Cursor, LangGraph y orquestación multi-modelo:",
       "traditional": "Equipo Tradicional:",
       "traditionalCost": "$900K+/año",
       "vibeCoding": "Solo con IA:",
@@ -492,7 +492,7 @@
         "item1": "Entrego de punta a punta — desde arquitectura hasta despliegue en producción y feedback de usuarios",
         "item1Button": "Pitch",
         "item2": "Disciplina de fundadora: trato cada proyecto como propio — ownership, urgencia, cero desperdicio",
-        "item3": "7 años de gestión ejecutiva + 13 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
+        "item3": "7 años de gestión ejecutiva + 15 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
       },
       "closing": "Lista para construir juntos."
     }
