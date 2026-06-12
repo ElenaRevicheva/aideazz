@@ -65,7 +65,7 @@
   "vibeCoding": {
     "badge": "Engineering Approach",
     "title": "AI-Augmented Development",
-    "subtitle": "Production AI systems built with AI — Claude Code, Cursor, LangGraph, and multi-model orchestration compress months of engineering into weeks. The result: 10 live agents shipped solo in 13 months for under $15K total infrastructure cost.",
+    "subtitle": "Production AI systems built with AI — Claude Code, Cursor, LangGraph, and multi-model orchestration compress months of engineering into weeks. The result: a 10-agent ecosystem (9 live 24/7) shipped solo in 15 months for under $15K total infrastructure cost.",
     "emotionalIntelligence": "Emotional Intelligence Layer",
     "emotionalDescription": "AI systems that recognise context and emotional state — not just keywords — enabling agents that respond with genuine relevance rather than generic output.",
     "adaptiveLearning": "Persistent Memory Architecture",
@@ -334,8 +334,8 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Applied AI Engineer | 10 Live Agents | Founder @ AIdeazz",
-    "stats": "7 yrs Deputy CEO/CLO • 10 live agents · 12 active repos • LangGraph · pgvector RAG • AI-augmented (Cursor + Claude Code) • 76%/24% multi-model routing",
+    "title": "Applied AI Engineer & AI Systems Builder | Agents · CRM · Revenue Automation | Founder @ AIdeazz",
+    "stats": "7 yrs Deputy CEO/CLO • 10-agent ecosystem — 9 live 24/7 • 12 active repos • LangGraph · pgvector RAG • AI-augmented (Cursor + Claude Code) • 3-tier LLM failover",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
     "builder": "Builder & Founder",
@@ -440,7 +440,7 @@
     "title": "Engineering Track Record",
     "background": {
       "title": "Background",
-      "text": "7 years in Russian E-government as Chief Executive in IT Project Management and CLO. Relocated to Panama in 2022 — transitioned from executive management to hands-on AI engineering, shipping 10 production agents solving real problems across language learning, job automation, code review, and content generation."
+      "text": "7 years in Russian E-government as Chief Executive in IT Project Management and CLO. Relocated to Panama in 2022 — transitioned from executive management to hands-on AI engineering, shipping a 10-agent ecosystem (9 in production 24/7, AILA in design) solving real problems across language learning, job automation, code review, and content generation."
     },
     "timeline": {
       "title": "March 2025 — June 2026",
@@ -469,7 +469,7 @@
       "strength4": "Multi-modal AI pipelines — text, voice, image (Flux Pro), video (Luma), OCR",
       "strength5": "Cross-platform delivery — Web, Telegram, WhatsApp, Twitter, blockchain",
       "strength6": "Infrastructure & DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
-      "strength7": "0→1 execution — 10 production agents shipped, all live 24/7",
+      "strength7": "0→1 execution — 10-agent ecosystem shipped, 9 live 24/7",
       "strength8": "AI-assisted development — Claude Code, Cursor, rapid prototyping to production",
       "strength9": "Bilingual product design (EN/ES) — i18n, localization across 21 countries"
     },
@@ -484,7 +484,7 @@
       "role6": "AI Solutions Architect",
       "investment": {
         "title": "What I Bring to Your Team",
-        "desc": "10 production AI agents shipped solo • Multi-model LLM orchestration (Claude/GPT/Groq) • Full-stack: React frontend + Python/Node backend • Oracle Cloud infrastructure running 24/7 • Executive background in digital transformation",
+        "desc": "10-agent ecosystem shipped solo — 9 live 24/7 • Multi-model LLM orchestration (Claude/GPT/Groq/Grok) • Full-stack: React frontend + Python/Node backend • Oracle Cloud infrastructure running 24/7 • Executive background in digital transformation",
         "button": "Deck"
       },
       "hybrid": {
@@ -536,11 +536,11 @@
   "contact": {
     "title": "Let's Build",
     "forTeams": "For hiring teams:",
-    "forTeamsDesc": "I build and operate production LLM systems — agent workflows, API integrations, persistent memory, cloud deployment. 10 agents live on Oracle Cloud right now.",
+    "forTeamsDesc": "I build and operate production LLM systems — agent workflows, API integrations, persistent memory, cloud deployment. 9 agents live on Oracle Cloud right now, AILA orchestration in design.",
     "forInvestors": "For investors:",
     "forInvestorsDescPre": "",
     "forInvestorsLink": "AIdeazz ecosystem (MVP)",
-    "forInvestorsDescPost": ": 10 AI agents live, monetization infrastructure ready, ISD-backed in Panama. Open to pre-seed conversations.",
+    "forInvestorsDescPost": ": 9 AI agents live + AILA in design, monetization infrastructure ready, ISD-backed in Panama. Open to pre-seed conversations.",
     "location": "Based in 🇵🇦 Panama (LATAM timezone: UTC-5 / EST) • Bilingual EN/ES",
     "twitter": "X",
     "github": "GitHub",
@@ -551,7 +551,7 @@
   },
   "cardBack": {
     "name": "Elena Revicheva",
-    "founder": "Applied AI Engineer | Founder @ AIdeazz",
+    "founder": "Applied AI Engineer & AI Systems Builder | Founder @ AIdeazz",
     "subtitle": "Building production LLM systems & autonomous agents",
     "location": "Panama",
     "languages": "EN 🇬🇧 + ES 🇪🇸",

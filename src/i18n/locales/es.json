@@ -65,7 +65,7 @@
   "vibeCoding": {
     "badge": "Metodología de Ingeniería",
     "title": "Desarrollo Aumentado por IA",
-    "subtitle": "Sistemas de IA en producción construidos con IA — Claude Code, Cursor, LangGraph y orquestación multi-modelo comprimen meses de ingeniería en semanas. El resultado: 10 agentes en producción desarrollados en solitario en 13 meses por menos de $15K en infraestructura.",
+    "subtitle": "Sistemas de IA en producción construidos con IA — Claude Code, Cursor, LangGraph y orquestación multi-modelo comprimen meses de ingeniería en semanas. El resultado: un ecosistema de 10 agentes (9 en vivo 24/7) desarrollado en solitario en 15 meses por menos de $15K en infraestructura.",
     "emotionalIntelligence": "Capa de Inteligencia Emocional",
     "emotionalDescription": "Sistemas de IA que reconocen el contexto y el estado emocional — no solo palabras clave — permitiendo agentes que responden con relevancia genuina en lugar de respuestas genéricas.",
     "adaptiveLearning": "Arquitectura de Memoria Persistente",
@@ -334,8 +334,8 @@
   },
   "header": {
     "name": "Elena Revicheva",
-    "title": "Ingeniera de IA Aplicada | 10 Agentes en Producción | Fundadora @ AIdeazz",
-    "stats": "7 años Vice-CEO/CLO • 10 agentes en vivo · 12 repos activos • LangGraph · pgvector RAG • desarrollo aumentado por IA (Cursor + Claude Code) • enrutamiento multi-modelo 76%/24%",
+    "title": "Ingeniera de IA Aplicada y Constructora de Sistemas de IA | Agentes · CRM · Automatización de Ingresos | Fundadora @ AIdeazz",
+    "stats": "7 años Vice-CEO/CLO • Ecosistema de 10 agentes — 9 en vivo 24/7 • 12 repos activos • LangGraph · pgvector RAG • desarrollo aumentado por IA (Cursor + Claude Code) • failover LLM de 3 niveles",
     "location": "Panamá",
     "bilingual": "Bilingüe EN/ES",
     "builder": "Builder & Fundadora",
@@ -440,7 +440,7 @@
     "title": "Trayectoria de Ingeniería",
     "background": {
       "title": "Antecedentes",
-      "text": "7 años en E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Reubicada a Panamá en 2022 — transición de gestión ejecutiva a ingeniería IA práctica, lanzando 10 agentes en producción que resuelven problemas reales en aprendizaje de idiomas, automatización de empleo, revisión de código y generación de contenido."
+      "text": "7 años en E-gobierno Ruso como Directora Ejecutiva en Gestión de Proyectos IT y CLO. Reubicada a Panamá en 2022 — transición de gestión ejecutiva a ingeniería IA práctica, lanzando un ecosistema de 10 agentes (9 en producción 24/7, AILA en diseño) que resuelve problemas reales en aprendizaje de idiomas, automatización de empleo, revisión de código y generación de contenido."
     },
     "timeline": {
       "title": "Marzo 2025 — Junio 2026",
@@ -469,7 +469,7 @@
       "strength4": "Pipelines IA multi-modal — texto, voz, imagen (Flux Pro), video (Luma), OCR",
       "strength5": "Entrega cross-platform — Web, Telegram, WhatsApp, Twitter, blockchain",
       "strength6": "Infraestructura y DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
-      "strength7": "Ejecución 0→1 — 10 agentes en producción lanzados, todos en vivo 24/7",
+      "strength7": "Ejecución 0→1 — ecosistema de 10 agentes lanzado, 9 en vivo 24/7",
       "strength8": "Desarrollo asistido por IA — Claude Code, Cursor, prototipado rápido a producción",
       "strength9": "Diseño de producto bilingüe (EN/ES) — i18n, localización en 21 países"
     },
@@ -484,7 +484,7 @@
       "role6": "Arquitecta de Soluciones IA",
       "investment": {
         "title": "Lo Que Aporto a Tu Equipo",
-        "desc": "10 agentes IA en producción construidos en solitario • Orquestación LLM multi-modelo (Claude/GPT/Groq) • Full-stack: frontend React + backend Python/Node • Infraestructura Oracle Cloud 24/7 • Experiencia ejecutiva en transformación digital",
+        "desc": "Ecosistema de 10 agentes construido en solitario — 9 en vivo 24/7 • Orquestación LLM multi-modelo (Claude/GPT/Groq/Grok) • Full-stack: frontend React + backend Python/Node • Infraestructura Oracle Cloud 24/7 • Experiencia ejecutiva en transformación digital",
         "button": "Deck"
       },
       "hybrid": {
@@ -536,11 +536,11 @@
   "contact": {
     "title": "Construyamos Juntos",
     "forTeams": "Para equipos contratando:",
-    "forTeamsDesc": "Construyo y opero sistemas LLM en producción — flujos de agentes, integraciones API, memoria persistente, despliegue en la nube. 10 agentes en vivo en Oracle Cloud ahora mismo.",
+    "forTeamsDesc": "Construyo y opero sistemas LLM en producción — flujos de agentes, integraciones API, memoria persistente, despliegue en la nube. 9 agentes en vivo en Oracle Cloud ahora mismo, orquestación AILA en diseño.",
     "forInvestors": "Para inversionistas:",
     "forInvestorsDescPre": "",
     "forInvestorsLink": "Ecosistema AIdeazz (MVP)",
-    "forInvestorsDescPost": ": 10 agentes IA en vivo, infraestructura de monetización lista, respaldo ISD en Panamá. Abierta a conversaciones pre-seed.",
+    "forInvestorsDescPost": ": 9 agentes IA en vivo + AILA en diseño, infraestructura de monetización lista, respaldo ISD en Panamá. Abierta a conversaciones pre-seed.",
     "location": "Basada en 🇵🇦 Panamá (zona horaria LATAM: UTC-5 / EST) • Bilingüe EN/ES",
     "twitter": "X",
     "github": "GitHub",
@@ -551,7 +551,7 @@
   },
   "cardBack": {
     "name": "Elena Revicheva",
-    "founder": "Ingeniera de IA Aplicada | Fundadora @ AIdeazz",
+    "founder": "Ingeniera de IA Aplicada y Constructora de Sistemas de IA | Fundadora @ AIdeazz",
     "subtitle": "Construyendo sistemas LLM en producción y agentes autónomos",
     "location": "Panamá",
     "languages": "EN 🇬🇧 + ES 🇪🇸",
