@@ -584,7 +584,7 @@ export default function BusinessCard() {
                             <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-purple-300">EspaLuz</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Life Assistant</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Spanish Tutor · Relocation</p>
                         </div>
                         <div className="text-center">
                           <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-1.5">
@@ -626,17 +626,37 @@ export default function BusinessCard() {
                       ))}
                     </div>
 
-                    {/* Operations runbook link — how this fleet is actually run */}
-                    <div className="mt-5 flex justify-center">
+                    {/* Proof links — how the fleet is run + what it publishes */}
+                    <div className="mt-5 flex flex-wrap justify-center gap-2.5">
                       <a
                         href={isSpanish ? '/sop-ai-ops-es.html' : '/sop-ai-ops.html'}
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/30 hover:border-purple-400/50 text-xs sm:text-sm font-semibold text-purple-200 transition-all"
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/30 hover:border-purple-400/50 text-xs sm:text-sm font-semibold text-purple-200 transition-all"
                       >
                         <FileText className="w-4 h-4 shrink-0" />
-                        {isSpanish ? 'Cómo opero esta flota — Runbook de Operaciones' : 'How I operate this fleet — Ops Runbook'}
+                        {isSpanish ? 'Cómo opero esta flota — Runbook' : 'How I operate this fleet — Ops Runbook'}
+                        <ExternalLink className="w-4 h-4 shrink-0" />
+                      </a>
+                      <Link
+                        to="/blog"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/30 hover:border-purple-400/50 text-xs sm:text-sm font-semibold text-purple-200 transition-all"
+                      >
+                        <MessageSquare className="w-4 h-4 shrink-0" />
+                        {isSpanish ? 'Blog — IA en producción' : 'Blog — AI in production'}
+                        <ArrowRight className="w-4 h-4 shrink-0" />
+                      </Link>
+                      <a
+                        href="https://podcast.aideazz.xyz"
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-purple-500/30 hover:border-purple-400/50 text-xs sm:text-sm font-semibold text-purple-200 transition-all"
+                      >
+                        <Headphones className="w-4 h-4 shrink-0" />
+                        Podcast
                         <ExternalLink className="w-4 h-4 shrink-0" />
                       </a>
                     </div>
