@@ -466,7 +466,7 @@
       "strength1": "Orquestación LLM multi-modelo — Claude, GPT, Groq con enrutamiento por costo/complejidad",
       "strength2": "Arquitectura de agentes autónomos — memoria persistente, event-driven, auto-recuperación",
       "strength3": "Ingeniería full-stack — frontend React/TypeScript + backend Python/Node.js",
-      "strength4": "Pipelines IA multi-modal — texto, voz, imagen (Flux Pro), video (Luma), OCR",
+      "strength4": "Pipelines IA multi-modal — texto, voz (TTS/Whisper), imagen (Flux 2 Pro), video multi-proveedor (Luma/Runway/Veo/Kling), ensamblaje automático de películas (ffmpeg), OCR",
       "strength5": "Entrega cross-platform — Web, Telegram, WhatsApp, Twitter, blockchain",
       "strength6": "Infraestructura y DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "Ejecución 0→1 — ecosistema de 10 agentes lanzado, 9 en vivo 24/7",
@@ -528,8 +528,8 @@
       "link": "https://espaluz-ai-language-tutor.lovable.app/"
     },
     "product2": {
-      "name": "Atuona — Cofundador Creativo IA + Galería NFT",
-      "desc": "Socio creativo IA agéntico que impulsa la Galería de Arte Multidisciplinaria atuona.xyz: poesía underground → traducción al inglés → imágenes Flux Pro → video Luma/Runway → NFTs free-mint en Polygon. Motor emocional de 13 estados, memoria creativa persistente (48+ páginas), pipeline multi-modal (Claude Opus 4 + Flux Pro + Luma Dream Machine). Libro coescrito publicado autónomamente en blockchain.",
+      "name": "Atuona — Cofundador Creativo IA + Estudio de Cine IA + Galería NFT",
+      "desc": "Cofundador creativo IA agéntico detrás de atuona.xyz — un pipeline arthouse de extremo a extremo: poesía original → traducción bilingüe → imágenes Flux 2 Pro → video IA multi-proveedor (Luma Ray-3.2, Runway Gen-4.5, Google Veo 3.1, Kling — seleccionable por el operador con fallback automático) → NFTs free-mint en Polygon. NUEVO — un Estudio de Cine IA completo (atuona.xyz/aifilmstudio): un compilador ffmpeg que ensambla poemas en películas terminadas con voz en off TTS, subtítulos, tarjetas de título, transiciones y banda sonora, reproducible desde cualquier dispositivo. Motor emocional de 13 estados, memoria creativa persistente (48+ páginas), Claude Opus 4.8 + Flux 2 Pro. Libro coescrito publicado autónomamente en blockchain.",
       "link": "https://atuona.xyz/"
     }
   },

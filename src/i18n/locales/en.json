@@ -466,7 +466,7 @@
       "strength1": "Multi-model LLM orchestration — Claude, GPT, Groq routing by cost/complexity",
       "strength2": "Autonomous agent architecture — persistent memory, event-driven, self-healing",
       "strength3": "Full-stack engineering — React/TypeScript frontend + Python/Node.js backend",
-      "strength4": "Multi-modal AI pipelines — text, voice, image (Flux Pro), video (Luma), OCR",
+      "strength4": "Multi-modal AI pipelines — text, voice (TTS/Whisper), image (Flux 2 Pro), multi-provider video (Luma/Runway/Veo/Kling), automated film assembly (ffmpeg), OCR",
       "strength5": "Cross-platform delivery — Web, Telegram, WhatsApp, Twitter, blockchain",
       "strength6": "Infrastructure & DevOps — Oracle Cloud, systemd, PM2, mTLS, CI/CD",
       "strength7": "0→1 execution — 10-agent ecosystem shipped, 9 live 24/7",
@@ -528,8 +528,8 @@
       "link": "https://espaluz-ai-language-tutor.lovable.app/"
     },
     "product2": {
-      "name": "Atuona — AI Creative Co-Founder + NFT Gallery",
-      "desc": "Agentic AI creative partner powering Multidisciplinary Art Gallery atuona.xyz: underground poetry → English translation → Flux Pro images → Luma/Runway video → free-mint NFTs on Polygon. 13-mood emotional engine, persistent creative memory (48+ pages), multi-modal pipeline (Claude Opus 4 + Flux Pro + Luma Dream Machine). Co-authored book published autonomously to blockchain.",
+      "name": "Atuona — AI Creative Co-Founder + AI Film Studio + NFT Gallery",
+      "desc": "Agentic AI creative co-founder behind atuona.xyz — an end-to-end arthouse pipeline: original poetry → bilingual translation → Flux 2 Pro images → multi-provider AI video (Luma Ray-3.2, Runway Gen-4.5, Google Veo 3.1, Kling — operator-selectable with automatic fallback) → free-mint NFTs on Polygon. NEW — a full AI Film Studio (atuona.xyz/aifilmstudio): an ffmpeg compiler that auto-assembles poems into finished films with TTS voiceover, on-screen subtitles, title cards, crossfades and a music bed, streamable from any device. 13-mood emotional engine, persistent creative memory (48+ pages), Claude Opus 4.8 + Flux 2 Pro. Co-authored book published autonomously to blockchain.",
       "link": "https://atuona.xyz/"
     }
   },
