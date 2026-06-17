@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three LangGraph Rewrites: What Stateful Agents Actually Cost in Production | AIdeazz</title>
+  <meta name="description" content="For three weeks, our intake agent silently discarded every job it processed. No error. No exception. The Telegram bot replied "Got it, working on that" and then nothing landed in the queue. Logs were…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/three-langgraph-rewrites-what-stateful-agents-actually-cost-in-production">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Three LangGraph Rewrites: What Stateful Agents Actually Cost in Production">
+  <meta property="og:description" content="For three weeks, our intake agent silently discarded every job it processed. No error. No exception. The Telegram bot replied "Got it, working on that" and then nothing landed in the queue. Logs were…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/three-langgraph-rewrites-what-stateful-agents-actually-cost-in-production">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-06-17T19:31:10.932Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Three LangGraph Rewrites: What Stateful Agents Actually Cost in Production">
+  <meta name="twitter:description" content="For three weeks, our intake agent silently discarded every job it processed. No error. No exception. The Telegram bot replied "Got it, working on that" and then nothing landed in the queue. Logs were…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Three LangGraph Rewrites: What Stateful Agents Actually Cost in Production",
+  "description": "For three weeks, our intake agent silently discarded every job it processed. No error. No exception. The Telegram bot replied \"Got it, working on that\" and then nothing landed in the queue. Logs were…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-06-17T19:31:10.932Z",
+  "dateModified": "2026-06-17T19:31:10.932Z",
+  "url": "https://aideazz.xyz/blog/three-langgraph-rewrites-what-stateful-agents-actually-cost-in-production",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/three-langgraph-rewrites-what-stateful-agents-actually-cost-in-production"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not just use the MemorySaver or SQLite checkpointer in production if traffic is moderate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "SQLite serializes writes through a file lock, and under concurrent threads you hit `database is locked` somewhere between 50 and a few hundred simultaneous writes depending on your disk. MemorySaver loses everything on restart, defeating the point of checkpointing. PostgresSaver on a free-tier Oracle instance costs nothing extra and removes the entire class of lock errors — there's no reason to gamble."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle a checkpoint written mid-update when a process is OOM-killed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Don't assume the checkpoint and your node's side effect committed together — they didn't. On resume, re-run your state invariant assertions before continuing; if they fail, discard the checkpoint and restart the thread rather than resuming into inconsistent state. This dropped our incoherent-reply incidents from ~8/week to under 1."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Pydantic state validation add meaningful latency per node?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a state object with a few dozen fields, validation is sub-millisecond — utterly dwarfed by any LLM call, which is 200ms on Groq and several seconds on Claude. The \"performance\" objection to strict validation is theoretical. The cost of *not* validating is data that vanishes silently for weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why store task class instead of the resolved model in checkpoint state?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Checkpoints are time capsules — whatever you freeze in them runs against your old logic on resume, even after you change the code. We had resumed threads billing Claude after we'd rerouted their task class to Groq, because the resolved model was frozen in the checkpoint. Store the decision inputs, recompute the decision in the node."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "One side effect per node sounds like it explodes the node count. Is it worth it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It roughly doubled our node count on complex pipelines, yes. But each node became independently resumable and idempotent, which is what took completion rate to 99.3%. A node that calls an LLM, writes to a DB, and sends a message has three places to fail and no clean resume point — splitting them is what makes checkpointing actually deliver durable execution instead of duplicate side effects."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Three LangGraph Rewrites: What Stateful Agents Actually Cost in Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-06-17T19:31:10.932Z">June 17, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>For three weeks, our intake agent silently discarded every job it processed. No error. No exception. The Telegram bot replied "Got it, working on that" and then nothing landed in the queue. Logs were clean. The graph executed end to end. We lost roughly 1,100 user requests before I traced it to a single typo in a TypedDict field name — <code>task_result</code> written where the downstream node read <code>result</code>. LangGraph merged the state update, found no key collision, and threw the data into the void with zero complaint.</p>
+<p>That bug is the entire reason this article exists. LangGraph stateful agents production checkpointing is sold as a solved problem in the docs — wire up a checkpointer, get durable execution, resume from failure. The reality is that the failure modes are quiet, the state model is unforgiving, and the gap between a tutorial graph and a graph that survives a week of real Telegram and WhatsApp traffic is three rewrites wide. Here is what each one taught me.</p>
+<h2>Rewrite one: the state schema that ate everything</h2>
+<p>The first version followed the canonical pattern. A <code>TypedDict</code> state, a few nodes, conditional edges. It worked in the notebook. It worked in the local test. It deployed to our Oracle Cloud VM and immediately started losing data — but only under concurrent load, which is exactly when you stop watching the logs line by line.</p>
+<p>The root cause was how LangGraph reducers handle state merges. When a node returns a partial state dict, LangGraph merges it into the channel using the reducer you defined — or the default, which is <em>overwrite</em>. If two nodes write to the same key and you expected accumulation, you get the last writer. If a node writes a key that no other node reads, the value sits in state until it's overwritten and nobody notices it's orphaned.</p>
+<p>My intake node returned <code>{"task_result": parsed}</code>. My persistence node read <code>state["result"]</code>, found the key missing, and the default value was an empty list. Empty list, nothing to persist, return success. The graph reported completion. Python never raised because <code>TypedDict</code> is a typing fiction at runtime — it does not validate keys, it does not enforce shape, it does nothing but make your editor happy.</p>
+<p>What fixed it:</p>
+<ul><li>Switched the state from <code>TypedDict</code> to a Pydantic model with <code>extra="forbid"</code>. Now a write to an undeclared field raises at the node boundary instead of vanishing.</li>
+<li>Added explicit <code>Annotated</code> reducers for every channel that should accumulate. If I want messages to append, I say so: <code>Annotated[list, operator.add]</code>. Everything else overwrites by design, not by accident.</li>
+<li>Wrote a single assertion node at the end of every pipeline that checks the invariants — "if status is <code>complete</code>, <code>result</code> must be non-null." That one node would have caught the three-week bug on day one.</li></ul>
+<p>The lesson is blunt: LangGraph's state model gives you freedom and charges you for it. The default behavior is silent. You pay the bill in lost data unless you build the guardrails yourself.</p>
+<h2>Rewrite two: checkpoint corruption and the resume that wasn't</h2>
+<p>Once the state was honest, I turned on checkpointing. The promise is real and it matters: a long multi-step pipeline — say, an agent that routes a user request through Groq for cheap classification, then Claude for the heavy reasoning, then a tool call, then persistence — can crash halfway and resume from the last completed node instead of re-running everything. With Claude tokens costing what they cost, re-running a five-step pipeline from scratch on every transient failure is money you set on fire.</p>
+<p>I started with the SQLite checkpointer because it's the default everyone reaches for. On a single VM that handles WhatsApp and Telegram agents, SQLite under concurrent writes is a trap. I hit <code>database is locked</code> errors within the first hundred concurrent threads. Worse, I hit a checkpoint that resumed into a half-written state — the checkpoint had been written mid-update when the process was killed by an OOM, and on resume the graph loaded a state where one channel reflected the new step and another reflected the old one.</p>
+<p>That is checkpoint corruption, and it does not announce itself either. The graph resumes, runs the next node against inconsistent state, and produces a plausible-looking wrong answer. A user got a WhatsApp reply that referenced a request they never made, because the resumed thread had mixed two checkpoints.</p>
+<p>What I changed:</p>
+<ul><li>Moved off SQLite to Postgres on Oracle (the <code>PostgresSaver</code>). Concurrent writes stopped being a lottery. The <code>database is locked</code> errors went to zero because Postgres handles row-level locking instead of locking the whole file.</li>
+<li>Stopped trusting that a checkpoint write is atomic with the node side effect. It isn't. If your node calls an external API and <em>then</em> the checkpoint commits, a crash in between means you re-run the API call on resume. For non-idempotent calls — sending a message, charging something, posting to a channel — that's a duplicate. I made every side-effecting node idempotent with an explicit dedup key stored in state before the call.</li>
+<li>Added a checkpoint sanity check on resume: load the checkpoint, run the same invariant assertions, and if they fail, discard the checkpoint and restart the thread from the beginning rather than resuming into corruption.</li></ul>
+<p>The hard number here: moving to Postgres and adding the resume-time invariant check dropped our "agent produced incoherent reply" incidents from roughly 8 per week to under 1. The remaining ones were prompt problems, not state problems.</p>
+<h2>The routing problem checkpointing made worse</h2>
+<p>There's a second-order effect nobody warns you about. We route between Groq and Claude based on the task — Groq's Llama models for classification, formatting, and anything where latency matters more than depth; Claude for reasoning that actually needs the quality. The routing decision lives in the graph state.</p>
+<p>When you resume from a checkpoint, the routing decision is frozen in that checkpoint. If you've since changed your routing logic — say you moved a task class from Claude to Groq to cut cost — the resumed thread runs the <em>old</em> route, because the route is data in the checkpoint, not code re-evaluated on resume.</p>
+<p>I learned this when a batch of resumed threads kept billing Claude after I'd explicitly moved their task class to Groq. The fix was to stop storing the resolved model in state and instead store only the task class, then resolve the model fresh in the node every time it runs. Decisions that depend on code you'll change should not be frozen into the checkpoint. Store the inputs to the decision, not the output.</p>
+<p>This is a general rule for LangGraph stateful agents production checkpointing: <strong>the checkpoint is a time capsule.</strong> Anything you put in it, you are committing to support across every code change until that thread completes or expires. Keep it minimal. Store the durable facts, recompute the derivable ones.</p>
+<h2>Rewrite three: the pattern that finally held</h2>
+<p>The third rewrite wasn't a new framework or a clever trick. It was a discipline I should have started with. I split every pipeline into nodes that obey three rules:</p>
+<p>1. <strong>Every node is a pure function of state plus one external effect, at most.</strong> No node both calls Claude <em>and</em> writes to Postgres <em>and</em> sends a Telegram message. One side effect per node. This means more nodes, but each one is independently resumable and independently idempotent. When something fails, I know exactly which effect to make safe.</p>
+<p>2. <strong>Side effects come after the dedup check, not before.</strong> Each side-effecting node first checks state for a dedup key. If the key is present, it skips the effect and returns. The key gets written to state in the same update as the effect's result. On resume, the dedup key tells me the effect already happened.</p>
+<p>3. <strong>The state schema is validated on entry and exit of the graph, and on every checkpoint resume.</strong> Pydantic model, <code>extra="forbid"</code>, explicit reducers, an invariant assertion node. The graph cannot run with a malformed state — it raises loudly at the boundary.</p>
+<p>Here's the shape of a node under this pattern:</p>
+<p><pre><code class="language-python">def send_reply_node(state: AgentState) -&gt; dict:
+    if state.reply_sent_id is not None:
+        # already sent on a prior run before crash; skip
+        return {}
+    msg_id = telegram.send(state.chat_id, state.result)
+    return {"reply_sent_id": msg_id}
+</code></pre></p>
+<p>It's not elegant. It's defensive. But it survived the load that broke the first two versions. Across our WhatsApp and Telegram agents on Oracle, pipeline completion rate went from "I don't actually know" — because the silent-discard bug meant my metrics were lying — to a measured 99.3%, with the remaining 0.7% being upstream API timeouts that resume cleanly.</p>
+<h2>What I'd tell someone starting today</h2>
+<p>Don't reach for the SQLite checkpointer beyond your laptop. It will work in every test and fail under the exact concurrency that production brings. Go straight to Postgres if you have any real traffic — and on Oracle's free tier you can run a perfectly adequate Postgres instance for this, which is what we do at zero infra cost.</p>
+<p>Don't use <code>TypedDict</code> for state if you care about not losing data. It validates nothing. Use Pydantic with strict mode. The performance cost is irrelevant next to a three-week silent failure.</p>
+<p>Don't trust that "durable execution" means your side effects are safe. The checkpoint and the side effect are not transactionally linked. Make every external call idempotent with a key you store in state, or accept that resume means duplicates.</p>
+<p>And don't store derived decisions in the checkpoint. The route you picked, the model you chose, the timestamp-based branch — store the inputs, recompute the output. Your code will change before that thread expires, and the checkpoint will quietly serve you stale logic.</p>
+<p>LangGraph is genuinely good once you've internalized that it does very little for you by default and charges you silently when you assume otherwise. The graph abstraction is sound. The state and checkpoint machinery is sharp on every edge. Three rewrites was the tax. I'm writing this so yours is one.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not just use the MemorySaver or SQLite checkpointer in production if traffic is moderate?</strong><br>A: SQLite serializes writes through a file lock, and under concurrent threads you hit <code>database is locked</code> somewhere between 50 and a few hundred simultaneous writes depending on your disk. MemorySaver loses everything on restart, defeating the point of checkpointing. PostgresSaver on a free-tier Oracle instance costs nothing extra and removes the entire class of lock errors — there's no reason to gamble.</p>
+<p><strong>Q: How do you handle a checkpoint written mid-update when a process is OOM-killed?</strong><br>A: Don't assume the checkpoint and your node's side effect committed together — they didn't. On resume, re-run your state invariant assertions before continuing; if they fail, discard the checkpoint and restart the thread rather than resuming into inconsistent state. This dropped our incoherent-reply incidents from ~8/week to under 1.</p>
+<p><strong>Q: Does Pydantic state validation add meaningful latency per node?</strong><br>A: For a state object with a few dozen fields, validation is sub-millisecond — utterly dwarfed by any LLM call, which is 200ms on Groq and several seconds on Claude. The "performance" objection to strict validation is theoretical. The cost of <em>not</em> validating is data that vanishes silently for weeks.</p>
+<p><strong>Q: Why store task class instead of the resolved model in checkpoint state?</strong><br>A: Checkpoints are time capsules — whatever you freeze in them runs against your old logic on resume, even after you change the code. We had resumed threads billing Claude after we'd rerouted their task class to Groq, because the resolved model was frozen in the checkpoint. Store the decision inputs, recompute the decision in the node.</p>
+<p><strong>Q: One side effect per node sounds like it explodes the node count. Is it worth it?</strong><br>A: It roughly doubled our node count on complex pipelines, yes. But each node became independently resumable and idempotent, which is what took completion rate to 99.3%. A node that calls an LLM, writes to a DB, and sends a message has three places to fail and no clean resume point — splitting them is what makes checkpointing actually deliver durable execution instead of duplicate side effects.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
