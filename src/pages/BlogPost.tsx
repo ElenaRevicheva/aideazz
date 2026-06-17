@@ -142,8 +142,24 @@ export default function BlogPost() {
     setServerEsLoading(true);
     setServerEsError(null);
     const url = `${BLOG_ES_API_ORIGIN}/blog/es-bundle/${encodeURIComponent(slug)}`;
-    fetch(url)
-      .then(async (r) => {
+
+    // On a cache miss the backend returns 202 {generating} and translates in the
+    // background (caches in ~30s); a slow/dropped connection rejects with "Failed to
+    // fetch". Both are transient — poll a few times (staying in the "Traduciendo…"
+    // state), then quietly fall back to the English original instead of a hard error.
+    const MAX_ATTEMPTS = 8;
+    const RETRY_MS = 6000;
+    let attempt = 0;
+
+    const poll = async () => {
+      attempt += 1;
+      try {
+        const r = await fetch(url);
+        if (r.status === 202) {
+          if (!cancelled && attempt < MAX_ATTEMPTS) window.setTimeout(poll, RETRY_MS);
+          else if (!cancelled) setServerEsLoading(false); // give up quietly → English shows
+          return;
+        }
         if (!r.ok) {
           let msg = `HTTP ${r.status}`;
           try {
@@ -152,25 +168,36 @@ export default function BlogPost() {
           } catch {
             /* ignore */
           }
-          throw new Error(msg);
+          if (!cancelled) {
+            setServerEsBundle(null);
+            // 404 = no translatable source for this slug; don't nag, just show English.
+            setServerEsError(r.status === 404 ? null : msg);
+            setServerEsLoading(false);
+          }
+          return;
         }
-        return r.json() as Promise<BlogEsBundleJson>;
-      })
-      .then((j) => {
-        if (!cancelled && j?.markdown?.trim()) {
-          setServerEsBundle(j);
-          setServerEsError(null);
-        } else if (!cancelled) setServerEsBundle(null);
-      })
-      .catch((e) => {
+        const j = (await r.json()) as BlogEsBundleJson;
         if (!cancelled) {
-          setServerEsBundle(null);
-          setServerEsError(e instanceof Error ? e.message : String(e));
+          if (j?.markdown?.trim()) {
+            setServerEsBundle(j);
+            setServerEsError(null);
+          } else {
+            setServerEsBundle(null);
+          }
+          setServerEsLoading(false);
         }
-      })
-      .finally(() => {
-        if (!cancelled) setServerEsLoading(false);
-      });
+      } catch {
+        // Network-level reject ("Failed to fetch") — treat as still-generating, retry.
+        if (!cancelled && attempt < MAX_ATTEMPTS) {
+          window.setTimeout(poll, RETRY_MS);
+        } else if (!cancelled) {
+          setServerEsBundle(null);
+          setServerEsError(null); // quiet fallback to English, never a red banner
+          setServerEsLoading(false);
+        }
+      }
+    };
+    void poll();
     return () => {
       cancelled = true;
     };
