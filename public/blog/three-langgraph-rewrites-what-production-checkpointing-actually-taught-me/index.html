@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three LangGraph Rewrites: What Production Checkpointing Actually Taught Me | AIdeazz</title>
+  <meta name="description" content="For three weeks our onboarding agent silently discarded every job it was supposed to persist, and the logs showed nothing. No exception, no warning, no failed write. The checkpointer reported success…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/three-langgraph-rewrites-what-production-checkpointing-actually-taught-me">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Three LangGraph Rewrites: What Production Checkpointing Actually Taught Me">
+  <meta property="og:description" content="For three weeks our onboarding agent silently discarded every job it was supposed to persist, and the logs showed nothing. No exception, no warning, no failed write. The checkpointer reported success…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/three-langgraph-rewrites-what-production-checkpointing-actually-taught-me">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-06-19T17:26:12.600Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Three LangGraph Rewrites: What Production Checkpointing Actually Taught Me">
+  <meta name="twitter:description" content="For three weeks our onboarding agent silently discarded every job it was supposed to persist, and the logs showed nothing. No exception, no warning, no failed write. The checkpointer reported success…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Three LangGraph Rewrites: What Production Checkpointing Actually Taught Me",
+  "description": "For three weeks our onboarding agent silently discarded every job it was supposed to persist, and the logs showed nothing. No exception, no warning, no failed write. The checkpointer reported success…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-06-19T17:26:12.600Z",
+  "dateModified": "2026-06-19T17:26:12.600Z",
+  "url": "https://aideazz.xyz/blog/three-langgraph-rewrites-what-production-checkpointing-actually-taught-me",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/three-langgraph-rewrites-what-production-checkpointing-actually-taught-me"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the default overwrite reducer ever the right choice for list fields?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — for fields like `current_options` or `last_tool_calls` where each node fully replaces the value, overwrite is correct and `add` would accumulate stale entries. The rule is: append when the field is a log or history, overwrite when it is a snapshot. The mistake is not picking overwrite, it is never deciding and letting the default decide for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why PostgresSaver on Oracle instead of the SQLite or in-memory checkpointer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In-memory loses everything on container restart, and our Oracle containers do get rescheduled. SQLite does not survive multiple processes writing concurrently, which we have under load. PostgresSaver with a connection pool handles concurrent threads and survives restarts; the cost is one managed Postgres instance, which on Oracle's tier runs us effectively nothing at our volume."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle a node that genuinely can't be made idempotent, like sending a message?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Move the side effect's dedup key into state and check it. Before sending a WhatsApp reply, we write the intended `outbound_message_id` to state, then send, then mark it sent. On re-run, if `sent` is true we skip. The send itself is not idempotent, but the decision to send is, which is enough."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did breaking one graph into three subgraphs hurt latency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Marginally — about 40–80ms extra per boundary from the additional checkpoint write, which is noise next to a 4-second Claude call. The debugging and failure-isolation gains paid for it many times over. If your nodes are all sub-100ms and you have no expensive external calls, the tradeoff shifts and a single graph may be fine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did you detect the silent state discard given there were no errors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We added a structured log line at the start of every node dumping the keys present in state and the message count. The discard showed up instantly: message count was always 1 on entry to step two, never growing. Without that observability we would still be guessing. Log your state shape, not just your control flow."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Three LangGraph Rewrites: What Production Checkpointing Actually Taught Me</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-06-19T17:26:12.600Z">June 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>For three weeks our onboarding agent silently discarded every job it was supposed to persist, and the logs showed nothing. No exception, no warning, no failed write. The checkpointer reported success on every node. The state just wasn't there on resume. I rewrote the same LangGraph pipeline three times before I understood that the framework was doing exactly what I told it to — which was the wrong thing, quietly, at scale.</p>
+<p>This is the post I wanted when I was staring at a checkpoint table full of rows that all looked correct and a system that behaved as if none of them existed. If you are building LangGraph stateful agents for production checkpointing and assuming the defaults will save you, they will not. Here is what broke, why, and the one pattern that finally held.</p>
+<h2>The state schema mismatch that ate three weeks</h2>
+<p>We run multi-agent systems on Oracle Cloud — Telegram and WhatsApp front ends, a router that splits work between Groq for cheap fast turns and Claude for the reasoning-heavy ones. The agent in question handled a five-step onboarding flow: collect intent, classify, enrich, draft, confirm. Each step wrote to a shared graph state. Checkpointing into Postgres so a user could close WhatsApp, come back in two days, and resume mid-flow.</p>
+<p>The bug: every resume started from scratch. New users, returning users, everyone got step one again.</p>
+<p>The cause was my state schema. In LangGraph your state is a <code>TypedDict</code> (or Pydantic model) and every node returns a partial update that gets merged. I had defined something like:</p>
+<p><pre><code class="language-python">class OnboardingState(TypedDict):
+    messages: list
+    profile: dict
+    step: str
+</code></pre></p>
+<p>The problem is the default merge behavior. LangGraph merges channel updates using reducers. If you do not specify a reducer, the default for a field is <strong>overwrite</strong> — the new node's value replaces the old. That is fine for <code>step</code>. It is catastrophic for <code>messages</code>, where I assumed appending. So each node returning <code>{"messages": [new_msg]}</code> overwrote the entire history with a single message. The checkpoint saved that single-message state perfectly. On resume, the graph loaded a profile dict that one node had reset to <code>{}</code> because it returned a partial profile and overwrote the full one.</p>
+<p>Nothing errored because every write was technically valid. The schema accepted a dict. It accepted a list. It just kept the wrong one.</p>
+<p>The fix is <code>Annotated</code> fields with explicit reducers:</p>
+<p><pre><code class="language-python">from typing import Annotated
+from operator import add
+
+def merge_profile(existing: dict, update: dict) -&gt; dict:
+    return {**existing, **update}
+
+class OnboardingState(TypedDict):
+    messages: Annotated[list, add]
+    profile: Annotated[dict, merge_profile]
+    step: str  # overwrite is correct here
+</code></pre></p>
+<p>Once I made the merge semantics explicit per field, the silent discard stopped. The lesson is brutal in its simplicity: <strong>in LangGraph, state behavior is a property of the schema, not the node logic.</strong> If you reason about your data flow by reading node functions, you will be wrong. The schema is the contract.</p>
+<p>Three weeks lost because I never asked what "merge" meant. I assumed it meant append. It meant replace.</p>
+<h2>Checkpoint corruption and the resume that wouldn't</h2>
+<p>Rewrite number two. Schema fixed, flow stable in testing. Then under real WhatsApp load we started seeing resumes fail with deserialization errors. The relevant one, paraphrased from our Oracle Postgres logs:</p>
+<p><pre><code class="language-plain">TypeError: Object of type AIMessage is not JSON serializable
+</code></pre></p>
+<p>and intermittently:</p>
+<p><pre><code class="language-plain">psycopg.errors.UniqueViolation: duplicate key value violates unique constraint "checkpoints_pkey"
+</code></pre></p>
+<p>Two separate problems wearing the same costume of "resume broken."</p>
+<p>The serialization error came from storing LangChain message objects directly. The default <code>JsonPlusSerializer</code> handles most LangChain types, but we had a custom message subclass carrying routing metadata (which model handled it, Groq or Claude, token count, latency). That custom field broke the serializer. The checkpoint write would partially succeed, leaving a row with a corrupted blob. Reading it back threw on deserialize. So we had checkpoint rows that existed, passed a row-count check, and were unusable.</p>
+<p>The duplicate key violation was worse and more interesting. LangGraph's checkpointer keys on <code>thread_id</code> plus checkpoint id plus namespace. We were generating <code>thread_id</code> from the WhatsApp phone number. Fine — until two messages from the same user arrived within the same execution window because the webhook retried. WhatsApp retries webhooks aggressively if you do not return 200 fast enough, and our enrichment step against Claude sometimes took four to six seconds. So the same message triggered two concurrent graph runs writing to the same thread. Both tried to write checkpoint id 0. One won, one threw, and the loser's partial state sometimes landed first.</p>
+<p>The fixes, in order of how much they mattered:</p>
+<p>1. <strong>Strip custom objects before checkpointing.</strong> Routing metadata moved out of the message object into a plain dict field in state. Messages stayed standard LangChain types. The serializer stopped choking. Cost: a small refactor. Benefit: zero corrupt rows since.</p>
+<p>2. <strong>Webhook idempotency before the graph.</strong> We return 200 immediately, enqueue the message with its WhatsApp message id as a dedup key, and process from the queue. Duplicate webhooks get dropped before they ever reach LangGraph. This killed the concurrent-write race outright. The graph should never be your concurrency control layer — it is not built for it.</p>
+<p>3. <strong>One run per thread at a time.</strong> We added a lightweight advisory lock in Postgres keyed on <code>thread_id</code>. If a run is in progress for a thread, the next message waits. For a conversational agent this is correct behavior anyway — you do not want two replies racing.</p>
+<h2>The pattern that finally made multi-step pipelines stable</h2>
+<p>Rewrite three was where it clicked, and the clicking was mostly about deleting things.</p>
+<p>The pattern: <strong>small graphs, explicit checkpoints at boundaries, and idempotent nodes.</strong> Every word there earned its place.</p>
+<p><strong>Small graphs.</strong> My first design was one mega-graph with twelve nodes and conditional edges everywhere. Debugging it meant tracing state mutations across the whole thing. I broke it into three subgraphs — intake, processing, confirmation — each checkpointed independently. A failure in processing no longer rolls back intake. The blast radius of any bug shrank to one subgraph.</p>
+<p><strong>Explicit checkpoints at boundaries.</strong> LangGraph checkpoints after every node by default with a checkpointer attached. That sounds safe and is mostly wasteful. We checkpoint at meaningful resume points — after intake completes, after each expensive model call, before the human confirmation wait. Between those, in-memory is fine. This cut our Postgres write volume by roughly 60% and, more importantly, made the checkpoints mean something. A checkpoint should represent a state a user might actually resume from, not an internal step that has no resume semantics.</p>
+<p><strong>Idempotent nodes.</strong> This is the one that matters most and the one nobody tells you. Because webhooks retry, because runs get interrupted, because Oracle reschedules a container occasionally, any node can run twice on the same state. So every node must produce the same result if run twice with the same input. The Claude enrichment node, for example, checks whether enrichment already exists in state before calling the model. If <code>profile["enriched_at"]</code> is set, it returns early. That one check saved real money — Claude calls are our largest variable cost, and before idempotency, retries were silently doubling them.</p>
+<p>Here is the skeleton of the stable version:</p>
+<p><pre><code class="language-python">from langgraph.graph import StateGraph
+from langgraph.checkpoint.postgres import PostgresSaver
+
+def enrich(state: OnboardingState) -&gt; dict:
+    if state["profile"].get("enriched_at"):
+        return {}  # idempotent: already done, no-op
+    result = call_claude(state["profile"])
+    return {"profile": {**result, "enriched_at": now()}}
+
+graph = StateGraph(OnboardingState)
+graph.add_node("enrich", enrich)
+# ... edges ...
+
+checkpointer = PostgresSaver(pool)
+checkpointer.setup()
+app = graph.compile(checkpointer=checkpointer)
+</code></pre></p>
+<p>The <code>return {}</code> from an already-completed node is the whole trick. Combined with explicit reducers from rewrite one, it means a re-run never corrupts state and never double-charges.</p>
+<h2>What I would tell my three-weeks-ago self</h2>
+<p>LangGraph is a good library being used by people who assume it behaves like their mental model of a state machine. It does not. It behaves like a set of merge operations over channels, persisted by a serializer, keyed by a thread id. Every one of my bugs lived in the gap between those two descriptions.</p>
+<p>Concretely:</p>
+<ul><li><strong>Read the reducer semantics before you write a single node.</strong> Assume nothing about merge behavior. The default is overwrite, and it will silently eat your data.</li>
+<li><strong>Do not store custom objects in state if you want them checkpointed.</strong> Plain dicts and standard LangChain types serialize cleanly. Everything else is a future corruption.</li>
+<li><strong>Put concurrency control outside the graph.</strong> Idempotent webhook ingestion plus a thread-level lock. The graph is execution, not coordination.</li>
+<li><strong>Checkpoint at resume boundaries, not at every node.</strong> Fewer writes, clearer semantics, lower Postgres load.</li>
+<li><strong>Make every node idempotent.</strong> It is the difference between a retry being free and a retry costing you a Claude call and a corrupt row.</li></ul>
+<p>We run this in production now across both messaging channels with zero VC money, on Oracle's free-then-cheap tier, routing the cheap turns to Groq and reserving Claude for the steps that justify the cost. The system survives webhook storms, container reschedules, and users who vanish for a week and come back mid-flow. It did not get there by being clever. It got there by being explicit about the three things LangGraph does implicitly and wrong-by-default for my use case.</p>
+<p>The framework did not fail me. My assumptions did. The schema was always the contract — I just had not read it.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is the default overwrite reducer ever the right choice for list fields?</strong><br>A: Yes — for fields like <code>current_options</code> or <code>last_tool_calls</code> where each node fully replaces the value, overwrite is correct and <code>add</code> would accumulate stale entries. The rule is: append when the field is a log or history, overwrite when it is a snapshot. The mistake is not picking overwrite, it is never deciding and letting the default decide for you.</p>
+<p><strong>Q: Why PostgresSaver on Oracle instead of the SQLite or in-memory checkpointer?</strong><br>A: In-memory loses everything on container restart, and our Oracle containers do get rescheduled. SQLite does not survive multiple processes writing concurrently, which we have under load. PostgresSaver with a connection pool handles concurrent threads and survives restarts; the cost is one managed Postgres instance, which on Oracle's tier runs us effectively nothing at our volume.</p>
+<p><strong>Q: How do you handle a node that genuinely can't be made idempotent, like sending a message?</strong><br>A: Move the side effect's dedup key into state and check it. Before sending a WhatsApp reply, we write the intended <code>outbound_message_id</code> to state, then send, then mark it sent. On re-run, if <code>sent</code> is true we skip. The send itself is not idempotent, but the decision to send is, which is enough.</p>
+<p><strong>Q: Did breaking one graph into three subgraphs hurt latency?</strong><br>A: Marginally — about 40–80ms extra per boundary from the additional checkpoint write, which is noise next to a 4-second Claude call. The debugging and failure-isolation gains paid for it many times over. If your nodes are all sub-100ms and you have no expensive external calls, the tradeoff shifts and a single graph may be fine.</p>
+<p><strong>Q: How did you detect the silent state discard given there were no errors?</strong><br>A: We added a structured log line at the start of every node dumping the keys present in state and the message count. The discard showed up instantly: message count was always 1 on entry to step two, never growing. Without that observability we would still be guessing. Log your state shape, not just your control flow.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
