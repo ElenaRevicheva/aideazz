@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Built a 131-Test Eval Harness Before Writing New Features. Here's the Silent Failure It Caught. | AIdeazz</title>
+  <meta name="description" content="The agent passed every unit test and still gave a user financial advice it was explicitly instructed never to give. No exception thrown, no log line in red, no failed assertion. The function returned…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/i-built-a-131-test-eval-harness-before-writing-new-features-heres-the-silent-failure-it-caught">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="I Built a 131-Test Eval Harness Before Writing New Features. Here's the Silent Failure It Caught.">
+  <meta property="og:description" content="The agent passed every unit test and still gave a user financial advice it was explicitly instructed never to give. No exception thrown, no log line in red, no failed assertion. The function returned…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/i-built-a-131-test-eval-harness-before-writing-new-features-heres-the-silent-failure-it-caught">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-06-25T19:31:10.956Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I Built a 131-Test Eval Harness Before Writing New Features. Here's the Silent Failure It Caught.">
+  <meta name="twitter:description" content="The agent passed every unit test and still gave a user financial advice it was explicitly instructed never to give. No exception thrown, no log line in red, no failed assertion. The function returned…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Built a 131-Test Eval Harness Before Writing New Features. Here's the Silent Failure It Caught.",
+  "description": "The agent passed every unit test and still gave a user financial advice it was explicitly instructed never to give. No exception thrown, no log line in red, no failed assertion. The function returned…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-06-25T19:31:10.956Z",
+  "dateModified": "2026-06-25T19:31:10.956Z",
+  "url": "https://aideazz.xyz/blog/i-built-a-131-test-eval-harness-before-writing-new-features-heres-the-silent-failure-it-caught",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/i-built-a-131-test-eval-harness-before-writing-new-features-heres-the-silent-failure-it-caught"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Isn't LLM-as-judge just moving the reliability problem one layer up? You're trusting a model to grade a model.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and that's fine for binary constraint checks, less fine for nuanced scoring. The trick is to keep judge prompts to yes/no property questions, not \"rate this 1-10\". I run flaky semantic tests three times and take majority vote, which costs more but cuts false positives to a level I can live with. For anything the judge can't reliably call, I demote it to a manual review queue rather than pretend the automated check is trustworthy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use an off-the-shelf eval framework instead of building your own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I evaluated a few. The problem was that my failure modes are specific to multi-agent routing between Groq and Claude, two-language behavior, and Telegram/WhatsApp handoffs — and the off-the-shelf tools wanted me to model my system in their abstractions before I could test it. The harness is maybe 600 lines of my own code. The portability I'd gain from a framework wasn't worth the impedance mismatch with my actual routing logic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you keep Layer 3 tests from breaking every time you change a prompt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They test properties, not strings. \"Refuses to give financial advice\" survives a complete rewrite of how the agent phrases its refusal. The tests break when *behavior* changes, which is exactly when I want them to break. If a test breaks on a cosmetic phrasing change, that test was written wrong and I fix the assertion, not the prompt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the actual time cost of running 131 tests — does it slow your dev loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A full pass is under two minutes, dominated by Layer 3 and 4 latency, not Layers 1-2 which finish in seconds. With caching, most changes only re-run the affected subset, so the typical loop is well under a minute. I don't run the full 131 on every save — Layers 1-2 run on commit, the full suite runs before merge."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "At what scale does building this stop being worth it for a solo founder or tiny team?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's worth it the moment your agent can do something irreversible or embarrassing — give bad advice, leak context between users, call a tool with destructive side effects. That threshold arrives before you have your first ten real users, not after. If your agent only summarizes text and the worst case is a mediocre summary, skip it and rely on monitoring."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">I Built a 131-Test Eval Harness Before Writing New Features. Here's the Silent Failure It Caught.</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-06-25T19:31:10.956Z">June 25, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>The agent passed every unit test and still gave a user financial advice it was explicitly instructed never to give. No exception thrown, no log line in red, no failed assertion. The function returned a clean 200 and a well-formed string. I only found it because my eval harness — 131 tests across 4 layers, running at roughly $0.03 per full pass — flagged a semantic regression that no <code>assertEqual</code> could ever have caught.</p>
+<p>That's the whole argument for building an AI agent evaluation harness before your next feature, in one sentence: unit tests verify that your code does what you wrote, and evals verify that your agent does what you <em>meant</em>. With LLMs, those two things drift apart constantly, silently, and in production.</p>
+<h2>Why unit tests structurally can't catch this</h2>
+<p>A unit test checks a deterministic contract. Input X produces output Y. If your function parses a Telegram message into a structured intent, you can assert the parse is correct, and that test will be true forever — until you change the function.</p>
+<p>The problem is that an LLM-backed agent has no fixed contract. The same prompt, same temperature, same model version can produce different tokens. When I route between Groq (Llama 3.3 70B for cheap high-volume turns) and Claude (for the reasoning-heavy ones), the <em>same user message</em> takes two entirely different code paths with two different failure surfaces. There is no single Y to assert against.</p>
+<p>So people do one of two things. They either skip testing the model layer entirely and pretend the prompt is "config, not code" — which is how you ship the financial-advice bug. Or they write brittle string-match tests (<code>assert "I cannot" in response</code>) that break the first time the model phrases its refusal differently, then get deleted in frustration within a month.</p>
+<p>Neither works. What you actually need is a test that asks: <em>given this input, does the output satisfy a property?</em> Not "does it equal this string" but "does it refuse to give regulated advice", "does it stay in the user's language", "does it call the right tool", "does the cost stay under budget". Those are evals, not unit tests, and they need their own harness because the assertion logic is itself probabilistic.</p>
+<h2>The four layers, and why each one exists</h2>
+<p>I didn't design four layers on a whiteboard. They accreted as each new class of production bug taught me that the previous layer couldn't catch it. Here's the structure I landed on, cheapest and fastest first.</p>
+<p><strong>Layer 1 — Deterministic contracts (≈40 tests, runs in milliseconds, $0).</strong> Standard unit tests. Message parsing, schema validation, the router's model-selection logic given a classified intent, tool-argument serialization. No LLM calls here. If the router is <em>supposed</em> to send a billing question to Claude and a greeting to Groq, that's a deterministic decision I can assert directly. This layer catches the dumb stuff and it's free, so it runs on every commit.</p>
+<p><strong>Layer 2 — Structured output validation (≈35 tests, real model calls, cheap).</strong> Here I actually call the model, but I only assert on structure, not meaning. Did it return valid JSON? Did it pick a tool from the allowed set? Are required fields present? This is where I caught a nasty one: Llama 3.3 on Groq occasionally wrapped its JSON tool call in a markdown code fence, and Claude didn't. My parser handled Claude's output and silently dropped Groq's. Unit tests passed because they only ever tested the Claude path. Layer 2 runs both real models and caught the divergence on the first run.</p>
+<p><strong>Layer 3 — Behavioral / semantic properties (≈45 tests, the expensive layer).</strong> This is the layer that earns the whole harness. Each test sends a real input and judges the <em>meaning</em> of the output against a property. Some properties I check with simple heuristics (language detection for "respond in the user's language"). The harder ones use an LLM-as-judge — a separate Claude call that scores whether the response violated a constraint. The financial-advice bug lived here. A user asked, in casual phrasing, whether they should move their savings into a specific instrument. The agent, being helpful, gave a recommendation. No rule in the code stopped it; the system prompt said "do not give financial advice" but the model rationalized its way around that phrasing. The eval test asked an independent judge "does this response constitute specific financial advice?" and got back yes. That's the test that fired.</p>
+<p><strong>Layer 4 — Conversation-level / multi-turn state (≈11 tests, slowest and most expensive).</strong> Single-turn evals miss the failures that only emerge across a conversation: context that leaks between users, an agent that forgets a constraint stated three turns ago, a handoff between two agents in the multi-agent system where the second agent loses the first's safety context. These are slow because each test is a scripted multi-turn dialogue. There are only 11 because they're expensive to write and run, but they cover the failure modes that cost the most in production — the ones involving real user data or cross-user contamination.</p>
+<h2>The economics: why $0.03 a run actually matters</h2>
+<p>A full pass of all 131 tests costs me about three cents in model calls. That number is not a brag — it's a design constraint that shaped the whole harness.</p>
+<p>If a full eval run cost a dollar, I'd run it once a day and ship blind in between. At three cents I run it on every meaningful change to a prompt or routing rule, and the feedback loop stays tight enough that I actually trust it. The way you get to three cents:</p>
+<ul><li>Layers 1 and 2 do most of the work and cost almost nothing. The deterministic tests are free; the structured-output tests use Groq, which at current pricing is cheap enough to be a rounding error for 35 short calls.</li>
+<li>Layer 3's LLM-as-judge calls are the cost driver. I keep judge prompts short and the judged outputs short. I do <em>not</em> use Claude Opus as a judge — Sonnet is plenty for "did this violate a binary constraint", and it's a fraction of the price.</li>
+<li>I cache. Tests whose inputs and the model version haven't changed reuse the prior generation. A full pass after a small change might only re-run the 20 tests touching the changed component.</li></ul>
+<p>Running this on Oracle Cloud matters here in a way that isn't obvious. My compute is a fixed monthly cost on Oracle's Ampere instances — the eval harness itself runs essentially free on infra I'm already paying for. The only marginal cost is the model API calls. If I were on per-second serverless billing for the orchestration, the math would look worse and I'd have been tempted to skip Layer 4.</p>
+<h2>What "before writing new features" actually means in practice</h2>
+<p>The title is a discipline, not a slogan. The rule I hold myself to: a new feature doesn't merge until it has eval coverage at the layer where it can fail.</p>
+<p>A new tool the agent can call needs a Layer 2 test (does it serialize the arguments correctly across both Groq and Claude) and usually a Layer 3 test (does the agent invoke it in the right <em>situations</em> and not hallucinate parameters). A new safety constraint needs a Layer 3 behavioral test that tries to break it — not a polite test, an adversarial one that phrases the request the way a real user would, casually, without trigger words.</p>
+<p>This is slower upfront. Writing the adversarial Layer 3 test for "don't give financial advice" took me longer than writing the feature it was guarding. But the alternative is the version of me that shipped the bug and found out from a user. In a WhatsApp agent talking to real people in Panama and Russia, in two languages, the cost of finding out from a user is not a Jira ticket — it's trust you don't get back.</p>
+<p>The harness also changed how I think about model swaps. When Groq updated their Llama serving and the output distribution shifted slightly, I didn't find out from vibes. I found out because three Layer 2 tests went yellow on the next run. The harness turned a model-provider change — something I have zero control over — from a silent production risk into a visible test signal. That alone has justified the build.</p>
+<h2>The honest limitations</h2>
+<p>LLM-as-judge is not free of false positives. My judge occasionally flags a perfectly safe response as a violation, usually on edge phrasing. I run the flaky semantic tests three times and take majority vote, which adds cost but kills most of the noise. Tests that flap more than that get rewritten with a tighter property or demoted to a manual review queue.</p>
+<p>Evals also don't replace monitoring. The harness tests known failure classes. Production still surfaces unknown ones — and when it does, the workflow is fixed: the new failure becomes a new eval test <em>before</em> I fix the bug, so it can never regress silently again. That's how the harness grew from a handful of tests to 131. Every number in that count is a scar.</p>
+<p>And evals are not a substitute for thinking about your prompts. A harness will tell you a constraint is being violated; it won't tell you the cleaner prompt that fixes it. That part is still craft.</p>
+<h2>What I'd tell a technical founder starting today</h2>
+<p>Don't build all four layers on day one. Start with Layer 3 — the behavioral tests — because that's the layer that justifies the entire concept and catches the bugs you'd actually ship. Write five tests for the five worst things your agent could do. Run them. You will almost certainly find one already failing.</p>
+<p>Then add Layer 2 the first time a model swap or provider update burns you, and Layer 1 backfills naturally as you refactor. Layer 4 is the last thing you build, when multi-turn state starts being where your money and risk live.</p>
+<p>The AI agent evaluation harness with its 131 tests in production isn't a quality gate I added at the end. It's the thing that lets me ship at all without a QA team — a single founder with a multi-agent system can't manually verify behavior across two models, two languages, and two messaging platforms on every change. The harness does it for three cents.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Isn't LLM-as-judge just moving the reliability problem one layer up? You're trusting a model to grade a model.</strong><br>A: Yes, and that's fine for binary constraint checks, less fine for nuanced scoring. The trick is to keep judge prompts to yes/no property questions, not "rate this 1-10". I run flaky semantic tests three times and take majority vote, which costs more but cuts false positives to a level I can live with. For anything the judge can't reliably call, I demote it to a manual review queue rather than pretend the automated check is trustworthy.</p>
+<p><strong>Q: Why not use an off-the-shelf eval framework instead of building your own?</strong><br>A: I evaluated a few. The problem was that my failure modes are specific to multi-agent routing between Groq and Claude, two-language behavior, and Telegram/WhatsApp handoffs — and the off-the-shelf tools wanted me to model my system in their abstractions before I could test it. The harness is maybe 600 lines of my own code. The portability I'd gain from a framework wasn't worth the impedance mismatch with my actual routing logic.</p>
+<p><strong>Q: How do you keep Layer 3 tests from breaking every time you change a prompt?</strong><br>A: They test properties, not strings. "Refuses to give financial advice" survives a complete rewrite of how the agent phrases its refusal. The tests break when <em>behavior</em> changes, which is exactly when I want them to break. If a test breaks on a cosmetic phrasing change, that test was written wrong and I fix the assertion, not the prompt.</p>
+<p><strong>Q: What's the actual time cost of running 131 tests — does it slow your dev loop?</strong><br>A: A full pass is under two minutes, dominated by Layer 3 and 4 latency, not Layers 1-2 which finish in seconds. With caching, most changes only re-run the affected subset, so the typical loop is well under a minute. I don't run the full 131 on every save — Layers 1-2 run on commit, the full suite runs before merge.</p>
+<p><strong>Q: At what scale does building this stop being worth it for a solo founder or tiny team?</strong><br>A: It's worth it the moment your agent can do something irreversible or embarrassing — give bad advice, leak context between users, call a tool with destructive side effects. That threshold arrives before you have your first ten real users, not after. If your agent only summarizes text and the worst case is a mediocre summary, skip it and rely on monitoring.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
