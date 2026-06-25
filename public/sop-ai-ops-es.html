@@ -1135,7 +1135,7 @@
     <div class="live-badge"><span class="pulse-dot"></span>Manual de operaciones · Infraestructura de IA</div>
     <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">English version →</a></p>
     <h1><span class="grad">Operaciones de agentes IA</span><br />Manual de producción</h1>
-    <p class="hero-sub"><strong>AIdeazz no es una demo.</strong> Nueve agentes autónomos ya entregan valor (tutoría, redes, empleos, CRM, orquestación); un hueco de orquestación está reservado para AILA. Abajo está cómo se gobiernan fiabilidad, releases y automatización cara al ingreso: primero en lenguaje claro y, donde suma credibilidad, profundidad de ingeniería.</p>
+    <p class="hero-sub"><strong>AIdeazz no es una demo.</strong> Diez agentes autónomos ya entregan valor (tutoría, redes, empleos, CRM, orquestación, inteligencia de marketing); un hueco de orquestación está reservado para AILA. Abajo está cómo se gobiernan fiabilidad, releases y automatización cara al ingreso: primero en lenguaje claro y, donde suma credibilidad, profundidad de ingeniería.</p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Autora</div>
@@ -1211,7 +1211,7 @@
       <span>Audio mañanero por AWS Lambda + puente seguro CTO</span>
       <span>Ritmo ejecutivo: resúmenes Trello a Telegram</span>
       <span>Capa de web en vivo: Bright Data Web Unlocker · SERP · Scraping Browser + agente de investigación autónomo con Claude (/research_company · /research_employer · /research_competitor en Telegram)</span>
-      <span>Failover LLM de 3 niveles: Claude → Groq → Grok (xAI) — el motor de contenido sobrevive a la caída de cualquier proveedor</span>
+      <span>Failover LLM multi-proveedor, en toda la flota: cada agente cae a Claude → Groq (Llama gratuito) como mínimo—incluidos los tres bots EspaLuz—con Grok (xAI), OpenAI y Gemini como niveles adicionales en productos de mayor volumen (Atlas Shifted: Claude → Groq → OpenAI → Grok). El motor de contenido sobrevive a la caída de cualquier proveedor.</span>
     </div>
     <div class="callout">
       <div><strong>Invariante operativa:</strong> exactamente un checkout desplegado por repositorio de GitHub—evita drift de versión, secretos duplicados e incidentes de “¿qué carpeta es prod?”. Pares como CTO + co‑fundadora creativa comparten codebase a propósito pero ejecutan interfaces/personalidades distintas.</div>
@@ -1360,6 +1360,19 @@
           </tr>
           <tr>
             <td class="tid">10</td>
+            <td class="tname">
+              Atlas Shifted (Estratega de Marketing)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/atlas-shifted" target="_blank" rel="noopener">repo</a>
+                <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">radar en vivo</a>
+              </div>
+            </td>
+            <td><strong>Inteligencia de marketing:</strong> Observa el mercado publicitario público a diario, detecta qué ángulo creativo se está abriendo antes de que se sature (ENTER / WATCH / AVOID) y genera la creatividad fundamentada en evidencia—imagen + video vía el pipeline Atuona. Alimenta el motor de marketing (dogfooding en la vertical expat de EspaLuz).<br /><span style="color:var(--t3);font-size:12.5px;">Registro JSONL inmutable (captura-primero) + clasificador de ángulos por embeddings de OpenAI + proyección SQLite; respaldo diario fuera del VM. PM2 (<code>whitespace</code>:8095) + cron hora de Panamá. Solo datos públicos de transparencia publicitaria—sin afirmar gasto/CTR.</span></td>
+            <td><span class="badge b-pm2">PM2</span></td>
+            <td><span class="badge b-live">● Activo</span></td>
+          </tr>
+          <tr>
+            <td class="tid">11</td>
             <td class="tname">
               AILA
               <div class="agent-links">
@@ -1648,7 +1661,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">IA / LLM</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, failover nivel 3) · OpenAI TTS / Whisper con reintentos + cadena de respaldo · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, failover nivel 3) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) con reintentos + cadena de respaldo · Bright Data (captura de transparencia publicitaria pública) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro para la creatividad de Atlas · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Generación de leads</div>
