@@ -1211,7 +1211,7 @@
       <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
       <span>Executive rhythm: Trello digests to Telegram</span>
       <span>Live web data layer: Bright Data Web Unlocker · SERP · Scraping Browser + autonomous Claude research agent (/research_company · /research_employer · /research_competitor in Telegram)</span>
-      <span>3-tier LLM failover: Claude → Groq → Grok (xAI) — content engine survives any single provider outage</span>
+      <span>Multi-provider LLM failover, fleet-wide: canonical chain Claude → Groq → Grok (xAI), with OpenAI and Gemini tiers in specific products (Atlas Shifted: Claude → Groq → OpenAI → Grok) — so the content engine survives any single provider outage</span>
     </div>
     <div class="callout">
       <div><strong>Operational invariant:</strong> exactly one deployed checkout per GitHub repository—prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
@@ -1360,6 +1360,19 @@
           </tr>
           <tr>
             <td class="tid">10</td>
+            <td class="tname">
+              Atlas Shifted (Marketing Strategist)
+              <div class="agent-links">
+                <a href="https://github.com/ElenaRevicheva/atlas-shifted" target="_blank" rel="noopener">repo</a>
+                <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">live radar</a>
+              </div>
+            </td>
+            <td><strong>Marketing intelligence:</strong> Watches the public ad market daily, detects which creative angle is opening before it saturates (ENTER / WATCH / AVOID), then generates the evidence-grounded creative—image + video via the Atuona pipeline. Feeds the marketing engine (dogfooded on the EspaLuz expat vertical).<br /><span style="color:var(--t3);font-size:12.5px;">Capture-first immutable JSONL log + OpenAI-embedding angle classifier + SQLite projection; off-VM daily backup. PM2 (<code>whitespace</code>:8095) + Panama-time cron. Public ad-transparency data only—no spend/CTR claimed.</span></td>
+            <td><span class="badge b-pm2">PM2</span></td>
+            <td><span class="badge b-live">● Live</span></td>
+          </tr>
+          <tr>
+            <td class="tid">11</td>
             <td class="tname">
               AILA
               <div class="agent-links">
@@ -1648,7 +1661,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">AI / LLMs</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, tier-3 failover) · OpenAI TTS / Whisper with retry + provider-fallback chain · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, tier-3 failover) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) with retry + provider-fallback chain · Bright Data (public ad-transparency capture) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro for Atlas creative · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Lead Gen</div>
