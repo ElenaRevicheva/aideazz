@@ -538,8 +538,8 @@ export default function BusinessCard() {
                   <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
                     {/* Title */}
                     <div className="text-center mb-6">
-                      <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase mb-1">Orchestration Architecture</p>
-                      <p className="text-[10px] sm:text-xs text-gray-500">AILA — Adaptive Intelligent Life Assistant (in development)</p>
+                      <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase mb-1">Ecosystem Architecture</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">Atlas Shifted AIPA — autonomous marketing strategist at the core</p>
                     </div>
 
                     {/* Hub-Spoke Layout */}
@@ -580,8 +580,8 @@ export default function BusinessCard() {
                       <div className="relative">
                         <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full" />
                         <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border-2 border-purple-400/40 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                          <p className="text-sm sm:text-base font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">AILA</p>
-                          <p className="text-[7px] sm:text-[8px] text-gray-400 text-center leading-tight px-1">Orchestrator</p>
+                          <p className="text-xs sm:text-sm font-bold bg-gradient-to-r from-teal-300 to-purple-300 bg-clip-text text-transparent leading-tight">ATLAS SHIFTED</p>
+                          <p className="text-[7px] sm:text-[8px] text-gray-400 text-center leading-tight px-1">AIPA · Strategist</p>
                         </div>
                       </div>
 
