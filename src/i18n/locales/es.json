@@ -415,6 +415,15 @@
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
+    "atlas": {
+      "title": "Atlas Shifted AIPA",
+      "subtitle": "Estratega de Marketing Autónomo — Radar de Ventana de Ángulos",
+      "desc": "Observa el mercado publicitario público a diario, detecta qué ángulo creativo se está abriendo antes de que se sature (ENTER / WATCH / AVOID) y genera la creatividad fundamentada en evidencia — imagen + video Seedance 2.0 real vía el pipeline Atuona. Construido sobre el mismo motor Bright Data (Web Unlocker · SERP · Scraping Browser) del hackathon Web Data UNLOCKED, ahora apuntado a inteligencia de transparencia publicitaria en vivo. Registro JSONL inmutable (captura-primero) + clasificador de ángulos por embeddings de OpenAI + proyección SQLite; failover LLM de 4 niveles (Claude → Groq → OpenAI → Grok). Solo datos públicos — sin afirmar gasto ni CTR; los estados de ventana son hipótesis priorizadas. Dogfooding en la vertical expat de EspaLuz.",
+      "traction": "Serie temporal diaria de ángulos en 5 verticales • Dashboard de radar en vivo + buscador de whitespace on-demand • Video creativo Seedance 2.0 real • Construido para el It's Today Media Build Challenge",
+      "tech": "TypeScript, Node.js, Express (SSE), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI embeddings + gpt-image-1, failover Claude/Groq/OpenAI/Grok, Runway (Seedance 2.0/Kling 3.0), SQLite, JSONL, PM2 (Oracle), cron hora de Panamá",
+      "action": "Abrir el radar en vivo",
+      "badge": "EN VIVO"
+    },
     "espaluz": {
       "title": "EspaLuz Stack",
       "subtitle": "Compañero IA Emocionalmente Inteligente — WhatsApp + Telegram + Automatización Social",

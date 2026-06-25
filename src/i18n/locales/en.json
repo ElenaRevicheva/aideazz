@@ -415,6 +415,15 @@
       "action": "View on GitHub",
       "badge": "LIVE"
     },
+    "atlas": {
+      "title": "Atlas Shifted AIPA",
+      "subtitle": "Autonomous Marketing Strategist — Angle Window Radar",
+      "desc": "Watches the public ad market daily, detects which creative angle is opening before it saturates (ENTER / WATCH / AVOID), and generates the evidence-grounded creative — image + real Seedance 2.0 video via the Atuona pipeline. Built on the same Bright Data engine (Web Unlocker · SERP · Scraping Browser) from the Web Data UNLOCKED hackathon, now pointed at live ad-transparency intelligence. Capture-first immutable JSONL log + OpenAI-embedding angle classifier + SQLite projection; 4-tier LLM failover (Claude → Groq → OpenAI → Grok). Public data only — no spend or CTR claimed; window states are ranked hypotheses. Dogfooded on the EspaLuz expat vertical.",
+      "traction": "Daily angle time-series across 5 verticals • Live radar dashboard + on-demand whitespace finder • Real Seedance 2.0 video creative • Built for the It's Today Media Build Challenge",
+      "tech": "TypeScript, Node.js, Express (SSE), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI embeddings + gpt-image-1, Claude/Groq/OpenAI/Grok failover, Runway (Seedance 2.0/Kling 3.0), SQLite, JSONL, PM2 (Oracle), Panama-time cron",
+      "action": "Open the live radar",
+      "badge": "LIVE"
+    },
     "espaluz": {
       "title": "EspaLuz Stack",
       "subtitle": "Emotionally Intelligent AI Companion — WhatsApp + Telegram + Social Automation",

@@ -254,6 +254,21 @@ export default function BusinessCard() {
       action: t('section1.cmo.action'),
       link: "https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF",
       badge: t('section1.cmo.badge')
+    },
+    {
+      icon: Compass,
+      iconColor: "text-teal-300",
+      iconBgFrom: "from-teal-500/20",
+      iconBgTo: "to-cyan-500/20",
+      iconGlow: "bg-teal-500/20",
+      title: t('section1.atlas.title'),
+      subtitle: t('section1.atlas.subtitle'),
+      desc: t('section1.atlas.desc'),
+      traction: t('section1.atlas.traction'),
+      tech: t('section1.atlas.tech'),
+      action: t('section1.atlas.action'),
+      link: "https://webhook.aideazz.xyz/whitespace/atlas.html",
+      badge: t('section1.atlas.badge')
     }
   ];
 
