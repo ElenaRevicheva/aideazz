@@ -462,7 +462,7 @@ export default function BusinessCard() {
                     <h2 className="text-2xl font-bold">{t('section1.cofounderTitle')}</h2>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {aiCoFounders.map((agent, idx) => (
                       <motion.div
                         key={agent.title}
