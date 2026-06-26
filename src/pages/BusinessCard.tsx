@@ -539,7 +539,7 @@ export default function BusinessCard() {
                     {/* Title */}
                     <div className="text-center mb-6">
                       <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase mb-1">Ecosystem Architecture</p>
-                      <p className="text-[10px] sm:text-xs text-gray-500">Atlas Shifted AIPA — autonomous marketing strategist at the core</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500">Atlas Shifted Adaptive Intelligent Personal Assistant — autonomous marketing strategist at the core</p>
                     </div>
 
                     {/* Hub-Spoke Layout */}
