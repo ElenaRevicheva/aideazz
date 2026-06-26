@@ -576,12 +576,16 @@ export default function BusinessCard() {
                         <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
                       </div>
 
-                      {/* Central Hub — AILA */}
+                      {/* Central Hub — Atlas Shifted */}
                       <div className="relative">
                         <div className="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full" />
-                        <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border-2 border-purple-400/40 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
-                          <p className="text-xs sm:text-sm font-bold bg-gradient-to-r from-teal-300 to-purple-300 bg-clip-text text-transparent leading-tight">ATLAS SHIFTED</p>
-                          <p className="text-[7px] sm:text-[8px] text-gray-400 text-center leading-tight px-1">AIPA · Strategist</p>
+                        <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-purple-600/30 to-pink-600/30 border-2 border-purple-400/40 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+                          <div className="text-center px-1.5">
+                            <p className="text-[10px] sm:text-xs font-bold bg-gradient-to-r from-teal-300 to-purple-300 bg-clip-text text-transparent leading-tight">
+                              ATLAS<br />SHIFTED
+                            </p>
+                            <p className="text-[7px] sm:text-[8px] text-gray-400 leading-tight mt-0.5">AIPA · Strategist</p>
+                          </div>
                         </div>
                       </div>
 
