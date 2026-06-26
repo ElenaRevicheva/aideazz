@@ -617,7 +617,7 @@ export default function BusinessCard() {
                             <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-pink-300">Creative</p>
-                          <p className="text-[8px] sm:text-[10px] text-gray-500">Art & NFTs</p>
+                          <p className="text-[8px] sm:text-[10px] text-gray-500">Art & AI Cinema</p>
                         </div>
                       </div>
                     </div>
