@@ -6,8 +6,14 @@ import { motion } from "framer-motion";
 const EspaLuzSection = () => {
   const { t } = useTranslation();
   
+  const atlasStartParam = () => {
+    if (typeof window === "undefined") return "";
+    const term = new URLSearchParams(window.location.search).get("utm_term");
+    return term ? `?start=${encodeURIComponent(term)}` : "";
+  };
+
   const openTelegramChat = () => {
-    window.open('https://t.me/EspaLuzFamily_bot', '_blank');
+    window.open(`https://t.me/EspaLuzFamily_bot${atlasStartParam()}`, '_blank');
   };
 
   const openWebApp = () => {

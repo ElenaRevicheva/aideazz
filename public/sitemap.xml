@@ -2,87 +2,93 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aideazz.xyz/</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/about</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/portfolio</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/blog</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/pitch.html</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/pitch-es.html</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/sop-ai-ops.html</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/sop-ai-ops-es.html</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.72</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/llms.txt</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.55</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/.well-known/llms.txt</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.55</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/geo-manifest.json</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.55</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/humans.txt</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.35</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/CITATION.cff</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.35</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/robots.txt</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-06-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-language-learning-5cd4</loc>
+    <lastmod>2026-06-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://aideazz.xyz/blog/why-whatsapp-beat-my-web-app-for-spanish-learning-and-the-memory-hack-that-made-it-work</loc>
@@ -127,7 +133,7 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/executive-to-ai-dev-2026-06-20</loc>
+    <loc>https://aideazz.xyz/blog/executive-to-ai-dev-4ole</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -175,7 +181,7 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/how-i-turned-whatsapp-chats-into-my-marketing-engine-using-sqlite-crew</loc>
+    <loc>https://aideazz.xyz/blog/how-i-turned-whatsapp-chats-into-my-marketing-engine-using-sqlite-crewai-and-gemini</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -187,7 +193,7 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/why-most-digital-nomads-will-break-when-their-next-remote-job-disappea</loc>
+    <loc>https://aideazz.xyz/blog/why-most-digital-nomads-will-break-when-their-next-remote-job-disappears</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -205,19 +211,19 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/initial-failure</loc>
+    <loc>https://aideazz.xyz/blog/initial-failure-51hn</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/ai-content-pipeline</loc>
+    <loc>https://aideazz.xyz/blog/ai-content-pipeline-146a</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/executive-to-ai-dev</loc>
+    <loc>https://aideazz.xyz/blog/executive-to-ai-dev-6dk</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -253,7 +259,7 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/automating-content</loc>
+    <loc>https://aideazz.xyz/blog/automating-content-a4l</loc>
     <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -277,7 +283,7 @@
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://aideazz.xyz/blog/why-i-stopped-waiting-for-deep-work-blocks-and-started-building-in-tax</loc>
+    <loc>https://aideazz.xyz/blog/why-i-stopped-waiting-for-deep-work-blocks-and-started-building-in-taxi-rides</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
@@ -411,6 +417,162 @@
   <url>
     <loc>https://aideazz.xyz/blog/ai-automation-for-small-business-why-most-projects-die-before-launch</loc>
     <lastmod>2026-05-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-for-construction-business-wiring-documents-field-data-and-human-handoffs</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/multi-model-llm-routing-why-i-send-76-to-groq</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-assisted-development-how-i-ship-production-code-without-a-cs-degree</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0-infrastructure-production-reality</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/autonomous-job-search-ai-engineering-ethics-into-multi-agent-systems</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-why-messaging-apps-beat-web</loc>
+    <lastmod>2026-05-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/geo-vs-seo-why-your-content-needs-to-be-ai-quotable</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/what-is-an-ai-agent-a-production-definition-from-running-multi-agent-systems</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/oracle-cloud-free-tier-for-production-ai-agents-why-i-moved-from-aws</loc>
+    <lastmod>2026-05-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-automation-for-small-business-what-ships-vs-what-dies</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-for-construction-business-production-agents-that-actually-handle-field-chaos</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/why-multi-model-llm-routing-beats-always-using-gpt-4</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/sprint-briefing-agent-when-your-ai-works-while-you-sleep</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/how-i-ship-typescript-without-a-cs-degree-ai-assisted-development-in-production</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0month-infrastructure</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/why-im-not-building-autonomous-job-search-ai-yet</loc>
+    <lastmod>2026-04-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/building-ai-language-tutors-on-whatsapp-the-technical-reality</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/what-is-an-ai-agent-a-production-definition-from-the-field</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/ai-automation-for-small-business-what-ships-vs-what-dies-in-slides</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/wiring-ai-into-construction-operations-beyond-the-demo-trap</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/multi-model-llm-routing-why-76-of-your-inference-shouldnt-touch-gpt-4</loc>
+    <lastmod>2026-04-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/running-multi-agent-ai-systems-on-0-infrastructure-a-production-reality-check</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/building-autonomous-job-search-ai-technical-architecture-and-ethical-boundaries</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/building-production-ai-language-tutors-on-whatsapp-architecture-lessons-from-espaluz</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/geo-vs-seo-making-your-technical-content-quotable-by-ai</loc>
+    <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://aideazz.xyz/blog/oracle-cloud-free-tier-for-production-ai-agents-what-actually-works</loc>
+    <lastmod>2026-04-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
