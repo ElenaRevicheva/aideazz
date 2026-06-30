@@ -6,10 +6,20 @@ import { motion } from "framer-motion";
 const EspaLuzSection = () => {
   const { t } = useTranslation();
   
+  const atlasConceptTerm = () => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("utm_term");
+  };
+
   const atlasStartParam = () => {
-    if (typeof window === "undefined") return "";
-    const term = new URLSearchParams(window.location.search).get("utm_term");
+    const term = atlasConceptTerm();
     return term ? `?start=${encodeURIComponent(term)}` : "";
+  };
+
+  const atlasWhatsAppUrl = () => {
+    const term = atlasConceptTerm();
+    const text = term ? `Hi EspaLuz! ${term}` : "Hi EspaLuz!";
+    return `https://wa.me/50766623757?text=${encodeURIComponent(text)}`;
   };
 
   const openTelegramChat = () => {
@@ -21,7 +31,7 @@ const EspaLuzSection = () => {
   };
 
   const openLiveWhatsApp = () => {
-    window.open('https://bit.ly/EspaLuz', '_blank');
+    window.open(atlasWhatsAppUrl(), '_blank');
   };
 
   return (
