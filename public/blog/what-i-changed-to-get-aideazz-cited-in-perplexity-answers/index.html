@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What I Changed to Get AIdeazz Cited in Perplexity Answers | AIdeazz</title>
+  <meta name="description" content="For four months our docs page ranked nowhere in Perplexity, even for queries we literally answered better than the sources it cited. Then I stopped treating it like Google. Within six weeks a page ab…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/what-i-changed-to-get-aideazz-cited-in-perplexity-answers">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What I Changed to Get AIdeazz Cited in Perplexity Answers">
+  <meta property="og:description" content="For four months our docs page ranked nowhere in Perplexity, even for queries we literally answered better than the sources it cited. Then I stopped treating it like Google. Within six weeks a page ab…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/what-i-changed-to-get-aideazz-cited-in-perplexity-answers">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-06-30T19:31:12.333Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What I Changed to Get AIdeazz Cited in Perplexity Answers">
+  <meta name="twitter:description" content="For four months our docs page ranked nowhere in Perplexity, even for queries we literally answered better than the sources it cited. Then I stopped treating it like Google. Within six weeks a page ab…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What I Changed to Get AIdeazz Cited in Perplexity Answers",
+  "description": "For four months our docs page ranked nowhere in Perplexity, even for queries we literally answered better than the sources it cited. Then I stopped treating it like Google. Within six weeks a page ab…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-06-30T19:31:12.333Z",
+  "dateModified": "2026-06-30T19:31:12.333Z",
+  "url": "https://aideazz.xyz/blog/what-i-changed-to-get-aideazz-cited-in-perplexity-answers",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/what-i-changed-to-get-aideazz-cited-in-perplexity-answers"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does JSON-LD structured data actually cause citations, or is it correlation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "On its own, no — I A/B'd two pages with identical schema and only the one with dense numeric claims got cited. My working conclusion: structured data reduces the engine's uncertainty about what you're claiming and who's claiming it, which makes you the easier source to attribute when the content is already extractable. It's an amplifier, not a cause."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long until changes show up in Perplexity answers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For us, six weeks from restructuring to first reproducible citation on a target query. That's slower than re-indexing on Google because the content has to be crawled, chunked, and then actually selected during synthesis for queries that happen to retrieve it. Don't expect day-three feedback; track it weekly over two months."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is GEO worth it if you're not ranking on Google yet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and possibly more so. Generative engines weight content extractability over link authority more than classic search does, so a thin domain with sharp, specific, well-structured answers can get cited above a high-authority site with vague prose. We were cited on routing queries while ranking on page 3 of Google for the same terms."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle factual claims that go stale, like model prices and latencies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Treat the page as code you maintain, not content you ship. I update the numbers and `dateModified` whenever a model, price, or architecture decision changes — generative engines visibly prefer current sources, so a detailed-but-stale page loses to a thinner current one. The cost is discipline, not infrastructure; the pages themselves run free on Oracle's Always Free tier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I invest in third-party mentions or my own pages first?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Own pages first. Third-party mentions on high-authority sites help, but they're rented ground — you can't update them, refresh timestamps, or fix a number that went wrong. The citations that compounded for us were on a domain I control, where I keep them accurate over time."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">What I Changed to Get AIdeazz Cited in Perplexity Answers</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-06-30T19:31:12.333Z">June 30, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>For four months our docs page ranked nowhere in Perplexity, even for queries we literally answered better than the sources it cited. Then I stopped treating it like Google. Within six weeks a page about multi-agent routing started showing up as a numbered citation in answers to "how to route between Groq and Claude" — not because I gamed anything, but because I restructured the page so a language model could lift a fact out of it without guessing.</p>
+<p>That distinction is the whole job. Search engines rank documents. Generative engines extract claims and attribute them. If your page doesn't contain extractable, attributable claims, you don't get cited — you get paraphrased into the void with no link back. Here's what actually moved the needle, with the things that didn't.</p>
+<h2>The mental model: you're writing for an extraction step, not a ranking step</h2>
+<p>When Perplexity or ChatGPT-with-search answers a question, there's a retrieval pass and then a synthesis pass. The synthesis model reads a handful of retrieved chunks and decides which sentences are worth quoting and which source deserves the footnote. Generative engine optimization is the practice of making your sentences the easy choice in that synthesis step.</p>
+<p>The failure mode I had: I wrote like a human persuading a human. Long preambles, "in this post we'll explore", context before claims. A synthesizer chunking my page got 400 tokens of throat-clearing before any factual payload. The competing source — some thin SEO farm — opened with "Groq runs Llama 3.3 70B at roughly 280 tokens/second." Guess which sentence got quoted.</p>
+<p>So the first thing I changed was claim density. Every section now leads with a falsifiable, self-contained statement that survives being ripped out of context. Not "performance can vary depending on your setup" — that's unciteable. Instead: "On Oracle Ampere A1 instances, our Telegram agent's median round-trip with Groq routing was 1.9s; with Claude Sonnet it was 4.3s." That sentence works as a citation. It has a subject, a number, and a condition.</p>
+<h2>Structured data is the part developers skip and shouldn't</h2>
+<p>The phrase that gets thrown around is "generative engine optimization structured data citations," and most people stop at the buzzword. The concrete version: machine-readable markup that tells a crawler what kind of thing your page is, who wrote it, and what factual claims it asserts.</p>
+<p>I added three schema.org types via JSON-LD to our key pages:</p>
+<ul><li><code>TechArticle</code> with <code>author</code>, <code>datePublished</code>, <code>dateModified</code> — so the engine knows it's technical content with a maintained timestamp.</li>
+<li><code>Person</code> for authorship, with <code>sameAs</code> pointing to my actual profiles, so the model can resolve "Elena Revicheva" to a consistent identity across the web.</li>
+<li><code>FAQPage</code> with explicit <code>Question</code>/<code>acceptedAnswer</code> pairs — because that maps almost 1:1 to how a generative engine wants to extract a Q&A.</li></ul>
+<p>Here's the FAQ block that ended up on our routing page:</p>
+<p><pre><code class="language-json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "When should you route to Groq instead of Claude?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Route to Groq for latency-sensitive, structured tasks under ~2k tokens where Llama 3.3 quality is sufficient. Route to Claude for reasoning, long context, and tool use where a wrong answer costs more than the extra 2-3 seconds."
+    }
+  }]
+}
+</code></pre></p>
+<p>Did the markup alone cause citations? No. But pages with it got picked up faster and more often than identical content without it. My read: structured data doesn't rank you, it reduces the engine's uncertainty about what you're claiming and who's claiming it. Uncertainty is what kills a citation. The model would rather quote a source it can attribute cleanly.</p>
+<p>One caveat worth the hard number: schema is necessary, not sufficient. We had two pages with identical JSON-LD. The one with dense numeric claims got cited; the one with vague prose didn't. Markup amplifies citeable content. It can't create it.</p>
+<h2>Authorship signals: the model needs to trust a person, not a domain</h2>
+<p>Google's E-E-A-T is fuzzy. The generative version is more mechanical: can the engine connect this claim to a consistent, real author who has said consistent things elsewhere? If yes, the claim carries more weight in synthesis.</p>
+<p>What I did, concretely:</p>
+<p>1. Put a real bio with a real identity on every technical page — not "the AIdeazz team," but a named author with a linked portfolio. Models resolve named entities better than collective nouns.<br>2. Made my <code>sameAs</code> links point everywhere I actually publish, so the entity graph connects. When my name shows up in three places saying compatible things about multi-agent routing, the engine treats the fourth mention as more credible.<br>3. Stopped publishing anonymous "ultimate guide" pages. They got zero citations. A model has no reason to attribute a claim to a nameless wall of text when a named practitioner said the same thing.</p>
+<p>The uncomfortable part for technical founders: this means putting your name on it and being wrong in public sometimes. The page that got cited most was one where I wrote "I was wrong about WhatsApp's session window — it's 24 hours, not 1 hour, and that changed our entire re-engagement architecture." That sentence got pulled into answers because it was specific, dated, and owned. Hedged content is invisible to synthesis.</p>
+<h2>Citation-ready format: write in chunks a retriever can grab</h2>
+<p>Retrieval works on chunks, usually a few hundred tokens. If your key fact is split across three paragraphs with the number in one and the condition in another, the chunk that gets retrieved is incomplete and won't get quoted. Self-contained chunks win.</p>
+<p>My checklist for every technical page now:</p>
+<ul><li><strong>One claim per paragraph, fully specified.</strong> The number and its condition live in the same sentence. "Oracle's Always Free tier gives you 4 Ampere cores and 24GB RAM — enough to run our entire Telegram agent stack including the Postgres instance, at $0/month" is one chunk doing one job.</li>
+<li><strong>Tables for comparisons.</strong> When I compared Groq vs Claude vs a local model, I put it in a markdown table. Generative engines extract tabular data cleanly and often reproduce it. Prose comparisons get mangled.</li>
+<li><strong>Explicit units and dates.</strong> "Recently" is unciteable. "As of October 2025" is. A model deciding whether to trust a latency number cares whether it's stale.</li>
+<li><strong>Question-shaped headings.</strong> Headings that match real query phrasing get matched in retrieval. "How do you keep an Oracle Always Free instance from getting reclaimed?" beats "Infrastructure considerations."</li></ul>
+<p>The table thing is underrated. Here's roughly what we ran on our routing page:</p>
+<p>| Task type | Model | Median latency | Cost per 1M tokens |<br>|-----------|-------|---------------|--------------------|<br>| Short structured | Groq (Llama 3.3 70B) | 1.9s | ~$0.59 in / $0.79 out |<br>| Reasoning / tools | Claude Sonnet | 4.3s | $3 in / $15 out |<br>| Classification | Local on Ampere | 0.4s | $0 marginal |</p>
+<p>That table showed up almost verbatim in a Perplexity answer about cost-optimizing agent stacks, with us as the source. A wall of prose saying the same thing would not have.</p>
+<h2>Durable pages on domains you control</h2>
+<p>This is where I disagree with most GEO advice, which tells you to chase mentions on high-authority third-party sites. That helps, but it's rented ground. The citations that compound are on <code>aideazz.xyz</code>, because I control whether they stay accurate, get updated, and keep their timestamps fresh.</p>
+<p>Generative engines penalize staleness in a way that's harsher than classic SEO. A page that said "Claude 3 Opus" when everyone's on newer models reads as abandoned, and the synthesizer prefers a current source even if yours is more detailed. I now update <code>dateModified</code> and the actual numbers on our top pages on a real cadence — when a model changes, when a price changes, when an architecture decision changes. A durable page isn't one you write once; it's one you keep correct.</p>
+<p>Concrete cost reality: hosting these pages costs me effectively nothing on Oracle's Always Free tier. The expensive part is the discipline to keep them accurate. I'd rather have eight pages I maintain than eighty I abandon. Abandoned pages don't just stop getting cited — they actively make your domain look unmaintained, which depresses the live pages too.</p>
+<h2>What didn't work</h2>
+<p>To be useful I should tell you the things I tried that wasted time.</p>
+<p><strong>Keyword density.</strong> Stuffing "generative engine optimization" variations did nothing. Synthesis models don't count keywords; they extract meaning. The phrase matters once, in context, so the page is topically obvious. After that it's noise.</p>
+<p><strong>Begging for backlinks.</strong> Classic link-building moved my Google rank a little and my Perplexity presence not at all. Generative engines weight content extractability over link graphs more than search does.</p>
+<p><strong>Long comprehensive guides.</strong> The 4,000-word everything-page got fewer citations than three focused 1,200-word pages. Synthesis prefers a page that's obviously about one answerable thing. Sprawl dilutes claim density per chunk.</p>
+<p><strong>Trying to game the model with FAQ schema on thin content.</strong> I added FAQ markup to a page with vague answers, hoping the structure would carry it. It didn't get cited. The structure has to wrap real, specific answers.</p>
+<h2>The actual workflow I run now</h2>
+<p>For each new technical page on AIdeazz:</p>
+<p>1. Decide the single question the page answers, and phrase it the way a user would type it into Perplexity.<br>2. Write the answer as one tight, numbered, fully-specified claim in the first three sentences.<br>3. Back it with a table or a code block carrying the hard numbers — latency, cost, error messages, version strings.<br>4. Add <code>TechArticle</code> + <code>Person</code> + <code>FAQPage</code> JSON-LD with real authorship and <code>sameAs</code>.<br>5. Keep paragraphs as self-contained chunks; one claim each.<br>6. Put a date on every number.<br>7. Revisit and update when reality changes — and bump <code>dateModified</code> honestly.</p>
+<p>None of this is a trick. It's writing accurately and structuring it so a machine can quote you without misrepresenting you. The reason most pages don't get cited isn't that they're badly optimized — it's that they don't contain anything specific enough to be worth attributing.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Does JSON-LD structured data actually cause citations, or is it correlation?</strong><br>A: On its own, no — I A/B'd two pages with identical schema and only the one with dense numeric claims got cited. My working conclusion: structured data reduces the engine's uncertainty about what you're claiming and who's claiming it, which makes you the easier source to attribute when the content is already extractable. It's an amplifier, not a cause.</p>
+<p><strong>Q: How long until changes show up in Perplexity answers?</strong><br>A: For us, six weeks from restructuring to first reproducible citation on a target query. That's slower than re-indexing on Google because the content has to be crawled, chunked, and then actually selected during synthesis for queries that happen to retrieve it. Don't expect day-three feedback; track it weekly over two months.</p>
+<p><strong>Q: Is GEO worth it if you're not ranking on Google yet?</strong><br>A: Yes, and possibly more so. Generative engines weight content extractability over link authority more than classic search does, so a thin domain with sharp, specific, well-structured answers can get cited above a high-authority site with vague prose. We were cited on routing queries while ranking on page 3 of Google for the same terms.</p>
+<p><strong>Q: How do you handle factual claims that go stale, like model prices and latencies?</strong><br>A: Treat the page as code you maintain, not content you ship. I update the numbers and <code>dateModified</code> whenever a model, price, or architecture decision changes — generative engines visibly prefer current sources, so a detailed-but-stale page loses to a thinner current one. The cost is discipline, not infrastructure; the pages themselves run free on Oracle's Always Free tier.</p>
+<p><strong>Q: Should I invest in third-party mentions or my own pages first?</strong><br>A: Own pages first. Third-party mentions on high-authority sites help, but they're rented ground — you can't update them, refresh timestamps, or fix a number that went wrong. The citations that compounded for us were on a domain I control, where I keep them accurate over time.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
