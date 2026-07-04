@@ -7,14 +7,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { SERVICE_CHECKOUT_API } from "@/config/services";
-import { ArrowLeft, Copy, CreditCard, Loader2, MessageCircle } from "lucide-react";
+import { ArrowLeft, CreditCard, Loader2 } from "lucide-react";
 
 type Sku = "web_audit_prelim" | "web_audit_blueprint";
 
 const SKUS: Sku[] = ["web_audit_prelim", "web_audit_blueprint"];
 
 const ServicePay = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const preselected = searchParams.get("sku") as Sku | null;
   const inviteBlueprint = searchParams.get("invite") === "blueprint";
@@ -28,30 +28,18 @@ const ServicePay = () => {
   );
   const [paying, setPaying] = useState(false);
 
+  const displaySkus = useMemo((): Sku[] => {
+    if (inviteBlueprint || preselected === "web_audit_blueprint") {
+      return SKUS;
+    }
+    return ["web_audit_prelim"];
+  }, [inviteBlueprint, preselected]);
+
   useEffect(() => {
     if (preselected && SKUS.includes(preselected)) setActiveSku(preselected);
   }, [preselected]);
 
   const pageUrl = typeof window !== "undefined" ? window.location.href.split("#")[0] : "";
-
-  const shareLink = useMemo(() => {
-    const base = "https://aideazz.xyz/pay/analisis-tecnico";
-    return `${base}?sku=${activeSku}`;
-  }, [activeSku]);
-
-  const copyShareLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareLink);
-      toast.success(t("servicePay.linkCopied"));
-    } catch {
-      toast.error(t("servicePay.linkCopyFailed"));
-    }
-  };
-
-  const whatsAppShare = () => {
-    const text = t("servicePay.whatsAppPrefill", { url: shareLink });
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
-  };
 
   const checkout = async (sku: Sku) => {
     if (!name.trim() || !email.trim()) {
@@ -107,8 +95,6 @@ const ServicePay = () => {
     }
   };
 
-  const langEs = i18n.language.startsWith("es");
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#05060a] via-[#0a0c14] to-[#05060a] text-white">
       <div className="container mx-auto px-6 py-12 max-w-3xl">
@@ -121,56 +107,15 @@ const ServicePay = () => {
         </Link>
 
         <div className="mb-8">
-          <p className="text-sm text-emerald-400 font-medium mb-2">🇵🇦 PagueloFacil · Panamá / tarjeta local</p>
+          <p className="text-sm text-emerald-400 font-medium mb-2">{t("servicePay.paymentBadge")}</p>
           <h1 className="text-3xl md:text-4xl font-bold font-poppins mb-3">
             {t("servicePay.title")}
           </h1>
           <p className="text-gray-300 leading-relaxed">{t("servicePay.subtitle")}</p>
         </div>
 
-        <div className="glass-card p-6 mb-8 border border-amber-500/20 bg-amber-500/5">
-          <p className="text-sm text-amber-100/90 leading-relaxed">{t("servicePay.discoveryNote")}</p>
-        </div>
-
-        <div className="space-y-4 mb-10">
-          {SKUS.map((sku) => (
-            <div
-              key={sku}
-              className={`glass-card p-6 border transition-colors ${
-                activeSku === sku ? "border-purple-400/50" : "border-white/10"
-              }`}
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-                <div>
-                  <h2 className="text-xl font-semibold text-white mb-2">
-                    {t(`servicePay.products.${sku}.title`)}
-                  </h2>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                    {t(`servicePay.products.${sku}.description`)}
-                  </p>
-                  <p className="text-2xl font-bold text-emerald-400">
-                    ${t(`servicePay.products.${sku}.price`)} USD
-                  </p>
-                </div>
-                <Button
-                  disabled={paying}
-                  onClick={() => checkout(sku)}
-                  className="shrink-0 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
-                >
-                  {paying && activeSku === sku ? (
-                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  ) : (
-                    <CreditCard className="w-4 h-4 mr-2" />
-                  )}
-                  {t("servicePay.payButton")}
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="glass-card p-6 mb-8 space-y-4">
-          <h3 className="text-lg font-semibold">{t("servicePay.formTitle")}</h3>
+        <div className="glass-card p-6 mb-8 border border-white/10">
+          <h3 className="text-lg font-semibold mb-4">{t("servicePay.formTitle")}</h3>
           <div className="grid gap-4">
             <div>
               <Label htmlFor="sp-name">{t("servicePay.name")}</Label>
@@ -214,27 +159,49 @@ const ServicePay = () => {
           </div>
         </div>
 
-        <div className="glass-card p-6 border border-white/10">
-          <h3 className="text-lg font-semibold mb-2">{t("servicePay.shareTitle")}</h3>
-          <p className="text-sm text-gray-400 mb-4">{t("servicePay.shareHint")}</p>
-          <code className="block text-xs break-all text-purple-200 bg-black/30 p-3 rounded mb-4">
-            {shareLink}
-          </code>
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" onClick={copyShareLink} className="border-white/20">
-              <Copy className="w-4 h-4 mr-2" />
-              {t("servicePay.copyLink")}
-            </Button>
-            <Button variant="outline" onClick={whatsAppShare} className="border-emerald-500/40 text-emerald-300">
-              <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp
-            </Button>
-          </div>
+        <div className="space-y-4 mb-8">
+          {displaySkus.map((sku) => (
+            <div
+              key={sku}
+              className={`glass-card p-6 border transition-colors ${
+                activeSku === sku ? "border-purple-400/50" : "border-white/10"
+              }`}
+            >
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-semibold text-white mb-2">
+                    {t(`servicePay.products.${sku}.title`)}
+                  </h2>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                    {t(`servicePay.products.${sku}.description`)}
+                  </p>
+                  <p className="text-2xl font-bold text-emerald-400">
+                    ${t(`servicePay.products.${sku}.price`)} USD
+                  </p>
+                </div>
+                <Button
+                  disabled={paying}
+                  onClick={() => checkout(sku)}
+                  className="shrink-0 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+                >
+                  {paying && activeSku === sku ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  ) : (
+                    <CreditCard className="w-4 h-4 mr-2" />
+                  )}
+                  {t("servicePay.payButton")}
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <p className="text-xs text-gray-500 mt-8 text-center">
-          {langEs ? "Pago seguro vía PagueloFacil." : "Secure payment via PagueloFacil."}{" "}
-          · Elena Revicheva · AIdeazz
+        <div className="glass-card p-6 mb-8 border border-amber-500/20 bg-amber-500/5">
+          <p className="text-sm text-amber-100/90 leading-relaxed">{t("servicePay.afterPayNote")}</p>
+        </div>
+
+        <p className="text-xs text-gray-500 text-center">
+          {t("servicePay.footer")} · Elena Revicheva · AIdeazz
         </p>
       </div>
     </div>
