@@ -18,7 +18,7 @@ i18n
       escapeValue: false
     },
     detection: {
-      /** URL ?lng=es overrides stored preference (shareable Spanish links). */
+      /** URL ?lng=es or ?lang=es overrides stored preference (shareable Spanish links). */
       order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
       lookupQuerystring: 'lng',
       caches: ['localStorage'],

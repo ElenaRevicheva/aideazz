@@ -21,7 +21,7 @@ type InquiryFormProps = {
  * Same reCAPTCHA + proxy as homepage — works on any route under aideazz.xyz (Origin allowlist).
  */
 const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,11 +34,12 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
   const auditPayUrl = useMemo(() => {
     const params = new URLSearchParams();
     params.set("sku", "web_audit_prelim");
+    params.set("lng", i18n.language.startsWith("es") ? "es" : "en");
     for (const [k, v] of Object.entries(utm)) {
       if (v) params.set(k, v);
     }
     return `/pay/analisis-tecnico?${params.toString()}`;
-  }, [utm]);
+  }, [utm, i18n.language]);
 
   useEffect(() => {
     const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;

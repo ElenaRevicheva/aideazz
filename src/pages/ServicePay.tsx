@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { SERVICE_CHECKOUT_API } from "@/config/services";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { ArrowLeft, CreditCard, Loader2 } from "lucide-react";
 
 type Sku = "web_audit_prelim" | "web_audit_blueprint";
@@ -14,7 +15,7 @@ type Sku = "web_audit_prelim" | "web_audit_blueprint";
 const SKUS: Sku[] = ["web_audit_prelim", "web_audit_blueprint"];
 
 const ServicePay = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
   const preselected = searchParams.get("sku") as Sku | null;
   const inviteBlueprint = searchParams.get("invite") === "blueprint";
@@ -38,6 +39,19 @@ const ServicePay = () => {
   useEffect(() => {
     if (preselected && SKUS.includes(preselected)) setActiveSku(preselected);
   }, [preselected]);
+
+  /** LATAM-first pay page: Spanish unless ?lng=en or ?lang=en */
+  useLayoutEffect(() => {
+    const lng = searchParams.get("lng") ?? searchParams.get("lang");
+    const target = lng === "en" ? "en" : lng === "es" ? "es" : "es";
+    if (!i18n.language.startsWith(target)) {
+      void i18n.changeLanguage(target);
+    }
+  }, [searchParams, i18n]);
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language.startsWith("es") ? "es" : "en";
+  }, [i18n.language]);
 
   const pageUrl = typeof window !== "undefined" ? window.location.href.split("#")[0] : "";
 
@@ -98,13 +112,19 @@ const ServicePay = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#05060a] via-[#0a0c14] to-[#05060a] text-white">
       <div className="container mx-auto px-6 py-12 max-w-3xl">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-purple-300 hover:text-purple-200 mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          aideazz.xyz
-        </Link>
+        <div className="flex items-center justify-between gap-4 mb-8">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-purple-300 hover:text-purple-200"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            aideazz.xyz
+          </Link>
+          <LanguageSwitcher
+            syncQueryParam
+            className="flex items-center gap-2 text-gray-300 hover:text-white hover:bg-white/5"
+          />
+        </div>
 
         <div className="mb-8">
           <p className="text-sm text-emerald-400 font-medium mb-2">{t("servicePay.paymentBadge")}</p>
