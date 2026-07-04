@@ -317,6 +317,7 @@
     "payButton": "Continuar al pago",
     "checkoutError": "No se pudo iniciar el pago. Intente de nuevo o escríbame por WhatsApp.",
     "blueprintBlocked": "El plan completo está disponible después de su auditoría preliminar. Escríbame si necesita ayuda.",
+    "blueprintRequiresNote": "Disponible después del informe preliminar de $200 — o si Elena le envió un enlace de invitación directa.",
     "validationContact": "Ingrese su nombre y correo antes de continuar.",
     "afterPayNote": "Una vez confirmado el pago, recibirá su informe por correo. Si le enviamos preguntas técnicas (dominio, hosting, formularios, etc.), inclúyalas en el campo de notas — así podremos entregar un informe útil más rápido.",
     "footer": "Pago seguro vía PagueloFacil",

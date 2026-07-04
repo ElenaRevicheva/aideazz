@@ -317,6 +317,7 @@
     "payButton": "Continue to payment",
     "checkoutError": "Payment could not be started. Please try again or write to Elena on WhatsApp.",
     "blueprintBlocked": "The full blueprint is available after your preliminary audit. Please contact Elena if you need assistance.",
+    "blueprintRequiresNote": "Unlocked after the $200 preliminary audit — or if Elena sent you a direct invitation link.",
     "validationContact": "Please enter your name and email before continuing.",
     "afterPayNote": "After payment is confirmed, you will receive your report by email. If we asked you technical questions (domain, hosting, forms, etc.), please include your answers in the notes field above — this helps us deliver a useful report faster.",
     "footer": "Secure payment via PagueloFacil",

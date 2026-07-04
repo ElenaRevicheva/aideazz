@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -28,13 +28,6 @@ const ServicePay = () => {
     preselected && SKUS.includes(preselected) ? preselected : "web_audit_prelim",
   );
   const [paying, setPaying] = useState(false);
-
-  const displaySkus = useMemo((): Sku[] => {
-    if (inviteBlueprint || preselected === "web_audit_blueprint") {
-      return SKUS;
-    }
-    return ["web_audit_prelim"];
-  }, [inviteBlueprint, preselected]);
 
   useEffect(() => {
     if (preselected && SKUS.includes(preselected)) setActiveSku(preselected);
@@ -180,7 +173,7 @@ const ServicePay = () => {
         </div>
 
         <div className="space-y-4 mb-8">
-          {displaySkus.map((sku) => (
+          {SKUS.map((sku) => (
             <div
               key={sku}
               className={`glass-card p-6 border transition-colors ${
@@ -195,6 +188,9 @@ const ServicePay = () => {
                   <p className="text-gray-300 text-sm leading-relaxed mb-2">
                     {t(`servicePay.products.${sku}.description`)}
                   </p>
+                  {sku === "web_audit_blueprint" && !inviteBlueprint && (
+                    <p className="text-xs text-amber-200/80 mb-2">{t("servicePay.blueprintRequiresNote")}</p>
+                  )}
                   <p className="text-2xl font-bold text-emerald-400">
                     ${t(`servicePay.products.${sku}.price`)} USD
                   </p>
