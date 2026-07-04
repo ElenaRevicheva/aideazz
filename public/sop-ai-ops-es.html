@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"Manual de operaciones de agentes de IA","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-06-12","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"inLanguage":"es"}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"Manual de operaciones de agentes de IA","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-07-03","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"inLanguage":"es"}
   </script>
 
   <style>
@@ -1071,6 +1071,54 @@
     }
     .footer-links a:hover { color: var(--cyan); }
 
+    .tbl-wrap.lab-tbl {
+      margin-bottom: 18px;
+      border-radius: var(--radius-md);
+    }
+    .tbl-wrap.lab-tbl table { min-width: 0; font-size: 14px; }
+    .tbl-wrap.lab-tbl td:first-child {
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+      width: 22%;
+    }
+    .flow-pill {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--t2);
+      padding: 14px 18px;
+      margin: 18px 0 22px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(157, 140, 255, 0.28);
+      background: rgba(157, 140, 255, 0.05);
+      line-height: 1.55;
+    }
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      letter-spacing: 0.03em;
+    }
+    .status-loaded { background: rgba(94, 233, 181, 0.12); color: #9cf5d4; border: 1px solid rgba(94, 233, 181, 0.28); }
+    .status-partial { background: rgba(255, 200, 87, 0.12); color: #ffe3a3; border: 1px solid rgba(255, 200, 87, 0.28); }
+    .status-queue { background: rgba(111, 122, 154, 0.18); color: var(--t2); border: 1px solid rgba(111, 122, 154, 0.32); }
+    .verify-list {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--t2);
+      font-size: 14px;
+      line-height: 1.68;
+    }
+    .verify-list li { margin-bottom: 10px; }
+    .verify-list a { color: var(--cyan); font-weight: 600; text-decoration: none; }
+    .verify-list a:hover { text-decoration: underline; }
+
     /* Responsive */
     @media (max-width: 800px) {
       .bento { grid-template-columns: 1fr 1fr 1fr; }
@@ -1132,10 +1180,10 @@
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="live-badge"><span class="pulse-dot"></span>Manual de operaciones · Infraestructura de IA</div>
+    <div class="live-badge"><span class="pulse-dot"></span>AIdeazz AI Lab · activo en producción</div>
     <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">English version →</a></p>
-    <h1><span class="grad">Operaciones de agentes IA</span><br />Manual de producción</h1>
-    <p class="hero-sub"><strong>AIdeazz no es una demo.</strong> Diez agentes autónomos ya entregan valor (tutoría, redes, empleos, CRM, orquestación, inteligencia de marketing); un hueco de orquestación está reservado para AILA. Abajo está cómo se gobiernan fiabilidad, releases y automatización cara al ingreso: primero en lenguaje claro y, donde suma credibilidad, profundidad de ingeniería.</p>
+    <h1><span class="grad">AIdeazz AI Lab</span><br />Operaciones y motor de marketing</h1>
+    <p class="hero-sub"><strong>No es una demo.</strong> Once agentes co‑fundadores de IA más un motor de marketing corren 24/7: tu web te encuentra, el contenido se publica a diario, los leads entran al CRM y Atlas mide si las campañas movieron la aguja. Abajo: estado en lenguaje claro para dueños de negocio; después, profundidad técnica para quien necesite pruebas.</p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Autora</div>
@@ -1147,7 +1195,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Actualizado</div>
-        <div class="meta-val">junio de 2026</div>
+        <div class="meta-val">3 de julio de 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Estado</div>
@@ -1165,16 +1213,66 @@
   <div class="exec-banner" role="region" aria-label="Resumen ejecutivo">
     <strong>Qué debe quedarle claro al negocio</strong>
     <ul>
-      <li><strong>Cobertura:</strong> tutoría (WhatsApp + Telegram), crecimiento y educación en redes (X + Instagram), caza de empleos + shortlists, co‑fundadora de marketing (web + CRM), orquestación tipo CTO, persona co‑fundadora creativa, briefing diario por voz—todo cableado de forma deliberada.</li>
-      <li><strong>Riesgo:</strong> watchdogs, políticas de reinicio y aislamiento de secretos hacen que los fallos suelan ser <em>locales</em> (un bot), no sistémicos (toda la flota).</li>
-      <li><strong>Palanca GTM:</strong> lanzamientos con sustancia se propagan a LinkedIn, blogs, X e Instagram sin copiar y pegar—gobernados por reglas de commit para que el ruido interno no llegue como spam al cliente.</li>
-      <li><strong>Para qué sirve este doc:</strong> el ecosistema corre una capa GEO + SEO sobre <a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">aideazz.xyz</a> con contenido estructurado, señales para crawlers de IA y publicación bilíngüe en blog. Este manual es parte de esa capa: evidencia pública de madurez operativa para que buscadores <em>y</em> asistentes sugieran el agente adecuado sin adivinar.</li>
+      <li><strong>Un laboratorio, muchos productos:</strong> bots de tutoría, caza de empleos, crecimiento en redes, pipeline CRM, blog diario y un radar de marketing (Atlas) que lee el mercado publicitario y exporta campañas de prueba—con retroalimentación real de Google Analytics desde julio de 2026.</li>
+      <li><strong>Números honestos:</strong> el CRM ha procesado más de 700 leads históricos; el email outbound se envía pero aún no convierte; la primera sesión de campaña etiquetada ya está en el libro contable.</li>
+      <li><strong>Control de riesgo:</strong> chequeos automáticos y secretos aislados: si falla un bot, no cae toda la flota.</li>
+      <li><strong>Para qué existe esta página:</strong> prueba pública de que AIdeazz opera como empresa de producto—not slides—para que clientes, partners y buscadores verifiquen madurez operativa.</li>
     </ul>
+  </div>
+
+  <div class="section" id="lab" style="margin-bottom:48px;">
+    <div class="section-head">
+      <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div>
+        <div class="s-eyebrow">Empieza aquí</div>
+        <h2>Qué es AIdeazz AI Lab — ahora mismo</h2>
+        <p>Tu flota de co‑fundadores de IA en producción más un motor de marketing que conecta descubrimiento → contenido → leads → medición. No es un prototipo.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="tbl-wrap lab-tbl">
+      <table>
+        <thead><tr><th>Pieza</th><th>Función</th><th>Dónde verlo</th></tr></thead>
+        <tbody>
+          <tr><td>Cara pública</td><td>Portafolio, blog, formulario de contacto</td><td><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a></td></tr>
+          <tr><td>Hub técnico</td><td>CRM, blog, outreach, seguimiento de rendimiento</td><td><a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">CTO AIPA Telegram</a></td></tr>
+          <tr><td>Radar de marketing</td><td>Inteligencia diaria del mercado + export de campañas</td><td><a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">Atlas en vivo</a></td></tr>
+          <tr><td>Espina CRM</td><td>Todos los agentes alimentan un pipeline HubSpot</td><td>HubSpot Sales Pipeline</td></tr>
+          <tr><td>Capa de medición</td><td>Sesiones web, leads de formulario, deals por campaña</td><td>Tarjetas de concepto en Atlas (bloque de rendimiento)</td></tr>
+          <tr><td>Productos hermanos</td><td>EspaLuz, caza de empleos, bots sociales, IA creativa, briefing diario</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portafolio</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="flow-pill">Flujo del motor de marketing: SEO y descubrimiento → blog diario → formulario con tracking → HubSpot → triaje de leads → (opcional) outreach → Atlas detectar → crear → medir</p>
+
+    <div class="tbl-wrap lab-tbl">
+      <table>
+        <thead><tr><th>Estado</th><th>Realidad (3 jul 2026)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-tag status-loaded">Cargado</span></td><td>Descubrimiento, contenido, ingest CRM, triaje, radar Atlas, puente de rendimiento, sync nocturno GA4</td></tr>
+          <tr><td><span class="status-tag status-partial">Parcial</span></td><td>Email outbound (54 envíos, 0 respuestas); atribución de formulario (bajo volumen; 1 sesión GA4 etiquetada el 2 jul)</td></tr>
+          <tr><td><span class="status-tag status-queue">Siguiente</span></td><td>Paquete showcase para clientes; tracking de clics WhatsApp; clasificador de consultas de negocio; lectura API de ads</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout green">
+      <div><strong>Cómo verificar (sin terminal):</strong></div>
+      <ul class="verify-list">
+        <li>Abre <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">Atlas</a> después de las 9:15 AM Panamá — debe aparecer el snapshot del día.</li>
+        <li>Visita <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">aideazz.xyz/blog</a> — artículos nuevos con cadencia diaria.</li>
+        <li>Envía el formulario en <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a> — recibes email de confirmación cuando funciona.</li>
+        <li>Ingeniería: roadmap completo en <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing Engine</a> en GitHub.</li>
+      </ul>
+    </div>
   </div>
 
   <nav class="toc-bar" aria-label="Secciones de la página">
     <div class="toc-inner">
       <span class="toc-label">Ir a</span>
+      <a href="#lab">Estado AI Lab</a>
       <a href="#agents">Productos y agentes</a>
       <a href="#health">Fiabilidad</a>
       <a href="#pipeline">Automatización GTM</a>
@@ -1367,7 +1465,7 @@
                 <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">radar en vivo</a>
               </div>
             </td>
-            <td><strong>Inteligencia de marketing:</strong> Observa el mercado publicitario público a diario, detecta qué ángulo creativo se está abriendo antes de que se sature (ENTER / WATCH / AVOID) y genera la creatividad fundamentada en evidencia—imagen + video vía el pipeline Atuona. Alimenta el motor de marketing (dogfooding en la vertical expat de EspaLuz).<br /><span style="color:var(--t3);font-size:12.5px;">Registro JSONL inmutable (captura-primero) + clasificador de ángulos por embeddings de OpenAI + proyección SQLite; respaldo diario fuera del VM. PM2 (<code>whitespace</code>:8095) + cron hora de Panamá. Solo datos públicos de transparencia publicitaria—sin afirmar gasto/CTR.</span></td>
+            <td><strong>Inteligencia de marketing:</strong> Observa el mercado publicitario público a diario (9 AM Panamá), puntúa qué ángulo se abre, exporta campañas de prueba y—desde julio de 2026—incorpora sesiones reales de Google Analytics al libro de rendimiento para ver si una prueba movió tráfico.<br /><span style="color:var(--t3);font-size:12.5px;">Bucle detectar → crear → <strong>medir</strong>. Solo datos públicos de transparencia para detección; GA4 para resultados. En vivo en <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener" style="color:var(--cyan);">atlas.html</a>.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Activo</span></td>
           </tr>
@@ -1677,7 +1775,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Contenido y SEO</div>
-        <div class="stack-tools">Blog diario bilingüe (EN/ES, aideazz.xyz/blog) · crosspost dev.to · GA4 · Search Console · pack GEO (llms.txt, tokens crawler) · FAQPage JSON-LD (AEO)</div>
+        <div class="stack-tools">Blog diario bilingüe · crosspost dev.to · GA4 + medición Atlas (jul 2026) · Search Console · pack GEO · captura de leads → Oracle → HubSpot</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Gestión de proyecto</div>
@@ -1694,6 +1792,7 @@
     <div class="footer-links">
       <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
       <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Motor de marketing (GitHub)</a>
       <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">Anexo de ingeniería</a>
     </div>
     <p>Elena Revicheva · ingeniera IA y fundadora · Construido y mantenido en producción desde 2026</p>

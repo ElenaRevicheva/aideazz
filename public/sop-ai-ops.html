@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="How AIdeazz runs nine live AI products plus one in design: ownership map, reliability practices, go-to-market automation, and stack—for founders who want proof, not buzzwords." />
+  <meta name="description" content="AIdeazz AI Lab: eleven live AI co-founders plus a marketing engine (Atlas, CRM, daily blog, GA4 measure). Plain-language status for business owners; technical proof for engineers." />
   <meta name="color-scheme" content="dark" />
-  <title>AI Operations SOP — Elena Revicheva · AIdeazz</title>
+  <title>AIdeazz AI Lab — Operations &amp; Marketing Engine</title>
   <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-06-12","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-07-03","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
   </script>
 
   <style>
@@ -1071,6 +1071,55 @@
     }
     .footer-links a:hover { color: var(--cyan); }
 
+    /* AI Lab snapshot tables (business-readable, no wide agent matrix) */
+    .tbl-wrap.lab-tbl {
+      margin-bottom: 18px;
+      border-radius: var(--radius-md);
+    }
+    .tbl-wrap.lab-tbl table { min-width: 0; font-size: 14px; }
+    .tbl-wrap.lab-tbl td:first-child {
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+      width: 22%;
+    }
+    .flow-pill {
+      display: block;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--t2);
+      padding: 14px 18px;
+      margin: 18px 0 22px;
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(157, 140, 255, 0.28);
+      background: rgba(157, 140, 255, 0.05);
+      line-height: 1.55;
+    }
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      letter-spacing: 0.03em;
+    }
+    .status-loaded { background: rgba(94, 233, 181, 0.12); color: #9cf5d4; border: 1px solid rgba(94, 233, 181, 0.28); }
+    .status-partial { background: rgba(255, 200, 87, 0.12); color: #ffe3a3; border: 1px solid rgba(255, 200, 87, 0.28); }
+    .status-queue { background: rgba(111, 122, 154, 0.18); color: var(--t2); border: 1px solid rgba(111, 122, 154, 0.32); }
+    .verify-list {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--t2);
+      font-size: 14px;
+      line-height: 1.68;
+    }
+    .verify-list li { margin-bottom: 10px; }
+    .verify-list a { color: var(--cyan); font-weight: 600; text-decoration: none; }
+    .verify-list a:hover { text-decoration: underline; }
+
     /* Responsive */
     @media (max-width: 800px) {
       .bento { grid-template-columns: 1fr 1fr 1fr; }
@@ -1132,10 +1181,10 @@
 <!-- HERO -->
 <div class="hero">
   <div class="wrap">
-    <div class="live-badge"><span class="pulse-dot"></span>Operations playbook · AI infrastructure</div>
+    <div class="live-badge"><span class="pulse-dot"></span>AIdeazz AI Lab · live in production</div>
     <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops-es.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">Versión en español →</a></p>
-    <h1><span class="grad">AI Agent Operations</span><br />Runbook</h1>
-    <p class="hero-sub"><strong>AIdeazz is not a demo.</strong> Ten autonomous agents ship customer value today (tutoring, social, jobs, CRM, orchestration, marketing intelligence); one orchestration slot is reserved for AILA. Below is how reliability, releases, and revenue-facing automation are governed—plain language first, engineering depth where it earns trust.</p>
+    <h1><span class="grad">AIdeazz AI Lab</span><br />Operations &amp; Marketing Engine</h1>
+    <p class="hero-sub"><strong>This is not a demo.</strong> Eleven AI co-founder agents plus a marketing engine run 24/7: your website finds you, content publishes daily, leads land in CRM, and Atlas measures whether campaigns actually moved the needle. Below: plain-language status for business owners, then technical depth for engineers who need proof.</p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Author</div>
@@ -1147,7 +1196,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Updated</div>
-        <div class="meta-val">June 2026</div>
+        <div class="meta-val">July 3, 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
@@ -1165,16 +1214,81 @@
   <div class="exec-banner" role="region" aria-label="Executive summary">
     <strong>What a business owner should take away</strong>
     <ul>
-      <li><strong>Coverage:</strong> tutoring (WhatsApp + Telegram), growth &amp; education social (X + Instagram), job hunter + shortlists, marketing co-founder (site + CRM pipeline), CTO-grade orchestration, creative co-founder persona, daily voice briefing—wired together intentionally.</li>
-      <li><strong>Risk control:</strong> watchdog scripts, restart policies, and separation of secrets mean failures tend to be <em>local</em> (one bot) not existential (whole fleet).</li>
-      <li><strong>GTM leverage:</strong> meaningful releases can propagate to LinkedIn, blogs, X, and Instagram without manual copy-paste—governed by commit rules so internal churn never spammed customers.</li>
-      <li><strong>Why this document exists:</strong> the ecosystem runs a GEO + SEO layer—<a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">aideazz.xyz</a> with structured content, AI-crawler signals, and bilingual blog publishing. This SOP is part of that layer: a public proof of operational maturity so search engines <em>and</em> AI assistants can surface the right agent for the right need, rather than guessing.</li>
+      <li><strong>One lab, many products:</strong> tutoring bots, job hunter, social growth, CRM pipeline, daily blog, and a marketing radar (Atlas) that reads the ad market and exports test campaigns—with real Google Analytics feedback since July 2026.</li>
+      <li><strong>Honest numbers:</strong> CRM has processed 700+ leads historically; outbound email sends but has not converted yet; first tagged campaign session is already in the ledger.</li>
+      <li><strong>Risk control:</strong> automated health checks and isolated secrets mean one bot failing does not take down the whole fleet.</li>
+      <li><strong>Why this page exists:</strong> public proof that AIdeazz runs like a product company—not slide decks—so clients, partners, and search engines can verify operational maturity.</li>
     </ul>
+  </div>
+
+  <!-- AI LAB SNAPSHOT (business-first) -->
+  <div class="section" id="lab" style="margin-bottom:48px;">
+    <div class="section-head">
+      <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div>
+        <div class="s-eyebrow">Start here</div>
+        <h2>What AIdeazz AI Lab is — right now</h2>
+        <p>Your production AI co-founder fleet plus a marketing engine that connects discovery → content → leads → measurement. Not a prototype.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="tbl-wrap lab-tbl">
+      <table>
+        <thead><tr><th>Piece</th><th>Role</th><th>Where to see it</th></tr></thead>
+        <tbody>
+          <tr><td>Public face</td><td>Portfolio, blog, inquiry form</td><td><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a></td></tr>
+          <tr><td>Tech hub</td><td>CRM, blog, outreach, performance tracking</td><td><a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">CTO AIPA Telegram</a></td></tr>
+          <tr><td>Marketing radar</td><td>Daily ad-market intelligence + campaign export</td><td><a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">Atlas live radar</a></td></tr>
+          <tr><td>CRM spine</td><td>All agents feed one HubSpot pipeline</td><td>HubSpot Sales Pipeline</td></tr>
+          <tr><td>Measure layer</td><td>Website sessions, form leads, deals by campaign</td><td>Atlas concept cards (performance block)</td></tr>
+          <tr><td>Sibling products</td><td>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="flow-pill">Marketing engine flow: SEO &amp; discoverability → daily blog → inquiry form with tracking → HubSpot → lead triage → (optional) outreach → Atlas detect → create → measure</p>
+
+    <div class="tbl-wrap lab-tbl">
+      <table>
+        <thead><tr><th>Status</th><th>Reality (July 3, 2026)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-tag status-loaded">Loaded</span></td><td>Discovery, content, CRM ingest, triage, Atlas radar, performance bridge, GA4 nightly sync</td></tr>
+          <tr><td><span class="status-tag status-partial">Partial</span></td><td>Outbound email (54 sends, 0 replies); form attribution (low volume; 1 real tagged GA4 session Jul 2)</td></tr>
+          <tr><td><span class="status-tag status-queue">Next</span></td><td>Showcase package for clients; WhatsApp click tracking; business-inquiry routing; ads API read</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tbl-wrap lab-tbl">
+      <table>
+        <thead><tr><th>Phase</th><th>Marketing roadmap</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Foundation — SEO, analytics, trust signals</td><td><span class="status-tag status-loaded">Loaded</span></td></tr>
+          <tr><td>2</td><td>Content — daily Dev.to blog</td><td><span class="status-tag status-loaded">Loaded</span></td></tr>
+          <tr><td>3</td><td>Attribution + Atlas measure</td><td><span class="status-tag status-partial">First GA4 signal</span></td></tr>
+          <tr><td>4</td><td>Outbound email</td><td><span class="status-tag status-partial">Fires · 0 conversion</span></td></tr>
+          <tr><td>5</td><td>Lead triage</td><td><span class="status-tag status-loaded">Operational</span></td></tr>
+          <tr><td>6</td><td>Client showcase package</td><td><span class="status-tag status-queue">Priority</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout green">
+      <div><strong>How to verify (no terminal required):</strong></div>
+      <ul class="verify-list">
+        <li>Open <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">Atlas</a> after 9:15 AM Panama — today&rsquo;s market snapshot should appear.</li>
+        <li>Visit <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">aideazz.xyz/blog</a> — new articles publish on a daily cadence.</li>
+        <li>Submit the inquiry form on <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a> — you receive a confirmation email when it works.</li>
+        <li>Engineers: full runbook in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing Engine roadmap</a> on GitHub.</li>
+      </ul>
+    </div>
   </div>
 
   <nav class="toc-bar" aria-label="Page sections">
     <div class="toc-inner">
       <span class="toc-label">Jump</span>
+      <a href="#lab">AI Lab status</a>
       <a href="#agents">Products &amp; agents</a>
       <a href="#health">Reliability</a>
       <a href="#pipeline">Go-to-market automation</a>
@@ -1367,7 +1481,7 @@
                 <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">live radar</a>
               </div>
             </td>
-            <td><strong>Marketing intelligence:</strong> Watches the public ad market daily, detects which creative angle is opening before it saturates (ENTER / WATCH / AVOID), then generates the evidence-grounded creative—image + video via the Atuona pipeline. Feeds the marketing engine (dogfooded on the EspaLuz expat vertical).<br /><span style="color:var(--t3);font-size:12.5px;">Capture-first immutable JSONL log + OpenAI-embedding angle classifier + SQLite projection; off-VM daily backup. PM2 (<code>whitespace</code>:8095) + Panama-time cron. Public ad-transparency data only—no spend/CTR claimed.</span></td>
+            <td><strong>Marketing intelligence:</strong> Watches the public ad market daily (9 AM Panama), scores which angle is opening, exports test campaigns, and—since July 2026—pulls real Google Analytics sessions back into a performance ledger so you can see if a test moved traffic.<br /><span style="color:var(--t3);font-size:12.5px;">Detect → create → <strong>measure</strong> loop. Public ad-transparency data only for detection; GA4 for outcomes. Live at <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener" style="color:var(--cyan);">atlas.html</a>.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
@@ -1677,7 +1791,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">Content & SEO</div>
-        <div class="stack-tools">Bilingual daily blog (EN/ES, aideazz.xyz/blog) · dev.to crosspost · GA4 · Google Search Console · GEO pack (llms.txt, crawler tokens) · FAQPage JSON-LD (AEO)</div>
+        <div class="stack-tools">Bilingual daily blog · dev.to crosspost · GA4 + Atlas campaign measure (Jul 2026) · Google Search Console · GEO pack · lead capture → Oracle → HubSpot</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Project Mgmt</div>
@@ -1694,6 +1808,7 @@
     <div class="footer-links">
       <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
       <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing engine (GitHub)</a>
       <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">Engineering appendix</a>
     </div>
     <p>Elena Revicheva · AI Engineer & Founder · Built &amp; maintained in production since 2026</p>
