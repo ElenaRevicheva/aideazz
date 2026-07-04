@@ -188,9 +188,6 @@ const ServicePay = () => {
                   <p className="text-gray-300 text-sm leading-relaxed mb-2">
                     {t(`servicePay.products.${sku}.description`)}
                   </p>
-                  {sku === "web_audit_blueprint" && !inviteBlueprint && (
-                    <p className="text-xs text-amber-200/80 mb-2">{t("servicePay.blueprintRequiresNote")}</p>
-                  )}
                   <p className="text-2xl font-bold text-emerald-400">
                     ${t(`servicePay.products.${sku}.price`)} USD
                   </p>
