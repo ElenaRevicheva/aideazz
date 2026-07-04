@@ -19,6 +19,26 @@ const EspaLuzSection = () => {
   const atlasWhatsAppUrl = () => {
     const term = atlasConceptTerm();
     const text = term ? `Hi EspaLuz! ${term}` : "Hi EspaLuz!";
+    if (typeof window === "undefined") {
+      return `https://wa.me/50766623757?text=${encodeURIComponent(text)}`;
+    }
+    const params = new URLSearchParams(window.location.search);
+    const campaign = params.get("utm_campaign");
+    if (campaign?.startsWith("atlas_")) {
+      const q = new URLSearchParams({
+        to: "50766623757",
+        text,
+        utm_campaign: campaign,
+      });
+      if (term) q.set("utm_term", term);
+      const content = params.get("utm_content");
+      if (content) q.set("utm_content", content);
+      const source = params.get("utm_source");
+      if (source) q.set("utm_source", source);
+      const medium = params.get("utm_medium");
+      if (medium) q.set("utm_medium", medium);
+      return `https://webhook.aideazz.xyz/cto/go/wa?${q}`;
+    }
     return `https://wa.me/50766623757?text=${encodeURIComponent(text)}`;
   };
 
