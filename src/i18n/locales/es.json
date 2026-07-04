@@ -301,6 +301,39 @@
     "inquiryErrorTimeout": "La solicitud tardó demasiado. Revisa tu conexión e inténtalo de nuevo.",
     "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje."
   },
+  "servicePay": {
+    "title": "Análisis técnico web",
+    "subtitle": "Contrate una auditoría preliminar o un plan de implementación completo después de compartir sus respuestas al cuestionario de descubrimiento. Pago seguro con PagueloFacil (tarjetas Panamá).",
+    "discoveryNote": "Paso A (recomendado): comparta las respuestas al cuestionario técnico (dominio, hosting, formularios, etiquetas) por correo o WhatsApp. Paso B: pague aquí para encargar el informe — el trabajo comienza al recibir pago y cuestionario.",
+    "formTitle": "Sus datos (requeridos antes del pago)",
+    "name": "Nombre",
+    "email": "Correo",
+    "company": "Empresa (opcional)",
+    "notes": "Notas (opcional)",
+    "notesPlaceholder": "ej. URL del sitio oficial, contacto técnico para llamada breve",
+    "payButton": "Pagar con PagueloFacil",
+    "checkoutError": "No se pudo iniciar el pago. Intente de nuevo o escríbame por WhatsApp.",
+    "blueprintBlocked": "El plan completo está disponible tras la auditoría preliminar — o use el enlace de invitación de Elena.",
+    "validationContact": "Nombre y correo son obligatorios antes del pago.",
+    "shareTitle": "Compartir enlace de pago (WhatsApp o correo)",
+    "shareHint": "Envíe este enlace después de la conversación de descubrimiento — el cliente completa datos y paga en PagueloFacil.",
+    "copyLink": "Copiar enlace",
+    "linkCopied": "Enlace copiado",
+    "linkCopyFailed": "No se pudo copiar",
+    "whatsAppPrefill": "Para contratar el análisis técnico web de AIdeazz, complete sus datos y pague aquí: {{url}}",
+    "products": {
+      "web_audit_prelim": {
+        "title": "Informe técnico preliminar — $200",
+        "description": "Primer informe concreto sobre dominio, hosting, formularios, integraciones y riesgos técnicos — sin interferir con sus proveedores actuales.",
+        "price": "200"
+      },
+      "web_audit_blueprint": {
+        "title": "Análisis profundo + plan de implementación — $500",
+        "description": "Plan paso a paso priorizado tras la auditoría preliminar — para clientes listos a avanzar.",
+        "price": "500"
+      }
+    }
+  },
   "youtube": {
     "title": "Sigue a AIdeazz para Actualizaciones",
     "description": "Mantente actualizado con los últimos desarrollos de AIdeazz, tutoriales y conocimientos sobre el futuro de la IA emocional.",

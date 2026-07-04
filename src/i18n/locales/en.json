@@ -301,6 +301,39 @@
     "inquiryErrorTimeout": "Request timed out. Check your connection and try again.",
     "inquiryValidation": "Please add at least your name, email, or a short message."
   },
+  "servicePay": {
+    "title": "Technical web analysis",
+    "subtitle": "Commission a preliminary audit or full implementation blueprint after sharing your discovery answers. Pay securely with PagueloFacil (Panama cards).",
+    "discoveryNote": "Step A (recommended): share answers to the technical discovery checklist (domain, hosting, forms, tags) via email or WhatsApp. Step B: pay here to commission the report — work begins once payment and checklist are received.",
+    "formTitle": "Your details (required before checkout)",
+    "name": "Name",
+    "email": "Email",
+    "company": "Company (optional)",
+    "notes": "Notes (optional)",
+    "notesPlaceholder": "e.g. official website URL, best contact person for technical call",
+    "payButton": "Pay with PagueloFacil",
+    "checkoutError": "Could not start checkout. Try again or contact Elena on WhatsApp.",
+    "blueprintBlocked": "The full blueprint is available after the preliminary audit — or use an invitation link from Elena.",
+    "validationContact": "Name and email are required before payment.",
+    "shareTitle": "Share payment link (WhatsApp or email)",
+    "shareHint": "Send this link after the discovery conversation — client fills details and pays on PagueloFacil.",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "linkCopyFailed": "Could not copy",
+    "whatsAppPrefill": "To commission the AIdeazz technical web analysis, complete your details and pay here: {{url}}",
+    "products": {
+      "web_audit_prelim": {
+        "title": "Preliminary technical audit — $200",
+        "description": "Concrete first report on domain, hosting, forms, integrations, and technical risks — without interfering with your current vendors.",
+        "price": "200"
+      },
+      "web_audit_blueprint": {
+        "title": "Full analysis + implementation blueprint — $500",
+        "description": "Step-by-step prioritized plan after the preliminary audit — for clients ready to move forward.",
+        "price": "500"
+      }
+    }
+  },
   "youtube": {
     "title": "Follow AIdeazz for Updates",
     "description": "Stay updated with the latest AIdeazz developments, tutorials, and insights into the future of emotional AI.",
