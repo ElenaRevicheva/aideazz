@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MARKETING_INQUIRY_PROXY_URL } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
-import { Send, Loader2 } from "lucide-react";
+import { Send, Loader2, CreditCard } from "lucide-react";
 
 type InquiryFormProps = {
   /** Anchor for deep links / scroll (default `inquiry-form`). */
@@ -29,6 +29,16 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
   const [honeypot, setHoneypot] = useState("");
   const [utm, setUtm] = useState<Record<string, string>>({});
   const [sending, setSending] = useState(false);
+  const [submittedOk, setSubmittedOk] = useState(false);
+
+  const auditPayUrl = useMemo(() => {
+    const params = new URLSearchParams();
+    params.set("sku", "web_audit_prelim");
+    for (const [k, v] of Object.entries(utm)) {
+      if (v) params.set(k, v);
+    }
+    return `/pay/analisis-tecnico?${params.toString()}`;
+  }, [utm]);
 
   useEffect(() => {
     const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
@@ -93,6 +103,7 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
         throw new Error(data.error || r.statusText);
       }
       toast.success(t("cta.inquirySuccess"));
+      setSubmittedOk(true);
       setMessage("");
     } catch (err) {
       console.error(err);
@@ -199,6 +210,23 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
           )}
         </Button>
       </form>
+
+      <div className="mt-6 pt-6 border-t border-white/10">
+        {submittedOk && (
+          <p className="text-sm text-emerald-300 mb-3">{t("cta.inquirySuccessAudit")}</p>
+        )}
+        <p className="text-sm text-gray-400 mb-4 leading-relaxed">{t("cta.inquiryAuditNote")}</p>
+        <Button
+          asChild
+          variant="outline"
+          className="w-full border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10 hover:text-emerald-200"
+        >
+          <Link to={auditPayUrl}>
+            <CreditCard className="w-4 h-4 mr-2" />
+            {t("cta.inquiryAuditLink")}
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };

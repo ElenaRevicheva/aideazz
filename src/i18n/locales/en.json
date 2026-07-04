@@ -299,7 +299,10 @@
     "inquiryError": "Could not send. Try email or WhatsApp below.",
     "inquiryErrorCaptcha": "Security check failed. Refresh the page and try again.",
     "inquiryErrorTimeout": "Request timed out. Check your connection and try again.",
-    "inquiryValidation": "Please add at least your name, email, or a short message."
+    "inquiryValidation": "Please add at least your name, email, or a short message.",
+    "inquiryAuditNote": "Need a technical review of your website (domain, hosting, forms, integrations)? Order the preliminary audit report for $200 — secure payment via PagueloFacil (Panama cards).",
+    "inquiryAuditLink": "Order technical web audit — $200 USD",
+    "inquirySuccessAudit": "Inquiry received. If you’d like the technical web audit now, continue below."
   },
   "servicePay": {
     "title": "Technical web analysis",
