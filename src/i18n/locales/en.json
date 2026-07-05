@@ -300,8 +300,8 @@
     "inquiryErrorCaptcha": "Security check failed. Refresh the page and try again.",
     "inquiryErrorTimeout": "Request timed out. Check your connection and try again.",
     "inquiryValidation": "Please add at least your name, email, or a short message.",
-    "inquiryAuditNote": "Ready to move forward? Order a GEO / AEO / Tech SEO marketing audit — domain, hosting, forms, integrations, and discoverability. Secure payment via PagueloFacil (Panama cards).",
-    "inquiryAuditLink": "Order GEO / AEO / Tech SEO marketing audit",
+    "inquiryAuditNote": "Ready to move forward? Order a web visibility & GEO / AEO / Tech SEO audit — domain, hosting, forms, integrations, and how you show up in search and AI answers. Secure payment via PagueloFacil (Panama cards).",
+    "inquiryAuditLink": "Order web visibility & GEO / AEO / Tech SEO audit",
     "inquirySuccessAudit": "Inquiry received. If you’d like the technical web audit now, continue below."
   },
   "servicePay": {
