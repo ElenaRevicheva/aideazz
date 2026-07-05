@@ -220,11 +220,14 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
         <Button
           asChild
           variant="outline"
-          className="w-full border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10 hover:text-emerald-200"
+          className="w-full h-auto min-h-10 whitespace-normal py-3 px-4 border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/10 hover:text-emerald-200"
         >
-          <Link to={auditPayUrl}>
-            <CreditCard className="w-4 h-4 mr-2" />
-            {t("cta.inquiryAuditLink")}
+          <Link
+            to={auditPayUrl}
+            className="flex flex-wrap items-center justify-center gap-2 text-center leading-snug"
+          >
+            <CreditCard className="w-4 h-4 shrink-0" />
+            <span>{t("cta.inquiryAuditLink")}</span>
           </Link>
         </Button>
       </div>
