@@ -300,8 +300,8 @@
     "inquiryErrorCaptcha": "Falló la verificación de seguridad. Actualiza la página e inténtalo de nuevo.",
     "inquiryErrorTimeout": "La solicitud tardó demasiado. Revisa tu conexión e inténtalo de nuevo.",
     "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje.",
-    "inquiryAuditNote": "¿Necesita una revisión técnica de su sitio web (dominio, hosting, formularios, integraciones)? Encargue el informe preliminar por $200 — pago seguro con PagueloFacil (tarjetas Panamá).",
-    "inquiryAuditLink": "Encargar análisis técnico web — $200 USD",
+    "inquiryAuditNote": "¿Listo para avanzar? Encargue una auditoría de marketing GEO / AEO / Tech SEO — dominio, hosting, formularios, integraciones y visibilidad. Pago seguro con PagueloFacil (tarjetas Panamá).",
+    "inquiryAuditLink": "Encargar auditoría GEO / AEO / Tech SEO",
     "inquirySuccessAudit": "Consulta recibida. Si desea el análisis técnico web ahora, continúe abajo."
   },
   "servicePay": {
