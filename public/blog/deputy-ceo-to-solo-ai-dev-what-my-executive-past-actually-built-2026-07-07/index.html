@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deputy CEO to Solo AI Dev: What My Executive Past Actually Built | AIdeazz</title>
+  <meta name="description" content="My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The "executive experience" I brought …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-07">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Deputy CEO to Solo AI Dev: What My Executive Past Actually Built">
+  <meta property="og:description" content="My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The "executive experience" I brought …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-07">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-07T19:30:28.523Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Deputy CEO to Solo AI Dev: What My Executive Past Actually Built">
+  <meta name="twitter:description" content="My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The "executive experience" I brought …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deputy CEO to Solo AI Dev: What My Executive Past Actually Built",
+  "description": "My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The \"executive experience\" I brought …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-07T19:30:28.523Z",
+  "dateModified": "2026-07-07T19:30:28.523Z",
+  "url": "https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-07",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-07"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you manage context and state across multiple agents in your orchestration layer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a Redis cache for short-term conversation history and a PostgreSQL database for persistent user sessions. Each interaction includes a `session_id` which the orchestration layer uses to retrieve relevant context before routing to an agent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your strategy for handling LLM provider outages or rate limits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I implement a fallback mechanism. If Groq fails or hits a rate limit, the request is automatically retried with Claude 3.5 Sonnet. This requires careful token management and cost awareness, as Claude is more expensive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you ensure data privacy and security for client data, especially with external LLMs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use anonymization and data minimization techniques. Sensitive PII is masked or removed before being sent to external LLMs. For highly sensitive data, I implement RAG on client-hosted vector databases within their private networks, ensuring only embeddings (not raw data) are exposed to the LLM context."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the biggest challenge of building AI agents on Oracle Cloud Infrastructure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The biggest challenge is the learning curve for OCI-specific services and the less mature developer ecosystem compared to AWS/GCP. Debugging networking and IAM issues can be time-consuming, requiring deep dives into documentation and support forums."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Deputy CEO to Solo AI Dev: What My Executive Past Actually Built</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-07T19:30:28.523Z">July 7, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The "executive experience" I brought to the table—leading a 200-person team, managing a $50M budget, negotiating with government ministers—did not prevent that failure. It also didn't write a single line of Python, debug a <code>KeyError</code>, or configure an Oracle Cloud Infrastructure (OCI) network security group.</p>
+<p>For two years, I tried to hide the 15-year gap between my last line of code and my first <code>git commit</code> at AIdeazz. I thought my Deputy CEO title was a liability, a sign I was out of touch. It turns out, some of it was. But other parts, the ones I never expected, are the only reason AIdeazz exists at all.</p>
+<h2>The Useless Baggage: What Didn't Transfer</h2>
+<p>The biggest waste of time was trying to apply enterprise-level strategic planning to a solo operation. I spent weeks drafting a 5-year business plan, complete with market analysis and competitive landscapes. My first paying client, a small logistics company in Panama, needed a WhatsApp bot to automate delivery updates. They didn't care about my "vision for global AI transformation." They cared about reducing customer service calls by 20% and paying less than $100/month. My elaborate plan sat unused.</p>
+<p>Another surprising dead weight was the expectation of a support structure. As Deputy CEO, I had a team for everything: legal, HR, finance, IT. When my OCI tenancy hit its free tier limits, I spent 4 hours debugging why my <code>oci-cli</code> commands were failing, only to discover I needed to upgrade my billing account. There was no IT department to call. When I needed a simple legal disclaimer for my website, I spent 3 days researching Panamanian corporate law. There was no legal team. This forced me to learn, often painfully, every single operational detail. It was inefficient for a time, but ultimately built a deeper understanding of the entire stack.</p>
+<p>Finally, the "power of delegation" was a myth. When you're a solo founder, there's no one to delegate to. Every bug, every deployment, every customer email lands on your desk. The skill of breaking down a large project into smaller tasks and assigning them to specialists was useless. Instead, I had to learn to <em>execute</em> every single task myself, from database design to frontend UI.</p>
+<h2>The Unexpected Assets: What Actually Helped</h2>
+<p>While the grand strategy was useless, the ability to break down complex problems into actionable steps, regardless of who executes them, proved invaluable. My first multi-agent system for a client involved integrating with their legacy CRM, a custom-built PHP application from 2008. The initial scope was "automate customer support." I broke it down:<br>1.  <strong>Data Ingestion:</strong> API integration with CRM (read-only).<br>2.  <strong>Knowledge Base Creation:</strong> Embeddings of CRM data + client FAQs.<br>3.  <strong>Agent Orchestration:</strong> Router agent (Groq/Claude) + specialized agents (CRM query, FAQ answer, human handover).<br>4.  <strong>Deployment:</strong> OCI Container Instances, API Gateway, VCN.<br>5.  <strong>Frontend:</strong> WhatsApp Business API integration.</p>
+<p>This structured approach, honed over years of managing large-scale infrastructure projects, allowed me to tackle a problem I had no prior technical experience with. It wasn't about <em>how</em> to code the API integration, but <em>what</em> integrations were needed and <em>in what order</em>.</p>
+<p>My executive role also involved constant negotiation and stakeholder management. This translated directly to client interactions. When a client insisted on a feature that would add 30% to the development time for 5% perceived value, I could articulate the trade-offs, manage expectations, and guide them towards a more pragmatic solution. I learned to say "no" to bad ideas, not just "yes" to every request. For example, a client wanted a custom LLM fine-tuned on their data, despite having only 500 customer interactions. I explained that a RAG approach with a commercial LLM (Claude 3.5 Sonnet) would deliver 90% of the value at 10% of the cost and time. They agreed.</p>
+<p>Finally, the sheer resilience developed from navigating high-stakes corporate politics and managing crises proved essential. When my OCI billing account got suspended for a false positive fraud alert (a common issue for new accounts in certain regions), I spent 48 hours on support calls and emails. My agents were down. My clients were calling. The ability to remain calm, systematically escalate, and persist until the issue was resolved, rather than panicking, was a direct transfer from my executive past.</p>
+<h2>The Oracle Cloud Infrastructure Bet</h2>
+<p>I chose Oracle Cloud Infrastructure (OCI) for AIdeazz for two main reasons: cost and the free tier. As a bootstrapped solo founder, every dollar counted. OCI's always-free tier offered Ampere A1 Compute instances (4 OCPUs, 24GB RAM) and 200GB block storage, which was enough to host my initial agent deployments and vector database (pgvector on a free tier PostgreSQL instance). This allowed me to launch production agents with zero infrastructure cost for the first few months.</p>
+<p>The second reason was the egress cost. While AWS and GCP offer generous free tiers for compute, their egress data transfer costs can quickly add up, especially for AI agents interacting frequently with external APIs or serving many users. OCI's egress costs are significantly lower, which was a critical factor for scaling. My current monthly OCI bill for all production agents, including a custom-built multi-agent orchestration layer, is under $50. This includes 2 OCPUs, 12GB RAM, 500GB block storage, and ~1TB of egress traffic.</p>
+<p>The downside? OCI's developer experience is not as polished as AWS or GCP. Documentation can be sparse, and community support is smaller. I've spent countless hours debugging networking issues, IAM policies, and resource limits that would likely be simpler on other clouds. For example, setting up a private endpoint for a database in a VCN with specific security list rules took me 3 days of trial and error. But the cost savings were worth the friction.</p>
+<h2>Multi-Agent Systems: The Only Way to Scale Solo</h2>
+<p>As a solo founder, I cannot build a monolithic AI application. My approach is to build multi-agent systems where each agent is a specialized microservice. This is the only way I can manage complexity and deliver value quickly.</p>
+<p>My typical architecture involves:<br>1.  <strong>Router Agent:</strong> A lightweight agent (often a simple Python script) that receives user input (e.g., from Telegram/WhatsApp) and routes it to the appropriate specialized agent. I use Groq for its speed for this initial routing decision, or Claude 3.5 Sonnet for more complex intent classification.<br>2.  <strong>Specialized Agents:</strong> These are focused agents, each handling a specific task. Examples:<br>    *   <strong>CRM Agent:</strong> Queries a client's CRM via API for customer data.<br>    *   <strong>Knowledge Base Agent:</strong> Performs RAG on a vector database (pgvector) for FAQs or product information.<br>    *   <strong>Booking Agent:</strong> Interacts with a booking system API.<br>    *   <strong>Human Handover Agent:</strong> Notifies a human agent via Slack or email and passes context.<br>3.  <strong>Orchestration Layer:</strong> A custom Python application (Flask/FastAPI) running on OCI Container Instances, managing agent communication, state, and logging.<br>4.  <strong>External Integrations:</strong> Telegram Bot API, WhatsApp Business API, Twilio, client-specific APIs.</p>
+<p>This modularity allows me to iterate quickly. If a client needs a new feature, I build a new specialized agent and integrate it into the router. I don't have to refactor a large codebase. It also means I can reuse agents across different clients. The CRM agent for Client A might need minor modifications to work with Client B's CRM, but the core logic remains.</p>
+<h2>Why I Stopped Hiding the Gap</h2>
+<p>For a long time, I omitted my Deputy CEO role from my public profiles, fearing it would make me look like a dilettante in the AI space. I focused only on the technical skills I was acquiring. But the truth is, the executive experience, while not directly coding, provided a unique perspective on problem-solving, client management, and operational resilience.</p>
+<p>It's not about <em>what</em> you did, but <em>how</em> you did it. The ability to identify a problem, break it down, allocate resources (even if those resources are just your own time), and drive it to completion is universal. My non-traditional path from Deputy CEO to solo AI developer in Panama is not a weakness; it's a differentiator. It means I understand the business context, the operational constraints, and the need for pragmatic, cost-effective solutions—not just elegant code.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you manage context and state across multiple agents in your orchestration layer?</strong><br>A: I use a Redis cache for short-term conversation history and a PostgreSQL database for persistent user sessions. Each interaction includes a <code>session_id</code> which the orchestration layer uses to retrieve relevant context before routing to an agent.</p>
+<p><strong>Q: What's your strategy for handling LLM provider outages or rate limits?</strong><br>A: I implement a fallback mechanism. If Groq fails or hits a rate limit, the request is automatically retried with Claude 3.5 Sonnet. This requires careful token management and cost awareness, as Claude is more expensive.</p>
+<p><strong>Q: How do you ensure data privacy and security for client data, especially with external LLMs?</strong><br>A: I use anonymization and data minimization techniques. Sensitive PII is masked or removed before being sent to external LLMs. For highly sensitive data, I implement RAG on client-hosted vector databases within their private networks, ensuring only embeddings (not raw data) are exposed to the LLM context.</p>
+<p><strong>Q: What's the biggest challenge of building AI agents on Oracle Cloud Infrastructure?</strong><br>A: The biggest challenge is the learning curve for OCI-specific services and the less mature developer ecosystem compared to AWS/GCP. Debugging networking and IAM issues can be time-consuming, requiring deep dives into documentation and support forums.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
