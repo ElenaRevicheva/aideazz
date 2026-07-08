@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deputy CEO to Solo AI Dev: What My Executive Past Actually Built | AIdeazz</title>
+  <meta name="description" content="My first production AI agent, a Telegram-based sales assistant, failed to launch for 14 days straight. The KeyError on a missing environment variable was a symptom, not the problem. The real issue wa…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-08">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Deputy CEO to Solo AI Dev: What My Executive Past Actually Built">
+  <meta property="og:description" content="My first production AI agent, a Telegram-based sales assistant, failed to launch for 14 days straight. The KeyError on a missing environment variable was a symptom, not the problem. The real issue wa…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-08">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-08T19:30:18.256Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Deputy CEO to Solo AI Dev: What My Executive Past Actually Built">
+  <meta name="twitter:description" content="My first production AI agent, a Telegram-based sales assistant, failed to launch for 14 days straight. The KeyError on a missing environment variable was a symptom, not the problem. The real issue wa…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deputy CEO to Solo AI Dev: What My Executive Past Actually Built",
+  "description": "My first production AI agent, a Telegram-based sales assistant, failed to launch for 14 days straight. The KeyError on a missing environment variable was a symptom, not the problem. The real issue wa…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-08T19:30:18.256Z",
+  "dateModified": "2026-07-08T19:30:18.256Z",
+  "url": "https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-08",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/deputy-ceo-to-solo-ai-dev-what-my-executive-past-actually-built-2026-07-08"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you manage LLM costs effectively with multiple providers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a custom Python routing service deployed on OCI Fn. It monitors API latency, token costs, and rate limits for Groq, Claude, and OpenAI in real-time, dynamically selecting the optimal provider for each LLM call based on the specific task's requirements (e.g., speed-critical vs. cost-critical). This often involves a fallback to a cheaper, smaller model or a local model on OCI Ampere if external APIs are too expensive or slow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your preferred stack for multi-agent orchestration without LangChain?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use OCI API Gateway + OCI Fn for individual agent microservices, with Oracle Streaming Service (OSS) for inter-agent communication and event-driven triggers. This provides serverless scalability, pay-per-invocation cost efficiency, and robust decoupling between agents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle data privacy and security for client data in your AI agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All client data is processed and stored within their dedicated OCI tenancy, leveraging OCI's native security features like VCNs, IAM policies, and encryption at rest/in transit. For RAG, documents are chunked and embedded into OCI Vector DB within their tenancy, and LLM calls are routed to providers with strong data privacy policies (e.g., opting out of model training)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the hardest technical skill to acquire coming from an executive background?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Debugging complex infrastructure issues, specifically network configurations (VCNs, security lists, route tables) and IAM policies on OCI. My executive role never required me to understand the granular details of why a service couldn't talk to another service at a packet level, which is critical for deploying anything in the cloud."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Deputy CEO to Solo AI Dev: What My Executive Past Actually Built</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-08T19:30:18.256Z">July 8, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first production AI agent, a Telegram-based sales assistant, failed to launch for 14 days straight. The <code>KeyError</code> on a missing environment variable was a symptom, not the problem. The real issue was that I, a former Deputy CEO of a $100M digital infrastructure program, was trying to build a multi-agent system with zero VC, zero co-founders, and zero prior experience shipping code. I had relocated from Russia to Panama, a single mother, with a burning need to prove that my executive past wasn't a liability, but a hidden asset. It turns out, some parts were. Most were not.</p>
+<h2>The Executive Skills That Actually Shipped Code</h2>
+<p>I spent 15 years in executive roles, managing teams of hundreds, overseeing budgets that could fund a small country. When I started AIdeazz, I expected my strategic planning and leadership skills to translate directly. They did, but not in the way I anticipated.</p>
+<p>My most valuable executive skill became <strong>ruthless resource allocation</strong>. With no VC, every dollar spent on Oracle Cloud Infrastructure (OCI) was a dollar not spent on groceries. This forced an extreme focus on cost-efficiency. I didn't just pick Groq for speed; I picked it because its pricing model for specific use cases was demonstrably cheaper than OpenAI or Claude for the same throughput. For example, a multi-agent system handling 1,000 daily customer inquiries, each requiring 3-5 LLM calls, could easily hit $500/month on OpenAI. With Groq and strategic prompt engineering, I cut that to under $100. This wasn't about "lean startup"; it was about survival. I built a custom LLM router that dynamically switched between Groq, Claude, and even local models on OCI Ampere VMs based on latency, cost, and token limits. This wasn't a nice-to-have; it was a non-negotiable for staying solvent.</p>
+<p>Another unexpected transfer was <strong>complex system decomposition</strong>. As Deputy CEO, I broke down national-scale digital transformation programs into manageable projects, identifying dependencies and critical paths. This skill was directly applicable to designing multi-agent architectures. My first production agent, a WhatsApp-based customer support system for a local logistics company, involved:<br>1.  A WhatsApp webhook listener (OCI API Gateway + Fn Function).<br>2.  An initial intent classification agent (Groq Llama 3 8B).<br>3.  A knowledge retrieval agent (OCI Vector DB + RAG with company docs).<br>4.  A response generation agent (Claude 3 Haiku for nuanced replies).<br>5.  A human escalation agent (sending notifications to a Telegram group).</p>
+<p>Each agent was a distinct microservice, often a separate OCI Fn function, communicating via Oracle Streaming Service (OSS). My executive experience in mapping out intricate organizational structures and data flows directly informed this modular design, preventing monolithic spaghetti code.</p>
+<h2>The Executive Baggage That Almost Sank Me</h2>
+<p>The biggest liability from my executive past was the <strong>delegation mindset</strong>. For years, my job was to define the "what" and trust my teams to figure out the "how." As a solo founder, there was no "team." I spent the first two months trying to architect perfect solutions, writing detailed specifications, and then staring at an empty VS Code window, waiting for someone else to implement them. This led to the 14-day <code>KeyError</code> paralysis. I was a strategist, not a doer.</p>
+<p>I had to unlearn the idea that "my time is too valuable for coding." My time <em>was</em> coding. My time <em>was</em> debugging. My time <em>was</em> configuring OCI network security groups. This meant abandoning the illusion of "high-level strategic work" and embracing the granular. I had to learn Python, FastAPI, Docker, Terraform, and the intricacies of OCI's serverless functions, all while managing a household. The mental shift from "I oversee this" to "I <em>am</em> this" was brutal. My first successful deployment on OCI Fn took 36 hours of continuous work, debugging IAM policies and VCN configurations. An executive would have delegated that to an ops team. I <em>was</em> the ops team.</p>
+<p>Another piece of baggage was the <strong>expectation of immediate, large-scale impact</strong>. In my previous role, a successful project affected millions. My first AI agent served a single client, processing maybe 50 conversations a day. My executive brain kept screaming, "This is too small! Where's the hockey stick growth?" This internal pressure was debilitating. I had to consciously reframe success: a stable agent, a happy client, a positive cash flow, however small, was a victory. The shift from "impact at scale" to "impact, period" was essential for mental survival and preventing burnout.</p>
+<h2>Why I Stopped Hiding the Gap</h2>
+<p>For a long time, I downplayed my executive past when talking to other developers or potential clients. I feared it would make me seem out of touch, a "suit" trying to play engineer. I'd focus on my recent Python projects, my OCI certifications, my multi-agent architectures. I'd gloss over the 15 years of Deputy CEO roles.</p>
+<p>This was a mistake.</p>
+<p>The "gap" wasn't a gap; it was a foundation. When I started being transparent about my journey – from managing hundreds to solo coding, from multi-million dollar budgets to optimizing every cent on OCI – something shifted. Developers appreciated the honesty and the unique perspective. Clients, especially those in traditional industries, saw someone who understood their business challenges <em>and</em> could build the technical solution.</p>
+<p>My executive background, particularly in digital infrastructure, gave me an understanding of enterprise-level constraints, security requirements, and the sheer complexity of integrating new tech into existing systems. When I propose a multi-agent system for a client, I don't just talk about LLMs; I talk about data governance, compliance, scalable deployment on OCI, and how it integrates with their existing CRM via Oracle Integration Cloud. This isn't just "business acumen"; it's a deep understanding of the operational realities that most pure-play AI developers, focused solely on model performance, often miss.</p>
+<p>My non-traditional path, far from being a weakness, became my unique selling proposition. It allowed me to bridge the often-vast chasm between business strategy and technical execution, a chasm that many organizations struggle to cross. I stopped hiding the gap because it wasn't a gap; it was the bridge.</p>
+<h2>Building Multi-Agent Systems on a Shoestring</h2>
+<p>My current focus is on shipping production-ready multi-agent systems with minimal overhead. This means leaning heavily on serverless and managed services on OCI.</p>
+<p>For orchestration, I've moved away from complex frameworks like LangChain agents for production deployments. While great for prototyping, their overhead and dependency management can be a nightmare in a serverless environment. Instead, I build custom orchestrators using OCI Fn functions and Oracle Streaming Service (OSS). Each agent is a separate Fn function, triggered by messages on OSS. This provides:<br><ul><li>  <strong>Scalability:</strong> Fn scales automatically.</li><br><li>  <strong>Cost-efficiency:</strong> Pay-per-invocation.</li><br><li>  <strong>Decoupling:</strong> Agents are independent.</li></ul></p>
+<p>For LLM routing, I built a custom Python service that sits in front of Groq, Claude, and other APIs. It monitors API health, latency, and cost in real-time. If Groq's Llama 3 70B is experiencing high latency, it automatically routes to Claude 3 Haiku for non-critical tasks, or even to a fine-tuned Llama 2 7B running on an OCI Ampere A1.Flex VM for internal, sensitive data. This dynamic routing is crucial for maintaining uptime and controlling costs, especially when dealing with fluctuating LLM provider performance.</p>
+<p>Data storage for RAG is handled by OCI Vector DB. It's fully managed, scales easily, and integrates seamlessly with OCI Fn. I use a simple ETL process (Python script on an OCI Compute instance) to chunk and embed client documents into the vector store. This entire setup, from ingestion to inference, is designed for minimal operational overhead and maximum cost control.</p>
+<h2>The Next Iteration: From Solo to Scaled Impact</h2>
+<p>The journey from Deputy CEO to solo AI builder has been about shedding assumptions and embracing the grind. The executive career pivot to AI developer, while non-traditional, has forged a unique skillset. I'm no longer just building agents; I'm building a methodology for shipping production AI with extreme resource constraints.</p>
+<p>The next step is to productize this methodology. To move beyond bespoke client solutions and build reusable components and frameworks that empower other resource-constrained builders. This means open-sourcing some of my custom routing and orchestration logic, and potentially offering a managed service for multi-agent deployment on OCI. The goal isn't to become a VC-backed unicorn, but to build a sustainable business that delivers real value, leveraging the hard-won lessons of building from scratch.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you manage LLM costs effectively with multiple providers?</strong><br>A: I use a custom Python routing service deployed on OCI Fn. It monitors API latency, token costs, and rate limits for Groq, Claude, and OpenAI in real-time, dynamically selecting the optimal provider for each LLM call based on the specific task's requirements (e.g., speed-critical vs. cost-critical). This often involves a fallback to a cheaper, smaller model or a local model on OCI Ampere if external APIs are too expensive or slow.</p>
+<p><strong>Q: What's your preferred stack for multi-agent orchestration without LangChain?</strong><br>A: I use OCI API Gateway + OCI Fn for individual agent microservices, with Oracle Streaming Service (OSS) for inter-agent communication and event-driven triggers. This provides serverless scalability, pay-per-invocation cost efficiency, and robust decoupling between agents.</p>
+<p><strong>Q: How do you handle data privacy and security for client data in your AI agents?</strong><br>A: All client data is processed and stored within their dedicated OCI tenancy, leveraging OCI's native security features like VCNs, IAM policies, and encryption at rest/in transit. For RAG, documents are chunked and embedded into OCI Vector DB within their tenancy, and LLM calls are routed to providers with strong data privacy policies (e.g., opting out of model training).</p>
+<p><strong>Q: What was the hardest technical skill to acquire coming from an executive background?</strong><br>A: Debugging complex infrastructure issues, specifically network configurations (VCNs, security lists, route tables) and IAM policies on OCI. My executive role never required me to understand the granular details of why a service couldn't talk to another service at a packet level, which is critical for deploying anything in the cloud.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
