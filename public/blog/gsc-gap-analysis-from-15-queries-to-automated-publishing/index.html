@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSC Gap Analysis: From 15 Queries to Automated Publishing | AIdeazz</title>
+  <meta name="description" content="My first attempt at an automated content pipeline failed to generate a single useful article. The goal was simple: identify content gaps using Google Search Console (GSC), draft articles with Claude,…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta property="og:description" content="My first attempt at an automated content pipeline failed to generate a single useful article. The goal was simple: identify content gaps using Google Search Console (GSC), draft articles with Claude,…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-10T19:30:16.694Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta name="twitter:description" content="My first attempt at an automated content pipeline failed to generate a single useful article. The goal was simple: identify content gaps using Google Search Console (GSC), draft articles with Claude,…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "GSC Gap Analysis: From 15 Queries to Automated Publishing",
+  "description": "My first attempt at an automated content pipeline failed to generate a single useful article. The goal was simple: identify content gaps using Google Search Console (GSC), draft articles with Claude,…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-10T19:30:16.694Z",
+  "dateModified": "2026-07-10T19:30:16.694Z",
+  "url": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a cheaper LLM like Llama 3 for drafting?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I've tested Llama 3 8B and 70B locally on OCI. While cheaper for raw token generation, the quality and adherence to complex instructions for article drafting are not yet on par with Claude 3 Sonnet/Opus. The additional human editing time required for Llama 3 drafts would negate any API cost savings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle factual accuracy and hallucinations, especially for technical topics?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `Article_Reviewer` (human-in-the-loop) is the primary safeguard. For highly technical articles, I also integrate a `Fact_Checker` agent that uses `serper.dev` to cross-reference specific claims against reputable sources (e.g., official documentation, academic papers). If a claim cannot be verified, the `Article_Drafter` is prompted to rephrase or remove it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about content originality and avoiding duplicate content penalties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `Article_Drafter` is prompted to synthesize information from multiple sources and generate unique phrasing. I also run a quick plagiarism check (using a custom script leveraging `diff-match-patch` against top search results) before publishing. So far, I haven't encountered any issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why publish to Dev.to and your own site? Isn't that duplicate content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dev.to allows canonical URLs, pointing back to AIdeazz.xyz. This tells search engines that my site is the original source, preventing duplicate content penalties and consolidating SEO authority. Dev.to provides immediate audience reach and backlinks, while my site builds long-term domain authority."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the LLM API costs and prevent runaway spending?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I implement strict token limits for each API call within the `Article_Drafter` agent. Each article draft is capped at 30k tokens for input/output. I also have daily and weekly spending alerts configured with Anthropic and Oracle Cloud. If costs exceed a predefined threshold ($5/day for LLMs), the pipeline pauses and notifies me via Telegram."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">GSC Gap Analysis: From 15 Queries to Automated Publishing</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-10T19:30:16.694Z">July 10, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first attempt at an automated content pipeline failed to generate a single useful article. The goal was simple: identify content gaps using Google Search Console (GSC), draft articles with Claude, and publish them. The reality was a stream of irrelevant drafts, costing me $0.08 per article in API calls and zero organic traffic. The core problem wasn't the LLM, but my definition of "content gap" when GSC showed only 15 queries for a new domain.</p>
+<h2>Defining "Content Gap" for a New Domain</h2>
+<p>A "content gap" on a mature site with thousands of indexed pages and millions of impressions is a well-understood concept: identify queries where you rank on page 2 or 3, but competitors rank higher, then create better content. For a brand-new domain like AIdeazz.xyz, launched just months ago, GSC shows a handful of impressions and clicks. My initial GSC data for AIdeazz.xyz had 15 queries, 20 impressions, and 1 click. Trying to find a "gap" in this data is like looking for a specific grain of sand on an empty beach.</p>
+<p>My first agent, <code>GSC_Analyzer</code>, was designed to pull queries with high impressions but low clicks. With 20 impressions total, every query fit this criteria. The agent then passed these "gaps" to <code>Article_Drafter</code>. The output was predictable: generic articles on broad topics like "AI" or "cloud computing" that had no chance of ranking. I burned through $5 in Claude 3 Haiku calls for 60 articles, none of which were publishable.</p>
+<p>The pivot was to redefine "gap" not as a missing piece in existing coverage, but as an <em>opportunity to establish initial relevance</em>. This meant targeting specific, long-tail queries that indicated user intent for a niche I <em>wanted</em> to rank for, even if GSC showed zero current impressions. I manually curated a list of 10 target keywords related to "production AI agents," "Oracle Cloud AI," and "Groq LLM routing." This became the seed for the next iteration.</p>
+<h2>The Multi-Agent Architecture for Automated Publishing</h2>
+<p>My current pipeline runs on Oracle Cloud Infrastructure (OCI) with a custom multi-agent system. It's built on Python, leveraging <code>langchain</code> for agent orchestration and <code>fastapi</code> for API endpoints.</p>
+<p>1.  <strong><code>Topic_Selector</code> (Python script, manual input):</strong> For now, this is me. I feed it 3-5 specific, long-tail keywords per week. Example: "Oracle Cloud Groq LLM routing," "production AI agents OCI," "Panama AI startup." This is the critical human-in-the-loop step that prevents LLM hallucination and ensures relevance.<br>2.  <strong><code>GSC_Query_Expander</code> (Python agent):</strong> This agent takes the seed keywords and uses a combination of Google Search API (for related searches) and a small, fine-tuned local LLM (Llama 3 8B on an OCI VM) to generate 10-15 semantically similar long-tail queries. It filters out overly broad or competitive terms based on a simple heuristic: if the top 3 Google results are from major publications (e.g., Forbes, TechCrunch), it discards the query. This costs about $0.001 per query expansion.<br>3.  <strong><code>Article_Drafter</code> (Langchain agent, Claude 3 Opus/Sonnet/Haiku):</strong> This is the core content generation engine.<br>    *   It receives a batch of 3-5 expanded queries.<br>    *   For each query, it performs a quick web search (via <code>serper.dev</code>) to understand current top-ranking content and identify potential angles.<br>    *   It then drafts a 1200-1800 word article. I route requests based on complexity:<br>        *   <strong>Claude 3 Haiku:</strong> For simple, informational "what is X" type articles. Cost: ~$0.0025 per 1k tokens.<br>        *   <strong>Claude 3 Sonnet:</strong> For more detailed "how-to" guides or comparisons. Cost: ~$0.03 per 1k tokens.<br>        *   <strong>Claude 3 Opus:</strong> Reserved for highly technical deep-dives or opinion pieces where nuance is critical. Cost: ~$0.15 per 1k tokens.<br>    *   The agent uses a custom prompt that emphasizes specific structure (headings, bullet points, code examples where relevant) and a direct, no-fluff tone. It also includes a "self-correction" step where it reviews its own draft against the initial query and a checklist of common SEO best practices (e.g., keyword density, readability). This adds 1-2 API calls but significantly improves quality.<br>4.  <strong><code>Article_Reviewer</code> (Python script, human-in-the-loop):</strong> This is another critical manual step. I review each draft for accuracy, tone, and factual correctness. I'm looking for specific errors, not just stylistic improvements. This takes 5-10 minutes per article. If an article requires more than 15 minutes of editing, it's discarded and the <code>Article_Drafter</code> is prompted to try again with refined instructions.<br>5.  <strong><code>Publisher_DevTo</code> (Python agent):</strong> Once approved, this agent formats the article for Dev.to using Markdown, adds relevant tags, and publishes it. It uses the Dev.to API.<br>6.  <strong><code>Publisher_Aideazz</code> (Python agent):</strong> Simultaneously, the article is published to AIdeazz.xyz. This involves storing the Markdown in an OCI Object Storage bucket and updating a static site generator (Hugo) via a webhook, triggering a rebuild and deployment to OCI CDN. This ensures my primary domain always has the latest content.<br>7.  <strong><code>Indexer_Notifier</code> (Python agent):</strong> After publishing, this agent pings Google Search Console's Indexing API to request immediate indexing for both Dev.to and AIdeazz.xyz URLs. This helps accelerate discovery.</p>
+<p>The entire automated flow, from <code>GSC_Query_Expander</code> to <code>Indexer_Notifier</code>, takes about 15 minutes per article, with the LLM drafting being the longest component. Total cost per article (excluding my time) is between $0.05 and $0.25, depending on the Claude model used.</p>
+<h2>Oracle Cloud Infrastructure for Cost-Effective Operations</h2>
+<p>Running this on OCI has been crucial for keeping costs down without VC funding.</p>
+<ul><li>  <strong>Always Free Tier:</strong> My <code>GSC_Query_Expander</code> and <code>Indexer_Notifier</code> agents run on an OCI Always Free VM (1 OCPU, 1 GB RAM). This handles the lighter, burstable workloads.</li>
+<li>  <strong>Flexible VMs:</strong> The <code>Article_Drafter</code> and <code>Publisher</code> agents run on a Flexible VM (E3.Flex, 2 OCPUs, 16 GB RAM) that I scale down to 1 OCPU, 4 GB RAM when not actively drafting. This VM costs about $0.03/hour when running at full capacity.</li>
+<li>  <strong>Object Storage:</strong> AIdeazz.xyz content is stored in OCI Object Storage, which is dirt cheap (around $0.025/GB/month).</li>
+<li>  <strong>OCI CDN:</strong> My static site is served via OCI CDN, costing about $0.085/GB for egress. With a small site, this is negligible.</li>
+<li>  <strong>Networking:</strong> Ingress is free, and egress is metered but generous.</li></ul>
+<p>My total OCI bill for this entire pipeline, including the website hosting, is consistently under $10/month. This is critical for a bootstrapped operation.</p>
+<h2>The "Gap" in Action: From Zero to 100 Impressions</h2>
+<p>The initial manual keyword selection was the turning point. Within two weeks of publishing articles targeting "Oracle Cloud Groq LLM routing" and "production AI agents OCI," I started seeing impressions in GSC for these exact terms. My GSC data now shows 100+ impressions for these specific long-tail queries, with a few clicks. This is still tiny, but it's <em>relevant</em> traffic.</p>
+<p>The next iteration of <code>GSC_Analyzer</code> will be able to use this new, relevant data. Instead of looking for gaps in an empty dataset, it will identify queries where I have impressions but low CTR, or where I'm ranking on page 2-3. This feedback loop is essential. The current <code>GSC_Analyzer</code> is being rewritten to:</p>
+<p>1.  Pull all queries with >50 impressions.<br>2.  Filter for queries where average position is >10.<br>3.  Prioritize queries with a CTR < 1%.<br>4.  Pass these to <code>Article_Drafter</code> for content <em>improvement</em> or <em>expansion</em>, not just new content.</p>
+<p>This shift from "create anything" to "optimize what's working" is the natural progression for an AI content pipeline as the domain gains traction. The initial "gap" was simply the absence of <em>any</em> relevant content. Now, the gap is about <em>performance</em>.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a cheaper LLM like Llama 3 for drafting?</strong><br>A: I've tested Llama 3 8B and 70B locally on OCI. While cheaper for raw token generation, the quality and adherence to complex instructions for article drafting are not yet on par with Claude 3 Sonnet/Opus. The additional human editing time required for Llama 3 drafts would negate any API cost savings.</p>
+<p><strong>Q: How do you handle factual accuracy and hallucinations, especially for technical topics?</strong><br>A: The <code>Article_Reviewer</code> (human-in-the-loop) is the primary safeguard. For highly technical articles, I also integrate a <code>Fact_Checker</code> agent that uses <code>serper.dev</code> to cross-reference specific claims against reputable sources (e.g., official documentation, academic papers). If a claim cannot be verified, the <code>Article_Drafter</code> is prompted to rephrase or remove it.</p>
+<p><strong>Q: What about content originality and avoiding duplicate content penalties?</strong><br>A: The <code>Article_Drafter</code> is prompted to synthesize information from multiple sources and generate unique phrasing. I also run a quick plagiarism check (using a custom script leveraging <code>diff-match-patch</code> against top search results) before publishing. So far, I haven't encountered any issues.</p>
+<p><strong>Q: Why publish to Dev.to and your own site? Isn't that duplicate content?</strong><br>A: Dev.to allows canonical URLs, pointing back to AIdeazz.xyz. This tells search engines that my site is the original source, preventing duplicate content penalties and consolidating SEO authority. Dev.to provides immediate audience reach and backlinks, while my site builds long-term domain authority.</p>
+<p><strong>Q: How do you manage the LLM API costs and prevent runaway spending?</strong><br>A: I implement strict token limits for each API call within the <code>Article_Drafter</code> agent. Each article draft is capped at 30k tokens for input/output. I also have daily and weekly spending alerts configured with Anthropic and Oracle Cloud. If costs exceed a predefined threshold ($5/day for LLMs), the pipeline pauses and notifies me via Telegram.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
