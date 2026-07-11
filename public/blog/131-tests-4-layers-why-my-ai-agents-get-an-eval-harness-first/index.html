@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First | AIdeazz</title>
+  <meta name="description" content="My first production AI agent shipped with 131 tests in its evaluation harness. This wasn't a luxury; it was a non-negotiable step after a $0.03/run silent failure nearly cost me a client. I built the…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-why-my-ai-agents-get-an-eval-harness-first">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First">
+  <meta property="og:description" content="My first production AI agent shipped with 131 tests in its evaluation harness. This wasn't a luxury; it was a non-negotiable step after a $0.03/run silent failure nearly cost me a client. I built the…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-why-my-ai-agents-get-an-eval-harness-first">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-11T19:30:18.092Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First">
+  <meta name="twitter:description" content="My first production AI agent shipped with 131 tests in its evaluation harness. This wasn't a luxury; it was a non-negotiable step after a $0.03/run silent failure nearly cost me a client. I built the…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First",
+  "description": "My first production AI agent shipped with 131 tests in its evaluation harness. This wasn't a luxury; it was a non-negotiable step after a $0.03/run silent failure nearly cost me a client. I built the…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-11T19:30:18.092Z",
+  "dateModified": "2026-07-11T19:30:18.092Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-why-my-ai-agents-get-an-eval-harness-first",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-why-my-ai-agents-get-an-eval-harness-first"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you generate the test cases for Layer 3 (End-to-End Functional Scenarios)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I start with real user queries from logs, then use an LLM (Claude 3 Opus) to generate variations and edge cases based on those. I also manually craft critical path scenarios."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your strategy for mocking external services in Layer 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use Python's `unittest.mock` library extensively. For database interactions, I mock the ORM layer or the database client directly to return predefined datasets, ensuring the agent's logic is tested independently of actual DB state."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle non-deterministic LLM outputs in your tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For Layer 1, I use schema validation and keyword presence, which are robust to minor phrasing variations. For Layer 3, I often use fuzzy string matching or LLM-as-a-judge (another LLM) to evaluate the correctness of the final output, rather than exact string matching."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the biggest challenge in maintaining such a large test suite?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Keeping the test data and expected outputs up-to-date as the agent's capabilities evolve. I automate this where possible by regenerating expected outputs for certain tests, but it still requires periodic manual review."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Cloud for infrastructure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oracle Cloud offers competitive pricing for compute and database services, especially for smaller operations like mine without VC funding. Their free tier and always-free services are also a significant advantage for bootstrapping."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-11T19:30:18.092Z">July 11, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first production AI agent shipped with 131 tests in its evaluation harness. This wasn't a luxury; it was a non-negotiable step after a $0.03/run silent failure nearly cost me a client. I built the harness <em>before</em> writing new features, a decision driven by the fundamental limitations of traditional unit tests in multi-agent systems. Without it, I would have pushed a "working" agent that consistently failed to meet user intent under specific, common conditions, burning compute and trust.</p>
+<h2>The $0.03 Silent Failure</h2>
+<p>The agent's job was simple: process a user's natural language request for a specific report, query a database, and return the data. My initial unit tests covered the LLM's parsing of intent, the database query generation, and the final data formatting. All green. The agent worked perfectly in my dev environment with my curated test cases.</p>
+<p>Then, a user asked for "last month's sales figures for product X." The agent returned "no data found." My logs showed the LLM correctly identified "product X" and "last month." The database query <em>looked</em> correct. But the user was seeing an empty result.</p>
+<p>The problem wasn't in the individual components. The LLM correctly extracted the date range as "last month." My database query generator correctly translated "last month" into <code>BETWEEN '2023-10-01' AND '2023-10-31'</code>. The silent failure was in the <em>interaction</em> between the LLM's interpretation of "last month" and the database's actual data schema. My sales data was stored with a <code>report_date</code> field that represented the <em>end</em> of the reporting period. So "last month's sales" meant data with <code>report_date = '2023-10-31'</code>. The agent was querying for a <em>range</em> when it should have been querying for a <em>specific date</em>.</p>
+<p>This wasn't a bug in my code, nor in the LLM's logic, nor in the database. It was a mismatch in <em>semantic interpretation</em> across system boundaries, a class of error traditional unit tests are blind to. Each component passed its individual test, but the system as a whole failed to deliver the correct outcome for a common user request. Each failed run cost $0.03 in Groq inference and Oracle Cloud database queries. Small individually, but compounding rapidly with user interaction.</p>
+<h2>Why Unit Tests Fail Multi-Agent Systems</h2>
+<p>Unit tests validate isolated functions or methods. They are excellent for ensuring <code>add(a, b)</code> returns <code>a + b</code>. They can even validate that an LLM call with a specific prompt returns a JSON object matching a schema.</p>
+<p>What unit tests <em>cannot</em> do for AI agents:</p>
+<p>1.  <strong>Validate emergent behavior:</strong> The core of an AI agent is its ability to reason and adapt. This emergent behavior, especially in multi-agent systems where agents interact, is not reducible to individual function calls. A unit test cannot predict how Agent A's output, slightly perturbed by a new LLM version, will affect Agent B's subsequent action.<br>2.  <strong>Test for semantic drift:</strong> As seen with my "last month" example, an LLM's interpretation of a phrase might subtly shift, or a downstream system's interpretation might differ. Unit tests don't capture these semantic mismatches across component boundaries.<br>3.  <strong>Cover the long tail of user intent:</strong> Users are unpredictable. They will phrase requests in ways you never anticipated. Unit tests are typically written for happy paths and known edge cases. An eval harness, especially one driven by synthetic data generation, can explore a much wider range of inputs.<br>4.  <strong>Measure user experience metrics:</strong> Was the response helpful? Was it fast enough? Was it accurate <em>from the user's perspective</em>? Unit tests only check internal correctness, not external utility.</p>
+<h2>My 4-Layer AI Agent Evaluation Harness</h2>
+<p>My current harness for a production agent on Oracle Cloud, routing between Groq and Claude, consists of 131 tests across four distinct layers. This structure allows me to catch failures at different levels of abstraction and interaction.</p>
+<h3>Layer 1: Component-Level LLM Output Validation (38 tests)</h3>
+<p>These are the closest to traditional unit tests, but specifically for LLM outputs. They ensure that individual LLM calls adhere to expected formats and basic content constraints.</p>
+<ul><li>  <strong>Schema validation:</strong> Does the LLM's JSON output conform to the Pydantic schema? (e.g., <code>assert pydantic_model.parse_raw(llm_output)</code>)</li>
+<li>  <strong>Keyword presence:</strong> Does the output contain expected keywords for a given intent? (e.g., <code>assert "SELECT" in sql_query_output</code>)</li>
+<li>  <strong>Basic content checks:</strong> Is a date present if a date was requested? Is a product ID present? (e.g., <code>assert re.search(r'\d{4}-\d{2}-\d{2}', date_string)</code>)</li>
+<li>  <strong>Tool call validation:</strong> If the LLM is supposed to call a tool, does the tool name and arguments match the expected format? (e.g., <code>assert tool_call.name == "get_report" and "product_id" in tool_call.args</code>)</li></ul>
+<p>These tests run quickly, often in milliseconds, and are crucial for catching regressions in prompt engineering or LLM model updates. I run them with Groq's Llama 3 8B for speed and cost-efficiency ($0.00000027/token for output).</p>
+<h3>Layer 2: Agent Step-by-Step Logic (52 tests)</h3>
+<p>This layer tests the internal decision-making and state transitions of the agent. It ensures that given a specific input, the agent progresses through the correct sequence of actions.</p>
+<ul><li>  <strong>Intent routing:</strong> If the user asks for X, does the agent correctly identify intent Y and route to the corresponding sub-agent or tool? (e.g., <code>assert agent_state.current_intent == "REPORT_GENERATION"</code>)</li>
+<li>  <strong>Contextual awareness:</strong> If the user asks a follow-up question, does the agent correctly use previous turns' context? (e.g., <code>assert "previous_product_id" in agent_state.context</code>)</li>
+<li>  <strong>Error handling paths:</strong> If a tool call fails (simulated), does the agent correctly inform the user or attempt a retry? (e.g., <code>assert "error_message" in agent_response and "try again" in agent_response.text</code>)</li>
+<li>  <strong>Conditional logic:</strong> If a certain condition is met (e.g., missing required parameter), does the agent ask for clarification? (e.g., <code>assert "missing_parameter" in agent_response.text</code>)</li></ul>
+<p>These tests often involve mocking external services (database, APIs) to isolate the agent's internal logic. They are still relatively fast, typically under 100ms per test.</p>
+<h3>Layer 3: End-to-End Functional Scenarios (35 tests)</h3>
+<p>This is where the eval harness truly shines. These tests simulate real user interactions from start to finish, including all external integrations (database, APIs, other agents). This is where my "last month" bug would have been caught.</p>
+<p><em>   <strong>Full user journeys:</strong> "Show me sales for product X last month." -> Agent -> DB -> Data -> Formatted Response. The test asserts the </em>final output* matches the expected data.<br><ul><li>  <strong>Complex multi-turn conversations:</strong> "What's the weather?" -> "In London." -> "Tomorrow." The test asserts the final weather forecast is correct for London, tomorrow.</li><br><li>  <strong>Edge cases with real data:</strong> Querying for non-existent products, dates far in the past/future, malformed inputs.</li><br><li>  <strong>Performance under load (basic):</strong> A small subset of these tests are run concurrently to check for basic race conditions or resource contention.</li></ul></p>
+<p>These tests are more expensive, as they involve full LLM calls and database interactions. I typically run them with Claude 3 Haiku or Opus depending on complexity, costing $0.00025/token for Haiku input and $0.00125/token for output. A full run of this layer can cost $0.01-$0.03 per test. This is why I keep the number of tests here focused on critical paths and high-impact scenarios.</p>
+<h3>Layer 4: User Experience & Latency (6 tests)</h3>
+<p>This layer is less about correctness and more about the qualitative aspects of the agent.</p>
+<ul><li>  <strong>Response time:</strong> Is the agent responding within acceptable latency thresholds? (e.g., <code>assert response_time < 5.0</code> seconds for a complex query). This is critical for Telegram/WhatsApp agents.</li>
+<li>  <strong>Tone and helpfulness:</strong> Does the agent maintain a consistent, helpful tone? This is often a subjective evaluation, but I use a separate LLM (e.g., Claude 3 Haiku) to evaluate the agent's response against a rubric. (e.g., "Rate the helpfulness of this response on a scale of 1-5, explaining your reasoning.")</li>
+<li>  <strong>Conciseness:</strong> Is the agent providing just the necessary information, or is it verbose? (e.g., <code>assert len(response_text.split()) < 200</code> for a simple query).</li></ul>
+<p>These tests are often the most expensive due to the LLM-as-a-judge component, but they are crucial for ensuring the agent is not just correct, but <em>usable</em>.</p>
+<h2>The Cost of Rigor: $0.03/Run</h2>
+<p>Running all 131 tests costs approximately $0.03 per full harness execution. This breaks down roughly as:</p>
+<ul><li>  Layer 1 (Groq): ~$0.0005</li>
+<li>  Layer 2 (Mocked): ~$0.0001</li>
+<li>  Layer 3 (Claude Haiku/Opus + Oracle DB): ~$0.025</li>
+<li>  Layer 4 (Claude Haiku as judge): ~$0.004</li></ul>
+<p>This cost is negligible compared to the potential loss of client trust or wasted development time debugging production issues. I run the full harness on every significant code commit and before every deployment. It's integrated into my CI/CD pipeline on Oracle Cloud Infrastructure.</p>
+<p>Building this harness took time – about two weeks initially. But it has paid for itself multiple times over by catching subtle interaction bugs and semantic mismatches that no amount of manual testing or traditional unit tests would have found. It's the only way I can confidently ship AI agents into production without constant fear of silent, costly failures.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you generate the test cases for Layer 3 (End-to-End Functional Scenarios)?</strong><br>A: I start with real user queries from logs, then use an LLM (Claude 3 Opus) to generate variations and edge cases based on those. I also manually craft critical path scenarios.</p>
+<p><strong>Q: What's your strategy for mocking external services in Layer 2?</strong><br>A: I use Python's <code>unittest.mock</code> library extensively. For database interactions, I mock the ORM layer or the database client directly to return predefined datasets, ensuring the agent's logic is tested independently of actual DB state.</p>
+<p><strong>Q: How do you handle non-deterministic LLM outputs in your tests?</strong><br>A: For Layer 1, I use schema validation and keyword presence, which are robust to minor phrasing variations. For Layer 3, I often use fuzzy string matching or LLM-as-a-judge (another LLM) to evaluate the correctness of the final output, rather than exact string matching.</p>
+<p><strong>Q: What's the biggest challenge in maintaining such a large test suite?</strong><br>A: Keeping the test data and expected outputs up-to-date as the agent's capabilities evolve. I automate this where possible by regenerating expected outputs for certain tests, but it still requires periodic manual review.</p>
+<p><strong>Q: Why Oracle Cloud for infrastructure?</strong><br>A: Oracle Cloud offers competitive pricing for compute and database services, especially for smaller operations like mine without VC funding. Their free tier and always-free services are also a significant advantage for bootstrapping.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
