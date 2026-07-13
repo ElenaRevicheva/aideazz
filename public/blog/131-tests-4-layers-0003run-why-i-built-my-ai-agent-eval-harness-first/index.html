@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First | AIdeazz</title>
+  <meta name="description" content="My AI agents failed silently for 17 hours. The user experience was a dead end: "I'm sorry, I can't fulfill this request." No error logs, no exceptions, just a polite refusal. This wasn't a bug in my …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First">
+  <meta property="og:description" content="My AI agents failed silently for 17 hours. The user experience was a dead end: "I'm sorry, I can't fulfill this request." No error logs, no exceptions, just a polite refusal. This wasn't a bug in my …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-13T19:30:15.772Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First">
+  <meta name="twitter:description" content="My AI agents failed silently for 17 hours. The user experience was a dead end: "I'm sorry, I can't fulfill this request." No error logs, no exceptions, just a polite refusal. This wasn't a bug in my …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First",
+  "description": "My AI agents failed silently for 17 hours. The user experience was a dead end: \"I'm sorry, I can't fulfill this request.\" No error logs, no exceptions, just a polite refusal. This wasn't a bug in my …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-13T19:30:15.772Z",
+  "dateModified": "2026-07-13T19:30:15.772Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle non-deterministic LLM outputs in your assertions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a combination of keyword matching, negative keyword matching, and a small, fast LLM (Groq Mixtral) to evaluate the semantic content of the output. For example, instead of asserting \"output == 'Hello world'\", I assert \"output contains 'Hello' and 'world'\" or \"LLM confirms output is a greeting.\""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the evaluation LLM itself hallucinates or makes a mistake?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a valid concern. I mitigate this by keeping the evaluation prompts very simple and direct, using a highly reliable model (Groq Mixtral for speed/cost, sometimes Claude 3 Haiku for higher stakes), and having human review for any new evaluation prompts. The evaluation LLM is not generating content, only classifying it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the test data (the 131 tests)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All test cases are stored in a version-controlled YAML file. This allows for easy additions, modifications, and review. I categorize tests by agent and by the type of behavior they target."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the biggest challenge in maintaining the harness?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Keeping the tests relevant as agent capabilities evolve. As I add new features or refine agent prompts, I often need to update existing tests or add new ones. This requires discipline, but it's a necessary overhead for stable agent development."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use an existing open-source eval framework?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many frameworks are either too generic (focused on LLM benchmarks) or too opinionated for my specific multi-agent, multi-LLM, Oracle Cloud setup. Building my own gave me precise control over the 4-layer architecture, cost optimization, and direct integration with my existing CI/CD and monitoring tools."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-13T19:30:15.772Z">July 13, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI agents failed silently for 17 hours. The user experience was a dead end: "I'm sorry, I can't fulfill this request." No error logs, no exceptions, just a polite refusal. This wasn't a bug in my Python code; it was a subtle, systemic drift in agent behavior. I would have shipped this broken experience directly to users without my evaluation harness. It caught the regression across 131 tests, costing me $0.03 per full run, before I wrote a single new feature.</p>
+<p>The problem with AI agents isn't just about writing correct code; it's about ensuring <em>correct behavior</em> across a dynamic, non-deterministic system. Unit tests catch <code>IndexError</code> or <code>KeyError</code>. They don't catch an agent deciding that "create a marketing plan for a new SaaS product" is now out of scope, even though it was a core capability last week.</p>
+<h2>The Silent Killer: Behavioral Drift</h2>
+<p>I run a multi-agent system on Oracle Cloud, routing requests between Groq and Claude, serving users on Telegram and WhatsApp. My agents handle everything from content generation to data analysis. The core challenge isn't just orchestrating these LLMs; it's maintaining their <em>intent</em>.</p>
+<p>A recent update to my prompt template for the <code>MarketingStrategist</code> agent introduced a new constraint: "Focus on B2B SaaS only." This was intended to refine its output. What it <em>actually</em> did was make the agent refuse any request that didn't explicitly mention "B2B SaaS." A user asking for "a marketing plan for a new coffee shop" would get the polite refusal. My existing unit tests, which checked function calls and output formats, passed with flying colors. The agent's <em>behavior</em> had regressed.</p>
+<p>This behavioral drift is insidious. It doesn't throw an exception. It doesn't log a critical error. It simply changes the agent's interpretation of its mandate. Without an evaluation harness, I'd be relying on manual spot-checks or, worse, user complaints.</p>
+<h2>The 4-Layer Evaluation Harness Architecture</h2>
+<p>I built my evaluation harness with four distinct layers, designed to catch different types of regressions:</p>
+<p>1.  <strong>Input Validation & Routing (Layer 1):</strong> Does the initial router agent correctly identify the intent and route to the right specialized agent? Does it handle malformed inputs gracefully?<br>2.  <strong>Agent Goal Fulfillment (Layer 2):</strong> Does the specialized agent actually achieve its stated goal? This is the most critical layer for behavioral drift.<br>3.  <strong>Output Quality & Format (Layer 3):</strong> Is the output structured correctly (e.g., JSON, Markdown)? Is the content coherent, relevant, and free of hallucinations?<br>4.  <strong>Tool Usage & External API Integration (Layer 4):</strong> If the agent uses external tools (e.g., a search API, a database query tool), are those tools called correctly, and is their output integrated properly?</p>
+<p>Each layer has its own set of tests. For example, Layer 1 includes tests like "route 'create a marketing plan' to <code>MarketingStrategist</code>" and "route 'analyze sales data' to <code>DataAnalyst</code>." Layer 2 for <code>MarketingStrategist</code> includes tests like "generate a 3-point marketing plan for a new coffee shop" and "create a content calendar for a B2B SaaS product." The coffee shop test is what caught the regression.</p>
+<p>My harness is a Python script that iterates through a YAML file of test cases. Each test case defines:</p>
+<ul><li>  <code>input</code>: The user prompt.</li>
+<li>  <code>expected_agent</code>: (Optional, for Layer 1) The agent expected to handle the request.</li>
+<li>  <code>expected_output_keywords</code>: (Optional, for Layer 2 & 3) Keywords expected in the final output.</li>
+<li>  <code>expected_tool_calls</code>: (Optional, for Layer 4) Regex patterns for tool calls.</li></ul>
+<em>   <code>negative_keywords</code>: (Optional, for Layer 2 & 3) Keywords </em>not* expected.
+<ul><li>  <code>max_tokens</code>: (Optional) To control LLM cost.</li></ul>
+<p>The script then sends the <code>input</code> to my main router agent, captures the full interaction trace, and asserts against the defined expectations.</p>
+<h2>The 131 Tests and $0.03/Run Cost</h2>
+<p>My current suite has 131 tests. This includes 28 tests for Layer 1 (routing), 65 for Layer 2 (goal fulfillment across 5 specialized agents), 25 for Layer 3 (output quality), and 13 for Layer 4 (tool usage).</p>
+<p>Running the full suite takes approximately 3 minutes and costs, on average, $0.03. This cost is primarily from LLM inference. I use Groq for its speed and low cost for initial routing and simpler tasks, and Claude 3 Haiku/Sonnet for more complex generation. The harness itself uses a small, fast LLM (often Groq Mixtral) for output evaluation (e.g., "does this output contain a marketing plan?"). This meta-LLM evaluation is crucial for Layer 2 and 3, as simple keyword matching isn't robust enough.</p>
+<p>Here's a breakdown of a typical test run cost:</p>
+<p><em>   <strong>Initial routing (Groq Mixtral):</strong> ~0.000001 tokens/char </em> 100 chars input * 131 tests = negligible.<br><ul><li>  <strong>Specialized agent inference (Groq Mixtral/Claude Haiku):</strong> Varies, but averages 2000 tokens/test (input + output).</li></ul><br>    <em>   Groq Mixtral: $0.50/M tokens. 2000 tokens </em> 65 tests (Layer 2) = 130,000 tokens. Cost: $0.065.<br>    <em>   Claude Haiku: $0.25/M tokens. 2000 tokens </em> 65 tests = 130,000 tokens. Cost: $0.0325.<br><em>   <strong>Evaluation LLM (Groq Mixtral):</strong> ~500 tokens/test for evaluation prompt + response. 500 tokens </em> 131 tests = 65,500 tokens. Cost: $0.03275.</p>
+<p>My actual cost per run is lower because not all tests hit the most expensive models, and many are shorter. The $0.03 figure is a conservative average. This is a trivial cost compared to the engineering hours lost debugging production issues or the reputational damage from shipping broken features.</p>
+<h2>What AI Agent Tests Catch That Unit Tests Cannot</h2>
+<p>Unit tests verify the correctness of individual functions or methods. They ensure <code>add(2, 3)</code> returns <code>5</code>. They check if a parser correctly extracts data from a string.</p>
+<p>AI agent tests, specifically behavioral tests, verify the <em>emergent properties</em> of the system. They answer questions like:</p>
+<ul><li>  <strong>Intent Preservation:</strong> Does the agent understand and act upon the user's original intent, even with ambiguous phrasing?</li>
+<li>  <strong>Contextual Awareness:</strong> Does the agent correctly use information from previous turns in a conversation?</li>
+<li>  <strong>Constraint Adherence:</strong> Does the agent respect negative constraints (e.g., "do not use external tools," "keep it under 100 words")?</li></ul>
+<em>   <strong>Tool Orchestration:</strong> Does the agent correctly decide </em>when<em> to use a tool, </em>which<em> tool to use, and </em>how* to use its output?
+<ul><li>  <strong>Bias & Safety:</strong> Does the agent avoid generating harmful or biased content? (This is a harder problem, but the harness can catch obvious regressions.)</li></ul>
+<p>My coffee shop example perfectly illustrates this. The Python code for the <code>MarketingStrategist</code> agent was perfectly functional. The prompt change, however, altered its <em>interpretation</em> of its role, leading to a behavioral regression that a unit test would never flag. The agent was still "working" in the sense that it was processing input and producing output, but the output was a refusal, not a marketing plan.</p>
+<h2>Integrating with CI/CD (Oracle DevOps)</h2>
+<p>I've integrated this harness into my Oracle DevOps CI/CD pipeline. Every <code>git push</code> to <code>main</code> triggers a full evaluation run. If any of the 131 tests fail, the pipeline breaks, preventing deployment. This forces me to address behavioral regressions <em>before</em> they ever reach a staging environment, let alone production.</p>
+<p>The output of the harness is a detailed report, showing which tests failed, the input, the expected output, and the actual output. This makes debugging straightforward. Instead of sifting through logs, I get a direct comparison of expected vs. actual behavior.</p>
+<p>Building this harness was a significant upfront investment. It took me about two weeks of focused effort. But it has paid for itself many times over by catching silent failures and giving me confidence to iterate rapidly on agent capabilities. It's the only way I can ship production AI agents with zero VC funding and still maintain quality.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle non-deterministic LLM outputs in your assertions?</strong><br>A: I use a combination of keyword matching, negative keyword matching, and a small, fast LLM (Groq Mixtral) to evaluate the semantic content of the output. For example, instead of asserting "output == 'Hello world'", I assert "output contains 'Hello' and 'world'" or "LLM confirms output is a greeting."</p>
+<p><strong>Q: What if the evaluation LLM itself hallucinates or makes a mistake?</strong><br>A: This is a valid concern. I mitigate this by keeping the evaluation prompts very simple and direct, using a highly reliable model (Groq Mixtral for speed/cost, sometimes Claude 3 Haiku for higher stakes), and having human review for any new evaluation prompts. The evaluation LLM is not generating content, only classifying it.</p>
+<p><strong>Q: How do you manage the test data (the 131 tests)?</strong><br>A: All test cases are stored in a version-controlled YAML file. This allows for easy additions, modifications, and review. I categorize tests by agent and by the type of behavior they target.</p>
+<p><strong>Q: What's the biggest challenge in maintaining the harness?</strong><br>A: Keeping the tests relevant as agent capabilities evolve. As I add new features or refine agent prompts, I often need to update existing tests or add new ones. This requires discipline, but it's a necessary overhead for stable agent development.</p>
+<p><strong>Q: Why not use an existing open-source eval framework?</strong><br>A: Many frameworks are either too generic (focused on LLM benchmarks) or too opinionated for my specific multi-agent, multi-LLM, Oracle Cloud setup. Building my own gave me precise control over the 4-layer architecture, cost optimization, and direct integration with my existing CI/CD and monitoring tools.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
