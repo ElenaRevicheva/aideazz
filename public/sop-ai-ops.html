@@ -1636,6 +1636,99 @@
         </div>
       </div>
     </div>
+    <div class="divider"></div>
+    <div class="callout" id="try-the-pipeline">
+      <div><strong>Don&rsquo;t take the diagram&rsquo;s word for it — this form IS the pipeline.</strong> Submit it and you become a UTM-attributed HubSpot contact within seconds, Claude drafts a reply with full context of this operation, and it reaches my Telegram for one-tap approval. You&rsquo;ll hear back fast — that&rsquo;s the whole point of step 6.</div>
+    </div>
+    <style>
+      .ops-inquiry { margin-top: 18px; display: grid; gap: 12px; max-width: 640px; }
+      .ops-inquiry label { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--t3); display: block; margin-bottom: 5px; }
+      .ops-inquiry input, .ops-inquiry textarea { width: 100%; box-sizing: border-box; background: var(--surface-solid); border: 1px solid var(--border-strong); border-radius: 10px; color: var(--text); font-family: var(--body); font-size: 15px; padding: 11px 13px; outline: none; }
+      .ops-inquiry input:focus, .ops-inquiry textarea:focus { border-color: var(--violet); }
+      .ops-inquiry textarea { min-height: 96px; resize: vertical; }
+      .ops-inquiry button { justify-self: start; background: linear-gradient(120deg, var(--violet), var(--cyan)); color: #05060a; font-family: var(--display); font-weight: 700; font-size: 15px; border: 0; border-radius: 10px; padding: 12px 26px; cursor: pointer; }
+      .ops-inquiry button[disabled] { opacity: .55; cursor: wait; }
+      .ops-inquiry .oi-status { font-family: var(--mono); font-size: 13px; color: var(--t2); min-height: 18px; }
+      .ops-inquiry .oi-status.ok { color: var(--green); }
+      .ops-inquiry .oi-status.err { color: var(--pink); }
+      .ops-inquiry .oi-fine { font-size: 12px; color: var(--t3); }
+      .ops-hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+    </style>
+    <form class="ops-inquiry" id="ops-inquiry-form" autocomplete="on">
+      <div><label for="oi-name">Name</label><input id="oi-name" name="name" type="text" maxlength="120" placeholder="Your name"></div>
+      <div><label for="oi-email">Email</label><input id="oi-email" name="email" type="email" maxlength="160" placeholder="you@company.com" required></div>
+      <div><label for="oi-message">What are you building / hiring for?</label><textarea id="oi-message" name="message" maxlength="4000" placeholder="A couple of lines is enough — the pipeline does the rest." required></textarea></div>
+      <div class="ops-hp" aria-hidden="true"><label for="oi-company">Company</label><input id="oi-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" id="oi-send">Run the pipeline →</button>
+      <div class="oi-status" id="oi-status" role="status"></div>
+      <div class="oi-fine">Protected by reCAPTCHA Enterprise · Attributed as <code>utm_source=sop-ai-ops</code> so you can ask me later exactly how your own submission moved through the CRM.</div>
+    </form>
+    <script>
+      (function () {
+        var SITE_KEY = '6LcHda8sAAAAAAGwl5alB2xdX_6Dqve5a5vifoHj';
+        var ENDPOINT = 'https://webhook.aideazz.xyz/cto/marketing/inquiry-proxy';
+        var form = document.getElementById('ops-inquiry-form');
+        var status = document.getElementById('oi-status');
+        var btn = document.getElementById('oi-send');
+        var scriptLoading = null;
+        function loadRecaptcha() {
+          if (window.grecaptcha && window.grecaptcha.enterprise) return Promise.resolve();
+          if (scriptLoading) return scriptLoading;
+          scriptLoading = new Promise(function (resolve, reject) {
+            var s = document.createElement('script');
+            s.src = 'https://www.google.com/recaptcha/enterprise.js?render=' + encodeURIComponent(SITE_KEY);
+            s.async = true; s.onload = resolve; s.onerror = reject;
+            document.head.appendChild(s);
+          });
+          return scriptLoading;
+        }
+        form.addEventListener('focusin', loadRecaptcha, { once: true });
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var email = document.getElementById('oi-email').value.trim();
+          var message = document.getElementById('oi-message').value.trim();
+          if (!email || !message) { status.className = 'oi-status err'; status.textContent = 'Email and a short message are required.'; return; }
+          btn.disabled = true; status.className = 'oi-status'; status.textContent = 'Verifying + entering the pipeline…';
+          var urlUtm = new URLSearchParams(location.search);
+          var body = {
+            name: document.getElementById('oi-name').value.trim(),
+            email: email,
+            message: message,
+            company: document.getElementById('oi-company').value,
+            page_url: location.href.split('#')[0],
+            utm_source: urlUtm.get('utm_source') || 'sop-ai-ops',
+            utm_medium: urlUtm.get('utm_medium') || 'runbook',
+            utm_campaign: urlUtm.get('utm_campaign') || 'ops_runbook_inquiry'
+          };
+          loadRecaptcha().then(function () {
+            return new Promise(function (resolve, reject) {
+              window.grecaptcha.enterprise.ready(function () {
+                window.grecaptcha.enterprise.execute(SITE_KEY, { action: 'inquiry' }).then(resolve, reject);
+              });
+            });
+          }).then(function (token) {
+            body.recaptcha_token = token;
+            return fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+          }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
+            .then(function (res) {
+              if (res.ok) {
+                status.className = 'oi-status ok';
+                status.textContent = '✓ In the pipeline. Confirmation email sent; CRM entry created; the AI-drafted reply is on its way to my Telegram.';
+                form.reset();
+              } else {
+                status.className = 'oi-status err';
+                status.textContent = 'Something failed (' + (res.d.error || 'unknown') + '). Email me instead: aipa@aideazz.xyz';
+              }
+              btn.disabled = false;
+            })
+            .catch(function () {
+              status.className = 'oi-status err';
+              status.textContent = 'Network or verification error — email me instead: aipa@aideazz.xyz';
+              btn.disabled = false;
+            });
+        });
+      })();
+    </script>
   </div>
 
   <!-- §4 DEPLOYMENT RULES -->
