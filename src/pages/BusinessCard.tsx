@@ -57,6 +57,65 @@ interface Particle {
   opacity: number;
 }
 
+function WhatIBuildBlock() {
+  const { t } = useTranslation();
+  const services = [
+    { icon: MessageCircle, titleKey: 'whatIBuild.item1Title', descKey: 'whatIBuild.item1Desc', iconColor: 'text-purple-300', iconBg: 'bg-purple-500/15 border-purple-500/30', cardBg: 'bg-purple-600/10 border-purple-500/25' },
+    { icon: Zap, titleKey: 'whatIBuild.item2Title', descKey: 'whatIBuild.item2Desc', iconColor: 'text-blue-300', iconBg: 'bg-blue-500/15 border-blue-500/30', cardBg: 'bg-blue-600/10 border-blue-500/25' },
+    { icon: Search, titleKey: 'whatIBuild.item3Title', descKey: 'whatIBuild.item3Desc', iconColor: 'text-emerald-300', iconBg: 'bg-emerald-500/15 border-emerald-500/30', cardBg: 'bg-emerald-600/10 border-emerald-500/25' },
+    { icon: Film, titleKey: 'whatIBuild.item4Title', descKey: 'whatIBuild.item4Desc', iconColor: 'text-pink-300', iconBg: 'bg-pink-500/15 border-pink-500/30', cardBg: 'bg-pink-600/10 border-pink-500/25' },
+  ];
+  return (
+    <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
+      <div className="text-center mb-6">
+        <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase">{t('whatIBuild.eyebrow')}</p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        {services.map((s) => (
+          <motion.div
+            key={s.titleKey}
+            whileHover={{ scale: 1.02 }}
+            className={`p-4 rounded-xl border ${s.cardBg} flex gap-3 transition-all`}
+          >
+            <div className={`w-9 h-9 shrink-0 rounded-lg border ${s.iconBg} flex items-center justify-center`}>
+              <s.icon className={`w-4 h-4 ${s.iconColor}`} strokeWidth={1.75} />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs sm:text-sm font-bold text-white mb-1 leading-snug">{t(s.titleKey)}</p>
+              <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t(s.descKey)}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <motion.div
+        whileHover={{ scale: 1.01 }}
+        className="mt-3 sm:mt-4 p-4 rounded-xl bg-gradient-to-r from-purple-600/15 to-pink-600/15 border border-purple-400/30 flex gap-3 transition-all"
+      >
+        <div className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/30 flex items-center justify-center">
+          <Gem className="w-4 h-4 text-purple-200" strokeWidth={1.75} />
+        </div>
+        <div className="min-w-0">
+          <p className="text-xs sm:text-sm font-bold text-white mb-1 leading-snug">{t('whatIBuild.personalTitle')}</p>
+          <p className="text-[11px] sm:text-xs text-gray-300 leading-relaxed">{t('whatIBuild.personalDesc')}</p>
+        </div>
+      </motion.div>
+      <div className="mt-6">
+        <p className="text-center text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-[0.2em] mb-3">{t('whatIBuild.diffLabel')}</p>
+        <div className="flex flex-wrap justify-center gap-2">
+          {['whatIBuild.diff1', 'whatIBuild.diff2', 'whatIBuild.diff3'].map((k) => (
+            <span key={k} className="text-[9px] sm:text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-200/90">
+              {t(k)}
+            </span>
+          ))}
+        </div>
+        <p className="mt-4 text-center text-sm sm:text-base font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
+          {t('whatIBuild.punch')}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function BusinessCard() {
   const { t, i18n } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -460,11 +519,7 @@ export default function BusinessCard() {
                   transition={{ delay: 0.15 }}
                   className="mb-12"
                 >
-                  <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
-                    <p className="text-center text-xs sm:text-sm text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                      {t('whatIBuild')}
-                    </p>
-                  </div>
+                  <WhatIBuildBlock />
                 </motion.div>
 
                 {/* AI CO-FOUNDERS SECTION */}
@@ -1202,10 +1257,8 @@ export default function BusinessCard() {
                   </div>
 
                   {/* WHAT I BUILD (card back) */}
-                  <div className="mb-8 rounded-2xl bg-white/5 border border-white/10 p-6">
-                    <p className="text-center text-xs sm:text-sm text-gray-300 leading-relaxed">
-                      {t('whatIBuild')}
-                    </p>
+                  <div className="mb-8">
+                    <WhatIBuildBlock />
                   </div>
 
                   <div className="mb-8" onClick={(e) => e.stopPropagation()}>
