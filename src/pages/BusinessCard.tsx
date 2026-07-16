@@ -494,17 +494,20 @@ export default function BusinessCard() {
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3">
+                    {/* 2x2: the header column is ~390px, so four buttons in one flex row wrapped
+                        'Coffee chat' onto a line of its own. Utility links on top, the two CTAs
+                        paired beneath — equal cells, no orphan. */}
+                    <div className="grid grid-cols-2 gap-2.5 w-full max-w-md">
                       <a href="https://aideazz.xyz" target="_blank" rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
-                        <Globe className="w-4 h-4" />
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10 whitespace-nowrap">
+                        <Globe className="w-4 h-4 shrink-0" />
                         {t('header.websiteButton')}
                       </a>
                       <a href={resumeHref} target="_blank" rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10">
-                        <FileText className="w-4 h-4" />
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10 whitespace-nowrap">
+                        <FileText className="w-4 h-4 shrink-0" />
                         {t('header.resumeButton')}
                       </a>
                       <a href="#portfolio-inquiry-form"
@@ -513,16 +516,16 @@ export default function BusinessCard() {
                           e.preventDefault();
                           document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
-                        <Mail className="w-4 h-4"/> {t('header.contactButton')}
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all text-sm font-semibold shadow-lg shadow-purple-500/50 whitespace-nowrap">
+                        <Mail className="w-4 h-4 shrink-0"/> {t('header.contactButton')}
                       </a>
                       {/* Second CTA: for people who'd rather talk than type a brief. */}
                       <a href="https://calendly.com/elena_revicheva/coffee-chat"
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/40 transition-all font-semibold">
-                        <Coffee className="w-4 h-4"/> {t('header.coffeeChatButton')}
+                        className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/40 transition-all text-sm font-semibold whitespace-nowrap">
+                        <Coffee className="w-4 h-4 shrink-0"/> {t('header.coffeeChatButton')}
                       </a>
                     </div>
                   </div>
