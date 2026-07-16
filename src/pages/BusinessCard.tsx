@@ -636,23 +636,23 @@ export default function BusinessCard() {
                     {/* Hub-Spoke Layout */}
                     <div className="relative flex flex-col items-center gap-4">
                       {/* Top row of agents */}
-                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
+                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg lg:max-w-3xl">
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-1.5">
                             <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-blue-300">CTO AIPA</p>
                           <p className="text-[8px] sm:text-[10px] text-gray-500">Control Tower</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mb-1.5">
                             <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-emerald-300">CMO AIPA</p>
                           <p className="text-[8px] sm:text-[10px] text-gray-500">Marketing & CRM</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-1.5">
                             <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-cyan-300">VibeJob</p>
@@ -661,7 +661,7 @@ export default function BusinessCard() {
                       </div>
 
                       {/* Connection lines to hub */}
-                      <div className="flex items-center justify-center w-full max-w-lg">
+                      <div className="flex items-center justify-center w-full max-w-lg lg:max-w-3xl">
                         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
                         <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
                         <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
@@ -681,30 +681,30 @@ export default function BusinessCard() {
                       </div>
 
                       {/* Connection lines to bottom */}
-                      <div className="flex items-center justify-center w-full max-w-lg">
+                      <div className="flex items-center justify-center w-full max-w-lg lg:max-w-3xl">
                         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-purple-500/50" />
                         <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 via-purple-500/40 to-purple-500/30" />
                         <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-500/30 to-purple-500/50" />
                       </div>
 
                       {/* Bottom row of agents */}
-                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg">
+                      <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg lg:max-w-3xl">
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-1.5">
                             <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-purple-300">EspaLuz</p>
                           <p className="text-[8px] sm:text-[10px] text-gray-500">Spanish Tutor · Relocation</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-1.5">
                             <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-amber-300">ALGOM</p>
                           <p className="text-[8px] sm:text-[10px] text-gray-500">Web3 Coach</p>
                         </div>
                         <div className="text-center">
-                          <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-1.5">
+                          <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 mx-auto rounded-xl bg-pink-500/10 border border-pink-500/30 flex items-center justify-center mb-1.5">
                             <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 text-pink-400" />
                           </div>
                           <p className="text-[10px] sm:text-xs font-semibold text-pink-300">Creative</p>
@@ -1235,7 +1235,7 @@ export default function BusinessCard() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isFlipped ? 1 : 0 }}
                   transition={{ delay: 0.4 }}
-                  className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)] max-w-3xl mx-auto"
+                  className="backdrop-blur-xl bg-white/[0.03] rounded-2xl p-5 sm:p-8 lg:p-12 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3),0_2px_8px_rgba(139,92,246,0.08)] max-w-3xl lg:max-w-5xl mx-auto"
                 >
                   <div className="text-center mb-8">
                     <motion.div 
@@ -1281,9 +1281,16 @@ export default function BusinessCard() {
                     <WhatIBuildBlock
                       onCta={() => {
                         setIsFlipped(false);
-                        window.setTimeout(() => {
-                          document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 750);
+                        // The front face enters with staggered animations, so the document keeps
+                        // growing after the flip: a single scroll computes its target against a
+                        // half-rendered page and lands short. Re-issue it as the layout settles.
+                        const scrollToForm = (tries = 0) => {
+                          const el = document.getElementById('portfolio-inquiry-form');
+                          if (!el) return;
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          if (tries < 2) window.setTimeout(() => scrollToForm(tries + 1), 500);
+                        };
+                        window.setTimeout(() => scrollToForm(), 800);
                       }}
                     />
                   </div>
