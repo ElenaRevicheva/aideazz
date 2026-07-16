@@ -419,7 +419,7 @@
     }
   },
   "whatIBuild": {
-    "eyebrow": "What I build",
+    "eyebrow": "What I build at AIdeazz AI Lab",
     "item1Title": "WhatsApp & Telegram AI agents",
     "item1Desc": "Answer FAQs, qualify leads, and book appointments 24/7 — bilingual EN/ES, wired into your CRM.",
     "item2Title": "End-to-end AI automation",
@@ -545,6 +545,10 @@
       "role4": "Agentic AI Engineer",
       "role5": "Internal AI Tools Engineer",
       "role6": "AI Solutions Architect",
+      "role7": "AI Automation Engineer",
+      "role8": "Forward Deployed Engineer",
+      "role9": "AI Solutions Engineer",
+      "role10": "Founding Engineer",
       "investment": {
         "title": "What I Bring to Your Team",
         "desc": "10-agent ecosystem shipped solo — 9 live 24/7 • Multi-model LLM orchestration (Claude/GPT/Groq/Grok) • Full-stack: React frontend + Python/Node backend • Oracle Cloud infrastructure running 24/7 • Executive background in digital transformation",
@@ -557,7 +561,7 @@
         "item2": "Founder discipline: I treat every project like my own — ownership, urgency, zero waste",
         "item3": "7 years executive management + 15 months hands-on AI engineering = systems thinking + execution speed"
       },
-      "closing": "Ready to build together."
+      "closing": "Explore my resume"
     }
   },
   "section3": {

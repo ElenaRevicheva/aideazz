@@ -82,7 +82,12 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
   return (
     <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
       <div className="text-center mb-6">
-        <p className="text-xs sm:text-sm font-semibold text-purple-300 tracking-wide uppercase">{t('whatIBuild.eyebrow')}</p>
+        {/* Arbitrary sizes on purpose: the laptop type-bump in index.css sets .text-base/.text-lg
+            with !important, which would beat a lg:text-2xl on this same element and pin it at 19px.
+            Sizes that match no bumped utility sidestep that collision. */}
+        <h2 className="text-[17px] sm:text-[21px] lg:text-[26px] font-bold tracking-tight bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
+          {t('whatIBuild.eyebrow')}
+        </h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {services.map((s) => (
@@ -1062,6 +1067,10 @@ export default function BusinessCard() {
                           <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role4')}</span>
                           <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role5')}</span>
                           <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role6')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role7')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role8')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role9')}</span>
+                          <span className="text-sm px-3 py-2 bg-blue-600/30 border border-blue-400/50 rounded-lg font-medium hover:bg-blue-600/40 transition-all">{t('section2.openTo.role10')}</span>
                         </div>
                       </div>
 
@@ -1102,12 +1111,23 @@ export default function BusinessCard() {
                       </div>
                     </div>
 
+                    {/* Was a dead sentence ('Ready to build together.') in the strongest slot on
+                        the hiring section — it asked for nothing. Now the CTA out of it: the
+                        resume, which is what a hiring reader wants next. */}
                     <div className="mt-8 text-center">
-                      <p className="text-xl font-black">
-                        <span className="bg-gradient-to-r from-emerald-400 via-green-400 to-teal-400 bg-clip-text text-transparent">
-                          {t('section2.openTo.closing')}
-                        </span>
-                      </p>
+                      <motion.a
+                        href={resumeHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-base sm:text-lg font-bold tracking-tight shadow-lg shadow-emerald-500/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 whitespace-nowrap"
+                      >
+                        <FileText className="w-5 h-5 shrink-0" />
+                        {t('section2.openTo.closing')}
+                        <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                      </motion.a>
                     </div>
                   </motion.div>
                 </motion.section>

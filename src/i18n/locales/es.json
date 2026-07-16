@@ -419,7 +419,7 @@
     }
   },
   "whatIBuild": {
-    "eyebrow": "Lo que construyo",
+    "eyebrow": "Lo que construyo en AIdeazz AI Lab",
     "item1Title": "Agentes de IA para WhatsApp y Telegram",
     "item1Desc": "Responden preguntas frecuentes, califican leads y agendan citas 24/7 — bilingües EN/ES, conectados a tu CRM.",
     "item2Title": "Automatización IA de extremo a extremo",
@@ -545,6 +545,10 @@
       "role4": "Ingeniera de IA Agéntica",
       "role5": "Ingeniera de Herramientas IA Internas",
       "role6": "Arquitecta de Soluciones IA",
+      "role7": "Ingeniera de Automatización con IA",
+      "role8": "Forward Deployed Engineer",
+      "role9": "Ingeniera de Soluciones de IA",
+      "role10": "Founding Engineer",
       "investment": {
         "title": "Lo Que Aporto a Tu Equipo",
         "desc": "Ecosistema de 10 agentes construido en solitario — 9 en vivo 24/7 • Orquestación LLM multi-modelo (Claude/GPT/Groq/Grok) • Full-stack: frontend React + backend Python/Node • Infraestructura Oracle Cloud 24/7 • Experiencia ejecutiva en transformación digital",
@@ -557,7 +561,7 @@
         "item2": "Disciplina de fundadora: trato cada proyecto como propio — ownership, urgencia, cero desperdicio",
         "item3": "7 años de gestión ejecutiva + 15 meses de ingeniería IA práctica = pensamiento sistémico + velocidad de ejecución"
       },
-      "closing": "Lista para construir juntos."
+      "closing": "Explora mi currículum"
     }
   },
   "section3": {
