@@ -453,6 +453,20 @@ export default function BusinessCard() {
                   </div>
                 </motion.header>
 
+                {/* WHAT I BUILD */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 }}
+                  className="mb-12"
+                >
+                  <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
+                    <p className="text-center text-xs sm:text-sm text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                      What I build: WhatsApp & Telegram AI agents that answer FAQs, qualify leads, and book appointments 24/7 — bilingual EN/ES, wired into your CRM · end-to-end AI automation (Make, n8n, or custom code): trigger → AI → action, documented so you own it · AI search visibility (GEO · AEO · tech SEO) — when someone asks ChatGPT or Perplexity for what you sell, your business is the answer · AI video generation — automated pipelines for product, marketing, and social creative. Companion-grade personal AI with long-term memory and emotional intelligence — from bilingual WhatsApp tutors that remember your journey, to autonomous job-search agents, to AI coaches built for specialized domains. The difference: 10 production AI systems running 24/7 — including a bilingual WhatsApp assistant with paying subscribers for 15+ months and a pipeline tracking 300+ opportunities a month in CRM. I ship in days what agencies quote in months.
+                    </p>
+                  </div>
+                </motion.div>
+
                 {/* AI CO-FOUNDERS SECTION */}
                 <motion.section 
                   initial={{ opacity: 0 }}
@@ -625,13 +639,8 @@ export default function BusinessCard() {
                       </div>
                     </div>
 
-                    {/* Mission statement */}
-                    <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
-                      What I build: WhatsApp & Telegram AI agents that answer FAQs, qualify leads, and book appointments 24/7 — bilingual EN/ES, wired into your CRM · end-to-end AI automation (Make, n8n, or custom code): trigger → AI → action, documented so you own it · AI search visibility (GEO · AEO · tech SEO) — when someone asks ChatGPT or Perplexity for what you sell, your business is the answer · AI video generation — automated pipelines for product, marketing, and social creative. And for people: companion-grade AI with long-term memory — a bilingual voice tutor in WhatsApp that knows your family, a job-hunt agent that scores and applies while you live your life, a crypto coach built for the post-scam era. The difference: 10 production AI systems running 24/7 — including a bilingual WhatsApp assistant with paying subscribers for 15+ months and a pipeline tracking 300+ opportunities a month in CRM. I ship in days what agencies quote in months.
-                    </p>
-
                     {/* Shared engine capabilities — what the whole fleet runs on */}
-                    <div className="mt-5 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
+                    <div className="mt-6 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
                       {[
                         'HubSpot CRM — multi-agent lead pipeline',
                         'Bright Data — live-web research agent',
