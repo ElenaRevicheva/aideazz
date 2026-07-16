@@ -421,7 +421,7 @@ export default function BusinessCard() {
       <div className="relative z-10 flex items-center justify-center min-h-screen p-6">
         <div 
           ref={cardRef}
-          className="relative w-full max-w-5xl cursor-pointer"
+          className="relative w-full max-w-6xl cursor-pointer"
           style={{ perspective: '2000px' }}
           onClick={handleCardFlip}
         >
@@ -460,7 +460,7 @@ export default function BusinessCard() {
                         />
                       </motion.div>
                       <div>
-                        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
+                        <h1 className="text-3xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
                           {t('header.name')}
                         </h1>
                         <p className="text-sm text-purple-300 mt-1">
