@@ -417,7 +417,24 @@
       "imageAlt": "Ilustración del artículo"
     }
   },
-  "whatIBuild": "Lo que construyo: agentes de IA para WhatsApp y Telegram que responden preguntas frecuentes, califican leads y agendan citas 24/7 — bilingües EN/ES, conectados a tu CRM · automatización IA de extremo a extremo (Make, n8n o código a medida): disparador → IA → acción, documentada para que sea tuya · visibilidad en búsqueda IA (GEO · AEO · SEO técnico) — cuando alguien le pregunta a ChatGPT o Perplexity por lo que vendes, tu negocio es la respuesta · generación de video con IA — pipelines automatizados para creatividades de producto, marketing y redes. IA personal de nivel compañero con memoria de largo plazo e inteligencia emocional — desde tutores bilingües de WhatsApp que recuerdan tu camino, hasta agentes autónomos de búsqueda de empleo y coaches de IA para dominios especializados. La diferencia: 10 sistemas de IA en producción 24/7 — incluido un asistente bilingüe de WhatsApp con suscriptores de pago desde hace 15+ meses y un pipeline que registra 300+ oportunidades al mes en el CRM. Entrego en días lo que las agencias cotizan en meses.",
+  "whatIBuild": {
+    "eyebrow": "Lo que construyo",
+    "item1Title": "Agentes de IA para WhatsApp y Telegram",
+    "item1Desc": "Responden preguntas frecuentes, califican leads y agendan citas 24/7 — bilingües EN/ES, conectados a tu CRM.",
+    "item2Title": "Automatización IA de extremo a extremo",
+    "item2Desc": "Make, n8n o código a medida. Un solo flujo, completo: disparador → IA → acción en tus herramientas — documentado para que sea tuyo.",
+    "item3Title": "Visibilidad en búsqueda IA — GEO · AEO · SEO técnico",
+    "item3Desc": "Cuando alguien le pregunta a ChatGPT o Perplexity por lo que vendes, tu negocio es la respuesta. Optimizado para crawlers de IA, motores de respuesta y recuperación LLM.",
+    "item4Title": "Generación de video con IA",
+    "item4Desc": "Pipelines automatizados de extremo a extremo para videos de producto, creatividades de marketing y contenido social.",
+    "personalTitle": "IA personal de nivel compañero",
+    "personalDesc": "Memoria de largo plazo e inteligencia emocional — desde tutores bilingües de WhatsApp que recuerdan tu camino, hasta agentes autónomos de búsqueda de empleo y coaches de IA para dominios especializados.",
+    "diffLabel": "Qué hace esto diferente",
+    "diff1": "10 sistemas de IA en producción 24/7",
+    "diff2": "Asistente bilingüe de WhatsApp · suscriptores de pago 15+ meses",
+    "diff3": "300+ oportunidades al mes registradas en CRM",
+    "punch": "Entrego en días lo que las agencias cotizan en meses."
+  },
   "section1": {
     "title": "Productos IA en Vivo — Listos para Monetización",
     "cofounderTitle": "Co-Fundadores de IA — Autónomos y en Vivo",
