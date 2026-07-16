@@ -462,7 +462,7 @@ export default function BusinessCard() {
                 >
                   <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
                     <p className="text-center text-xs sm:text-sm text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                      What I build: WhatsApp & Telegram AI agents that answer FAQs, qualify leads, and book appointments 24/7 — bilingual EN/ES, wired into your CRM · end-to-end AI automation (Make, n8n, or custom code): trigger → AI → action, documented so you own it · AI search visibility (GEO · AEO · tech SEO) — when someone asks ChatGPT or Perplexity for what you sell, your business is the answer · AI video generation — automated pipelines for product, marketing, and social creative. Companion-grade personal AI with long-term memory and emotional intelligence — from bilingual WhatsApp tutors that remember your journey, to autonomous job-search agents, to AI coaches built for specialized domains. The difference: 10 production AI systems running 24/7 — including a bilingual WhatsApp assistant with paying subscribers for 15+ months and a pipeline tracking 300+ opportunities a month in CRM. I ship in days what agencies quote in months.
+                      {t('whatIBuild')}
                     </p>
                   </div>
                 </motion.div>
@@ -1199,6 +1199,13 @@ export default function BusinessCard() {
                       <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1">OCI</div>
                       <div className="text-[10px] sm:text-xs text-gray-400 leading-tight">{t('cardBack.stat3')}</div>
                     </div>
+                  </div>
+
+                  {/* WHAT I BUILD (card back) */}
+                  <div className="mb-8 rounded-2xl bg-white/5 border border-white/10 p-6">
+                    <p className="text-center text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {t('whatIBuild')}
+                    </p>
                   </div>
 
                   <div className="mb-8" onClick={(e) => e.stopPropagation()}>
