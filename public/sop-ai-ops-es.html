@@ -1195,7 +1195,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Actualizado</div>
-        <div class="meta-val">3 de julio de 2026</div>
+        <div class="meta-val">16 de julio de 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Estado</div>
@@ -1500,6 +1500,9 @@
     <div class="callout">
       <div><strong>Sin reinicios en manada:</strong> si falla una sonda sólo recicla esa unidad. URLs concretos y scripts viven en el anexo privado—no están aquí.</div>
     </div>
+    <div class="callout">
+      <div><strong>Los retiros de modelos son configuración, no reescrituras:</strong> los proveedores retiran modelos alojados cada pocos meses (Groq elimina Llama&nbsp;3.3 de su nivel dev en agosto&nbsp;2026). Cada agente resuelve el id de su modelo a través de un único conmutador de flota, así que el cambio es una línea en el <code>.env</code> — probado contra una evaluación golden-set antes de activarlo, e instantáneamente reversible. El conmutador se desplegó en toda la flota en julio&nbsp;2026, semanas antes de la fecha límite. <em>Para fundadores:</em> la rotación de proveedores de IA está incluida en la arquitectura, no se paga en semanas de reconstrucción.</div>
+    </div>
     <div class="health-list">
       <div class="health-head">
         <div>Agente</div>
@@ -1600,12 +1603,22 @@
         </div>
       </div>
       <div class="p-item">
-        <div class="p-track"><div class="p-num">5</div></div>
+        <div class="p-track"><div class="p-num">5</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
             <div class="p-channel">Instagram · días pares 18:00 Panamá</div>
             <h3>EspaLuz Influencer</h3>
             <p>Caption consciencia de hitos + canal Make.com; fallback a fila estándar si no hay pendientes.</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-item">
+        <div class="p-track"><div class="p-num">6</div></div>
+        <div class="p-body">
+          <div class="p-card">
+            <div class="p-channel">Entrante · HubSpot → Claude → Telegram</div>
+            <h3>Lead Concierge — del formulario a la respuesta enviada en minutos</h3>
+            <p>Las consultas del portafolio se convierten en contactos de HubSpot en segundos (push del servidor, sin esperar al cron). Make.com despierta a Claude para redactar una respuesta personalizada —idioma correcto, enlaces de prueba relevantes, oferta concreta de primer proyecto— entregada en Telegram con botones <strong>Enviar / Editar / Omitir</strong>. Un toque envía el correo al lead desde el dominio de la empresa y registra el texto enviado en la línea de tiempo del CRM. Trazabilidad completa, aprobación humana en cada envío, tiempo de respuesta reducido de días a minutos.</p>
           </div>
         </div>
       </div>
@@ -1759,7 +1772,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">IA / LLM</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, failover nivel 3) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) con reintentos + cadena de respaldo · Bright Data (captura de transparencia publicitaria pública) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro para la creatividad de Atlas · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq (inferencia de modelos abiertos — el id del modelo se resuelve mediante un único conmutador de flota, así que las deprecaciones del proveedor son un cambio de configuración de una línea) · Grok (xAI, failover nivel 3) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) con reintentos + cadena de respaldo · Bright Data (captura de transparencia publicitaria pública) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro para la creatividad de Atlas · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Generación de leads</div>
