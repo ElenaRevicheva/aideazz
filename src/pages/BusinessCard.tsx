@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
@@ -627,7 +627,7 @@ export default function BusinessCard() {
 
                     {/* Mission statement */}
                     <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
-                      An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them.
+                      An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them. The same engine works for business: 24/7 lead capture wired into HubSpot CRM, live ad-market intelligence, autonomous code review, and bilingual content pipelines that publish daily.
                     </p>
 
                     {/* Shared engine capabilities — what the whole fleet runs on */}
@@ -637,7 +637,7 @@ export default function BusinessCard() {
                         'Bright Data — live-web research agent',
                         'Bilingual daily blog — GEO · SEO · AEO',
                         'Daily voice briefing — AWS Lambda',
-                        '3-tier LLM failover — Claude → Groq → Grok',
+                        'Multi-tier LLM failover — Claude → Groq → Grok/OpenAI/Gemini',
                       ].map((cap) => (
                         <span
                           key={cap}
@@ -824,7 +824,7 @@ export default function BusinessCard() {
                             atuona.xyz <ExternalLink className="w-3 h-3" />
                           </a>
                           <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-purple-600/20 hover:bg-purple-600/40 transition-all text-xs font-semibold text-purple-300">
-                            🎬 AI Film Studio <ExternalLink className="w-3 h-3" />
+                            <Film className="w-3 h-3" /> AI Film Studio <ExternalLink className="w-3 h-3" />
                           </a>
                           <a href="https://github.com/ElenaRevicheva/atuona" target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="inline-flex items-center gap-1 px-3 py-1 rounded-md bg-white/5 hover:bg-white/15 transition-all text-xs font-semibold text-gray-400">
                             <Github className="w-3 h-3" /> Gallery
