@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
@@ -57,13 +57,26 @@ interface Particle {
   opacity: number;
 }
 
-function WhatIBuildBlock() {
+/**
+ * Service cards route to the inquiry form (the UTM lead path), not the card flip.
+ * The form lives on the FRONT face, so the back-side instance must flip first —
+ * hence the optional onCta the back render passes in.
+ */
+function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
   const { t } = useTranslation();
+  const goToForm = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (onCta) { onCta(); return; }
+    document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   const services = [
-    { icon: MessageCircle, titleKey: 'whatIBuild.item1Title', descKey: 'whatIBuild.item1Desc', iconColor: 'text-purple-300', iconBg: 'bg-purple-500/15 border-purple-500/30', cardBg: 'bg-purple-600/10 border-purple-500/25' },
-    { icon: Zap, titleKey: 'whatIBuild.item2Title', descKey: 'whatIBuild.item2Desc', iconColor: 'text-blue-300', iconBg: 'bg-blue-500/15 border-blue-500/30', cardBg: 'bg-blue-600/10 border-blue-500/25' },
-    { icon: Search, titleKey: 'whatIBuild.item3Title', descKey: 'whatIBuild.item3Desc', iconColor: 'text-emerald-300', iconBg: 'bg-emerald-500/15 border-emerald-500/30', cardBg: 'bg-emerald-600/10 border-emerald-500/25' },
-    { icon: Film, titleKey: 'whatIBuild.item4Title', descKey: 'whatIBuild.item4Desc', iconColor: 'text-pink-300', iconBg: 'bg-pink-500/15 border-pink-500/30', cardBg: 'bg-pink-600/10 border-pink-500/25' },
+    { icon: MessageCircle, titleKey: 'whatIBuild.item1Title', descKey: 'whatIBuild.item1Desc', iconColor: 'text-purple-300', iconBg: 'bg-purple-500/15 border-purple-500/30', cardBg: 'bg-purple-600/10 border-purple-500/25', wide: false },
+    { icon: Zap, titleKey: 'whatIBuild.item2Title', descKey: 'whatIBuild.item2Desc', iconColor: 'text-blue-300', iconBg: 'bg-blue-500/15 border-blue-500/30', cardBg: 'bg-blue-600/10 border-blue-500/25', wide: false },
+    { icon: Search, titleKey: 'whatIBuild.item3Title', descKey: 'whatIBuild.item3Desc', iconColor: 'text-emerald-300', iconBg: 'bg-emerald-500/15 border-emerald-500/30', cardBg: 'bg-emerald-600/10 border-emerald-500/25', wide: false },
+    { icon: Film, titleKey: 'whatIBuild.item4Title', descKey: 'whatIBuild.item4Desc', iconColor: 'text-pink-300', iconBg: 'bg-pink-500/15 border-pink-500/30', cardBg: 'bg-pink-600/10 border-pink-500/25', wide: false },
+    // Full width: 5 cards in a 2-col grid would orphan the last one.
+    { icon: ShieldCheck, titleKey: 'whatIBuild.item5Title', descKey: 'whatIBuild.item5Desc', iconColor: 'text-amber-300', iconBg: 'bg-amber-500/15 border-amber-500/30', cardBg: 'bg-amber-600/10 border-amber-500/25', wide: true },
   ];
   return (
     <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
@@ -72,10 +85,13 @@ function WhatIBuildBlock() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {services.map((s) => (
-          <motion.div
+          <motion.button
+            type="button"
             key={s.titleKey}
+            onClick={goToForm}
+            aria-label={`${t(s.titleKey)} — ${t('whatIBuild.ctaHint')}`}
             whileHover={{ scale: 1.02 }}
-            className={`p-4 rounded-xl border ${s.cardBg} flex gap-3 transition-all`}
+            className={`group relative text-left w-full p-4 rounded-xl border ${s.cardBg} ${s.wide ? 'sm:col-span-2' : ''} flex gap-3 transition-all cursor-pointer hover:border-white/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400`}
           >
             <div className={`w-9 h-9 shrink-0 rounded-lg border ${s.iconBg} flex items-center justify-center`}>
               <s.icon className={`w-4 h-4 ${s.iconColor}`} strokeWidth={1.75} />
@@ -83,13 +99,19 @@ function WhatIBuildBlock() {
             <div className="min-w-0">
               <p className="text-xs sm:text-sm font-bold text-white mb-1 leading-snug">{t(s.titleKey)}</p>
               <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">{t(s.descKey)}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-purple-300 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+                {t('whatIBuild.ctaHint')} <ArrowRight className="w-3 h-3" />
+              </span>
             </div>
-          </motion.div>
+          </motion.button>
         ))}
       </div>
-      <motion.div
+      <motion.button
+        type="button"
+        onClick={goToForm}
+        aria-label={`${t('whatIBuild.personalTitle')} — ${t('whatIBuild.ctaHint')}`}
         whileHover={{ scale: 1.01 }}
-        className="mt-3 sm:mt-4 p-4 rounded-xl bg-gradient-to-r from-purple-600/15 to-pink-600/15 border border-purple-400/30 flex gap-3 transition-all"
+        className="group text-left w-full mt-3 sm:mt-4 p-4 rounded-xl bg-gradient-to-r from-purple-600/15 to-pink-600/15 border border-purple-400/30 flex gap-3 transition-all cursor-pointer hover:border-purple-300/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
       >
         <div className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/30 flex items-center justify-center">
           <Gem className="w-4 h-4 text-purple-200" strokeWidth={1.75} />
@@ -97,8 +119,11 @@ function WhatIBuildBlock() {
         <div className="min-w-0">
           <p className="text-xs sm:text-sm font-bold text-white mb-1 leading-snug">{t('whatIBuild.personalTitle')}</p>
           <p className="text-[11px] sm:text-xs text-gray-300 leading-relaxed">{t('whatIBuild.personalDesc')}</p>
+          <span className="mt-2 inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-purple-200 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
+            {t('whatIBuild.ctaHint')} <ArrowRight className="w-3 h-3" />
+          </span>
         </div>
-      </motion.div>
+      </motion.button>
       <div className="mt-6">
         <p className="text-center text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-[0.2em] mb-3">{t('whatIBuild.diffLabel')}</p>
         <div className="flex flex-wrap justify-center gap-2">
@@ -1256,9 +1281,17 @@ export default function BusinessCard() {
                     </div>
                   </div>
 
-                  {/* WHAT I BUILD (card back) */}
+                  {/* WHAT I BUILD (card back) — the inquiry form lives on the front face,
+                      so flip back first, then scroll once the rotation has settled. */}
                   <div className="mb-8">
-                    <WhatIBuildBlock />
+                    <WhatIBuildBlock
+                      onCta={() => {
+                        setIsFlipped(false);
+                        window.setTimeout(() => {
+                          document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 750);
+                      }}
+                    />
                   </div>
 
                   <div className="mb-8" onClick={(e) => e.stopPropagation()}>

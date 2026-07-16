@@ -427,13 +427,16 @@
     "item3Desc": "When someone asks ChatGPT or Perplexity for what you sell, your business is the answer. Optimized for AI crawlers, answer engines, and LLM retrieval.",
     "item4Title": "AI video generation",
     "item4Desc": "End-to-end automated pipelines for product videos, marketing creatives, and social content.",
+    "item5Title": "AI reliability & evals",
+    "item5Desc": "Your AI demos perfectly, then fails quietly in production. I build a golden-set test harness, add guardrails and multi-provider failover, and hand you the tests — so a bad model update is caught by you, not your customers.",
     "personalTitle": "Companion-grade personal AI",
     "personalDesc": "Long-term memory and emotional intelligence — from bilingual WhatsApp tutors that remember your journey, to autonomous job-search agents, to AI coaches built for specialized domains.",
     "diffLabel": "What makes this different",
     "diff1": "10 production AI systems running 24/7",
     "diff2": "Bilingual WhatsApp assistant · paying subscribers 15+ months",
     "diff3": "300+ opportunities a month tracked in CRM",
-    "punch": "I ship in days what agencies quote in months."
+    "punch": "I ship in days what agencies quote in months.",
+    "ctaHint": "Start a project"
   },
   "section1": {
     "title": "Live AI Products — Monetization Ready",
