@@ -373,7 +373,8 @@
     "builder": "Builder & Fundadora",
     "websiteButton": "AIdeazz",
     "resumeButton": "Currículum",
-    "contactButton": "Construyamos Juntos"
+    "contactButton": "Construyamos Juntos",
+    "coffeeChatButton": "Café virtual"
   },
   "writing": {
     "badge": "Artículos",
@@ -608,7 +609,7 @@
     "github": "GitHub",
     "linkedin": "LinkedIn",
     "email": "Conectemos",
-    "whatsapp": "WhatsApp",
+    "whatsapp": "WhatsApp directo",
     "quote": "\"¿Tienes algún AIdeazz? Súbelo al ledger.\""
   },
   "cardBack": {
@@ -625,6 +626,7 @@
     "twitter": "X",
     "linkedin": "LinkedIn",
     "email": "Hablemos",
+    "coffeeChat": "Café virtual",
     "quote": "\"¿Tienes algún AIdeazz? Súbelo al ledger.\"",
     "flipText": "Clic para ver portafolio completo"
   },

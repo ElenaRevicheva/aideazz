@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
@@ -532,6 +532,14 @@ export default function BusinessCard() {
                         }}
                         className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg shadow-purple-500/50">
                         <Mail className="w-4 h-4"/> {t('header.contactButton')}
+                      </a>
+                      {/* Second CTA: for people who'd rather talk than type a brief. */}
+                      <a href="https://calendly.com/elena_revicheva/coffee-chat"
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 border border-white/25 hover:border-white/40 transition-all font-semibold">
+                        <Coffee className="w-4 h-4"/> {t('header.coffeeChatButton')}
                       </a>
                     </div>
                   </div>
@@ -1511,7 +1519,7 @@ export default function BusinessCard() {
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold shadow-lg"
                     >
-                      <Mail className="w-4 h-4" /> {t('cardBack.email')}
+                      <Coffee className="w-4 h-4" /> {t('cardBack.coffeeChat')}
                     </a>
                   </div>
 
