@@ -75,8 +75,9 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
     { icon: Zap, titleKey: 'whatIBuild.item2Title', descKey: 'whatIBuild.item2Desc', iconColor: 'text-blue-300', iconBg: 'bg-blue-500/15 border-blue-500/30', cardBg: 'bg-blue-600/10 border-blue-500/25', wide: false },
     { icon: Search, titleKey: 'whatIBuild.item3Title', descKey: 'whatIBuild.item3Desc', iconColor: 'text-emerald-300', iconBg: 'bg-emerald-500/15 border-emerald-500/30', cardBg: 'bg-emerald-600/10 border-emerald-500/25', wide: false },
     { icon: Film, titleKey: 'whatIBuild.item4Title', descKey: 'whatIBuild.item4Desc', iconColor: 'text-pink-300', iconBg: 'bg-pink-500/15 border-pink-500/30', cardBg: 'bg-pink-600/10 border-pink-500/25', wide: false },
-    // Full width: 5 cards in a 2-col grid would orphan the last one.
-    { icon: ShieldCheck, titleKey: 'whatIBuild.item5Title', descKey: 'whatIBuild.item5Desc', iconColor: 'text-amber-300', iconBg: 'bg-amber-500/15 border-amber-500/30', cardBg: 'bg-amber-600/10 border-amber-500/25', wide: true },
+    { icon: ShieldCheck, titleKey: 'whatIBuild.item5Title', descKey: 'whatIBuild.item5Desc', iconColor: 'text-amber-300', iconBg: 'bg-amber-500/15 border-amber-500/30', cardBg: 'bg-amber-600/10 border-amber-500/25', wide: false },
+    // Sits in the grid (6 cards = clean 3x2) but keeps the gradient that marks it as the flagship.
+    { icon: Gem, titleKey: 'whatIBuild.personalTitle', descKey: 'whatIBuild.personalDesc', iconColor: 'text-purple-200', iconBg: 'bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-purple-400/30', cardBg: 'bg-gradient-to-r from-purple-600/15 to-pink-600/15 border-purple-400/30', wide: false },
   ];
   return (
     <div className="backdrop-blur-xl bg-white/[0.02] rounded-2xl p-6 sm:p-8 border border-white/10">
@@ -106,24 +107,6 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
           </motion.button>
         ))}
       </div>
-      <motion.button
-        type="button"
-        onClick={goToForm}
-        aria-label={`${t('whatIBuild.personalTitle')} — ${t('whatIBuild.ctaHint')}`}
-        whileHover={{ scale: 1.01 }}
-        className="group text-left w-full mt-3 sm:mt-4 p-4 rounded-xl bg-gradient-to-r from-purple-600/15 to-pink-600/15 border border-purple-400/30 flex gap-3 transition-all cursor-pointer hover:border-purple-300/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
-      >
-        <div className="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-400/30 flex items-center justify-center">
-          <Gem className="w-4 h-4 text-purple-200" strokeWidth={1.75} />
-        </div>
-        <div className="min-w-0">
-          <p className="text-xs sm:text-sm font-bold text-white mb-1 leading-snug">{t('whatIBuild.personalTitle')}</p>
-          <p className="text-[11px] sm:text-xs text-gray-300 leading-relaxed">{t('whatIBuild.personalDesc')}</p>
-          <span className="mt-2 inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-semibold text-purple-200 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity">
-            {t('whatIBuild.ctaHint')} <ArrowRight className="w-3 h-3" />
-          </span>
-        </div>
-      </motion.button>
       <div className="mt-6">
         <p className="text-center text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-[0.2em] mb-3">{t('whatIBuild.diffLabel')}</p>
         <div className="flex flex-wrap justify-center gap-2">
