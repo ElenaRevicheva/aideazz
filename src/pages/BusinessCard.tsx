@@ -627,7 +627,7 @@ export default function BusinessCard() {
 
                     {/* Mission statement */}
                     <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
-                      One ecosystem, two superpowers. For people: AI companions that walk you through relocation, career reinvention, and personal growth — evolving with you, not just answering you. For business: an agentic AI workforce on duty 24/7 — leads landing in HubSpot CRM while you sleep, a live radar reading the ad market before it saturates, autonomous code review on every push, and bilingual content shipping daily on autopilot.
+                      What I build: WhatsApp & Telegram AI agents that answer FAQs, qualify leads, and book appointments 24/7 — bilingual EN/ES, wired into your CRM · end-to-end AI automation (Make, n8n, or custom code): trigger → AI → action, documented so you own it · AI search visibility (GEO · AEO · tech SEO) — when someone asks ChatGPT or Perplexity for what you sell, your business is the answer · AI video generation — automated pipelines for product, marketing, and social creative. And for people: companion-grade AI with long-term memory — a bilingual voice tutor in WhatsApp that knows your family, a job-hunt agent that scores and applies while you live your life, a crypto coach built for the post-scam era. The difference: 10 production AI systems running 24/7 — including a bilingual WhatsApp assistant with paying subscribers for 15+ months and a pipeline tracking 300+ opportunities a month in CRM. I ship in days what agencies quote in months.
                     </p>
 
                     {/* Shared engine capabilities — what the whole fleet runs on */}
