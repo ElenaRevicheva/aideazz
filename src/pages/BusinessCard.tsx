@@ -498,11 +498,14 @@ export default function BusinessCard() {
                         'Coffee chat' onto a line of its own. Utility links on top, the two CTAs
                         paired beneath — equal cells, no orphan. */}
                     <div className="grid grid-cols-2 gap-2.5 w-full max-w-md">
-                      <a href="https://aideazz.xyz" target="_blank" rel="noreferrer"
+                      {/* LinkedIn sits here rather than an aideazz.xyz link: this page IS aideazz.xyz,
+                          so that button spent prime space sending people where they already are.
+                          Recruiters and clients look for LinkedIn first — AIdeazz moved to the back. */}
+                      <a href="https://www.linkedin.com/in/elenarevicheva/" target="_blank" rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-all text-sm backdrop-blur-sm border border-white/10 whitespace-nowrap">
-                        <Globe className="w-4 h-4 shrink-0" />
-                        {t('header.websiteButton')}
+                        <Linkedin className="w-4 h-4 shrink-0" />
+                        {t('cardBack.linkedin')}
                       </a>
                       <a href={resumeHref} target="_blank" rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
@@ -1355,12 +1358,17 @@ export default function BusinessCard() {
                     </p>
                   </div>
 
-                  {/* VISION SECTION */}
+                  {/* VISION SECTION — labelled as the long game on purpose: without the frame it
+                      reads as a live startup pitch, and a client or hiring manager concludes she's
+                      busy building her own thing. The vision stays; the framing protects the ask. */}
                   <div className="mb-8 backdrop-blur-xl bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-blue-600/10 rounded-xl p-6 border border-white/10">
                     <div className="mb-5">
+                      <p className="text-center text-[10px] sm:text-xs font-semibold text-purple-300/80 uppercase tracking-[0.2em] mb-2">
+                        {t('section3.visionBadge')}
+                      </p>
                       <h3 className="text-xl font-bold mb-2 text-center">
-                        <a 
-                          href="https://aideazz.xyz/" 
+                        <a
+                          href="https://aideazz.xyz/"
                           target="_blank" 
                           rel="noreferrer"
                           onClick={(e) => e.stopPropagation()}
@@ -1369,6 +1377,9 @@ export default function BusinessCard() {
                           {t('section3.mainTitle')}
                         </a>
                       </h3>
+                      <p className="text-center text-xs text-gray-400 italic leading-relaxed max-w-2xl mx-auto mb-3">
+                        {t('section3.todayNote')}
+                      </p>
                       <p className="text-gray-300 text-sm leading-relaxed mb-2">
                         <Trans
                           i18nKey="section3.missionLead"
@@ -1497,13 +1508,13 @@ export default function BusinessCard() {
                       <Twitter className="w-4 h-4" /> {t('cardBack.twitter')}
                     </a>
                     <a 
-                      href="https://www.linkedin.com/in/elenarevicheva/" 
-                      target="_blank" 
+                      href="https://aideazz.xyz/"
+                      target="_blank"
                       rel="noreferrer"
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white/10 hover:bg-white/20 transition-all border border-white/20"
                     >
-                      <Linkedin className="w-4 h-4" /> {t('cardBack.linkedin')}
+                      <Globe className="w-4 h-4" /> {t('header.websiteButton')}
                     </a>
                     <a
                       href="https://calendly.com/elena_revicheva/coffee-chat"
