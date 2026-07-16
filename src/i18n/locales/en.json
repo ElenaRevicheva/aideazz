@@ -367,7 +367,7 @@
   "header": {
     "name": "Elena Revicheva",
     "title": "Applied AI Engineer & AI Systems Builder | Agents · AI Marketing · CRM & Revenue Automation | Founder @ AIdeazz",
-    "stats": "7 yrs Deputy CEO/CLO • 10-agent ecosystem — 9 live 24/7 • 12 active repos • LangGraph · pgvector RAG • AI-augmented (Cursor + Claude Code) • 3-tier LLM failover",
+    "stats": "7 yrs Deputy CEO/CLO • 10-agent ecosystem — 9 live 24/7 • 12+ production systems across 15 repos • LangGraph · pgvector RAG • AI-augmented (Cursor + Claude Code) • 3-tier LLM failover",
     "location": "Panama",
     "bilingual": "Bilingual EN/ES",
     "builder": "Builder & Founder",
@@ -423,9 +423,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "AI Technical Co-Founder",
-      "desc": "Autonomous AI system for code review, technical decision-making, and daily briefing across 12 active GitHub repos. Three-tier LLM failover (Claude for critical/security → Groq Llama 3.3 70B for speed → Grok/xAI fallback) keeps the engine running through any single-provider outage. Persistent memory in Oracle DB, GitHub webhook automation. Voice input pipeline: voice notes → Whisper (with retry + OpenAI fallback) → Oracle knowledge base. Live web layer via Bright Data (Web Unlocker · SERP · Scraping Browser) powers an autonomous Claude research agent — /research_company, /research_employer, /research_competitor — returning verdicts and sendable angles in ~90s. Sprint Briefing Agent (AWS Lambda): EventBridge cron fires 8AM Panama → reads 12 repos' overnight activity + retrieves voice notes from Oracle → Groq clusters signals → Claude writes narrative → OpenAI TTS renders MP3 → delivered to Telegram. Full two-way memory loop.",
-      "traction": "12 repos monitored • 25+ code reviews • 3-tier LLM failover • ~$3/month total • 24/7 uptime · zero crash-restarts",
-      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), Grok (xAI), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI TTS/Whisper, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
+      "desc": "Autonomous AI system for code review, technical decision-making, and daily briefing across 12 active GitHub repos. Three-tier LLM failover (Claude for critical/security → Groq for speed → Grok/xAI fallback) keeps the engine running through any single-provider outage. Persistent memory in Oracle DB, GitHub webhook automation. Voice input pipeline: voice notes → Whisper (with retry + OpenAI fallback) → Oracle knowledge base. Live web layer via Bright Data (Web Unlocker · SERP · Scraping Browser) powers an autonomous Claude research agent — /research_company, /research_employer, /research_competitor — returning verdicts and sendable angles in ~90s. Sprint Briefing Agent (AWS Lambda): EventBridge cron fires 8AM Panama → reads 12 repos' overnight activity + retrieves voice notes from Oracle → Groq clusters signals → Claude writes narrative → OpenAI TTS renders MP3 → delivered to Telegram. Full two-way memory loop. NEW (July 2026): Lead Concierge — a portfolio inquiry becomes a HubSpot contact in seconds, Claude drafts the reply with full portfolio context, and one tap in Telegram sends it from my domain and logs it back onto the CRM record. And because every model id resolves through one fleet-wide switch, provider deprecations (like Groq retiring Llama 3.3 in Aug 2026) are a one-line config swap — never a rewrite.",
+      "traction": "12 repos monitored • 25+ code reviews • Lead Concierge: inquiry → AI draft → one-tap send • 3-tier LLM failover • ~$3/month total • 24/7 uptime · zero crash-restarts",
+      "tech": "TypeScript, Node.js, Claude, Groq (open-model inference, fleet-wide model switch), Grok (xAI), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI TTS/Whisper, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
       "action": "View on GitHub",
       "badge": "LIVE"
     },
@@ -442,7 +442,7 @@
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "AI Marketing Co-Founder & Job Hunting Engine",
       "desc": "Two agents in one: (1) Autonomous LinkedIn/Instagram content engine — daily bilingual EN/ES posts via Claude Sonnet 4, Make.com, Buffer. (2) 24/7 job hunting with LangGraph stateful pipeline (live Apr 2026) — 7-node StateGraph (gate → score → route → submit → notify), SQLite checkpointer for deduplication, human-approval interrupt for borderline scores. Scrapes 218 companies across Greenhouse, Lever, Ashby. Claude-powered 100-point scoring. 131-test, 4-layer eval harness at $0.03/run. Verified delivery: real HTTP status + confirmation ID on every ATS submission. Live-web research via Bright Data feeds an autonomous Claude agent that profiles companies and employers on demand.",
-      "traction": "218 companies monitored • 1,900+ jobs scanned • 131-test eval harness (L4: LLM-as-judge) • LangGraph pipeline live Apr 2026 • Daily bilingual posting",
+      "traction": "218 companies monitored • 2,500+ jobs evaluated • 131-test eval harness (L4: LLM-as-judge) • LangGraph pipeline live Apr 2026 • Daily bilingual posting",
       "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Bright Data, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "View on GitHub",
       "badge": "LIVE"
@@ -460,8 +460,8 @@
       "title": "EspaLuz Stack",
       "subtitle": "Emotionally Intelligent AI Companion — WhatsApp + Telegram + Social Automation",
       "desc": "Bilingual AI counselor, relocation assistant, and cultural interpreter with family memory — serving expats, travelers, and locals across 21 Spanish-speaking countries. Neural voice messages (edge-tts), real-time translation EN/ES/RU, emotional intelligence (50+ states), OCR photo translation, practical help (banking, medical, schools, emergencies). Unified PostgreSQL memory via LangChain.",
-      "traction": "3 bots live • 21-country localization • Neural voice • PayPal subscriptions • 7-platform social auto-posting via Influencer bot",
-      "tech": "Python, Flask, Claude Sonnet 4, Groq (Llama 3.3 70B), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
+      "traction": "3 bots live • 21-country localization • Neural voice • Paying subscribers (PayPal) • 7-platform social auto-posting via Influencer bot",
+      "tech": "Python, Flask, Claude Sonnet 4, Groq (open-model inference, fleet-wide model switch), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
       "action": "EspaLuz WhatsApp",
       "action2": "EspaLuz Telegram",
       "action3": "EspaLuz Influencer",
@@ -472,7 +472,7 @@
       "subtitle": "Web3 & Crypto Coach for Beginners — Post-Scam Era",
       "desc": "AI-powered Web3 education bot for beginner traders — scam detection, risk management, trading psychology, and technical analysis basics. Autonomous paper trading (zero real money) with real-time data from 5 exchanges, honest reporting of wins and losses on X.",
       "traction": "~200 X followers • 40% educational content rotation • Paper trading with transparent results • Daily auto-posting",
-      "tech": "Node.js, Eliza OS, Claude Sonnet 4, Groq (Llama 3.3 70B), CCXT (5 exchanges), CoinGecko, Twitter API v2, Oracle Cloud (PM2)",
+      "tech": "Node.js, Eliza OS, Claude Sonnet 4, Groq (open-model inference, fleet-wide model switch), CCXT (5 exchanges), CoinGecko, Twitter API v2, Oracle Cloud (PM2)",
       "action": "Follow on X",
       "badge": "LIVE"
     }

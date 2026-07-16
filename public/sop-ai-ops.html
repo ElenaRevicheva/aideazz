@@ -1516,6 +1516,9 @@
     <div class="callout">
       <div><strong>No noisy herd restarts:</strong> failed probes recycle only the affected unit. Concrete URLs and scripts remain in the private appendix—not pasted here.</div>
     </div>
+    <div class="callout">
+      <div><strong>Model retirements are config, not rewrites:</strong> providers retire hosted models every few months (Groq drops Llama&nbsp;3.3 for its dev tier in Aug&nbsp;2026). Every agent resolves its model id through one fleet-wide switch, so a cutover is a one-line <code>.env</code> change — tested against a golden-set eval before flipping, and instantly reversible. The switch shipped fleet-wide in July&nbsp;2026, weeks ahead of the deadline. <em>For founders:</em> the AI vendor treadmill is priced into the architecture, not paid for in rebuild weeks.</div>
+    </div>
     <div class="health-list">
       <div class="health-head">
         <div>Agent</div>
@@ -1878,7 +1881,7 @@
       </div>
       <div class="stack-row">
         <div class="stack-cat">AI / LLMs</div>
-        <div class="stack-tools">Claude Sonnet / Haiku · Groq Llama 3.3 70B · Grok (xAI, tier-3 failover) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) with retry + provider-fallback chain · Bright Data (public ad-transparency capture) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro for Atlas creative · LangChain · LangGraph</div>
+        <div class="stack-tools">Claude Sonnet / Haiku · Groq (open-model inference — model id resolved via one fleet-wide switch, so provider deprecations are a one-line config change) · Grok (xAI, tier-3 failover) · OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper) with retry + provider-fallback chain · Bright Data (public ad-transparency capture) · Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro for Atlas creative · LangChain · LangGraph</div>
       </div>
       <div class="stack-row">
         <div class="stack-cat">Lead Gen</div>

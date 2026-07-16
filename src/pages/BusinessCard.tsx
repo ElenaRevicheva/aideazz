@@ -7,9 +7,12 @@ import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
-  const [count, setCount] = useState(0);
+  // Initial state = end, not 0: crawlers and AI assistants (GEO) read the static text,
+  // and "0 AI Agents Live" is what they extract if the animation never runs for them.
+  const [count, setCount] = useState(end);
   useEffect(() => {
     if (!shouldStart) return;
+    setCount(0);
     let startTime: number | null = null;
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -312,7 +315,7 @@ export default function BusinessCard() {
   const techStackByCategory = {
     "Backend": ["Python", "Node.js", "TypeScript", "Flask", "FastAPI", "Express.js", "Gunicorn"],
     "Frontend": ["React", "Vite", "Tailwind CSS", "shadcn/ui", "Framer Motion", "i18next"],
-    "AI / LLM": ["Claude Opus 4", "Claude Sonnet 4", "Groq (Llama 3.3 70B)", "OpenAI GPT", "Whisper", "Flux Pro", "Luma Dream Machine", "edge-tts", "LangChain", "LangGraph", "pgvector (RAG)", "MCP", "Eliza OS"],
+    "AI / LLM": ["Claude Opus 4.8", "Claude Sonnet 4.5", "Groq (open-model inference)", "OpenAI GPT", "Whisper", "Flux 2 Pro", "Luma Ray 3", "edge-tts", "LangChain", "LangGraph", "pgvector (RAG)", "MCP", "Eliza OS"],
     "Database & Infra": ["Oracle Autonomous DB 26ai (mTLS)", "PostgreSQL", "SQLite", "Oracle Cloud (OCI)", "systemd", "PM2", "Docker"],
     "Integrations": ["GitHub API", "Telegram Bot API", "WhatsApp Cloud API", "Twitter API v2", "PayPal IPN", "Buffer", "Make.com", "CCXT (5 exchanges)", "Playwright"],
     "Web3": ["Polygon", "Thirdweb SDK", "IPFS", "4everland", "MetaMask"]

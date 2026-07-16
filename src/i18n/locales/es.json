@@ -367,7 +367,7 @@
   "header": {
     "name": "Elena Revicheva",
     "title": "Ingeniera de IA Aplicada y Constructora de Sistemas de IA | Agentes · Marketing IA · CRM y Automatización de Ingresos | Fundadora @ AIdeazz",
-    "stats": "7 años Vice-CEO/CLO • Ecosistema de 10 agentes — 9 en vivo 24/7 • 12 repos activos • LangGraph · pgvector RAG • desarrollo aumentado por IA (Cursor + Claude Code) • failover LLM de 3 niveles",
+    "stats": "7 años Vice-CEO/CLO • Ecosistema de 10 agentes — 9 en vivo 24/7 • 12+ sistemas en producción en 15 repos • LangGraph · pgvector RAG • desarrollo aumentado por IA (Cursor + Claude Code) • failover LLM de 3 niveles",
     "location": "Panamá",
     "bilingual": "Bilingüe EN/ES",
     "builder": "Builder & Fundadora",
@@ -423,9 +423,9 @@
     "cto": {
       "title": "CTO AIPA",
       "subtitle": "Cofundadora Técnica de IA",
-      "desc": "Sistema de IA autónomo para revisión de código, toma de decisiones técnicas y briefing diario en 12 repositorios activos de GitHub. Failover LLM de tres niveles (Claude para análisis crítico/seguridad → Groq Llama 3.3 70B para velocidad → Grok/xAI de respaldo) mantiene el motor activo ante la caída de cualquier proveedor. Memoria persistente en Oracle DB, automatización de webhooks de GitHub. Pipeline de voz: notas de voz → Whisper (con reintentos + respaldo OpenAI) → base de conocimiento Oracle. Capa de web en vivo vía Bright Data (Web Unlocker · SERP · Scraping Browser) impulsa un agente de investigación autónomo con Claude — /research_company, /research_employer, /research_competitor — que devuelve veredictos y ángulos listos para enviar en ~90s. Sprint Briefing Agent (AWS Lambda): cron EventBridge a las 8AM hora de Panamá → lee actividad nocturna de 12 repos + recupera notas de voz desde Oracle → Groq agrupa señales → Claude redacta narrativa → OpenAI TTS genera MP3 → entregado por Telegram. Bucle de memoria bidireccional completo.",
-      "traction": "12 repos monitoreados • 25+ revisiones de código • failover LLM de 3 niveles • ~$3/mes total • uptime 24/7 · cero reinicios por fallos",
-      "tech": "TypeScript, Node.js, Claude, Groq (Llama 3.3 70B), Grok (xAI), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI TTS/Whisper, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
+      "desc": "Sistema de IA autónomo para revisión de código, toma de decisiones técnicas y briefing diario en 12 repositorios activos de GitHub. Failover LLM de tres niveles (Claude para análisis crítico/seguridad → Groq para velocidad → Grok/xAI de respaldo) mantiene el motor activo ante la caída de cualquier proveedor. Memoria persistente en Oracle DB, automatización de webhooks de GitHub. Pipeline de voz: notas de voz → Whisper (con reintentos + respaldo OpenAI) → base de conocimiento Oracle. Capa de web en vivo vía Bright Data (Web Unlocker · SERP · Scraping Browser) impulsa un agente de investigación autónomo con Claude — /research_company, /research_employer, /research_competitor — que devuelve veredictos y ángulos listos para enviar en ~90s. Sprint Briefing Agent (AWS Lambda): cron EventBridge a las 8AM hora de Panamá → lee actividad nocturna de 12 repos + recupera notas de voz desde Oracle → Groq agrupa señales → Claude redacta narrativa → OpenAI TTS genera MP3 → entregado por Telegram. Bucle de memoria bidireccional completo. NUEVO (julio 2026): Lead Concierge — una consulta del portafolio se convierte en contacto de HubSpot en segundos, Claude redacta la respuesta con el contexto completo del portafolio, y un solo toque en Telegram la envía desde mi dominio y la registra en el CRM. Y como cada modelo se resuelve a través de un único conmutador de flota, las deprecaciones de proveedores (como el retiro de Llama 3.3 por Groq en agosto 2026) son un cambio de configuración de una línea — nunca una reescritura.",
+      "traction": "12 repos monitoreados • 25+ revisiones de código • Lead Concierge: consulta → borrador IA → envío con un toque • failover LLM de 3 niveles • ~$3/mes total • uptime 24/7 · cero reinicios por fallos",
+      "tech": "TypeScript, Node.js, Claude, Groq (inferencia de modelos abiertos, conmutador de flota), Grok (xAI), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI TTS/Whisper, Oracle Autonomous Database (mTLS), AWS Lambda, AWS EventBridge, AWS S3, GitHub API, Telegram, PM2",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
     },
@@ -442,7 +442,7 @@
       "title": "CMO AIPA + VibeJobHunter",
       "subtitle": "Cofundador de Marketing IA y Motor de Búsqueda de Empleo",
       "desc": "Dos agentes en uno: (1) Motor autónomo de contenido LinkedIn/Instagram — publicaciones diarias bilingües EN/ES vía Claude Sonnet 4, Make.com, Buffer. (2) Búsqueda de empleo 24/7 con pipeline LangGraph stateful (en vivo abr 2026) — grafo de 7 nodos (gate → score → route → submit → notify), checkpointer SQLite para deduplicación, interrupción para aprobación humana en puntajes límite. Escanea 218 empresas en Greenhouse, Lever, Ashby. Scoring 100 puntos con Claude. 131 tests, 4 capas de evaluación a $0.03/run. Entrega verificada: HTTP status real + confirmation ID en cada envío ATS. Investigación de web en vivo vía Bright Data alimenta un agente Claude autónomo que perfila empresas y empleadores bajo demanda.",
-      "traction": "218 empresas monitoreadas • 1.900+ empleos escaneados • 131 tests de evaluación (L4: LLM-as-judge) • Pipeline LangGraph en vivo abr 2026 • Publicación bilingüe diaria",
+      "traction": "218 empresas monitoreadas • 2.500+ empleos evaluados • 131 tests de evaluación (L4: LLM-as-judge) • Pipeline LangGraph en vivo abr 2026 • Publicación bilingüe diaria",
       "tech": "Python, FastAPI, Claude Sonnet 4, LangGraph, langgraph-checkpoint-sqlite, SQLite, Playwright, Bright Data, Resend, Telegram Bot, Make.com, Buffer API, Oracle Cloud (systemd)",
       "action": "Ver en GitHub",
       "badge": "EN VIVO"
@@ -460,8 +460,8 @@
       "title": "EspaLuz Stack",
       "subtitle": "Compañero IA Emocionalmente Inteligente — WhatsApp + Telegram + Automatización Social",
       "desc": "Consejero IA bilingüe, asistente de reubicación e intérprete cultural con memoria familiar — para expatriados, viajeros y locales en 21 países hispanohablantes. Mensajes de voz neuronal (edge-tts), traducción EN/ES/RU en tiempo real, inteligencia emocional (50+ estados), traducción OCR de fotos, ayuda práctica (bancos, médicos, escuelas, emergencias). Memoria PostgreSQL unificada vía LangChain.",
-      "traction": "3 bots en vivo • Localización de 21 países • Voz neuronal • Suscripciones PayPal • Auto-publicación social en 7 plataformas vía bot Influencer",
-      "tech": "Python, Flask, Claude Sonnet 4, Groq (Llama 3.3 70B), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
+      "traction": "3 bots en vivo • Localización de 21 países • Voz neuronal • Suscriptores de pago (PayPal) • Auto-publicación social en 7 plataformas vía bot Influencer",
+      "tech": "Python, Flask, Claude Sonnet 4, Groq (inferencia de modelos abiertos, conmutador de flota), edge-tts, Whisper, LangChain, PostgreSQL, WhatsApp Cloud API, Telegram Bot API, Buffer, Make.com, Oracle Cloud (systemd)",
       "action": "EspaLuz WhatsApp",
       "action2": "EspaLuz Telegram",
       "action3": "EspaLuz Influencer",
@@ -472,7 +472,7 @@
       "subtitle": "Coach Web3 y Crypto para Principiantes — Era Post-Estafa",
       "desc": "Bot educativo Web3 con IA para traders principiantes — detección de estafas, gestión de riesgo, psicología del trading y análisis técnico básico. Paper trading autónomo (cero dinero real) con datos en tiempo real de 5 exchanges, reportes honestos de ganancias y pérdidas en X.",
       "traction": "~200 seguidores en X • 40% rotación de contenido educativo • Paper trading con resultados transparentes • Auto-publicación diaria",
-      "tech": "Node.js, Eliza OS, Claude Sonnet 4, Groq (Llama 3.3 70B), CCXT (5 exchanges), CoinGecko, Twitter API v2, Oracle Cloud (PM2)",
+      "tech": "Node.js, Eliza OS, Claude Sonnet 4, Groq (inferencia de modelos abiertos, conmutador de flota), CCXT (5 exchanges), CoinGecko, Twitter API v2, Oracle Cloud (PM2)",
       "action": "Seguir en X",
       "badge": "EN VIVO"
     }
