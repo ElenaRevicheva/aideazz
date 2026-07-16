@@ -627,7 +627,7 @@ export default function BusinessCard() {
 
                     {/* Mission statement */}
                     <p className="text-center text-[10px] sm:text-xs text-gray-400 mt-6 max-w-md mx-auto leading-relaxed">
-                      An AI ecosystem that helps people navigate relocation, professional transformation, and personal growth — evolving alongside them. The same engine works for business: 24/7 lead capture wired into HubSpot CRM, live ad-market intelligence, autonomous code review, and bilingual content pipelines that publish daily.
+                      One ecosystem, two superpowers. For people: AI companions that walk you through relocation, career reinvention, and personal growth — evolving with you, not just answering you. For business: an agentic AI workforce on duty 24/7 — leads landing in HubSpot CRM while you sleep, a live radar reading the ad market before it saturates, autonomous code review on every push, and bilingual content shipping daily on autopilot.
                     </p>
 
                     {/* Shared engine capabilities — what the whole fleet runs on */}
