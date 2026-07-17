@@ -1,0 +1,142 @@
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { MessageCircle, X, Send, CalendarClock } from "lucide-react";
+
+interface WhatsAppFloatProps {
+  /** Digits only, international format, no "+" — e.g. "50761666716". */
+  phone?: string;
+  /** Pre-filled message the visitor sends. Lands them in your chat already qualified. */
+  prefill?: string;
+  /** Calendly (or any) booking link shown as the after-hours fallback. */
+  bookingUrl?: string;
+  /** IANA timezone whose clock decides "online" vs "after hours". */
+  timeZone?: string;
+  /** First hour (0-23, local to timeZone) considered online. */
+  openHour?: number;
+  /** Last hour still considered online. e.g. 21 = online until 21:59. */
+  closeHour?: number;
+}
+
+/** Current hour (0-23) in a given IANA timezone, regardless of the visitor's own clock. */
+function hourInZone(timeZone: string): number {
+  try {
+    const h = new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      hour: "numeric",
+      hour12: false,
+    }).format(new Date());
+    // "24" can appear for midnight in some engines; normalise to 0.
+    return parseInt(h, 10) % 24;
+  } catch {
+    return new Date().getHours();
+  }
+}
+
+/**
+ * Floating WhatsApp click-to-chat bubble (bottom-right).
+ * No WhatsApp Business API and no backend — it just opens a wa.me deep link,
+ * so it costs nothing and works on desktop + mobile.
+ *
+ * Time-aware: outside business hours (in `timeZone`) it stops promising a fast
+ * reply and offers a booking link instead, so an after-hours lead always has a
+ * concrete next step rather than messaging into silence.
+ */
+export default function WhatsAppFloat({
+  phone = "50761666716",
+  prefill = "Hi Elena — I saw your AIdeazz portfolio and I'd like to talk.",
+  bookingUrl = "https://calendly.com/elena_revicheva/coffee-chat",
+  timeZone = "America/Panama",
+  openHour = 8,
+  closeHour = 19, // online 08:00–19:59 Panama; flips to "Away" at 20:00 (8pm)
+}: WhatsAppFloatProps) {
+  const [open, setOpen] = useState(false);
+
+  const hour = hourInZone(timeZone);
+  const online = hour >= openHour && hour <= closeHour;
+
+  const chatUrl = `https://wa.me/${phone}?text=${encodeURIComponent(prefill)}`;
+
+  return (
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="w-72 overflow-hidden rounded-2xl border border-green-400/30 bg-slate-900/95 shadow-2xl shadow-green-500/20 backdrop-blur"
+          >
+            <div className="flex items-center gap-3 bg-green-600 px-4 py-3">
+              <MessageCircle className="h-5 w-5 text-white" />
+              <span className="font-semibold text-white">Chat on WhatsApp</span>
+              <span
+                className={`ml-auto flex items-center gap-1.5 text-xs font-medium ${
+                  online ? "text-white" : "text-green-100/80"
+                }`}
+              >
+                <span
+                  className={`h-2 w-2 rounded-full ${
+                    online ? "bg-green-300" : "bg-amber-300"
+                  }`}
+                />
+                {online ? "Online" : "Away"}
+              </span>
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                className="text-white/80 transition-colors hover:text-white"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="space-y-3 p-4">
+              <div className="rounded-xl rounded-tl-none bg-white/10 px-3 py-2 text-sm text-gray-100">
+                {online ? (
+                  <>Hello 👋 Thanks for looking at my work. Message me directly — I usually reply fast.</>
+                ) : (
+                  <>It's late here in Panama 🌙 Leave a message and I'll reply first thing in the morning — or grab a time that works for you below.</>
+                )}
+              </div>
+
+              <a
+                href={chatUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-3 font-semibold text-white shadow-lg shadow-green-500/40 transition-all hover:bg-green-500"
+              >
+                {online ? "Open Chat" : "Send a Message"} <Send className="h-4 w-4" />
+              </a>
+
+              {!online && (
+                <a
+                  href={bookingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-center gap-2 rounded-xl border border-purple-400/40 bg-purple-600/20 px-4 py-3 font-semibold text-purple-100 transition-all hover:bg-purple-600/30"
+                >
+                  <CalendarClock className="h-4 w-4" /> Book a Call
+                </a>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.button
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.92 }}
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Open WhatsApp chat"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 shadow-lg shadow-green-500/50 transition-colors hover:bg-green-500"
+      >
+        {open ? (
+          <X className="h-6 w-6 text-white" />
+        ) : (
+          <MessageCircle className="h-7 w-7 text-white" />
+        )}
+      </motion.button>
+    </div>
+  );
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
@@ -407,6 +408,7 @@ export default function BusinessCard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white antialiased relative overflow-hidden scroll-smooth">
+      <WhatsAppFloat />
       {/* Premium mesh gradient background */}
       <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950/80 to-slate-950" />
       <div className="fixed inset-0 opacity-30" style={{
