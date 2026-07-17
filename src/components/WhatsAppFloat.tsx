@@ -13,22 +13,31 @@ interface WhatsAppFloatProps {
   timeZone?: string;
   /** First hour (0-23, local to timeZone) considered online. */
   openHour?: number;
-  /** Last hour still considered online. e.g. 21 = online until 21:59. */
+  /** Last hour still considered online. e.g. 17 = online until 17:59. */
   closeHour?: number;
+  /** Days of week counted as working days. 0 = Sunday … 6 = Saturday. */
+  businessDays?: number[];
 }
 
-/** Current hour (0-23) in a given IANA timezone, regardless of the visitor's own clock. */
-function hourInZone(timeZone: string): number {
+/** Hour (0-23) and weekday (0=Sun … 6=Sat) in a given IANA timezone, regardless of the visitor's own clock. */
+function nowInZone(timeZone: string): { hour: number; day: number } {
   try {
-    const h = new Intl.DateTimeFormat("en-US", {
+    const parts = new Intl.DateTimeFormat("en-US", {
       timeZone,
       hour: "numeric",
       hour12: false,
-    }).format(new Date());
+      weekday: "short",
+    }).formatToParts(new Date());
+    const hourStr = parts.find((p) => p.type === "hour")?.value ?? "0";
+    const wd = parts.find((p) => p.type === "weekday")?.value ?? "";
+    const dayMap: Record<string, number> = {
+      Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6,
+    };
     // "24" can appear for midnight in some engines; normalise to 0.
-    return parseInt(h, 10) % 24;
+    return { hour: parseInt(hourStr, 10) % 24, day: dayMap[wd] ?? new Date().getDay() };
   } catch {
-    return new Date().getHours();
+    const d = new Date();
+    return { hour: d.getHours(), day: d.getDay() };
   }
 }
 
@@ -46,13 +55,14 @@ export default function WhatsAppFloat({
   prefill = "Hi Elena — I saw your AIdeazz portfolio and I'd like to talk.",
   bookingUrl = "https://calendly.com/elena_revicheva/coffee-chat",
   timeZone = "America/Panama",
-  openHour = 8,
-  closeHour = 19, // online 08:00–19:59 Panama; flips to "Away" at 20:00 (8pm)
+  openHour = 9,
+  closeHour = 17, // online 09:00–17:59 Panama; flips to "Away" at 18:00 (6pm)
+  businessDays = [1, 2, 3, 4, 5, 6], // Mon–Sat; Sunday off
 }: WhatsAppFloatProps) {
   const [open, setOpen] = useState(false);
 
-  const hour = hourInZone(timeZone);
-  const online = hour >= openHour && hour <= closeHour;
+  const { hour, day } = nowInZone(timeZone);
+  const online = businessDays.includes(day) && hour >= openHour && hour <= closeHour;
 
   const chatUrl = `https://wa.me/${phone}?text=${encodeURIComponent(prefill)}`;
 
@@ -96,7 +106,7 @@ export default function WhatsAppFloat({
                 {online ? (
                   <>Hello 👋 Thanks for looking at my work. Message me directly — I usually reply fast.</>
                 ) : (
-                  <>It's late here in Panama 🌙 Leave a message and I'll reply first thing in the morning — or grab a time that works for you below.</>
+                  <>I'm offline right now 🌙 Leave a message and I'll reply as soon as I'm back — or grab a time that works for you below.</>
                 )}
               </div>
 
