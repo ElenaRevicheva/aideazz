@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- SEO: canonical host is https://aideazz.xyz (apex). Per-route canonical + meta are set in src/lib/seo.ts on navigation. Configure www → apex 301 at DNS/host; use apex in GSC. -->
     <title>AIdeazz - AI Personal Assistants That Evolve With You</title>
-    <meta name="description" content="AIdeazz builds production AI systems: a 10-agent ecosystem (9 in production, AILA in design), LangGraph + pgvector RAG, multi-model LLM routing, voice pipelines — all running at $0/month on Oracle Cloud. Founded by Elena Revicheva." />
+    <meta name="description" content="AIdeazz builds production AI systems — a 10-agent ecosystem, LangGraph + pgvector RAG and multi-model LLM routing at $0/month on Oracle Cloud. By Elena Revicheva." />
 
     <!-- Open Graph / LinkedIn / Facebook -->
     <meta property="og:type" content="website" />
@@ -36,7 +36,9 @@
     <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg" />
     <meta name="twitter:creator" content="@reviceva" />
 
-    <!-- Canonical: set per-route in React (Index, About, Blog*, Portfolio) — no static link here (was duplicate for all URLs in GSC) -->
+    <!-- Canonical: static apex fallback for non-JS AI crawlers (homepage self-canonical).
+         React (src/lib/seo.ts) overrides this per-route for JS-rendering crawlers like Googlebot. -->
+    <link rel="canonical" href="https://aideazz.xyz/" />
 
     <!-- hreflang: site serves EN + ES at same URLs via i18next (browser/localStorage detection) -->
     <link rel="alternate" hreflang="en" href="https://aideazz.xyz/" />
@@ -277,6 +279,7 @@
       "@id": "https://aideazz.xyz/#home-webpage",
       "url": "https://aideazz.xyz/",
       "name": "AIdeazz — Production AI Systems",
+      "dateModified": "2026-07-17",
       "description": "Executive-built production AI agents on Oracle Cloud Always Free — ten-agent ecosystem narrative, LangGraph + pgvector RAG, multi-model routing.",
       "inLanguage": ["en", "es"],
       "isPartOf": { "@type": "WebSite", "name": "AIdeazz", "url": "https://aideazz.xyz/" },
@@ -335,8 +338,22 @@
 
     <!-- GEO: Static content for AI crawlers (ChatGPT, Perplexity, Claude) that don't execute JavaScript -->
     <noscript>
+      <main>
       <article>
-        <h1>AIdeazz — Production AI Systems by Elena Revicheva</h1>
+        <header>
+          <h1>AIdeazz — Production AI Systems by Elena Revicheva</h1>
+          <p>Production AI agents, GEO/AEO, and automation — built and operated by Elena Revicheva in Panama.</p>
+        </header>
+
+        <nav aria-label="Key facts">
+          <ul>
+            <li>10-agent AI ecosystem — 9 in production, live 24/7 on Oracle Cloud.</li>
+            <li>Infrastructure cost: $0/month (Oracle Cloud Always Free tier).</li>
+            <li>Multi-model LLM routing: 76% Groq for speed, 24% Claude for critical reasoning.</li>
+            <li>Stack: LangGraph, pgvector RAG, Whisper voice pipelines, Python &amp; TypeScript.</li>
+            <li>Services: AI agents, end-to-end automation, GEO/AEO/tech SEO, AI reliability &amp; rescue.</li>
+          </ul>
+        </nav>
 
         <section>
           <h2>About Elena Revicheva</h2>
@@ -419,8 +436,12 @@
           </dl>
         </section>
 
-        <p><a href="https://aideazz.xyz/portfolio">View Full Portfolio</a> | <a href="mailto:aipa@aideazz.xyz">Contact Elena</a></p>
+        <footer>
+          <p><a href="https://aideazz.xyz/portfolio">View Full Portfolio</a> | <a href="mailto:aipa@aideazz.xyz">Contact Elena</a></p>
+          <p>Last updated <time datetime="2026-07-17">July 17, 2026</time>.</p>
+        </footer>
       </article>
+      </main>
     </noscript>
   </body>
 </html>

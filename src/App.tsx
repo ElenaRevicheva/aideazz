@@ -12,6 +12,7 @@ import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 import ServicePay from "./pages/ServicePay";
+import LabApi from "./pages/LabApi";
 
 /** Public origin for CTO AIPA (nginx serves /cto/ → PM2). Override: VITE_CTO_WEBHOOK_ORIGIN */
 const CTO_WEBHOOK_ORIGIN = (
@@ -66,6 +67,7 @@ const App = () => (
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/pay/analisis-tecnico" element={<ServicePay />} />
+          <Route path="/api" element={<LabApi />} />
           <Route path="/card" element={<Navigate to="/portfolio" replace />} />
           {/* Static app in public/ops — full page load */}
           <Route path="/ops" element={<IncomeOpsEntry />} />
