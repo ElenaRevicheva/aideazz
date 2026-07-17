@@ -507,10 +507,11 @@
     "geo": {
       "title": "Motor GEO + SEO",
       "subtitle": "Visibilidad en Google, respuestas de IA y blog automático",
-      "desc": "El SEO es la parte clásica: un mapa claro de páginas para Google (sitemap, sitio bilingüe EN/ES, datos estructurados). El GEO aplica la misma idea a las respuestas de IA: hechos y autoría en tu dominio para que los asistentes te citen bien, sin relleno de palabras clave. La automatización lo une: con calendario, posts largos se redactan y publican en el blog externo y se reflejan aquí; sindicación opcional; cada corrida queda en Oracle. Los formularios guardan consultas y etiquetas de campaña en el mismo almacén de leads que ya usan CMO y CTO.",
-      "traction": "Sitemap + páginas estructuradas en vivo • Blog en piloto automático (opt-in) • Sindicación opcional • Leads + UTM en Oracle",
-      "tech": "Vite, React, blog diario bilingüe (aideazz.xyz/blog), crosspost Dev.to, FAQPage JSON-LD (AEO), Claude, Google Search Console (opcional), GA4, reCAPTCHA Enterprise, Oracle DB, cron CTO AIPA",
+      "desc": "El SEO es la parte clásica: un mapa claro de páginas para Google (sitemap, sitio bilingüe EN/ES, datos estructurados). El GEO aplica la misma idea a las respuestas de IA: hechos y autoría en tu dominio para que los asistentes te citen bien, sin relleno de palabras clave. La automatización lo une: con calendario, posts largos se redactan y publican en el blog externo y se reflejan aquí; sindicación opcional; cada corrida queda en Oracle. Los formularios guardan consultas y etiquetas de campaña en el mismo almacén de leads que ya usan CMO y CTO. NUEVO (julio 2026): la API de Auditoría de Visibilidad IA de AIdeazz Lab — un endpoint público y gratuito que califica cualquier sitio web de 0 a 100 con una pregunta: cuando alguien le pregunta a ChatGPT, Perplexity, Claude o Gemini qué vendes, ¿pueden encontrarte, entenderte y citarte? 34 chequeos con evidencia en acceso de crawlers IA, datos estructurados (GEO), respuesta-lista (AEO) y SEO técnico — con lista de arreglos priorizada. Sin registro ni costos de scraping; hasta los sitios bloqueados o solo-JavaScript reciben un diagnóstico con puntaje en vez de un error. Este sitio obtiene A+ 100/100 en su propio motor.",
+      "traction": "API pública de Auditoría de Visibilidad IA en vivo • aideazz.xyz obtiene A+ 100/100 en su propio motor • Sitemap + páginas estructuradas en vivo • Blog en piloto automático (opt-in) • Sindicación opcional • Leads + UTM en Oracle",
+      "tech": "Vite, React, blog diario bilingüe (aideazz.xyz/blog), crosspost Dev.to, FAQPage JSON-LD (AEO), API de Auditoría de Visibilidad (TypeScript/Express, 34 chequeos, self-audit semanal en CI), Claude, Google Search Console (opcional), GA4, reCAPTCHA Enterprise, Oracle DB, cron CTO AIPA",
       "action": "Ver en GitHub",
+      "action2": "Audita tu sitio gratis — API de Visibilidad IA",
       "badge": "EN VIVO"
     },
     "cmo": {

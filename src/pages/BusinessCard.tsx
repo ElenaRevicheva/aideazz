@@ -314,7 +314,10 @@ export default function BusinessCard() {
       tech: t('section1.geo.tech'),
       action: t('section1.geo.action'),
       link: "https://github.com/ElenaRevicheva/aideazz",
-      badge: t('section1.geo.badge')
+      badge: t('section1.geo.badge'),
+      extraLinks: [
+        { action: t('section1.geo.action2'), link: "/api", className: "bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400" }
+      ]
     },
     {
       icon: TrendingUp,
@@ -623,6 +626,18 @@ export default function BusinessCard() {
                           >
                             {agent.action} <ExternalLink className="w-4 h-4" />
                           </a>
+                          {agent.extraLinks?.map((extra, i) => (
+                            <a
+                              key={i}
+                              href={extra.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${extra.className || 'bg-white/10 hover:bg-white/20 border border-white/10'}`}
+                            >
+                              {extra.action} <ExternalLink className="w-4 h-4" />
+                            </a>
+                          ))}
                         </div>
                       </motion.div>
                     ))}

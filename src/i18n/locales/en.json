@@ -507,10 +507,11 @@
     "geo": {
       "title": "GEO + SEO Engine",
       "subtitle": "Discoverability for Google, AI answers, and the blog",
-      "desc": "SEO is the classic piece: a clean map of pages for Google (sitemap, bilingual EN/ES, structured snippets). GEO is the same discipline for AI overviews—accurate facts and authorship on your own domain so assistants can cite you instead of guessing. Automation ties it together: on a schedule, long posts are drafted and published to the off-site blog and mirrored here; optional syndication; every run logged in Oracle. Site forms drop inquiries and campaign tags into the same lead store CMO and CTO already use.",
-      "traction": "Sitemap + structured pages live • Blog autopilot (opt-in) • Optional syndication • Leads + UTMs in Oracle",
-      "tech": "Vite, React, bilingual daily blog (aideazz.xyz/blog), Dev.to crosspost, FAQPage JSON-LD (AEO), Claude, Google Search Console (optional), GA4, reCAPTCHA Enterprise, Oracle DB, CTO AIPA cron",
+      "desc": "SEO is the classic piece: a clean map of pages for Google (sitemap, bilingual EN/ES, structured snippets). GEO is the same discipline for AI overviews—accurate facts and authorship on your own domain so assistants can cite you instead of guessing. Automation ties it together: on a schedule, long posts are drafted and published to the off-site blog and mirrored here; optional syndication; every run logged in Oracle. Site forms drop inquiries and campaign tags into the same lead store CMO and CTO already use. NEW (July 2026): the AIdeazz Lab AI Visibility Audit API — a free public endpoint that scores any website 0–100 on one question: when someone asks ChatGPT, Perplexity, Claude or Gemini what you sell, can they find you, understand you, and quote you? 34 evidence-backed checks across AI crawler access, structured data (GEO), answer-readiness (AEO) and tech SEO — with a prioritized fix list. No signup, no scraping costs; even bot-blocked or JS-only sites get a scored diagnosis instead of an error. This site scores A+ 100/100 on its own engine.",
+      "traction": "Public AI Visibility Audit API live • aideazz.xyz scores A+ 100/100 on its own engine • Sitemap + structured pages live • Blog autopilot (opt-in) • Optional syndication • Leads + UTMs in Oracle",
+      "tech": "Vite, React, bilingual daily blog (aideazz.xyz/blog), Dev.to crosspost, FAQPage JSON-LD (AEO), Visibility Audit API (TypeScript/Express, 34 checks, weekly self-audit CI), Claude, Google Search Console (optional), GA4, reCAPTCHA Enterprise, Oracle DB, CTO AIPA cron",
       "action": "View on GitHub",
+      "action2": "Audit your site free — AI Visibility API",
       "badge": "LIVE"
     },
     "cmo": {
