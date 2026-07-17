@@ -134,19 +134,42 @@ export default function WhatsAppFloat({
         )}
       </AnimatePresence>
 
-      <motion.button
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.92 }}
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Open WhatsApp chat"
-        className="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 shadow-lg shadow-green-500/50 transition-colors hover:bg-green-500"
-      >
-        {open ? (
-          <X className="h-6 w-6 text-white" />
-        ) : (
-          <MessageCircle className="h-7 w-7 text-white" />
+      <div className="relative flex h-14 w-14 items-center justify-center">
+        {/* Attention-grabbing pulse rings — only while the chat is closed. */}
+        {!open && (
+          <>
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-60" />
+            <span
+              className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-40"
+              style={{ animationDelay: "0.6s" }}
+            />
+          </>
         )}
-      </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
+          // Periodic "wiggle" bounce to draw the eye; still while open.
+          animate={
+            open
+              ? { rotate: 0, scale: 1 }
+              : { rotate: [0, -12, 12, -8, 8, 0], scale: [1, 1.06, 1] }
+          }
+          transition={
+            open
+              ? { duration: 0.2 }
+              : { duration: 0.9, repeat: Infinity, repeatDelay: 2.4, ease: "easeInOut" }
+          }
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Open WhatsApp chat"
+          className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-green-600 shadow-lg shadow-green-500/50 transition-colors hover:bg-green-500"
+        >
+          {open ? (
+            <X className="h-6 w-6 text-white" />
+          ) : (
+            <MessageCircle className="h-7 w-7 text-white" />
+          )}
+        </motion.button>
+      </div>
     </div>
   );
 }
