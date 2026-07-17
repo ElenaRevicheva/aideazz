@@ -1,4 +1,15 @@
 {
+  "whatsappFloat": {
+    "header": "Chatea por WhatsApp",
+    "online": "En línea",
+    "away": "Ausente",
+    "greetingOnline": "¡Hola! 👋 Gracias por ver mi trabajo. Escríbeme directamente — suelo responder rápido.",
+    "greetingAway": "Ahora estoy desconectada 🌙 Déjame un mensaje y te respondo en cuanto vuelva — o agenda un horario que te convenga abajo.",
+    "openChat": "Abrir chat",
+    "sendMessage": "Enviar mensaje",
+    "bookCall": "Agendar una llamada",
+    "prefill": "Hola Elena — vi tu portafolio de AIdeazz y me gustaría conversar."
+  },
   "nav": {
     "home": "Inicio",
     "espaluz": "EspaLuz",

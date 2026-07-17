@@ -1,4 +1,15 @@
 {
+  "whatsappFloat": {
+    "header": "Chat on WhatsApp",
+    "online": "Online",
+    "away": "Away",
+    "greetingOnline": "Hello 👋 Thanks for looking at my work. Message me directly — I usually reply fast.",
+    "greetingAway": "I'm offline right now 🌙 Leave a message and I'll reply as soon as I'm back — or grab a time that works for you below.",
+    "openChat": "Open Chat",
+    "sendMessage": "Send a Message",
+    "bookCall": "Book a Call",
+    "prefill": "Hi Elena — I saw your AIdeazz portfolio and I'd like to talk."
+  },
   "nav": {
     "home": "Home",
     "espaluz": "EspaLuz",

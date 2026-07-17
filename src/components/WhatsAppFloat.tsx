@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X, Send, CalendarClock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface WhatsAppFloatProps {
   /** Digits only, international format, no "+" — e.g. "50761666716". */
   phone?: string;
-  /** Pre-filled message the visitor sends. Lands them in your chat already qualified. */
+  /** Pre-filled message override. Defaults to the localized `whatsappFloat.prefill`. */
   prefill?: string;
   /** Calendly (or any) booking link shown as the after-hours fallback. */
   bookingUrl?: string;
@@ -52,19 +53,21 @@ function nowInZone(timeZone: string): { hour: number; day: number } {
  */
 export default function WhatsAppFloat({
   phone = "50761666716",
-  prefill = "Hi Elena — I saw your AIdeazz portfolio and I'd like to talk.",
+  prefill,
   bookingUrl = "https://calendly.com/elena_revicheva/coffee-chat",
   timeZone = "America/Panama",
   openHour = 9,
   closeHour = 17, // online 09:00–17:59 Panama; flips to "Away" at 18:00 (6pm)
   businessDays = [1, 2, 3, 4, 5, 6], // Mon–Sat; Sunday off
 }: WhatsAppFloatProps) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const { hour, day } = nowInZone(timeZone);
   const online = businessDays.includes(day) && hour >= openHour && hour <= closeHour;
 
-  const chatUrl = `https://wa.me/${phone}?text=${encodeURIComponent(prefill)}`;
+  const message = prefill ?? t("whatsappFloat.prefill");
+  const chatUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   return (
     <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
@@ -79,7 +82,7 @@ export default function WhatsAppFloat({
           >
             <div className="flex items-center gap-3 bg-green-600 px-4 py-3">
               <MessageCircle className="h-5 w-5 text-white" />
-              <span className="font-semibold text-white">Chat on WhatsApp</span>
+              <span className="font-semibold text-white">{t("whatsappFloat.header")}</span>
               <span
                 className={`ml-auto flex items-center gap-1.5 text-xs font-medium ${
                   online ? "text-white" : "text-green-100/80"
@@ -90,7 +93,7 @@ export default function WhatsAppFloat({
                     online ? "bg-green-300" : "bg-amber-300"
                   }`}
                 />
-                {online ? "Online" : "Away"}
+                {online ? t("whatsappFloat.online") : t("whatsappFloat.away")}
               </span>
               <button
                 onClick={() => setOpen(false)}
@@ -103,11 +106,9 @@ export default function WhatsAppFloat({
 
             <div className="space-y-3 p-4">
               <div className="rounded-xl rounded-tl-none bg-white/10 px-3 py-2 text-sm text-gray-100">
-                {online ? (
-                  <>Hello 👋 Thanks for looking at my work. Message me directly — I usually reply fast.</>
-                ) : (
-                  <>I'm offline right now 🌙 Leave a message and I'll reply as soon as I'm back — or grab a time that works for you below.</>
-                )}
+                {online
+                  ? t("whatsappFloat.greetingOnline")
+                  : t("whatsappFloat.greetingAway")}
               </div>
 
               <a
@@ -116,7 +117,7 @@ export default function WhatsAppFloat({
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-3 font-semibold text-white shadow-lg shadow-green-500/40 transition-all hover:bg-green-500"
               >
-                {online ? "Open Chat" : "Send a Message"} <Send className="h-4 w-4" />
+                {online ? t("whatsappFloat.openChat") : t("whatsappFloat.sendMessage")} <Send className="h-4 w-4" />
               </a>
 
               {!online && (
@@ -126,7 +127,7 @@ export default function WhatsAppFloat({
                   rel="noreferrer"
                   className="flex items-center justify-center gap-2 rounded-xl border border-purple-400/40 bg-purple-600/20 px-4 py-3 font-semibold text-purple-100 transition-all hover:bg-purple-600/30"
                 >
-                  <CalendarClock className="h-4 w-4" /> Book a Call
+                  <CalendarClock className="h-4 w-4" /> {t("whatsappFloat.bookCall")}
                 </a>
               )}
             </div>
