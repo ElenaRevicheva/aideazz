@@ -4,8 +4,9 @@
  */
 
 export const SITE_ORIGIN = "https://aideazz.xyz";
-/** Link-preview image (WhatsApp, LinkedIn, iMessage). 1200×630, under 300KB. */
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/aideazz-services-og.jpg?v=20260718b`;
+/** Link-preview image (WhatsApp, LinkedIn, iMessage). 1200×630 baseline JPEG, under 300KB.
+ *  No query params — Meta crawlers want undecorated URLs; bust cache by renaming the file. */
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/aideazz-og-v2.jpg`;
 /** Person/author photo — JSON-LD only; not used for og:image. */
 export const PERSON_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 
