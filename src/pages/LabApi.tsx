@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
+import { LAB_API_INQUIRY_LINK } from "@/config/marketing";
 
 /**
  * Base URL of the AEO/GEO/Tech-SEO Visibility API (cto-aipa express service).
@@ -420,7 +421,7 @@ export default function LabApi() {
           <h2 className="text-2xl font-bold text-white sm:text-3xl">{t("labApi.ctaTitle")}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-400">{t("labApi.ctaBody")}</p>
           <Link
-            to="/portfolio#portfolio-inquiry-form"
+            to={LAB_API_INQUIRY_LINK}
             className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-purple-900/40 transition-all hover:from-purple-500 hover:to-pink-500"
           >
             {t("labApi.ctaButton")} <ArrowRight className="h-4 w-4" />

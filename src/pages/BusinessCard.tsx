@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
@@ -6,6 +7,8 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
+import { PORTFOLIO_INQUIRY_ANCHOR } from "@/config/marketing";
+import { scrollToPortfolioInquiry } from "@/lib/scrollToPortfolioInquiry";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
   // Initial state = end, not 0: crawlers and AI assistants (GEO) read the static text,
@@ -77,7 +80,7 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
     e.stopPropagation();
     e.preventDefault();
     if (onCta) { onCta(); return; }
-    document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    scrollToPortfolioInquiry();
   };
   const services = [
     { icon: MessageCircle, titleKey: 'whatIBuild.item1Title', descKey: 'whatIBuild.item1Desc', iconColor: 'text-purple-300', iconBg: 'bg-purple-500/15 border-purple-500/30', cardBg: 'bg-purple-600/10 border-purple-500/25', wide: false },
@@ -140,6 +143,7 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
 
 export default function BusinessCard() {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -227,6 +231,14 @@ export default function BusinessCard() {
     });
     document.head.appendChild(ldScript);
   }, [isSpanish]);
+
+  useEffect(() => {
+    if (location.hash !== `#${PORTFOLIO_INQUIRY_ANCHOR}`) return;
+    const frame = window.requestAnimationFrame(() => {
+      window.setTimeout(scrollToPortfolioInquiry, 80);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash, location.search]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -535,11 +547,11 @@ export default function BusinessCard() {
                         <FileText className="w-4 h-4 shrink-0" />
                         {t('header.resumeButton')}
                       </a>
-                      <a href="#portfolio-inquiry-form"
+                      <a href={`#${PORTFOLIO_INQUIRY_ANCHOR}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          document.getElementById('portfolio-inquiry-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          scrollToPortfolioInquiry();
                         }}
                         className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all text-sm font-semibold shadow-lg shadow-purple-500/50 text-center leading-tight">
                         <Mail className="w-4 h-4 shrink-0"/> {t('header.contactButton')}
@@ -1193,7 +1205,7 @@ export default function BusinessCard() {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <InquiryForm
-                      id="portfolio-inquiry-form"
+                      id={PORTFOLIO_INQUIRY_ANCHOR}
                       className="max-w-xl mx-auto text-left relative z-20 pointer-events-auto rounded-2xl border border-purple-500/25 bg-white/[0.04] p-6 sm:p-8 scroll-mt-24"
                     />
                   </div>
@@ -1339,7 +1351,7 @@ export default function BusinessCard() {
                         // growing after the flip: a single scroll computes its target against a
                         // half-rendered page and lands short. Re-issue it as the layout settles.
                         const scrollToForm = (tries = 0) => {
-                          const el = document.getElementById('portfolio-inquiry-form');
+                          const el = document.getElementById(PORTFOLIO_INQUIRY_ANCHOR);
                           if (!el) return;
                           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                           if (tries < 2) window.setTimeout(() => scrollToForm(tries + 1), 500);
