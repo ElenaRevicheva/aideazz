@@ -8,15 +8,15 @@ export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 
 /** Same strings as index.html — used when mounting `/` so meta resets after visiting /portfolio etc. */
 export const HOME_SEO = {
-  title: "AIdeazz - AI Personal Assistants That Evolve With You",
+  title: "AIdeazz — Live AI Products, AI Audits & Fractional CTO",
   description:
-    "AIdeazz builds production AI systems: 10-agent ecosystem (9 live, AILA in design), multi-model LLM routing, LangGraph stateful pipelines, pgvector RAG, voice pipelines — all at $0/month on Oracle Cloud. Founded by Elena Revicheva.",
-  ogTitle: "AIdeazz — Production AI Systems by Elena Revicheva",
+    "Hire proven AI: 9 live products, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Working portfolio with live demos at aideazz.xyz/portfolio.",
+  ogTitle: "AIdeazz — Live AI Products, Visibility Audits & Fractional CTO",
   ogDescription:
-    "10-agent ecosystem (9 in production). LangGraph stateful pipelines. pgvector RAG. Multi-model LLM routing. $0/month infrastructure. Built by an executive-turned-AI-builder.",
-  twitterTitle: "AIdeazz — Production AI Systems by Elena Revicheva",
+    "9 AI products in production, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services — working portfolio with live demos at aideazz.xyz/portfolio.",
+  twitterTitle: "AIdeazz — Live AI Products, Visibility Audits & Fractional CTO",
   twitterDescription:
-    "10-agent ecosystem (9 live, AILA in design). LangGraph + pgvector RAG live. Multi-model routing (76% Groq / 24% Claude). All at $0/month.",
+    "9 AI products in production, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services — working portfolio with live demos at aideazz.xyz/portfolio.",
   canonicalUrl: `${SITE_ORIGIN}/`,
   ogType: "website" as const,
 };

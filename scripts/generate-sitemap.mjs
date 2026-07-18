@@ -23,7 +23,8 @@ const EXCLUDED_SLUGS = new Set([
 const STATIC_PAGES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/about", changefreq: "monthly", priority: "0.8" },
-  { path: "/portfolio", changefreq: "weekly", priority: "0.9" },
+  // The money page — keep at parity with the homepage so engines treat it as primary.
+  { path: "/portfolio", changefreq: "weekly", priority: "1.0" },
   { path: "/blog", changefreq: "weekly", priority: "0.85" },
   { path: "/pitch.html", changefreq: "monthly", priority: "0.7" },
   { path: "/pitch-es.html", changefreq: "monthly", priority: "0.6" },

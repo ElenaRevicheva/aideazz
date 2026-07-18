@@ -183,8 +183,8 @@ export default function BusinessCard() {
       ? "Elena Revicheva | Portafolio de Productos de IA"
       : "Elena Revicheva | AI Products Portfolio";
     const pageDescription = isSpanish
-      ? "Portafolio de Elena Revicheva: productos de IA en produccion, agentes autonomos y sistemas reales desplegados."
-      : "Portfolio of Elena Revicheva: production AI products, autonomous agents, and real systems deployed.";
+      ? "Contrata IA probada: 9 productos en produccion (EspaLuz, CTO/CMO AIPAs, Atlas), API gratuita de Auditoria de Visibilidad IA y servicios AEO/GEO/SEO tecnico. Demos en vivo."
+      : "Hire proven AI: 9 products in production (EspaLuz, CTO/CMO AIPAs, Atlas), a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Live demos on every card.";
 
     applyPageSeo({
       title: pageTitle,
@@ -219,14 +219,35 @@ export default function BusinessCard() {
           "https://github.com/ElenaRevicheva",
           "https://x.com/reviceva"
         ],
-        "makesOffer": {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "AI Integration & Automation",
-            "description": "Production AI systems for startups: LLM API wiring, multi-agent orchestration, voice pipelines, data automation. From an executive who builds and communicates AI systems."
+        "makesOffer": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI Integration & Automation",
+              "description": "Production AI systems for startups: LLM API wiring, multi-agent orchestration, voice pipelines, data automation. From an executive who builds and communicates AI systems."
+            }
+          },
+          {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "AI Visibility Audit (AEO / GEO / Tech SEO)",
+              "url": "https://aideazz.xyz/api",
+              "description": "Free API and live widget that scores any website 0-100 on whether ChatGPT, Perplexity, Claude and Gemini can find, understand and quote it — 34 evidence-backed checks with a prioritized fix list. Paid follow-through: full-site audits, fixes, and AI-visibility retainers."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fractional CTO for AI Startups",
+              "description": "Hands-on technical leadership backed by a live 10-agent production ecosystem: architecture, LLM cost control, CI/CD, and revenue automation (HubSpot CRM, lead concierge, payments)."
+            }
           }
-        }
+        ]
       }
     });
     document.head.appendChild(ldScript);
