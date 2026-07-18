@@ -7,7 +7,7 @@
  * homepage — so non-JS AI crawlers (GPTBot, ClaudeBot, PerplexityBot) saw
  * /portfolio as a homepage duplicate and could only ever cite aideazz.xyz/.
  *
- * Fix: after vite build, generate dist/<route>/index.html per route from the
+ * Fix: after vite build, generate dist/portfolio.html and dist/api.html from the
  * built template, swapping ONLY head identity (title/canonical/og/hreflang),
  * the homepage WebPage JSON-LD block, and the <noscript> crawler article.
  * The React bundle stays identical, so human visitors get the exact same SPA.
@@ -365,10 +365,11 @@ const templateBefore = template;
 for (const route of ROUTES) {
   const out = buildRoute(template, route);
   if (failures > 0) break;
-  const dir = path.join(DIST, route.dir);
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), out);
-  console.log(`prerender: wrote dist/${route.dir}/index.html (${(out.length / 1024).toFixed(1)} KB) — canonical ${route.url}`);
+  // Flat .html at dist root — IPFS treats /portfolio as a directory when portfolio/index.html
+  // exists, returning 301 before _redirects runs. Crawlers (WhatsApp) need 200 on first fetch.
+  const flat = path.join(DIST, `${route.dir}.html`);
+  fs.writeFileSync(flat, out);
+  console.log(`prerender: wrote dist/${route.dir}.html (${(out.length / 1024).toFixed(1)} KB) — canonical ${route.url}`);
 }
 
 // Paranoia: the homepage template must never be modified by this script.
