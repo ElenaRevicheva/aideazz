@@ -5,7 +5,7 @@
 
 export const SITE_ORIGIN = "https://aideazz.xyz";
 /** Link-preview image (WhatsApp, LinkedIn, iMessage). 1200×630, under 300KB. */
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/aideazz-services-og.jpg`;
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/aideazz-services-og.jpg?v=20260718b`;
 /** Person/author photo — JSON-LD only; not used for og:image. */
 export const PERSON_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 
@@ -82,8 +82,14 @@ export function applyPageSeo(opts: ApplyPageSeoOptions): void {
   ensureMeta("property", "og:title").setAttribute("content", ogTitle);
   ensureMeta("property", "og:description").setAttribute("content", ogDesc);
   ensureMeta("property", "og:image").setAttribute("content", img);
+  ensureMeta("property", "og:image:secure_url").setAttribute("content", img);
+  ensureMeta("property", "og:image:type").setAttribute("content", "image/jpeg");
   ensureMeta("property", "og:image:width").setAttribute("content", "1200");
   ensureMeta("property", "og:image:height").setAttribute("content", "630");
+  ensureMeta("property", "og:image:alt").setAttribute(
+    "content",
+    "AIdeazz AI Lab — production AI systems, agents, GEO/AEO, and automation services",
+  );
   ensureMeta("property", "og:site_name").setAttribute("content", "AIdeazz");
 
   ensureMeta("name", "twitter:card").setAttribute("content", opts.twitterCard ?? "summary_large_image");

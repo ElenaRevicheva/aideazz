@@ -170,7 +170,7 @@ const ROUTES = [
     title: 'Elena Revicheva — AI Portfolio | Live Agents, Audits & Fractional CTO',
     description:
       'Hire Elena Revicheva: 9 live AI products, WhatsApp/Telegram agents, AI automation, GEO/AEO/tech SEO, AI video and reliability engineering. Live demos inside.',
-    ogType: 'profile',
+    ogType: 'website',
     article: PORTFOLIO_ARTICLE,
     jsonLd: {
       '@context': 'https://schema.org',
