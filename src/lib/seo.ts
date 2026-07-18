@@ -4,7 +4,10 @@
  */
 
 export const SITE_ORIGIN = "https://aideazz.xyz";
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
+/** Link-preview image (WhatsApp, LinkedIn, iMessage). 1200×630, under 300KB. */
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/aideazz-services-og.jpg`;
+/** Person/author photo — JSON-LD only; not used for og:image. */
+export const PERSON_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 
 /** Same strings as index.html — used when mounting `/` so meta resets after visiting /portfolio etc. */
 export const HOME_SEO = {
@@ -79,6 +82,8 @@ export function applyPageSeo(opts: ApplyPageSeoOptions): void {
   ensureMeta("property", "og:title").setAttribute("content", ogTitle);
   ensureMeta("property", "og:description").setAttribute("content", ogDesc);
   ensureMeta("property", "og:image").setAttribute("content", img);
+  ensureMeta("property", "og:image:width").setAttribute("content", "1200");
+  ensureMeta("property", "og:image:height").setAttribute("content", "630");
   ensureMeta("property", "og:site_name").setAttribute("content", "AIdeazz");
 
   ensureMeta("name", "twitter:card").setAttribute("content", opts.twitterCard ?? "summary_large_image");
