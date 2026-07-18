@@ -49,6 +49,14 @@ interface Agent {
   extraLinks?: AgentLink[];
 }
 
+/** Shared CTA row — stacked on mobile, side-by-side on laptop with breathing room. */
+const AGENT_BTN_ROW = "flex flex-col sm:flex-row flex-wrap gap-3";
+const AGENT_BTN_BASE =
+  "inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg transition-all font-semibold text-sm shadow-lg whitespace-normal text-center leading-snug";
+/** Light marine — audit / visibility API (not bright cyan). */
+const AUDIT_API_BTN =
+  "bg-gradient-to-r from-teal-600 to-teal-500 hover:from-teal-500 hover:to-teal-400 border border-teal-400/30";
+
 interface Particle {
   x: number;
   y: number;
@@ -316,8 +324,12 @@ export default function BusinessCard() {
       link: "https://github.com/ElenaRevicheva/aideazz",
       badge: t('section1.geo.badge'),
       extraLinks: [
-        { action: t('section1.geo.action2'), link: "/api", className: "bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400" }
-      ]
+        {
+          action: t('section1.geo.action2'),
+          link: "/api",
+          className: AUDIT_API_BTN,
+        },
+      ],
     },
     {
       icon: TrendingUp,
@@ -617,27 +629,29 @@ export default function BusinessCard() {
                             </div>
                           </div>
 
-                          <a 
-                            href={agent.link}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 transition-all font-semibold text-sm shadow-lg"
-                          >
-                            {agent.action} <ExternalLink className="w-4 h-4" />
-                          </a>
-                          {agent.extraLinks?.map((extra, i) => (
+                          <div className={AGENT_BTN_ROW}>
                             <a
-                              key={i}
-                              href={extra.link}
+                              href={agent.link}
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${extra.className || 'bg-white/10 hover:bg-white/20 border border-white/10'}`}
+                              className={`${AGENT_BTN_BASE} bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500`}
                             >
-                              {extra.action} <ExternalLink className="w-4 h-4" />
+                              {agent.action} <ExternalLink className="w-4 h-4 shrink-0" />
                             </a>
-                          ))}
+                            {agent.extraLinks?.map((extra, i) => (
+                              <a
+                                key={i}
+                                href={extra.link}
+                                target={extra.link.startsWith("/") ? undefined : "_blank"}
+                                rel={extra.link.startsWith("/") ? undefined : "noreferrer"}
+                                onClick={(e) => e.stopPropagation()}
+                                className={`${AGENT_BTN_BASE} ${extra.className || "bg-white/10 hover:bg-white/20 border border-white/10"}`}
+                              >
+                                {extra.action} <ExternalLink className="w-4 h-4 shrink-0" />
+                              </a>
+                            ))}
+                          </div>
                         </div>
                       </motion.div>
                     ))}
@@ -856,26 +870,26 @@ export default function BusinessCard() {
                             </div>
                           </div>
 
-                          <div className="flex flex-wrap gap-2">
+                          <div className={AGENT_BTN_ROW}>
                             <a
                               href={agent.link}
                               target="_blank"
                               rel="noreferrer"
                               onClick={(e) => e.stopPropagation()}
-                              className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${agent.extraLinks ? 'bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400' : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500'}`}
+                              className={`${AGENT_BTN_BASE} ${agent.extraLinks ? "bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400" : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500"}`}
                             >
-                              {agent.action} <ExternalLink className="w-4 h-4" />
+                              {agent.action} <ExternalLink className="w-4 h-4 shrink-0" />
                             </a>
                             {agent.extraLinks?.map((extra, i) => (
                               <a
                                 key={i}
                                 href={extra.link}
-                                target="_blank"
-                                rel="noreferrer"
+                                target={extra.link.startsWith("/") ? undefined : "_blank"}
+                                rel={extra.link.startsWith("/") ? undefined : "noreferrer"}
                                 onClick={(e) => e.stopPropagation()}
-                                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-semibold text-sm shadow-lg ${extra.className || 'bg-white/10 hover:bg-white/20 border border-white/10'}`}
+                                className={`${AGENT_BTN_BASE} ${extra.className || "bg-white/10 hover:bg-white/20 border border-white/10"}`}
                               >
-                                {extra.action} <ExternalLink className="w-4 h-4" />
+                                {extra.action} <ExternalLink className="w-4 h-4 shrink-0" />
                               </a>
                             ))}
                           </div>
