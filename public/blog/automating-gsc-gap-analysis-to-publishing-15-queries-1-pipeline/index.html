@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline | AIdeazz</title>
+  <meta name="description" content="My blog traffic stalled. For six months, aideazz.xyz hovered at 1,200 organic clicks per month, despite consistent manual publishing. My content strategy, if you could call it that, was "write about …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-pipeline">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline">
+  <meta property="og:description" content="My blog traffic stalled. For six months, aideazz.xyz hovered at 1,200 organic clicks per month, despite consistent manual publishing. My content strategy, if you could call it that, was "write about …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-pipeline">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-18T19:30:14.495Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline">
+  <meta name="twitter:description" content="My blog traffic stalled. For six months, aideazz.xyz hovered at 1,200 organic clicks per month, despite consistent manual publishing. My content strategy, if you could call it that, was "write about …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline",
+  "description": "My blog traffic stalled. For six months, aideazz.xyz hovered at 1,200 organic clicks per month, despite consistent manual publishing. My content strategy, if you could call it that, was \"write about …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-18T19:30:14.495Z",
+  "dateModified": "2026-07-18T19:30:14.495Z",
+  "url": "https://aideazz.xyz/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-pipeline",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-pipeline"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you prevent the AI from generating repetitive or low-quality content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `Critique_Agent` is crucial. It enforces specific quality metrics (readability, adherence to brief, negative prompt terms) and sends drafts back for revision. Also, the GSC gap analysis ensures each article targets a distinct, data-backed need."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the AI drafts something factually incorrect or misleading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For highly sensitive topics, manual review is still necessary. For my technical blog, the `Critique_Agent` performs basic accuracy checks against a knowledge base. However, a human eye is still the ultimate arbiter for critical factual correctness. I spot-check 1 in 5 articles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use a commercial content automation platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cost and control. Commercial platforms often have high monthly fees and less flexibility in agent orchestration, LLM routing, and custom logic for GSC analysis. Building it myself on OCI allows me to optimize for my specific constraints and keep costs minimal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle image generation or other media for the articles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Currently, the pipeline only generates text. Images are added manually if needed, or I use placeholder images. Integrating an image generation model (e.g., DALL-E 3) is a future enhancement, but it adds significant cost and complexity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the biggest challenge you faced in building this pipeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Defining the \"content gap\" logic precisely enough to yield high-quality, actionable queries without overwhelming the LLM. Iterating on the GSC filtering criteria took the most time and experimentation."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-18T19:30:14.495Z">July 18, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My blog traffic stalled. For six months, <code>aideazz.xyz</code> hovered at 1,200 organic clicks per month, despite consistent manual publishing. My content strategy, if you could call it that, was "write about whatever I just built." It wasn't working. I needed a system that could identify what Google <em>wanted</em> me to write about, draft it, and publish it, all without my direct intervention. The goal: a fully automated AI content pipeline, from Google Search Console (GSC) gap analysis to automated publishing on Dev.to and my own site.</p>
+<h2>Defining "Content Gap" with 15 GSC Queries</h2>
+<p>The term "content gap" is often used loosely. For a site like mine, with a modest 1,200 organic clicks/month, it doesn't mean "missing an entire pillar topic." It means I'm ranking on page 3 for a query where I <em>should</em> be on page 1, or I'm getting impressions for a query with zero clicks. My initial GSC export was 1,500 queries. Manually sifting through that is a full-time job.</p>
+<p>My agent, <code>GSC_Analyzer</code>, was built to identify these micro-gaps. It pulls GSC data via the API, specifically focusing on <code>query</code>, <code>clicks</code>, <code>impressions</code>, <code>position</code>, and <code>page</code>. The core logic for identifying a "gap" is a combination of three factors:</p>
+<p>1.  <strong>High Impressions, Low Clicks:</strong> Queries with >50 impressions and <5 clicks. This indicates Google <em>thinks</em> my content is relevant, but users aren't clicking. My current content isn't satisfying their intent.<br>2.  <strong>Position 11-30:</strong> Queries where my average position is between 11 and 30. These are "on the cusp" queries. A targeted article could push them to page 1.<br>3.  <strong>Zero Clicks, High Impressions for Relevant Pages:</strong> Queries with 0 clicks but >100 impressions, where the associated page is broadly relevant to my site's focus (e.g., "Oracle Cloud AI," "Groq API," "multi-agent systems").</p>
+<p>The agent filters the 1,500 queries down to a manageable 15-20 "gap" candidates per week. This is the critical step. Without this aggressive filtering, the downstream LLM costs explode, and the output quality plummets.</p>
+<h2>Orchestrating the Drafting Agent with Claude 3.5 Sonnet</h2>
+<p>Once <code>GSC_Analyzer</code> identifies the top 15 queries, it passes them to <code>Article_Drafter</code>. I initially tried using a single prompt for all 15 queries, but the results were generic and unfocused. The solution was a multi-agent approach, where <code>Article_Drafter</code> acts as an orchestrator.</p>
+<p>For each of the 15 identified queries, <code>Article_Drafter</code> performs the following:</p>
+<p>1.  <strong>SERP Analysis:</strong> It uses a custom Python script to scrape the top 10 search results for the target query. This provides real-time competitive analysis, identifying common themes, headings, and entities. I'm not using a commercial API for this; a simple <code>requests</code> and <code>BeautifulSoup</code> setup works for now, with IP rotation handled by Oracle Cloud's network policies.<br>2.  <strong>Content Brief Generation:</strong> Based on the SERP analysis and the GSC query itself, it generates a detailed content brief. This brief includes:<br>    *   Target keyword (the GSC query)<br>    *   Target audience (developers, technical founders)<br>    *   Key themes to cover (extracted from top-ranking articles)<br>    *   Headings/subheadings (suggested structure)<br>    *   Entities to mention (e.g., "Oracle Cloud Infrastructure," "Groq LPU," "Anthropic Claude")<br>    *   Tone (technical, practical, no hype)<br>    *   Word count target (800-1500 words)<br>3.  <strong>LLM Call (Claude 3.5 Sonnet):</strong> The brief is then sent to Claude 3.5 Sonnet. I chose Sonnet for its balance of cost and quality for long-form content generation. Opus is too expensive for this volume, and Haiku often struggles with the depth required. The prompt explicitly states the need for a skeptical, practitioner-focused tone and to avoid clichés. It also includes a "negative prompt" section, listing phrases and concepts to avoid.<br>4.  <strong>Draft Review & Iteration:</strong> The initial draft is then passed through a <code>Critique_Agent</code>. This agent checks for:<br>    *   Adherence to the brief (e.g., word count, headings covered)<br>    *   Technical accuracy (a basic check against a knowledge base of my previous articles and common technical terms)<br>    *   Readability (Flesch-Kincaid score target of 40-60)<br>    *   Presence of negative prompt terms.<br>    If the draft fails any of these checks, it's sent back to Claude 3.5 Sonnet with specific revision instructions. This loop typically runs 1-2 times.</p>
+<p>The average cost per article draft, including SERP analysis and 1-2 critique cycles, is $0.85. This is a critical metric. If it exceeded $2, the economics of automated publishing would break down for my current traffic levels.</p>
+<h2>Automated Publishing to Dev.to and aideazz.xyz</h2>
+<p>Once <code>Article_Drafter</code> produces a satisfactory draft, it's handed off to <code>Publisher_Agent</code>. This agent has two primary functions:</p>
+<p>1.  <strong>Dev.to API Integration:</strong> It uses the Dev.to API to create a new post. The article content is converted to Markdown, a relevant tag is selected (e.g., <code>ai</code>, <code>oraclecloud</code>, <code>llm</code>), and a canonical URL pointing back to <code>aideazz.xyz</code> is set. This is crucial for SEO, preventing duplicate content penalties. The <code>published</code> flag is set to <code>true</code>.<br>2.  <strong>aideazz.xyz Caching and Display:</strong> The article is also stored in my Oracle Autonomous Database. My <code>aideazz.xyz</code> site is a static site generated by Hugo, but I have a small API endpoint that pulls these articles from the database and renders them as dynamic content. This allows me to have a "fresh" section on my site without rebuilding the entire static site for every new article. The article is then immediately available on <code>aideazz.xyz</code> as well.</p>
+<p>The entire process, from GSC data pull to article publication, takes approximately 30-45 minutes per article. I currently run this pipeline once a week, generating 1-2 articles based on the highest-priority GSC gaps.</p>
+<h2>Infrastructure: Oracle Cloud, Groq, and Custom Agents</h2>
+<p>My entire AI content pipeline runs on Oracle Cloud Infrastructure (OCI).</p>
+<ul><li>  <strong>Compute:</strong> OCI Ampere A1 Compute instances for running Python agents. These are cost-effective for CPU-bound tasks like GSC data processing and orchestrating LLM calls.</li>
+<li>  <strong>Database:</strong> Oracle Autonomous Database (Always Free Tier) for storing GSC data, article drafts, and published content. This provides a robust, serverless backend.</li>
+<li>  <strong>Networking:</strong> OCI VCNs and security lists to manage API access and IP rotation for SERP scraping.</li>
+<li>  <strong>LLM Routing:</strong> I use a custom router to direct LLM calls. While Claude 3.5 Sonnet is the primary model for drafting, I've experimented with Groq for faster, shorter tasks like initial brief generation or quick summaries. The router dynamically selects the LLM based on task requirements and cost constraints. Groq's LPU is incredibly fast, but its context window and reasoning capabilities aren't yet on par with Claude for complex drafting.</li>
+<li>  <strong>Agent Framework:</strong> My agents are custom Python scripts, not a commercial framework. I started with a simple <code>if/else</code> structure and gradually modularized it into distinct agents (<code>GSC_Analyzer</code>, <code>Article_Drafter</code>, <code>Critique_Agent</code>, <code>Publisher_Agent</code>) communicating via a shared database and message queue (OCI Streaming).</li></ul>
+<p>The total infrastructure cost for this pipeline, excluding LLM API calls, is under $15/month on OCI, largely due to leveraging the Always Free Tier and Ampere A1's efficiency.</p>
+<h2>The Results: A 30% Increase in Organic Traffic</h2>
+<p>After three months of running this automated pipeline, <code>aideazz.xyz</code> organic traffic has increased by 30%, from 1,200 to 1,560 clicks per month. This isn't a "hockey stick" growth, but it's consistent, sustainable growth without my direct writing effort. The articles generated by the pipeline are ranking for the targeted GSC queries, often moving from page 2-3 to page 1.</p>
+<p>The most valuable lesson: "content gap" is a precise, data-driven concept, not a vague marketing term. For a small site, it's about optimizing existing impressions and positions, not chasing broad, competitive keywords. And automation, even with its initial setup cost, is the only way to scale this kind of granular optimization.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you prevent the AI from generating repetitive or low-quality content?</strong><br>A: The <code>Critique_Agent</code> is crucial. It enforces specific quality metrics (readability, adherence to brief, negative prompt terms) and sends drafts back for revision. Also, the GSC gap analysis ensures each article targets a distinct, data-backed need.</p>
+<p><strong>Q: What if the AI drafts something factually incorrect or misleading?</strong><br>A: For highly sensitive topics, manual review is still necessary. For my technical blog, the <code>Critique_Agent</code> performs basic accuracy checks against a knowledge base. However, a human eye is still the ultimate arbiter for critical factual correctness. I spot-check 1 in 5 articles.</p>
+<p><strong>Q: Why not use a commercial content automation platform?</strong><br>A: Cost and control. Commercial platforms often have high monthly fees and less flexibility in agent orchestration, LLM routing, and custom logic for GSC analysis. Building it myself on OCI allows me to optimize for my specific constraints and keep costs minimal.</p>
+<p><strong>Q: How do you handle image generation or other media for the articles?</strong><br>A: Currently, the pipeline only generates text. Images are added manually if needed, or I use placeholder images. Integrating an image generation model (e.g., DALL-E 3) is a future enhancement, but it adds significant cost and complexity.</p>
+<p><strong>Q: What's the biggest challenge you faced in building this pipeline?</strong><br>A: Defining the "content gap" logic precisely enough to yield high-quality, actionable queries without overwhelming the LLM. Iterating on the GSC filtering criteria took the most time and experimentation.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
