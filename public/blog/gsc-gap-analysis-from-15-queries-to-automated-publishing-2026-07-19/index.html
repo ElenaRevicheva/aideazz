@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSC Gap Analysis: From 15 Queries to Automated Publishing | AIdeazz</title>
+  <meta name="description" content="My first AI content pipeline failed to move the needle. I spent $120 on Claude 3 Opus API calls, generating 30 articles. My Google Search Console (GSC) impressions for my target keywords barely budge…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-19">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta property="og:description" content="My first AI content pipeline failed to move the needle. I spent $120 on Claude 3 Opus API calls, generating 30 articles. My Google Search Console (GSC) impressions for my target keywords barely budge…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-19">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-19T19:30:15.171Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta name="twitter:description" content="My first AI content pipeline failed to move the needle. I spent $120 on Claude 3 Opus API calls, generating 30 articles. My Google Search Console (GSC) impressions for my target keywords barely budge…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "GSC Gap Analysis: From 15 Queries to Automated Publishing",
+  "description": "My first AI content pipeline failed to move the needle. I spent $120 on Claude 3 Opus API calls, generating 30 articles. My Google Search Console (GSC) impressions for my target keywords barely budge…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-19T19:30:15.171Z",
+  "dateModified": "2026-07-19T19:30:15.171Z",
+  "url": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-19",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-19"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle the \"is_relevant\" function for GSC queries without a large LLM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Currently, it's a simple keyword matching function. I maintain a YAML file of core business keywords (e.g., \"multi-agent,\" \"AI agent,\" \"Oracle Cloud,\" \"OCI,\" \"autonomous database\"). The function checks if at least two of these keywords are present in the GSC query. This is a heuristic, not perfect, but effective for filtering out noise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your process for manual review before publishing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The drafting agent sends the Markdown output to a private Telegram channel via a custom bot. I review it on my phone, checking for factual accuracy, tone, and overall coherence. If it passes, I send a `/publish` command to the bot, which triggers the final publishing agents. This takes about 5-10 minutes per article."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage LLM routing for cost and speed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My custom router agent uses a simple decision tree. For outlines or quick summaries, it defaults to Groq's Llama 3 8B. For detailed, high-quality content generation (like blog posts), it prioritizes Claude 3 Haiku due to its balance of quality and cost. If Haiku is unavailable or too slow, it falls back to GPT-3.5 Turbo. This logic is configurable via environment variables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the GSC API returns too many queries to manually analyze SERPs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If the filtered list of actionable gaps exceeds 5-7 queries, I prioritize based on the highest impression count. I also have a prototype SERP analysis agent that uses `requests` and `BeautifulSoup` to fetch the top 5 results for each query and then uses a local Llama 3 8B to summarize the content and assess competitor strength. This is still experimental due to rate limits and CAPTCHA challenges from Google."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">GSC Gap Analysis: From 15 Queries to Automated Publishing</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-19T19:30:15.171Z">July 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first AI content pipeline failed to move the needle. I spent $120 on Claude 3 Opus API calls, generating 30 articles. My Google Search Console (GSC) impressions for my target keywords barely budged. The "content gap" I thought I was filling was an illusion. I had 15 GSC queries, each with 2-3 impressions, and zero clicks. My initial assumption: if I write about these, I'll rank. This was a fundamental misunderstanding of what a content gap truly means for a bootstrapped operation.</p>
+<h2>The Illusion of the "Content Gap"</h2>
+<p>A "content gap" isn't just a keyword you don't rank for. For a new site, it's a keyword where you have <em>some</em> existing, albeit minimal, GSC impressions, but no clicks. More critically, it's a keyword where the <em>intent</em> is clear and the <em>competition</em> is manageable. My 15 queries were long-tail, low-volume, and often irrelevant to my core offerings. For example, "oracle cloud free tier limitations" had 2 impressions. While technically a "gap," writing a 2000-word article on it wouldn't bring me clients for AI agent development. It would bring people looking for free stuff.</p>
+<p>My revised definition of a GSC content gap for AIdeazz:<br>1.  <strong>Existing Impressions (10+):</strong> At least 10 impressions in the last 90 days, indicating Google already associates my site with the query.<br>2.  <strong>Zero Clicks:</strong> No clicks, meaning my current content isn't satisfying the search intent.<br>3.  <strong>High Relevance:</strong> The query directly relates to my AI agent development, multi-agent systems, or Oracle Cloud infrastructure expertise.<br>4.  <strong>Low Competition (SERP analysis):</strong> A quick manual check of the top 5 results shows forums, outdated articles, or generalist blogs, not direct competitors with highly optimized content.</p>
+<p>This refined definition immediately cut my "gap" list from 15 to 2. One was "oracle cloud always free instance stopped," and the other was "multi-agent system architecture." These were actionable.</p>
+<h2>Building the Automated GSC Gap Analysis Agent</h2>
+<p>I needed an agent to automate this filtering. My existing Oracle Cloud Infrastructure (OCI) tenancy, running on an Ampere A1 instance, was already hosting my core AI agents. I spun up a new Python environment.</p>
+<p>The agent's flow:<br>1.  <strong>GSC Data Fetch:</strong> Using the <code>google-api-python-client</code> library, I connect to the GSC API. I pull query data for the last 90 days, filtered by my <code>aideazz.xyz</code> property.<br>    <pre><code class="language-python">    # Simplified GSC API call
+    service = build('searchconsole', 'v1', credentials=creds)
+    request = {
+        'startDate': (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d'),
+        'endDate': datetime.now().strftime('%Y-%m-%d'),
+        'dimensions': ['query'],
+        'rowLimit': 5000 # Fetch enough to analyze
+    }
+    response = service.searchanalytics().query(siteUrl='https://aideazz.xyz/', body=request).execute()
+    queries = response.get('rows', [])
+    </code></pre><br>2.  <strong>Filtering Logic:</strong> I iterate through <code>queries</code>, applying my refined criteria.<br>    <pre><code class="language-python">    actionable_gaps = []
+    for row in queries:
+        query = row['keys'][0]
+        impressions = row['impressions']
+        clicks = row['clicks']
+
+        if impressions &gt;= 10 and clicks == 0 and is_relevant(query): # is_relevant is a simple keyword match for now
+            actionable_gaps.append(query)
+    </code></pre><br>    The <code>is_relevant</code> function is a simple regex match against a predefined list of keywords like "AI agent," "Oracle Cloud," "multi-agent," etc. For more sophistication, I'd embed a small, local LLM (like Llama 3 8B via Ollama) to classify relevance, but for now, keyword matching is sufficient and cheaper.</p>
+<p>3.  <strong>SERP Analysis (Manual for now, but planned for automation):</strong> For each <code>actionable_gap</code>, I manually perform a quick Google search. I look for weak competition. This step is crucial and currently the bottleneck. Automating this involves scraping SERP results, extracting titles/descriptions, and using an LLM to assess content quality and competitor strength. I'm prototyping this with <code>BeautifulSoup</code> and a local Llama 3 instance, but it's not production-ready due to rate limits and CAPTCHAs.</p>
+<p>The output of this agent is a list of 1-3 highly targeted keywords.</p>
+<h2>Drafting with Claude 3 Haiku (and Groq for speed)</h2>
+<p>Once I have a target keyword, the next agent in the pipeline takes over: the drafting agent. My initial attempts used Claude 3 Opus, which was excellent but expensive ($15/M tokens). For blog posts, I found Claude 3 Haiku ($0.25/M tokens) to be perfectly adequate, especially when coupled with a detailed prompt.</p>
+<p>My prompt template for Haiku:<br><pre><code class="language-plain">You are an expert technical writer specializing in AI agent development and Oracle Cloud Infrastructure.
+Write a detailed, practical blog post for technical founders and developers.
+The topic is: "[ACTIONABLE_KEYWORD]".
+Focus on:
+- Real-world challenges and solutions.
+- Specific technical details (e.g., API calls, infrastructure choices).
+- Avoid hype and generic statements.
+- Use a direct, no-nonsense tone.
+- Include at least 3 code examples (Python or Bash).
+- Structure with clear headings (H2, H3).
+- Target word count: 1200-1800 words.
+- Conclude with 3-5 specific, non-obvious FAQs.
+</code></pre><br>I route this prompt through my custom agent router. This router dynamically selects the LLM based on cost, speed, and complexity requirements. For initial drafts, I often hit Groq's Llama 3 8B for a quick outline, then feed that outline to Claude 3 Haiku for the full draft. This hybrid approach saves significant cost and time. Groq's Llama 3 8B is incredibly fast (500+ tokens/sec) and cheap, making it ideal for rapid prototyping and outlining.</p>
+<p>The drafting agent outputs the full Markdown content.</p>
+<h2>Automated Publishing to Dev.to and aideazz.xyz</h2>
+<p>The final stage is publishing. I maintain two primary content destinations:<br>1.  <strong>Dev.to:</strong> For broader developer reach and community engagement.<br>2.  <strong>aideazz.xyz:</strong> My canonical source, where I control the content and SEO.</p>
+<h3>Dev.to Publishing Agent</h3>
+<p>Dev.to has a well-documented API. My agent uses the <code>requests</code> library to post the Markdown content.<br><pre><code class="language-python">import requests
+import json
+
+DEVTO_API_KEY = os.getenv('DEVTO_API_KEY')
+DEVTO_API_URL = "https://dev.to/api/articles"
+
+def publish_to_devto(title, body_markdown, tags, series=None, canonical_url=None):
+    headers = {
+        "api-key": DEVTO_API_KEY,
+        "Content-Type": "application/json"
+    }
+    article_data = {
+        "article": {
+            "title": title,
+            "body_markdown": body_markdown,
+            "published": True,
+            "tags": tags,
+            "canonical_url": canonical_url
+        }
+    }
+    if series:
+        article_data["article"]["series"] = series
+
+    response = requests.post(DEVTO_API_URL, headers=headers, data=json.dumps(article_data))
+    response.raise_for_status() # Raise an exception for HTTP errors
+    return response.json()
+
+# Example usage:
+# publish_to_devto("My New Article", "## Heading...", ["ai", "oracle"], canonical_url="https://aideazz.xyz/my-new-article")
+</code></pre><br>The <code>canonical_url</code> is critical here. It tells search engines that <code>aideazz.xyz</code> is the original source, preventing duplicate content penalties. I also automatically add relevant tags based on the article's content, again using a small LLM (Llama 3 8B) for classification.</p>
+<h3>aideazz.xyz Caching and Display</h3>
+<p>My main site, <code>aideazz.xyz</code>, is a static site generated with a custom Python script. When a new article is drafted and approved (currently, I manually review before final publish), the publishing agent:<br>1.  <strong>Generates a unique slug:</strong> From the article title.<br>2.  <strong>Creates a Markdown file:</strong> In my <code>_posts</code> directory.<br>3.  <strong>Updates the site generator:</strong> Triggers a rebuild of the static site.<br>4.  <strong>Invalidates Cloudflare cache:</strong> Ensures the new content is immediately visible.</p>
+<p>This process ensures that <code>aideazz.xyz</code> always has the freshest content, and it's served directly from Cloudflare's CDN, making it fast and resilient. The entire process, from GSC analysis to publishing, takes about 15 minutes of compute time on my OCI Ampere instance, costing pennies. The most significant cost is the LLM API calls, which I've optimized down to $0.50-$1.00 per article using Haiku and Groq.</p>
+<p>The real "gap" isn't just missing content; it's missing content that <em>matters</em> to your business, for which you already have a tiny footprint, and where you can realistically outcompete. My automated pipeline now focuses on this narrow, high-leverage target.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle the "is_relevant" function for GSC queries without a large LLM?</strong><br>A: Currently, it's a simple keyword matching function. I maintain a YAML file of core business keywords (e.g., "multi-agent," "AI agent," "Oracle Cloud," "OCI," "autonomous database"). The function checks if at least two of these keywords are present in the GSC query. This is a heuristic, not perfect, but effective for filtering out noise.</p>
+<p><strong>Q: What's your process for manual review before publishing?</strong><br>A: The drafting agent sends the Markdown output to a private Telegram channel via a custom bot. I review it on my phone, checking for factual accuracy, tone, and overall coherence. If it passes, I send a <code>/publish</code> command to the bot, which triggers the final publishing agents. This takes about 5-10 minutes per article.</p>
+<p><strong>Q: How do you manage LLM routing for cost and speed?</strong><br>A: My custom router agent uses a simple decision tree. For outlines or quick summaries, it defaults to Groq's Llama 3 8B. For detailed, high-quality content generation (like blog posts), it prioritizes Claude 3 Haiku due to its balance of quality and cost. If Haiku is unavailable or too slow, it falls back to GPT-3.5 Turbo. This logic is configurable via environment variables.</p>
+<p><strong>Q: What if the GSC API returns too many queries to manually analyze SERPs?</strong><br>A: If the filtered list of actionable gaps exceeds 5-7 queries, I prioritize based on the highest impression count. I also have a prototype SERP analysis agent that uses <code>requests</code> and <code>BeautifulSoup</code> to fetch the top 5 results for each query and then uses a local Llama 3 8B to summarize the content and assess competitor strength. This is still experimental due to rate limits and CAPTCHA challenges from Google.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
