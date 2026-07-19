@@ -106,7 +106,7 @@ const PORTFOLIO_ARTICLE = `
         </section>
 
         <section>
-          <h2>Why hire Elena Revicheva?</h2>
+          <h2>Why work with Elena Revicheva?</h2>
           <ul>
             <li>10 production AI systems running 24/7 — built solo, AI-augmented (Claude Code + Cursor).</li>
             <li>7 years Deputy CEO/CLO before engineering: she ships systems AND explains them to boards.</li>
@@ -169,7 +169,7 @@ const ROUTES = [
     url: 'https://aideazz.xyz/portfolio',
     title: 'Elena Revicheva — AI Portfolio | Live Agents, Audits & Fractional CTO',
     description:
-      'Hire Elena Revicheva: 9 live AI products, WhatsApp/Telegram agents, AI automation, GEO/AEO/tech SEO, AI video and reliability engineering. Live demos inside.',
+      'Work with Elena Revicheva: 9 live AI products, WhatsApp/Telegram agents, AI automation, GEO/AEO/tech SEO, AI video and reliability engineering. Live demos inside.',
     ogType: 'website',
     article: PORTFOLIO_ARTICLE,
     jsonLd: {

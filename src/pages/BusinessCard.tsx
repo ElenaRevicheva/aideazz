@@ -184,7 +184,7 @@ export default function BusinessCard() {
       : "Elena Revicheva | AI Products Portfolio";
     const pageDescription = isSpanish
       ? "Contrata IA probada: 9 productos en produccion (EspaLuz, CTO/CMO AIPAs, Atlas), API gratuita de Auditoria de Visibilidad IA y servicios AEO/GEO/SEO tecnico. Demos en vivo."
-      : "Hire proven AI: 9 products in production (EspaLuz, CTO/CMO AIPAs, Atlas), a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Live demos on every card.";
+      : "Work with proven AI: 9 products in production (EspaLuz, CTO/CMO AIPAs, Atlas), a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Live demos on every card.";
 
     applyPageSeo({
       title: pageTitle,

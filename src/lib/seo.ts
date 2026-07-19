@@ -14,7 +14,7 @@ export const PERSON_OG_IMAGE = `${SITE_ORIGIN}/elena-og.jpg`;
 export const HOME_SEO = {
   title: "AIdeazz — Live AI Products, AI Audits & Fractional CTO",
   description:
-    "Hire proven AI: 9 live products, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Working portfolio with live demos at aideazz.xyz/portfolio.",
+    "Work with proven AI: 9 live products, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Working portfolio with live demos at aideazz.xyz/portfolio.",
   ogTitle: "AIdeazz — Live AI Products, Visibility Audits & Fractional CTO",
   ogDescription:
     "9 AI products in production, a free AI Visibility Audit API, and AEO/GEO/tech-SEO services — working portfolio with live demos at aideazz.xyz/portfolio.",
