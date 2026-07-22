@@ -100,6 +100,12 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
         <h2 className="text-[17px] sm:text-[21px] lg:text-[26px] font-bold tracking-tight bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent">
           {t('whatIBuild.eyebrow')}
         </h2>
+        <p className="mt-3 text-sm sm:text-base font-semibold text-purple-200/90 tracking-tight">
+          {t('whatIBuild.tagline')}
+        </p>
+        <p className="mt-1.5 text-[11px] sm:text-xs text-gray-400 tracking-wide">
+          {t('whatIBuild.lanes')}
+        </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
         {services.map((s) => (

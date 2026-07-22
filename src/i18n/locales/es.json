@@ -473,6 +473,8 @@
   },
   "whatIBuild": {
     "eyebrow": "Lo que construyo en AIdeazz AI Lab",
+    "tagline": "Que ChatGPT te recomiende → cierra en WhatsApp",
+    "lanes": "Visibilidad en búsqueda IA • Agentes WhatsApp • Automatización IA",
     "item1Title": "Agentes de IA para WhatsApp y Telegram",
     "item1Desc": "Responden preguntas frecuentes, califican leads y agendan citas 24/7 — bilingües EN/ES, conectados a tu CRM.",
     "item2Title": "Automatización IA de extremo a extremo",
