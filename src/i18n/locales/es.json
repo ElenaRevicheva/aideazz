@@ -58,10 +58,16 @@
     "vibeCoding": "IA Aumentada",
     "vision": "Visión",
     "platform": "Plataforma",
+    "aiLab": "AI Lab",
     "agents": "Agentes",
     "invest": "Inversión",
     "team": "Equipo",
     "cta": "Únete a la AI-evolución"
+  },
+  "aiLab": {
+    "title": "AIdeazz AI Lab",
+    "portfolioCta": "Abrir portafolio",
+    "auditCta": "Auditoría gratuita de Visibilidad IA"
   },
   "hero": {
     "badge": "IA Emocionalmente Inteligente",

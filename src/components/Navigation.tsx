@@ -15,6 +15,7 @@ const Navigation = () => {
     { name: t("nav.home"), href: "#home" },
     { name: t("nav.espaluz"), href: "#espaluz" },
     { name: t("nav.platform"), href: "#platform" },
+    { name: t("nav.aiLab"), href: "#ai-lab" },
     { name: t("nav.agents"), href: "#agents" },
     { name: t("nav.vision"), href: "#vision" },
     { name: t("nav.team"), href: "#team" },

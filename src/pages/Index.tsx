@@ -8,6 +8,7 @@ import VibeCodingSection from "@/components/VibeCodingSection";
 import VisionSection from "@/components/VisionSection";
 import InvestorPitchSection from "@/components/InvestorPitchSection";
 import AIdeazzPlatformSection from "@/components/AIdeazzPlatformSection";
+import AiLabSection from "@/components/AiLabSection";
 import AIpaExplainerSection from "@/components/AIpaExplainerSection";
 import UserJourneyTimeline from "@/components/UserJourneyTimeline";
 import CallToActionSection from "@/components/CallToActionSection";
@@ -44,6 +45,7 @@ const Index = () => {
         <HeroSection />
         <EspaLuzSection />
         <AIdeazzPlatformSection />
+        <AiLabSection />
         <AIpaExplainerSection />
         <UserJourneyTimeline />
         <VisionSection />

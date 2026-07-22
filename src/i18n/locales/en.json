@@ -58,10 +58,16 @@
     "vibeCoding": "AI Augmentation",
     "vision": "Vision",
     "platform": "Platform",
+    "aiLab": "AI Lab",
     "agents": "Agents",
     "invest": "Invest",
     "team": "Team",
     "cta": "Join the AI-evolution"
+  },
+  "aiLab": {
+    "title": "AIdeazz AI Lab",
+    "portfolioCta": "Open portfolio",
+    "auditCta": "Free AI Visibility Audit"
   },
   "hero": {
     "badge": "Emotionally Intelligent AI",
