@@ -166,6 +166,13 @@ const AiLabSection = () => {
           <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
             {t("whatIBuild.punch")}
           </p>
+          <a
+            href="#contact"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-purple-300 hover:text-purple-200 transition-colors"
+          >
+            {t("whatIBuild.punchCta")}
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
     </section>
