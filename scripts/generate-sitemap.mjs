@@ -173,9 +173,8 @@ ${urlElements}
   fs.writeFileSync(path.join(PUBLIC, "sitemap.xml"), xml, "utf8");
   fs.writeFileSync(path.join(PUBLIC, "sitemap.txt"), txt, "utf8");
 
-  // GSC URL-prefix property https://aideazz.xyz/portfolio/ can only ingest sitemaps under that path.
-  const portfolioDir = path.join(PUBLIC, "portfolio");
-  fs.mkdirSync(portfolioDir, { recursive: true });
+  // GSC URL-prefix property needs /portfolio/sitemap.* via _redirects → FLAT files.
+  // NEVER write public/portfolio/ (IPFS DirIndex breaks /portfolio/ → portfolio.html).
   const portfolioLastmod = new Date().toISOString().slice(0, 10);
   const portfolioXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -187,13 +186,13 @@ ${urlElements}
   </url>
 </urlset>
 `;
-  fs.writeFileSync(path.join(portfolioDir, "sitemap.xml"), portfolioXml, "utf8");
-  fs.writeFileSync(path.join(portfolioDir, "sitemap.txt"), "https://aideazz.xyz/portfolio\n", "utf8");
+  fs.writeFileSync(path.join(PUBLIC, "portfolio-sitemap.xml"), portfolioXml, "utf8");
+  fs.writeFileSync(path.join(PUBLIC, "portfolio-sitemap.txt"), "https://aideazz.xyz/portfolio\n", "utf8");
 
   console.log(
     `generate-sitemap: wrote ${entries.length} URLs (${hn.length} Hashnode + ${extra.length} dev.to-only blog) → public/sitemap.xml, public/sitemap.txt`
   );
-  console.log("generate-sitemap: wrote public/portfolio/sitemap.xml + sitemap.txt (GSC /portfolio/ property)");
+  console.log("generate-sitemap: wrote public/portfolio-sitemap.xml + .txt (rewritten from /portfolio/sitemap.*)");
 }
 
 main().catch((e) => {
