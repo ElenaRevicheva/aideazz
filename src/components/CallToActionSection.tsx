@@ -146,15 +146,22 @@ const CallToActionSection = () => {
           </motion.div>
         </div>
 
-        {/* Phase 3: real inquiry → Oracle (UTM from URL) */}
+        {/* Phase 3: real inquiry → Oracle (UTM from URL) — deep-link target #inquiry-form */}
         <motion.div
+          id="inquiry-form-anchor"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="glass-card p-8 md:p-10 mb-16"
+          className="relative mb-16 scroll-mt-28"
         >
-          <InquiryForm />
+          <div
+            className="absolute -inset-px rounded-2xl bg-gradient-to-r from-purple-500/50 via-pink-500/40 to-emerald-500/40 opacity-80 blur-[1px] pointer-events-none"
+            aria-hidden="true"
+          />
+          <div className="relative glass-card p-8 md:p-10 border border-purple-400/40 bg-black/40 shadow-[0_0_40px_rgba(168,85,247,0.18)]">
+            <InquiryForm />
+          </div>
         </motion.div>
 
         {/* Questions Link */}

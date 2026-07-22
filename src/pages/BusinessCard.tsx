@@ -146,12 +146,13 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
           href="#portfolio-inquiry-form"
           onClick={(e) => {
             e.stopPropagation();
+            e.preventDefault();
             scrollToPortfolioInquiry();
           }}
-          className="mt-3 inline-flex items-center justify-center gap-1.5 w-full text-xs sm:text-sm font-semibold text-purple-300 hover:text-purple-200 transition-colors"
+          className="mt-4 inline-flex items-center justify-center gap-2 w-full sm:w-auto mx-auto px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base font-semibold text-white shadow-lg shadow-purple-500/25 transition-all"
         >
           {t('whatIBuild.punchCta')}
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight className="w-4 h-4" />
         </a>
       </div>
     </div>

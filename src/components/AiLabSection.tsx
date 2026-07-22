@@ -12,6 +12,8 @@ import {
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { scrollToInquiryForm } from "@/lib/scrollToInquiryForm";
+import { Button } from "@/components/ui/button";
 
 /**
  * Commercial AI Lab services on the vision homepage — mirrors portfolio whatIBuild
@@ -163,16 +165,18 @@ const AiLabSection = () => {
               </span>
             ))}
           </div>
-          <p className="text-base sm:text-lg font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
+          <p className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent mb-5">
             {t("whatIBuild.punch")}
           </p>
-          <a
-            href="#contact"
-            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-purple-300 hover:text-purple-200 transition-colors"
+          <Button
+            type="button"
+            size="lg"
+            onClick={() => scrollToInquiryForm()}
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-base sm:text-lg font-semibold rounded-full shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50"
           >
             {t("whatIBuild.punchCta")}
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </div>
     </section>
