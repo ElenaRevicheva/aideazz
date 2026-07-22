@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSC Gap Analysis: From 15 Queries to Automated Publishing | AIdeazz</title>
+  <meta name="description" content="My first attempt at an AI content pipeline failed to generate a single useful article for AIdeazz.xyz. The "gap analysis" was the problem. I fed Google Search Console (GSC) data directly to Claude, a…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-22">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta property="og:description" content="My first attempt at an AI content pipeline failed to generate a single useful article for AIdeazz.xyz. The "gap analysis" was the problem. I fed Google Search Console (GSC) data directly to Claude, a…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-22">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-22T19:30:17.650Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GSC Gap Analysis: From 15 Queries to Automated Publishing">
+  <meta name="twitter:description" content="My first attempt at an AI content pipeline failed to generate a single useful article for AIdeazz.xyz. The "gap analysis" was the problem. I fed Google Search Console (GSC) data directly to Claude, a…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "GSC Gap Analysis: From 15 Queries to Automated Publishing",
+  "description": "My first attempt at an AI content pipeline failed to generate a single useful article for AIdeazz.xyz. The \"gap analysis\" was the problem. I fed Google Search Console (GSC) data directly to Claude, a…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-22T19:30:17.650Z",
+  "dateModified": "2026-07-22T19:30:17.650Z",
+  "url": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-22",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-22"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a single, more powerful LLM like Claude Opus for the entire pipeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cost and control. Opus is significantly more expensive. By using specialized agents with smaller, cheaper models (Haiku for outlining, Sonnet for drafting), I optimize for cost while maintaining quality for each specific task. It also allows for easier debugging and iteration on individual agent prompts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle factual accuracy and prevent hallucinations, especially for technical content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The drafting agent is explicitly instructed to insert `[NEED: specific fact]` placeholders for any information it cannot confidently generate. This forces a human review step where I fill in the precise details, error messages, or cost figures. This prevents publishing incorrect information."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the biggest challenge in maintaining this automated content pipeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prompt engineering drift. As LLMs evolve or I refine my understanding of what makes good content, the prompts for the outlining and drafting agents need constant iteration. Without careful versioning and testing, output quality can degrade quickly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Cloud Infrastructure (OCI) instead of AWS/Azure/GCP?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cost-effectiveness and personal experience. OCI's always-free tier for functions, object storage, and databases provides a robust foundation with zero monthly cost for my current scale. As a single mother bootstrapping AIdeazz, every dollar saved on infrastructure is critical. I also have prior experience with OCI, which reduced the learning curve."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you ensure the content published on Dev.to and AIdeazz.xyz doesn't lead to duplicate content penalties from Google?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use canonical URLs. The Dev.to posts include a `canonical_url` field pointing back to the original article on AIdeazz.xyz. This tells search engines that AIdeazz.xyz is the primary source, preventing any duplicate content issues."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">GSC Gap Analysis: From 15 Queries to Automated Publishing</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-22T19:30:17.650Z">July 22, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first attempt at an AI content pipeline failed to generate a single useful article for AIdeazz.xyz. The "gap analysis" was the problem. I fed Google Search Console (GSC) data directly to Claude, asking it to identify content gaps. Claude, being an LLM, dutifully hallucinated "gaps" based on the keywords I provided, often suggesting articles on topics I already covered or that were irrelevant to my niche. The output was generic, unpublishable fluff. The core issue: I treated GSC as a direct prompt source, not a data signal requiring interpretation by a specialized agent.</p>
+<h2>The "Gap" is Not a Missing Keyword</h2>
+<p>When GSC shows 15 queries for a topic, it doesn't mean you're missing an article. It means you're <em>already ranking</em> for something related to those queries, but likely not optimally. A true "gap" isn't a missing keyword; it's a missing <em>intent fulfillment</em>. My initial approach was to ask Claude, "What content should I write based on these 15 queries?" This is like asking a chef to build a house based on a list of ingredients. The chef knows ingredients, not construction.</p>
+<p>The solution was to build a dedicated GSC analysis agent. This agent doesn't just look at keywords; it looks at <em>clusters</em> of keywords, their average position, click-through rate (CTR), and impressions. It then cross-references these clusters with my existing content.</p>
+<p>Here's the logic:</p>
+<p>1.  <strong>Extract GSC Data:</strong> Daily export of queries, pages, impressions, clicks, CTR, and position.<br>2.  <strong>Cluster Queries:</strong> Group similar queries using a simple TF-IDF vectorization and K-means clustering. For example, "Oracle Cloud AI agents," "Groq LLM deployment," "AI production pipeline" might cluster together.<br>3.  <strong>Map to Existing Content:</strong> For each cluster, identify which existing articles on AIdeazz.xyz (if any) are already ranking for queries within that cluster. I use a simple cosine similarity between the cluster's centroid vector and the vector representation of my article titles and first paragraphs.<br>4.  <strong>Identify Underperforming Clusters:</strong> A cluster is a "gap" if:<br>    *   It has high impressions (e.g., >500 in the last 30 days).<br>    *   Its average position is between 8 and 20 (meaning I'm on page 1 or 2, but not top 3).<br>    *   Its CTR is below 1.5% for positions 8-10, or below 0.8% for positions 11-20.<br>    <em>   </em>Crucially:<em> There is no existing article with a high similarity score (e.g., >0.7) to the cluster, </em>or* the existing article is also underperforming for that cluster.</p>
+<p>This refined definition of a "gap" means I'm targeting areas where I already have some authority but am failing to capture clicks, or where I have a nascent presence that could be amplified. It's about optimization, not just creation.</p>
+<h2>The Multi-Agent Orchestration</h2>
+<p>My content pipeline is a series of specialized agents, not a single monolithic LLM call. It runs on Oracle Cloud Infrastructure (OCI) using OCI Functions and a PostgreSQL database for state management.</p>
+<p>1.  <strong>GSC Agent (Python, OCI Function):</strong><br>    *   Connects to GSC API, pulls data.<br>    *   Performs query clustering and gap analysis as described above.<br>    *   Identifies 1-3 top "gap" topics daily.<br>    *   For each topic, it generates a concise prompt for the outlining agent: "Write an article outline for [topic cluster description] targeting users searching for [top 3 queries in cluster]. Focus on [specific angle derived from low CTR/position analysis]."<br>    *   Stores the generated prompt and GSC context in the database.</p>
+<p>2.  <strong>Outlining Agent (Claude 3 Haiku, OCI Function):</strong><br>    *   Receives the prompt from the GSC agent.<br>    *   Generates a detailed article outline (H2s, H3s, key points for each section).<br>    *   The prompt includes instructions like: "Use a skeptical, practitioner-focused tone. Include specific numbers, error messages, and cost figures. Avoid startup clichés."<br>    *   Stores the outline in the database, linked to the GSC context.</p>
+<p>3.  <strong>Drafting Agent (Claude 3 Sonnet, OCI Function):</strong><br>    *   Receives the outline.<br>    *   Generates the full article draft, section by section. I found Sonnet to be a good balance of quality and cost for drafting. Haiku often missed nuance, Opus was overkill for a first draft.<br>    <em>   Crucially, it's instructed to </em>not* invent facts or numbers. If it needs a specific number or example, it inserts a placeholder like <code>[NEED: specific Groq cost per 1M tokens for Llama 3 8B]</code>. This forces a human review step and prevents factual errors.<br>    *   Stores the draft in the database.</p>
+<p>4.  <strong>Review & Enrichment Agent (Human, Telegram Bot):</strong><br>    *   A Telegram bot notifies me when a draft is ready.<br>    *   I review the draft, fill in placeholders, add personal anecdotes, and refine the tone. This is where the "Elena Revicheva" voice comes in.<br>    *   I also check for factual accuracy and ensure it meets the "no startup clichés" rule.<br>    *   This step is non-negotiable. Fully automated content is detectable and often lacks the unique perspective that builds trust.</p>
+<p>5.  <strong>Publishing Agent (Python, OCI Function):</strong><br>    *   Once I approve the article in the Telegram bot, this agent takes over.<br>    *   <strong>Dev.to API:</strong> Publishes the article to my Dev.to profile. Dev.to is a great platform for reaching developers, and their API is straightforward. I include canonical URLs pointing back to AIdeazz.xyz.<br>    *   <strong>AIdeazz.xyz Cache:</strong> The article is stored in a static HTML file on my Oracle Object Storage bucket, which serves as the backend for AIdeazz.xyz. This is a static site, so no complex CMS is needed. The publishing agent simply writes the HTML file.<br>    *   <strong>Sitemap Update:</strong> Updates the <code>sitemap.xml</code> file on AIdeazz.xyz and pings Google Search Console for faster indexing.</p>
+<h2>Groq and Claude Routing: Cost vs. Quality</h2>
+<p>I route LLM calls dynamically. For outlining, where speed and cost are paramount, I initially tried Groq with Llama 3 8B. It was fast, but the outlines were often too simplistic. Claude 3 Haiku, while slower, produced significantly better structured and more detailed outlines, justifying the slightly higher cost.</p>
+<p>For drafting, Claude 3 Sonnet is my current choice. I experimented with Groq for drafting, but the output quality for complex technical topics was inconsistent. It often required more human editing, negating the cost savings. Opus is too expensive for initial drafts, especially when I'm still iterating on the prompt engineering for the outlining agent.</p>
+<p>The routing logic is simple:<br><ul><li>  <strong>GSC Agent:</strong> No LLM. Pure Python.</li><br><li>  <strong>Outlining Agent:</strong> Claude 3 Haiku.</li><br><li>  <strong>Drafting Agent:</strong> Claude 3 Sonnet.</li><br><li>  <strong>Publishing Agent:</strong> No LLM. Pure Python.</li></ul></p>
+<p>This setup costs me roughly $0.50 - $1.50 per article for LLM calls, depending on article length. The OCI Functions are on the free tier for most of the execution time. The biggest cost is my own time for review and enrichment, which I've optimized to about 15-30 minutes per article.</p>
+<h2>The AIdeazz.xyz Caching Strategy</h2>
+<p>My website, AIdeazz.xyz, is a static site served directly from Oracle Object Storage. This is incredibly cheap and scales infinitely. When the publishing agent creates an article, it generates a static HTML file and uploads it to a specific bucket path (e.g., <code>articles/gsc-gap-analysis.html</code>).</p>
+<p>This approach has several benefits:</p>
+<ul><li>  <strong>Zero Database Overhead:</strong> No MySQL, no PostgreSQL for the website itself.</li>
+<li>  <strong>CDN-like Performance:</strong> Object Storage is globally distributed, offering low latency.</li>
+<li>  <strong>Security:</strong> No dynamic code, no attack surface for SQL injection or XSS.</li>
+<li>  <strong>Cost:</strong> Object Storage costs pennies per GB. My entire site is less than 100MB.</li></ul>
+<p>The publishing agent also updates a <code>manifest.json</code> file which my simple JavaScript frontend uses to list articles. This keeps the site dynamic in appearance without needing a backend server.</p>
+<h2>Real Constraints and Future Iterations</h2>
+<p>The biggest constraint is still the human in the loop. While the agents handle the heavy lifting, my unique voice and specific technical insights are what make the content valuable. I'm exploring ways to fine-tune a smaller LLM on my past articles and writing style to reduce my review time, but I'm wary of losing authenticity.</p>
+<p>Another constraint is the quality of GSC data itself. It's aggregated and sometimes delayed. My "gap" analysis is only as good as the data it receives. I'm considering integrating other data sources like Ahrefs or Semrush, but that adds cost and complexity, which I'm avoiding as a bootstrapped operation.</p>
+<p>The current pipeline generates 3-5 articles per week. This is a sustainable pace for me, allowing for quality control. Scaling beyond this would require more sophisticated prompt engineering to reduce human intervention, or accepting a lower quality bar, neither of which I'm eager to do.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a single, more powerful LLM like Claude Opus for the entire pipeline?</strong><br>A: Cost and control. Opus is significantly more expensive. By using specialized agents with smaller, cheaper models (Haiku for outlining, Sonnet for drafting), I optimize for cost while maintaining quality for each specific task. It also allows for easier debugging and iteration on individual agent prompts.</p>
+<p><strong>Q: How do you handle factual accuracy and prevent hallucinations, especially for technical content?</strong><br>A: The drafting agent is explicitly instructed to insert <code>[NEED: specific fact]</code> placeholders for any information it cannot confidently generate. This forces a human review step where I fill in the precise details, error messages, or cost figures. This prevents publishing incorrect information.</p>
+<p><strong>Q: What's the biggest challenge in maintaining this automated content pipeline?</strong><br>A: Prompt engineering drift. As LLMs evolve or I refine my understanding of what makes good content, the prompts for the outlining and drafting agents need constant iteration. Without careful versioning and testing, output quality can degrade quickly.</p>
+<p><strong>Q: Why Oracle Cloud Infrastructure (OCI) instead of AWS/Azure/GCP?</strong><br>A: Cost-effectiveness and personal experience. OCI's always-free tier for functions, object storage, and databases provides a robust foundation with zero monthly cost for my current scale. As a single mother bootstrapping AIdeazz, every dollar saved on infrastructure is critical. I also have prior experience with OCI, which reduced the learning curve.</p>
+<p><strong>Q: How do you ensure the content published on Dev.to and AIdeazz.xyz doesn't lead to duplicate content penalties from Google?</strong><br>A: I use canonical URLs. The Dev.to posts include a <code>canonical_url</code> field pointing back to the original article on AIdeazz.xyz. This tells search engines that AIdeazz.xyz is the primary source, preventing any duplicate content issues.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
