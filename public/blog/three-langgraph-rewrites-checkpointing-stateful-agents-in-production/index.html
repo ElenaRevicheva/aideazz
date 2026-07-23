@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three LangGraph Rewrites: Checkpointing Stateful Agents in Production | AIdeazz</title>
+  <meta name="description" content="My first LangGraph agent, a simple job router for a Telegram bot, silently dropped 100% of its tasks for two weeks. The StateSchema was defined as TypedDict, but I was passing a Pydantic model instan…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Three LangGraph Rewrites: Checkpointing Stateful Agents in Production">
+  <meta property="og:description" content="My first LangGraph agent, a simple job router for a Telegram bot, silently dropped 100% of its tasks for two weeks. The StateSchema was defined as TypedDict, but I was passing a Pydantic model instan…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-23T19:30:23.558Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Three LangGraph Rewrites: Checkpointing Stateful Agents in Production">
+  <meta name="twitter:description" content="My first LangGraph agent, a simple job router for a Telegram bot, silently dropped 100% of its tasks for two weeks. The StateSchema was defined as TypedDict, but I was passing a Pydantic model instan…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Three LangGraph Rewrites: Checkpointing Stateful Agents in Production",
+  "description": "My first LangGraph agent, a simple job router for a Telegram bot, silently dropped 100% of its tasks for two weeks. The StateSchema was defined as TypedDict, but I was passing a Pydantic model instan…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-23T19:30:23.558Z",
+  "dateModified": "2026-07-23T19:30:23.558Z",
+  "url": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not just use a single large LLM for orchestration instead of a supervisor agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dedicated, smaller LLM (like Groq's Llama 3 8B) for orchestration is faster and cheaper than a large model. It focuses solely on control flow decisions, reducing the chance of hallucination on the *logic* of the pipeline, while larger models (Claude 3 Opus) handle complex content generation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific database did you use for checkpointing on OCI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oracle Autonomous Database (ADB) Serverless, configured for JSON Document Store. It provides ACID transactions and scales automatically, which is critical for unpredictable agent load."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle schema evolution for `AgentState` in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We use Pydantic for `AgentState` internally, which allows for default values and optional fields. When deploying a new version, we ensure backward compatibility by adding new fields as optional or with defaults. For breaking changes, a migration script is required to update existing checkpoint documents in ADB."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the typical latency overhead of the supervisor agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With Groq, the supervisor agent adds about 100-200ms per decision, which is acceptable for most conversational agents. This is a small price for increased stability and debuggability compared to the potential for agents getting stuck in loops or failing silently."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor agent performance and identify issues in this setup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each node logs its entry, exit, and any errors, along with the `chat_id` and `current_task`. We push these logs to OCI Logging Analytics. The `supervisor_agent`'s decisions are also logged, providing a clear trace of the agent's thought process and control flow, making it easier to pinpoint where an agent went off-track."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Three LangGraph Rewrites: Checkpointing Stateful Agents in Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-23T19:30:23.558Z">July 23, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first LangGraph agent, a simple job router for a Telegram bot, silently dropped 100% of its tasks for two weeks. The <code>StateSchema</code> was defined as <code>TypedDict</code>, but I was passing a Pydantic model instance. LangGraph's <code>MemorySaver</code> just swallowed the type mismatch, logging no error. The agent <em>appeared</em> to run, but the state never persisted. No jobs were ever picked up by the next node. This was the first of three full rewrites before I shipped a stable, stateful LangGraph agent to production on Oracle Cloud.</p>
+<h2>The Silent StateSchema Mismatch</h2>
+<p>The initial agent was meant to take incoming user requests from Telegram, classify them, and route them to specialized LLM agents (Groq for fast, simple queries; Claude 3 Opus for complex, multi-turn tasks). The core idea was a <code>TypedDict</code> for the state:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    chat_id: int
+    user_input: str
+    classification: Optional[str]
+    response: Optional[str]
+    history: List[Tuple[str, str]]
+</code></pre></p>
+<p>When a new message arrived, I'd initialize this state and pass it to the graph. The problem arose when I tried to enrich the state with Pydantic models representing more complex objects, like a <code>UserSession</code> or <code>JobDetails</code>. Instead of updating <code>AgentState['user_input'] = job_details.description</code>, I was trying to store the <code>JobDetails</code> Pydantic object directly into a field that expected a <code>str</code>.</p>
+<p>LangGraph's <code>MemorySaver</code> (and by extension, the <code>SqliteSaver</code> I later tried) performs a shallow copy and update. If the incoming state dict has keys that don't match the <code>TypedDict</code> schema, or if the <em>types</em> of the values for matching keys don't align, it doesn't raise an error. It just ignores the update for the mismatched fields. My <code>job_details</code> Pydantic object, despite being assigned to <code>user_input</code>, was never actually stored. The <code>user_input</code> field remained <code>None</code> or its initial value, effectively discarding the core information needed for routing.</p>
+<p>The fix was to strictly serialize Pydantic models to dictionaries or JSON strings <em>before</em> updating the LangGraph state. For example:</p>
+<p><pre><code class="language-python"># Incorrect:
+# state['job_details'] = job_details_pydantic_instance
+
+# Correct:
+state['job_details_json'] = job_details_pydantic_instance.model_dump_json()
+# Or, if the schema expects a dict:
+state['job_details_dict'] = job_details_pydantic_instance.model_dump()
+</code></pre></p>
+<p>This forced me to treat the <code>AgentState</code> as a strict data transfer object, not a flexible container for arbitrary Python objects.</p>
+<h2>Checkpoint Corruption and Oracle Object Storage</h2>
+<p>After fixing the state schema, I moved to a more robust checkpointing mechanism. <code>SqliteSaver</code> is fine for local development, but not for a production agent running on Oracle Cloud Infrastructure (OCI) Container Instances. My agents are stateless in terms of their compute, but stateful in terms of their graph execution. I needed external persistence.</p>
+<p>I initially tried to use OCI Object Storage directly. LangGraph's <code>MemorySaver</code> can be extended, and I wrote a custom <code>OCISaver</code> that would serialize the state to JSON and upload it to an S3-compatible bucket on OCI Object Storage.</p>
+<p>The problem: concurrent updates. LangGraph's default <code>MemorySaver</code> (and its derivatives) assumes a single writer or handles concurrency internally for local files. When multiple instances of my agent (e.g., handling different <code>chat_id</code>s) tried to update their respective checkpoints in Object Storage, I ran into race conditions. An agent would read the state, process it, and then try to write it back. If another agent had written an update in between, the first agent's write would overwrite the newer state, leading to lost turns or corrupted history.</p>
+<p>OCI Object Storage, like S3, is eventually consistent. While it offers strong read-after-write consistency for new objects, overwrites can exhibit eventual consistency. More critically, it doesn't provide atomic compare-and-swap operations for object content directly. You can use object versioning, but that just creates new versions; it doesn't prevent overwrites or provide a mechanism for optimistic locking without additional logic.</p>
+<p>My custom <code>OCISaver</code> looked something like this:</p>
+<p><pre><code class="language-python">class OCISaver(BaseCheckpointSaver):
+    def __init__(self, bucket_name: str, namespace: str, object_storage_client):
+        self.bucket_name = bucket_name
+        self.namespace = namespace
+        self.client = object_storage_client
+
+    def get_tuple(self, config: RunnableConfig) -&gt; Optional[Tuple[Checkpoint, int]]:
+        thread_id = config["configurable"]["thread_id"]
+        try:
+            response = self.client.get_object(self.namespace, self.bucket_name, f"{thread_id}.json")
+            data = json.loads(response.data.content.decode('utf-8'))
+            return Checkpoint(**data), data["v"] # Assuming 'v' for version
+        except Exception: # Object not found or other error
+            return None
+
+    def put_tuple(self, config: RunnableConfig, checkpoint: Checkpoint) -&gt; None:
+        thread_id = config["configurable"]["thread_id"]
+        # This is where the race condition happens
+        self.client.put_object(
+            self.namespace, self.bucket_name, f"{thread_id}.json",
+            json.dumps(checkpoint.dict()).encode('utf-8')
+        )
+</code></pre></p>
+<p>The <code>put_tuple</code> method was the culprit. It was a blind write.</p>
+<p>The solution was to introduce a proper database for checkpointing. I chose Oracle Autonomous Database (ADB) Serverless, specifically its JSON Document Store capabilities. Each <code>thread_id</code> (which maps to a user's chat session) became a document. ADB provides transactional consistency. I could perform a read-modify-write operation within a transaction, ensuring that if two agents tried to update the same <code>thread_id</code>'s checkpoint, one would succeed and the other would either wait or fail, allowing for retry logic.</p>
+<p>This required a full rewrite of the <code>BaseCheckpointSaver</code> implementation to use SQL <code>UPDATE</code> statements with a <code>WHERE</code> clause checking the version number, or leveraging ADB's native JSON update capabilities.</p>
+<p><pre><code class="language-python"># Simplified conceptual example for ADB
+class ADBSaver(BaseCheckpointSaver):
+    def __init__(self, db_connection_pool):
+        self.pool = db_connection_pool
+
+    def get_tuple(self, config: RunnableConfig) -&gt; Optional[Tuple[Checkpoint, int]]:
+        thread_id = config["configurable"]["thread_id"]
+        with self.pool.acquire() as connection:
+            cursor = connection.cursor()
+            cursor.execute("SELECT checkpoint_data, version FROM checkpoints WHERE thread_id = :1", [thread_id])
+            row = cursor.fetchone()
+            if row:
+                return Checkpoint(**json.loads(row[0])), row[1]
+            return None
+
+    def put_tuple(self, config: RunnableConfig, checkpoint: Checkpoint) -&gt; None:
+        thread_id = config["configurable"]["thread_id"]
+        current_version = checkpoint.v # LangGraph's internal version
+        with self.pool.acquire() as connection:
+            cursor = connection.cursor()
+            # Attempt to update only if the version matches (optimistic locking)
+            cursor.execute(
+                """
+                UPDATE checkpoints
+                SET checkpoint_data = :1, version = :2
+                WHERE thread_id = :3 AND version = :4
+                """,
+                [json.dumps(checkpoint.dict()), current_version + 1, thread_id, current_version]
+            )
+            if cursor.rowcount == 0:
+                # This means another process updated it already. Handle conflict.
+                # For LangGraph, this typically means reloading the state and retrying the step.
+                raise CheckpointConflictError(f"Checkpoint for {thread_id} updated by another process.")
+            connection.commit()
+            # If it's an insert (first time), handle that too
+            # INSERT ... ON CONFLICT DO UPDATE ... or separate INSERT logic
+</code></pre><br>This pattern, using optimistic locking with a version column, is critical for any shared mutable state in a distributed system.</p>
+<h2>The One Pattern: Explicit State Transitions and Agent Orchestration</h2>
+<p>Even with robust checkpointing, my multi-agent system was still brittle. The core issue was implicit state transitions and tightly coupled agent logic. An agent would decide the next step, and the graph would just execute it. If an agent made a bad decision (e.g., misclassified a query, or got stuck in a loop), the entire graph would follow.</p>
+<p>My agents were:<br>1.  <strong>Router Agent:</strong> Classifies user input (Groq).<br>2.  <strong>Search Agent:</strong> Performs web search if needed (Claude 3 Haiku).<br>3.  <strong>Summarizer Agent:</strong> Summarizes search results (Groq).<br>4.  <strong>Response Agent:</strong> Generates final response (Claude 3 Opus).</p>
+<p>The initial graph was a series of conditional edges based on the <code>classification</code> field in the state. If <code>classification == "search"</code>, go to <code>search_agent</code>. If <code>search_agent</code> failed, it would just return an empty result, and <code>summarizer_agent</code> would get nothing, leading to a poor final response. There was no explicit error handling or retry mechanism <em>within</em> the graph structure itself.</p>
+<p>The third rewrite introduced a more explicit orchestration pattern:<br><ul><li>  <strong>State-driven decisions:</strong> Every node's output explicitly updates the state, including a <code>next_step</code> field.</li></ul><br><em>   <strong>Supervisor Agent:</strong> A dedicated LLM (Groq, for speed) that acts as a meta-agent, reviewing the current state and deciding the </em>next node to execute*. This agent is always the target of a conditional edge.<br><em>   <strong>Tool-like Agents:</strong> Each specialized agent (Router, Search, Summarizer, Response) is treated more like a tool. It takes the current state, performs its specific task, and returns its </em>result* and a suggested <code>next_step</code> to the Supervisor.</p>
+<p>The <code>AgentState</code> evolved to include:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    chat_id: int
+    user_input: str
+    current_task: str # e.g., "classify", "search", "summarize", "respond"
+    task_output: Optional[str] # Output of the last completed task
+    error_message: Optional[str] # If a task failed
+    history: List[Tuple[str, str]]
+    # ... other fields for search results, classification, etc.
+</code></pre></p>
+<p>The graph structure became:</p>
+<p><pre><code class="language-python">graph = StateGraph(AgentState)
+
+graph.add_node("router", router_agent)
+graph.add_node("search", search_agent)
+graph.add_node("summarize", summarize_agent)
+graph.add_node("respond", response_agent)
+graph.add_node("supervisor", supervisor_agent) # The new orchestrator
+
+graph.set_entry_point("router") # Start with classification
+
+# All agents return to the supervisor
+graph.add_edge("router", "supervisor")
+graph.add_edge("search", "supervisor")
+graph.add_edge("summarize", "supervisor")
+graph.add_edge("respond", "supervisor")
+
+# Supervisor decides next step
+graph.add_conditional_edges(
+    "supervisor",
+    lambda state: state["next_step"], # Supervisor's output dictates next node
+    {
+        "router": "router",
+        "search": "search",
+        "summarize": "summarize",
+        "respond": "respond",
+        "end": END,
+        "error": "error_handler_node" # Or a dedicated error handling path
+    }
+)
+</code></pre></p>
+<p>The <code>supervisor_agent</code>'s prompt is crucial. It takes the full <code>AgentState</code> and is instructed to output one of the predefined <code>next_step</code> values. For example:</p>
+<p><pre><code class="language-plain">You are an AI orchestrator. Review the current state of the conversation and the last task's output.
+Decide the next logical step.
+Current State: {state}
+Last Task Output: {state['task_output']}
+Possible next steps: router, search, summarize, respond, end, error
+
+If the user input needs classification, choose 'router'.
+If a search query was generated and needs execution, choose 'search'.
+If search results are available and need summarization, choose 'summarize'.
+If a final response is ready to be generated, choose 'respond'.
+If the conversation is complete, choose 'end'.
+If there was an error in the last step, choose 'error'.
+
+Your output MUST be one of these words.
+</code></pre></p>
+<p>This pattern made the graph significantly more robust. The supervisor could:<br><ul><li>  <strong>Retry:</strong> If <code>search_agent</code> failed, the supervisor could decide to retry the search, or even re-route to a different search strategy.</li><br><li>  <strong>Correct:</strong> If <code>router_agent</code> misclassified, the supervisor could send it back to <code>router_agent</code> with a refined prompt or even override the classification.</li><br><li>  <strong>Handle Errors Gracefully:</strong> A dedicated <code>error_handler_node</code> could be invoked by the supervisor, which might log the error, inform the user, or attempt a fallback.</li></ul></p>
+<p>This explicit orchestration, combined with transactional checkpointing and strict state schema adherence, finally led to a stable, production-ready multi-agent system. It's more verbose, but the clarity of control flow and error handling is invaluable when debugging live agents.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not just use a single large LLM for orchestration instead of a supervisor agent?</strong><br>A: A dedicated, smaller LLM (like Groq's Llama 3 8B) for orchestration is faster and cheaper than a large model. It focuses solely on control flow decisions, reducing the chance of hallucination on the <em>logic</em> of the pipeline, while larger models (Claude 3 Opus) handle complex content generation.</p>
+<p><strong>Q: What specific database did you use for checkpointing on OCI?</strong><br>A: Oracle Autonomous Database (ADB) Serverless, configured for JSON Document Store. It provides ACID transactions and scales automatically, which is critical for unpredictable agent load.</p>
+<p><strong>Q: How do you handle schema evolution for <code>AgentState</code> in production?</strong><br>A: We use Pydantic for <code>AgentState</code> internally, which allows for default values and optional fields. When deploying a new version, we ensure backward compatibility by adding new fields as optional or with defaults. For breaking changes, a migration script is required to update existing checkpoint documents in ADB.</p>
+<p><strong>Q: What's the typical latency overhead of the supervisor agent?</strong><br>A: With Groq, the supervisor agent adds about 100-200ms per decision, which is acceptable for most conversational agents. This is a small price for increased stability and debuggability compared to the potential for agents getting stuck in loops or failing silently.</p>
+<p><strong>Q: How do you monitor agent performance and identify issues in this setup?</strong><br>A: Each node logs its entry, exit, and any errors, along with the <code>chat_id</code> and <code>current_task</code>. We push these logs to OCI Logging Analytics. The <code>supervisor_agent</code>'s decisions are also logged, providing a clear trace of the agent's thought process and control flow, making it easier to pinpoint where an agent went off-track.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
