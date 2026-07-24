@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LangGraph Checkpointing: Three Production Rewrites to Stop Losing State | AIdeazz</title>
+  <meta name="description" content="Our first production LangGraph agent, a multi-step content generation pipeline, silently discarded 80% of its work for three weeks. The problem wasn't the LLM, the prompt, or the routing logic. It wa…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LangGraph Checkpointing: Three Production Rewrites to Stop Losing State">
+  <meta property="og:description" content="Our first production LangGraph agent, a multi-step content generation pipeline, silently discarded 80% of its work for three weeks. The problem wasn't the LLM, the prompt, or the routing logic. It wa…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-24T19:30:16.250Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LangGraph Checkpointing: Three Production Rewrites to Stop Losing State">
+  <meta name="twitter:description" content="Our first production LangGraph agent, a multi-step content generation pipeline, silently discarded 80% of its work for three weeks. The problem wasn't the LLM, the prompt, or the routing logic. It wa…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LangGraph Checkpointing: Three Production Rewrites to Stop Losing State",
+  "description": "Our first production LangGraph agent, a multi-step content generation pipeline, silently discarded 80% of its work for three weeks. The problem wasn't the LLM, the prompt, or the routing logic. It wa…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-24T19:30:16.250Z",
+  "dateModified": "2026-07-24T19:30:16.250Z",
+  "url": "https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a message queue (e.g., Kafka) for state transitions instead of database checkpointing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For our use case, the primary state is conversational and long-lived, requiring persistent storage and direct access for UI/debugging. A message queue would add significant complexity for state reconstruction and querying, which we wanted to avoid with a lean team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle LLM API rate limits and retries within LangGraph nodes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each LLM call within a node is wrapped in a custom retry decorator with exponential backoff. We also implement a global token-bucket rate limiter at the API gateway level to prevent exceeding provider limits, routing requests to different LLMs (Groq, Claude) based on current load and token cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the cost of running these agents on Oracle Cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our core infrastructure (OKE, Autonomous Database, Load Balancer) costs approximately $150/month. LLM API costs vary, but average $800-$1,500/month depending on usage. Total operational cost for a production agent system is under $2,000/month, excluding development time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you debug a stalled or corrupted agent in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We have a custom dashboard that queries the `langchain_checkpoint` table, displaying `thread_id`, `status`, `current_step`, and `thread_ts`. For stalled agents, we can manually inspect the `jsonb` state, and if necessary, use a custom script to reset the `status` or inject a `pending_updates` command to force a specific transition."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the `jsonb` column size becomes an issue for very long conversations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cap the history stored in the `jsonb` state to the last N turns (typically 10-20). Older conversation history is offloaded to a separate `conversation_history` table, linked by `request_id`, to keep the checkpoint size manageable and improve read/write performance."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">LangGraph Checkpointing: Three Production Rewrites to Stop Losing State</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-24T19:30:16.250Z">July 24, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>Our first production LangGraph agent, a multi-step content generation pipeline, silently discarded 80% of its work for three weeks. The problem wasn't the LLM, the prompt, or the routing logic. It was a state schema mismatch during checkpointing, a bug that manifested as successful writes but failed reads, effectively deleting every intermediate step. We shipped it anyway, because the alternative was no agent at all.</p>
+<p>This wasn't the only checkpointing disaster. Before we landed on a stable pattern for LangGraph stateful agents on Oracle Cloud, we went through three major rewrites. Each one taught us a hard lesson about the gap between local development and production stability, especially when dealing with persistent state in multi-agent systems.</p>
+<h2>The Silent State Schema Mismatch: A $1,200/month Lesson</h2>
+<p>The agent's job was to take a user request, break it down, generate content drafts, review them, and then publish. Each step was a node in a LangGraph, and the state was a <code>TypedDict</code> holding various strings, lists, and a <code>status</code> enum. We used <code>SqliteSaver</code> for local development, then migrated to <code>PostgresSaver</code> on Oracle Cloud. The <code>PostgresSaver</code> uses a <code>jsonb</code> column to store the state.</p>
+<p>The initial <code>AgentState</code> looked like this:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    request_id: str
+    user_query: str
+    drafts: List[str]
+    current_step: str
+    status: Literal["pending", "generating", "reviewing", "publishing", "completed", "failed"]
+</code></pre></p>
+<p>When we added a new field, <code>review_comments: List[str]</code>, we updated the <code>TypedDict</code>. Locally, this worked fine. In production, the agent would start, generate the first draft, save the state, and then fail on the next step. The error message was generic: <code>KeyError: 'review_comments'</code>.</p>
+<p>The root cause: <code>PostgresSaver</code>'s <code>jsonb</code> column doesn't enforce a schema. When we updated the <code>TypedDict</code> in our application code, existing checkpoints in the database still had the old schema. LangGraph's <code>SqliteSaver</code> is more forgiving, often defaulting missing keys to <code>None</code> or an empty list. <code>PostgresSaver</code>, however, would deserialize the <code>jsonb</code> into a dictionary, and when the Python code tried to access <code>state["review_comments"]</code>, it wasn't there.</p>
+<p>We lost about 200 agent runs, each costing roughly $6 in Groq/Claude API calls, before we traced it back. The solution was not just to update the <code>TypedDict</code>, but to explicitly handle schema migrations for existing checkpoints. We wrote a one-off script to iterate through all existing <code>jsonb</code> states in the <code>langchain_checkpoint</code> table, add the missing <code>review_comments</code> key with an empty list, and update the records.</p>
+<p>Lesson 1: <code>TypedDict</code> is a compile-time hint, not a runtime schema enforcement for <code>jsonb</code>. Treat <code>jsonb</code> state as a mutable schema that requires explicit migration or robust default handling on read.</p>
+<h2>Checkpoint Corruption: The Race Condition That Froze Agents</h2>
+<p>After the schema mismatch, we started seeing agents freeze mid-run. No errors, just stalled. A manual inspection of the <code>langchain_checkpoint</code> table showed the <code>thread_ts</code> (timestamp) for these stalled agents was stuck, and the <code>checkpoint</code> <code>jsonb</code> column was often malformed or truncated.</p>
+<p>Our agents run on Oracle Container Engine for Kubernetes (OKE), with multiple replicas for high availability. Each replica could potentially try to update the same checkpoint. While <code>PostgresSaver</code> uses <code>FOR UPDATE</code> to lock rows during a write, we found a subtle race condition. If two replicas tried to load the same checkpoint, modify it, and then save it <em>almost</em> simultaneously, one might overwrite the other's changes, or in rare cases, corrupt the <code>jsonb</code> data if the database transaction wasn't fully committed before another read began. This was exacerbated by network latency to the Oracle Autonomous Database.</p>
+<p>The <code>PostgresSaver</code>'s default <code>thread_id</code> is a simple string. We needed a more robust locking mechanism. We implemented a custom <code>PostgresSaver</code> subclass that added an optimistic locking field, <code>version_id</code>, to the <code>langchain_checkpoint</code> table.</p>
+<p><pre><code class="language-sql">ALTER TABLE langchain_checkpoint ADD COLUMN version_id INT DEFAULT 1;
+</code></pre></p>
+<p>When an agent loads a checkpoint, it also loads its <code>version_id</code>. When it saves, it increments <code>version_id</code> and includes <code>WHERE version_id = :old_version_id</code> in the <code>UPDATE</code> query. If no rows are updated, it means another process modified the checkpoint, and our agent retries the entire step (load, process, save) with a backoff.</p>
+<p>This pattern drastically reduced checkpoint corruption and agent freezes. It added complexity, but it was necessary for true multi-replica stability.</p>
+<p>Lesson 2: <code>PostgresSaver</code>'s default locking is sufficient for single-process, single-thread access. For distributed, multi-replica deployments, implement optimistic locking or a distributed lock manager.</p>
+<h2>The One Pattern That Finally Clicked: Atomic State Transitions</h2>
+<p>Even with schema migration and optimistic locking, our agents still occasionally got into invalid states. For example, an agent might transition from <code>generating</code> to <code>reviewing</code>, but fail to save the <code>review_comments</code> in the same transaction. If the system crashed between these two operations, the agent was in an inconsistent state: <code>status</code> was <code>reviewing</code>, but <code>review_comments</code> was empty.</p>
+<p>The core issue was that LangGraph's state updates, while atomic for the <em>entire</em> state object, didn't enforce atomicity of <em>logical transitions</em>. We needed to ensure that a state change (e.g., <code>status</code> update) and its associated data changes (e.g., adding <code>review_comments</code>) happened as a single, indivisible operation from the agent's perspective.</p>
+<p>We refactored our <code>AgentState</code> and agent nodes to embrace a "command-pattern" like approach. Instead of directly modifying <code>AgentState</code> fields within a node, each node would produce a list of "state update commands." These commands would then be applied atomically at the end of the node's execution, before checkpointing.</p>
+<p>Example <code>AgentState</code> with a command queue:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    request_id: str
+    user_query: str
+    drafts: List[str]
+    current_step: str
+    status: Literal["pending", "generating", "reviewing", "publishing", "completed", "failed"]
+    review_comments: List[str]
+    # New: a queue of pending state updates
+    pending_updates: List[Tuple[str, Any]] # (field_name, new_value)
+</code></pre></p>
+<p>Each node would append to <code>pending_updates</code>. A dedicated "state transition" node (or a custom <code>checkpoint_saver</code> hook) would then apply these updates and clear the queue.</p>
+<p><pre><code class="language-python">def generate_draft_node(state: AgentState):
+    # ... generate draft ...
+    new_draft = "Generated content"
+    return {
+        "pending_updates": state.get("pending_updates", []) + [
+            ("drafts", state.get("drafts", []) + [new_draft]),
+            ("status", "reviewing")
+        ]
+    }
+
+def apply_updates_node(state: AgentState):
+    updates = state.get("pending_updates", [])
+    new_state = state.copy()
+    for field, value in updates:
+        new_state[field] = value
+    new_state["pending_updates"] = [] # Clear the queue
+    return new_state
+</code></pre></p>
+<p>This pattern ensures that all logical changes for a step are bundled and applied together. If the agent crashes before <code>apply_updates_node</code> runs, the <code>pending_updates</code> are still there on reload, and the agent can retry applying them. If it crashes <em>during</em> <code>apply_updates_node</code>, the optimistic locking ensures consistency on retry.</p>
+<p>This approach made our LangGraph stateful agents significantly more robust. We now run multiple such agents on Oracle Cloud, routing between Groq for speed-critical tasks and Claude for complex reasoning, all orchestrated via Telegram and WhatsApp. The infrastructure is lean: OKE, Oracle Autonomous Database, and a custom API gateway. Zero VC funding, just relentless iteration on stability.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a message queue (e.g., Kafka) for state transitions instead of database checkpointing?</strong><br>A: For our use case, the primary state is conversational and long-lived, requiring persistent storage and direct access for UI/debugging. A message queue would add significant complexity for state reconstruction and querying, which we wanted to avoid with a lean team.</p>
+<p><strong>Q: How do you handle LLM API rate limits and retries within LangGraph nodes?</strong><br>A: Each LLM call within a node is wrapped in a custom retry decorator with exponential backoff. We also implement a global token-bucket rate limiter at the API gateway level to prevent exceeding provider limits, routing requests to different LLMs (Groq, Claude) based on current load and token cost.</p>
+<p><strong>Q: What's the cost of running these agents on Oracle Cloud?</strong><br>A: Our core infrastructure (OKE, Autonomous Database, Load Balancer) costs approximately $150/month. LLM API costs vary, but average $800-$1,500/month depending on usage. Total operational cost for a production agent system is under $2,000/month, excluding development time.</p>
+<p><strong>Q: How do you debug a stalled or corrupted agent in production?</strong><br>A: We have a custom dashboard that queries the <code>langchain_checkpoint</code> table, displaying <code>thread_id</code>, <code>status</code>, <code>current_step</code>, and <code>thread_ts</code>. For stalled agents, we can manually inspect the <code>jsonb</code> state, and if necessary, use a custom script to reset the <code>status</code> or inject a <code>pending_updates</code> command to force a specific transition.</p>
+<p><strong>Q: What if the <code>jsonb</code> column size becomes an issue for very long conversations?</strong><br>A: We cap the history stored in the <code>jsonb</code> state to the last N turns (typically 10-20). Older conversation history is offloaded to a separate <code>conversation_history</code> table, linked by <code>request_id</code>, to keep the checkpoint size manageable and improve read/write performance.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
