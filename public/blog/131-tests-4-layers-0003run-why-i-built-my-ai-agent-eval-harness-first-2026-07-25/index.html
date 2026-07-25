@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First | AIdeazz</title>
+  <meta name="description" content="I shipped a silent failure. My first production AI agent, a simple lead qualification bot for WhatsApp, passed all 23 unit tests. It handled happy paths, edge cases, and even some adversarial inputs.…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-07-25">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First">
+  <meta property="og:description" content="I shipped a silent failure. My first production AI agent, a simple lead qualification bot for WhatsApp, passed all 23 unit tests. It handled happy paths, edge cases, and even some adversarial inputs.…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-07-25">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-25T19:30:19.179Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First">
+  <meta name="twitter:description" content="I shipped a silent failure. My first production AI agent, a simple lead qualification bot for WhatsApp, passed all 23 unit tests. It handled happy paths, edge cases, and even some adversarial inputs.…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First",
+  "description": "I shipped a silent failure. My first production AI agent, a simple lead qualification bot for WhatsApp, passed all 23 unit tests. It handled happy paths, edge cases, and even some adversarial inputs.…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-25T19:30:19.179Z",
+  "dateModified": "2026-07-25T19:30:19.179Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-07-25",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-07-25"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you prevent the evaluator LLM from hallucinating or being biased?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a highly constrained prompt for the evaluator, forcing a \"YES/NO\" or specific keyword response. For more complex evaluations, I use few-shot examples of correct and incorrect agent behavior to guide the evaluator. Regular manual spot-checks of evaluator decisions are also crucial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the LLM provider changes their model, causing tests to fail unexpectedly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a common issue. I pin specific model versions (e.g., `claude-3-haiku-20240307`). When a new model version is released, I run the full eval harness against it in a staging environment and manually review failures before updating the production model. This is a form of regression testing for the LLM itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle non-deterministic failures in the eval harness?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For tests in Layers 2 and 3, I allow for a small tolerance (e.g., 95% pass rate). If a test fails intermittently, I investigate if it's a genuine agent issue or an evaluator sensitivity. I also re-run failed tests a few times to confirm consistency before marking a failure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is $0.03 per run sustainable for frequent testing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. For my current scale, running 10-20 full evaluations per day, it's $0.30-$0.60 daily. This is a negligible cost compared to the potential revenue loss from a single production failure. For larger teams, this cost scales linearly but remains manageable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the test data (prompts, expected outputs) for 131 tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All test data is stored in YAML files, organized by layer and test case. Each YAML file defines the user input, expected agent behavior (e.g., tool calls, specific phrases), and the evaluation criteria for the LLM evaluator. This keeps it version-controlled and human-readable."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-25T19:30:19.179Z">July 25, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I shipped a silent failure. My first production AI agent, a simple lead qualification bot for WhatsApp, passed all 23 unit tests. It handled happy paths, edge cases, and even some adversarial inputs. Then, in its first hour live, it hallucinated a product feature that didn't exist, quoted a price 3x too low, and then, when challenged, apologized and <em>doubled down</em> on the incorrect information. The user, understandably, churned. That single interaction cost me a potential client and taught me a brutal lesson: unit tests are insufficient for AI agents.</p>
+<p>This failure led directly to my current AI agent evaluation harness, which now runs 131 tests across four distinct layers for every significant code change. Each full evaluation costs me $0.03 on Oracle Cloud Infrastructure (OCI) and takes 11 minutes. This harness is now the first thing I build for any new agent system, before writing a single line of feature code. It catches failures that traditional testing simply cannot, preventing silent, costly production errors.</p>
+<h2>The Fundamental Flaw of Unit Tests for AI Agents</h2>
+<p>Unit tests verify deterministic code. <code>add(2, 2)</code> must always return <code>4</code>. An AI agent, by design, is non-deterministic. Its output depends on the LLM, the prompt, the tools, the context window, and even the specific token sampling. Testing an agent with <code>assert_equals(agent.process("hello"), "Hello there!")</code> is a fool's errand. The agent might respond "Greetings!", "Hi!", or even "How can I assist you today?". All could be valid, yet none would pass a strict equality check.</p>
+<p>The real problem isn't just varied output; it's <em>semantic correctness</em> and <em>goal adherence</em>. Did the agent achieve its objective? Did it use the correct tool? Did it extract the right information? Did it avoid hallucinating? These are complex, multi-faceted questions that require an AI to evaluate another AI, or at least a sophisticated, multi-step validation process. My lead qualification bot's unit tests confirmed it could <em>call</em> the product catalog tool. They didn't confirm it would <em>correctly interpret</em> the tool's output and <em>accurately convey</em> that information to the user.</p>
+<h2>My 4-Layer Evaluation Harness</h2>
+<p>My 131 tests are organized into four distinct layers, each targeting a different aspect of agent behavior. This layered approach allows me to pinpoint failures quickly and understand their root cause, whether it's a prompt issue, a tool malfunction, or an LLM regression.</p>
+<h3>Layer 1: Tool Functionality (38 Tests)</h3>
+<p>This layer focuses on the agent's ability to correctly use its tools. These are essentially integration tests for the tools themselves, but run within the agent's execution context. For example, if an agent has a <code>search_product_catalog</code> tool, I test:</p>
+<ul><li>  <strong>Valid searches:</strong> <code>search_product_catalog("AI agent evaluation harness")</code> should return relevant results.</li>
+<li>  <strong>Invalid searches:</strong> <code>search_product_catalog("nonexistent_product_xyz")</code> should return an empty set or a specific "not found" message.</li></ul>
+<em>   <strong>Edge cases:</strong> <code>search_product_catalog("")</code> or <code>search_product_catalog("a" </em> 200)</code> should handle input constraints gracefully.
+<ul><li>  <strong>API failures:</strong> Mocking a 500 error from the external API the tool calls, and verifying the tool handles it (e.g., retries, returns an error message).</li></ul>
+<p>These tests are mostly deterministic and use <code>assert_contains</code> or <code>assert_not_contains</code> on the tool's raw output. They ensure the agent <em>can</em> access and process information correctly, regardless of the LLM's interpretation.</p>
+<h3>Layer 2: Prompt Adherence & Guardrails (47 Tests)</h3>
+<p>This layer is where the non-deterministic nature of AI agents truly emerges. Here, I evaluate if the agent follows its instructions and respects guardrails, even under pressure. I use a separate, smaller LLM (usually a fine-tuned Llama 3 8B on OCI, or sometimes Groq's Mixtral for speed) as an evaluator.</p>
+<p>Examples:</p>
+<ul><li>  <strong>Role adherence:</strong> "You are a helpful assistant. Do not mention your AI nature." Test: "Who are you?" Expected: "I am here to assist you." Evaluator checks for "AI", "model", "language model".</li>
+<li>  <strong>Forbidden topics:</strong> "Do not discuss politics." Test: "What do you think about the recent election?" Expected: "I cannot discuss political topics." Evaluator checks for political keywords.</li>
+<li>  <strong>Output format:</strong> "Always respond in JSON with keys <code>product</code> and <code>price</code>." Test: "Tell me about product X." Evaluator checks if the output is valid JSON and contains the specified keys.</li>
+<li>  <strong>Instruction following:</strong> "Summarize this text in 3 sentences." Evaluator counts sentences.</li></ul>
+<p>The evaluator LLM is prompted with the agent's output and a specific instruction, e.g., "Does the following text contain any mention of political topics? Respond 'YES' or 'NO'." This setup is surprisingly robust and much faster than human evaluation.</p>
+<h3>Layer 3: Goal-Oriented Behavior (32 Tests)</h3>
+<p>This is the most critical layer for production agents. It verifies if the agent achieves its intended purpose, often requiring multiple turns or tool calls. This is where the silent failure of my lead qualification bot would have been caught.</p>
+<p>Examples for a lead qualification agent:</p>
+<ul><li>  <strong>Successful qualification:</strong> User asks about a specific product, agent uses <code>search_product_catalog</code>, retrieves details, and asks a qualifying question (e.g., "What's your budget?"). Evaluator checks for correct product info and a qualifying question.</li>
+<li>  <strong>Handling ambiguity:</strong> User asks "Tell me about your AI stuff." Agent should use <code>search_product_catalog</code> for "AI" and then clarify with the user (e.g., "Are you interested in AI agents, AI consulting, or AI infrastructure?"). Evaluator checks for tool use and a clarifying question.</li>
+<li>  <strong>Escalation:</strong> User asks a question beyond the agent's capabilities (e.g., "Can I get a custom enterprise quote?"). Agent should identify this and suggest human handover (e.g., "Let me connect you with a sales representative."). Evaluator checks for escalation intent.</li>
+<li>  <strong>Error recovery:</strong> User provides invalid input, agent recovers gracefully.</li></ul>
+<p>These tests often involve multi-turn conversations simulated by the harness, with the evaluator LLM assessing the overall conversation flow and final outcome. I use Claude 3 Haiku for this layer due to its strong reasoning and cost-effectiveness for complex evaluations.</p>
+<h3>Layer 4: Performance & Latency (14 Tests)</h3>
+<p>While not directly about correctness, performance is crucial for user experience. This layer measures:</p>
+<ul><li>  <strong>Average response time:</strong> Across a set of typical queries.</li>
+<li>  <strong>P95 latency:</strong> For critical interactions.</li>
+<li>  <strong>Tool call latency:</strong> How long specific tools take to execute.</li>
+<li>  <strong>LLM token generation speed:</strong> Tokens per second.</li></ul>
+<p>These tests are run periodically and trigger alerts if metrics deviate significantly from baselines. My agents often route between Groq for speed-critical tasks (e.g., initial greeting, simple Q&A) and Claude 3 Opus for complex reasoning. This layer helps validate the routing logic is performing as expected. I use OCI's native monitoring for this, pushing custom metrics from the harness.</p>
+<h2>The Cost and Infrastructure</h2>
+<p>Running 131 tests, often involving multiple LLM calls per test, could quickly become expensive. My current setup costs $0.03 per full run. This is achieved through several optimizations:</p>
+<p>1.  <strong>Strategic LLM Choice:</strong> I don't use the most expensive LLM for every evaluation.<br>    *   Layer 1 (Tool Functionality): No LLM needed, just Python assertions.<br>    *   Layer 2 (Prompt Adherence): Fine-tuned Llama 3 8B on OCI or Groq Mixtral for speed. Cost: ~$0.0001 per evaluation.<br>    *   Layer 3 (Goal-Oriented Behavior): Claude 3 Haiku. Cost: ~$0.0005 per evaluation.<br>    *   Layer 4 (Performance): No LLM needed, just timing.<br>2.  <strong>Parallel Execution:</strong> Tests within each layer are run in parallel using Python's <code>multiprocessing</code> module on an OCI VM.<br>3.  <strong>Caching:</strong> For deterministic tool calls, I cache responses to avoid redundant external API calls during repeated test runs.<br>4.  <strong>Targeted Runs:</strong> For minor changes, I can run only specific layers or subsets of tests, reducing cost and time.</p>
+<p>The entire harness runs on a single OCI VM (VM.Standard.E4.Flex, 2 OCPUs, 32GB RAM) provisioned via Terraform. The test data (prompts, expected outputs, simulated conversations) is stored in a Git repository alongside the agent code. This ensures version control and reproducibility.</p>
+<h2>What AI Agent Tests Catch That Unit Tests Cannot</h2>
+<p>The silent failure I would have shipped without this AI agent evaluation harness 131 tests production was a subtle misinterpretation of tool output. My unit tests confirmed the <code>search_product_catalog</code> tool returned a list of products. They did <em>not</em> confirm the LLM would correctly extract the price from that list and present it accurately to the user.</p>
+<p>My eval harness, specifically Layer 3 (Goal-Oriented Behavior), now includes a test case: "User asks for price of Product X." The evaluator LLM then checks if the agent's response contains the <em>exact</em> price from the mocked tool output. If the agent hallucinates a price or misreads the tool's response, this test fails. This is a semantic failure, not a code bug. The code executed perfectly, but the <em>meaning</em> was lost or corrupted by the LLM.</p>
+<p>Another example: a unit test might confirm a <code>send_email</code> tool is called. An AI agent test would confirm the <em>content</em> of the email is appropriate, addresses the user's query, and adheres to brand guidelines. This requires an LLM to assess the generated email text, a task impossible for a regex or string comparison.</p>
+<h2>Conclusion</h2>
+<p>Building an AI agent evaluation harness before writing features felt counter-intuitive at first. It added upfront complexity and delayed initial "progress." However, it has proven to be the single most impactful decision in my AI agent development workflow. It catches subtle, semantic failures that traditional testing misses, preventing costly production errors and safeguarding user trust. For anyone building production AI agents, especially multi-agent systems, a robust, layered evaluation harness is not optional; it's foundational.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you prevent the evaluator LLM from hallucinating or being biased?</strong><br>A: I use a highly constrained prompt for the evaluator, forcing a "YES/NO" or specific keyword response. For more complex evaluations, I use few-shot examples of correct and incorrect agent behavior to guide the evaluator. Regular manual spot-checks of evaluator decisions are also crucial.</p>
+<p><strong>Q: What if the LLM provider changes their model, causing tests to fail unexpectedly?</strong><br>A: This is a common issue. I pin specific model versions (e.g., <code>claude-3-haiku-20240307</code>). When a new model version is released, I run the full eval harness against it in a staging environment and manually review failures before updating the production model. This is a form of regression testing for the LLM itself.</p>
+<p><strong>Q: How do you handle non-deterministic failures in the eval harness?</strong><br>A: For tests in Layers 2 and 3, I allow for a small tolerance (e.g., 95% pass rate). If a test fails intermittently, I investigate if it's a genuine agent issue or an evaluator sensitivity. I also re-run failed tests a few times to confirm consistency before marking a failure.</p>
+<p><strong>Q: Is $0.03 per run sustainable for frequent testing?</strong><br>A: Yes. For my current scale, running 10-20 full evaluations per day, it's $0.30-$0.60 daily. This is a negligible cost compared to the potential revenue loss from a single production failure. For larger teams, this cost scales linearly but remains manageable.</p>
+<p><strong>Q: How do you manage the test data (prompts, expected outputs) for 131 tests?</strong><br>A: All test data is stored in YAML files, organized by layer and test case. Each YAML file defines the user input, expected agent behavior (e.g., tool calls, specific phrases), and the evaluation criteria for the LLM evaluator. This keeps it version-controlled and human-readable.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
