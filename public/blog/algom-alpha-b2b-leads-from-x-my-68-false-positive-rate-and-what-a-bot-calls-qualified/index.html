@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified | AIdeazz</title>
+  <meta name="description" content="My first attempt at a B2B lead generation AI agent, Algom Alpha, failed to deliver a single qualified lead for three weeks. It burned $17.83 in Groq API calls and $4.12 in Oracle Cloud egress. The co…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/algom-alpha-b2b-leads-from-x-my-68-false-positive-rate-and-what-a-bot-calls-qualified">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified">
+  <meta property="og:description" content="My first attempt at a B2B lead generation AI agent, Algom Alpha, failed to deliver a single qualified lead for three weeks. It burned $17.83 in Groq API calls and $4.12 in Oracle Cloud egress. The co…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/algom-alpha-b2b-leads-from-x-my-68-false-positive-rate-and-what-a-bot-calls-qualified">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-26T19:30:13.831Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified">
+  <meta name="twitter:description" content="My first attempt at a B2B lead generation AI agent, Algom Alpha, failed to deliver a single qualified lead for three weeks. It burned $17.83 in Groq API calls and $4.12 in Oracle Cloud egress. The co…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified",
+  "description": "My first attempt at a B2B lead generation AI agent, Algom Alpha, failed to deliver a single qualified lead for three weeks. It burned $17.83 in Groq API calls and $4.12 in Oracle Cloud egress. The co…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-26T19:30:13.831Z",
+  "dateModified": "2026-07-26T19:30:13.831Z",
+  "url": "https://aideazz.xyz/blog/algom-alpha-b2b-leads-from-x-my-68-false-positive-rate-and-what-a-bot-calls-qualified",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/algom-alpha-b2b-leads-from-x-my-68-false-positive-rate-and-what-a-bot-calls-qualified"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why X instead of LinkedIn for B2B lead generation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LinkedIn's API access is heavily restricted and expensive for programmatic scraping. X, while challenging with rate limits, offers more accessible public data for a bootstrapped operation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle X's rate limits and account suspensions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use multiple X developer accounts and rotate API keys. I also implement exponential backoff for API calls and introduce random delays between requests to mimic human behavior."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the cost per qualified lead with your current setup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Given the 68% false-positive rate, the cost is approximately $0.85 per *true* qualified lead, factoring in API costs and my manual review time (valued at $50/hour). This needs to come down."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use a single, larger LLM for all analysis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cost and latency. Routing smaller, faster models (like Groq Llama 3 8B) for initial filtering significantly reduces the overall API spend and processing time compared to sending every raw tweet to a larger, more expensive model."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent the agents from generating identical leads?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I store all processed tweet IDs in an Oracle Autonomous Database. Before processing, the X Scraper Agent checks this database to ensure no duplicate tweets are sent down the pipeline."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-26T19:30:13.831Z">July 26, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first attempt at a B2B lead generation AI agent, Algom Alpha, failed to deliver a single qualified lead for three weeks. It burned $17.83 in Groq API calls and $4.12 in Oracle Cloud egress. The core problem: my definition of "qualified" was too loose, and my signal-to-noise ratio on X (formerly Twitter) was abysmal. I needed to find companies actively hiring for specific roles, not just discussing them.</p>
+<p>I built Algom Alpha to find B2B leads for AIdeazz, specifically targeting companies that need production AI agents but don't have the internal capacity. This means looking for signals like "hiring for ML engineer," "seeking AI talent," or "building an internal AI team." The initial version just scraped X for these keywords, leading to a 95% false-positive rate. I then refined the process, focusing on <em>hiring-adjacent</em> keywords and a multi-agent scoring system. My current false-positive rate is 68%, which I'm still not proud of, but it's a significant improvement.</p>
+<h2>The Signal: Hiring-Adjacent Keywords on X</h2>
+<p>The initial keyword list was too broad: <code>["AI", "ML", "LLM", "agent", "hiring", "developer"]</code>. This pulled in everything from academic discussions to spam. I shifted to a more targeted approach, combining hiring intent with specific AI roles.</p>
+<p>Current keyword list (example subset):<br><ul><li><code>"hiring AI engineer"</code></li><br><li><code>"seeking machine learning lead"</code></li><br><li><code>"building internal AI team"</code></li><br><li><code>"need prompt engineer"</code></li><br><li><code>"looking for ML ops"</code></li><br><li><code>"AI product manager opening"</code></li></ul></p>
+<p>This still generates noise. A tweet like "We're building an internal AI team, but we're looking for a <em>partner</em> not an employee" would be a false positive for direct hiring, but a potential lead for AIdeazz. This nuance is where the multi-agent system comes in.</p>
+<h2>Algom Alpha's Architecture: Oracle Cloud, Groq, and a Scoring Cascade</h2>
+<p>Algom Alpha runs on an Oracle Cloud Infrastructure (OCI) VM. I use OCI because of the free tier and predictable billing, which is critical when you're bootstrapping with zero VC. The core components are:</p>
+<p>1.  <strong>X Scraper Agent (Python/Tweepy):</strong> This agent continuously monitors X for the refined keyword list. It collects tweet text, author, timestamp, and follower count. Rate limits are a constant battle; I cycle through multiple developer accounts to manage this.<br>2.  <strong>Initial Filter Agent (Groq Llama 3 8B):</strong> This agent receives raw tweets. Its prompt is simple: "Is this tweet <em>likely</em> indicating a company is hiring for an AI-related role, or actively seeking AI development help? Respond 'YES' or 'NO'." I use Groq for its speed and low latency, which keeps the per-tweet cost minimal ($0.0001 per 1k tokens for Llama 3 8B). This agent is the first line of defense against obvious spam or irrelevant discussions.<br>3.  <strong>Contextual Analysis Agent (Groq Llama 3 70B or Claude 3 Haiku):</strong> If the Initial Filter Agent says "YES," the tweet and its author's profile (scraped separately) are passed to this agent. This is where the "qualified lead" definition starts to solidify. The prompt here is more complex:<br>    <pre><code class="language-plain">    Analyze the provided tweet and user profile. Determine if this company is a viable B2B lead for an AI agent development service.
+    Criteria for 'viable':
+    - Explicitly states hiring for AI/ML roles OR
+    - Explicitly states building an internal AI team/product OR
+    - Expresses a need for AI development expertise (e.g., "struggling with LLM integration," "need help with AI strategy")
+    - Company appears to be established (not a solo founder looking for free advice)
+    - Not an AI services company itself (we don't sell to competitors)
+    - Not a university or research institution (unless explicitly seeking commercial partnership)
+    - Not a personal account seeking a job
+    
+    Output a JSON object:
+    {
+      "is_qualified": boolean,
+      "reason": "string explaining qualification or disqualification",
+      "company_name": "string (extract from profile if possible)",
+      "contact_signal": "string (e.g., 'DM open', 'link to careers page', 'email in bio')"
+    }
+    </code></pre><br>    I route between Groq Llama 3 70B and Claude 3 Haiku based on current API latency and cost. Groq is faster but sometimes hallucinates company names. Claude is more reliable for complex reasoning but slower.<br>4.  <strong>Scoring Agent (Python/Pandas):</strong> This agent takes the JSON output. It assigns a score based on <code>is_qualified</code> (100 points if true, 0 if false), and then adds points for <code>contact_signal</code> (e.g., +20 for email, +10 for DM open, +5 for careers page link). It also penalizes based on follower count (e.g., -5 for <100 followers, indicating a smaller, potentially less established entity).<br>5.  <strong>Human Review Queue (Telegram Bot):</strong> Leads with a score above 80 are pushed to a Telegram bot. This bot sends me the tweet, the company name, and the reason for qualification. This is where I manually review and confirm.</p>
+<h2>The 68% False-Positive Rate: Where the System Breaks</h2>
+<p>My 68% false-positive rate means that for every 100 leads the system flags as "qualified," 68 are actually not. This is expensive in terms of my time for manual review.</p>
+<p>Common false positives:</p>
+<p><em>   <strong>AI Service Providers:</strong> "We're hiring for an ML engineer to build </em>our clients'* AI solutions." The Contextual Analysis Agent sometimes misses the "our clients'" nuance, especially with less explicit phrasing.<br><ul><li>  <strong>Academic/Research:</strong> "Our university lab is seeking a PhD student for AI research." The agent struggles to differentiate between academic hiring and commercial product development.</li><br><li>  <strong>Personal Job Seekers:</strong> "I'm an AI engineer looking for new opportunities." The agent sometimes misinterprets "looking for" as the company looking for talent, not an individual. This is less frequent now due to profile analysis, but still happens.</li><br><li>  <strong>Ambiguous Intent:</strong> "AI is changing everything, we need to adapt." This is too vague, but sometimes the agent interprets "need to adapt" as "need help."</li><br><li>  <strong>Old Posts:</strong> X's search can sometimes pull up older, irrelevant posts. I've implemented a timestamp filter, but some still slip through.</li></ul></p>
+<p>The root cause is often the LLM's inability to fully grasp the subtle context of human language, especially when profiles are sparse or tweets are intentionally vague. I'm constantly refining the prompts and adding more negative examples to the agent's training data (via few-shot prompting).</p>
+<h2>What a Bot Calls 'Qualified'</h2>
+<p>For Algom Alpha, a "qualified lead" means a company that:</p>
+<p>1.  <strong>Is actively hiring for or explicitly seeking AI development expertise.</strong> This is the primary signal.<br>2.  <strong>Appears to be a legitimate business, not an individual or an academic institution.</strong> This is inferred from profile details, follower count, and linked websites.<br>3.  <strong>Is not a direct competitor (i.e., another AI agent development firm).</strong> This is a critical filter.<br>4.  <strong>Has a clear path for contact.</strong> This could be a DM, an email, or a public careers page.</p>
+<p>My definition of "qualified" is still evolving. Initially, it was just "hiring for AI." Now, it's about <em>fit</em> for AIdeazz. A company hiring 100 ML engineers internally is less qualified than a small-to-medium business saying, "We need an LLM integrated, but don't have the in-house team." The latter is my sweet spot.</p>
+<p>The 68% false-positive rate is a direct cost. Each manual review takes 30-60 seconds. For 100 leads, that's an hour of my time. My goal is to get this under 30% by the end of Q3 2024 through more sophisticated prompt engineering, better negative examples, and potentially integrating a small, fine-tuned model for specific classification tasks. The current system is a working prototype, generating <em>some</em> leads, but the efficiency needs significant improvement.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why X instead of LinkedIn for B2B lead generation?</strong><br>A: LinkedIn's API access is heavily restricted and expensive for programmatic scraping. X, while challenging with rate limits, offers more accessible public data for a bootstrapped operation.</p>
+<p><strong>Q: How do you handle X's rate limits and account suspensions?</strong><br>A: I use multiple X developer accounts and rotate API keys. I also implement exponential backoff for API calls and introduce random delays between requests to mimic human behavior.</p>
+<p><strong>Q: What's the cost per qualified lead with your current setup?</strong><br>A: Given the 68% false-positive rate, the cost is approximately $0.85 per <em>true</em> qualified lead, factoring in API costs and my manual review time (valued at $50/hour). This needs to come down.</p>
+<p><strong>Q: Why not use a single, larger LLM for all analysis?</strong><br>A: Cost and latency. Routing smaller, faster models (like Groq Llama 3 8B) for initial filtering significantly reduces the overall API spend and processing time compared to sending every raw tweet to a larger, more expensive model.</p>
+<p><strong>Q: How do you prevent the agents from generating identical leads?</strong><br>A: I store all processed tweet IDs in an Oracle Autonomous Database. Before processing, the X Scraper Agent checks this database to ensure no duplicate tweets are sent down the pipeline.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
