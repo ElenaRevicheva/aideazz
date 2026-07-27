@@ -451,7 +451,16 @@
     </noscript>
 
     <!-- Start of HubSpot Embed Code -->
-    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/51409153.js"></script>
+    <!--
+      ?v= is deliberate (2026-07-26). HubSpot's Cloudflare edge served a ~1h-stale
+      copy of 51409153.js from before the chatflow was published: 1893 bytes with no
+      conversations-embed, cf-cache-status HIT, Age climbing with wall-clock. So the
+      chat could not appear for ANY visitor, incognito included — the staleness is at
+      the CDN, not in the browser. A query string is a different cache key, so this
+      pulls the current 2352-byte build that does load the chat. Bump the date if a
+      future chatflow change is ever stuck behind the same cache again.
+    -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/51409153.js?v=20260726"></script>
     <!-- End of HubSpot Embed Code -->
   </body>
 </html>
