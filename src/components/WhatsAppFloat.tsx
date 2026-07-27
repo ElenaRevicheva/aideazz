@@ -43,7 +43,11 @@ function nowInZone(timeZone: string): { hour: number; day: number } {
 }
 
 /**
- * Floating WhatsApp click-to-chat bubble (bottom-right).
+ * Floating WhatsApp click-to-chat bubble (bottom-LEFT).
+ *
+ * Moved from bottom-right on 2026-07-26: HubSpot's chat launcher is hard-anchored
+ * bottom-right at z-index ~2.1e9, so it would sit on top of this bubble and cover
+ * the expanded card. Left side keeps both channels visible and clickable.
  * No WhatsApp Business API and no backend — it just opens a wa.me deep link,
  * so it costs nothing and works on desktop + mobile.
  *
@@ -70,7 +74,7 @@ export default function WhatsAppFloat({
   const chatUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-5 left-5 z-50 flex flex-col items-start gap-3">
       <AnimatePresence>
         {open && (
           <motion.div
