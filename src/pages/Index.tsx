@@ -16,6 +16,7 @@ import YouTubeSubscriptionSection from "@/components/YouTubeSubscriptionSection"
 import LegalFooter from "@/components/LegalFooter";
 import ScrollProgress from "@/components/ScrollProgress";
 import MagneticCursor from "@/components/MagneticCursor";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const Index = () => {
   const [searchParams] = useSearchParams();
@@ -40,6 +41,10 @@ const Index = () => {
     <div className="min-h-screen flex flex-col">
       <MagneticCursor />
       <ScrollProgress />
+      {/* WhatsApp lives bottom-LEFT here exactly as on /portfolio — the homepage
+          never had it, so visitors on the vision site had no one-tap way to reach
+          Elena while HubSpot chat sat on the right (2026-07-27). */}
+      <WhatsAppFloat />
       <Navigation />
       <main className="flex-1">
         <HeroSection />

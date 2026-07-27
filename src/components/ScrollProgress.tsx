@@ -36,7 +36,10 @@ const ScrollProgress = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-[70] hover:shadow-purple-500/50 transition-shadow duration-300"
+          // bottom-28, not bottom-8: HubSpot's chat launcher anchors to the very
+          // bottom-right, so at bottom-8 this button sat behind it and was only
+          // half visible (2026-07-27). Sitting ~112px up it clears the launcher.
+          className="fixed bottom-28 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg flex items-center justify-center text-white z-[70] hover:shadow-purple-500/50 transition-shadow duration-300"
           aria-label="Scroll to top"
         >
           <svg
