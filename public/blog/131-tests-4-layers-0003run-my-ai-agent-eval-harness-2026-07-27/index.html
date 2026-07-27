@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness | AIdeazz</title>
+  <meta name="description" content="I shipped a silent failure. My production AI agent, designed to extract structured data from user messages, started returning null for a critical field. Not an error, not an exception, just null. It …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-27">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness">
+  <meta property="og:description" content="I shipped a silent failure. My production AI agent, designed to extract structured data from user messages, started returning null for a critical field. Not an error, not an exception, just null. It …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-27">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-27T19:30:15.835Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness">
+  <meta name="twitter:description" content="I shipped a silent failure. My production AI agent, designed to extract structured data from user messages, started returning null for a critical field. Not an error, not an exception, just null. It …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness",
+  "description": "I shipped a silent failure. My production AI agent, designed to extract structured data from user messages, started returning null for a critical field. Not an error, not an exception, just null. It …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-27T19:30:15.835Z",
+  "dateModified": "2026-07-27T19:30:15.835Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-27",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-27"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle non-deterministic LLM outputs in your evaluations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For non-deterministic outputs like summaries or creative text, I use a reference LLM (Claude 3.5 Sonnet) to evaluate the *quality* and *accuracy* against a set of human-defined criteria, rather than exact string matching. The prompt for the evaluation LLM is carefully crafted to focus on semantic correctness and completeness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the evaluation LLM itself makes a mistake?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a valid concern. I mitigate this by using a highly capable LLM (Claude 3.5 Sonnet) for evaluation and by having a human review a sample of the evaluation LLM's judgments, especially for new test cases or when an agent fails unexpectedly. The evaluation prompt is also designed to be explicit and minimize ambiguity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the test data for 131 tests? Is it all manual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Initially, many test cases were manual. However, I've started automating test case generation for variations (e.g., paraphrasing tools, data augmentation). For critical business logic, human-curated test cases remain essential. The PostgreSQL database allows for easy querying and updating of test cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not just use an existing eval framework?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I found existing frameworks either too generic (requiring significant customization for multi-agent, tool-using systems) or too opinionated towards specific LLM providers or use cases. Building my own allowed for deep integration with my specific agent architecture, Oracle Cloud infrastructure, and custom evaluation logic tailored to my agents' unique failure modes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you keep the $0.03/run cost low with 131 tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The key is intelligent routing. Most initial agent interactions and simple checks use Groq, which is extremely fast and cost-effective. Only complex semantic evaluations (e.g., Layer 2 content accuracy) are routed to more expensive, but more capable, models like Claude 3.5 Sonnet. Many tests also involve local schema validation or mocked tool calls, incurring minimal LLM cost."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-27T19:30:15.835Z">July 27, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I shipped a silent failure. My production AI agent, designed to extract structured data from user messages, started returning <code>null</code> for a critical field. Not an error, not an exception, just <code>null</code>. It passed all 27 unit tests. My CI/CD pipeline was green. The agent was "working" according to every metric I had. It took a manual spot check of 10 user interactions to find the problem. This was the moment I stopped building new features and started building an AI agent evaluation harness.</p>
+<p>My current harness runs 131 tests across four distinct layers for every agent change. Each full run costs $0.03 on average, leveraging Groq for speed and Claude 3.5 Sonnet for complex evaluations. This setup catches issues that unit tests fundamentally cannot, because AI agent failures often manifest as <em>semantic drift</em> or <em>performance degradation</em> rather than outright code breaks.</p>
+<h2>The Problem: Semantic Drift and Silent Failures</h2>
+<p>Traditional unit tests verify deterministic code. <code>add(2, 2)</code> must always return <code>4</code>. An AI agent, however, operates within a probabilistic domain. A prompt change, a new system message, or even a different LLM version can subtly alter its output without breaking the code structure.</p>
+<p>My initial failure was a perfect example. The agent's job was to parse user requests for custom AI agent builds. One field was <code>target_platform</code> (e.g., "Telegram", "WhatsApp", "Web"). I updated the system prompt to emphasize "clarity and conciseness" in the output JSON. This seemingly innocuous change, intended to reduce verbosity, caused the LLM to sometimes omit <code>target_platform</code> if it felt the platform was "obvious" from context, even though the schema explicitly required it. The agent's Python code still called <code>json.loads()</code> and accessed <code>data['target_platform']</code>. When the key was missing, it defaulted to <code>None</code> or <code>null</code> depending on the parsing logic. No <code>KeyError</code>, no <code>TypeError</code>. Just <code>null</code>.</p>
+<p>This is semantic drift. The agent's <em>interpretation</em> of the task changed, not its <em>code execution</em>. Unit tests, focused on function inputs and outputs, cannot catch this. They verify the parser works, not that the LLM <em>always produces the key</em>.</p>
+<h2>The Four Layers of My Evaluation Harness</h2>
+<p>My AI agent evaluation harness 131 tests production readiness by focusing on the agent's <em>behavior</em> and <em>output quality</em> across different scenarios. I run these tests on Oracle Cloud Infrastructure (OCI) using custom Python scripts and a PostgreSQL database for test case management.</p>
+<h3>Layer 1: Input Robustness (38 tests)</h3>
+<p>This layer focuses on how the agent handles variations in user input. It's about ensuring the agent doesn't break or produce garbage when faced with common real-world deviations.</p>
+<ul><li>  <strong>Variations in phrasing:</strong> 15 tests with different ways of asking the same question (e.g., "build a Telegram bot", "I need a bot for TG", "Telegram agent please").</li>
+<li>  <strong>Missing information:</strong> 10 tests where critical fields are omitted, expecting the agent to either ask clarifying questions or return a specific "incomplete" status.</li>
+<li>  <strong>Ambiguous requests:</strong> 8 tests with vague or contradictory instructions, checking for graceful handling or clarification.</li>
+<li>  <strong>Edge cases:</strong> 5 tests for maximum length inputs, special characters, or empty messages.</li></ul>
+<p>For example, an agent designed to book appointments should, when given "book an appointment", respond with "What date and time?" not "Here's your appointment for null on null."</p>
+<h3>Layer 2: Output Fidelity (52 tests)</h3>
+<p>This is the core of catching semantic drift. It verifies that the agent's output matches the <em>intended meaning</em> and <em>structure</em>, not just the syntactic correctness.</p>
+<ul><li>  <strong>Schema adherence:</strong> 20 tests verifying that the output JSON strictly follows the Pydantic schema, including all required fields and correct data types. This uses <code>pydantic.validate_json</code> and custom checks for nested structures.</li>
+<li>  <strong>Content accuracy:</strong> 15 tests where a reference LLM (Claude 3.5 Sonnet, for its reasoning capabilities) evaluates the agent's output against the original prompt and a human-defined "gold standard" answer. For instance, if the agent is supposed to summarize, the reference LLM checks if the summary captures the main points.</li>
+<li>  <strong>Completeness:</strong> 10 tests ensuring all expected pieces of information are present in the output. This caught my <code>target_platform</code> <code>null</code> issue.</li>
+<li>  <strong>Conciseness/Verbosity:</strong> 7 tests evaluating if the output meets specific length or detail requirements. An agent designed for quick answers shouldn't write an essay.</li></ul>
+<p>The content accuracy tests are crucial. I use a prompt like: "Given the user's request: '{user_input}', and the agent's output: '{agent_output}', and the expected output characteristics: '{expected_characteristics}', evaluate if the agent's output is accurate and complete. Respond 'PASS' or 'FAIL' followed by a brief explanation." This is where the $0.03/run cost comes in, as these evaluations are often run on Claude.</p>
+<h3>Layer 3: Tool/Function Call Correctness (27 tests)</h3>
+<p>Many of my agents are multi-agent systems, routing requests to specialized sub-agents or calling external APIs. This layer verifies these interactions.</p>
+<p><em>   <strong>Correct tool selection:</strong> 10 tests ensuring the agent calls the </em>right* tool for a given intent (e.g., "schedule meeting" calls <code>calendar_tool.schedule</code>, not <code>email_tool.send</code>).<br><ul><li>  <strong>Correct arguments:</strong> 12 tests verifying that the arguments passed to the tool are correctly extracted from the user's request and formatted according to the tool's schema. This is a common failure point for LLMs.</li><br><li>  <strong>Error handling:</strong> 5 tests simulating tool failures (e.g., API timeouts, invalid credentials) and checking if the agent gracefully handles them, informs the user, or retries.</li></ul></p>
+<p>I mock external APIs during these tests to control the environment and ensure deterministic outcomes.</p>
+<h3>Layer 4: Performance and Cost (14 tests)</h3>
+<p>While not directly about correctness, these are critical for production.</p>
+<ul><li>  <strong>Latency benchmarks:</strong> 5 tests measuring the end-to-end response time for various input complexities. I track p50, p90, and p99 latency. My target is <2 seconds for simple requests on Groq.</li>
+<li>  <strong>Token usage:</strong> 5 tests logging input/output token counts to monitor cost per interaction. This helps identify prompt bloat or verbose LLM responses.</li>
+<li>  <strong>Rate limit handling:</strong> 4 tests simulating hitting LLM provider rate limits and verifying the agent's retry logic or fallback mechanisms.</li></ul>
+<p>My current setup uses Groq for the initial LLM call in most agents due to its speed and cost-effectiveness for simple parsing and routing. More complex reasoning or evaluation tasks are routed to Claude 3.5 Sonnet. This hybrid approach keeps the average cost per agent interaction low while maintaining high quality where it matters.</p>
+<h2>Building the Harness: Infrastructure and Workflow</h2>
+<p>My harness is a Python application. Test cases are stored in a PostgreSQL database, allowing for easy management and versioning. Each test case includes:</p>
+<ul><li>  <code>test_id</code></li>
+<li>  <code>agent_id</code></li>
+<li>  <code>layer</code> (e.g., 'input_robustness')</li>
+<li>  <code>test_name</code></li>
+<li>  <code>user_input</code></li>
+<li>  <code>expected_output_characteristics</code> (a natural language description for LLM evaluation)</li>
+<li>  <code>expected_json_schema</code> (for strict schema validation)</li>
+<li>  <code>expected_tool_call</code> (for tool call verification)</li>
+<li>  <code>status</code> (Pass/Fail)</li>
+<li>  <code>details</code> (error messages, LLM evaluation rationale)</li></ul>
+<p>When I make a change to an agent (e.g., a prompt update, a new tool definition), I trigger a full harness run. The script iterates through the test cases, invokes the agent, and then runs the appropriate evaluation logic for each layer.</p>
+<p>For LLM-based evaluations (Layer 2), I use a dedicated <code>EvaluationAgent</code> (itself an AI agent) that takes the user input, the agent's output, and the expected characteristics, then returns a <code>PASS</code>/<code>FAIL</code> and a reason. This <code>EvaluationAgent</code> is typically powered by Claude 3.5 Sonnet due to its strong reasoning capabilities.</p>
+<p>The results are logged back into the database and presented through a simple web dashboard (built with Streamlit for internal use). A failed test immediately blocks deployment.</p>
+<h2>The Cost of Not Testing</h2>
+<p>The <code>null</code> <code>target_platform</code> issue cost me several hours of debugging, a frustrated user, and a loss of trust. If I had caught it earlier, before it hit production, the impact would have been minimal. The $0.03 per run for 131 tests is a trivial cost compared to the engineering time spent debugging production issues or the potential revenue loss from a malfunctioning agent.</p>
+<p>My initial investment in building the harness took about two weeks. This included designing the test layers, setting up the database, and writing the evaluation logic. It was time taken <em>away</em> from shipping new features, but it was absolutely necessary. It's a foundational piece of infrastructure for any serious AI agent development. Without it, you're shipping blind, hoping your probabilistic systems don't drift into silent failure.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle non-deterministic LLM outputs in your evaluations?</strong><br>A: For non-deterministic outputs like summaries or creative text, I use a reference LLM (Claude 3.5 Sonnet) to evaluate the <em>quality</em> and <em>accuracy</em> against a set of human-defined criteria, rather than exact string matching. The prompt for the evaluation LLM is carefully crafted to focus on semantic correctness and completeness.</p>
+<p><strong>Q: What if the evaluation LLM itself makes a mistake?</strong><br>A: This is a valid concern. I mitigate this by using a highly capable LLM (Claude 3.5 Sonnet) for evaluation and by having a human review a sample of the evaluation LLM's judgments, especially for new test cases or when an agent fails unexpectedly. The evaluation prompt is also designed to be explicit and minimize ambiguity.</p>
+<p><strong>Q: How do you manage the test data for 131 tests? Is it all manual?</strong><br>A: Initially, many test cases were manual. However, I've started automating test case generation for variations (e.g., paraphrasing tools, data augmentation). For critical business logic, human-curated test cases remain essential. The PostgreSQL database allows for easy querying and updating of test cases.</p>
+<p><strong>Q: Why not just use an existing eval framework?</strong><br>A: I found existing frameworks either too generic (requiring significant customization for multi-agent, tool-using systems) or too opinionated towards specific LLM providers or use cases. Building my own allowed for deep integration with my specific agent architecture, Oracle Cloud infrastructure, and custom evaluation logic tailored to my agents' unique failure modes.</p>
+<p><strong>Q: How do you keep the $0.03/run cost low with 131 tests?</strong><br>A: The key is intelligent routing. Most initial agent interactions and simple checks use Groq, which is extremely fast and cost-effective. Only complex semantic evaluations (e.g., Layer 2 content accuracy) are routed to more expensive, but more capable, models like Claude 3.5 Sonnet. Many tests also involve local schema validation or mocked tool calls, incurring minimal LLM cost.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
