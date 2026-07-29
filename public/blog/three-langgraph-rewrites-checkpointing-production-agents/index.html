@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three LangGraph Rewrites: Checkpointing Production Agents | AIdeazz</title>
+  <meta name="description" content="Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The state object, intended to carry a job_id and customer_query, was being ove…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-production-agents">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Three LangGraph Rewrites: Checkpointing Production Agents">
+  <meta property="og:description" content="Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The state object, intended to carry a job_id and customer_query, was being ove…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-production-agents">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-29T19:30:16.512Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Three LangGraph Rewrites: Checkpointing Production Agents">
+  <meta name="twitter:description" content="Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The state object, intended to carry a job_id and customer_query, was being ove…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Three LangGraph Rewrites: Checkpointing Production Agents",
+  "description": "Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The state object, intended to carry a job_id and customer_query, was being ove…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-29T19:30:16.512Z",
+  "dateModified": "2026-07-29T19:30:16.512Z",
+  "url": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-production-agents",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-production-agents"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a custom state manager with Redis or DynamoDB instead of LangGraph's built-in checkpointer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While possible, it adds significant development and maintenance overhead. LangGraph's checkpointer handles serialization, deserialization, and versioning of the graph state automatically. Building this from scratch for a custom store would consume weeks of engineering time that could be spent on agent logic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle schema migrations for `AgentState` in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We treat `AgentState` like a database schema. For minor additions, we add new optional keys. For breaking changes, we deploy a new version of the agent with a new `thread_id` prefix and migrate active threads manually or through a one-off script, ensuring old threads complete on the old schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the performance overhead of PostgreSQL checkpointing compared to in-memory?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For typical agent interactions (seconds to minutes per turn), the overhead of a network roundtrip to PostgreSQL (tens of milliseconds) is negligible compared to LLM inference times (hundreds of milliseconds to seconds). For extremely high-throughput, low-latency scenarios, an in-memory checkpointer with periodic flushing might be considered, but it introduces data loss risk on crashes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can LangGraph's checkpointer handle very large state objects (e.g., megabytes of data)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While technically possible, it's not recommended. Large state objects increase I/O, serialization/deserialization time, and database storage costs. We keep our `AgentState` lean, storing only essential metadata and pointers to larger data (e.g., file IDs in object storage) rather than embedding raw data directly."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Three LangGraph Rewrites: Checkpointing Production Agents</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-29T19:30:16.512Z">July 29, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The <code>state</code> object, intended to carry a <code>job_id</code> and <code>customer_query</code>, was being overwritten with an empty dictionary at the start of every new graph execution. We only caught it when a customer complained about a missing ticket. The root cause: a schema mismatch between the initial state passed to <code>graph.invoke()</code> and the state expected by the first node. LangGraph didn't throw an error; it just reset the state. This wasn't a bug in LangGraph, but a fundamental misunderstanding of its state management in a production context.</p>
+<h2>The Silent State Reset: A $5,000 Lesson</h2>
+<p>Our initial agent was simple: receive a query, classify it, then route to either a knowledge base lookup or a human agent. The <code>state</code> was defined as a <code>TypedDict</code> with <code>query: str</code> and <code>job_id: str</code>. When a new message arrived via Telegram, we'd create this state and call <code>graph.invoke(initial_state)</code>.</p>
+<p>The problem arose when we introduced a <code>retry</code> mechanism. If an LLM call failed, we wanted to re-run the <em>current</em> step, not the whole graph. We tried to implement this by passing the <code>state</code> from the failed execution back into <code>graph.invoke()</code>. This is where the silent reset hit us.</p>
+<p>LangGraph's <code>invoke</code> method, when called without a <code>config</code> object specifying a <code>thread_id</code> and <code>checkpoint</code>, treats each call as a <em>new</em> execution. If you pass a <code>state</code> object, it uses that as the <em>initial</em> state for the new execution. It doesn't magically "resume" from where you left off. Our retry logic was effectively restarting the graph with a partially processed state, leading to data loss.</p>
+<p>The fix was to explicitly manage <code>thread_id</code> and use <code>graph.stream()</code> with a <code>config</code> object. Each inbound message now generates a unique <code>thread_id</code>. Subsequent operations on that message (e.g., retries, follow-ups) reuse the same <code>thread_id</code>. This ensured that LangGraph's internal state management and checkpointing mechanisms were engaged. Without <code>thread_id</code>, LangGraph's stateful capabilities are effectively disabled for production checkpointing.</p>
+<h2>Checkpoint Corruption: The SQLite Headache</h2>
+<p>After fixing the silent state reset, we moved to persistent checkpointing. Our first choice, given its simplicity, was SQLite. We ran our agents on Oracle Cloud Infrastructure (OCI) Ampere A1 instances, with each agent running in a Docker container. SQLite seemed like a low-overhead solution.</p>
+<p>It was, until it wasn't. Under concurrent load (around 5-10 simultaneous active threads), we started seeing <code>sqlite3.OperationalError: database is locked</code> errors. These errors would often lead to corrupted checkpoint files. A corrupted checkpoint meant the entire thread's state was lost, forcing a manual restart or, worse, a complete re-processing of the customer's request.</p>
+<p>The problem was SQLite's file-based locking mechanism. While it supports concurrent reads, writes are serialized. Our agents, especially those involving multiple LLM calls and external API interactions, could have several nodes attempting to update the state (and thus the checkpoint) in quick succession. This contention quickly overwhelmed SQLite.</p>
+<p>We tried increasing <code>timeout</code> parameters, but that only masked the issue, leading to longer waits and eventual failures. The solution was to abandon SQLite for production checkpointing. We switched to PostgreSQL, hosted on OCI's managed database service. PostgreSQL handles concurrent writes gracefully and offers robust transaction management. The migration took two days, including schema adjustments and data migration for existing threads. The cost increased from $0 (SQLite) to approximately $50/month (OCI PostgreSQL Flexible Server, smallest instance), but the stability gain was critical.</p>
+<h2>The One Pattern for Stable Multi-Step Pipelines</h2>
+<p>The most stable pattern we found for LangGraph stateful agents production checkpointing involves three core components:</p>
+<p>1.  <strong>Strict <code>TypedDict</code> for State:</strong> Define your <code>State</code> as a <code>TypedDict</code> with clear, immutable keys. Avoid dynamic keys or nested dictionaries that can change structure. Every piece of information that needs to persist across steps <em>must</em> be part of this <code>TypedDict</code>. For example:<br>    <pre><code class="language-python">    from typing import TypedDict, List, Dict, Any
+
+    class AgentState(TypedDict):
+        thread_id: str
+        user_query: str
+        classification: str | None
+        kb_results: List[Dict[str, Any]]
+        llm_response: str | None
+        error_message: str | None
+        step_history: List[str] # To track execution path
+    </code></pre><br>    This strict schema prevents accidental state overwrites or missing keys that caused our initial issues.</p>
+<p>2.  <strong>Explicit <code>thread_id</code> and Checkpoint Management:</strong> Every interaction starts with a unique <code>thread_id</code>. This <code>thread_id</code> is passed in the <code>config</code> object to <code>graph.stream()</code> or <code>graph.invoke()</code>.<br>    <pre><code class="language-python">    from langgraph.checkpoint.postgres import PostgresSaver
+    from langgraph.graph import StateGraph, END
+
+    # ... define nodes and graph ...
+
+    # Assumes DATABASE_URL is set in environment
+    memory = PostgresSaver()
+    graph = StateGraph(AgentState)
+    # ... add nodes and edges ...
+    app = graph.compile(checkpointer=memory)
+
+    def process_message(thread_id: str, user_query: str):
+        initial_state = {"thread_id": thread_id, "user_query": user_query, "step_history": []}
+        config = {"configurable": {"thread_id": thread_id}}
+        
+        # If thread_id exists, LangGraph will load the checkpoint
+        # Otherwise, it will start a new thread with initial_state
+        for s in app.stream(initial_state, config=config):
+            print(s)
+        
+        # After stream completes, the final state is checkpointed
+        final_state = app.get_state(config).values
+        return final_state
+    </code></pre><br>    This ensures that LangGraph correctly loads and saves the state for each specific conversation thread. Without <code>thread_id</code> in <code>config</code>, checkpointing is effectively bypassed.</p>
+<p>3.  <strong>Atomic Node Operations with State Updates:</strong> Each node should perform a single, well-defined operation and return a <em>partial</em> state update. LangGraph merges these updates into the full state. This prevents race conditions and simplifies debugging.<br>    <pre><code class="language-python">    def classify_query(state: AgentState) -&gt; AgentState:
+        query = state["user_query"]
+        # Call Groq for classification
+        llm_response = groq_client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role": "user", "content": f"Classify: {query}"}]
+        ).choices[0].message.content
+        
+        classification = "support" if "support" in llm_response.lower() else "general"
+        
+        return {"classification": classification, "step_history": state["step_history"] + ["classified"]}
+
+    def retrieve_kb(state: AgentState) -&gt; AgentState:
+        if state["classification"] != "support":
+            return {} # No update if not support
+        
+        query = state["user_query"]
+        # Call external KB API
+        kb_results = external_kb_api.search(query)
+        
+        return {"kb_results": kb_results, "step_history": state["step_history"] + ["kb_retrieved"]}
+    </code></pre><br>    Each node returns a dictionary that LangGraph intelligently merges. This pattern, combined with robust checkpointing, made our multi-agent systems resilient to failures and allowed us to build complex, multi-turn interactions. We now run agents that handle everything from customer support to internal data analysis, routing between Groq for speed, Claude for complex reasoning, and custom tools, all orchestrated by LangGraph with stable state management.</p>
+<h2>Cost Implications of Robust Checkpointing</h2>
+<p>Moving from a local SQLite file to a managed PostgreSQL instance on OCI increased our infrastructure cost for checkpointing from $0 to $50/month. This is for a small instance (1 OCPU, 1GB RAM) capable of handling hundreds of concurrent threads.</p>
+<p>The alternative, a custom Redis-based solution or a similar key-value store, would have required significant development and maintenance effort. Given our zero-VC funding model, minimizing operational overhead is paramount. The $50/month for a managed, battle-tested database is a small price to pay for stability and developer sanity.</p>
+<p>Furthermore, the stability gained directly impacts our LLM costs. Fewer retries due to lost state means fewer unnecessary API calls to Groq or Claude. A single complex multi-turn interaction can involve 5-10 LLM calls. If 10% of these interactions fail due to state loss and need to be re-run, that's a 10% increase in LLM spend. For our current volume, this translates to roughly $100-$200/month in saved LLM costs, effectively offsetting the database cost.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a custom state manager with Redis or DynamoDB instead of LangGraph's built-in checkpointer?</strong><br>A: While possible, it adds significant development and maintenance overhead. LangGraph's checkpointer handles serialization, deserialization, and versioning of the graph state automatically. Building this from scratch for a custom store would consume weeks of engineering time that could be spent on agent logic.</p>
+<p><strong>Q: How do you handle schema migrations for <code>AgentState</code> in production?</strong><br>A: We treat <code>AgentState</code> like a database schema. For minor additions, we add new optional keys. For breaking changes, we deploy a new version of the agent with a new <code>thread_id</code> prefix and migrate active threads manually or through a one-off script, ensuring old threads complete on the old schema.</p>
+<p><strong>Q: What's the performance overhead of PostgreSQL checkpointing compared to in-memory?</strong><br>A: For typical agent interactions (seconds to minutes per turn), the overhead of a network roundtrip to PostgreSQL (tens of milliseconds) is negligible compared to LLM inference times (hundreds of milliseconds to seconds). For extremely high-throughput, low-latency scenarios, an in-memory checkpointer with periodic flushing might be considered, but it introduces data loss risk on crashes.</p>
+<p><strong>Q: Can LangGraph's checkpointer handle very large state objects (e.g., megabytes of data)?</strong><br>A: While technically possible, it's not recommended. Large state objects increase I/O, serialization/deserialization time, and database storage costs. We keep our <code>AgentState</code> lean, storing only essential metadata and pointers to larger data (e.g., file IDs in object storage) rather than embedding raw data directly.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
