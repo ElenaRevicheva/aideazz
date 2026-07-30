@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LangGraph Checkpointing: Three Rewrites to Production Stability | AIdeazz</title>
+  <meta name="description" content="My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (G…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LangGraph Checkpointing: Three Rewrites to Production Stability">
+  <meta property="og:description" content="My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (G…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-07-30T19:30:21.831Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LangGraph Checkpointing: Three Rewrites to Production Stability">
+  <meta name="twitter:description" content="My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (G…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LangGraph Checkpointing: Three Rewrites to Production Stability",
+  "description": "My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (G…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-07-30T19:30:21.831Z",
+  "dateModified": "2026-07-30T19:30:21.831Z",
+  "url": "https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not just use a database transaction for LangGraph state updates instead of optimistic locking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "LangGraph's `PostgresSaver` *does* use transactions for its updates. The optimistic locking (`version` column) is an additional layer to handle concurrent updates to the *same* checkpoint from *different* application processes, which a single transaction wouldn't prevent if they started concurrently."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle schema migrations for `AgentState` in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is tricky. For minor changes, I add new optional fields. For major overhauls, I create a new `AgentStateV2` and a migration node. This node, triggered by a `current_step` like \"MIGRATE_STATE\", transforms old state schemas to the new one, then updates `current_step` to proceed with the new schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is `SqliteSaver` ever production-ready?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. `SqliteSaver` is for local development and testing only. It's not designed for concurrent access from multiple processes or for high availability. For production, always use `PostgresSaver` or a custom saver backed by a robust, distributed database."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the overhead of storing `step_history` in the state?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For typical conversational agents, the `step_history` list of strings is small, usually a few dozen entries at most, resulting in negligible storage overhead (a few KB). If steps are very granular or conversations extremely long, consider truncating the history or storing only critical milestones to prevent state bloat."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">LangGraph Checkpointing: Three Rewrites to Production Stability</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-07-30T19:30:21.831Z">July 30, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (Groq for fast, simple tasks; Claude for complex reasoning). Instead, it would receive a message, acknowledge it, and then… nothing. No error, no log, just a black hole. The problem wasn't in the LLM calls or the routing logic. It was a state schema mismatch, a subtle bug that only surfaced when I tried to re-hydrate the agent's state from a checkpoint.</p>
+<h2>The Silent State Schema Mismatch</h2>
+<p>The initial LangGraph state was a simple <code>TypedDict</code>. Something like this:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    input_message: str
+    enriched_data: Optional[Dict]
+    llm_response: Optional[str]
+    route: Optional[str]
+</code></pre></p>
+<p>This worked fine for a single-pass execution. The issue arose when I introduced checkpointing. I was using <code>SqliteSaver</code> for local development and <code>PostgresSaver</code> for production on Oracle Cloud. The agent would process the <code>input_message</code>, then call a tool to fetch <code>enriched_data</code>. This <code>enriched_data</code> was sometimes a complex JSON object, sometimes a simple string, depending on the external API response.</p>
+<p>My initial thought was to just dump the <code>dict</code> directly into the <code>enriched_data</code> field. Python's <code>dict</code> is flexible. PostgreSQL's <code>JSONB</code> type is also flexible. What could go wrong?</p>
+<p>The problem was in the <em>deserialization</em>. When LangGraph tried to load a checkpoint where <code>enriched_data</code> was a string, but the <code>AgentState</code> expected a <code>Dict</code>, it didn't throw an error. It simply assigned <code>None</code> to <code>enriched_data</code>. The subsequent steps, which depended on <code>enriched_data</code> being present, would then silently exit or take a default path, effectively dropping the job. My logs showed the initial message received, but no further processing. It took a full week of debugging, stepping through the <code>SqliteSaver</code>'s internal <code>get_state</code> method, to realize that the <code>pydantic</code> validation (or lack thereof in <code>TypedDict</code> for complex types) was the culprit.</p>
+<p>The fix was to explicitly define the schema for <code>enriched_data</code> as a <code>str</code> and handle the JSON serialization/deserialization within the agent's nodes.</p>
+<p><pre><code class="language-python">import json
+from typing import Optional, Dict, Any
+
+class AgentState(TypedDict):
+    input_message: str
+    enriched_data_json: Optional[str] # Store as JSON string
+    llm_response: Optional[str]
+    route: Optional[str]
+
+# Inside a node:
+def enrich_data_node(state: AgentState) -&gt; AgentState:
+    input_msg = state["input_message"]
+    # Call external API
+    raw_data = {"key": "value", "another_key": [1, 2, 3]} # Example
+    return {"enriched_data_json": json.dumps(raw_data)}
+
+# Inside another node:
+def process_enriched_data_node(state: AgentState) -&gt; AgentState:
+    if state["enriched_data_json"]:
+        enriched_data = json.loads(state["enriched_data_json"])
+        # Process enriched_data (now a dict)
+        # ...
+    return {}
+</code></pre></p>
+<p>This explicit serialization ensured that the state could be reliably saved and loaded, regardless of the actual content of <code>enriched_data</code>. The <code>PostgresSaver</code> now correctly stored and retrieved the string, and the agent's internal logic handled the <code>json.loads</code>/<code>json.dumps</code>.</p>
+<h2>Checkpoint Corruption and Race Conditions</h2>
+<p>The second major rewrite came after a series of inexplicable agent failures. Sometimes, an agent would just hang. Other times, it would restart from an earlier state, re-processing messages it had already handled. This was happening in production, with multiple Telegram agents running concurrently, each managing its own conversation state.</p>
+<p>My initial setup used <code>PostgresSaver</code> with a simple <code>thread_id</code> as the <code>config["configurable"]["thread_id"]</code>. Each Telegram chat had a unique <code>thread_id</code>. The problem was that my agent was sometimes called multiple times for the same <code>thread_id</code> in rapid succession, especially when users sent multiple messages quickly.</p>
+<p>LangGraph's <code>PostgresSaver</code> uses optimistic locking. When <code>update_checkpoint</code> is called, it checks the <code>version</code> column. If the <code>version</code> in the database doesn't match the <code>version</code> the saver <em>thinks</em> it has, it raises an <code>IntegrityError</code>. This is good for preventing lost updates. However, my agent wasn't always handling these <code>IntegrityError</code>s gracefully. Sometimes, the entire process would crash, leaving the checkpoint in an inconsistent state.</p>
+<p>The core issue was a race condition. If two concurrent calls to the agent tried to update the same <code>thread_id</code>'s state, one would succeed, and the other would fail. The failing one would often leave the agent in a partially updated state or, worse, cause the entire worker process to restart without proper state recovery.</p>
+<p>The solution involved two parts:</p>
+<p>1.  <strong>Robust Error Handling and Retries:</strong> Wrap the agent invocation in a <code>try-except</code> block specifically for <code>IntegrityError</code> and implement a retry mechanism with exponential backoff. If a checkpoint update fails due to a version mismatch, it means another process updated it. The agent should then <em>reload</em> the latest state from the database and <em>re-attempt</em> its current step.</p>
+<p><pre><code class="language-python">    from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type
+    from sqlalchemy.exc import IntegrityError
+
+    @retry(wait=wait_exponential(multiplier=1, min=4, max=10), stop=stop_after_attempt(5),
+           retry=retry_if_exception_type(IntegrityError))
+    def run_agent_with_retries(agent, input_data, config):
+        try:
+            return agent.invoke(input_data, config)
+        except IntegrityError as e:
+            print(f"Checkpoint update failed due to race condition: {e}. Retrying...")
+            # Crucially, reload the state before retrying
+            # LangGraph's invoke will handle loading the latest state if the config is the same
+            raise # Re-raise to trigger tenacity retry
+    </code></pre></p>
+<p>2.  <strong>External Locking (for critical sections):</strong> While LangGraph handles optimistic locking for its state, certain external operations (like calling a rate-limited API or updating an external database) might need stronger guarantees. For these, I introduced a simple Redis-based distributed lock. Before a critical node executes, it acquires a lock for the <code>thread_id</code>. If it can't acquire the lock, it waits or signals that the operation is already in progress. This prevented multiple agents from, for example, simultaneously fetching the same <code>enriched_data</code> or sending duplicate messages to the user.</p>
+<p><pre><code class="language-python">    import redis
+    import time
+
+    redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+    def acquire_lock(lock_name, timeout=10):
+        end_time = time.time() + timeout
+        while time.time() &lt; end_time:
+            if redis_client.setnx(lock_name, 1):
+                redis_client.expire(lock_name, 30) # Lock expires in 30 seconds
+                return True
+            time.sleep(0.1)
+        return False
+
+    def release_lock(lock_name):
+        redis_client.delete(lock_name)
+
+    # Inside a LangGraph node:
+    def critical_external_api_call_node(state: AgentState) -&gt; AgentState:
+        thread_id = state["thread_id"] # Assuming thread_id is part of state
+        lock_name = f"lock:thread:{thread_id}"
+        if acquire_lock(lock_name):
+            try:
+                # Perform critical API call
+                print(f"Acquired lock for {thread_id}, calling API...")
+                time.sleep(2) # Simulate API call
+                return {"api_result": "success"}
+            finally:
+                release_lock(lock_name)
+        else:
+            print(f"Could not acquire lock for {thread_id}, another process is working.")
+            # Handle case where lock couldn't be acquired (e.g., wait, or return early)
+            return {"api_result": "skipped_due_to_lock"}
+    </code></pre></p>
+<p>This combination made the multi-agent system significantly more resilient. The retry mechanism handled transient database conflicts, and the external locking prevented race conditions on shared external resources.</p>
+<h2>The One Pattern That Made Multi-Step Pipelines Stable: Explicit Step Management</h2>
+<p>My final rewrite, and the one that truly stabilized complex multi-step agents, involved moving away from implicit state transitions and towards explicit step management within the LangGraph state.</p>
+<p>Initially, I relied heavily on LangGraph's conditional edges to route between nodes. A node would return a "next_step" string, and the graph would transition accordingly. This worked for simple flows. However, when an agent needed to perform a sequence of actions, sometimes involving human intervention (e.g., "ask user for clarification," "wait for user input"), the state became hard to reason about.</p>
+<p>The problem was that the <em>current step</em> was implicit. If an agent crashed and restarted, it would re-evaluate the conditional edges, potentially leading to a different path if external conditions changed or if a previous step's output was ambiguous.</p>
+<p>The stable pattern I adopted was to explicitly store the <code>current_step</code> and <code>history</code> of steps in the agent's state.</p>
+<p><pre><code class="language-python">from typing import List
+
+class AgentState(TypedDict):
+    input_message: str
+    current_step: str # e.g., "INITIAL", "ENRICHING_DATA", "LLM_CALL", "WAITING_FOR_USER"
+    step_history: List[str] # To track the path taken
+    # ... other state variables
+</code></pre></p>
+<p>Each node in the LangGraph would then be responsible for:</p>
+<p>1.  <strong>Checking <code>current_step</code>:</strong> Only execute if <code>current_step</code> matches the node's expected state.<br>2.  <strong>Updating <code>current_step</code>:</strong> Set the <code>current_step</code> to the <em>next</em> logical step upon completion.<br>3.  <strong>Appending to <code>step_history</code>:</strong> Record the node's execution.</p>
+<p>The LangGraph conditional edges then became much simpler: they would primarily check <code>current_step</code> and route to the <em>next node responsible for that step</em>.</p>
+<p>Example:</p>
+<p><pre><code class="language-python">from langgraph.graph import StateGraph, END
+
+# Define nodes
+def initial_processing_node(state: AgentState) -&gt; AgentState:
+    if state["current_step"] == "INITIAL":
+        print("Executing initial processing...")
+        return {"current_step": "ENRICHING_DATA", "step_history": state["step_history"] + ["initial_processing"]}
+    return {} # No change if not the current step
+
+def enrich_data_node(state: AgentState) -&gt; AgentState:
+    if state["current_step"] == "ENRICHING_DATA":
+        print("Executing data enrichment...")
+        # ... call external API ...
+        return {"current_step": "LLM_CALL", "step_history": state["step_history"] + ["enrich_data"]}
+    return {}
+
+def llm_call_node(state: AgentState) -&gt; AgentState:
+    if state["current_step"] == "LLM_CALL":
+        print("Executing LLM call...")
+        # ... call Groq/Claude ...
+        return {"current_step": "FINAL_RESPONSE", "step_history": state["step_history"] + ["llm_call"]}
+    return {}
+
+def final_response_node(state: AgentState) -&gt; AgentState:
+    if state["current_step"] == "FINAL_RESPONSE":
+        print("Executing final response...")
+        return {"current_step": "COMPLETED", "step_history": state["step_history"] + ["final_response"]}
+    return {}
+
+# Build the graph
+graph_builder = StateGraph(AgentState)
+graph_builder.add_node("initial_processing", initial_processing_node)
+graph_builder.add_node("enrich_data", enrich_data_node)
+graph_builder.add_node("llm_call", llm_call_node)
+graph_builder.add_node("final_response", final_response_node)
+
+graph_builder.set_entry_point("initial_processing")
+
+# Conditional edges based on current_step
+graph_builder.add_conditional_edges(
+    "initial_processing",
+    lambda state: state["current_step"],
+    {
+        "ENRICHING_DATA": "enrich_data",
+        "COMPLETED": END, # If for some reason initial processing completes the flow
+    },
+)
+graph_builder.add_conditional_edges(
+    "enrich_data",
+    lambda state: state["current_step"],
+    {
+        "LLM_CALL": "llm_call",
+        "COMPLETED": END,
+    },
+)
+graph_builder.add_conditional_edges(
+    "llm_call",
+    lambda state: state["current_step"],
+    {
+        "FINAL_RESPONSE": "final_response",
+        "COMPLETED": END,
+    },
+)
+graph_builder.add_conditional_edges(
+    "final_response",
+    lambda state: state["current_step"],
+    {
+        "COMPLETED": END,
+    },
+)
+
+graph = graph_builder.compile()
+
+# Initial state for a new conversation
+initial_state = {"input_message": "Hello", "current_step": "INITIAL", "step_history": []}
+# Invoke the agent
+# graph.invoke(initial_state, config={"configurable": {"thread_id": "user123"}})
+</code></pre></p>
+<p>This pattern has several advantages:</p>
+<ul><li>  <strong>Resilience:</strong> If an agent crashes, upon restart, it loads the last <code>current_step</code>. The graph will then deterministically route to the node responsible for that step, ensuring the agent picks up exactly where it left off.</li>
+<li>  <strong>Debuggability:</strong> The <code>step_history</code> provides a clear audit trail of the agent's execution path. When something goes wrong, you can see exactly which nodes were executed and in what order.</li>
+<li>  <strong>Maintainability:</strong> Each node has a clear responsibility tied to a specific <code>current_step</code>. Adding new steps or modifying existing ones becomes more structured.</li>
+<li>  <strong>Human-in-the-Loop:</strong> This pattern is crucial for agents that need to pause and wait for user input. The <code>current_step</code> can be set to <code>"WAITING_FOR_USER"</code>, and the agent will remain in that state until a new message arrives that triggers a transition out of it.</li></ul>
+<p>Shipping production AI agents with zero VC funding means every line of code needs to be robust. These three lessons, learned through weeks of silent failures and corrupted checkpoints, have been fundamental to building stable, stateful LangGraph agents on Oracle Cloud.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not just use a database transaction for LangGraph state updates instead of optimistic locking?</strong><br>A: LangGraph's <code>PostgresSaver</code> <em>does</em> use transactions for its updates. The optimistic locking (<code>version</code> column) is an additional layer to handle concurrent updates to the <em>same</em> checkpoint from <em>different</em> application processes, which a single transaction wouldn't prevent if they started concurrently.</p>
+<p><strong>Q: How do you handle schema migrations for <code>AgentState</code> in production?</strong><br>A: This is tricky. For minor changes, I add new optional fields. For major overhauls, I create a new <code>AgentStateV2</code> and a migration node. This node, triggered by a <code>current_step</code> like "MIGRATE_STATE", transforms old state schemas to the new one, then updates <code>current_step</code> to proceed with the new schema.</p>
+<p><strong>Q: Is <code>SqliteSaver</code> ever production-ready?</strong><br>A: No. <code>SqliteSaver</code> is for local development and testing only. It's not designed for concurrent access from multiple processes or for high availability. For production, always use <code>PostgresSaver</code> or a custom saver backed by a robust, distributed database.</p>
+<p><strong>Q: What's the overhead of storing <code>step_history</code> in the state?</strong><br>A: For typical conversational agents, the <code>step_history</code> list of strings is small, usually a few dozen entries at most, resulting in negligible storage overhead (a few KB). If steps are very granular or conversations extremely long, consider truncating the history or storing only critical milestones to prevent state bloat.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
