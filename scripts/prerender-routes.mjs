@@ -60,8 +60,11 @@ const PORTFOLIO_ARTICLE = `
         <nav aria-label="Portfolio quick links">
           <ul>
             <li><a href="https://aideazz.xyz/api">Free AI Visibility Audit — score any site 0–100 in seconds (live API + widget)</a></li>
-            <li><a href="https://aideazz.xyz/portfolio">This portfolio (canonical URL)</a></li>
+            <li><a href="https://aideazz.xyz/portfolio#portfolio-inquiry-form">Start a project — inquiry form that writes straight into the CRM</a></li>
+            <li><a href="https://webhook.aideazz.xyz/whitespace/atlas.html">WHITESPACE / Atlas — live creative-angle intelligence board</a></li>
+            <li><a href="https://aideazz.xyz/sop-ai-ops.html">AI ops &amp; marketing engine SOP — how the whole system actually runs</a></li>
             <li><a href="https://aideazz.xyz/blog">Engineering blog</a> · <a href="https://dev.to/elenarevicheva">Dev.to</a></li>
+            <li><a href="https://podcast.aideazz.xyz/">Building in Public — the AIdeazz podcast</a></li>
             <li><a href="https://calendly.com/elena_revicheva/coffee-chat">Book an intro call</a></li>
           </ul>
         </nav>
@@ -163,6 +166,95 @@ const API_ARTICLE = `
       </article>
       </main>`;
 
+/**
+ * /blog was the last money page still served as the homepage: it is a React route
+ * with no prerender entry, so 4everland's SPA fallback handed crawlers the apex
+ * template — same title, same description, same 1,274 words. 85 published articles
+ * existed that no non-JS crawler could reach from /blog, and the visibility audit
+ * scored it A+ 100/100 because it *was* the A+ homepage.
+ *
+ * The index is built from the per-article static pages that cto-aipa's
+ * blog-static-pages.ts already generates, so it needs no API call at build time and
+ * cannot claim a post that was never published.
+ */
+const BLOG_INDEX_LIMIT = 40;
+
+function decodeEntities(s) {
+  return s
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function readPublishedPosts() {
+  const candidates = [path.join(DIST, 'blog'), path.join(__dirname, '..', 'public', 'blog')];
+  const root = candidates.find((dir) => fs.existsSync(dir));
+  if (!root) return [];
+
+  const posts = [];
+  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const file = path.join(root, entry.name, 'index.html');
+    if (!fs.existsSync(file)) continue;
+    const html = fs.readFileSync(file, 'utf8');
+    const rawTitle = (html.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '';
+    const title = rawTitle.replace(/\s*\|\s*AIdeazz\s*$/, '').trim();
+    if (!title) continue;
+    const published = (html.match(/"datePublished"\s*:\s*"([^"]+)"/) || [])[1] || '';
+    posts.push({ slug: entry.name, title, published });
+  }
+  // Newest first; posts with no date sink to the bottom rather than jumping the queue.
+  return posts.sort((a, b) => (b.published || '').localeCompare(a.published || ''));
+}
+
+const POSTS = readPublishedPosts();
+const RECENT_POSTS = POSTS.slice(0, BLOG_INDEX_LIMIT);
+
+const BLOG_ARTICLE = `
+      <main>
+      <article>
+        <header>
+          <h1>AIdeazz Engineering Blog — building AI agents, automation and AI search in public</h1>
+          <p>${POSTS.length} published articles by <a href="https://aideazz.xyz/portfolio">Elena Revicheva (AIdeazz AI Lab)</a> — an applied AI engineer in Panama shipping production agents solo. Written from live systems, not theory: what broke, what it cost, and what actually moved a number. Published daily and mirrored to <a href="https://dev.to/elenarevicheva">Dev.to</a>.</p>
+          ${CONTACT_LINKS}
+        </header>
+
+        <nav aria-label="Blog quick links">
+          <ul>
+            <li><a href="https://aideazz.xyz/portfolio">Portfolio — live AI products, AI audits and fractional CTO work</a></li>
+            <li><a href="https://aideazz.xyz/api">Free AI Visibility Audit — 34 checks, instant 0–100 score</a></li>
+            <li><a href="https://aideazz.xyz/sop-ai-ops.html">AI ops &amp; marketing engine SOP</a></li>
+            <li><a href="https://podcast.aideazz.xyz/">Building in Public — the AIdeazz podcast</a></li>
+            <li><a href="https://aideazz.xyz/portfolio#portfolio-inquiry-form">Start a project</a></li>
+          </ul>
+        </nav>
+
+        <section>
+          <h2>What does this blog cover?</h2>
+          <p>Four recurring threads: building WhatsApp and Telegram AI agents that survive real users; end-to-end marketing and content automation; GEO, AEO and technical SEO for AI answer engines; and AI reliability — fallbacks, evals, and what to do when a provider retires the model you shipped on.</p>
+        </section>
+
+        <section>
+          <h2>Who writes it?</h2>
+          <p>Elena Revicheva — applied AI engineer and fractional CTO based in Panama (UTC-5, remote, bilingual EN/ES). Ten AI systems, nine running 24/7 at $0/month infrastructure. Seven years as Deputy CEO before engineering, so the writing explains systems to builders and to boards. Full detail on the <a href="https://aideazz.xyz/portfolio">portfolio</a>.</p>
+        </section>
+
+        <section>
+          <h2>Latest articles</h2>
+          <ul>
+${RECENT_POSTS.map((p) => `            <li><a href="https://aideazz.xyz/blog/${p.slug}">${p.title}</a>${p.published ? ` — <time datetime="${p.published.slice(0, 10)}">${p.published.slice(0, 10)}</time>` : ''}</li>`).join('\n')}
+          </ul>
+        </section>
+
+        <footer>
+          ${CONTACT_LINKS}
+          <p>Last updated <time datetime="${TODAY}">${TODAY_HUMAN}</time>. Canonical URL: <a href="https://aideazz.xyz/blog">https://aideazz.xyz/blog</a> · Portfolio: <a href="https://aideazz.xyz/portfolio">aideazz.xyz/portfolio</a></p>
+        </footer>
+      </article>
+      </main>`;
+
 const ROUTES = [
   {
     dir: 'portfolio',
@@ -236,6 +328,49 @@ const ROUTES = [
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         author: { '@type': 'Person', name: 'Elena Revicheva', url: 'https://aideazz.xyz/portfolio' },
       },
+    },
+  },
+  {
+    dir: 'blog',
+    url: 'https://aideazz.xyz/blog',
+    title: 'AIdeazz Blog — AI agents, automation and AI search, in public',
+    description:
+      'Engineering notes from Elena Revicheva: building production AI agents, end-to-end automation, and GEO/AEO visibility for AI search — shipped and measured in public.',
+    ogType: 'website',
+    article: BLOG_ARTICLE,
+    // The real fix. cto-aipa writes public/blog/<slug>/index.html, which makes /blog a
+    // REAL directory in the IPFS build, and the gateway resolves real directories
+    // BEFORE _redirects — so a rewrite rule alone never reaches /blog. fix-blog-index.mjs
+    // fills that directory with the homepage template; this overwrites it with blog
+    // identity. Same bundle, so humans still get the SPA.
+    alsoWrite: ['blog/index.html'],
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      '@id': 'https://aideazz.xyz/blog#blog',
+      url: 'https://aideazz.xyz/blog',
+      name: 'AIdeazz Engineering Blog',
+      description:
+        'Building AI agents, automation and AI search visibility in public — written from live production systems.',
+      dateModified: TODAY,
+      inLanguage: ['en', 'es'],
+      isPartOf: { '@type': 'WebSite', name: 'AIdeazz', url: 'https://aideazz.xyz/' },
+      author: { '@type': 'Person', name: 'Elena Revicheva', url: 'https://aideazz.xyz/portfolio' },
+      publisher: { '@type': 'Organization', name: 'AIdeazz', url: 'https://aideazz.xyz/' },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'AIdeazz', item: 'https://aideazz.xyz/' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://aideazz.xyz/blog' },
+        ],
+      },
+      blogPost: RECENT_POSTS.map((p) => ({
+        '@type': 'BlogPosting',
+        headline: decodeEntities(p.title),
+        url: `https://aideazz.xyz/blog/${p.slug}`,
+        ...(p.published ? { datePublished: p.published } : {}),
+        author: { '@type': 'Person', name: 'Elena Revicheva', url: 'https://aideazz.xyz/portfolio' },
+      })),
     },
   },
 ];
@@ -370,6 +505,13 @@ for (const route of ROUTES) {
   const flat = path.join(DIST, `${route.dir}.html`);
   fs.writeFileSync(flat, out);
   console.log(`prerender: wrote dist/${route.dir}.html (${(out.length / 1024).toFixed(1)} KB) — canonical ${route.url}`);
+
+  for (const rel of route.alsoWrite ?? []) {
+    const target = path.join(DIST, rel);
+    fs.mkdirSync(path.dirname(target), { recursive: true });
+    fs.writeFileSync(target, out);
+    console.log(`prerender: wrote dist/${rel} (same identity — a real directory outranks _redirects)`);
+  }
 }
 
 // Paranoia: the homepage template must never be modified by this script.
