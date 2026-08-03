@@ -65,6 +65,7 @@ const PORTFOLIO_ARTICLE = `
             <li><a href="https://aideazz.xyz/sop-ai-ops.html">AI ops &amp; marketing engine SOP — how the whole system actually runs</a></li>
             <li><a href="https://aideazz.xyz/blog">Engineering blog</a> · <a href="https://dev.to/elenarevicheva">Dev.to</a></li>
             <li><a href="https://podcast.aideazz.xyz/">Building in Public — the AIdeazz podcast</a></li>
+            <li><a href="https://aideazz.xyz/portfolio#portfolio-newsletter">Building in public by email — the AIdeazz newsletter (double opt-in)</a></li>
             <li><a href="https://calendly.com/elena_revicheva/coffee-chat">Book an intro call</a></li>
           </ul>
         </nav>

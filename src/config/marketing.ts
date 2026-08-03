@@ -5,6 +5,13 @@ export const MARKETING_INQUIRY_PROXY_URL =
 
 export const PORTFOLIO_INQUIRY_ANCHOR = "portfolio-inquiry-form";
 
+/** Newsletter double opt-in (Oracle newsletter_subscribers → Resend confirmation). */
+export const NEWSLETTER_SUBSCRIBE_URL =
+  import.meta.env.VITE_NEWSLETTER_SUBSCRIBE_URL ||
+  "https://webhook.aideazz.xyz/cto/v1/newsletter/subscribe";
+
+export const PORTFOLIO_NEWSLETTER_ANCHOR = "portfolio-newsletter";
+
 /** Portfolio inquiry form with UTM tags (Oracle business_leads + HubSpot path). */
 export function portfolioInquiryLink(utm: {
   utm_source: string;

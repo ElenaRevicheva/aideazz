@@ -3,11 +3,12 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
-import { PORTFOLIO_INQUIRY_ANCHOR } from "@/config/marketing";
+import { PORTFOLIO_INQUIRY_ANCHOR, PORTFOLIO_NEWSLETTER_ANCHOR } from "@/config/marketing";
 import { scrollToPortfolioInquiry } from "@/lib/scrollToPortfolioInquiry";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
@@ -1246,6 +1247,18 @@ export default function BusinessCard() {
                     <InquiryForm
                       id={PORTFOLIO_INQUIRY_ANCHOR}
                       className="max-w-xl mx-auto text-left relative z-20 pointer-events-auto rounded-2xl border border-purple-500/25 bg-white/[0.04] p-6 sm:p-8 scroll-mt-24"
+                    />
+                  </div>
+
+                  {/* Newsletter — double opt-in into Oracle newsletter_subscribers, separate from the lead path */}
+                  <div
+                    className="mb-10 max-w-xl mx-auto text-left"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <NewsletterSignup
+                      id={PORTFOLIO_NEWSLETTER_ANCHOR}
+                      source="portfolio"
+                      className="max-w-xl mx-auto text-left relative z-20 pointer-events-auto rounded-2xl border border-emerald-500/25 bg-white/[0.04] p-6 sm:p-8 scroll-mt-24"
                     />
                   </div>
                   
