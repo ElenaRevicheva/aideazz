@@ -116,8 +116,11 @@ async function main() {
   }
 
   for (const post of posts) {
+    // Trailing slash matters: the post ships as public/blog/<slug>/index.html, and
+    // the host 301s the slashless form to it. A sitemap should list the URL that
+    // answers 200, not the one that redirects to it.
     entries.push({
-      loc: locUrl(`/blog/${post.slug}`),
+      loc: locUrl(`/blog/${post.slug}/`),
       lastmod: dateOnly(post.publishedAt),
       changefreq: "monthly",
       priority: "0.75",
