@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="AIdeazz AI Lab: eleven live AI co-founders plus a marketing engine (Atlas, CRM, daily blog, GA4 measure). Plain-language status for business owners; technical proof for engineers." />
+  <meta name="description" content="AIdeazz AI Lab: eleven live AI co-founders plus a marketing engine (Atlas, CRM, daily blog, GA4). Plain-language status for owners, technical proof for engineers." />
   <!-- deploy-rev: 2026-07-21-b — force 4everland rebuild -->
   <meta name="color-scheme" content="dark" />
   <title>AIdeazz AI Lab — Operations &amp; Marketing Engine</title>
@@ -14,12 +14,34 @@
   <link rel="alternate" hreflang="es" href="https://aideazz.xyz/sop-ai-ops-es.html" />
   <link rel="alternate" hreflang="en" href="https://aideazz.xyz/sop-ai-ops.html" />
   <link rel="alternate" hreflang="x-default" href="https://aideazz.xyz/sop-ai-ops.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="AIdeazz" />
+  <meta property="og:url" content="https://aideazz.xyz/sop-ai-ops.html" />
+  <meta property="og:title" content="AIdeazz AI Lab — Operations &amp; Marketing Engine" />
+  <meta property="og:description" content="Eleven live AI co-founders plus a marketing engine, running 24/7 in production. Plain-language status for owners, technical proof for engineers." />
+  <meta property="og:image" content="https://aideazz.xyz/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AIdeazz AI Lab — Operations &amp; Marketing Engine" />
+  <meta name="twitter:description" content="Eleven live AI co-founders plus a marketing engine, running 24/7 in production." />
+  <meta name="twitter:image" content="https://aideazz.xyz/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva"},"dateModified":"2026-07-03","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"}}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-08-04","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://podcast.aideazz.xyz/"]},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/sop-ai-ops.html"}}
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"What is the AIdeazz AI Lab?","acceptedAnswer":{"@type":"Answer","text":"A production fleet of eleven AI co-founder agents plus a marketing engine, running 24/7 on a single Oracle VM at zero monthly infrastructure cost. It publishes content daily, captures leads into a CRM, and measures whether campaigns moved the needle rather than reporting vanity metrics."}},
+    {"@type":"Question","name":"How does AIdeazz keep AI agents from dying silently?","acceptedAnswer":{"@type":"Answer","text":"Every product declares a health check, a restart command and a PM2 or systemd process name in a single resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph."}},
+    {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
+    {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited."}},
+    {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
+  ]}
   </script>
 
   <style>
@@ -1016,6 +1038,25 @@
       flex-shrink: 0;
       padding-top: 3px;
     }
+    /* FAQ — questions are full sentences, so they stack above the answer
+       instead of sharing the narrow label column the stack rows use. */
+    .faq-grid { display: flex; flex-direction: column; gap: 11px; }
+    .faq-item {
+      background: rgba(14, 16, 28, 0.65);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 17px 21px;
+      transition: border-color 0.22s ease;
+    }
+    .faq-item:hover { border-color: rgba(157, 140, 255, 0.22); }
+    .faq-item h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 7px;
+    }
+    .faq-item p { font-size: 14px; color: var(--t2); line-height: 1.62; }
     .stack-tools {
       font-size: 14px;
       color: var(--t2);
@@ -1180,7 +1221,7 @@
 <div class="noise-layer" aria-hidden="true"></div>
 
 <!-- HERO -->
-<div class="hero">
+<header class="hero">
   <div class="wrap">
     <div class="live-badge"><span class="pulse-dot"></span>AIdeazz AI Lab · live in production</div>
     <p class="hero-sub" style="margin-bottom:10px;"><a href="https://aideazz.xyz/sop-ai-ops-es.html" style="color:var(--cyan);font-weight:600;text-underline-offset:3px;">Versión en español →</a></p>
@@ -1210,9 +1251,9 @@
     </div>
     <p class="doc-source"><strong>For engineers:</strong> authoritative product details—canonical agent list, GitHub repos, Oracle VM deploy paths, systemd/PM2 names, health checks, local Windows clones, and resilience postmortems—are maintained in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener"><code>ORACLE_ALL_PRODUCTS_RESILIENCE.md</code></a> (engineering appendix). This public page stays founder-readable: no IPs, ports, or secrets.</p>
   </div>
-</div>
+</header>
 
-  <div class="wrap" id="main">
+  <main class="wrap" id="main">
 
   <div class="exec-banner" role="region" aria-label="Executive summary">
     <strong>What a business owner should take away</strong>
@@ -1300,6 +1341,7 @@
       <a href="#deploy">Release discipline</a>
       <a href="#postmortem">Incident example</a>
       <a href="#stack">Stack</a>
+      <a href="#faq">FAQ</a>
     </div>
   </nav>
 
@@ -1911,10 +1953,45 @@
     </div>
   </div>
 
-</div><!-- /wrap -->
+  <!-- §7 FAQ — mirrors the FAQPage JSON-LD in <head>; keep both in sync -->
+  <section class="section" id="faq">
+    <div class="section-head">
+      <div class="s-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div>
+        <div class="s-eyebrow">Section 07</div>
+        <h2>Questions people actually ask</h2>
+        <p>The five questions that come up most, answered plainly — and marked up so AI answer engines can lift them directly.</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h3>What is the AIdeazz AI Lab?</h3>
+        <p>A production fleet of eleven AI co-founder agents plus a marketing engine, running 24/7 on a single Oracle VM at zero monthly infrastructure cost. It publishes content daily, captures leads into a CRM, and measures whether campaigns moved the needle rather than reporting vanity metrics.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How does AIdeazz keep AI agents from dying silently?</h3>
+        <p>Every product declares a health check, a restart command and a process name in one resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does the marketing engine generate leads, or only traffic?</h3>
+        <p>Inbound inquiries post from the website into Oracle and HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution is instrumented end to end with UTM tags, though campaign volume is still low.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How is content optimized for AI search, not just Google?</h3>
+        <p>A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Who is this page for?</h3>
+        <p>Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems lives on GitHub, so this page stays readable and contains no IP addresses, ports or secrets.</p>
+      </div>
+    </div>
+  </section>
+
+</main><!-- /wrap -->
 
 <!-- FOOTER -->
-<div class="footer">
+<footer class="footer">
   <div class="wrap">
     <div class="footer-links">
       <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
@@ -1925,7 +2002,7 @@
     <p>Elena Revicheva · AI Engineer & Founder · Built &amp; maintained in production since 2026</p>
     <p style="margin-top:10px;font-size:12px;color:var(--t3);max-width:560px;margin-left:auto;margin-right:auto;line-height:1.55;">Public page by design: no IP addresses, ports, webhook paths, bearer tokens, SSH instructions, or wallet material. The GitHub appendix is for engineers and may include deeper infrastructure detail—treat distribution accordingly.</p>
   </div>
-</div>
+</footer>
 
 <script>
 (function () {
