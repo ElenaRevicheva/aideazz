@@ -1,7 +1,16 @@
 /**
- * Build-time: merge static routes + live Hashnode slugs → public/sitemap.xml + sitemap.txt
- * so aideazz.xyz/blog/* URLs are discoverable (not only Hashnode/Dev.to).
- * On Hashnode failure, writes static URLs only (build still succeeds).
+ * Build-time: static routes + every prerendered blog post → public/sitemap.xml + sitemap.txt
+ *
+ * Blog URLs come from the pages that actually ship in public/blog/<slug>/index.html,
+ * not from a publishing API. Asking dev.to what the blog contains produced a sitemap
+ * that was wrong in both directions: it listed dev.to slugs with no page on this
+ * domain (aideazz.xyz/blog/ai-language-learning-5cd4 → 404) while omitting posts that
+ * exist here with 1,500+ words of prerendered content. The filesystem is the only
+ * source that agrees with what a crawler will actually fetch.
+ *
+ * Hashnode is gone — that publication was retired months ago, so the old GraphQL
+ * fetch could only ever fail. No network calls here now, which also makes the
+ * sitemap reproducible instead of dependent on a third party being up at build time.
  */
 import fs from "fs";
 import path from "path";
@@ -10,12 +19,11 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const PUBLIC = path.join(ROOT, "public");
+const BLOG_DIR = path.join(PUBLIC, "blog");
 
 const SITE = "https://aideazz.xyz";
-const HASHNODE_HOST = process.env.VITE_HASHNODE_HOST?.trim() || "aideazz.hashnode.dev";
-const DEVTO_USERNAME = process.env.VITE_DEVTO_USERNAME?.trim() || "elenarevicheva";
 
-/** Same as src/lib/hashnode-public.ts — smoke tests not in sitemap */
+/** Smoke tests and stubs that should never reach a crawler. */
 const EXCLUDED_SLUGS = new Set([
   "cto-aipa-hashnode-api-smoke-test-2026-04-09t0041-utc",
 ]);
@@ -39,21 +47,6 @@ const STATIC_PAGES = [
   { path: "/robots.txt", changefreq: "yearly", priority: "0.3" },
 ];
 
-const GQL = `
-  query Posts($host: String!, $first: Int!) {
-    publication(host: $host) {
-      posts(first: $first) {
-        edges {
-          node {
-            slug
-            publishedAt
-          }
-        }
-      }
-    }
-  }
-`;
-
 function escapeXml(s) {
   return s
     .replace(/&/g, "&amp;")
@@ -67,67 +60,48 @@ function locUrl(pathname) {
   return `${SITE}${pathname.startsWith("/") ? pathname : `/${pathname}`}`;
 }
 
-async function fetchHashnodeSlugs() {
-  try {
-    const res = await fetch("https://gql.hashnode.com/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: GQL,
-        variables: { host: HASHNODE_HOST, first: 50 },
-      }),
-    });
-    const json = await res.json();
-    if (json.errors?.length) {
-      console.warn("generate-sitemap: Hashnode GraphQL errors:", json.errors.map((e) => e.message).join("; "));
-      return [];
-    }
-    const edges = json.data?.publication?.posts?.edges ?? [];
-    return edges
-      .map((e) => e.node)
-      .filter((n) => n?.slug && !EXCLUDED_SLUGS.has(n.slug));
-  } catch (e) {
-    console.warn("generate-sitemap: Hashnode fetch failed:", e?.message || e);
-    return [];
-  }
-}
-
 function dateOnly(iso) {
   if (!iso || typeof iso !== "string") return new Date().toISOString().slice(0, 10);
   return iso.slice(0, 10);
 }
 
-/** Slugs on dev.to only (Hashnode 404) — same inference as src/lib/devto-public.ts */
-async function fetchDevtoSlugsNotInHashnode(hashnodeSlugs) {
-  const have = new Set(hashnodeSlugs);
-  try {
-    const res = await fetch(
-      `https://dev.to/api/articles?username=${encodeURIComponent(DEVTO_USERNAME)}&per_page=100`
-    );
-    if (!res.ok) return [];
-    const arr = await res.json();
-    if (!Array.isArray(arr)) return [];
-    const out = [];
-    for (const a of arr) {
-      const path = a.path || "";
-      const seg = path.split("/").filter(Boolean).pop() || "";
-      const stripped = seg.replace(/-[a-z0-9]{3,6}$/i, "");
-      const slug =
-        stripped.length > 0 && stripped !== seg && stripped.length >= 24 ? stripped : seg;
-      if (!slug || have.has(slug)) continue;
-      have.add(slug);
-      out.push({ slug, publishedAt: a.published_at || "" });
-    }
-    return out;
-  } catch {
-    return [];
+/**
+ * Prefer the post's own declared publish date over file mtime, because a repo
+ * checkout or a reformat rewrites mtime and would otherwise tell Google every
+ * post changed today.
+ */
+function publishDateFor(html) {
+  const jsonLd = html.match(/"datePublished"\s*:\s*"([^"]+)"/);
+  if (jsonLd) return dateOnly(jsonLd[1]);
+  const meta = html.match(
+    /<meta[^>]+property=["']article:published_time["'][^>]+content=["']([^"']+)["']/i
+  );
+  if (meta) return dateOnly(meta[1]);
+  return null;
+}
+
+/** Every blog post that actually ships as a prerendered page on this domain. */
+function readPublishedPosts() {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+  const out = [];
+  for (const entry of fs.readdirSync(BLOG_DIR, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    const slug = entry.name;
+    if (EXCLUDED_SLUGS.has(slug)) continue;
+    const file = path.join(BLOG_DIR, slug, "index.html");
+    if (!fs.existsSync(file)) continue;
+    const html = fs.readFileSync(file, "utf8");
+    out.push({
+      slug,
+      publishedAt: publishDateFor(html) || dateOnly(fs.statSync(file).mtime.toISOString()),
+    });
   }
+  out.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  return out;
 }
 
 async function main() {
-  const hn = await fetchHashnodeSlugs();
-  const extra = await fetchDevtoSlugsNotInHashnode(hn.map((p) => p.slug));
-  const posts = [...hn, ...extra];
+  const posts = readPublishedPosts();
   const fallbackDate = new Date().toISOString().slice(0, 10);
 
   const entries = [];
@@ -190,7 +164,7 @@ ${urlElements}
   fs.writeFileSync(path.join(PUBLIC, "portfolio-sitemap.txt"), "https://aideazz.xyz/portfolio\n", "utf8");
 
   console.log(
-    `generate-sitemap: wrote ${entries.length} URLs (${hn.length} Hashnode + ${extra.length} dev.to-only blog) → public/sitemap.xml, public/sitemap.txt`
+    `generate-sitemap: wrote ${entries.length} URLs (${STATIC_PAGES.length} static + ${posts.length} prerendered blog posts) → public/sitemap.xml, public/sitemap.txt`
   );
   console.log("generate-sitemap: wrote public/portfolio-sitemap.xml + .txt (rewritten from /portfolio/sitemap.*)");
 }
