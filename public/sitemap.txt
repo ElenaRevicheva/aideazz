@@ -12,6 +12,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-before-it-clicked
 https://aideazz.xyz/blog/my-12000-ai-vendor-lock-in-mistakes-a-fractional-ctos-audit
 https://aideazz.xyz/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-ai-pipeline
 https://aideazz.xyz/blog/automating-gsc-content-gaps-from-query-to-published-post-in-12-minutes

@@ -85,6 +85,12 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-before-it-clicked</loc>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://aideazz.xyz/blog/my-12000-ai-vendor-lock-in-mistakes-a-fractional-ctos-audit</loc>
     <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
