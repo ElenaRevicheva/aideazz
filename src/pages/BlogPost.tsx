@@ -237,7 +237,10 @@ export default function BlogPost() {
 
   useEffect(() => {
     if (!slug || !displayTitle) return;
-    const url = `${SITE_ORIGIN}/blog/${slug}`;
+    // Trailing slash matches where the post actually lives: each one ships as the
+    // directory public/blog/<slug>/index.html, and the host 301s the slashless form
+    // to it. Declaring the pre-redirect URL here would contradict the static page.
+    const url = `${SITE_ORIGIN}/blog/${slug}/`;
     const desc = (displayDescription || displayTitle).slice(0, 320);
     applyPageSeo({
       title: `${displayTitle} | AIdeazz`,

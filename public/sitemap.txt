@@ -1,7 +1,8 @@
+https://aideazz.xyz/portfolio
+https://aideazz.xyz/api
 https://aideazz.xyz/
 https://aideazz.xyz/about
-https://aideazz.xyz/portfolio
-https://aideazz.xyz/blog
+https://aideazz.xyz/blog/
 https://aideazz.xyz/pitch.html
 https://aideazz.xyz/pitch-es.html
 https://aideazz.xyz/sop-ai-ops.html

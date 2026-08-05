@@ -28,12 +28,20 @@ const EXCLUDED_SLUGS = new Set([
   "cto-aipa-hashnode-api-smoke-test-2026-04-09t0041-utc",
 ]);
 
+// Portfolio-first, deliberately. /portfolio is the commercial page — what Elena
+// sells and how to hire her — while the apex is the vision site. Sitemap priority
+// is relative *within* a site, which makes it the correct place to state that
+// preference rather than leaving both at 1.0 and letting engines guess. Order
+// matches: the first entry a parser sees is the page we most want ranked.
 const STATIC_PAGES = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
-  { path: "/about", changefreq: "monthly", priority: "0.8" },
-  // The money page — keep at parity with the homepage so engines treat it as primary.
   { path: "/portfolio", changefreq: "weekly", priority: "1.0" },
-  { path: "/blog", changefreq: "weekly", priority: "0.85" },
+  // The free audit API — a proof surface linked from /portfolio, and the page
+  // directory listings will point at. It was missing from the sitemap entirely.
+  { path: "/api", changefreq: "weekly", priority: "0.95" },
+  { path: "/", changefreq: "weekly", priority: "0.9" },
+  { path: "/about", changefreq: "monthly", priority: "0.8" },
+  // Trailing slash: /blog is a real directory, so the host 301s /blog -> /blog/.
+  { path: "/blog/", changefreq: "weekly", priority: "0.85" },
   { path: "/pitch.html", changefreq: "monthly", priority: "0.7" },
   { path: "/pitch-es.html", changefreq: "monthly", priority: "0.6" },
   { path: "/sop-ai-ops.html", changefreq: "weekly", priority: "0.72" },

@@ -245,7 +245,7 @@ const BLOG_ARTICLE = `
         <section>
           <h2>Latest articles</h2>
           <ul>
-${RECENT_POSTS.map((p) => `            <li><a href="https://aideazz.xyz/blog/${p.slug}">${p.title}</a>${p.published ? ` — <time datetime="${p.published.slice(0, 10)}">${p.published.slice(0, 10)}</time>` : ''}</li>`).join('\n')}
+${RECENT_POSTS.map((p) => `            <li><a href="https://aideazz.xyz/blog/${p.slug}/">${p.title}</a>${p.published ? ` — <time datetime="${p.published.slice(0, 10)}">${p.published.slice(0, 10)}</time>` : ''}</li>`).join('\n')}
           </ul>
         </section>
 
@@ -333,7 +333,10 @@ const ROUTES = [
   },
   {
     dir: 'blog',
-    url: 'https://aideazz.xyz/blog',
+    // Trailing slash for the same reason alsoWrite exists below: /blog is a real
+    // directory in the IPFS build, so the gateway 301s /blog -> /blog/. Declaring
+    // the slashless form as canonical points Google at a URL that redirects away.
+    url: 'https://aideazz.xyz/blog/',
     title: 'AIdeazz Blog — AI agents, automation and AI search, in public',
     description:
       'Engineering notes from Elena Revicheva: building production AI agents, end-to-end automation, and GEO/AEO visibility for AI search — shipped and measured in public.',
@@ -349,7 +352,7 @@ const ROUTES = [
       '@context': 'https://schema.org',
       '@type': 'Blog',
       '@id': 'https://aideazz.xyz/blog#blog',
-      url: 'https://aideazz.xyz/blog',
+      url: 'https://aideazz.xyz/blog/',
       name: 'AIdeazz Engineering Blog',
       description:
         'Building AI agents, automation and AI search visibility in public — written from live production systems.',
@@ -362,13 +365,13 @@ const ROUTES = [
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'AIdeazz', item: 'https://aideazz.xyz/' },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://aideazz.xyz/blog' },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://aideazz.xyz/blog/' },
         ],
       },
       blogPost: RECENT_POSTS.map((p) => ({
         '@type': 'BlogPosting',
         headline: decodeEntities(p.title),
-        url: `https://aideazz.xyz/blog/${p.slug}`,
+        url: `https://aideazz.xyz/blog/${p.slug}/`,
         ...(p.published ? { datePublished: p.published } : {}),
         author: { '@type': 'Person', name: 'Elena Revicheva', url: 'https://aideazz.xyz/portfolio' },
       })),
