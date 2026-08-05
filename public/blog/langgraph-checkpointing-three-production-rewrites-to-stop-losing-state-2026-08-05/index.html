@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LangGraph Checkpointing: Three Production Rewrites to Stop Losing State | AIdeazz</title>
+  <meta name="description" content="My first LangGraph production agent silently discarded every job for weeks. The agent was supposed to process user requests from Telegram, break them down into sub-tasks, and execute them across mult…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state-2026-08-05/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LangGraph Checkpointing: Three Production Rewrites to Stop Losing State">
+  <meta property="og:description" content="My first LangGraph production agent silently discarded every job for weeks. The agent was supposed to process user requests from Telegram, break them down into sub-tasks, and execute them across mult…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state-2026-08-05/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-05T19:30:18.989Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LangGraph Checkpointing: Three Production Rewrites to Stop Losing State">
+  <meta name="twitter:description" content="My first LangGraph production agent silently discarded every job for weeks. The agent was supposed to process user requests from Telegram, break them down into sub-tasks, and execute them across mult…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LangGraph Checkpointing: Three Production Rewrites to Stop Losing State",
+  "description": "My first LangGraph production agent silently discarded every job for weeks. The agent was supposed to process user requests from Telegram, break them down into sub-tasks, and execute them across mult…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-05T19:30:18.989Z",
+  "dateModified": "2026-08-05T19:30:18.989Z",
+  "url": "https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state-2026-08-05/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state-2026-08-05/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a proper database like PostgreSQL with row-level locking for checkpointing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A full relational database adds operational overhead (management, backups, scaling) and cost. For simple key-value state, object storage with conditional writes provides sufficient atomicity and is orders of magnitude cheaper and simpler to operate at scale for this specific use case. My current setup costs under $5/month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle schema migrations for `AgentState` with this approach?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When loading a `VersionedCheckpoint`, I check the `version` field. If the loaded version is older than the agent's current expected schema version, I apply explicit migration functions (e.g., adding default values for new fields, transforming old field names) before instantiating the `AgentState` `TypedDict`."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if an agent crashes *during* a `put` operation, leaving a corrupted checkpoint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `put` operation is designed to be idempotent and resilient. If a crash occurs mid-write, the next `get` operation will either retrieve the last *successfully* written checkpoint (if the partial write didn't overwrite the ETag) or fail to parse the JSON, triggering a retry or a fresh start. The conditional write helps prevent partial writes from corrupting a valid previous state."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this approach add significant latency to each agent step?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each `get` and `put` operation involves network calls to OCI Object Storage. For typical agent steps, this adds 50-200ms of latency per state access, which is acceptable for most conversational AI applications where LLM calls dominate latency (e.g., Groq 100ms, Claude 1-5s). For extremely high-throughput, low-latency scenarios, an in-memory cache with eventual consistency might be layered on top."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">LangGraph Checkpointing: Three Production Rewrites to Stop Losing State</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-05T19:30:18.989Z">August 5, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first LangGraph production agent silently discarded every job for weeks. The agent was supposed to process user requests from Telegram, break them down into sub-tasks, and execute them across multiple steps, storing intermediate results. Instead, it would process the first step, then restart from scratch on the next invocation, losing all prior context. The problem wasn't in the agent logic itself, but in how I was attempting to persist its state.</p>
+<p>I burned through three distinct LangGraph checkpointing strategies before I found one that reliably worked for stateful agents in production. Each failure taught me a critical lesson about the assumptions LangGraph makes and the realities of deploying multi-step AI agents.</p>
+<h2>The Silent State Schema Mismatch</h2>
+<p>My initial approach was simple: use LangGraph's built-in <code>SqliteSaver</code>. It seemed robust enough for a single-instance deployment on an Oracle Cloud VM. The agent's graph defined a state, let's call it <code>AgentState</code>, with fields like <code>user_id: str</code>, <code>request_id: str</code>, <code>task_list: list[str]</code>, and <code>current_step: int</code>.</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    user_id: str
+    request_id: str
+    task_list: list[str]
+    current_step: int
+    # ... more fields added later
+</code></pre></p>
+<p>The agent would receive a message, initialize <code>AgentState</code>, and kick off the graph. Subsequent messages from the same <code>user_id</code> were supposed to resume the existing state.</p>
+<p>The problem started when I needed to add a new field to <code>AgentState</code>, say <code>tool_output: dict</code>. I updated the <code>TypedDict</code>, redeployed the agent, and expected it to pick up where it left off. It didn't. Existing conversations would restart. New conversations worked fine.</p>
+<p>I debugged for days, tracing <code>SqliteSaver</code> calls, checking the database directly. The <code>checkpoint</code> table in SQLite stores a JSON blob of the state. What I found was insidious: LangGraph's <code>SqliteSaver</code> does not perform schema migration or even warn about schema mismatches. When an older checkpoint (without <code>tool_output</code>) was loaded into an agent expecting the new <code>AgentState</code> schema, the <code>TypedDict</code> instantiation would silently drop any fields not present in the loaded JSON, and also fail to initialize new fields with default values if they weren't explicitly handled.</p>
+<p>The agent would load a partial state, proceed as if it were complete, and then fail downstream because <code>tool_output</code> was missing. Or, worse, it would just restart the entire process because a critical flag like <code>current_step</code> was reset due to the partial load. This wasn't an error; it was a silent data loss. My solution was a manual, painful process: dump the SQLite checkpoints, manually migrate the JSON, and re-insert. This was not scalable.</p>
+<h2>The Checkpoint Corruption Lottery</h2>
+<p>After the <code>SqliteSaver</code> debacle, I moved to a custom <code>OracleCloudObjectStorageSaver</code>. My agents run on Oracle Cloud Infrastructure (OCI), and object storage is cheap and highly available. I implemented a <code>BaseCheckpointSaver</code> subclass that would serialize the state to JSON and upload it to an OCI object storage bucket, using the <code>thread_id</code> as the object name.</p>
+<p><pre><code class="language-python">class OracleCloudObjectStorageSaver(BaseCheckpointSaver):
+    def __init__(self, bucket_name: str, namespace: str, object_storage_client):
+        self.bucket_name = bucket_name
+        self.namespace = namespace
+        self.client = object_storage_client
+
+    def get(self, thread_id: str) -&gt; Optional[Checkpoint]:
+        try:
+            response = self.client.get_object(self.namespace, self.bucket_name, thread_id)
+            data = json.loads(response.data.content.decode('utf-8'))
+            return Checkpoint(**data)
+        except Exception as e:
+            # Log and return None if object not found or corrupted
+            print(f"Error loading checkpoint {thread_id}: {e}")
+            return None
+
+    def put(self, thread_id: str, checkpoint: Checkpoint) -&gt; None:
+        data = json.dumps(checkpoint, default=str) # default=str handles datetime objects
+        self.client.put_object(
+            self.namespace, self.bucket_name, thread_id, data.encode('utf-8')
+        )
+</code></pre></p>
+<p>This seemed more robust. I had full control over serialization and deserialization. I could add versioning to my state objects and handle migrations explicitly.</p>
+<p>Then came the checkpoint corruption. Occasionally, an agent would fail to load its state, reporting a JSON decoding error. The <code>get_object</code> call would return valid data, but <code>json.loads</code> would throw. Upon inspection, the JSON files in OCI object storage were truncated or malformed.</p>
+<p>The root cause was concurrency. My agents are stateless in themselves, running as serverless functions or on VMs that can scale. Multiple invocations for the <em>same</em> <code>thread_id</code> could happen almost simultaneously, especially if a user sent rapid-fire messages. If two <code>put</code> operations happened concurrently, one might overwrite the other partially, or a read might occur while a write was in progress, leading to corrupted JSON. OCI Object Storage provides eventual consistency, but not strong consistency for overwrites.</p>
+<p>My initial fix was to add a retry mechanism with exponential backoff for <code>put</code> operations. This reduced the frequency of corruption but didn't eliminate it. The problem was fundamental: a simple overwrite model for state in a highly concurrent environment is a race condition waiting to happen.</p>
+<h2>The Atomic Update Pattern: Versioning and Conditional Writes</h2>
+<p>The solution that finally stabilized LangGraph stateful agents in production involved two key components: explicit state versioning and conditional writes.</p>
+<p>Instead of just storing the <code>Checkpoint</code> object, I wrapped it in a custom envelope that included a version number.</p>
+<p><pre><code class="language-python">class VersionedCheckpoint(TypedDict):
+    version: int
+    checkpoint: Checkpoint
+</code></pre></p>
+<p>When loading a checkpoint, I would read the <code>version</code> field. When writing, I would increment it. The crucial part was the <em>conditional write</em>. OCI Object Storage, like S3, supports conditional requests using <code>If-Match</code> or <code>If-None-Match</code> headers, based on the ETag of the object. This allows for optimistic locking.</p>
+<p>My <code>put</code> operation was modified to:</p>
+<p>1.  Read the current object (if it exists) to get its ETag and current version.<br>2.  Increment the version number.<br>3.  Attempt to write the new object, including the new version, <em>conditionally</em>. If the ETag of the object on the server doesn't match the ETag I read in step 1, it means another process modified the object. The write fails.<br>4.  If the write fails due to an ETag mismatch, retry the entire process (read, increment, write) a few times.</p>
+<p><pre><code class="language-python">class OracleCloudObjectStorageAtomicSaver(BaseCheckpointSaver):
+    def __init__(self, bucket_name: str, namespace: str, object_storage_client):
+        self.bucket_name = bucket_name
+        self.namespace = namespace
+        self.client = object_storage_client
+        self.max_retries = 5
+
+    def get(self, thread_id: str) -&gt; Optional[Checkpoint]:
+        try:
+            response = self.client.get_object(self.namespace, self.bucket_name, thread_id)
+            data = json.loads(response.data.content.decode('utf-8'))
+            # Expecting VersionedCheckpoint structure
+            versioned_data = VersionedCheckpoint(**data)
+            return Checkpoint(**versioned_data['checkpoint'])
+        except Exception as e:
+            print(f"Error loading checkpoint {thread_id}: {e}")
+            return None
+
+    def put(self, thread_id: str, checkpoint: Checkpoint) -&gt; None:
+        for attempt in range(self.max_retries):
+            current_etag = None
+            current_version = 0
+            
+            # Try to get current object and ETag for conditional write
+            try:
+                response = self.client.get_object(self.namespace, self.bucket_name, thread_id)
+                current_etag = response.headers.get('etag')
+                existing_data = json.loads(response.data.content.decode('utf-8'))
+                current_version = existing_data.get('version', 0)
+            except Exception as e:
+                # Object might not exist, or other transient error. Proceed with no ETag.
+                print(f"No existing object or error getting ETag for {thread_id}: {e}")
+
+            new_version = current_version + 1
+            versioned_checkpoint = VersionedCheckpoint(version=new_version, checkpoint=checkpoint)
+            data_to_write = json.dumps(versioned_checkpoint, default=str)
+
+            try:
+                headers = {'If-Match': current_etag} if current_etag else {}
+                self.client.put_object(
+                    self.namespace, self.bucket_name, thread_id, data_to_write.encode('utf-8'),
+                    opc_meta={'version': str(new_version)}, # Store version in metadata too
+                    **headers
+                )
+                return # Success
+            except Exception as e:
+                if "412 Precondition Failed" in str(e) and attempt &lt; self.max_retries - 1:
+                    print(f"Precondition failed for {thread_id}, retrying (attempt {attempt+1})...")
+                    time.sleep(2 ** attempt) # Exponential backoff
+                else:
+                    raise # Re-raise if max retries reached or other error
+
+        raise Exception(f"Failed to save checkpoint for {thread_id} after {self.max_retries} attempts.")
+
+</code></pre></p>
+<p>This pattern ensures that only one write operation succeeds at a time for a given <code>thread_id</code>. If multiple agents try to update the same state concurrently, only the one whose <code>If-Match</code> header correctly identifies the <em>current</em> state's ETag will succeed. Others will fail and retry, eventually picking up the newly written state and applying their updates on top of it. This effectively serializes concurrent updates to the same checkpoint.</p>
+<p>This atomic update pattern, combined with explicit state versioning and schema management, finally provided the stability needed for production LangGraph agents. My agents now reliably maintain state across multiple steps, even under concurrent load, whether they're routing requests to Groq for fast initial responses or to Claude for complex reasoning. The cost of OCI Object Storage for this is negligible, typically under $5/month for hundreds of thousands of checkpoints.</p>
+<h2>Lessons Learned for Stateful AI Agents</h2>
+<p>1.  <strong>LangGraph's <code>SqliteSaver</code> is for single-process, non-evolving state.</strong> It's fine for demos, but not for production where state schemas change or concurrency is a factor.<br>2.  <strong>Explicitly manage your state schema.</strong> <code>TypedDict</code> is a compile-time hint, not a runtime validator or migrator. Implement your own versioning and migration logic for your state objects.<br>3.  <strong>Concurrency is a state killer.</strong> Any shared state in a distributed or concurrent system needs an atomic update mechanism. Simple overwrites lead to silent data corruption.<br>4.  <strong>Leverage cloud primitives.</strong> Object storage with conditional writes (<code>If-Match</code> / <code>ETag</code>) is a powerful, cost-effective primitive for optimistic locking. Don't reinvent the wheel with complex distributed locks unless absolutely necessary.<br>5.  <strong>Monitor and log everything.</strong> The silent failures were the hardest to debug. Extensive logging of checkpoint loads, saves, versions, and retries is crucial.</p>
+<p>My current agents, handling everything from customer support routing to internal data analysis, now run with this pattern. The initial pain of three rewrites was worth the stability and confidence it brought.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a proper database like PostgreSQL with row-level locking for checkpointing?</strong><br>A: A full relational database adds operational overhead (management, backups, scaling) and cost. For simple key-value state, object storage with conditional writes provides sufficient atomicity and is orders of magnitude cheaper and simpler to operate at scale for this specific use case. My current setup costs under $5/month.</p>
+<p><strong>Q: How do you handle schema migrations for <code>AgentState</code> with this approach?</strong><br>A: When loading a <code>VersionedCheckpoint</code>, I check the <code>version</code> field. If the loaded version is older than the agent's current expected schema version, I apply explicit migration functions (e.g., adding default values for new fields, transforming old field names) before instantiating the <code>AgentState</code> <code>TypedDict</code>.</p>
+<p>**Q: What if an agent crashes <em>during</em> a <code>put</code> operation, leaving a corrupted checkpoint?**<br>A: The <code>put</code> operation is designed to be idempotent and resilient. If a crash occurs mid-write, the next <code>get</code> operation will either retrieve the last <em>successfully</em> written checkpoint (if the partial write didn't overwrite the ETag) or fail to parse the JSON, triggering a retry or a fresh start. The conditional write helps prevent partial writes from corrupting a valid previous state.</p>
+<p><strong>Q: Does this approach add significant latency to each agent step?</strong><br>A: Each <code>get</code> and <code>put</code> operation involves network calls to OCI Object Storage. For typical agent steps, this adds 50-200ms of latency per state access, which is acceptable for most conversational AI applications where LLM calls dominate latency (e.g., Groq 100ms, Claude 1-5s). For extremely high-throughput, low-latency scenarios, an in-memory cache with eventual consistency might be layered on top.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
