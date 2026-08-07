@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness | AIdeazz</title>
+  <meta name="description" content="I shipped a production AI agent that silently failed 17% of the time. The agent was designed to process user requests from Telegram, route them to a specialized Groq-powered summarizer, then to a Cla…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-08-07/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness">
+  <meta property="og:description" content="I shipped a production AI agent that silently failed 17% of the time. The agent was designed to process user requests from Telegram, route them to a specialized Groq-powered summarizer, then to a Cla…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-08-07/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-07T19:30:18.471Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness">
+  <meta name="twitter:description" content="I shipped a production AI agent that silently failed 17% of the time. The agent was designed to process user requests from Telegram, route them to a specialized Groq-powered summarizer, then to a Cla…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness",
+  "description": "I shipped a production AI agent that silently failed 17% of the time. The agent was designed to process user requests from Telegram, route them to a specialized Groq-powered summarizer, then to a Cla…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-07T19:30:18.471Z",
+  "dateModified": "2026-08-07T19:30:18.471Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-08-07/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-08-07/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you manage the \"gold standard\" answers for semantic similarity tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For critical paths, I manually create 2-3 \"gold standard\" answers per test case. For less critical paths, I use a stronger LLM (like Claude 3 Opus) to generate a reference answer, which is then manually reviewed and approved."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the LLM models change or update, invalidating my semantic similarity scores?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a real risk. I pin to specific model versions where possible (e.g., `claude-3-sonnet-20240229`). When models update, I re-run the entire eval harness. If a significant number of semantic similarity tests fail, it indicates a model drift, and I either adjust the gold standards or fine-tune my prompts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle the cost of running 131 tests, especially with expensive LLMs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I optimize by using cheaper, faster models (like Groq) for summarization and initial routing within the harness itself where possible. For the actual generation tests, I use the production models but keep the input documents and desired outputs concise to minimize token usage. The $0.03/run is a calculated average, and I monitor it closely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your strategy for evaluating agents that generate creative content, where there's no single \"correct\" answer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For creative content, I rely more on constraint adherence (e.g., tone, style, length) and negative constraints (e.g., \"must not be offensive,\" \"must not hallucinate facts\"). Semantic similarity is used to check for relevance to the prompt, not exact phrasing. Human review of a subset of creative outputs is also essential."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you integrate this harness into your CI/CD pipeline on Oracle Cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The harness is a separate Python application. I use Oracle Cloud Infrastructure (OCI) DevOps to trigger a nightly run. The results (pass/fail, latency, cost) are stored in an OCI Object Storage bucket and visualized via OCI Logging Analytics dashboards. A critical failure triggers a notification via OCI Notifications."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-07T19:30:18.471Z">August 7, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I shipped a production AI agent that silently failed 17% of the time. The agent was designed to process user requests from Telegram, route them to a specialized Groq-powered summarizer, then to a Claude-powered content generator, and finally format the output for WhatsApp. My unit tests passed. My integration tests passed. My end-to-end tests, which checked the final output format, also passed. The problem was not <em>if</em> it produced output, but <em>what</em> output.</p>
+<p>The agent was supposed to summarize a technical document and then generate a social media post. Without an AI agent evaluation harness, I would have continued shipping a system that generated social media posts based on <em>irrelevant sections</em> of the document, or worse, hallucinated key facts. This wasn't a bug in my Python code; it was a failure in the AI's reasoning, its ability to follow complex, multi-step instructions, and its robustness to varied inputs. This is why I stopped all feature development and spent two weeks building an AI agent evaluation harness with 131 tests across four distinct layers, costing me $0.03 per full run.</p>
+<h2>The Silent Failure: Why Unit Tests Are Blind</h2>
+<p>My initial test suite for the multi-agent system included:<br><ul><li>  <strong>Unit tests:</strong> Checked individual Python functions, e.g., <code>parse_telegram_input()</code>, <code>format_whatsapp_output()</code>. (100% coverage)</li><br><li>  <strong>Integration tests:</strong> Verified API calls to Groq and Claude, ensuring correct request/response structure. (Passed)</li><br><li>  <strong>End-to-end tests:</strong> Confirmed the final WhatsApp message structure and presence of expected keywords. (Passed)</li></ul></p>
+<p>The agent’s core task was:<br>1.  Receive a document URL and a target social media platform from Telegram.<br>2.  Fetch the document.<br>3.  Summarize the document using Groq (for speed).<br>4.  Generate a social media post using Claude (for nuance and creativity).<br>5.  Send the post to WhatsApp.</p>
+<p>The silent failure occurred in step 3 and 4. A user uploaded a PDF of a research paper. The Groq summarizer, under certain prompt variations, would focus on the "Acknowledgements" section or the "References" instead of the "Abstract" and "Methodology." Claude, receiving this skewed summary, would then generate a social media post about the <em>authors' funding sources</em> or <em>related works</em>, not the paper's findings. The final WhatsApp message <em>looked</em> correct structurally, but the content was fundamentally wrong.</p>
+<p>This is a class of failure that traditional software tests cannot catch. Unit tests verify code logic. Integration tests verify component communication. End-to-end tests verify system flow and final output <em>format</em>. None of them verify <em>semantic correctness</em> or <em>reasoning fidelity</em> of an AI agent. This requires a dedicated AI agent evaluation harness.</p>
+<h2>Layer 1: Input Robustness (35 Tests)</h2>
+<p>The first layer of my evaluation harness focuses on how well the agent handles diverse and challenging inputs. My agents operate on Telegram and WhatsApp, meaning inputs are often unstructured, misspelled, or incomplete.</p>
+<p>I built 35 test cases covering:<br><ul><li>  <strong>Malformed URLs:</strong> <code>htps://example.com</code>, <code>example.com</code>, <code>ftp://example.com/doc.pdf</code>. Expected: graceful error, prompt for correct URL.</li><br><li>  <strong>Non-existent URLs:</strong> <code>https://nonexistent-domain-12345.com/doc.pdf</code>. Expected: network error handling, user notification.</li><br><li>  <strong>Unsupported document types:</strong> <code>https://example.com/image.jpg</code>, <code>https://example.com/video.mp4</code>. Expected: "unsupported format" message.</li><br><li>  <strong>Empty messages:</strong> User sends nothing. Expected: prompt for input.</li><br><li>  <strong>Gibberish:</strong> "asdfghjkl;" Expected: "I don't understand" message.</li><br><li>  <strong>Language variations:</strong> Requests in Spanish, French (my agents are English-only for now). Expected: "English only" message.</li><br><li>  <strong>Long inputs:</strong> A 10,000-word text pasted directly into Telegram. Expected: truncation or "too long" message.</li></ul></p>
+<p>Each test case is a JSON object defining the input, expected output (regex or specific string), and a pass/fail condition. The harness simulates a Telegram message, injects it into the agent's entry point, and captures the final response. This layer alone caught 8 critical failures related to URL parsing and content fetching that my previous tests missed. For example, a malformed URL like <code>example.com</code> would previously crash the document fetching service, leading to a silent failure for the user. Now, it triggers a specific "invalid URL" response.</p>
+<h2>Layer 2: Core Reasoning & Prompt Adherence (50 Tests)</h2>
+<p>This is the most critical layer, designed to catch the semantic failures I described. It focuses on the agent's ability to understand and execute complex instructions, especially across multiple LLM calls.</p>
+<p>I developed 50 test cases, each with:<br><ul><li>  <strong>A specific document:</strong> (e.g., a research paper, a news article, a product manual).</li><br><li>  <strong>A specific prompt/instruction:</strong> (e.g., "Summarize this for a 10-year-old," "Extract key takeaways for investors," "Generate a LinkedIn post highlighting the challenges.")</li><br><li>  <strong>Evaluation criteria:</strong> These are not simple string matches. They are a combination of:</li></ul><br>    *   <strong>Keyword presence/absence:</strong> "Must contain 'AI' and 'Panama', must NOT contain 'Acknowledgements'."<br>    *   <strong>Semantic similarity:</strong> Using an embedding model (e.g., <code>text-embedding-ada-002</code> via Oracle OCI Generative AI service) to compare the generated output against a human-written "gold standard" answer. A cosine similarity score below 0.7 triggers a failure.<br>    *   <strong>Factuality check:</strong> For specific factual extraction tasks, I use a small, fine-tuned LLM (running on Oracle Cloud Infrastructure's GPU instances) to act as a "critic," comparing generated facts against the source document. This critic model is prompted with "Given the document X, is statement Y true? Answer only 'Yes' or 'No'."<br>    *   <strong>Constraint adherence:</strong> "Output must be under 280 characters," "Must use bullet points."</p>
+<p>Example test:<br><ul><li>  <strong>Document:</strong> A 5-page PDF on "Quantum Computing Advancements."</li><br><li>  <strong>Prompt:</strong> "Generate a tweet summarizing the main breakthrough for a general audience. Keep it under 280 characters. Focus on the practical implications."</li><br><li>  <strong>Evaluation:</strong></li></ul><br>    *   Length check: <code>< 280 chars</code>.<br>    *   Keyword check: <code>contains "quantum"</code>, <code>contains "breakthrough"</code>, <code>NOT contains "Schrödinger equation"</code>.<br>    *   Semantic similarity: Compare generated tweet embedding to a human-written tweet embedding (cosine similarity > 0.75).<br>    *   Factuality: Critic model checks if the "practical implications" mentioned are actually present in the document.</p>
+<p>This layer revealed that my Groq summarizer, while fast, sometimes over-simplified or omitted crucial context, leading Claude to generate misleading posts. I adjusted Groq's system prompt to explicitly emphasize "main findings and their implications" and added a post-processing step to re-rank summary sentences based on their embedding similarity to the initial user query.</p>
+<h2>Layer 3: Multi-Turn & State Management (26 Tests)</h2>
+<p>My agents are designed for conversational interfaces. This means they need to maintain context and respond appropriately in multi-turn interactions.</p>
+<p>26 tests cover:<br><ul><li>  <strong>Follow-up questions:</strong> User asks "What about X?" after a summary. Expected: agent refers to the previous summary and answers X if relevant.</li><br><li>  <strong>Clarification requests:</strong> Agent asks "Which document are you referring to?" if context is ambiguous.</li><br><li>  <strong>Context switching:</strong> User asks for a summary of Document A, then immediately asks for a social media post for Document B. Expected: agent correctly switches context and processes Document B.</li><br><li>  <strong>Interrupted flows:</strong> User starts a task, then sends "stop" or "cancel." Expected: agent gracefully terminates the current task.</li><br><li>  <strong>Error recovery:</strong> Agent encounters an error (e.g., API timeout), then user retries. Expected: agent attempts to restart or guide the user.</li></ul></p>
+<p>These tests simulate a sequence of messages, checking the agent's state at each step. For instance, after a user provides a document URL, the harness checks if the agent's internal state correctly stores this URL before the next message. This layer helped me refine my state management logic, moving from a simple dictionary to a more robust, session-based context store backed by Oracle Autonomous Database.</p>
+<h2>Layer 4: Performance & Cost (20 Tests)</h2>
+<p>While not directly about correctness, performance and cost are critical for production systems, especially with LLM APIs.</p>
+<p>20 tests monitor:<br><ul><li>  <strong>Latency:</strong> Time taken for specific operations (e.g., summarization, generation). I set thresholds (e.g., Groq summarization < 2 seconds, Claude generation < 10 seconds).</li><br><li>  <strong>Token usage:</strong> Number of input/output tokens for each LLM call. This directly impacts cost. I monitor for unexpected spikes.</li><br><li>  <strong>API call count:</strong> Number of external API calls per request. An unexpected increase could indicate a loop or inefficient prompting.</li><br><li>  <strong>Error rates:</strong> Percentage of API calls returning non-200 status codes.</li><br><li>  <strong>Total cost per run:</strong> The harness aggregates token usage and API calls, then calculates the estimated cost based on current provider rates (Groq: $0.0002/1K tokens, Claude 3 Sonnet: $3/M input tokens, $15/M output tokens). My target is $0.03 per full agent interaction.</li></ul></p>
+<p>The harness runs these 131 tests nightly on Oracle Cloud Infrastructure's always-free tier compute instances. The total cost for a full run, including LLM calls, is consistently around $0.03. This low cost allows me to run it frequently, catching regressions quickly. The performance tests revealed that certain complex prompts for Claude were pushing generation times beyond acceptable limits, leading me to optimize prompt structure and explore smaller Claude models for specific tasks.</p>
+<h2>The Cost of Not Evaluating</h2>
+<p>Building this AI agent evaluation harness took me two weeks. This was time I wasn't building new features, wasn't acquiring new users. But without it, I would have continued shipping a product that was fundamentally broken for a significant portion of its use cases. The cost of debugging production issues, losing user trust, and rebuilding features would have been far higher.</p>
+<p>My 131 tests across four layers provide a safety net that traditional software testing cannot. They ensure my multi-agent system not only functions technically but also reasons correctly, adheres to instructions, and provides valuable, accurate outputs. This is non-negotiable for any AI agent moving into production.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you manage the "gold standard" answers for semantic similarity tests?</strong><br>A: For critical paths, I manually create 2-3 "gold standard" answers per test case. For less critical paths, I use a stronger LLM (like Claude 3 Opus) to generate a reference answer, which is then manually reviewed and approved.</p>
+<p><strong>Q: What if the LLM models change or update, invalidating my semantic similarity scores?</strong><br>A: This is a real risk. I pin to specific model versions where possible (e.g., <code>claude-3-sonnet-20240229</code>). When models update, I re-run the entire eval harness. If a significant number of semantic similarity tests fail, it indicates a model drift, and I either adjust the gold standards or fine-tune my prompts.</p>
+<p><strong>Q: How do you handle the cost of running 131 tests, especially with expensive LLMs?</strong><br>A: I optimize by using cheaper, faster models (like Groq) for summarization and initial routing within the harness itself where possible. For the actual generation tests, I use the production models but keep the input documents and desired outputs concise to minimize token usage. The $0.03/run is a calculated average, and I monitor it closely.</p>
+<p><strong>Q: What's your strategy for evaluating agents that generate creative content, where there's no single "correct" answer?</strong><br>A: For creative content, I rely more on constraint adherence (e.g., tone, style, length) and negative constraints (e.g., "must not be offensive," "must not hallucinate facts"). Semantic similarity is used to check for relevance to the prompt, not exact phrasing. Human review of a subset of creative outputs is also essential.</p>
+<p><strong>Q: How do you integrate this harness into your CI/CD pipeline on Oracle Cloud?</strong><br>A: The harness is a separate Python application. I use Oracle Cloud Infrastructure (OCI) DevOps to trigger a nightly run. The results (pass/fail, latency, cost) are stored in an OCI Object Storage bucket and visualized via OCI Logging Analytics dashboards. A critical failure triggers a notification via OCI Notifications.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
