@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs | AIdeazz</title>
+  <meta name="description" content="My Oracle Cloud bill for the last 12 months has been $0.00. This isn't a marketing stunt, it's a hard number. We run 10 production AI agents, processing hundreds of thousands of requests monthly. Our…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-startup-infrastructure-0-oracle-12-groq-40-brightdata-real-costs/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs">
+  <meta property="og:description" content="My Oracle Cloud bill for the last 12 months has been $0.00. This isn't a marketing stunt, it's a hard number. We run 10 production AI agents, processing hundreds of thousands of requests monthly. Our…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-startup-infrastructure-0-oracle-12-groq-40-brightdata-real-costs/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-09T19:30:15.288Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs">
+  <meta name="twitter:description" content="My Oracle Cloud bill for the last 12 months has been $0.00. This isn't a marketing stunt, it's a hard number. We run 10 production AI agents, processing hundreds of thousands of requests monthly. Our…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs",
+  "description": "My Oracle Cloud bill for the last 12 months has been $0.00. This isn't a marketing stunt, it's a hard number. We run 10 production AI agents, processing hundreds of thousands of requests monthly. Our…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-09T19:30:15.288Z",
+  "dateModified": "2026-08-09T19:30:15.288Z",
+  "url": "https://aideazz.xyz/blog/ai-startup-infrastructure-0-oracle-12-groq-40-brightdata-real-costs/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-startup-infrastructure-0-oracle-12-groq-40-brightdata-real-costs/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle high availability and disaster recovery with Always Free VMs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We deploy critical services across multiple Always Free VMs in different availability domains within the same region. For disaster recovery, we have automated snapshot backups of our block volumes and database, stored in object storage. This provides redundancy within the region, but not cross-region."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if Oracle decides to terminate the Always Free tier or change its terms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a risk. Our strategy is to maintain portability. All agents run in Docker containers, and our data is stored in standard PostgreSQL or object storage. We could migrate to another cloud provider (e.g., AWS EC2/RDS free tier, GCP free tier, or even self-hosted dedicated servers) with minimal code changes, though the migration effort itself would be significant."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage secrets and API keys across multiple agents and VMs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We use a combination of environment variables for non-sensitive configuration and Oracle Cloud Infrastructure Vault for sensitive API keys and credentials. Secrets are injected into Docker containers at runtime, following least privilege principles."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your strategy for scaling beyond the Always Free limits if an agent becomes very popular?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If an agent requires more compute or memory than the Always Free VMs provide, we would first optimize the agent code and architecture. If that's insufficient, we would transition to paid OCI compute instances, which are still very competitive on price, or consider dedicated servers for extreme cases. The cost would then be passed to the client generating the demand."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you use any serverless functions (e.g., AWS Lambda, OCI Functions) to offload compute?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not extensively for our core agent logic. While OCI Functions has a free tier, the cold start times and vendor lock-in for complex stateful agents make it less appealing for our primary use cases. We prefer the consistent performance and control of long-running Docker containers on VMs. We do use OCI Functions for specific event-driven tasks like processing object storage events."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-09T19:30:15.288Z">August 9, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My Oracle Cloud bill for the last 12 months has been $0.00. This isn't a marketing stunt, it's a hard number. We run 10 production AI agents, processing hundreds of thousands of requests monthly. Our Groq bill for the same period was $12.48. Claude API? $8.17. Resend for email notifications? $4.00. These are the visible costs. The invisible ones, the "free tier" traps, and the operational overhead are where most AI startups bleed cash without realizing it.</p>
+<p>I built AIdeazz with zero VC funding, as a single mother who relocated from Russia to Panama. Every dollar spent is a dollar earned from a client. This forces a brutal efficiency that most well-funded startups never experience. This isn't about finding the cheapest option; it's about understanding the <em>actual</em> cost of running production AI agents and where the "free" options become prohibitively expensive.</p>
+<h2>The Oracle Always Delivers (for Free)</h2>
+<p>Oracle Cloud Infrastructure (OCI) is our backbone. Specifically, the Always Free tier. This isn't a trial; it's a permanent allocation of resources. We utilize:</p>
+<ul><li>  <strong>2 AMD E4 Flex VMs:</strong> Each with 4 OCPUs and 24 GB RAM. These are our workhorses, running Docker containers for our agents, custom APIs, and data processing.</li>
+<li>  <strong>2 ARM-based Ampere A1 Compute VMs:</strong> Each with 4 OCPUs and 24 GB RAM. These handle lighter loads, monitoring, and redundant services.</li>
+<li>  <strong>4 Block Volumes:</strong> 200 GB total. Enough for OS, Docker images, and agent data.</li>
+<li>  <strong>10 TB Outbound Data Transfer:</strong> This is critical. Most cloud providers nickel-and-dime you on egress. 10 TB is generous and we've never hit it.</li>
+<li>  <strong>Load Balancer:</strong> 10 Mbps bandwidth. Sufficient for our API traffic.</li>
+<li>  <strong>Autonomous Database:</strong> 2 OCPUs, 20 GB storage. We use this for structured data, user management, and agent state.</li></ul>
+<p>The catch? Resource limits. You can't just scale up indefinitely. If an agent needs more than 4 OCPUs or 24 GB RAM, you're out of luck on the free tier. This forces architectural discipline: microservices, efficient code, and offloading heavy compute to specialized APIs. Our agents are designed to be lean. We use PostgreSQL for most agent-specific data, running within Docker on the VMs, not the Autonomous Database, to keep that resource free for core application data.</p>
+<h2>LLM Routing: Groq for Speed, Claude for Complexity</h2>
+<p>Our LLM strategy is a hybrid. For agents requiring rapid, short-form responses, especially those interacting with users via Telegram or WhatsApp, Groq is indispensable.</p>
+<ul><li>  <strong>Groq Llama 3 8B:</strong> Average cost per 1M tokens is $0.05. Our monthly usage is typically around 250,000 tokens for these agents. This translates to about $0.0125/month.</li>
+<li>  <strong>Groq Llama 3 70B:</strong> Average cost per 1M tokens is $0.59. Used for more complex, multi-turn conversations. Our usage is lower, around 10,000 tokens/month, costing $0.0059.</li></ul>
+<p>Total Groq bill: $0.0184/month, rounded up to $0.02. The $12.48 annual bill is for <em>all</em> agents, including development and testing. The real cost is negligible. The benefit is speed: sub-100ms response times for Llama 3 8B, which is crucial for real-time user interaction.</p>
+<p>For tasks requiring more nuanced reasoning, longer context windows, or specific instruction following, we route to Claude.</p>
+<ul><li>  <strong>Anthropic Claude 3 Haiku:</strong> Input $0.25/M tokens, Output $1.25/M tokens. Used for summarization, content generation, and complex decision-making. Our usage is around 5,000 input tokens and 1,000 output tokens per month for specific agents. This is $0.00125 + $0.00125 = $0.0025/month.</li></ul>
+<p>Total Claude bill: $0.0025/month. Again, the $8.17 annual bill includes development. The key is intelligent routing: don't send a simple query to an expensive model. Our internal API gateway dynamically selects the LLM based on agent configuration and prompt complexity.</p>
+<h2>Data Acquisition: The BrightData Tax</h2>
+<p>This is where "free" ends and real costs begin. Many AI applications rely on external data. For us, this means web scraping. We use BrightData for proxy management and CAPTCHA solving.</p>
+<ul><li>  <strong>BrightData Residential Proxies:</strong> $15/GB.</li>
+<li>  <strong>BrightData Web Unlocker (CAPTCHA solving):</strong> $3/1000 requests.</li></ul>
+<p>A typical data acquisition run for a new client or a significant data refresh costs us around $40. This is not a monthly recurring cost, but an <em>event-driven</em> cost. If a client needs daily data updates, this cost becomes recurring. If they need weekly, it's $160/month. This is a direct pass-through cost to the client.</p>
+<p>The hidden cost here is <em>not</em> the BrightData bill itself, but the engineering time to build robust scrapers that handle rate limits, schema changes, and anti-bot measures. We've invested heavily in a modular scraping framework that minimizes this, but it's never zero. Relying on "free" scraping tools or public proxies for production data is a recipe for disaster: unreliable data, IP bans, and wasted engineering cycles.</p>
+<h2>Communication & Monitoring: The Small, Necessary Evils</h2>
+<ul><li>  <strong>Resend (Transactional Email):</strong> $0.25/1000 emails. We send automated reports, alerts, and user notifications. Our usage is low, around 100 emails/month, costing $0.025. The annual bill of $4.00 covers this and development emails. It's a reliable service, and the cost is negligible.</li>
+<li>  <strong>Telegram Bot API:</strong> Free. This is our primary interface for many agents. The infrastructure to run the bots is on our Oracle VMs.</li>
+<li>  <strong>WhatsApp Business API:</strong> This is where it gets tricky. While the API itself is free, Meta charges per conversation. The first 1,000 conversations per month are free. After that, it's $0.005-$0.015 per conversation depending on country and type (user-initiated vs. business-initiated). For low-volume agents, this is free. For high-volume agents, this becomes a significant cost that must be factored into the client's pricing. We explicitly track and bill for WhatsApp conversations above the free tier.</li>
+<li>  <strong>Monitoring:</strong> Prometheus and Grafana running on our Oracle VMs. Free. This requires setup and maintenance time, but no direct infrastructure cost. We monitor VM health, Docker container status, API response times, and LLM token usage.</li></ul>
+<h2>The Real Hidden Costs: Time and Expertise</h2>
+<p>The biggest "cost" in our $0 Oracle bill is my time. Setting up OCI Always Free, configuring VMs, Docker, Kubernetes (we use K3s for orchestration on the VMs), databases, networking, and security takes significant expertise. This isn't a point-and-click solution.</p>
+<ul><li>  <strong>DevOps Time:</strong> Initial setup was weeks of focused effort. Ongoing maintenance, updates, and troubleshooting are a few hours per week.</li>
+<li>  <strong>Security:</strong> Hardening VMs, managing firewalls, access keys, and patching. This is non-negotiable.</li>
+<li>  <strong>Data Management:</strong> Backups, replication, data integrity checks.</li>
+<li>  <strong>Agent Development:</strong> The actual coding, prompt engineering, fine-tuning, and integration. This is the core value, but it's built on the foundation of robust infrastructure.</li></ul>
+<p>Many startups outsource this or hire dedicated DevOps engineers, which easily runs into $10,000+/month. My "free" infrastructure is only free because I <em>am</em> the DevOps team. This is the trade-off: capital expenditure vs. human capital. For a bootstrapped operation, leveraging internal expertise is the only path.</p>
+<p>The "free tier" is a powerful tool, but it's a double-edged sword. It forces you to be lean and efficient, but it also demands a deep understanding of infrastructure and a willingness to get your hands dirty. The moment you need to scale beyond its limits, or if your team lacks the expertise, those "free" costs quickly become the most expensive.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle high availability and disaster recovery with Always Free VMs?</strong><br>A: We deploy critical services across multiple Always Free VMs in different availability domains within the same region. For disaster recovery, we have automated snapshot backups of our block volumes and database, stored in object storage. This provides redundancy within the region, but not cross-region.</p>
+<p><strong>Q: What happens if Oracle decides to terminate the Always Free tier or change its terms?</strong><br>A: This is a risk. Our strategy is to maintain portability. All agents run in Docker containers, and our data is stored in standard PostgreSQL or object storage. We could migrate to another cloud provider (e.g., AWS EC2/RDS free tier, GCP free tier, or even self-hosted dedicated servers) with minimal code changes, though the migration effort itself would be significant.</p>
+<p><strong>Q: How do you manage secrets and API keys across multiple agents and VMs?</strong><br>A: We use a combination of environment variables for non-sensitive configuration and Oracle Cloud Infrastructure Vault for sensitive API keys and credentials. Secrets are injected into Docker containers at runtime, following least privilege principles.</p>
+<p><strong>Q: What's your strategy for scaling beyond the Always Free limits if an agent becomes very popular?</strong><br>A: If an agent requires more compute or memory than the Always Free VMs provide, we would first optimize the agent code and architecture. If that's insufficient, we would transition to paid OCI compute instances, which are still very competitive on price, or consider dedicated servers for extreme cases. The cost would then be passed to the client generating the demand.</p>
+<p><strong>Q: Do you use any serverless functions (e.g., AWS Lambda, OCI Functions) to offload compute?</strong><br>A: Not extensively for our core agent logic. While OCI Functions has a free tier, the cold start times and vendor lock-in for complex stateful agents make it less appealing for our primary use cases. We prefer the consistent performance and control of long-running Docker containers on VMs. We do use OCI Functions for specific event-driven tasks like processing object storage events.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
