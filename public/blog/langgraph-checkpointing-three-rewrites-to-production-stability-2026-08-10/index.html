@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LangGraph Checkpointing: Three Rewrites to Production Stability | AIdeazz</title>
+  <meta name="description" content="My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed Agent finished successfully, but the output queue was empty. The problem wasn…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability-2026-08-10/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LangGraph Checkpointing: Three Rewrites to Production Stability">
+  <meta property="og:description" content="My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed Agent finished successfully, but the output queue was empty. The problem wasn…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability-2026-08-10/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-10T19:30:19.838Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LangGraph Checkpointing: Three Rewrites to Production Stability">
+  <meta name="twitter:description" content="My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed Agent finished successfully, but the output queue was empty. The problem wasn…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LangGraph Checkpointing: Three Rewrites to Production Stability",
+  "description": "My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed Agent finished successfully, but the output queue was empty. The problem wasn…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-10T19:30:19.838Z",
+  "dateModified": "2026-08-10T19:30:19.838Z",
+  "url": "https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability-2026-08-10/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/langgraph-checkpointing-three-rewrites-to-production-stability-2026-08-10/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle schema changes for in-flight agents with the versioning approach?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When a new schema version is deployed, agents processing older checkpoints will first load the old state, then `migrate_state` will transform it to the new schema. This transformed state is then saved back to the checkpoint store, effectively upgrading the checkpoint. Agents starting new threads will use the latest schema."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the overhead of using Redis for locking and ADB for checkpoints compared to a simpler solution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Redis adds ~2-5ms latency for lock acquisition/release. ADB adds ~10-50ms for checkpoint `UPSERT` operations, depending on network latency and payload size. This is acceptable for most multi-agent systems where LLM calls dominate latency (hundreds of ms to seconds). The stability gain far outweighs this overhead for production."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the `LockAcquisitionError` in your `ADBCheckpointSaver`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When `LockAcquisitionError` is raised, the agent's current invocation is aborted. The external orchestrator (e.g., a message queue consumer or a cron job) responsible for invoking agents will catch this error and typically re-queue the message or mark the thread for a later retry. This ensures that only one agent attempts to process a specific thread at a time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the \"Always Restart\" pattern mean you re-run LLM calls if a node fails after the LLM call but before saving state?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, if an LLM call completes but the subsequent state update or external action fails *before* the LangGraph node returns and its state is checkpointed, the LLM call might be re-run on restart. To prevent this for expensive LLM calls, I often add a `llm_response_cached: bool` flag to the state and save the raw LLM response. The node then checks this flag and uses the cached response if available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Autonomous Database (ADB) specifically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ADB offers fully managed, auto-scaling, and highly available PostgreSQL-compatible or Oracle Database instances. For AIdeazz, it integrates seamlessly with other Oracle Cloud Infrastructure (OCI) services I use (OKE, OCI Functions, OCI AI Services) and provides strong performance guarantees without requiring dedicated DBA resources, which is critical for a lean operation."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">LangGraph Checkpointing: Three Rewrites to Production Stability</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-10T19:30:19.838Z">August 10, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed <code>Agent finished successfully</code>, but the output queue was empty. The problem wasn't the LLM, the prompt, or the vector store. It was a state schema mismatch, a silent killer in LangGraph's checkpointing mechanism, costing me 1,200 CPU hours on Oracle Cloud before I found it.</p>
+<p>This wasn't my only LangGraph production headache. Before I shipped my first multi-agent system for AIdeazz, I went through three complete rewrites of the core LangGraph state management and checkpointing logic. Each rewrite addressed a different failure mode: silent data loss, corrupted checkpoints, and finally, the pattern that brought stability to multi-step, stateful agent pipelines.</p>
+<h2>The Silent State Schema Mismatch</h2>
+<p>My initial LangGraph agent processed incoming documents, summarized them, and then routed the summary to a specific output channel (Telegram, WhatsApp, email). The state was a simple <code>TypedDict</code>:</p>
+<p><pre><code class="language-python">class AgentState(TypedDict):
+    document_id: str
+    raw_text: str
+    summary: Optional[str]
+    output_channel: str
+    status: Literal["processing", "summarized", "failed"]
+</code></pre></p>
+<p>The agent worked locally. When deployed to Oracle Cloud, processing 100 documents per hour, it appeared to work. The <code>status</code> field would update to <code>summarized</code> in the database, and the agent logs confirmed completion. But the <code>summary</code> field in the database was always <code>NULL</code>.</p>
+<p>I spent days debugging the summarization step itself, convinced the LLM was hallucinating or the prompt was malformed. I added more logging, printed intermediate steps, and even ran the summarization logic outside LangGraph. It always produced a summary.</p>
+<p>The issue was in the <code>summary: Optional[str]</code> field. My initial state definition had <code>summary: str</code>. Later, I updated it to <code>Optional[str]</code> to handle cases where summarization might fail or not be needed immediately. LangGraph's <code>SqliteSaver</code> (and by extension, other <code>BaseCheckpointSaver</code> implementations) deserializes the stored state into the <em>current</em> state schema. If a field was present in the stored state but removed or changed type in the new schema, it would be silently dropped during deserialization. Conversely, if a new field was added, it would be <code>None</code>.</p>
+<p>My database still held the old schema's state. When the agent loaded a checkpoint, the <code>summary</code> field, which was <code>str</code> in the stored state, was deserialized into the <em>new</em> <code>Optional[str]</code> schema. LangGraph's internal <code>_load_state</code> method, when encountering a type mismatch or a missing field in the <em>new</em> schema, would simply discard the value from the <em>old</em> checkpoint. No error, no warning. The <code>summary</code> was there in the database, but it never made it into the agent's runtime state.</p>
+<p><strong>The Fix:</strong> Explicit schema versioning and migration. I now embed a <code>schema_version: int</code> in every <code>AgentState</code> and implement a <code>migrate_state(state: AgentState, target_version: int) -> AgentState</code> function. Before loading a checkpoint, I check its version and apply necessary migrations. This adds boilerplate but prevents silent data loss.</p>
+<p><pre><code class="language-python">class AgentStateV1(TypedDict):
+    document_id: str
+    raw_text: str
+    summary: str # Old schema
+    schema_version: Literal[1]
+
+class AgentStateV2(TypedDict):
+    document_id: str
+    raw_text: str
+    summary: Optional[str] # New schema
+    output_channel: str
+    status: Literal["processing", "summarized", "failed"]
+    schema_version: Literal[2]
+
+def migrate_state(state: dict, target_version: int) -&gt; dict:
+    current_version = state.get("schema_version", 1) # Assume V1 if not present
+    if current_version == target_version:
+        return state
+    
+    if current_version == 1 and target_version == 2:
+        # Example migration: add new fields with defaults
+        state["output_channel"] = "default"
+        state["status"] = "processing"
+        state["schema_version"] = 2
+        return state
+    
+    raise ValueError(f"Unsupported migration from V{current_version} to V{target_version}")
+
+# Before loading:
+# loaded_state = checkpoint_saver.get_tuple(thread_id).checkpoint["v"]
+# current_state = migrate_state(loaded_state, TARGET_SCHEMA_VERSION)
+# graph.invoke(current_state, config={"configurable": {"thread_id": thread_id}})
+</code></pre></p>
+<h2>Corrupted Checkpoints and Race Conditions</h2>
+<p>My second rewrite came after a week of <code>sqlite3.DatabaseError: database disk image is malformed</code> errors. This happened when running multiple instances of the same LangGraph agent, each with its own <code>SqliteSaver</code>, against a shared SQLite file on a network file system.</p>
+<p>The problem was a classic race condition. SQLite is robust for single-writer, multiple-reader scenarios. LangGraph's <code>SqliteSaver</code> performs multiple operations: <code>get_tuple</code>, deserialize, modify state, serialize, <code>put_tuple</code>. If two agents tried to update the same thread ID's checkpoint concurrently, one would overwrite the other's changes, or worse, write a partially updated or corrupted blob. The <code>SqliteSaver</code> doesn't implement file-level locking or transaction management for concurrent writes from separate processes.</p>
+<p>My agents were deployed as Docker containers on Oracle Container Engine for Kubernetes (OKE). Each pod had its own <code>SqliteSaver</code> instance, and I was mounting a shared NFS volume for the SQLite database. This setup is fundamentally flawed for <code>SqliteSaver</code> with concurrent writers.</p>
+<p><strong>The Fix:</strong> Centralized, atomic checkpoint storage. I switched from <code>SqliteSaver</code> to a custom <code>BaseCheckpointSaver</code> implementation backed by Oracle Autonomous Database (ADB) and Redis.</p>
+<p>1.  <strong>Redis for ephemeral state and locking:</strong> Before an agent starts processing a thread, it acquires a lock for that <code>thread_id</code> in Redis with an expiry. If it can't acquire the lock, it retries or queues the job.<br>2.  <strong>ADB for persistent checkpoints:</strong> The actual checkpoint data (the serialized LangGraph state) is stored in a JSON column in an ADB table. Updates are performed within a database transaction, ensuring atomicity. The <code>put_tuple</code> method now performs an <code>UPSERT</code> operation, updating the JSON column.</p>
+<p>This pattern ensures that only one agent can modify a given thread's state at any time, and the updates are atomic and durable. The cost of ADB is higher than SQLite, but the stability is non-negotiable for production.</p>
+<p><pre><code class="language-python"># Simplified custom saver logic
+class ADBCheckpointSaver(BaseCheckpointSaver):
+    def __init__(self, db_connection_pool, redis_client):
+        self.db_pool = db_connection_pool
+        self.redis = redis_client
+
+    def get_tuple(self, thread_id: str) -&gt; Optional[CheckpointTuple]:
+        # Acquire Redis lock
+        lock_key = f"langgraph_lock:{thread_id}"
+        if not self.redis.set(lock_key, "locked", ex=60, nx=True): # 60s expiry, only if not exists
+            raise LockAcquisitionError(f"Could not acquire lock for thread {thread_id}")
+
+        try:
+            with self.db_pool.acquire() as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute("SELECT checkpoint_data FROM checkpoints WHERE thread_id = :1", [thread_id])
+                    row = cursor.fetchone()
+                    if row:
+                        checkpoint_data = json.loads(row[0])
+                        # Deserialize into CheckpointTuple
+                        return CheckpointTuple(
+                            config={"configurable": {"thread_id": thread_id}},
+                            checkpoint=checkpoint_data,
+                            parent_config=None, # Or retrieve if stored
+                        )
+                    return None
+        finally:
+            self.redis.delete(lock_key) # Release lock
+
+    def put_tuple(self, checkpoint_tuple: CheckpointTuple) -&gt; None:
+        thread_id = checkpoint_tuple.config["configurable"]["thread_id"]
+        lock_key = f"langgraph_lock:{thread_id}"
+        if not self.redis.get(lock_key):
+            raise LockAcquisitionError(f"Lock for thread {thread_id} not held during put_tuple")
+
+        with self.db_pool.acquire() as conn:
+            with conn.cursor() as cursor:
+                checkpoint_json = json.dumps(checkpoint_tuple.checkpoint)
+                cursor.execute(
+                    """
+                    MERGE INTO checkpoints c
+                    USING (SELECT :1 AS thread_id, :2 AS checkpoint_data FROM DUAL) d
+                    ON (c.thread_id = d.thread_id)
+                    WHEN MATCHED THEN UPDATE SET c.checkpoint_data = d.checkpoint_data
+                    WHEN NOT MATCHED THEN INSERT (thread_id, checkpoint_data) VALUES (d.thread_id, d.checkpoint_data)
+                    """,
+                    [thread_id, checkpoint_json]
+                )
+                conn.commit()
+</code></pre></p>
+<h2>The "Always Restart" Pattern for Multi-Step Pipelines</h2>
+<p>Even with schema versioning and atomic checkpointing, my multi-agent systems, especially those involving external API calls or human-in-the-loop steps, were brittle. An agent might make an API call, receive a 200 OK, but then fail to parse the response due to a network glitch or an unexpected payload. The state would be saved, but the agent was stuck. Retrying the <em>same</em> step often led to duplicate actions (e.g., sending the same email twice).</p>
+<p>My agents often involve:<br>1.  Ingestion & Pre-processing (Groq for quick classification)<br>2.  Complex Reasoning (Claude 3.5 Sonnet for multi-step planning)<br>3.  External API Calls (CRM, payment gateways)<br>4.  Human Review (via Telegram/WhatsApp)<br>5.  Final Output Generation</p>
+<p>A failure at step 3 meant the agent was stuck. LangGraph's default behavior is to resume from the last saved state. If that state was "just before the failed API call," it would retry the API call. If the API call was idempotent, fine. If not, it was a problem.</p>
+<p><strong>The Fix:</strong> The "Always Restart" pattern. Instead of letting LangGraph resume from the exact point of failure, I designed my agent nodes to be idempotent and to always re-evaluate their current state from the beginning of the <em>current logical step</em>.</p>
+<p>Each logical step (e.g., "Summarize Document", "Make API Call", "Await Human Approval") is a LangGraph node. Inside each node, before performing any action, the agent first checks if the action has <em>already been completed</em> based on the current state.</p>
+<p>For example, in an "Execute API Call" node:</p>
+<p><pre><code class="language-python">def execute_api_call_node(state: AgentState) -&gt; AgentState:
+    if state.api_call_status == "completed":
+        print("API call already completed, skipping.")
+        return state
+    
+    try:
+        # Perform API call
+        response = make_external_api_call(state.api_payload)
+        state["api_response"] = response.json()
+        state["api_call_status"] = "completed"
+        return state
+    except Exception as e:
+        state["api_call_status"] = "failed"
+        state["error_message"] = str(e)
+        return state
+</code></pre></p>
+<p>This pattern means that if an agent fails mid-node, and then is restarted, it will re-enter the node, see <code>api_call_status</code> is not "completed", attempt the API call, and then update the status. If it fails again, the status remains "failed". If it succeeds, the status becomes "completed". The next time the graph runs, it will see "completed" and skip the API call.</p>
+<p>This makes each node effectively idempotent from the perspective of the graph. The graph can be restarted from any point, and it will gracefully pick up where it left off without duplicating work or getting stuck in a retry loop on a non-idempotent action. This also simplifies error handling: instead of complex retry logic within LangGraph, I rely on an external orchestrator (a simple Python script running on a cron job) to periodically re-invoke agents that are in a "failed" or "pending" state.</p>
+<p>This "Always Restart" pattern, combined with robust checkpointing and explicit schema management, finally brought the stability needed for production multi-agent systems on Oracle Cloud. My current agents handle thousands of messages daily, routing between Groq for fast initial processing, Claude 3.5 Sonnet for complex reasoning, and custom tools for external interactions, all while maintaining state across potentially long-running processes.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle schema changes for in-flight agents with the versioning approach?</strong><br>A: When a new schema version is deployed, agents processing older checkpoints will first load the old state, then <code>migrate_state</code> will transform it to the new schema. This transformed state is then saved back to the checkpoint store, effectively upgrading the checkpoint. Agents starting new threads will use the latest schema.</p>
+<p><strong>Q: What's the overhead of using Redis for locking and ADB for checkpoints compared to a simpler solution?</strong><br>A: Redis adds ~2-5ms latency for lock acquisition/release. ADB adds ~10-50ms for checkpoint <code>UPSERT</code> operations, depending on network latency and payload size. This is acceptable for most multi-agent systems where LLM calls dominate latency (hundreds of ms to seconds). The stability gain far outweighs this overhead for production.</p>
+<p><strong>Q: How do you manage the <code>LockAcquisitionError</code> in your <code>ADBCheckpointSaver</code>?</strong><br>A: When <code>LockAcquisitionError</code> is raised, the agent's current invocation is aborted. The external orchestrator (e.g., a message queue consumer or a cron job) responsible for invoking agents will catch this error and typically re-queue the message or mark the thread for a later retry. This ensures that only one agent attempts to process a specific thread at a time.</p>
+<p><strong>Q: Does the "Always Restart" pattern mean you re-run LLM calls if a node fails after the LLM call but before saving state?</strong><br>A: Yes, if an LLM call completes but the subsequent state update or external action fails <em>before</em> the LangGraph node returns and its state is checkpointed, the LLM call might be re-run on restart. To prevent this for expensive LLM calls, I often add a <code>llm_response_cached: bool</code> flag to the state and save the raw LLM response. The node then checks this flag and uses the cached response if available.</p>
+<p><strong>Q: Why Oracle Autonomous Database (ADB) specifically?</strong><br>A: ADB offers fully managed, auto-scaling, and highly available PostgreSQL-compatible or Oracle Database instances. For AIdeazz, it integrates seamlessly with other Oracle Cloud Infrastructure (OCI) services I use (OKE, OCI Functions, OCI AI Services) and provides strong performance guarantees without requiring dedicated DBA resources, which is critical for a lean operation.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
