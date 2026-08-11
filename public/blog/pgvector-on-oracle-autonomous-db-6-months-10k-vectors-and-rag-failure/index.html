@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure | AIdeazz</title>
+  <meta name="description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed to scale past 10,000 vectors. Retrieval quality plummeted from 92% precision at 5,000 vectors to 68% at 10,000. Thi…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta property="og:description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed to scale past 10,000 vectors. Retrieval quality plummeted from 92% precision at 5,000 vectors to 68% at 10,000. Thi…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-11T19:30:16.911Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta name="twitter:description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed to scale past 10,000 vectors. Retrieval quality plummeted from 92% precision at 5,000 vectors to 68% at 10,000. Thi…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure",
+  "description": "My RAG production system, built on Oracle Autonomous Database with pgvector, failed to scale past 10,000 vectors. Retrieval quality plummeted from 92% precision at 5,000 vectors to 68% at 10,000. Thi…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-11T19:30:16.911Z",
+  "dateModified": "2026-08-11T19:30:16.911Z",
+  "url": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use Oracle's own vector capabilities instead of `pgvector`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oracle Database 23ai offers native vector capabilities, but it's not yet generally available on Autonomous Database. My production system needed a solution six months ago, and `pgvector` was the only viable option on ADB at the time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the exact cost of the Oracle Autonomous Database for this workload?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My ADB instance was an \"Always Free\" tier initially, then scaled to 2 OCPU and 1TB storage for $0.35/OCPU-hour. For 10,000 vectors, the database cost was approximately $50/month, primarily for compute, not storage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did you consider using a cloud-managed vector database service?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but with zero VC funding, every dollar counts. Services like Pinecone or Zilliz were significantly more expensive for my initial scale (e.g., $70-$100/month for 10k vectors, 1536D) compared to the `pgvector` on ADB approach. The goal was to leverage existing infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did you measure precision for your RAG system?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We used a combination of human evaluation and a small, manually curated test set of 100 queries. For each query, human annotators rated the relevance of the top 5 retrieved chunks on a 3-point scale (relevant, partially relevant, irrelevant). Precision was calculated as (number of relevant chunks) / (total chunks retrieved)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your plan if HNSW on ADB hits a wall at 50k vectors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The plan is to migrate the vector store to a dedicated OCI VM running PostgreSQL with `pgvector` or a specialized vector database like Qdrant. This allows for dedicated memory and CPU allocation, giving full control over `HNSW` performance parameters and scaling."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-11T19:30:16.911Z">August 11, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My RAG production system, built on Oracle Autonomous Database with <code>pgvector</code>, failed to scale past 10,000 vectors. Retrieval quality plummeted from 92% precision at 5,000 vectors to 68% at 10,000. This wasn't a theoretical benchmark; this was a live multi-agent system, routing customer queries for a shipping logistics client, where a 24% drop in precision meant 24% more manual interventions. The initial promise of <code>pgvector</code> on a managed Oracle service for cost-effective RAG quickly hit a wall, forcing a re-evaluation of embedding models, index choices, and ultimately, my infrastructure strategy.</p>
+<h2>The Initial Setup: <code>text-embedding-ada-002</code> and IVFFlat</h2>
+<p>We started with <code>text-embedding-ada-002</code> (1536 dimensions) because it was the default and "good enough" for initial testing. My Oracle Autonomous Database (ADB) instance, a shared Exadata infrastructure, offered <code>pgvector</code> out of the box. The setup was straightforward:</p>
+<p><pre><code class="language-sql">CREATE EXTENSION IF NOT EXISTS vector;
+CREATE TABLE documents (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    content TEXT NOT NULL,
+    embedding vector(1536)
+);
+CREATE INDEX ON documents USING ivfflat (embedding vector_l2_ops) WITH (lists = 100);
+</code></pre></p>
+<p>I chose <code>IVFFlat</code> with <code>lists = 100</code> based on general recommendations for datasets under 100,000 vectors. My initial dataset was small, around 2,000 internal policy documents, averaging 500 tokens each. Ingesting these, generating embeddings via OpenAI's API, and storing them was simple. Retrieval latency was consistently under 50ms for <code>k=5</code> nearest neighbors. Our agent, running on Oracle Cloud Infrastructure (OCI) Container Instances, used <code>langchain_pgvector</code> for retrieval, feeding context to a Groq Llama 3 8B agent for initial processing, then escalating to Claude 3 Haiku for complex cases. Precision was high, around 92%, measured by human evaluation of retrieved chunks against ground truth answers.</p>
+<h2>The 10,000 Vector Cliff: Latency and Precision Degradation</h2>
+<p>As the client expanded, so did the knowledge base. We added more internal FAQs, shipping manifests, and customer service logs. At approximately 5,000 vectors, retrieval latency started to creep up, hitting 80ms. At 10,000 vectors, it spiked to 250ms, and precision dropped to 68%. This was unacceptable. The agents were hallucinating more often, or simply stating they couldn't find relevant information, leading to increased human intervention.</p>
+<p>My <code>pgvector</code> index was the bottleneck. The <code>IVFFlat</code> index, with <code>lists = 100</code>, was struggling. The <code>search_list</code> parameter, which defaults to <code>lists</code> (100 in my case), meant that for each query, it was scanning 100 lists. With 10,000 vectors, each list contained 100 vectors on average. This was still a lot of distance calculations.</p>
+<p>I tried increasing <code>lists</code> to 200, then 500.<br><code>ALTER INDEX documents_embedding_idx SET (lists = 200);</code><br><code>REINDEX INDEX documents_embedding_idx;</code></p>
+<p>This improved latency slightly (down to 180ms at 10k vectors) but didn't recover precision. In fact, increasing <code>lists</code> too much can degrade precision if the query vector falls into a sparsely populated list. The trade-off was clear: <code>IVFFlat</code> was not robust enough for even this modest scale on my current setup.</p>
+<h2>Embedding Model Trade-offs: <code>bge-small-en-v1.5</code> and <code>e5-large-v2</code></h2>
+<p>The <code>text-embedding-ada-002</code> model was costing me $0.0001 per 1K tokens. For 10,000 documents averaging 500 tokens, that's 5 million tokens, or $500 for initial ingestion. Not a huge cost, but every dollar counts when you're bootstrapping with zero VC. More importantly, its performance was now suspect.</p>
+<p>I experimented with open-source models: <code>bge-small-en-v1.5</code> (384 dimensions) and <code>e5-large-v2</code> (1024 dimensions). I ran these locally on an OCI VM with a single NVIDIA A10 GPU for batch embedding generation, then uploaded to ADB.</p>
+<ul><li>  <strong><code>bge-small-en-v1.5</code> (384D):</strong></li></ul>
+    *   <strong>Pros:</strong> Much faster embedding generation (local inference), significantly smaller vector size (384 dimensions vs 1536), reducing storage and potentially improving <code>pgvector</code> performance due to fewer floating-point operations per distance calculation.
+    *   <strong>Cons:</strong> Precision dropped to 60% at 10k vectors. The smaller dimensionality simply wasn't capturing enough nuance for my domain-specific documents.
+<ul><li>  <strong><code>e5-large-v2</code> (1024D):</strong></li></ul>
+    *   <strong>Pros:</strong> Better precision than <code>bge-small-en-v1.5</code>, reaching 75% at 10k vectors. Still better than <code>ada-002</code>'s 68% at that scale. Local inference was manageable.
+    *   <strong>Cons:</strong> Larger vector size than <code>bge-small</code>, but still smaller than <code>ada-002</code>. Latency was still an issue, hovering around 150ms.
+<p>The <code>e5-large-v2</code> offered a better balance, but the <code>pgvector</code> performance was still the primary bottleneck. The problem wasn't just the embedding model; it was the retrieval infrastructure.</p>
+<h2>HNSW: A Necessary Migration</h2>
+<p><code>IVFFlat</code> is a good starting point, but for anything beyond trivial scale, <code>HNSW</code> (Hierarchical Navigable Small World) is generally superior for recall and speed. The challenge with <code>HNSW</code> on <code>pgvector</code> is its memory footprint. It's an in-memory index, meaning it consumes RAM directly proportional to the number of vectors and their dimensions. On a shared Oracle Autonomous Database, I have limited control over memory allocation for my specific <code>pgvector</code> index.</p>
+<p>I dropped the <code>IVFFlat</code> index and created an <code>HNSW</code> index:</p>
+<p><pre><code class="language-sql">DROP INDEX documents_embedding_idx;
+CREATE INDEX ON documents USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_construction = 100);
+</code></pre></p>
+<ul><li>  <code>m = 16</code>: The number of bi-directional links created for each new element during index construction. Higher <code>m</code> means more connections, better recall, but slower construction and larger index size.</li>
+<li>  <code>ef_construction = 100</code>: The size of the dynamic list for nearest neighbors during index construction. Higher <code>ef_construction</code> means better quality index, but slower construction.</li></ul>
+<p>After rebuilding the index with <code>e5-large-v2</code> embeddings, the results were immediate:<br><ul><li>  <strong>Latency:</strong> Dropped to 60ms at 10k vectors.</li><br><li>  <strong>Precision:</strong> Recovered to 88%.</li></ul></p>
+<p>This was a significant improvement, bringing us back to acceptable performance levels. However, the <code>HNSW</code> index size for 10,000 <code>e5-large-v2</code> vectors (1024 dimensions) was approximately 1.5GB. This is a concern for scaling on a shared ADB instance, where memory resources are not dedicated. I anticipate hitting memory limits or performance degradation as I approach 50,000 vectors, potentially leading to swapping or eviction of the index from memory.</p>
+<h2>The Oracle Autonomous DB Constraint</h2>
+<p>Oracle Autonomous Database is fantastic for managed relational workloads. Its auto-scaling, patching, and backup features are invaluable. However, for specialized workloads like <code>pgvector</code> with <code>HNSW</code>, the "autonomous" nature becomes a constraint. I cannot directly control:</p>
+<p>1.  <strong>Dedicated Memory:</strong> <code>HNSW</code> thrives on dedicated RAM. On ADB, I'm sharing resources. If other tenants on the same Exadata infrastructure are hammering their databases, my <code>pgvector</code> index might get less memory, leading to performance drops.<br>2.  <strong>CPU Cores for Vector Operations:</strong> While <code>pgvector</code> can utilize multiple cores for distance calculations, I don't have direct control over how many cores are allocated to my specific <code>pgvector</code> queries on a shared system.<br>3.  <strong>Storage Type:</strong> While Exadata is fast, I can't specify NVMe SSDs for my <code>pgvector</code> index specifically, which could further reduce latency for index lookups.</p>
+<p>These limitations mean that while <code>pgvector</code> on Oracle ADB is convenient for small-scale RAG, it's not a long-term solution for high-performance, high-scale vector search where precise resource control is critical. My current plan is to monitor performance closely as we approach 20,000 vectors. If performance degrades again, the next step will be migrating the vector store to a dedicated OCI VM running PostgreSQL with <code>pgvector</code> or even a specialized vector database like Qdrant or Weaviate, giving me full control over hardware resources. This would introduce additional operational overhead, but it's a necessary trade-off for production stability.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use Oracle's own vector capabilities instead of <code>pgvector</code>?</strong><br>A: Oracle Database 23ai offers native vector capabilities, but it's not yet generally available on Autonomous Database. My production system needed a solution six months ago, and <code>pgvector</code> was the only viable option on ADB at the time.</p>
+<p><strong>Q: What was the exact cost of the Oracle Autonomous Database for this workload?</strong><br>A: My ADB instance was an "Always Free" tier initially, then scaled to 2 OCPU and 1TB storage for $0.35/OCPU-hour. For 10,000 vectors, the database cost was approximately $50/month, primarily for compute, not storage.</p>
+<p><strong>Q: Did you consider using a cloud-managed vector database service?</strong><br>A: Yes, but with zero VC funding, every dollar counts. Services like Pinecone or Zilliz were significantly more expensive for my initial scale (e.g., $70-$100/month for 10k vectors, 1536D) compared to the <code>pgvector</code> on ADB approach. The goal was to leverage existing infrastructure.</p>
+<p><strong>Q: How did you measure precision for your RAG system?</strong><br>A: We used a combination of human evaluation and a small, manually curated test set of 100 queries. For each query, human annotators rated the relevance of the top 5 retrieved chunks on a 3-point scale (relevant, partially relevant, irrelevant). Precision was calculated as (number of relevant chunks) / (total chunks retrieved).</p>
+<p><strong>Q: What's your plan if HNSW on ADB hits a wall at 50k vectors?</strong><br>A: The plan is to migrate the vector store to a dedicated OCI VM running PostgreSQL with <code>pgvector</code> or a specialized vector database like Qdrant. This allows for dedicated memory and CPU allocation, giving full control over <code>HNSW</code> performance parameters and scaling.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
