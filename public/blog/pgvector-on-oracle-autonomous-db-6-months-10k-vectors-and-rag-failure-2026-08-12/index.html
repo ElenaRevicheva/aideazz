@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure | AIdeazz</title>
+  <meta name="description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed at 10,000 vectors. Retrieval quality plummeted from 95% to below 60% for critical queries. This wasn't a theoretica…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-12/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta property="og:description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed at 10,000 vectors. Retrieval quality plummeted from 95% to below 60% for critical queries. This wasn't a theoretica…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-12/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-12T19:30:13.704Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta name="twitter:description" content="My RAG production system, built on Oracle Autonomous Database with pgvector, failed at 10,000 vectors. Retrieval quality plummeted from 95% to below 60% for critical queries. This wasn't a theoretica…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure",
+  "description": "My RAG production system, built on Oracle Autonomous Database with pgvector, failed at 10,000 vectors. Retrieval quality plummeted from 95% to below 60% for critical queries. This wasn't a theoretica…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-12T19:30:13.704Z",
+  "dateModified": "2026-08-12T19:30:13.704Z",
+  "url": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-12/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-12/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What `ef_search` value do you use for `HNSW`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I typically set `ef_search = 40` for my production queries. This value balances recall and latency effectively for my 768-dimensional vectors and dataset sizes up to 50,000. Higher values increase recall but also search time."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor retrieval quality in production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a combination of automated checks and human feedback. Automated checks involve running a fixed set of \"golden queries\" against the RAG system and asserting that specific, known relevant document IDs are returned in the top-k. Human feedback comes from agent users flagging irrelevant responses, which triggers a review of the retrieved documents."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Autonomous DB over other managed PostgreSQL services or dedicated vector databases?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My primary reason is existing infrastructure and cost optimization within Oracle Cloud. I already run other services and custom inference endpoints on OCI. Autonomous DB offers a robust, managed PostgreSQL with `pgvector` at a predictable cost, avoiding vendor lock-in to specialized vector databases while leveraging my existing cloud credits and expertise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did you consider `diskann` or other `pgvector` index types?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I evaluated `diskann` briefly but found `HNSW` to be sufficient for my current scale and performance requirements. `diskann` is designed for even larger datasets that exceed memory capacity, which isn't a constraint for me yet. Sticking with `HNSW` simplified the operational aspects."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-12T19:30:13.704Z">August 12, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My RAG production system, built on Oracle Autonomous Database with <code>pgvector</code>, failed at 10,000 vectors. Retrieval quality plummeted from 95% to below 60% for critical queries. This wasn't a theoretical scaling limit; it was a hard, operational wall I hit after six months of shipping production AI agents for clients. The initial setup, using <code>text-embedding-ada-002</code> and a basic <code>IVFFlat</code> index, worked perfectly for smaller datasets. The problem wasn't <code>pgvector</code> itself, nor Oracle's managed PostgreSQL. The problem was my naive assumptions about index choice and embedding model stability under real-world data growth.</p>
+<h2>The Initial Setup: Ada-002 and IVFFlat</h2>
+<p>When I started building multi-agent systems for clients, I needed a robust, cost-effective vector store. Oracle Autonomous Database, with its integrated PostgreSQL and <code>pgvector</code> extension, was a natural fit given my existing Oracle Cloud infrastructure. I provisioned an <code>Always Free</code> Autonomous Database (PostgreSQL flavor) for initial development, then scaled to a 2 OCPU, 16GB RAM instance for production.</p>
+<p>My first embedding model was OpenAI's <code>text-embedding-ada-002</code>. It was the industry standard, easy to integrate, and performed well on my initial datasets, which rarely exceeded 2,000 documents. Each document averaged 500 tokens, resulting in roughly 2,000 vectors of 1536 dimensions.</p>
+<p>The <code>pgvector</code> index choice was <code>IVFFlat</code>. I configured it with <code>lists = 100</code> for <code>1536</code> dimensions. This seemed reasonable based on common recommendations for datasets under 100,000 vectors. Query latency for <code>ORDER BY embedding <-> ? LIMIT 5</code> was consistently under 50ms, even with concurrent agent requests. Retrieval accuracy, measured by human evaluation of agent responses, was above 95% for the first few clients. This setup shipped.</p>
+<h2>The 10,000 Vector Cliff</h2>
+<p>The problems began when a new client's knowledge base pushed the vector count past 10,000. This client had extensive product documentation, legal agreements, and internal FAQs. The total vector count for their RAG system reached 10,234.</p>
+<p>Suddenly, agent responses started hallucinating or providing irrelevant information. My internal monitoring showed a sharp drop in retrieval quality. For queries that previously yielded perfect results, the top 5 retrieved documents now contained 2-3 irrelevant chunks. This wasn't a gradual degradation; it was a distinct drop-off.</p>
+<p>My first thought was data quality. I re-chunked, re-embedded, and re-indexed. No change.<br>Next, I suspected the embedding model. I ran a small test with <code>text-embedding-3-small</code> (512 dimensions) and <code>3-large</code> (3072 dimensions). While <code>3-small</code> was faster and cheaper, it didn't solve the retrieval quality issue at 10k vectors. <code>3-large</code> was too expensive for my current cost structure.</p>
+<p>The issue was the <code>IVFFlat</code> index. At 10,000 vectors, with <code>lists = 100</code>, the average number of vectors per list was 100. This is too high for effective nearest neighbor search. <code>IVFFlat</code> works by partitioning the vector space into <code>lists</code> clusters. During a search, it only checks a subset of these lists (controlled by <code>probes</code>). If the relevant vectors are spread across too many lists, or if a list becomes too dense, the search becomes inefficient and inaccurate. My <code>IVFFlat</code> index was effectively performing a near-brute-force search within a large subset of the data, missing true nearest neighbors.</p>
+<h2>The HNSW Migration and Embedding Model Shift</h2>
+<p>The solution was to switch to <code>HNSW</code> (Hierarchical Navigable Small World) indexing. <code>HNSW</code> is generally more robust for larger datasets and higher dimensions, offering a better recall-latency tradeoff.</p>
+<p>Migrating to <code>HNSW</code> required dropping and recreating the index:</p>
+<p><pre><code class="language-sql">DROP INDEX IF EXISTS idx_document_embeddings;
+CREATE INDEX idx_document_embeddings ON document_chunks USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_construction = 100);
+</code></pre></p>
+<p>I chose <code>m = 16</code> and <code>ef_construction = 100</code> based on <code>pgvector</code> recommendations for a balance of build time and search quality. <code>m</code> controls the number of neighbors each node connects to, and <code>ef_construction</code> controls the size of the dynamic list during graph construction. Higher values improve recall but increase index build time and memory usage.</p>
+<p>After rebuilding the index (which took about 15 minutes for 10k vectors on my 2 OCPU instance), retrieval quality immediately jumped back to over 90%. Query latency remained under 60ms. This confirmed the <code>IVFFlat</code> bottleneck.</p>
+<p>At the same time, I started experimenting with open-source embedding models. OpenAI's <code>ada-002</code> was costing me around $0.0001 per 1K tokens. For a client with 10,000 documents, each 500 tokens, that's 5M tokens. Re-embedding costs were becoming significant during development and data updates.</p>
+<p>I integrated <code>bge-small-en-v1.5</code> (384 dimensions) and <code>nomic-embed-text-v1.5</code> (768 dimensions) via self-hosted inference endpoints on Oracle Cloud. <code>nomic-embed-text-v1.5</code> proved to be the sweet spot for my use cases. It offered comparable retrieval quality to <code>ada-002</code> for my specific domains, but at a fraction of the cost (zero inference cost beyond GPU rental, which I amortize across multiple clients). The reduced dimensionality (768 vs 1536) also meant smaller index sizes and slightly faster queries.</p>
+<p>My current embedding pipeline now looks like this:<br>1. Document ingestion and chunking.<br>2. Embed with <code>nomic-embed-text-v1.5</code> (self-hosted on a single NVIDIA A10 GPU on OCI).<br>3. Store in Oracle Autonomous DB with <code>pgvector</code> and <code>HNSW</code> index.</p>
+<p>This setup has scaled to 50,000 vectors for a single client without any degradation in retrieval quality. Query latency remains under 100ms.</p>
+<h2>Oracle Autonomous DB Performance and Cost</h2>
+<p>My Oracle Autonomous Database instance (PostgreSQL, 2 OCPU, 16GB RAM) costs approximately $150/month. This includes the database, storage, and managed services. For this price, I get:<br><ul><li>  Automatic patching and backups.</li><br><li>  High availability.</li><br><li>  Scalability on demand (though I haven't needed to scale beyond 2 OCPU yet).</li><br><li>  Integrated <code>pgvector</code>.</li></ul></p>
+<p>Compared to self-hosting PostgreSQL with <code>pgvector</code> on a VM, the managed service saves significant operational overhead. The <code>HNSW</code> index build for 50,000 vectors (768 dimensions) took about 45 minutes on this instance. Subsequent incremental updates are fast.</p>
+<p>The key takeaway for practitioners: don't assume your initial index choice will scale. Test it. Monitor retrieval quality, not just latency. And seriously evaluate open-source embedding models for cost efficiency once you have a baseline. The "best" model is the one that meets your quality bar at the lowest operational cost.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: What <code>ef_search</code> value do you use for <code>HNSW</code>?</strong><br>A: I typically set <code>ef_search = 40</code> for my production queries. This value balances recall and latency effectively for my 768-dimensional vectors and dataset sizes up to 50,000. Higher values increase recall but also search time.</p>
+<p><strong>Q: How do you monitor retrieval quality in production?</strong><br>A: I use a combination of automated checks and human feedback. Automated checks involve running a fixed set of "golden queries" against the RAG system and asserting that specific, known relevant document IDs are returned in the top-k. Human feedback comes from agent users flagging irrelevant responses, which triggers a review of the retrieved documents.</p>
+<p><strong>Q: Why Oracle Autonomous DB over other managed PostgreSQL services or dedicated vector databases?</strong><br>A: My primary reason is existing infrastructure and cost optimization within Oracle Cloud. I already run other services and custom inference endpoints on OCI. Autonomous DB offers a robust, managed PostgreSQL with <code>pgvector</code> at a predictable cost, avoiding vendor lock-in to specialized vector databases while leveraging my existing cloud credits and expertise.</p>
+<p><strong>Q: Did you consider <code>diskann</code> or other <code>pgvector</code> index types?</strong><br>A: I evaluated <code>diskann</code> briefly but found <code>HNSW</code> to be sufficient for my current scale and performance requirements. <code>diskann</code> is designed for even larger datasets that exceed memory capacity, which isn't a constraint for me yet. Sticking with <code>HNSW</code> simplified the operational aspects.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
