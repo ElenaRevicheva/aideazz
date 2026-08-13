@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure | AIdeazz</title>
+  <meta name="description" content="My RAG system’s retrieval quality tanked at 10,000 vectors. Not at 100k, not at 1M. Ten thousand. This wasn't a theoretical scaling limit; it was a production reality on Oracle Autonomous Database wi…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-13/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta property="og:description" content="My RAG system’s retrieval quality tanked at 10,000 vectors. Not at 100k, not at 1M. Ten thousand. This wasn't a theoretical scaling limit; it was a production reality on Oracle Autonomous Database wi…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-13/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-13T19:30:16.586Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure">
+  <meta name="twitter:description" content="My RAG system’s retrieval quality tanked at 10,000 vectors. Not at 100k, not at 1M. Ten thousand. This wasn't a theoretical scaling limit; it was a production reality on Oracle Autonomous Database wi…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure",
+  "description": "My RAG system’s retrieval quality tanked at 10,000 vectors. Not at 100k, not at 1M. Ten thousand. This wasn't a theoretical scaling limit; it was a production reality on Oracle Autonomous Database wi…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-13T19:30:16.586Z",
+  "dateModified": "2026-08-13T19:30:16.586Z",
+  "url": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-13/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-13/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why Oracle Autonomous Database for `pgvector` instead of a dedicated PostgreSQL instance on a VM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Autonomous Database handles patching, backups, and scaling automatically. For a small team with zero ops budget, the managed service cost is offset by the lack of administrative overhead. We pay for OCPU and storage, not for managing the underlying infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the exact query latency for `IVFFlat` at 10,000 vectors before switching to `HNSW`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Average query latency for `ORDER BY embedding <-> query_embedding LIMIT 5` was 400ms. This was measured from our application code, including network roundtrip to the Oracle DB instance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did you measure precision@5 for your RAG system?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We have a human-in-the-loop validation process. For a sample of 100 agent interactions per week, human reviewers assess the top 5 retrieved documents for relevance to the user's query. Precision@5 is the average number of relevant documents in the top 5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did you consider other embedding models besides OpenAI and MiniLM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, we briefly tested Cohere Embed v3. Its performance was comparable to `ada-002` but at a slightly higher cost at the time. Given our existing OpenAI API integration for LLMs, staying within the ecosystem simplified our tooling."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the cost difference between `text-embedding-ada-002` and `text-embedding-3-small` for your current usage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With 15,000 vectors and 500 new vectors daily, plus ~1000 queries daily, `ada-002` would cost approximately $150/month. `text-embedding-3-small` reduced this to about $30/month for embeddings, a significant saving."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-13T19:30:16.586Z">August 13, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My RAG system’s retrieval quality tanked at 10,000 vectors. Not at 100k, not at 1M. Ten thousand. This wasn't a theoretical scaling limit; it was a production reality on Oracle Autonomous Database with <code>pgvector</code>. We had shipped a multi-agent system for a client, handling customer support queries via Telegram and WhatsApp, routing to specialized Groq-powered agents. The core knowledge base, critical for accurate responses, lived in <code>pgvector</code>. The initial 5,000 vectors worked beautifully. Then we doubled the data, and the system started hallucinating specific details, citing irrelevant documents, and generally failing to provide the precise answers our agents needed.</p>
+<h2>The Initial Setup: <code>text-embedding-ada-002</code> and IVFFlat</h2>
+<p>We started with <code>text-embedding-ada-002</code> for its cost-effectiveness and decent performance on general knowledge. Each embedding was 1536 dimensions. Our Oracle Autonomous Database instance (shared infrastructure, OCPU count scaled on demand) runs PostgreSQL 14.8. <code>pgvector</code> was installed as an extension. We chose <code>IVFFlat</code> with <code>lists = 100</code> as our index type, primarily because it was simpler to configure and seemed sufficient for our projected data size of "tens of thousands." Our data consisted of product manuals, internal FAQs, and customer interaction transcripts, chunked to ~250 tokens.</p>
+<p>The ingestion pipeline was straightforward:<br>1. Fetch text chunks.<br>2. Embed with OpenAI API.<br>3. Insert into <code>pgvector</code> table: <code>CREATE TABLE knowledge_base (id UUID PRIMARY KEY, content TEXT, embedding VECTOR(1536));</code><br>4. Create index: <code>CREATE INDEX ON knowledge_base USING ivfflat (embedding vector_l2_ops) WITH (lists = 100);</code></p>
+<p>For retrieval, we used <code>ORDER BY embedding <-> query_embedding LIMIT 5</code>. This worked. Our agents were pulling relevant context, and our human validation step showed an average precision@5 of 0.85 for the first 5,000 vectors.</p>
+<h2>The 10,000 Vector Cliff: Why IVFFlat Failed</h2>
+<p>At 10,000 vectors, our precision@5 dropped to 0.55. The agents started pulling documents that were semantically related but not <em>specifically</em> relevant to the user's query. For example, a query about "refund policy for digital goods" would retrieve documents about "general refund process" and "digital product activation," missing the specific clause about non-refundable digital items.</p>
+<p>The root cause was <code>IVFFlat</code>. While <code>lists = 100</code> seemed reasonable for 10,000 vectors, it wasn't. <code>IVFFlat</code> works by partitioning the vector space into <code>lists</code> clusters. When a query comes in, it finds the nearest <code>n_probe</code> clusters and searches only within those. My <code>n_probe</code> was implicitly 1 (the default for <code>pgvector</code>'s <code>IVFFlat</code> search if not specified, or effectively very low if not tuned). With 10,000 vectors and 100 lists, each list contained an average of 100 vectors. This is too many for efficient and accurate nearest neighbor search within a single list, especially in high dimensions. The initial clustering itself might not have been optimal for our specific data distribution, leading to relevant vectors being placed in distant lists.</p>
+<p>The solution wasn't to just increase <code>n_probe</code>. Increasing <code>n_probe</code> improves recall but significantly increases query latency. For our real-time agent interactions, a 500ms retrieval latency was already pushing it. Increasing <code>n_probe</code> to, say, 10, would have meant searching 10% of the data, which for 10,000 vectors is 1,000 vectors. This would have pushed latency beyond acceptable limits for a synchronous agent call.</p>
+<h2>The HNSW Migration and <code>all-MiniLM-L6-v2</code> Experiment</h2>
+<p>The immediate fix was to switch to <code>HNSW</code>. <code>HNSW</code> (Hierarchical Navigable Small World) builds a graph structure that allows for much more efficient approximate nearest neighbor search, especially in higher dimensions and larger datasets.</p>
+<p>The migration involved:<br>1. Dropping the <code>IVFFlat</code> index: <code>DROP INDEX knowledge_base_embedding_idx;</code><br>2. Creating the <code>HNSW</code> index: <code>CREATE INDEX ON knowledge_base USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_construction = 64);</code><br>   - <code>m = 16</code>: Controls the number of neighbors each node connects to. Higher <code>m</code> means denser graph, better recall, slower build, more memory.<br>   - <code>ef_construction = 64</code>: Controls the search scope during index build. Higher <code>ef_construction</code> means better quality index, slower build.</p>
+<p>After rebuilding the index (which took about 3 minutes for 10,000 vectors on our Oracle instance), retrieval latency for <code>LIMIT 5</code> queries dropped from ~400ms (with <code>IVFFlat</code> and its degraded recall) to ~150ms, and precision@5 jumped back to 0.88. This was a significant win.</p>
+<p>However, the cost of <code>text-embedding-ada-002</code> was becoming a concern. At $0.0001 / 1K tokens, and with daily ingestion of new customer interactions, it was adding up. We decided to experiment with a smaller, open-source model: <code>all-MiniLM-L6-v2</code> (384 dimensions).</p>
+<p>The process:<br>1. Re-embed all 10,000 vectors with <code>all-MiniLM-L6-v2</code>. This was a batch job, run on a local machine, taking about 2 hours.<br>2. Alter table column: <code>ALTER TABLE knowledge_base ALTER COLUMN embedding TYPE VECTOR(384);</code><br>3. Rebuild HNSW index: <code>CREATE INDEX ON knowledge_base USING hnsw (embedding vector_l2_ops) WITH (m = 16, ef_construction = 64);</code></p>
+<p>The results were mixed. Retrieval latency dropped further to ~80ms due to the smaller vector size. However, precision@5 dropped to 0.70. While <code>all-MiniLM-L6-v2</code> is fast and free to run locally, its semantic understanding for our specific domain (technical product support, nuanced policy details) was not on par with <code>ada-002</code>. The agents started making subtle errors again, misinterpreting user intent due to less precise context.</p>
+<h2>The Current State: <code>text-embedding-3-small</code> and HNSW</h2>
+<p>We reverted to an OpenAI model, but opted for <code>text-embedding-3-small</code>. This model offers 1536 dimensions (or configurable down to 256) at a significantly lower cost: $0.00002 / 1K tokens, a 5x reduction from <code>ada-002</code>.</p>
+<p>The current setup:<br><ul><li><strong>Embedding Model:</strong> <code>text-embedding-3-small</code> (1536 dimensions). Cost is now manageable.</li><br><li><strong>Vector Database:</strong> <code>pgvector</code> on Oracle Autonomous Database (PostgreSQL 14.8).</li><br><li><strong>Index:</strong> <code>HNSW</code> with <code>m = 16, ef_construction = 64</code>.</li><br><li><strong>Data Size:</strong> Currently at 15,000 vectors, growing by ~500 vectors daily.</li><br><li><strong>Retrieval Performance:</strong> Precision@5 is back to 0.85. Latency for <code>LIMIT 5</code> is ~120ms.</li></ul></p>
+<p>This configuration provides the best balance of cost, performance, and retrieval quality for our specific RAG needs. The Oracle Autonomous Database handles the scaling of compute and storage seamlessly, which is crucial for a lean operation like AIdeazz with zero VC funding. We pay for what we use, and the PostgreSQL service is robust.</p>
+<p>The key takeaway is that <code>pgvector</code> is powerful, but its performance is heavily dependent on the index type and parameters, especially as data grows. Don't assume an <code>IVFFlat</code> index with default parameters will scale beyond a few thousand vectors, even if benchmarks suggest it. Always test with your actual data and query patterns. And for production RAG, the embedding model choice is a critical trade-off between cost, speed, and semantic precision. Don't optimize for cost if it means your agents start hallucinating.</p>
+<h2>Scaling Beyond 100k Vectors</h2>
+<p>Our current <code>HNSW</code> setup is projected to handle up to 100,000 vectors with acceptable performance. Beyond that, we anticipate needing to tune <code>HNSW</code> parameters (<code>m</code>, <code>ef_construction</code>, <code>ef_search</code>) more aggressively or consider sharding the knowledge base. Oracle Autonomous Database's PostgreSQL service supports read replicas, which could offload query load, but for a single-node <code>pgvector</code> instance, the index itself becomes the bottleneck.</p>
+<p>For truly massive scale (millions of vectors), dedicated vector databases like Qdrant or Pinecone, or even a distributed <code>pgvector</code> setup with TimescaleDB's columnar storage and sharding, would be on the roadmap. But for now, <code>pgvector</code> on Oracle Autonomous DB is a cost-effective and performant solution for our production RAG needs.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why Oracle Autonomous Database for <code>pgvector</code> instead of a dedicated PostgreSQL instance on a VM?</strong><br>A: Autonomous Database handles patching, backups, and scaling automatically. For a small team with zero ops budget, the managed service cost is offset by the lack of administrative overhead. We pay for OCPU and storage, not for managing the underlying infrastructure.</p>
+<p><strong>Q: What was the exact query latency for <code>IVFFlat</code> at 10,000 vectors before switching to <code>HNSW</code>?</strong><br>A: Average query latency for <code>ORDER BY embedding <-> query_embedding LIMIT 5</code> was 400ms. This was measured from our application code, including network roundtrip to the Oracle DB instance.</p>
+<p><strong>Q: How did you measure precision@5 for your RAG system?</strong><br>A: We have a human-in-the-loop validation process. For a sample of 100 agent interactions per week, human reviewers assess the top 5 retrieved documents for relevance to the user's query. Precision@5 is the average number of relevant documents in the top 5.</p>
+<p><strong>Q: Did you consider other embedding models besides OpenAI and MiniLM?</strong><br>A: Yes, we briefly tested Cohere Embed v3. Its performance was comparable to <code>ada-002</code> but at a slightly higher cost at the time. Given our existing OpenAI API integration for LLMs, staying within the ecosystem simplified our tooling.</p>
+<p><strong>Q: What's the cost difference between <code>text-embedding-ada-002</code> and <code>text-embedding-3-small</code> for your current usage?</strong><br>A: With 15,000 vectors and 500 new vectors daily, plus ~1000 queries daily, <code>ada-002</code> would cost approximately $150/month. <code>text-embedding-3-small</code> reduced this to about $30/month for embeddings, a significant saving.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
