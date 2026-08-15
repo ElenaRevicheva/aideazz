@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>131 Tests, 4 Layers, $00.03/Run: My AI Agent Evaluation Harness | AIdeazz</title>
+  <meta name="description" content="I shipped a silent failure. It wasn't a crash; it was a subtle, incorrect output that would have cost a client thousands in wasted time. My production AI agent, designed to extract specific data from…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-evaluation-harness/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Evaluation Harness">
+  <meta property="og:description" content="I shipped a silent failure. It wasn't a crash; it was a subtle, incorrect output that would have cost a client thousands in wasted time. My production AI agent, designed to extract specific data from…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-evaluation-harness/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-15T19:30:15.570Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="131 Tests, 4 Layers, $00.03/Run: My AI Agent Evaluation Harness">
+  <meta name="twitter:description" content="I shipped a silent failure. It wasn't a crash; it was a subtle, incorrect output that would have cost a client thousands in wasted time. My production AI agent, designed to extract specific data from…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "131 Tests, 4 Layers, $00.03/Run: My AI Agent Evaluation Harness",
+  "description": "I shipped a silent failure. It wasn't a crash; it was a subtle, incorrect output that would have cost a client thousands in wasted time. My production AI agent, designed to extract specific data from…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-15T19:30:15.570Z",
+  "dateModified": "2026-08-15T19:30:15.570Z",
+  "url": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-evaluation-harness/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-evaluation-harness/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle non-deterministic LLM outputs in your accuracy layer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For highly variable outputs like summaries, I use semantic similarity (cosine similarity of embeddings) against a ground truth embedding, with a threshold of 0.85. For structured extractions, I enforce strict JSON schema validation and exact key-value matching."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the LLM itself changes (e.g., a new model version from Groq or Claude)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a major risk. My harness acts as a regression suite. When an LLM provider updates their model, I run the full harness. If tests fail, it indicates a behavioral shift, and I either adjust my prompts/agent logic or revert to an older model version if available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage the ground truth data for 131 tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ground truth is stored in YAML files alongside the test cases. For simple cases, it's direct string or JSON. For complex summaries, I generate a human-verified \"golden\" summary once and store its embedding. This dataset is version-controlled with the agent code."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Isn't $0.03 per run too expensive for CI/CD?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a solo developer, $0.03 per push is negligible. If I were running this 100 times a day, it would be $3.00, which is still acceptable for ensuring production quality. The cost of shipping a silent failure is orders of magnitude higher."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent prompt injection from your test inputs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My test inputs are controlled strings, not user-provided. The harness itself is not exposed to external users. The goal is to test the agent's robustness to *user* prompt injection, which is a specific set of test cases within the input validation layer."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">131 Tests, 4 Layers, $00.03/Run: My AI Agent Evaluation Harness</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-15T19:30:15.570Z">August 15, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I shipped a silent failure. It wasn't a crash; it was a subtle, incorrect output that would have cost a client thousands in wasted time. My production AI agent, designed to extract specific data from unstructured text, started hallucinating dates. The unit tests passed. The integration tests passed. The agent <em>thought</em> it was doing its job, but it was wrong. This failure, caught only by a human in a pre-production environment, solidified my decision: I needed an AI agent evaluation harness before writing another feature.</p>
+<p>My current harness runs 131 tests across four distinct layers for every agent change. Each full run costs $0.03. Without it, I would have shipped that date hallucination and countless other subtle regressions. This isn't about testing code; it's about testing <em>behavior</em> in a non-deterministic system.</p>
+<h2>The Fundamental Flaw of Unit Tests for AI Agents</h2>
+<p>Unit tests verify functions. Integration tests verify component interaction. Neither fundamentally addresses the core challenge of an AI agent: its ability to correctly interpret intent, execute a multi-step plan, and produce a useful, accurate output in a non-deterministic environment.</p>
+<p>My initial agent for a client involved extracting specific entities from long-form documents. I had unit tests for my parsing functions, integration tests for API calls to Groq and Claude, and even end-to-end tests that checked if <em>any</em> output was generated. But when I swapped a prompt template or fine-tuned a retrieval step, the agent's <em>reasoning</em> could subtly shift.</p>
+<p>The date hallucination was a perfect example. A minor change in the RAG prompt, intended to improve entity linking, inadvertently made the agent overconfident in inferring dates from ambiguous phrases like "next quarter." The output format was correct, the API calls succeeded, but the <em>content</em> was wrong. A unit test couldn't catch this because the underlying parsing logic was sound. An integration test couldn't catch it because the LLM returned <em>a</em> date, just the wrong one.</p>
+<h2>My 4-Layer Evaluation Harness Architecture</h2>
+<p>My evaluation harness is built on Python, leveraging <code>pytest</code> for structure and custom runners for execution. It's designed to be lightweight and run on Oracle Cloud Infrastructure (OCI) serverless functions, triggered by Git pushes.</p>
+<p>1.  <strong>Input Validation Layer (28 tests):</strong><br>    *   <strong>Purpose:</strong> Ensure the agent correctly identifies invalid or out-of-scope user inputs.<br>    *   <strong>Examples:</strong><br>        *   "Can you book me a flight to Mars?" (Expected: "I can only assist with [domain].")<br>        *   "What's the weather in 1999?" (Expected: "I can only provide current weather.")<br>        *   Inputs exceeding token limits (Expected: "Your request is too long.")<br>    *   <strong>Mechanism:</strong> Predefined prompts with expected negative responses or specific error messages. This layer uses regex matching on the agent's final output.</p>
+<p>2.  <strong>Tool Invocation Layer (45 tests):</strong><br>    *   <strong>Purpose:</strong> Verify the agent correctly selects and uses its available tools (e.g., database lookup, external API call, code interpreter).<br>    *   <strong>Examples:</strong><br>        *   "What's the current stock price of AAPL?" (Expected: <code>tool_call(name='stock_api', args={'symbol': 'AAPL'})</code>)<br>        *   "Summarize this PDF." (Expected: <code>tool_call(name='pdf_summarizer', args={'url': '...'}</code>)<br>        *   "Convert 10 USD to EUR." (Expected: <code>tool_call(name='currency_converter', args={'amount': 10, 'from': 'USD', 'to': 'EUR'})</code>)<br>    <em>   <strong>Mechanism:</strong> I intercept the tool calls </em>before* execution. The test asserts against the <code>name</code> and <code>args</code> of the proposed tool call. This is critical for preventing expensive or destructive tool calls during evaluation. I use mock tools that return predefined responses, ensuring the test focuses solely on the agent's decision-making.</p>
+<p>3.  <strong>Output Accuracy Layer (50 tests):</strong><br>    *   <strong>Purpose:</strong> The core of the harness. Verify the agent's final output is correct, relevant, and formatted as expected for a given valid input.<br>    *   <strong>Examples:</strong><br>        *   "What's the capital of France?" (Expected: "Paris")<br>        *   "Extract all dates from 'Meeting on Jan 15, 2024, rescheduled to Feb 2, 2024.'" (Expected: <code>['Jan 15, 2024', 'Feb 2, 2024']</code>)<br>        *   "Summarize this article: [URL]" (Expected: summary containing key entities from a known ground truth summary).<br>    *   <strong>Mechanism:</strong> This layer uses a combination of exact string matching, regex, and semantic similarity (using an embedding model like <code>text-embedding-ada-002</code> for longer, more nuanced responses). For structured extractions, I parse the JSON output and assert against specific key-value pairs. This is where the date hallucination was finally caught. The test case for date extraction had a ground truth of <code>['Jan 15, 2024', 'Feb 2, 2024']</code>, and the agent's output was <code>['Jan 15, 2024', 'Feb 2, 2024', 'next quarter']</code>, failing the exact match.</p>
+<p>4.  <strong>Performance & Cost Layer (8 tests):</strong><br>    *   <strong>Purpose:</strong> Monitor token usage, latency, and API call count to ensure the agent remains within operational budgets and performance SLAs.<br>    *   <strong>Examples:</strong><br>        *   "Summarize [long text]." (Expected: token usage < 5000, latency < 5s)<br>        *   "Complex query requiring 3 tool calls." (Expected: API calls = 3)<br>    *   <strong>Mechanism:</strong> I wrap the LLM and tool invocation calls with custom metrics collectors. These metrics are then asserted against predefined thresholds. This layer helps me catch regressions where a prompt change might inadvertently increase token usage or lead to an infinite loop of tool calls. My routing logic between Groq (for speed) and Claude (for complexity) is heavily influenced by these metrics.</p>
+<h2>The $0.03/Run Cost Breakdown</h2>
+<p>Running 131 tests across these layers involves multiple LLM calls. My strategy to keep costs low ($0.03 per full run) involves:</p>
+<ul><li>  <strong>Strategic LLM Selection:</strong> For simple input validation and tool invocation tests, I often use smaller, faster models like Groq's Llama 3 8B. For accuracy tests requiring complex reasoning, I route to Claude 3 Sonnet or Opus. My routing logic is part of the agent's design, and the eval harness tests this routing.</li>
+<li>  <strong>Caching:</strong> For tests that involve identical prompts and expected deterministic outputs (e.g., simple fact retrieval), I cache LLM responses. This is a delicate balance, as over-caching defeats the purpose of testing non-determinism, but it's effective for baseline checks.</li>
+<li>  <strong>Parallel Execution:</strong> The harness runs tests in parallel using <code>pytest-xdist</code>. My OCI serverless function (Oracle Functions) can handle concurrent invocations, speeding up the overall run time.</li>
+<li>  <strong>Mocking Tools:</strong> As mentioned, tool invocation tests mock the actual tool execution. This saves API call costs to external services.</li></ul>
+<p>A typical run involves around 15,000 tokens processed (input + output) across various models. At an average cost of $0.50/M tokens (blended rate across Groq, Claude, and some OpenAI for embeddings), this comes out to $0.0075 for LLM inference. The remaining cost is for OCI Functions execution time and embedding model calls for semantic similarity checks. The total is consistently around $0.03.</p>
+<h2>What AI Agent Tests Catch That Unit Tests Cannot</h2>
+<p>The core difference lies in the <em>nature</em> of the system. Unit tests assume deterministic functions. AI agents, especially those leveraging large language models, are inherently non-deterministic. They reason, plan, and generate.</p>
+<p>1.  <strong>Reasoning Drift:</strong> A prompt change intended to improve one aspect might subtly degrade another. My date hallucination was a perfect example. A unit test on the date parsing function would still pass, but the agent's <em>decision</em> to include "next quarter" as a date was a reasoning error.<br>2.  <strong>Tool Selection Logic:</strong> An agent might correctly <em>implement</em> a tool, but incorrectly <em>decide</em> to use it, or use the wrong arguments. My tool invocation layer catches this. A unit test on <code>stock_api.get_price(symbol='AAPL')</code> passes, but if the agent calls <code>stock_api.get_price(symbol='APPL')</code> due to a typo in its reasoning, that's a failure.<br>3.  <strong>Output Nuance:</strong> Beyond simple correctness, AI agent outputs have nuance. Is the tone appropriate? Is the summary comprehensive? Is the explanation clear? While harder to automate, semantic similarity checks and keyword presence can catch gross deviations.<br>4.  <strong>Robustness to Edge Cases:</strong> How does the agent handle ambiguous inputs, malformed requests, or out-of-domain queries? My input validation layer specifically targets these. A unit test might check a specific error handler, but the agent's ability to <em>classify</em> an input as an error is a higher-level function.</p>
+<p>Building this evaluation harness was a significant upfront investment. It took me two weeks of focused development. But it has paid for itself many times over by preventing silent failures, maintaining output quality, and giving me the confidence to iterate rapidly on my AI agents. It's not just about catching bugs; it's about understanding and controlling the emergent behavior of complex systems.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle non-deterministic LLM outputs in your accuracy layer?</strong><br>A: For highly variable outputs like summaries, I use semantic similarity (cosine similarity of embeddings) against a ground truth embedding, with a threshold of 0.85. For structured extractions, I enforce strict JSON schema validation and exact key-value matching.</p>
+<p><strong>Q: What if the LLM itself changes (e.g., a new model version from Groq or Claude)?</strong><br>A: This is a major risk. My harness acts as a regression suite. When an LLM provider updates their model, I run the full harness. If tests fail, it indicates a behavioral shift, and I either adjust my prompts/agent logic or revert to an older model version if available.</p>
+<p><strong>Q: How do you manage the ground truth data for 131 tests?</strong><br>A: Ground truth is stored in YAML files alongside the test cases. For simple cases, it's direct string or JSON. For complex summaries, I generate a human-verified "golden" summary once and store its embedding. This dataset is version-controlled with the agent code.</p>
+<p><strong>Q: Isn't $0.03 per run too expensive for CI/CD?</strong><br>A: For a solo developer, $0.03 per push is negligible. If I were running this 100 times a day, it would be $3.00, which is still acceptable for ensuring production quality. The cost of shipping a silent failure is orders of magnitude higher.</p>
+<p><strong>Q: How do you prevent prompt injection from your test inputs?</strong><br>A: My test inputs are controlled strings, not user-provided. The harness itself is not exposed to external users. The goal is to test the agent's robustness to <em>user</em> prompt injection, which is a specific set of test cases within the input validation layer.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
