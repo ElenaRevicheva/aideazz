@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Lead Gen on X: My Bot's 68% False Positive Rate | AIdeazz</title>
+  <meta name="description" content="My B2B lead generation agent, Algom Alpha, currently operates with a 68% false positive rate on X (formerly Twitter). This isn't a boast; it's a hard number from our last 30-day audit, processing 1,2…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="B2B Lead Gen on X: My Bot's 68% False Positive Rate">
+  <meta property="og:description" content="My B2B lead generation agent, Algom Alpha, currently operates with a 68% false positive rate on X (formerly Twitter). This isn't a boast; it's a hard number from our last 30-day audit, processing 1,2…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-16T19:30:18.911Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="B2B Lead Gen on X: My Bot's 68% False Positive Rate">
+  <meta name="twitter:description" content="My B2B lead generation agent, Algom Alpha, currently operates with a 68% false positive rate on X (formerly Twitter). This isn't a boast; it's a hard number from our last 30-day audit, processing 1,2…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "B2B Lead Gen on X: My Bot's 68% False Positive Rate",
+  "description": "My B2B lead generation agent, Algom Alpha, currently operates with a 68% false positive rate on X (formerly Twitter). This isn't a boast; it's a hard number from our last 30-day audit, processing 1,2…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-16T19:30:18.911Z",
+  "dateModified": "2026-08-16T19:30:18.911Z",
+  "url": "https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not just use a commercial lead generation platform?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Commercial platforms like ZoomInfo or Apollo.io are expensive, often $500-$1000+/month. For a bootstrapped operation, this cost is prohibitive. My current setup costs ~$120/month for a comparable volume of leads, albeit with higher manual review."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle X API rate limits and changes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We currently operate within the free tier limits, which are restrictive. For higher volume, we'd need to pay for X API access, which is a significant cost. We also abstract the X API calls, so if it changes drastically, we can swap out the data source (e.g., to LinkedIn, Reddit, or job boards) with minimal impact on the agent pipeline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your strategy for avoiding legal issues with scraping?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We only scrape publicly available information (tweets, public websites, public LinkedIn profiles). We adhere to `robots.txt` directives for websites. We do not attempt to bypass authentication or access private data. The primary risk is X's terms of service, which are constantly changing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent your agents from getting stuck in loops or generating irrelevant content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each agent has strict token limits for output and a timeout. We also implement guardrails in the prompt engineering, explicitly telling the LLM what *not* to do or say. For example, \"Do not invent company names or make assumptions about their business model.\""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why Oracle Cloud for a small operation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oracle Cloud Infrastructure (OCI) offers a very generous Always Free tier, including OKE, Autonomous Database, and object storage. This allows me to build and scale complex multi-agent systems without upfront infrastructure costs, which is critical for a bootstrapped business."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">B2B Lead Gen on X: My Bot's 68% False Positive Rate</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-16T19:30:18.911Z">August 16, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My B2B lead generation agent, Algom Alpha, currently operates with a 68% false positive rate on X (formerly Twitter). This isn't a boast; it's a hard number from our last 30-day audit, processing 1,240 potential leads. The goal was to find companies actively hiring for AI/ML roles, signaling budget and a need for our production AI agent services. We built it because traditional lead sources were too expensive for a bootstrapped operation on Oracle Cloud.</p>
+<h2>The Signal: Hiring-Adjacent Keywords</h2>
+<p>The core hypothesis was simple: companies hiring for specific AI/ML roles are potential clients. They have budget, a problem, and a team. We focused on X because of its public API access (at the time of initial build, before the drastic changes) and the real-time nature of announcements. Our initial keyword list included terms like "hiring AI engineer," "seeking ML specialist," "AI team growth," "data scientist opening," and specific tech stacks like "PyTorch," "TensorFlow," "LLM architect." This list, now refined to 47 terms, is the first filter.</p>
+<p>The agent monitors X for these keywords. When a tweet matches, it's not immediately flagged as a lead. That's where the multi-agent system kicks in.</p>
+<h2>The Scoring Logic: A Three-Agent Pipeline</h2>
+<p>Algom Alpha isn't a single monolithic agent. It's a pipeline of three specialized agents, orchestrated by a custom Python framework running on Oracle Container Engine for Kubernetes (OKE).</p>
+<p>1.  <strong>Scout Agent (Groq/Mixtral 8x7B):</strong> This agent's job is initial tweet classification. It receives the raw tweet and a small surrounding context (up to 5 previous tweets from the same user, if available). Its prompt instructs it to identify if the tweet <em>actually</em> indicates a hiring intent, rather than just mentioning AI. For example, "Our AI team is growing!" is a positive signal. "AI is transforming industries" is not. We use Groq for this stage due to its speed and cost-efficiency for high-volume, low-complexity classification. The output is a JSON object with <code>is_hiring_intent: true/false</code> and <code>confidence_score: 0-1</code>. Tweets below a 0.7 confidence score are discarded.</p>
+<p>2.  <strong>Qualifier Agent (Claude 3 Haiku):</strong> If the Scout Agent flags a tweet as hiring intent, the Qualifier Agent takes over. Its task is to determine if the <em>company</em> behind the tweet is a potential B2B client for production AI agents. This involves:<br>    *   Extracting the company name from the tweet or user profile.<br>    *   Searching Google (via SerpAPI) for the company's website and LinkedIn profile.<br>    *   Visiting the website (using <code>requests</code> and <code>BeautifulSoup</code>) to look for "About Us," "Services," "Careers" pages.<br>    *   Analyzing the company's stated industry and size. We're looking for mid-market to enterprise, not solo founders or direct competitors.<br>    *   Checking for existing AI products or services on their website. If they already have a mature AI product suite, they're less likely to need our foundational production AI agent services.<br>    *   The prompt for Claude 3 Haiku includes a detailed rubric: "Is this a B2B company? Is their primary business model compatible with needing custom AI agents for internal operations or new product lines? Do they appear to have an existing AI department or are they just starting to build one? Score 1-10." We use Claude 3 Haiku here for its stronger reasoning capabilities and larger context window compared to Mixtral, allowing for more nuanced website analysis.</p>
+<p>3.  <strong>Synthesizer Agent (Claude 3 Sonnet):</strong> For tweets that pass both Scout and Qualifier, the Synthesizer Agent creates a concise lead profile. It aggregates all data points: original tweet, company name, website, LinkedIn, inferred industry, and the scores from previous agents. It then generates a 3-sentence summary of <em>why</em> this company is a good fit and suggests a potential entry point (e.g., "Company X is expanding its ML ops team, indicating a need for scalable deployment solutions. Their recent product launch in [industry] could benefit from an automated customer support agent. Contact their Head of Engineering."). This output is then pushed to a Telegram channel for manual review. Claude 3 Sonnet is used for its superior summarization and synthesis capabilities, ensuring a high-quality, actionable output for the human sales team.</p>
+<p>The entire pipeline runs asynchronously. Each agent's output is stored in an Oracle Autonomous Database, allowing for retries and auditing.</p>
+<h2>The 68% False Positive Rate: Where It Breaks</h2>
+<p>The 68% false positive rate is a direct consequence of the Qualifier Agent's limitations and the inherent noise on X.</p>
+<ul><li>  <strong>Misinterpretation of "Hiring":</strong> Many tweets use "hiring" in a broader sense ("We're always hiring great talent!"). The Scout Agent, despite its prompt, occasionally misclassifies these. This accounts for about 20% of the false positives.</li>
+<li>  <strong>Company Irrelevance:</strong> The biggest chunk, roughly 40%, comes from the Qualifier Agent. It struggles with:</li></ul>
+    *   <strong>Small Businesses/Startups:</strong> Identifying company size from a website is hard. Many small agencies or early-stage startups use enterprise-level language. Our target is mid-market ($10M-$1B revenue). The agent often flags companies far below this threshold.
+    *   <strong>Indirect AI Use:</strong> A company might be hiring an "AI specialist" but their core business is, say, graphic design, and the AI role is for internal tools, not a core product. While still a potential lead, it's a lower priority and often a poor fit for our specific production AI agent offerings.
+    *   <strong>Competitors/Partners:</strong> Sometimes the agent flags companies that are direct competitors or potential partners, not clients. This requires human discernment.
+<ul><li>  <strong>Stale Information:</strong> X is real-time, but company websites aren't always. A hiring tweet might be for a role filled months ago, or the company's strategic direction has shifted. This contributes about 8% to the false positive rate.</li></ul>
+<p>We've tried refining prompts, adding more negative keywords, and increasing the confidence thresholds. Pushing the Scout Agent's confidence threshold to 0.8 reduced volume by 30% but only dropped the overall false positive rate by 5 percentage points, indicating the problem is deeper in the Qualifier stage.</p>
+<h2>What 'Qualified Lead' Means to a Bot (and to Me)</h2>
+<p>For Algom Alpha, a "qualified lead" is a JSON object with <code>is_hiring_intent: true</code>, <code>company_is_b2b: true</code>, <code>company_size_inferred: mid-market_or_enterprise</code>, <code>industry_compatible: true</code>, and a <code>synthesized_summary</code> with a score above 7/10.</p>
+<p>For me, a human, a qualified lead means a company that:<br>1.  Has a <em>demonstrated need</em> for production AI agents (e.g., actively building an AI team, struggling with manual processes that AI could automate).<br>2.  Has the <em>budget</em> to invest in custom AI solutions (inferred from size, recent funding, or existing tech investments).<br>3.  Is in an <em>industry</em> where our expertise is relevant (e.g., logistics, e-commerce, content creation, not deep-tech AI research).<br>4.  Has a <em>clear point of contact</em> or department that would benefit.</p>
+<p>The bot's definition is a proxy for mine. The 68% false positive rate shows the gap. The bot is good at identifying <em>signals</em>, but poor at inferring <em>intent</em> and <em>fit</em> with the nuance a human brings. Each "qualified" lead from the bot still requires 5-10 minutes of human review to confirm genuine interest and fit before any outreach.</p>
+<h2>The Cost of a "Free" Lead</h2>
+<p>Running Algom Alpha isn't free, even with Oracle's generous free tier and my own infrastructure.</p>
+<ul><li>  <strong>LLM Costs:</strong></li></ul>
+    *   Groq (Scout Agent): ~$0.00000027 per token for Mixtral. Processing ~100k tweets/day (average 20 tokens input + 50 tokens output per tweet) costs about $0.00189/day. Negligible.
+    *   Claude 3 Haiku (Qualifier Agent): ~$0.00025/1k input tokens, $0.00125/1k output tokens. Each qualification involves ~5k input tokens (tweet, website content, search results) and ~500 output tokens. With 300 qualified tweets/day, this is ~$0.45/day.
+    <em>   Claude 3 Sonnet (Synthesizer Agent): ~$0.003/1k input tokens, $0.015/1k output tokens. Each synthesis involves ~1k input tokens and ~200 output tokens. With 100 synthesized leads/day, this is ~$0.003 </em> 100 <em> 1 + $0.015 </em> 100 * 0.2 = $0.30 + $0.30 = $0.60/day.
+    *   Total LLM cost: ~$1.05/day.
+<ul><li>  <strong>API Costs:</strong></li></ul>
+    *   SerpAPI (Google Search): $50 for 5,000 searches. We average 300 searches/day, so ~9,000 searches/month. This is ~$90/month.
+    *   X API: We use the free tier for now, but this is a constant risk.
+<ul><li>  <strong>Infrastructure (Oracle Cloud):</strong></li></ul>
+    *   OKE cluster: Running on 2 OCPUs, 16GB RAM. Free tier for now, but scaling will incur costs.
+    *   Autonomous Database: Free tier.
+    *   Object Storage: Free tier.
+    *   Total infrastructure cost: Currently $0.
+<p>Total monthly operational cost: ~$31.50 (LLMs) + ~$90 (SerpAPI) = ~$121.50.</p>
+<p>This generates ~100 "qualified" leads per day, or ~3,000 per month. With a 68% false positive rate, that's ~960 genuinely relevant leads per month. Each genuine lead costs ~$0.12. This is significantly cheaper than LinkedIn Sales Navigator ($100+/month for limited leads) or buying lead lists (often $1-$5 per lead). The human review time is the real cost.</p>
+<h2>Next Steps: Reducing Noise and Improving Fit</h2>
+<p>My immediate focus is on reducing the false positive rate, specifically in the Qualifier Agent.</p>
+<p>1.  <strong>Fine-tuning:</strong> Instead of pure zero-shot prompting, I'm collecting a dataset of ~500 manually classified companies (good fit/bad fit) to fine-tune a smaller, domain-specific model (perhaps Llama 3 8B) for the Qualifier Agent. This should improve accuracy and potentially reduce Claude 3 Haiku reliance.<br>2.  <strong>Website Content Analysis:</strong> Instead of just looking for keywords, I'll implement more sophisticated text embeddings (e.g., from OpenAI's <code>text-embedding-3-small</code>) to compare the semantic similarity of a company's website content against a corpus of "ideal client" websites. This should help filter out irrelevant industries or business models.<br>3.  <strong>LinkedIn Scraper:</strong> Integrating a dedicated LinkedIn scraper (with appropriate rate limits and ethical considerations) to get more accurate company size, employee count, and specific role information. This is a higher-risk, higher-reward endeavor due to LinkedIn's aggressive anti-scraping measures.<br>4.  <strong>Feedback Loop:</strong> Building a direct feedback loop from the human review process back into the agent's training data. Every manual classification (good/bad lead) becomes a new training example.</p>
+<p>The goal isn't 0% false positives — that's unrealistic and would likely filter out too many good leads. But getting it under 40% would significantly reduce human review time and make the entire process even more efficient.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not just use a commercial lead generation platform?</strong><br>A: Commercial platforms like ZoomInfo or Apollo.io are expensive, often $500-$1000+/month. For a bootstrapped operation, this cost is prohibitive. My current setup costs ~$120/month for a comparable volume of leads, albeit with higher manual review.</p>
+<p><strong>Q: How do you handle X API rate limits and changes?</strong><br>A: We currently operate within the free tier limits, which are restrictive. For higher volume, we'd need to pay for X API access, which is a significant cost. We also abstract the X API calls, so if it changes drastically, we can swap out the data source (e.g., to LinkedIn, Reddit, or job boards) with minimal impact on the agent pipeline.</p>
+<p><strong>Q: What's your strategy for avoiding legal issues with scraping?</strong><br>A: We only scrape publicly available information (tweets, public websites, public LinkedIn profiles). We adhere to <code>robots.txt</code> directives for websites. We do not attempt to bypass authentication or access private data. The primary risk is X's terms of service, which are constantly changing.</p>
+<p><strong>Q: How do you prevent your agents from getting stuck in loops or generating irrelevant content?</strong><br>A: Each agent has strict token limits for output and a timeout. We also implement guardrails in the prompt engineering, explicitly telling the LLM what <em>not</em> to do or say. For example, "Do not invent company names or make assumptions about their business model."</p>
+<p><strong>Q: Why Oracle Cloud for a small operation?</strong><br>A: Oracle Cloud Infrastructure (OCI) offers a very generous Always Free tier, including OKE, Autonomous Database, and object storage. This allows me to build and scale complex multi-agent systems without upfront infrastructure costs, which is critical for a bootstrapped business.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
