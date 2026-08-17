@@ -1327,7 +1327,7 @@
       <span>Audio mañanero por AWS Lambda + puente seguro CTO</span>
       <span>Ritmo ejecutivo: resúmenes Trello a Telegram</span>
       <span>Capa de web en vivo: Bright Data Web Unlocker · SERP · Scraping Browser + agente de investigación autónomo con Claude (/research_company · /research_employer · /research_competitor en Telegram)</span>
-      <span>Failover LLM multi-proveedor, en toda la flota: cada agente cae a Claude → Groq (Llama gratuito) como mínimo—incluidos los tres bots EspaLuz—con Grok (xAI), OpenAI y Gemini como niveles adicionales en productos de mayor volumen (Atlas Shifted: Claude → Groq → OpenAI → Grok). El motor de contenido sobrevive a la caída de cualquier proveedor.</span>
+      <span><strong>Failover LLM de cinco proveedores en cada agente</strong> (Claude · OpenAI · Gemini · Grok · Groq), cada uno con su propio conjunto de evals. El orden se define por caso de uso, no por una plantilla única: las superficies de calidad empiezan con Claude, los clasificadores con un modelo simple y rápido, y la generación masiva con el más económico que supere el umbral. La cadena de cada producto se comprueba apagando proveedores de forma acumulativa: con cuatro de cinco caídos, el agente sigue respondiendo. Los retiros de modelos son un cambio de configuración de una línea, validado con la eval antes de desplegarse.</span>
     </div>
     <div class="callout">
       <div><strong>Invariante operativa:</strong> exactamente un checkout desplegado por repositorio de GitHub—evita drift de versión, secretos duplicados e incidentes de “¿qué carpeta es prod?”. Pares como CTO + co‑fundadora creativa comparten codebase a propósito pero ejecutan interfaces/personalidades distintas.</div>

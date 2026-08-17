@@ -1385,7 +1385,7 @@
       <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
       <span>Executive rhythm: Trello digests to Telegram</span>
       <span>Live web data layer: Bright Data Web Unlocker · SERP · Scraping Browser + autonomous Claude research agent (/research_company · /research_employer · /research_competitor in Telegram)</span>
-      <span>Multi-provider LLM failover, fleet-wide: every agent falls Claude → Groq (free Llama) at minimum—including all three EspaLuz bots—with Grok (xAI), OpenAI, and Gemini as extra tiers in higher-volume products (Atlas Shifted: Claude → Groq → OpenAI → Grok). The content engine survives any single provider outage.</span>
+      <span><strong>Five-provider LLM failover on every agent</strong> (Claude · OpenAI · Gemini · Grok · Groq), each with its own eval harness. Order is set per use case, not by one fleet template: quality surfaces lead with Claude, classifiers lead with a plain fast model, bulk generation leads with the cheapest that clears the floor. Each product's chain is proven by breaking providers cumulatively — with four of five dark, the agent still answers. Provider retirements are a one-line config change, verified against the eval before it ships.</span>
     </div>
     <div class="callout">
       <div><strong>Operational invariant:</strong> exactly one deployed checkout per GitHub repository—prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
