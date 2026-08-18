@@ -180,7 +180,7 @@
           "name": "What is AIdeazz?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "AIdeazz is a 10-agent ecosystem (9 in production, AILA in design) built by Elena Revicheva, running on Oracle Cloud at $0/month infrastructure cost. Agents include an autonomous job hunter with a LangGraph pipeline, AI marketing co-founder, Spanish language tutor with pgvector RAG, crypto market analyst, and AI technical co-founder — using multi-model LLM routing (76% Groq for speed, 24% Claude for critical reasoning)."
+            "text": "AIdeazz is a 10-agent ecosystem (9 in production, AILA in design) built by Elena Revicheva, running on Oracle Cloud at $0/month infrastructure cost. Agents include an autonomous job hunter with a LangGraph pipeline, AI marketing co-founder, Spanish language tutor with pgvector RAG, crypto market analyst, and AI technical co-founder — using a 5-provider LLM fallback chain (Claude, OpenAI, Gemini, Grok, and Groq) ordered by task type, so a single provider outage or model retirement never takes an agent down."
           }
         },
         {
@@ -188,7 +188,7 @@
           "name": "What is multi-model LLM routing?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Multi-model LLM routing is the practice of sending different AI tasks to different language models based on cost, speed, and reasoning requirements. AIdeazz routes 76% of requests to Groq (Llama 3.3 70B) for fast, cost-effective processing and 24% to Claude for tasks requiring deep reasoning — like security reviews and payment handling."
+            "text": "Multi-model LLM routing is the practice of sending different AI tasks to different language models based on cost, speed, and reasoning requirements — and chaining providers as fallbacks so no single vendor outage or model retirement breaks production. AIdeazz runs a 5-provider chain (Claude, OpenAI, Gemini, xAI Grok, and Groq) with the order set per use case: quality-first for user-facing replies like security reviews and payment handling, cost-and-speed-first for classification and bulk work. Each product has its own eval suite re-run before any model swap, which is why Groq retiring Llama 3.3 70B in August 2026 cost 10 minutes of config, not an incident."
           }
         },
         {
@@ -252,7 +252,7 @@
           "name": "What AI tools does Elena Revicheva use to build agents?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Elena builds production AI systems using: Anthropic Claude API (Opus for critical reasoning, Haiku for classification), Groq (Llama 3.3 70B for high-speed inference), OpenAI Whisper (voice-to-text), Python and TypeScript, Oracle Autonomous Database (persistent state), PM2 on Oracle Cloud Always Free (zero-cost hosting), Telegram Bot API, WhatsApp Cloud API, Resend (transactional email), Hunter.io (email discovery), and Google APIs (Search Console, Analytics, Places). Development is AI-assisted using Cursor and Claude Code."
+            "text": "Elena builds production AI systems using a 5-provider LLM chain — Anthropic Claude (Opus for critical reasoning, Haiku for classification), OpenAI (GPT-4o-mini, plus Whisper for voice-to-text), Google Gemini, xAI Grok, and Groq (running openai/gpt-oss-120b) — plus Python and TypeScript, Oracle Autonomous Database (persistent state), PM2 on Oracle Cloud Always Free (zero-cost hosting), Telegram Bot API, WhatsApp Cloud API, Resend (transactional email), Hunter.io (email discovery), and Google APIs (Search Console, Analytics, Places). Development is AI-assisted using Cursor and Claude Code."
           }
         },
         {
@@ -269,6 +269,54 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Any industry where data flows through the business but nobody is processing it intelligently. Construction and remodeling: takeoff sheets → automated subcontractor outreach; call summaries → prioritized lead dashboard. Real estate: property inquiries → scored and ranked by deal size. Professional services (law, accounting, consulting): client intake forms → classified by urgency and routed to the right person. Retail and hospitality: customer inquiries → automated response + CRM entry. SaaS and tech startups: GitHub activity → automated code review; YC company lists → personalized cold outreach. The pattern is always the same: raw data in, intelligent action out."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What services does AIdeazz offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AIdeazz builds and deploys production AI systems for businesses — AI-powered WhatsApp/Telegram agents, AI visibility (GEO/AEO) audits so a business shows up correctly in ChatGPT, Gemini, and AI search answers, workflow automation, and fractional AI/CTO support. Live examples at https://aideazz.xyz/portfolio."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AIdeazz work with businesses outside Panama?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — AIdeazz works with clients across LATAM and internationally, fully remote."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an AI visibility (GEO/AEO) audit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A scored check of whether AI answer engines — ChatGPT, Gemini, Google AI Overviews — can find, read, and correctly cite a business, plus a plan to fix the gaps. Try it free at https://aideazz.xyz/api."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What industries or niches does AIdeazz work best with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It's less about the industry and more about the shape of the business. AIdeazz fits best where the average sale is high-ticket, leads come in online, the owner personally answers WhatsApp, the client base is international, and margins support real investment in growth. Luxury yacht charters, dental practices, medical tourism, and immigration/relocation services are examples — not an exhaustive list. If a business has that shape, the AI Growth Operator approach tends to fit regardless of niche or location."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AIdeazz build custom CRM systems?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No — AIdeazz doesn't build or replace a CRM (HubSpot, Salesforce, and similar already do that well). What AIdeazz builds is the AI architecture around it — agents, automation, and visibility systems that plug into an existing CRM rather than replace it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started with AIdeazz?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fill out the inquiry form at https://aideazz.xyz/portfolio, or message via WhatsApp/Telegram from the site: https://aideazz.xyz/portfolio?utm_source=google&utm_medium=business_profile&utm_campaign=gbp_qa"
           }
         }
       ]
@@ -305,7 +353,7 @@
       "@id": "https://aideazz.xyz/#home-webpage",
       "url": "https://aideazz.xyz/",
       "name": "AIdeazz — Production AI Systems",
-      "dateModified": "2026-07-17",
+      "dateModified": "2026-08-18",
       "description": "Executive-built production AI agents on Oracle Cloud Always Free — ten-agent ecosystem narrative, LangGraph + pgvector RAG, multi-model routing.",
       "inLanguage": ["en", "es"],
       "isPartOf": { "@type": "WebSite", "name": "AIdeazz", "url": "https://aideazz.xyz/" },
@@ -458,13 +506,31 @@
             <dd>Any industry where data flows through the business but nobody processes it intelligently: construction (takeoff sheets → subcontractor outreach), real estate (inquiries → ranked by deal size), professional services (intake → routed by urgency), SaaS startups (company lists → personalized outreach). The pattern is always: raw data in, intelligent action out.</dd>
 
             <dt>What AI tools does Elena Revicheva use?</dt>
-            <dd>Anthropic Claude API, Groq (Llama 3.3 70B), OpenAI Whisper, Python, TypeScript, Oracle Autonomous Database, PM2, Telegram Bot API, WhatsApp Cloud API, Resend, Hunter.io, Google Search Console API, Google Analytics 4, Google Places API. Development via Cursor and Claude Code.</dd>
+            <dd>A 5-provider LLM fallback chain — Anthropic Claude, OpenAI (GPT + Whisper), Google Gemini, xAI Grok, and Groq (running openai/gpt-oss-120b) — plus Python, TypeScript, Oracle Autonomous Database, PM2, Telegram Bot API, WhatsApp Cloud API, Resend, Hunter.io, Google Search Console API, Google Analytics 4, Google Places API. Development via Cursor and Claude Code.</dd>
+
+            <dt>What services does AIdeazz offer?</dt>
+            <dd>Production AI systems for businesses — AI-powered WhatsApp/Telegram agents, AI visibility (GEO/AEO) audits so a business shows up correctly in ChatGPT, Gemini, and AI search answers, workflow automation, and fractional AI/CTO support. Live examples at <a href="https://aideazz.xyz/portfolio">aideazz.xyz/portfolio</a>.</dd>
+
+            <dt>Does AIdeazz work with businesses outside Panama?</dt>
+            <dd>Yes — AIdeazz works with clients across LATAM and internationally, fully remote.</dd>
+
+            <dt>What is an AI visibility (GEO/AEO) audit?</dt>
+            <dd>A scored check of whether AI answer engines — ChatGPT, Gemini, Google AI Overviews — can find, read, and correctly cite a business, plus a plan to fix the gaps. Try it free at <a href="https://aideazz.xyz/api">aideazz.xyz/api</a>.</dd>
+
+            <dt>What industries or niches does AIdeazz work best with?</dt>
+            <dd>It's less about the industry and more about the shape of the business. AIdeazz fits best where the average sale is high-ticket, leads come in online, the owner personally answers WhatsApp, the client base is international, and margins support real investment in growth. Luxury yacht charters, dental practices, medical tourism, and immigration/relocation services are examples — not an exhaustive list. If a business has that shape, the AI Growth Operator approach tends to fit regardless of niche or location.</dd>
+
+            <dt>Does AIdeazz build custom CRM systems?</dt>
+            <dd>No — AIdeazz doesn't build or replace a CRM (HubSpot, Salesforce, and similar already do that well). What AIdeazz builds is the AI architecture around it — agents, automation, and visibility systems that plug into an existing CRM rather than replace it.</dd>
+
+            <dt>How do I get started with AIdeazz?</dt>
+            <dd>Fill out the inquiry form at <a href="https://aideazz.xyz/portfolio?utm_source=google&amp;utm_medium=business_profile&amp;utm_campaign=gbp_qa">aideazz.xyz/portfolio</a>, or message via WhatsApp/Telegram from the site.</dd>
           </dl>
         </section>
 
         <footer>
           <p><a href="https://aideazz.xyz/portfolio">View Full Portfolio</a> | <a href="mailto:aipa@aideazz.xyz">Contact Elena</a></p>
-          <p>Last updated <time datetime="2026-07-17">July 17, 2026</time>.</p>
+          <p>Last updated <time datetime="2026-08-18">August 18, 2026</time>.</p>
         </footer>
       </article>
       </main>

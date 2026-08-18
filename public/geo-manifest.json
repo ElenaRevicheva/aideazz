@@ -1,6 +1,6 @@
 {
   "geoPackage": "AIdeazz-GEO/v4-iron",
-  "updated": "2026-04-26",
+  "updated": "2026-08-18",
   "canonicalOrigin": "https://aideazz.xyz",
   "intent": "Maximum GEO: redundant machine-readable identity, explicit crawler policy, and citable facts without relying on a single format.",
 
@@ -45,7 +45,7 @@
     "inDesign": ["AILA — Adaptive Intelligent Life Assistant (orchestration layer)"],
     "infraMonthlyUsd": 0,
     "cloudPrimary": "Oracle Cloud Always Free + Oracle Autonomous Database 26ai (mTLS)",
-    "multiModelSplitGroqClaude": "≈76% Groq / ≈24% Claude (task-dependent)",
+    "llmProviderChain": "5-provider fallback chain — Claude, OpenAI, Gemini, xAI Grok, Groq (running openai/gpt-oss-120b); order set per task type (quality-first vs. cost/speed-first)",
     "soloBuildMonthsApprox": 13,
     "langGraphStatefulLive": true,
     "pgvectorRagLive": true
