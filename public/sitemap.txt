@@ -14,6 +14,8 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/ack-trap-field-note/
+https://aideazz.xyz/blog/concierge-outage-field-note/
 https://aideazz.xyz/blog/telegram-my-ai-agent-ops-dashboard-for-10-live-systems-2026-08-18/
 https://aideazz.xyz/blog/brightdata-web-unlocker-when-150cpm-isnt-a-waste/
 https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/
