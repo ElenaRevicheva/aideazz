@@ -446,10 +446,21 @@ const html = `<!DOCTYPE html>
     .fold.open .fold-mark{border-color:var(--spot);background:var(--spot);}
     .fold.open .fold-mark::before,.fold.open .fold-mark::after{background:var(--paper);}
     .fold.open .fold-mark::after{transform:translate(-50%,-50%) scaleY(0);}
-    .fold-body{display:grid;grid-template-rows:0fr;
-      transition:grid-template-rows .6s cubic-bezier(.2,.8,.2,1);}
-    .fold-body>.fold-in{overflow:hidden;min-height:0;}
-    .fold.open>.fold-body{grid-template-rows:1fr;}
+    /* ── Disclosure, done so it cannot fail closed ────────────────────
+       The first build animated grid-template-rows 0fr -> 1fr, the tidy
+       modern recipe. It shipped BROKEN: this engine cannot interpolate an
+       fr, so it held the start value and the open state never applied at
+       all — every chapter and every beat stayed shut on a fresh load while
+       the class, the aria state and the progress counter all said "open".
+       Exactly the shape of the silent failure in Part Two: three signals
+       agreeing, and the one that mattered never checked.
+       So: max-height, driven from the measured height in script, released
+       to none once the transition ends so nested panels can still grow.
+       If the transition never fires, the measured height is already applied
+       and the content is simply visible. There is no state in which the
+       decoration can hide the text. */
+    .fold-body{overflow:hidden;max-height:0;
+      transition:max-height .55s cubic-bezier(.2,.8,.2,1);}
     .fold-in{padding-bottom:16px;}
 
     /* The waterfall: rows settle in sequence when a part opens. TRANSFORM ONLY
@@ -485,11 +496,10 @@ const html = `<!DOCTYPE html>
     .ch.open .ch-num{font-size:26px;}
     .ch.read .ch-num::after{content:"✓";font-family:var(--mono);font-size:11px;margin-left:5px;color:var(--petrol);}
 
-    /* Chapter body — collapsed with CSS, text always in the DOM. */
-    .ch-body{display:grid;grid-template-rows:0fr;
-      transition:grid-template-rows .6s cubic-bezier(.2,.8,.2,1);}
-    .ch-body>.ch-in{overflow:hidden;min-height:0;}
-    .ch.open>.ch-body{grid-template-rows:1fr;}
+    /* Chapter body — collapsed, text always in the DOM. Same max-height
+       mechanism as the parts; see the note above for why not 0fr/1fr. */
+    .ch-body{overflow:hidden;max-height:0;
+      transition:max-height .5s cubic-bezier(.2,.8,.2,1);}
     .ch-in>*:first-child{padding-top:8px;}
     .ch-in{padding-left:62px;padding-bottom:30px;}
 
@@ -500,10 +510,9 @@ const html = `<!DOCTYPE html>
       color:var(--ink-3);font-family:var(--body);}
     .beat-txt{color:var(--ink-2);font-size:17.5px;text-wrap:pretty;}
     .beat-open{padding-bottom:4px;}
-    .beat-shut{display:grid;grid-template-rows:0fr;opacity:0;
-      transition:grid-template-rows .55s cubic-bezier(.2,.8,.2,1),opacity .4s ease .06s;}
-    .beat-shut>.beat-in{overflow:hidden;min-height:0;}
-    .beat-shut.open{grid-template-rows:1fr;opacity:1;}
+    /* No opacity here either. Height alone, measured. */
+    .beat-shut{overflow:hidden;max-height:0;
+      transition:max-height .45s cubic-bezier(.2,.8,.2,1);}
     .beat-rule.open .beat-txt{font-family:var(--disp);font-style:italic;font-weight:600;
       font-size:clamp(19px,2.4vw,23px);line-height:1.34;color:var(--ink);
       border-left:3px solid var(--spot);padding-left:20px;
@@ -555,7 +564,7 @@ const html = `<!DOCTYPE html>
 
     /* No JS: every part, chapter and beat simply stands open, and the page is
        a plain complete document. */
-    .nojs .fold-body,.nojs .ch-body,.nojs .beat-shut{grid-template-rows:1fr;opacity:1;}
+    .nojs .fold-body,.nojs .ch-body,.nojs .beat-shut{max-height:none;overflow:visible;}
     .nojs .fold .ch{transform:none;}
     .nojs .gate,.nojs .ch-open,.nojs .fold-mark{display:none;}
 
@@ -579,7 +588,7 @@ const html = `<!DOCTYPE html>
     }
     @media print{
       .bar,.gate,.plate,.fold-mark,.ch-open{display:none;}
-      .fold-body,.ch-body,.beat-shut{grid-template-rows:1fr;opacity:1;}
+      .fold-body,.ch-body,.beat-shut{max-height:none !important;overflow:visible !important;}
       .fold .ch{transform:none;}
       body{background:#fff;font-size:11pt;}
     }
@@ -670,13 +679,43 @@ ${concepts.map(conceptCard).join('\n')}
     var fill = document.getElementById('barFill'), count = document.getElementById('barCount');
     function tick(){ opened++; count.textContent = opened + ' / ' + total; fill.style.width = (opened/total*100) + '%'; }
 
+    /**
+     * Open or close a panel by its measured height.
+     *
+     * Released to max-height:none once open so a panel nested inside it can
+     * still grow — a chapter opening inside an already-open part would
+     * otherwise be clipped by its parent's frozen pixel height.
+     */
+    function expand(panel, open){
+      if (open){
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        var onEnd = function(e){
+          if (e.target !== panel || e.propertyName !== 'max-height') return;
+          panel.style.maxHeight = 'none';
+          panel.removeEventListener('transitionend', onEnd);
+        };
+        panel.addEventListener('transitionend', onEnd);
+        /* Belt and braces: if the transition never fires (reduced motion,
+           a backgrounded tab, an engine that will not animate this), the
+           panel must still end up unclipped rather than stuck part-open. */
+        setTimeout(function(){ if (panel.style.maxHeight !== 'none') panel.style.maxHeight = 'none'; }, 700);
+      } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        requestAnimationFrame(function(){
+          requestAnimationFrame(function(){ panel.style.maxHeight = '0px'; });
+        });
+      }
+    }
+
     /* Level one: the two parts. */
     document.querySelectorAll('.fold').forEach(function(fold){
       var head = fold.querySelector('.fold-btn');
+      var body = fold.querySelector('.fold-body');
       head.addEventListener('click', function(){
         var willOpen = !fold.classList.contains('open');
         fold.classList.toggle('open', willOpen);
         head.setAttribute('aria-expanded', String(willOpen));
+        expand(body, willOpen);
         if (!willOpen) fold.scrollIntoView({block:'start', behavior:'smooth'});
       });
     });
@@ -687,10 +726,12 @@ ${concepts.map(conceptCard).join('\n')}
       var gates = ch.querySelectorAll('.gate');
       var done  = 0;
 
+      var chBody = ch.querySelector('.ch-body');
       head.addEventListener('click', function(){
         var willOpen = !ch.classList.contains('open');
         ch.classList.toggle('open', willOpen);
         head.setAttribute('aria-expanded', String(willOpen));
+        expand(chBody, willOpen);
         /* Closing a chapter you scrolled into can leave the viewport somewhere
            arbitrary further down the page. Pull the heading back to the top. */
         if (!willOpen) ch.scrollIntoView({block:'start', behavior:'smooth'});
@@ -703,6 +744,7 @@ ${concepts.map(conceptCard).join('\n')}
           panel.classList.add('open');
           btn.setAttribute('aria-expanded','true');
           gate.classList.add('done');
+          expand(panel, true);
           done++; tick();
           if (done === gates.length) ch.classList.add('read');
         });
