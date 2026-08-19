@@ -234,17 +234,30 @@ ${beats.map((b, bi) => `            <div class="gate" data-gate="${bi}">
 const conceptCard = (c, i) => {
   const taught = taughtBy.get(c.meta.slug) || [];
   return `
-      <article class="term" id="${escAttr(c.meta.slug)}">
-        <div class="term-num" aria-hidden="true">${pad(i + 1)}</div>
-        <div class="term-body">
-          <h3>${esc(c.meta.title)}</h3>
-          ${c.meta.aka ? `<div class="aka">a.k.a. ${esc(c.meta.aka)}</div>` : ''}
-          <p class="one-liner">${esc(c.meta.one_liner)}</p>
-          <div class="prose">${md(c.body)}</div>
-          ${taught.length ? `<div class="linkrow">
-            <span class="linkrow-lbl">Learned the hard way in</span>
-            <span class="chips">${taught.map(t => `<a class="chip" href="#${escAttr(t.meta.slug)}">${esc(fmtDate(t.meta.date))} · ${esc(t.meta.title)}</a>`).join('')}</span>
-          </div>` : ''}
+      <article class="ch term" id="${escAttr(c.meta.slug)}" style="--d:${i}">
+        <h3 class="ch-h">
+          <button class="ch-btn" type="button" aria-expanded="false" aria-controls="${escAttr(c.meta.slug)}-body">
+            <span class="ch-num">${pad(i + 1)}</span>
+            <span class="ch-txt">
+              <span class="ch-title">${esc(c.meta.title)}</span>
+              <span class="ch-sub">${esc(c.meta.one_liner)}</span>
+            </span>
+            <span class="ch-side">
+              <span class="ch-date">${taught.length} case${taught.length === 1 ? '' : 's'}</span>
+              <span class="ch-leader" aria-hidden="true"></span>
+              <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+            </span>
+          </button>
+        </h3>
+        <div class="ch-body" id="${escAttr(c.meta.slug)}-body">
+          <div class="ch-in">
+            ${c.meta.aka ? `<div class="aka">a.k.a. ${esc(c.meta.aka)}</div>` : ''}
+            <div class="prose">${md(c.body)}</div>
+            ${taught.length ? `<div class="linkrow">
+              <span class="linkrow-lbl">Learned the hard way in</span>
+              <span class="chips">${taught.map(t => `<a class="chip" href="#${escAttr(t.meta.slug)}">${esc(fmtDate(t.meta.date))} · ${esc(t.meta.title)}</a>`).join('')}</span>
+            </div>` : ''}
+          </div>
         </div>
       </article>`;
 };
@@ -398,14 +411,54 @@ const html = `<!DOCTYPE html>
     .plate-note{margin:14px 0 0;font-size:15px;color:var(--ink-3);text-align:center;font-style:italic;}
     .plate-note b{color:var(--spot);font-style:normal;font-weight:600;}
 
-    /* ── Section heads ────────────────────────────────────────────── */
-    .sec{margin-top:82px;}
-    .sec-tag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
-      color:var(--spot);margin-bottom:10px;}
-    h2{font-family:var(--disp);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.04;
-      letter-spacing:-.022em;margin:0 0 10px;text-wrap:balance;}
-    .sec-note{color:var(--ink-3);max-width:60ch;margin:0 0 8px;font-size:17px;text-wrap:pretty;}
-    .sec-hr{height:2.5px;background:var(--ink);margin:20px 0 4px;}
+    /* ── The two parts, folded shut ───────────────────────────────────
+       A journal that gains a chapter every week cannot open with every
+       chapter on screen — by the fiftieth session the front page is a wall
+       and nothing is findable. So the page opens as a spine: two parts, each
+       naming itself and its size. Open a part to see its run of titles; open
+       a title to read it. Three taps to any sentence, and the front page
+       stays the same length forever. */
+    .fold{margin-top:64px;border-top:2.5px solid var(--ink);}
+    .fold-h{margin:0;font-weight:400;}
+    .fold-btn{width:100%;display:grid;grid-template-columns:1fr auto;grid-template-areas:
+      "tag side" "name side" "note side";gap:2px 24px;text-align:left;cursor:pointer;
+      background:none;border:0;padding:26px 6px;color:inherit;font:inherit;
+      transition:background .3s,padding-left .3s;}
+    .fold-btn:hover{background:var(--spot-soft);padding-left:14px;}
+    .fold-btn:focus-visible{outline:2px solid var(--spot);outline-offset:-2px;}
+    .fold-tag{grid-area:tag;font-family:var(--mono);font-size:10px;letter-spacing:.24em;
+      text-transform:uppercase;color:var(--spot);}
+    .fold-name{grid-area:name;font-family:var(--disp);font-weight:700;
+      font-size:clamp(30px,5vw,46px);line-height:1.04;letter-spacing:-.022em;}
+    .fold-note{grid-area:note;color:var(--ink-3);max-width:56ch;font-size:16.5px;
+      margin-top:6px;text-wrap:pretty;}
+    .fold-side{grid-area:side;display:flex;flex-direction:column;align-items:flex-end;
+      justify-content:center;gap:12px;}
+    .fold-count{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--ink-3);white-space:nowrap;}
+    /* A drawn plus that becomes a minus — cheaper to read than a chevron at
+       this size, and it says "this contains things" rather than "go here". */
+    .fold-mark{position:relative;width:26px;height:26px;border:1.5px solid var(--ink);flex:0 0 auto;}
+    .fold-mark::before,.fold-mark::after{content:"";position:absolute;background:var(--ink);
+      top:50%;left:50%;transform:translate(-50%,-50%);transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+    .fold-mark::before{width:12px;height:1.5px;}
+    .fold-mark::after{width:1.5px;height:12px;}
+    .fold.open .fold-mark{border-color:var(--spot);background:var(--spot);}
+    .fold.open .fold-mark::before,.fold.open .fold-mark::after{background:var(--paper);}
+    .fold.open .fold-mark::after{transform:translate(-50%,-50%) scaleY(0);}
+    .fold-body{display:grid;grid-template-rows:0fr;
+      transition:grid-template-rows .6s cubic-bezier(.2,.8,.2,1);}
+    .fold-body>.fold-in{overflow:hidden;min-height:0;}
+    .fold.open>.fold-body{grid-template-rows:1fr;}
+    .fold-in{padding-bottom:16px;}
+
+    /* The waterfall: rows settle in sequence when a part opens. TRANSFORM ONLY
+       — never opacity. A reveal animation already ate this page's content once
+       (see Chapter on silent failure); worst case here is a row sitting a few
+       pixels low, never an invisible one. */
+    .fold .ch{transform:translateY(10px);
+      transition:transform .5s cubic-bezier(.2,.8,.2,1);}
+    .fold.open .ch{transform:none;transition-delay:calc(var(--d,0) * 42ms);}
 
     /* ── Table of contents: chapters ──────────────────────────────── */
     .ch{border-bottom:1px solid var(--rule);}
@@ -467,16 +520,15 @@ const html = `<!DOCTYPE html>
     .gate-btn:hover{background:var(--spot);transform:translateY(-1px);}
     .gate-btn:focus-visible{outline:2px solid var(--spot);outline-offset:3px;}
 
-    /* ── Appendix: vocabulary ─────────────────────────────────────── */
-    .term{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:34px 0;
-      border-top:1px solid var(--rule);scroll-margin-top:72px;}
-    .term-num{font-family:var(--mono);font-size:13px;color:var(--spot);padding-top:12px;letter-spacing:.1em;}
-    .term h3{font-family:var(--disp);font-weight:700;font-size:clamp(23px,3vw,30px);
-      letter-spacing:-.02em;margin:0 0 5px;line-height:1.14;text-wrap:balance;}
+    /* ── Appendix: vocabulary ─────────────────────────────────────────
+       Entries reuse the chapter row wholesale — same disclosure, same
+       affordance, one component to keep correct. The old two-column .term
+       grid is gone rather than left to fight .ch for the same elements;
+       dead CSS that still matches is not dead, it is a bug waiting. */
+    .term .ch-num{font-family:var(--mono);font-size:13px;letter-spacing:.1em;}
+    .term .ch-sub{font-family:var(--disp);font-style:italic;font-size:17px;color:var(--ink-2);}
+    .term.open .ch-num{font-size:13px;}
     .aka{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-bottom:15px;letter-spacing:.04em;}
-    .one-liner{font-family:var(--disp);font-style:italic;font-weight:600;
-      font-size:clamp(18px,2.3vw,22px);line-height:1.36;margin:0 0 18px;color:var(--ink);
-      border-left:3px solid var(--spot);padding-left:18px;text-wrap:pretty;}
     .prose p{margin:0 0 13px;color:var(--ink-2);text-wrap:pretty;}
     .prose ul,.prose ol{margin:0 0 13px;padding-left:22px;color:var(--ink-2);}
     .prose li{margin-bottom:8px;}
@@ -501,27 +553,34 @@ const html = `<!DOCTYPE html>
       color:var(--ink-3);font-size:15px;display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);}
     footer{font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
 
-    /* No JS: every chapter and beat simply stands open. */
-    .nojs .ch-body,.nojs .beat-shut{grid-template-rows:1fr;opacity:1;}
-    .nojs .gate,.nojs .ch-open{display:none;}
+    /* No JS: every part, chapter and beat simply stands open, and the page is
+       a plain complete document. */
+    .nojs .fold-body,.nojs .ch-body,.nojs .beat-shut{grid-template-rows:1fr;opacity:1;}
+    .nojs .fold .ch{transform:none;}
+    .nojs .gate,.nojs .ch-open,.nojs .fold-mark{display:none;}
 
     @media (prefers-reduced-motion: reduce){
       .wire::after,.node.dead .node-box{animation:none;}
-      .ch-body,.beat-shut,.ch-btn{transition:none;} html{scroll-behavior:auto;}
+      .fold-body,.ch-body,.beat-shut,.ch-btn,.fold-btn,.fold .ch{transition:none;}
+      html{scroll-behavior:auto;}
     }
     @media (max-width:760px){
       body{font-size:17px;}
+      .fold-btn{grid-template-columns:1fr;grid-template-areas:"tag" "name" "note" "side";
+        gap:4px;padding:22px 4px;}
+      .fold-side{flex-direction:row;align-items:center;justify-content:space-between;
+        width:100%;margin-top:14px;}
       .ch-btn{flex-wrap:wrap;gap:10px;padding:18px 4px;}
       .ch-num{width:32px;font-size:19px;}
       .ch-side{width:100%;padding-left:42px;} .ch-leader{flex:1;}
       .ch-in{padding-left:0;}
-      .term{grid-template-columns:1fr;gap:0;} .term-num{padding-top:0;margin-bottom:6px;}
       .node-box{width:32px;height:32px;} .plate{padding:16px 10px 10px;}
       .bar-lbl{display:none;}
     }
     @media print{
-      .bar,.gate,.plate{display:none;}
-      .ch-body,.beat-shut{grid-template-rows:1fr;opacity:1;}
+      .bar,.gate,.plate,.fold-mark,.ch-open{display:none;}
+      .fold-body,.ch-body,.beat-shut{grid-template-rows:1fr;opacity:1;}
+      .fold .ch{transform:none;}
       body{background:#fff;font-size:11pt;}
     }
   </style>
@@ -562,20 +621,32 @@ const html = `<!DOCTYPE html>
       </div>
     </header>
 
-    <section class="sec">
-      <div class="sec-tag">Part One</div>
-      <h2>Contents</h2>
-      <p class="sec-note">Each chapter is one outage on a system that was live at the time, carrying real leads and real customers. Open the one you want. Numbers are verified from production logs, never from configuration — and no customer data, credentials, hostnames or internal identifiers appear anywhere in this journal.</p>
-      <div class="sec-hr"></div>
+    <section class="fold" id="contents">
+      <h2 class="fold-h">
+        <button class="fold-btn" type="button" aria-expanded="false" aria-controls="contents-body">
+          <span class="fold-tag">Part One</span>
+          <span class="fold-name">Contents</span>
+          <span class="fold-note">Each chapter is one outage on a system that was live at the time. Numbers verified from production logs, never from configuration.</span>
+          <span class="fold-side"><span class="fold-count">${incidents.length} chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
+        </button>
+      </h2>
+      <div class="fold-body" id="contents-body"><div class="fold-in">
 ${incidents.map(chapter).join('\n')}
+      </div></div>
     </section>
 
-    <section class="sec">
-      <div class="sec-tag">Part Two · Appendix</div>
-      <h2>The vocabulary</h2>
-      <p class="sec-note">Each entry is a failure mode with a name. The name is what lets you recognise the same shape somewhere new — a different stack, a different company — before it costs you a weekend.</p>
-      <div class="sec-hr"></div>
+    <section class="fold" id="vocabulary">
+      <h2 class="fold-h">
+        <button class="fold-btn" type="button" aria-expanded="false" aria-controls="vocabulary-body">
+          <span class="fold-tag">Part Two · Appendix</span>
+          <span class="fold-name">The vocabulary</span>
+          <span class="fold-note">Each entry is a failure mode with a name. The name is what lets you recognise the same shape somewhere new, before it costs you a weekend.</span>
+          <span class="fold-side"><span class="fold-count">${concepts.length} entries</span><span class="fold-mark" aria-hidden="true"></span></span>
+        </button>
+      </h2>
+      <div class="fold-body" id="vocabulary-body"><div class="fold-in">
 ${concepts.map(conceptCard).join('\n')}
+      </div></div>
     </section>
 
     <div class="colophon">
@@ -599,6 +670,18 @@ ${concepts.map(conceptCard).join('\n')}
     var fill = document.getElementById('barFill'), count = document.getElementById('barCount');
     function tick(){ opened++; count.textContent = opened + ' / ' + total; fill.style.width = (opened/total*100) + '%'; }
 
+    /* Level one: the two parts. */
+    document.querySelectorAll('.fold').forEach(function(fold){
+      var head = fold.querySelector('.fold-btn');
+      head.addEventListener('click', function(){
+        var willOpen = !fold.classList.contains('open');
+        fold.classList.toggle('open', willOpen);
+        head.setAttribute('aria-expanded', String(willOpen));
+        if (!willOpen) fold.scrollIntoView({block:'start', behavior:'smooth'});
+      });
+    });
+
+    /* Level two: chapters and vocabulary entries share the row component. */
     document.querySelectorAll('.ch').forEach(function(ch){
       var head  = ch.querySelector('.ch-btn');
       var gates = ch.querySelectorAll('.gate');
@@ -626,16 +709,26 @@ ${concepts.map(conceptCard).join('\n')}
       });
     });
 
-    /* A deep link or a cross-reference must never land on a folded chapter —
-       the anchor would point at text the visitor cannot see. */
+    /* A deep link or a cross-reference must open the WHOLE chain down to the
+       thing it names — part, then row, then beats. Landing on a collapsed
+       ancestor points the reader at text they cannot see, which is worse than
+       not linking at all. Outermost first, so each open measures correctly. */
     function reveal(id){
       var el = document.getElementById(id);
       if (!el) return;
+      var fold = el.closest ? el.closest('.fold') : null;
+      if (fold && !fold.classList.contains('open')) fold.querySelector('.fold-btn').click();
       var ch = el.closest ? el.closest('.ch') : null;
       if (ch && !ch.classList.contains('open')) ch.querySelector('.ch-btn').click();
+      if (el.classList && el.classList.contains('fold') && !el.classList.contains('open')) {
+        el.querySelector('.fold-btn').click();
+      }
       if (el.classList && el.classList.contains('ch')) {
         el.querySelectorAll('.gate:not(.done) .gate-btn').forEach(function(b){ b.click(); });
       }
+      /* The ancestors were zero-height when the browser resolved the anchor, so
+         its scroll landed short. Re-aim once the open transitions have run. */
+      setTimeout(function(){ el.scrollIntoView({block:'start', behavior:'smooth'}); }, 640);
     }
     window.addEventListener('hashchange', function(){ reveal(location.hash.slice(1)); });
     if (location.hash) reveal(location.hash.slice(1));
