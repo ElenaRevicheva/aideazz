@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Answered leads that still looked untouched | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/stage-never-moved-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Answered leads that still looked untouched">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/stage-never-moved-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-19T19:15:39.663Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Answered leads that still looked untouched">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Answered leads that still looked untouched",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-19T19:15:39.663Z",
+  "dateModified": "2026-08-19T19:15:39.663Z",
+  "url": "https://aideazz.xyz/blog/stage-never-moved-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/stage-never-moved-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Answered leads that still looked untouched</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-19T19:15:39.663Z">August 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.</em></p>
+<p><strong>Sending a reply logged the activity but never moved the deal.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>Approving and sending a reply created a note and an email activity on the customer record, but the deal stayed in the "not triaged yet" column. A lead that had been personally answered was indistinguishable on the board from one nobody had touched.</p>
+<h2>What was actually happening</h2>
+<p>The deal was created in the first stage and nothing in the send path ever updated it. The board had stopped describing reality, which is the only thing a board is for.</p>
+<h2>The fix</h2>
+<p>A successful send now advances the associated deals to the "sent, awaiting reply" stage, from both the one-tap and the edited-reply paths. The advance is forward-only, because the stage that follows "sent" is "they replied, act now" -- so stamping "sent" on a follow-up to someone who had already replied would have buried the one deal that needed attention that day. Closed and unrecognised stages are left untouched rather than guessed at.</p>
+<h2>How I know it worked</h2>
+<p>Confirmed in both directions on a live record. The first run advanced the deal and reported one moved; the second reported "already at or past sent, not moved back" and moved zero.</p>
+<h2>The rule this earned</h2>
+<blockquote>Where stages encode who must act next, transitions must be forward-only, and the ordering belongs in one list -- internal stage identifiers rarely resemble their display labels.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Monotonic state machine</h3>
+<p><em>States advance. They never regress.</em></p>
+<p>When a record moves through stages -- an order, a ticket, a deal, a deployment -- the sequence usually carries meaning: later stages represent more progress. A monotonic state machine enforces that an update may move a record forward, never backwards.</p>
+<p>Without that rule, a routine automated update can quietly destroy information. An order that goes from <em>Shipped</em> back to <em>Processing</em> has lost the fact that it shipped. Nobody notices, because no error was raised: the write succeeded perfectly.</p>
+<p>The damage is worst when the stages encode <em>who needs to act next</em>. If "we contacted them" sits before "they replied to us", then an automation that stamps "we contacted them" on every outgoing message will drag replied-to records out of the human's action queue -- burying exactly the items that most needed attention.</p>
+<p>Implementation is simple and worth doing every time:</p>
+<ul><li>Keep the ordering in <strong>one list</strong>, not in scattered comparisons. Internal state identifiers frequently do not resemble their display labels, so comparing them by name is guesswork waiting to break.</li>
+<li>Compare positions before writing, and skip if the record is already at or past the target.</li>
+<li>Leave <strong>unrecognised</strong> states alone rather than guessing where they belong.</li></ul>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
