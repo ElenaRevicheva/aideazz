@@ -6,6 +6,7 @@ https://aideazz.xyz/blog/
 https://aideazz.xyz/pitch.html
 https://aideazz.xyz/pitch-es.html
 https://aideazz.xyz/sop-ai-ops.html
+https://aideazz.xyz/ai-ops-wiki.html
 https://aideazz.xyz/sop-ai-ops-es.html
 https://aideazz.xyz/llms.txt
 https://aideazz.xyz/.well-known/llms.txt
@@ -13,6 +14,8 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/telegram-my-ai-agent-ops-dashboard-for-10-live-systems-2026-08-18/
+https://aideazz.xyz/blog/brightdata-web-unlocker-when-150cpm-isnt-a-waste/
 https://aideazz.xyz/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/
 https://aideazz.xyz/blog/131-tests-4-layers-0003run-my-ai-agent-evaluation-harness/
 https://aideazz.xyz/blog/six-months-of-pgvector-on-oracle-autonomous-db-rag-in-production/
