@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import InquiryForm from "@/components/InquiryForm";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee } from "lucide-react";
+import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, TrendingUp, MessageCircle, Activity, LucideIcon, Zap, Briefcase, Rocket, Gem, Flame, Lightbulb, MessageSquare, MapPin, FileText, Compass, ArrowRight, Search, Headphones, Film, ShieldCheck, Coffee, BookOpen } from "lucide-react";
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import { PORTFOLIO_INQUIRY_ANCHOR, PORTFOLIO_NEWSLETTER_ANCHOR } from "@/config/marketing";
@@ -1197,7 +1197,11 @@ export default function BusinessCard() {
                     {/* Was a dead sentence ('Ready to build together.') in the strongest slot on
                         the hiring section — it asked for nothing. Now the CTA out of it: the
                         resume, which is what a hiring reader wants next. */}
-                    <div className="mt-8 text-center">
+                    {/* Two CTAs, deliberately different weights. The resume is what a
+                        hiring reader asks for; the wiki is what convinces them — real
+                        production failures, named and worked through. Secondary styling
+                        so it reads as evidence offered, not as a competing ask. */}
+                    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                       <motion.a
                         href={resumeHref}
                         target="_blank"
@@ -1209,6 +1213,19 @@ export default function BusinessCard() {
                       >
                         <FileText className="w-5 h-5 shrink-0" />
                         {t('section2.openTo.closing')}
+                        <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                      </motion.a>
+                      <motion.a
+                        href="/ai-ops-wiki.html"
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="group inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl border border-emerald-400/60 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-200 text-base sm:text-lg font-bold tracking-tight transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 whitespace-nowrap"
+                      >
+                        <BookOpen className="w-5 h-5 shrink-0" />
+                        {t('section2.openTo.wiki')}
                         <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
                       </motion.a>
                     </div>
