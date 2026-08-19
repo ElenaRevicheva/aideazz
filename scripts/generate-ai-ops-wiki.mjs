@@ -55,9 +55,20 @@ function parseDoc(raw) {
   return { meta, body: m[2].trim() };
 }
 
-const esc = s => String(s ?? '')
+const escAttr = s => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;');
+
+/**
+ * Escape, then apply the two typographic fixes the source files need.
+ *
+ * The Markdown is written with ASCII `--` and straight quotes on purpose — it
+ * has to survive being edited in any editor on any machine without smart-quote
+ * mangling. Prettifying belongs at render time, not in the durable layer.
+ */
+const esc = s => escAttr(s)
+  .replace(/(\s)--(\s)/g, '$1—$2')
+  .replace(/(^|[\s(—])&quot;([^&]*?)&quot;/g, '$1“$2”');
 
 /** Just enough Markdown for the concept bodies: bold, italic, lists, paragraphs. */
 function md(src) {
@@ -146,7 +157,7 @@ const pad = n => String(n).padStart(2, '0');
 
 /** Bento tile for the concept index at the top. */
 const conceptTile = (c, i) => `
-        <a class="tile reveal" href="#${esc(c.meta.slug)}" style="--i:${i}">
+        <a class="tile reveal" href="#${escAttr(c.meta.slug)}" style="--i:${i}">
           <span class="tile-num">${pad(i + 1)}</span>
           <span class="tile-title">${esc(c.meta.title)}</span>
           <span class="tile-line">${esc(c.meta.one_liner)}</span>
@@ -156,7 +167,7 @@ const conceptTile = (c, i) => `
 const conceptCard = (c, i) => {
   const taught = taughtBy.get(c.meta.slug) || [];
   return `
-      <article class="entry reveal" id="${esc(c.meta.slug)}">
+      <article class="entry reveal" id="${escAttr(c.meta.slug)}">
         <div class="entry-num" aria-hidden="true">${pad(i + 1)}</div>
         <div class="entry-body">
           <h3>${esc(c.meta.title)}</h3>
@@ -165,7 +176,7 @@ const conceptCard = (c, i) => {
           <div class="prose">${md(c.body)}</div>
           ${taught.length ? `<div class="linkrow">
             <span class="linkrow-lbl">Learned the hard way in</span>
-            <span class="chips">${taught.map(t => `<a class="chip" href="#${esc(t.meta.slug)}">${esc(shortDate(t.meta.date))} ${esc(year(t.meta.date))} · ${esc(t.meta.title)}</a>`).join('')}</span>
+            <span class="chips">${taught.map(t => `<a class="chip" href="#${escAttr(t.meta.slug)}">${esc(shortDate(t.meta.date))} ${esc(year(t.meta.date))} · ${esc(t.meta.title)}</a>`).join('')}</span>
           </div>` : ''}
         </div>
       </article>`;
@@ -174,7 +185,7 @@ const conceptCard = (c, i) => {
 const incidentCard = i => {
   const linked = (i.meta.concepts || '').split(',').map(s => s.trim()).filter(Boolean);
   return `
-      <article class="incident reveal" id="${esc(i.meta.slug)}">
+      <article class="incident reveal" id="${escAttr(i.meta.slug)}">
         <div class="inc-spine" aria-hidden="true"><span class="inc-dot"></span></div>
         <div class="inc-body">
           <div class="inc-date">${esc(fmtDate(i.meta.date))}</div>
@@ -189,7 +200,7 @@ const incidentCard = i => {
           </dl>
           ${linked.length ? `<div class="linkrow">
             <span class="linkrow-lbl">Concepts</span>
-            <span class="chips">${linked.map(s => `<a class="chip" href="#${esc(s)}">${esc(conceptBySlug.get(s).meta.title)}</a>`).join('')}</span>
+            <span class="chips">${linked.map(s => `<a class="chip" href="#${escAttr(s)}">${esc(conceptBySlug.get(s).meta.title)}</a>`).join('')}</span>
           </div>` : ''}
         </div>
       </article>`;

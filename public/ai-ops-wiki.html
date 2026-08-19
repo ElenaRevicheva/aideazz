@@ -309,12 +309,12 @@
           <h3>Acknowledgement is not completion</h3>
           <div class="aka">a.k.a. 200 OK is not success; 202 does not mean done</div>
           <p class="one-liner">A receipt proves delivery. It never proves processing.</p>
-          <div class="prose"><p>When you hand work to something asynchronous -- a queue, a webhook, a workflow tool, a background job -- the response you get back means <em>&quot;I have received this&quot;</em>. It does not mean <em>&quot;I have done this&quot;</em>, and very often it does not even mean <em>&quot;I intend to do this&quot;</em>.</p>
-<p>This is the trap behind a large share of &quot;the data just vanished&quot; incidents. The sending side logs a success, the receiving side never processes anything, and both halves look healthy in isolation. A queue that accepts your message and never reads it looks exactly like one that works.</p>
+          <div class="prose"><p>When you hand work to something asynchronous — a queue, a webhook, a workflow tool, a background job — the response you get back means <em>&quot;I have received this&quot;</em>. It does not mean <em>&quot;I have done this&quot;</em>, and very often it does not even mean <em>&quot;I intend to do this&quot;</em>.</p>
+<p>This is the trap behind a large share of “the data just vanished” incidents. The sending side logs a success, the receiving side never processes anything, and both halves look healthy in isolation. A queue that accepts your message and never reads it looks exactly like one that works.</p>
 <p>Defences, in order of strength:</p>
 <ol>
 <li><strong>Do not branch on the acknowledgement.</strong> If your fallback logic reads <em>&quot;if the handoff failed, do it myself&quot;</em>, it will never run, because the handoff reports success. Make the local path unconditional and let idempotency absorb the duplicate.</li>
-<li><strong>Confirm from the other side.</strong> Check that the work actually completed -- a status endpoint, a result record, a callback -- rather than trusting the receipt.</li>
+<li><strong>Confirm from the other side.</strong> Check that the work actually completed — a status endpoint, a result record, a callback — rather than trusting the receipt.</li>
 <li><strong>Set a deadline.</strong> If the expected outcome has not appeared within N minutes, treat it as failed and act, rather than waiting forever.</li>
 </ol></div>
           <div class="linkrow">
@@ -331,9 +331,9 @@
           <div class="aka">a.k.a. safe retries; deduplication</div>
           <p class="one-liner">Doing it twice produces the same result as doing it once.</p>
           <div class="prose"><p>An operation is idempotent if repeating it changes nothing beyond the first time. Setting a value to 5 is idempotent. Adding 5 is not.</p>
-<p>This is the property that makes reliability affordable. Networks time out, retries fire, and redundant paths overlap -- so in any real system some operations <em>will</em> happen more than once. If those operations are idempotent, that is a non-event. If they are not, your safety net becomes the thing that corrupts the data or spams the customer.</p>
+<p>This is the property that makes reliability affordable. Networks time out, retries fire, and redundant paths overlap — so in any real system some operations <em>will</em> happen more than once. If those operations are idempotent, that is a non-event. If they are not, your safety net becomes the thing that corrupts the data or spams the customer.</p>
 <p>The usual implementation is a <strong>fingerprint</strong>: a hash of the inputs that identify the work. Before acting, check whether that fingerprint was already handled inside some window; if so, do nothing, and say so in the log.</p>
-<p>The detail that separates a junior implementation from a senior one is <em>what goes into the fingerprint</em>. Too narrow and genuine repeat work gets swallowed; too wide and duplicates slip through. Hashing only &quot;who&quot; would silently discard a real follow-up message from the same person an hour later. Hashing &quot;who <strong>plus</strong> what they said&quot; collapses the duplicates while letting a genuine second message through.</p></div>
+<p>The detail that separates a junior implementation from a senior one is <em>what goes into the fingerprint</em>. Too narrow and genuine repeat work gets swallowed; too wide and duplicates slip through. Hashing only “who” would silently discard a real follow-up message from the same person an hour later. Hashing “who <strong>plus</strong> what they said” collapses the duplicates while letting a genuine second message through.</p></div>
           <div class="linkrow">
             <span class="linkrow-lbl">Learned the hard way in</span>
             <span class="chips"><a class="chip" href="#2026-08-19-ack-trap">AUG 19 2026 · The webhook that returned 200 while switched off</a><a class="chip" href="#2026-05-10-duplicate-posting">MAY 10 2026 · The milestone that posted twice</a></span>
@@ -347,9 +347,9 @@
           <h3>Monotonic state machine</h3>
           <div class="aka">a.k.a. forward-only transitions</div>
           <p class="one-liner">States advance. They never regress.</p>
-          <div class="prose"><p>When a record moves through stages -- an order, a ticket, a deal, a deployment -- the sequence usually carries meaning: later stages represent more progress. A monotonic state machine enforces that an update may move a record forward, never backwards.</p>
+          <div class="prose"><p>When a record moves through stages — an order, a ticket, a deal, a deployment — the sequence usually carries meaning: later stages represent more progress. A monotonic state machine enforces that an update may move a record forward, never backwards.</p>
 <p>Without that rule, a routine automated update can quietly destroy information. An order that goes from <em>Shipped</em> back to <em>Processing</em> has lost the fact that it shipped. Nobody notices, because no error was raised: the write succeeded perfectly.</p>
-<p>The damage is worst when the stages encode <em>who needs to act next</em>. If &quot;we contacted them&quot; sits before &quot;they replied to us&quot;, then an automation that stamps &quot;we contacted them&quot; on every outgoing message will drag replied-to records out of the human's action queue -- burying exactly the items that most needed attention.</p>
+<p>The damage is worst when the stages encode <em>who needs to act next</em>. If “we contacted them” sits before “they replied to us”, then an automation that stamps “we contacted them” on every outgoing message will drag replied-to records out of the human's action queue — burying exactly the items that most needed attention.</p>
 <p>Implementation is simple and worth doing every time:</p>
 <ul>
 <li>Keep the ordering in <strong>one list</strong>, not in scattered comparisons. Internal state identifiers frequently do not resemble their display labels, so comparing them by name is guesswork waiting to break.</li>
@@ -370,10 +370,10 @@
           <div class="aka">a.k.a. quiet failure; failing without a signal</div>
           <p class="one-liner">The system did something reasonable, and told nobody.</p>
           <div class="prose"><p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
-<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
-<p>The defence is not &quot;add more logging&quot;. It is to make the healthy state <strong>provable</strong>, so that &quot;nothing happened&quot; can be distinguished from &quot;nothing was supposed to happen&quot;. Two things do that:</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> — drop this message, skip this record, return an empty string — that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not “add more logging”. It is to make the healthy state <strong>provable</strong>, so that “nothing happened” can be distinguished from “nothing was supposed to happen”. Two things do that:</p>
 <ul>
-<li><strong>Log the outcome, not the attempt.</strong> &quot;sending notification&quot; tells you nothing. &quot;notification DELIVERED (id 4661)&quot; versus &quot;notification REJECTED 400&quot; tells you everything.</li>
+<li><strong>Log the outcome, not the attempt.</strong> “sending notification” tells you nothing. “notification DELIVERED (id 4661)” versus “notification REJECTED 400” tells you everything.</li>
 <li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li>
 </ul></div>
           <div class="linkrow">
@@ -389,10 +389,10 @@
           <h3>Single point of failure (SPOF)</h3>
           <div class="aka">a.k.a. SPOF</div>
           <p class="one-liner">One component whose death kills the whole chain.</p>
-          <div class="prose"><p>Every system has a critical path -- the sequence of steps that must all succeed for the thing to work. A single point of failure is any step in that path with no alternative.</p>
+          <div class="prose"><p>Every system has a critical path — the sequence of steps that must all succeed for the thing to work. A single point of failure is any step in that path with no alternative.</p>
 <p>The trap is that these are usually invisible until they fire, because they hide behind something that has never failed before: a vendor account, a prepaid balance, one API key, one machine, one person who knows how the deploy works.</p>
 <p>The lesson that generalises, and the one most teams get wrong: <strong>redundancy only counts if it is in the path.</strong> Having five interchangeable providers configured somewhere in your estate does nothing if the one place that actually makes the call can only reach one of them. Spare tyres in the garage do not help on the motorway.</p>
-<p>Practical test: for each external dependency on your critical path, ask <em>&quot;if this returns an error for the next 72 hours, what does the user see?&quot;</em> If the answer is &quot;nothing at all&quot;, that dependency is a single point of failure, and the fallback belongs where the call is made -- not elsewhere.</p></div>
+<p>Practical test: for each external dependency on your critical path, ask <em>&quot;if this returns an error for the next 72 hours, what does the user see?&quot;</em> If the answer is “nothing at all”, that dependency is a single point of failure, and the fallback belongs where the call is made — not elsewhere.</p></div>
           <div class="linkrow">
             <span class="linkrow-lbl">Learned the hard way in</span>
             <span class="chips"><a class="chip" href="#2026-08-19-concierge-outage">AUG 19 2026 · The lead pipeline that answered nobody for four days</a></span>
@@ -470,11 +470,11 @@
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Verified by</span><span class="row-hint">Proof it worked</span></dt>
-              <dd>Duplicate suppression confirmed in production -- a second identical submission returned a duplicate result referencing the first draft rather than producing a second approval card.</dd>
+              <dd>Duplicate suppression confirmed in production — a second identical submission returned a duplicate result referencing the first draft rather than producing a second approval card.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Rule earned</span><span class="row-hint">What generalises</span></dt>
-              <dd>Never branch on an acknowledgement. If the fallback logic reads &quot;if the handoff failed, do it myself&quot;, it will never run, because the handoff reports success.</dd>
+              <dd>Never branch on an acknowledgement. If the fallback logic reads “if the handoff failed, do it myself”, it will never run, because the handoff reports success.</dd>
             </div>
           </dl>
           <div class="linkrow">
@@ -498,7 +498,7 @@
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Root cause</span><span class="row-hint">What was actually happening</span></dt>
-              <dd>The component that wrote every reply lived inside a hosted workflow tool and could call only one model vendor. That vendor's prepaid balance reached zero, and the workflow returned &quot;credit balance is too low&quot; on every run for four days. Five other providers were configured and healthy on the application server the whole time, but the call was not made there, so none of them could be reached. Compounding it, the drafting instructions existed in four separate copies; three had drifted out of date, and one still pitched a sales call to job applicants.</dd>
+              <dd>The component that wrote every reply lived inside a hosted workflow tool and could call only one model vendor. That vendor's prepaid balance reached zero, and the workflow returned “credit balance is too low” on every run for four days. Five other providers were configured and healthy on the application server the whole time, but the call was not made there, so none of them could be reached. Compounding it, the drafting instructions existed in four separate copies; three had drifted out of date, and one still pitched a sales call to job applicants.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Fix applied</span><span class="row-hint">What changed</span></dt>
@@ -506,7 +506,7 @@
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Verified by</span><span class="row-hint">Proof it worked</span></dt>
-              <dd>Read from production logs rather than configuration. A provider probe returned HTTP 400 &quot;credit balance too low&quot; for the primary vendor while the chain routed to the next provider and produced a 605-character reply in 2.4 seconds. End-to-end runs were confirmed for both a first-time enquirer and a returning one, each producing a customer record, an acknowledgement to the sender, a copy to the shared mailbox, and an approval card -- under 30 seconds from submission.</dd>
+              <dd>Read from production logs rather than configuration. A provider probe returned HTTP 400 “credit balance too low” for the primary vendor while the chain routed to the next provider and produced a 605-character reply in 2.4 seconds. End-to-end runs were confirmed for both a first-time enquirer and a returning one, each producing a customer record, an acknowledgement to the sender, a copy to the shared mailbox, and an approval card — under 30 seconds from submission.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Rule earned</span><span class="row-hint">What generalises</span></dt>
@@ -530,7 +530,7 @@
             
             <div class="inc-row">
               <dt><span class="row-lbl">Symptom</span><span class="row-hint">What it looked like from outside</span></dt>
-              <dd>Approving and sending a reply created a note and an email activity on the customer record, but the deal stayed in the &quot;not triaged yet&quot; column. A lead that had been personally answered was indistinguishable on the board from one nobody had touched.</dd>
+              <dd>Approving and sending a reply created a note and an email activity on the customer record, but the deal stayed in the “not triaged yet” column. A lead that had been personally answered was indistinguishable on the board from one nobody had touched.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Root cause</span><span class="row-hint">What was actually happening</span></dt>
@@ -538,15 +538,15 @@
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Fix applied</span><span class="row-hint">What changed</span></dt>
-              <dd>A successful send now advances the associated deals to the &quot;sent, awaiting reply&quot; stage, from both the one-tap and the edited-reply paths. The advance is forward-only, because the stage that follows &quot;sent&quot; is &quot;they replied, act now&quot; -- so stamping &quot;sent&quot; on a follow-up to someone who had already replied would have buried the one deal that needed attention that day. Closed and unrecognised stages are left untouched rather than guessed at.</dd>
+              <dd>A successful send now advances the associated deals to the “sent, awaiting reply” stage, from both the one-tap and the edited-reply paths. The advance is forward-only, because the stage that follows “sent” is “they replied, act now” — so stamping “sent” on a follow-up to someone who had already replied would have buried the one deal that needed attention that day. Closed and unrecognised stages are left untouched rather than guessed at.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Verified by</span><span class="row-hint">Proof it worked</span></dt>
-              <dd>Confirmed in both directions on a live record. The first run advanced the deal and reported one moved; the second reported &quot;already at or past sent, not moved back&quot; and moved zero.</dd>
+              <dd>Confirmed in both directions on a live record. The first run advanced the deal and reported one moved; the second reported “already at or past sent, not moved back” and moved zero.</dd>
             </div>
             <div class="inc-row">
               <dt><span class="row-lbl">Rule earned</span><span class="row-hint">What generalises</span></dt>
-              <dd>Where stages encode who must act next, transitions must be forward-only, and the ordering belongs in one list -- internal stage identifiers rarely resemble their display labels.</dd>
+              <dd>Where stages encode who must act next, transitions must be forward-only, and the ordering belongs in one list — internal stage identifiers rarely resemble their display labels.</dd>
             </div>
           </dl>
           <div class="linkrow">
