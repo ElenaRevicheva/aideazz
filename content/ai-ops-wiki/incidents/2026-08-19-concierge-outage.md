@@ -2,6 +2,7 @@
 title: The lead pipeline that answered nobody for four days
 slug: 2026-08-19-concierge-outage
 date: 2026-08-19
+blog: yes
 subtitle: A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead
 concepts: single-point-of-failure, silent-failure, single-source-of-truth
 symptom: Inbound enquiries produced a customer record and an acknowledgement email, but no reply draft ever reached the operator. Test submissions produced nothing at all, which is indistinguishable from a completely dead pipeline.

@@ -198,12 +198,24 @@
     a{color:var(--cyan);text-decoration:none;}
     a:hover{text-decoration:underline;}
 
-    /* ── Scroll-driven reveal, progressively enhanced ─────────── */
+    /* ── Scroll-driven reveal, progressively enhanced ──────────────
+       TRANSFORM ONLY — deliberately never opacity.
+
+       The first cut faded these in from opacity:0 along a ViewTimeline and
+       the tiles rendered BLANK in production: the animation sat at 9% of its
+       range while getComputedStyle reported opacity "1", so the text painted
+       at ~0.09 while DOM inspection insisted everything was fine. A
+       decoration had silently eaten the content, which is the exact failure
+       this wiki is about.
+
+       So legibility is not allowed to depend on an animation resolving
+       correctly. If the timeline misbehaves now, the worst case is an element
+       resting a few pixels low — never an invisible one. */
     @supports (animation-timeline: view()){
       @media (prefers-reduced-motion: no-preference){
         .reveal{animation:rise linear both;animation-timeline:view();
-          animation-range:entry 0% entry 42%;}
-        @keyframes rise{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
+          animation-range:entry 0% cover 26%;}
+        @keyframes rise{from{transform:translateY(22px);}to{transform:none;}}
       }
     }
     @media (prefers-reduced-motion: reduce){
