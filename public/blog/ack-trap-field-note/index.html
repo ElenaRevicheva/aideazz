@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The webhook that returned 200 while switched off | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ack-trap-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The webhook that returned 200 while switched off">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ack-trap-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-19T17:55:43.416Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The webhook that returned 200 while switched off">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The webhook that returned 200 while switched off",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-19T17:55:43.416Z",
+  "dateModified": "2026-08-19T17:55:43.416Z",
+  "url": "https://aideazz.xyz/blog/ack-trap-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ack-trap-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The webhook that returned 200 while switched off</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-19T17:55:43.416Z">August 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.</em></p>
+<p><strong>A disabled workflow accepted every message and read none of them.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>Enquiries arriving through the website chat widget were recorded correctly but received no reply draft for twenty minutes, while the application log stated the handoff had succeeded.</p>
+<h2>What was actually happening</h2>
+<p>The chat path handed each lead to an external workflow endpoint and drafted locally only <em>if that handoff failed</em>. The endpoint returned HTTP 200 even though the workflow behind it was switched off, so the failure branch never executed. The lead was neither lost nor answered: it waited for a timeout-based safety net designed as a last resort, not as the primary path.</p>
+<h2>The fix</h2>
+<p>The local draft is now produced unconditionally rather than as a fallback, and the external handoff is fire-and-forget. Duplicate suppression absorbs the overlap, so both paths running costs nothing.</p>
+<h2>How I know it worked</h2>
+<p>Duplicate suppression confirmed in production -- a second identical submission returned a duplicate result referencing the first draft rather than producing a second approval card.</p>
+<h2>The rule this earned</h2>
+<blockquote>Never branch on an acknowledgement. If the fallback logic reads "if the handoff failed, do it myself", it will never run, because the handoff reports success.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Acknowledgement is not completion</h3>
+<p><em>A receipt proves delivery. It never proves processing.</em></p>
+<p>When you hand work to something asynchronous -- a queue, a webhook, a workflow tool, a background job -- the response you get back means <em>"I have received this"</em>. It does not mean <em>"I have done this"</em>, and very often it does not even mean <em>"I intend to do this"</em>.</p>
+<p>This is the trap behind a large share of "the data just vanished" incidents. The sending side logs a success, the receiving side never processes anything, and both halves look healthy in isolation. A queue that accepts your message and never reads it looks exactly like one that works.</p>
+<p>Defences, in order of strength:</p>
+<p>1. <strong>Do not branch on the acknowledgement.</strong> If your fallback logic reads <em>"if the handoff failed, do it myself"</em>, it will never run, because the handoff reports success. Make the local path unconditional and let idempotency absorb the duplicate.<br>2. <strong>Confirm from the other side.</strong> Check that the work actually completed -- a status endpoint, a result record, a callback -- rather than trusting the receipt.<br>3. <strong>Set a deadline.</strong> If the expected outcome has not appeared within N minutes, treat it as failed and act, rather than waiting forever.</p>
+<h3>Idempotency</h3>
+<p><em>Doing it twice produces the same result as doing it once.</em></p>
+<p>An operation is idempotent if repeating it changes nothing beyond the first time. Setting a value to 5 is idempotent. Adding 5 is not.</p>
+<p>This is the property that makes reliability affordable. Networks time out, retries fire, and redundant paths overlap -- so in any real system some operations <em>will</em> happen more than once. If those operations are idempotent, that is a non-event. If they are not, your safety net becomes the thing that corrupts the data or spams the customer.</p>
+<p>The usual implementation is a <strong>fingerprint</strong>: a hash of the inputs that identify the work. Before acting, check whether that fingerprint was already handled inside some window; if so, do nothing, and say so in the log.</p>
+<p>The detail that separates a junior implementation from a senior one is <em>what goes into the fingerprint</em>. Too narrow and genuine repeat work gets swallowed; too wide and duplicates slip through. Hashing only "who" would silently discard a real follow-up message from the same person an hour later. Hashing "who <strong>plus</strong> what they said" collapses the duplicates while letting a genuine second message through.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
