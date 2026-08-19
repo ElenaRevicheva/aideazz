@@ -230,6 +230,19 @@
       background: rgba(157, 140, 255, 0.1);
       border-color: rgba(157, 140, 255, 0.22);
     }
+    /* The wiki is the only link in this bar that LEAVES the page, so it must
+       not look like another section anchor. Spot-coloured and always lit. */
+    .toc-inner a.toc-out {
+      color: #0b0713;
+      background: linear-gradient(135deg, #c9bcff, #67e8dd);
+      border-color: transparent;
+      font-weight: 700;
+    }
+    .toc-inner a.toc-out:hover {
+      color: #0b0713;
+      filter: brightness(1.08);
+      box-shadow: 0 0 22px rgba(103, 232, 221, 0.3);
+    }
     .toc-inner a.is-active {
       color: var(--text);
       background: linear-gradient(135deg, rgba(157, 140, 255, 0.22), rgba(46, 230, 214, 0.1));
@@ -1242,6 +1255,7 @@
     <p class="hero-sub"><strong>This is not a demo.</strong> Eleven AI co-founder agents plus a marketing engine run 24/7: your website finds you, content publishes daily, leads land in CRM, and Atlas measures whether campaigns actually moved the needle. Below: plain-language status for business owners, then technical depth for engineers who need proof.</p>
     <p class="hero-sub" style="margin-top:14px;margin-bottom:4px;font-size:1.05rem;font-weight:600;color:#d4c8ff;letter-spacing:0.01em;">Get Recommended by ChatGPT → Close on WhatsApp</p>
     <p class="hero-sub" style="margin-top:0;margin-bottom:18px;font-size:0.88rem;color:var(--muted,#9aa3b5);letter-spacing:0.04em;">AI Search Visibility • WhatsApp Agents • AI Automation</p>
+    <p class="hero-sub" style="margin-top:16px;"><a href="/ai-ops-wiki.html" style="display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;background:linear-gradient(135deg,#c9bcff,#67e8dd);color:#0b0713;font-weight:700;font-size:0.95rem;text-decoration:none;">📓 Explore the AI Ops Wiki →</a> <span style="display:block;margin-top:9px;font-size:0.85rem;color:var(--muted,#9aa3b5);">Every outage below, worked through one beat at a time — and the failure modes named.</span></p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Author</div>
@@ -1355,6 +1369,7 @@
       <a href="#postmortem">Incident example</a>
       <a href="#stack">Stack</a>
       <a href="#faq">FAQ</a>
+      <a class="toc-out" href="/ai-ops-wiki.html">AI Ops Wiki →</a>
     </div>
   </nav>
 
