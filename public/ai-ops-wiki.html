@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A working engineer's wiki: named reliability concepts — single point of failure, silent failure, idempotency — each defined in plain language and linked to the real production incident that taught it." />
+  <meta name="color-scheme" content="dark" />
+  <title>AI Ops Wiki — concepts earned in production | AIdeazz</title>
+  <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+  <link rel="canonical" href="https://aideazz.xyz/ai-ops-wiki.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="AIdeazz" />
+  <meta property="og:url" content="https://aideazz.xyz/ai-ops-wiki.html" />
+  <meta property="og:title" content="AI Ops Wiki — concepts earned in production" />
+  <meta property="og:description" content="Every entry here cost an outage. Named reliability concepts, defined in plain language, linked to the incident that taught them." />
+  <meta property="og:image" content="https://aideazz.xyz/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Ops Wiki — concepts earned in production" />
+  <meta name="twitter:description" content="Named reliability concepts, defined in plain language, linked to the real incident that taught them." />
+  <meta name="twitter:image" content="https://aideazz.xyz/og-image.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Ops Wiki — concepts earned in production","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-08-19","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/ai-ops-wiki.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"AI Ops Wiki — production engineering concepts","url":"https://aideazz.xyz/ai-ops-wiki.html","description":"Named reliability and AI-operations concepts, each defined in plain language and linked to the production incident that taught it.","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Acknowledgement is not completion","description":"A receipt proves delivery. It never proves processing.","url":"https://aideazz.xyz/ai-ops-wiki.html#ack-is-not-completion"},{"@type":"DefinedTerm","name":"Idempotency","description":"Doing it twice produces the same result as doing it once.","url":"https://aideazz.xyz/ai-ops-wiki.html#idempotency"},{"@type":"DefinedTerm","name":"Monotonic state machine","description":"States advance. They never regress.","url":"https://aideazz.xyz/ai-ops-wiki.html#monotonic-state-machine"},{"@type":"DefinedTerm","name":"Silent failure","description":"The system did something reasonable, and told nobody.","url":"https://aideazz.xyz/ai-ops-wiki.html#silent-failure"},{"@type":"DefinedTerm","name":"Single point of failure (SPOF)","description":"One component whose death kills the whole chain.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-point-of-failure"},{"@type":"DefinedTerm","name":"Single source of truth","description":"Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-source-of-truth"},{"@type":"DefinedTerm","name":"Verify from logs, not config","description":"Configuration tells you what somebody intended. Logs tell you what happened.","url":"https://aideazz.xyz/ai-ops-wiki.html#verify-from-logs"}]}</script>
+
+  <style>
+    :root{
+      --bg:#05060a; --surface:rgba(14,16,28,.82); --border:rgba(255,255,255,.065);
+      --border-strong:rgba(255,255,255,.11); --violet:#9d8cff; --cyan:#2ee6d6;
+      --text:#e8eaf2; --muted:#9aa0b5; --dim:#6e7488;
+    }
+    *{box-sizing:border-box;}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+      line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .wrap{max-width:900px;margin:0 auto;padding:56px 22px 100px;}
+    a{color:var(--cyan);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.16em;
+      text-transform:uppercase;color:var(--violet);margin-bottom:14px;}
+    h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:clamp(30px,5vw,46px);
+      line-height:1.14;margin:0 0 16px;letter-spacing:-.02em;font-weight:800;}
+    .lede{font-size:17.5px;color:var(--muted);max-width:66ch;margin:0 0 10px;}
+    .divider{height:1px;background:linear-gradient(90deg,var(--border-strong),transparent);margin:38px 0;}
+    h2{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:24px;margin:0 0 6px;
+      letter-spacing:-.01em;font-weight:700;}
+    .sec-note{color:var(--dim);font-size:14.5px;margin:0 0 26px;max-width:64ch;}
+    .entry{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+      padding:24px 24px 20px;margin-bottom:18px;scroll-margin-top:24px;}
+    .entry-head h3{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:19.5px;
+      margin:0 0 4px;font-weight:700;letter-spacing:-.01em;}
+    .aka{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--dim);margin-bottom:12px;}
+    .one-liner{font-size:16.5px;color:var(--violet);font-weight:500;margin:0 0 14px;
+      padding-left:14px;border-left:2px solid var(--violet);}
+    .prose p{margin:0 0 13px;color:#cdd2e2;font-size:15.5px;}
+    .prose ul,.prose ol{margin:0 0 13px;padding-left:20px;color:#cdd2e2;font-size:15.5px;}
+    .prose li{margin-bottom:7px;}
+    .prose strong{color:var(--text);}
+    .pm-row{display:grid;grid-template-columns:132px 1fr;gap:16px;padding:11px 0;
+      border-top:1px solid var(--border);}
+    .pm-lbl{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--dim);padding-top:3px;}
+    .pm-val{color:#cdd2e2;font-size:15px;}
+    .taught-by{margin-top:16px;padding-top:14px;border-top:1px solid var(--border);
+      display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+    .taught-lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--dim);margin-right:2px;}
+    .chip{display:inline-block;padding:5px 11px;border-radius:999px;font-size:12.5px;
+      background:rgba(157,140,255,.1);border:1px solid rgba(157,140,255,.22);
+      color:#c3b8ff;text-decoration:none;}
+    .chip:hover{background:rgba(157,140,255,.18);text-decoration:none;}
+    .incident .one-liner{border-left-color:var(--cyan);color:var(--cyan);}
+    .toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px;}
+    .callout{background:rgba(46,230,214,.06);border:1px solid rgba(46,230,214,.2);
+      border-radius:12px;padding:16px 18px;color:#bfe9e4;font-size:15px;margin-top:34px;}
+    footer{margin-top:46px;padding-top:22px;border-top:1px solid var(--border);
+      color:var(--dim);font-size:14px;}
+    @media(max-width:620px){.pm-row{grid-template-columns:1fr;gap:4px;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">AIdeazz AI Lab · Field notes</div>
+    <h1>AI Ops Wiki</h1>
+    <p class="lede">Concepts earned in production, not read in a textbook. Every entry below cost an outage on a system that was live at the time — a lead pipeline, a publishing bot, a CRM automation. Each names the idea in plain language, then links to the incident that taught it.</p>
+    <p class="lede">It grows one debugging session at a time. The durable copy is Markdown in the repository; this page is generated from it, so the two can never drift apart.</p>
+
+    <div class="divider"></div>
+
+    <h2>Concepts</h2>
+    <p class="sec-note">The vocabulary. Each one is a failure mode with a name, and a name is what makes it possible to spot the same shape somewhere new.</p>
+    <div class="toc"><a class="chip" href="#ack-is-not-completion">Acknowledgement is not completion</a><a class="chip" href="#idempotency">Idempotency</a><a class="chip" href="#monotonic-state-machine">Monotonic state machine</a><a class="chip" href="#silent-failure">Silent failure</a><a class="chip" href="#single-point-of-failure">Single point of failure (SPOF)</a><a class="chip" href="#single-source-of-truth">Single source of truth</a><a class="chip" href="#verify-from-logs">Verify from logs, not config</a></div>
+    <div class="divider" style="margin:22px 0;"></div>
+
+      <article class="entry" id="ack-is-not-completion">
+        <div class="entry-head">
+          <h3>Acknowledgement is not completion</h3>
+          <div class="aka">also called: 200 OK is not success; 202 does not mean done</div>
+        </div>
+        <p class="one-liner">A receipt proves delivery. It never proves processing.</p>
+        <div class="prose"><p>When you hand work to something asynchronous -- a queue, a webhook, a workflow tool, a background job -- the response you get back means <em>&quot;I have received this&quot;</em>. It does not mean <em>&quot;I have done this&quot;</em>, and very often it does not even mean <em>&quot;I intend to do this&quot;</em>.</p>
+<p>This is the trap behind a large share of &quot;the data just vanished&quot; incidents. The sending side logs a success, the receiving side never processes anything, and both halves look healthy in isolation. A queue that accepts your message and never reads it looks exactly like one that works.</p>
+<p>Defences, in order of strength:</p>
+<ol>
+<li><strong>Do not branch on the acknowledgement.</strong> If your fallback logic reads <em>&quot;if the handoff failed, do it myself&quot;</em>, it will never run, because the handoff reports success. Make the local path unconditional and let idempotency absorb the duplicate.</li>
+<li><strong>Confirm from the other side.</strong> Check that the work actually completed -- a status endpoint, a result record, a callback -- rather than trusting the receipt.</li>
+<li><strong>Set a deadline.</strong> If the expected outcome has not appeared within N minutes, treat it as failed and act, rather than waiting forever.</li>
+</ol></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-ack-trap">August 19, 2026 — The webhook that returned 200 while switched off</a>
+        </div>
+      </article>
+
+      <article class="entry" id="idempotency">
+        <div class="entry-head">
+          <h3>Idempotency</h3>
+          <div class="aka">also called: safe retries; deduplication</div>
+        </div>
+        <p class="one-liner">Doing it twice produces the same result as doing it once.</p>
+        <div class="prose"><p>An operation is idempotent if repeating it changes nothing beyond the first time. Setting a value to 5 is idempotent. Adding 5 is not.</p>
+<p>This is the property that makes reliability affordable. Networks time out, retries fire, and redundant paths overlap -- so in any real system some operations <em>will</em> happen more than once. If those operations are idempotent, that is a non-event. If they are not, your safety net becomes the thing that corrupts the data or spams the customer.</p>
+<p>The usual implementation is a <strong>fingerprint</strong>: a hash of the inputs that identify the work. Before acting, check whether that fingerprint was already handled inside some window; if so, do nothing, and say so in the log.</p>
+<p>The detail that separates a junior implementation from a senior one is <em>what goes into the fingerprint</em>. Too narrow and genuine repeat work gets swallowed; too wide and duplicates slip through. Hashing only &quot;who&quot; would silently discard a real follow-up message from the same person an hour later. Hashing &quot;who <strong>plus</strong> what they said&quot; collapses the duplicates while letting a genuine second message through.</p></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-ack-trap">August 19, 2026 — The webhook that returned 200 while switched off</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 — The milestone that posted twice</a>
+        </div>
+      </article>
+
+      <article class="entry" id="monotonic-state-machine">
+        <div class="entry-head">
+          <h3>Monotonic state machine</h3>
+          <div class="aka">also called: forward-only transitions</div>
+        </div>
+        <p class="one-liner">States advance. They never regress.</p>
+        <div class="prose"><p>When a record moves through stages -- an order, a ticket, a deal, a deployment -- the sequence usually carries meaning: later stages represent more progress. A monotonic state machine enforces that an update may move a record forward, never backwards.</p>
+<p>Without that rule, a routine automated update can quietly destroy information. An order that goes from <em>Shipped</em> back to <em>Processing</em> has lost the fact that it shipped. Nobody notices, because no error was raised: the write succeeded perfectly.</p>
+<p>The damage is worst when the stages encode <em>who needs to act next</em>. If &quot;we contacted them&quot; sits before &quot;they replied to us&quot;, then an automation that stamps &quot;we contacted them&quot; on every outgoing message will drag replied-to records out of the human's action queue -- burying exactly the items that most needed attention.</p>
+<p>Implementation is simple and worth doing every time:</p>
+<ul>
+<li>Keep the ordering in <strong>one list</strong>, not in scattered comparisons. Internal state identifiers frequently do not resemble their display labels, so comparing them by name is guesswork waiting to break.</li>
+<li>Compare positions before writing, and skip if the record is already at or past the target.</li>
+<li>Leave <strong>unrecognised</strong> states alone rather than guessing where they belong.</li>
+</ul></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-stage-never-moved">August 19, 2026 — Answered leads that still looked untouched</a>
+        </div>
+      </article>
+
+      <article class="entry" id="silent-failure">
+        <div class="entry-head">
+          <h3>Silent failure</h3>
+          <div class="aka">also called: quiet failure; failing without a signal</div>
+        </div>
+        <p class="one-liner">The system did something reasonable, and told nobody.</p>
+        <div class="prose"><p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not &quot;add more logging&quot;. It is to make the healthy state <strong>provable</strong>, so that &quot;nothing happened&quot; can be distinguished from &quot;nothing was supposed to happen&quot;. Two things do that:</p>
+<ul>
+<li><strong>Log the outcome, not the attempt.</strong> &quot;sending notification&quot; tells you nothing. &quot;notification DELIVERED (id 4661)&quot; versus &quot;notification REJECTED 400&quot; tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li>
+</ul></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 — The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 — The engagement loop that never ran</a>
+        </div>
+      </article>
+
+      <article class="entry" id="single-point-of-failure">
+        <div class="entry-head">
+          <h3>Single point of failure (SPOF)</h3>
+          <div class="aka">also called: SPOF</div>
+        </div>
+        <p class="one-liner">One component whose death kills the whole chain.</p>
+        <div class="prose"><p>Every system has a critical path -- the sequence of steps that must all succeed for the thing to work. A single point of failure is any step in that path with no alternative.</p>
+<p>The trap is that these are usually invisible until they fire, because they hide behind something that has never failed before: a vendor account, a prepaid balance, one API key, one machine, one person who knows how the deploy works.</p>
+<p>The lesson that generalises, and the one most teams get wrong: <strong>redundancy only counts if it is in the path.</strong> Having five interchangeable providers configured somewhere in your estate does nothing if the one place that actually makes the call can only reach one of them. Spare tyres in the garage do not help on the motorway.</p>
+<p>Practical test: for each external dependency on your critical path, ask <em>&quot;if this returns an error for the next 72 hours, what does the user see?&quot;</em> If the answer is &quot;nothing at all&quot;, that dependency is a single point of failure, and the fallback belongs where the call is made -- not elsewhere.</p></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 — The lead pipeline that answered nobody for four days</a>
+        </div>
+      </article>
+
+      <article class="entry" id="single-source-of-truth">
+        <div class="entry-head">
+          <h3>Single source of truth</h3>
+          <div class="aka">also called: DRY; configuration drift</div>
+        </div>
+        <p class="one-liner">Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</p>
+        <div class="prose"><p>When the same rule, prompt, threshold or piece of logic exists in more than one place, the copies begin identical and end different. Nothing announces the divergence. Someone updates one copy, the others keep running the old behaviour, and the system's actual conduct is now split across versions that no single file describes.</p>
+<p>The failure is especially nasty when a copy lives somewhere code review cannot see it: a hosted workflow builder, a dashboard setting, a scheduled job on one machine, a prompt pasted into a vendor interface. Those copies never appear in a diff, so the drift stays invisible until it produces a visibly wrong result in front of a customer.</p>
+<p>Two defences that work:</p>
+<ul>
+<li><strong>One definition, imported everywhere.</strong> Every consumer reads the same file. Where a copy must physically live elsewhere, generate and push it from that file rather than editing it by hand.</li>
+<li><strong>Detect drift automatically.</strong> Re-read the remote copies on a schedule and raise an alert when one no longer matches the source. A copy you cannot diff is a copy you must monitor.</li>
+</ul></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 — The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 — The milestone that posted twice</a>
+        </div>
+      </article>
+
+      <article class="entry" id="verify-from-logs">
+        <div class="entry-head">
+          <h3>Verify from logs, not config</h3>
+          <div class="aka">also called: observability; probe, do not assume</div>
+        </div>
+        <p class="one-liner">Configuration tells you what somebody intended. Logs tell you what happened.</p>
+        <div class="prose"><p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul>
+<li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li>
+</ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p></div>
+        <div class="taught-by">
+          <span class="taught-lbl">Learned the hard way in</span>
+          <a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 — The engagement loop that never ran</a>
+        </div>
+      </article>
+
+    <div class="divider"></div>
+
+    <h2>Incidents</h2>
+    <p class="sec-note">What actually happened, with the dates and the numbers that were verified from production logs rather than from configuration. No customer data, credentials, hostnames or internal identifiers appear here.</p>
+
+      <article class="entry incident" id="2026-08-19-ack-trap">
+        <div class="entry-head">
+          <h3>The webhook that returned 200 while switched off</h3>
+          <div class="aka">August 19, 2026 — A disabled workflow accepted every message and read none of them</div>
+        </div>
+        
+        <div class="pm-row">
+          <div class="pm-lbl">Symptom</div>
+          <div class="pm-val">Enquiries arriving through the website chat widget were recorded correctly but received no reply draft for twenty minutes, while the application log stated the handoff had succeeded.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Root cause</div>
+          <div class="pm-val">The chat path handed each lead to an external workflow endpoint and drafted locally only *if that handoff failed*. The endpoint returned HTTP 200 even though the workflow behind it was switched off, so the failure branch never executed. The lead was neither lost nor answered: it waited for a timeout-based safety net designed as a last resort, not as the primary path.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Fix applied</div>
+          <div class="pm-val">The local draft is now produced unconditionally rather than as a fallback, and the external handoff is fire-and-forget. Duplicate suppression absorbs the overlap, so both paths running costs nothing.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Verified by</div>
+          <div class="pm-val">Duplicate suppression confirmed in production -- a second identical submission returned a duplicate result referencing the first draft rather than producing a second approval card.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Rule earned</div>
+          <div class="pm-val">Never branch on an acknowledgement. If the fallback logic reads &quot;if the handoff failed, do it myself&quot;, it will never run, because the handoff reports success.</div>
+        </div>
+        <div class="taught-by">
+          <span class="taught-lbl">Concepts</span>
+          <a class="chip" href="#ack-is-not-completion">Acknowledgement is not completion</a><a class="chip" href="#idempotency">Idempotency</a>
+        </div>
+      </article>
+
+      <article class="entry incident" id="2026-08-19-concierge-outage">
+        <div class="entry-head">
+          <h3>The lead pipeline that answered nobody for four days</h3>
+          <div class="aka">August 19, 2026 — A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead</div>
+        </div>
+        
+        <div class="pm-row">
+          <div class="pm-lbl">Symptom</div>
+          <div class="pm-val">Inbound enquiries produced a customer record and an acknowledgement email, but no reply draft ever reached the operator. Test submissions produced nothing at all, which is indistinguishable from a completely dead pipeline.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Root cause</div>
+          <div class="pm-val">The component that wrote every reply lived inside a hosted workflow tool and could call only one model vendor. That vendor's prepaid balance reached zero, and the workflow returned &quot;credit balance is too low&quot; on every run for four days. Five other providers were configured and healthy on the application server the whole time, but the call was not made there, so none of them could be reached. Compounding it, the drafting instructions existed in four separate copies; three had drifted out of date, and one still pitched a sales call to job applicants.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Fix applied</div>
+          <div class="pm-val">Drafting moved into the application itself, behind a five-provider fallback chain ordered by use case. The reply endpoint now writes the draft when no draft text is supplied, which made the workflow tool optional rather than required, and drafting happens inline the moment a lead arrives instead of waiting on an external schedule. All four copies of the instructions were reduced to one.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Verified by</div>
+          <div class="pm-val">Read from production logs rather than configuration. A provider probe returned HTTP 400 &quot;credit balance too low&quot; for the primary vendor while the chain routed to the next provider and produced a 605-character reply in 2.4 seconds. End-to-end runs were confirmed for both a first-time enquirer and a returning one, each producing a customer record, an acknowledgement to the sender, a copy to the shared mailbox, and an approval card -- under 30 seconds from submission.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Rule earned</div>
+          <div class="pm-val">Redundancy only counts if it sits in the path where the call is made. A fallback chain configured elsewhere in the estate protects nothing.</div>
+        </div>
+        <div class="taught-by">
+          <span class="taught-lbl">Concepts</span>
+          <a class="chip" href="#single-point-of-failure">Single point of failure (SPOF)</a><a class="chip" href="#silent-failure">Silent failure</a><a class="chip" href="#single-source-of-truth">Single source of truth</a>
+        </div>
+      </article>
+
+      <article class="entry incident" id="2026-08-19-stage-never-moved">
+        <div class="entry-head">
+          <h3>Answered leads that still looked untouched</h3>
+          <div class="aka">August 19, 2026 — Sending a reply logged the activity but never moved the deal</div>
+        </div>
+        
+        <div class="pm-row">
+          <div class="pm-lbl">Symptom</div>
+          <div class="pm-val">Approving and sending a reply created a note and an email activity on the customer record, but the deal stayed in the &quot;not triaged yet&quot; column. A lead that had been personally answered was indistinguishable on the board from one nobody had touched.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Root cause</div>
+          <div class="pm-val">The deal was created in the first stage and nothing in the send path ever updated it. The board had stopped describing reality, which is the only thing a board is for.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Fix applied</div>
+          <div class="pm-val">A successful send now advances the associated deals to the &quot;sent, awaiting reply&quot; stage, from both the one-tap and the edited-reply paths. The advance is forward-only, because the stage that follows &quot;sent&quot; is &quot;they replied, act now&quot; -- so stamping &quot;sent&quot; on a follow-up to someone who had already replied would have buried the one deal that needed attention that day. Closed and unrecognised stages are left untouched rather than guessed at.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Verified by</div>
+          <div class="pm-val">Confirmed in both directions on a live record. The first run advanced the deal and reported one moved; the second reported &quot;already at or past sent, not moved back&quot; and moved zero.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Rule earned</div>
+          <div class="pm-val">Where stages encode who must act next, transitions must be forward-only, and the ordering belongs in one list -- internal stage identifiers rarely resemble their display labels.</div>
+        </div>
+        <div class="taught-by">
+          <span class="taught-lbl">Concepts</span>
+          <a class="chip" href="#monotonic-state-machine">Monotonic state machine</a>
+        </div>
+      </article>
+
+      <article class="entry incident" id="2026-05-25-engagement-loop">
+        <div class="entry-head">
+          <h3>The engagement loop that never ran</h3>
+          <div class="aka">May 25, 2026 — Configuration promised 32 engagements a day; the logs showed zero cycles had ever completed</div>
+        </div>
+        
+        <div class="pm-row">
+          <div class="pm-lbl">Symptom</div>
+          <div class="pm-val">A published engagement rate could not be substantiated. The startup banner appeared 4,357 times in the logs; the line proving a completed cycle appeared zero times. The behaviour had never occurred, whatever the configuration said.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Root cause</div>
+          <div class="pm-val">Three layers. The first run was scheduled five minutes after startup; an external scheduled job was restarting the process every five minutes; and that job was a health check whose text match never matched the process manager's table output, so it judged a healthy process dead, permanently.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Fix applied</div>
+          <div class="pm-val">The health check was rewritten to read structured state rather than to match rendered text. The process stayed up, and the first engagement cycle in the agent's history fired the same day.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Verified by</div>
+          <div class="pm-val">Real replies and follows confirmed from logs after the fix.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Rule earned</div>
+          <div class="pm-val">Never claim agent behaviour from configuration. Grep for the action line, not the setup line.</div>
+        </div>
+        <div class="taught-by">
+          <span class="taught-lbl">Concepts</span>
+          <a class="chip" href="#verify-from-logs">Verify from logs, not config</a><a class="chip" href="#silent-failure">Silent failure</a>
+        </div>
+      </article>
+
+      <article class="entry incident" id="2026-05-10-duplicate-posting">
+        <div class="entry-head">
+          <h3>The milestone that posted twice</h3>
+          <div class="aka">May 10, 2026 — The same update emitted twice, six minutes apart</div>
+        </div>
+        
+        <div class="pm-row">
+          <div class="pm-lbl">Symptom</div>
+          <div class="pm-val">Pending milestones resurfaced on every automation cycle and were published more than once.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Root cause</div>
+          <div class="pm-val">A triple mismatch between the flag that marked work as done, the field the filter read, and the key the completion endpoint matched on, so completed work never looked completed to the next cycle.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Fix applied</div>
+          <div class="pm-val">The read excludes either flag, the completion endpoint falls back through several keys, and the client sends enough context for fallback matching.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Verified by</div>
+          <div class="pm-val">A clean API snapshot showing zero pending items, plus two full automation cycles with no duplication.</div>
+        </div>
+        <div class="pm-row">
+          <div class="pm-lbl">Rule earned</div>
+          <div class="pm-val">If an operation can run twice, it must be safe to run twice. Deduplicate on a key that genuinely identifies the work.</div>
+        </div>
+        <div class="taught-by">
+          <span class="taught-lbl">Concepts</span>
+          <a class="chip" href="#idempotency">Idempotency</a><a class="chip" href="#single-source-of-truth">Single source of truth</a>
+        </div>
+      </article>
+
+    <div class="callout">
+      <strong>How this is maintained:</strong> a debugging session that produces a transferable lesson earns one incident file, and a new failure mode earns one concept file. Nothing is hand-written in HTML — <code>node scripts/generate-ai-ops-wiki.mjs</code> rebuilds this page from the Markdown, and a reference to a concept that does not exist fails the build rather than shipping a dead link.
+    </div>
+
+    <footer>
+      Maintained by <a href="https://aideazz.xyz/portfolio">Elena Revicheva</a> · part of the
+      <a href="/sop-ai-ops.html">AI Ops Runbook</a> ·
+      last updated 2026-08-19
+    </footer>
+  </div>
+</body>
+</html>
