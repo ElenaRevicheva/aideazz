@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The lead pipeline that answered nobody for four days | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/concierge-outage-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The lead pipeline that answered nobody for four days">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/concierge-outage-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-19T17:55:40.816Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The lead pipeline that answered nobody for four days">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The lead pipeline that answered nobody for four days",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-19T17:55:40.816Z",
+  "dateModified": "2026-08-19T17:55:40.816Z",
+  "url": "https://aideazz.xyz/blog/concierge-outage-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/concierge-outage-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The lead pipeline that answered nobody for four days</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-19T17:55:40.816Z">August 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 19, 2026.</em></p>
+<p><strong>A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>Inbound enquiries produced a customer record and an acknowledgement email, but no reply draft ever reached the operator. Test submissions produced nothing at all, which is indistinguishable from a completely dead pipeline.</p>
+<h2>What was actually happening</h2>
+<p>The component that wrote every reply lived inside a hosted workflow tool and could call only one model vendor. That vendor's prepaid balance reached zero, and the workflow returned "credit balance is too low" on every run for four days. Five other providers were configured and healthy on the application server the whole time, but the call was not made there, so none of them could be reached. Compounding it, the drafting instructions existed in four separate copies; three had drifted out of date, and one still pitched a sales call to job applicants.</p>
+<h2>The fix</h2>
+<p>Drafting moved into the application itself, behind a five-provider fallback chain ordered by use case. The reply endpoint now writes the draft when no draft text is supplied, which made the workflow tool optional rather than required, and drafting happens inline the moment a lead arrives instead of waiting on an external schedule. All four copies of the instructions were reduced to one.</p>
+<h2>How I know it worked</h2>
+<p>Read from production logs rather than configuration. A provider probe returned HTTP 400 "credit balance too low" for the primary vendor while the chain routed to the next provider and produced a 605-character reply in 2.4 seconds. End-to-end runs were confirmed for both a first-time enquirer and a returning one, each producing a customer record, an acknowledgement to the sender, a copy to the shared mailbox, and an approval card -- under 30 seconds from submission.</p>
+<h2>The rule this earned</h2>
+<blockquote>Redundancy only counts if it sits in the path where the call is made. A fallback chain configured elsewhere in the estate protects nothing.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Single point of failure (SPOF)</h3>
+<p><em>One component whose death kills the whole chain.</em></p>
+<p>Every system has a critical path -- the sequence of steps that must all succeed for the thing to work. A single point of failure is any step in that path with no alternative.</p>
+<p>The trap is that these are usually invisible until they fire, because they hide behind something that has never failed before: a vendor account, a prepaid balance, one API key, one machine, one person who knows how the deploy works.</p>
+<p>The lesson that generalises, and the one most teams get wrong: <strong>redundancy only counts if it is in the path.</strong> Having five interchangeable providers configured somewhere in your estate does nothing if the one place that actually makes the call can only reach one of them. Spare tyres in the garage do not help on the motorway.</p>
+<p>Practical test: for each external dependency on your critical path, ask <em>"if this returns an error for the next 72 hours, what does the user see?"</em> If the answer is "nothing at all", that dependency is a single point of failure, and the fallback belongs where the call is made -- not elsewhere.</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Single source of truth</h3>
+<p><em>Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</em></p>
+<p>When the same rule, prompt, threshold or piece of logic exists in more than one place, the copies begin identical and end different. Nothing announces the divergence. Someone updates one copy, the others keep running the old behaviour, and the system's actual conduct is now split across versions that no single file describes.</p>
+<p>The failure is especially nasty when a copy lives somewhere code review cannot see it: a hosted workflow builder, a dashboard setting, a scheduled job on one machine, a prompt pasted into a vendor interface. Those copies never appear in a diff, so the drift stays invisible until it produces a visibly wrong result in front of a customer.</p>
+<p>Two defences that work:</p>
+<ul><li><strong>One definition, imported everywhere.</strong> Every consumer reads the same file. Where a copy must physically live elsewhere, generate and push it from that file rather than editing it by hand.</li>
+<li><strong>Detect drift automatically.</strong> Re-read the remote copies on a schedule and raise an alert when one no longer matches the source. A copy you cannot diff is a copy you must monitor.</li></ul>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
