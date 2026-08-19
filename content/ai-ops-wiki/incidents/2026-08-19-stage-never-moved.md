@@ -2,6 +2,7 @@
 title: Answered leads that still looked untouched
 slug: 2026-08-19-stage-never-moved
 date: 2026-08-19
+blog: yes
 subtitle: Sending a reply logged the activity but never moved the deal
 concepts: monotonic-state-machine
 symptom: Approving and sending a reply created a note and an email activity on the customer record, but the deal stayed in the "not triaged yet" column. A lead that had been personally answered was indistinguishable on the board from one nobody had touched.
