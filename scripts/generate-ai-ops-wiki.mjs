@@ -365,7 +365,11 @@ const html = `<!DOCTYPE html>
     .tagline{font-family:var(--disp);font-weight:600;font-style:italic;
       font-size:clamp(26px,4.6vw,44px);line-height:1.08;letter-spacing:-.018em;
       margin:0 auto 22px;max-width:19ch;text-wrap:balance;}
-    .lede{font-size:19px;color:var(--ink-2);max-width:56ch;margin:0 auto 15px;text-wrap:pretty;}
+    /* The masthead is centred; the standfirst is NOT. Centred prose under a
+       drop cap fights itself — the cap anchors the left edge and every ragged
+       line then disagrees with it. Ranged left, the way a standfirst is set. */
+    .lede{font-size:19px;color:var(--ink-2);max-width:58ch;margin:0 auto 15px;
+      text-align:left;text-wrap:pretty;}
     .lede strong{font-weight:600;color:var(--ink);}
     /* Drop cap — the clearest "this is set type, not a dashboard" signal. */
     .lede.first::first-letter{font-family:var(--disp);font-weight:900;font-size:3.05em;
