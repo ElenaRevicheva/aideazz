@@ -154,7 +154,7 @@ export default function BlogPost() {
     const poll = async () => {
       attempt += 1;
       try {
-        const r = await fetch(url);
+        const r = await fetch(url, { signal: AbortSignal.timeout(12000) });
         if (r.status === 202) {
           if (!cancelled && attempt < MAX_ATTEMPTS) window.setTimeout(poll, RETRY_MS);
           else if (!cancelled) setServerEsLoading(false); // give up quietly → English shows
@@ -394,11 +394,12 @@ export default function BlogPost() {
             className="prose prose-invert prose-purple max-w-none prose-headings:text-white prose-a:text-purple-400 prose-strong:text-white"
           >
             {showEsTranslating ? (
-              <div className="flex items-center gap-3 text-purple-300 py-12 not-prose">
+              <div className="flex items-center gap-3 text-purple-300 py-4 not-prose mb-6">
                 <Loader2 className="w-6 h-6 animate-spin shrink-0" />
                 <span>{t("blog.post.translatingEs")}</span>
               </div>
-            ) : (
+            ) : null}
+            {displayBody ? (
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -414,7 +415,7 @@ export default function BlogPost() {
               >
                 {displayBody}
               </ReactMarkdown>
-            )}
+            ) : null}
           </div>
           {sourceUrl ? (
             <footer className="mt-12 pt-8 border-t border-white/10 text-sm text-gray-400">
