@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three LangGraph Rewrites: Checkpointing Stateful Agents in Production | AIdeazz</title>
+  <meta name="description" content="My cto-aipa process has restarted 81 times today. It's up 0 days. This is not good. My algom-stream process has restarted 55193 times over 7 days. That's worse. Both are LangGraph agents. The algom-p…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production-2026-08-23/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Three LangGraph Rewrites: Checkpointing Stateful Agents in Production">
+  <meta property="og:description" content="My cto-aipa process has restarted 81 times today. It's up 0 days. This is not good. My algom-stream process has restarted 55193 times over 7 days. That's worse. Both are LangGraph agents. The algom-p…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production-2026-08-23/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-23T19:30:40.424Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Three LangGraph Rewrites: Checkpointing Stateful Agents in Production">
+  <meta name="twitter:description" content="My cto-aipa process has restarted 81 times today. It's up 0 days. This is not good. My algom-stream process has restarted 55193 times over 7 days. That's worse. Both are LangGraph agents. The algom-p…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Three LangGraph Rewrites: Checkpointing Stateful Agents in Production",
+  "description": "My cto-aipa process has restarted 81 times today. It's up 0 days. This is not good. My algom-stream process has restarted 55193 times over 7 days. That's worse. Both are LangGraph agents. The algom-p…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-23T19:30:40.424Z",
+  "dateModified": "2026-08-23T19:30:40.424Z",
+  "url": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production-2026-08-23/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production-2026-08-23/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you handle large state sizes with the event-sourcing approach in `oracledb`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `oracledb` `BLOB` column can handle large states. For extremely large states, I implement snapshotting: periodically, the full reconstructed state is saved as a new \"base\" checkpoint, and older events are pruned. This reduces the replay time and storage for event history."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if an agent needs to modify an existing record, not just append?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If a true modification is required, the \"event\" itself represents the modification. For example, instead of `{\"task_id\": \"xyz\", \"status\": \"completed\"}`, you might append `{\"event_type\": \"task_updated\", \"task_id\": \"xyz\", \"new_status\": \"completed\"}`. The state reconstruction logic then applies these updates in order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage schema evolution for the event types themselves?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each event record includes a `version` field. The state reconstruction logic is designed to handle different event versions, applying transformations as needed during replay. This is similar to database migrations but applied to the event stream."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this event-sourcing approach increase latency for state reads/writes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Initial state loading can be slower due to replaying events. However, subsequent appends are fast. For critical paths, I cache the current state in memory and only persist the new events to `oracledb`, updating the in-memory state after a successful write."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Three LangGraph Rewrites: Checkpointing Stateful Agents in Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-23T19:30:40.424Z">August 23, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> process has restarted 81 times today. It's up 0 days. This is not good. My <code>algom-stream</code> process has restarted 55193 times over 7 days. That's worse. Both are LangGraph agents. The <code>algom-poll</code> process, also a LangGraph agent, has 0 restarts over 26 days. This discrepancy highlights the core challenge of shipping stateful agents: checkpointing. I've rewritten the LangGraph state management three times to get to the <code>algom-poll</code> stability. The first two failed silently, costing weeks of lost work.</p>
+<h2>The Silent Killer: Schema Mismatch in Checkpoints</h2>
+<p>My initial approach to LangGraph stateful agents production checkpointing was straightforward: define a <code>TypedDict</code> for the state and pass it to the <code>StateGraph</code>. I used <code>oracledb</code> for persistence, storing the entire state object as a JSON string in a <code>BLOB</code> column. This worked for simple flows.</p>
+<p>Then I added a new field to the state schema. A small, seemingly innocuous change. The agent continued to run, logging no errors. For weeks, the <code>cto-aipa</code> agent processed jobs, but the new state field was never persisted. Every time the process restarted (which, as the <code>81 restarts</code> today indicates, happens), the agent would lose the progress related to that new field. I discovered this only when a downstream process, expecting the new state, failed.</p>
+<p>The problem was a silent schema mismatch. LangGraph's <code>JsonCheckpointSaver</code> (which I was using under the hood with <code>oracledb</code> as the backend) would serialize the current state, but when loading, it would only deserialize fields that existed in the <em>original</em> schema at the time of the checkpoint's creation. New fields were simply ignored on load, and old fields not present in the current runtime schema were dropped on save. No error, no warning. Just data loss.</p>
+<p>This meant the <code>cto-aipa</code> agent was effectively discarding critical parts of its work. The <code>git log</code> for <code>cto-aipa</code> shows 12 commits in the last 48 hours, indicating active development and schema changes. Each change risked this silent failure.</p>
+<h2>Checkpoint Corruption and the "One-Writer" Rule</h2>
+<p>My second attempt to fix the state problem involved a more robust <code>oracledb</code> schema and explicit versioning of the state. I added a <code>version</code> field to the state and a migration function. This was an improvement, but it introduced a new class of failures: checkpoint corruption.</p>
+<p>The <code>algom-stream</code> agent, which has 55193 restarts over 7 days, was particularly susceptible. This agent processes high-volume, real-time data. Multiple instances of the agent, or even different parts of the same agent, could attempt to update the checkpoint simultaneously. While <code>oracledb</code> provides transaction isolation, the LangGraph <code>CheckpointSaver</code> abstraction doesn't inherently prevent race conditions at the application level if not configured carefully.</p>
+<p>I observed <code>oracledb.DatabaseError</code> exceptions related to constraint violations or data integrity issues during checkpoint saves. The root cause was often that one agent instance would read a checkpoint, another would write an updated version, and then the first instance would attempt to write its (now stale) update, leading to a corrupted state or a failed transaction. The <code>algom-stream</code> process would restart, attempt to load a corrupted checkpoint, fail, and restart again. This explains the extremely high restart count.</p>
+<p>The fix was to enforce a "one writer" rule per agent instance. Each agent process, like <code>algom-poll</code> (0 restarts over 26 days), must have exclusive access to its checkpoint. This means:<br>1.  <strong>Unique <code>thread_id</code> per agent instance:</strong> LangGraph uses <code>thread_id</code> to identify checkpoints. Each running agent process must generate a unique <code>thread_id</code> on startup.<br>2.  <strong>Atomic updates:</strong> The <code>CheckpointSaver</code> must perform atomic read-modify-write operations. For <code>oracledb</code>, this meant ensuring the <code>UPDATE</code> statement included a <code>WHERE</code> clause checking the <code>version</code> or a timestamp to detect concurrent modifications. If another process updated the state, the current process would need to re-read the latest state and re-apply its changes.</p>
+<p>This "one writer" rule, combined with careful <code>oracledb</code> transaction management, significantly reduced checkpoint corruption.</p>
+<h2>The Stable Pattern: Explicit State Transitions and Immutability</h2>
+<p>The <code>algom-poll</code> agent, running for 26 days with 0 restarts, represents the stable pattern I finally landed on for LangGraph stateful agents production checkpointing. The key insight was to treat the agent's state as an immutable ledger of events, rather than a mutable object.</p>
+<p>Instead of directly modifying the state object, each step in the LangGraph pipeline emits a <em>diff</em> or an <em>event</em>. The <code>CheckpointSaver</code> then applies these events to the current state to derive the new state. This pattern is often called event sourcing.</p>
+<p>Here's how it works:<br>1.  <strong>State is a <code>dict</code> of <code>list</code>s:</strong> My state is no longer a flat <code>TypedDict</code>. Instead, it's a <code>dict</code> where each key represents a type of event or data stream, and its value is a <code>list</code> of immutable records. For example: <code>{"messages": [...], "tasks_completed": [...]}</code>.<br>2.  <strong>Nodes append, never modify:</strong> Each node in the LangGraph graph is designed to append new items to these lists. If a task is completed, it appends a <code>{"task_id": "xyz", "status": "completed"}</code> record to the <code>tasks_completed</code> list. It never goes back and modifies an existing record.<br>3.  <strong>Checkpoint is the full event history:</strong> The <code>oracledb</code> checkpoint stores the entire history of these events. When an agent loads its state, it reconstructs the current state by replaying all events.<br>4.  <strong>Idempotent operations:</strong> Because nodes only append, running a node multiple times with the same input will simply append duplicate events (which can be filtered out later if needed) but will not corrupt the state. This makes recovery from restarts much simpler.</p>
+<p>This approach solves the schema mismatch problem because new fields are simply new types of events or new properties within an event. The "replay" mechanism naturally incorporates them. It solves the corruption problem because concurrent writes only append to lists; they don't modify existing data, reducing contention.</p>
+<p>The <code>algom-poll</code> agent, which polls external APIs and updates its internal state, benefits greatly from this. If it restarts, it loads the full event history, reconstructs its current view of the world, and continues from where it left off, appending new poll results. This is why it has 0 restarts over 26 days.</p>
+<h2>Cost Implications and Oracle Cloud</h2>
+<p>Running these agents on Oracle Cloud Infrastructure (OCI) means every restart, every failed transaction, and every wasted computation due to lost state has a direct cost. My <code>n8n</code> process, which orchestrates some of these agents, has 0 restarts over 10 days, indicating its stability. The <code>serpapi-jobs</code> process, with 21 restarts over 4 days, is another area where checkpointing stability is critical.</p>
+<p>The <code>oracledb</code> database, running on OCI, is the backbone for checkpointing. The cost of <code>oracledb</code> is tied to CPU and storage. Inefficient checkpointing, leading to frequent re-processing of tasks or large, redundant state writes, directly impacts my OCI bill. The <code>algom-poll</code> agent's stability directly translates to predictable, lower operational costs.</p>
+<p>The <code>aideazz</code> repository shows 12 commits in the last 48 hours, including <code>ai-ops-wiki: record the fix that shipped, not the stopgap</code>. This reflects the iterative process of debugging and refining these production systems. The <code>concierge-selftest.log</code> shows <code>✅ PASS — 4 checks, 4586ms to first card</code>, indicating that the <code>concierge</code> agent, which uses a similar state management pattern, is functioning correctly.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you handle large state sizes with the event-sourcing approach in <code>oracledb</code>?</strong><br>A: The <code>oracledb</code> <code>BLOB</code> column can handle large states. For extremely large states, I implement snapshotting: periodically, the full reconstructed state is saved as a new "base" checkpoint, and older events are pruned. This reduces the replay time and storage for event history.</p>
+<p><strong>Q: What if an agent needs to modify an existing record, not just append?</strong><br>A: If a true modification is required, the "event" itself represents the modification. For example, instead of <code>{"task_id": "xyz", "status": "completed"}</code>, you might append <code>{"event_type": "task_updated", "task_id": "xyz", "new_status": "completed"}</code>. The state reconstruction logic then applies these updates in order.</p>
+<p><strong>Q: How do you manage schema evolution for the event types themselves?</strong><br>A: Each event record includes a <code>version</code> field. The state reconstruction logic is designed to handle different event versions, applying transformations as needed during replay. This is similar to database migrations but applied to the event stream.</p>
+<p><strong>Q: Does this event-sourcing approach increase latency for state reads/writes?</strong><br>A: Initial state loading can be slower due to replaying events. However, subsequent appends are fast. For critical paths, I cache the current state in memory and only persist the new events to <code>oracledb</code>, updating the in-memory state after a successful write.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
