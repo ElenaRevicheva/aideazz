@@ -10,7 +10,7 @@ But redundancy protects **availability**, not **truth**. A retry that returns te
 
 This is what makes the failure mode dangerous. A degraded model asked to write about a system it cannot inspect does not stop and say "I do not have this detail". It fills the gap with the most statistically ordinary answer — the thing that architecture usually uses. Asked about checkpointing, it reaches for Redis, because most checkpointing articles involve Redis. The output is fluent, technically plausible, internally consistent, and describes infrastructure that does not exist.
 
-Compare it to [[silent-failure]]. A silent failure produces nothing and tells nobody. This produces *something*, and that something is worse, because it passes every automated check and every casual human read. Volume makes it worse still: a pipeline on a schedule does not fabricate once, it fabricates on a cadence, and each copy looks as reasonable as the last.
+Compare it to a silent failure, which produces nothing and tells nobody. This produces *something*, and that something is worse, because it passes every automated check and every casual human read. Volume makes it worse still: a pipeline on a schedule does not fabricate once, it fabricates on a cadence, and each copy looks as reasonable as the last.
 
 The defences are structural, not editorial:
 
