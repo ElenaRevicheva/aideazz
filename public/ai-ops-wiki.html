@@ -312,7 +312,7 @@
     <div class="bar-in">
       <span class="bar-lbl">Reading progress</span>
       <span class="bar-track"><span class="bar-fill" id="barFill"></span></span>
-      <span class="bar-count" id="barCount">0 / 32</span>
+      <span class="bar-count" id="barCount">0 / 36</span>
     </div>
   </div>
 
@@ -321,7 +321,7 @@
       <div class="mast-kick">AIdeazz AI Lab · Panama · Field Journal</div>
       <h1 class="name"><span class="name-sm">AI Ops</span><span class="name-lg">WIKI</span></h1>
       <div class="rules"><span></span><span></span></div>
-      <div class="mast-meta">Rev 17 &nbsp;·&nbsp; 8 chapters &nbsp;·&nbsp; 9 entries &nbsp;·&nbsp; <b>9 cross-references</b> &nbsp;·&nbsp; 2026-08-23</div>
+      <div class="mast-meta">Rev 18 &nbsp;·&nbsp; 9 chapters &nbsp;·&nbsp; 9 entries &nbsp;·&nbsp; <b>9 cross-references</b> &nbsp;·&nbsp; 2026-08-23</div>
       <p class="tagline">Debug it with me.</p>
       <p class="lede first">Real outages on live production systems, set as chapters. Open one and it unfolds a beat at a time — the symptom, then your guess, then what was actually happening.</p>
       <p class="lede">Commit to an answer before you turn the page. That is the whole difference between reading a postmortem and keeping one.</p>
@@ -349,15 +349,99 @@
           <span class="fold-tag">Part One</span>
           <span class="fold-name">Contents</span>
           <span class="fold-note">Each chapter is one outage on a system that was live at the time. Numbers verified from production logs, never from configuration.</span>
-          <span class="fold-side"><span class="fold-count">8 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
+          <span class="fold-side"><span class="fold-count">9 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
         </button>
       </h2>
       <div class="fold-body" id="contents-body"><div class="fold-in">
 
-      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:0">
+      <article class="ch" id="2026-08-23-wall-on-the-page" style="--d:0">
+        <h3 class="ch-h">
+          <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-body">
+            <span class="ch-num">I</span>
+            <span class="ch-txt">
+              <span class="ch-title">The wall was on the page, not the data</span>
+              <span class="ch-sub">A refusal from one interface was generalised into a property of the whole system, and sent the work down a billable path that was never needed</span>
+            </span>
+            <span class="ch-side">
+              <span class="ch-date">August 23, 2026</span>
+              <span class="ch-leader" aria-hidden="true"></span>
+              <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+            </span>
+          </button>
+        </h3>
+
+        <div class="ch-body" id="2026-08-23-wall-on-the-page-body">
+          <div class="ch-in">
+            <div class="beat beat-open">
+              <div class="beat-lbl"><span class="beat-n">i</span> Symptom <em>What it looked like from outside</em></div>
+              <div class="beat-txt">A public listing had to be read programmatically. Two direct fetches of the page returned HTTP 403 behind a bot challenge, and the conclusion drawn was that the source blocks automated access. A paid unlocking proxy was brought in next. It returned HTTP 200, but the payload was the challenge shell with the real records buried inside the page's embedded application state.</div>
+            </div>
+
+            <div class="gate" data-gate="0">
+              <p class="gate-q">You are on call and this lands. Where do you look first?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-b0">
+                <span>Show me what it really was</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-23-wall-on-the-page-b0">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">ii</span> Root cause <em>What was actually happening</em></div>
+                <div class="beat-txt">The protection was attached to the rendering surface, not to the data. The same records were served, unchallenged, by the site's own API — the endpoint its own frontend calls on every page load, whose address was printed in the runtime configuration block of the very page that had just refused. A monitor already running in production was reading that API successfully the whole time. The 403 was accurate about one interface and was generalised into a property of the whole system.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="1">
+              <p class="gate-q">You have found it. What do you change — and what do you deliberately leave alone?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-b1">
+                <span>Show me the fix</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-23-wall-on-the-page-b1">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iii</span> The fix <em>What changed</em></div>
+                <div class="beat-txt">None to the code. The existing production reader was already correct — it sends the origin and referer headers the frontend sends and calls the API directly. The defect was in the diagnosis, which reached for a heavier external tool before checking either the second interface or what had already been built against it.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="2">
+              <p class="gate-q">It looks fixed. How would you prove it, without trusting the config?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-b2">
+                <span>Show me the proof</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-23-wall-on-the-page-b2">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iv</span> Verified by <em>Proof, not hope</em></div>
+                <div class="beat-txt">Two direct page fetches returned HTTP 403. The unlocking proxy returned HTTP 200 with 76,792 bytes whose leading content was the challenge script, not records; the listing fields had to be recovered from the embedded application state. The production reader returns the same records with no challenge and no proxy cost. The API address is named in the runtime configuration of the page that returned 403 — the blocked page documents its own unblocked door.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="3">
+              <p class="gate-q">Last one. What is the lesson that outlives this system?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-b3">
+                <span>Show me the rule</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut beat-rule" id="2026-08-23-wall-on-the-page-b3">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">v</span> The rule this earned <em>What generalises</em></div>
+                <div class="beat-txt">A refusal from one interface is not the system's answer. Before escalating to a heavier or billable tool, check whether the data has a second door, and check whether something you already built is standing in it.</div>
+              </div>
+            </div>
+
+            <div class="linkrow">
+              <span class="linkrow-lbl">Vocabulary earned</span>
+              <span class="chips"><a class="chip" href="#verify-from-logs">Verify from logs, not config</a></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:1">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-22-precedence-deadlock-body">
-            <span class="ch-num">I</span>
+            <span class="ch-num">II</span>
             <span class="ch-txt">
               <span class="ch-title">The model that drafted perfectly and lost every race</span>
               <span class="ch-sub">A paid writer was healthy, producing correct replies, and having every one of them discarded on arrival</span>
@@ -438,10 +522,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:1">
+      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:2">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-21-git-ahead-of-pin-body">
-            <span class="ch-num">II</span>
+            <span class="ch-num">III</span>
             <span class="ch-txt">
               <span class="ch-title">The blog post GitHub had and the live CID did not</span>
               <span class="ch-sub">Dev.to and the portfolio advertised a canonical URL whose IPFS directory did not exist</span>
@@ -522,10 +606,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-ack-trap" style="--d:2">
+      <article class="ch" id="2026-08-19-ack-trap" style="--d:3">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-ack-trap-body">
-            <span class="ch-num">III</span>
+            <span class="ch-num">IV</span>
             <span class="ch-txt">
               <span class="ch-title">The webhook that returned 200 while switched off</span>
               <span class="ch-sub">A disabled workflow accepted every message and read none of them</span>
@@ -606,10 +690,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-concierge-outage" style="--d:3">
+      <article class="ch" id="2026-08-19-concierge-outage" style="--d:4">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-concierge-outage-body">
-            <span class="ch-num">IV</span>
+            <span class="ch-num">V</span>
             <span class="ch-txt">
               <span class="ch-title">The lead pipeline that answered nobody for four days</span>
               <span class="ch-sub">A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead</span>
@@ -690,10 +774,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:4">
+      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:5">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-stage-never-moved-body">
-            <span class="ch-num">V</span>
+            <span class="ch-num">VI</span>
             <span class="ch-txt">
               <span class="ch-title">Answered leads that still looked untouched</span>
               <span class="ch-sub">Sending a reply logged the activity but never moved the deal</span>
@@ -774,10 +858,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-06-23-silent-graph" style="--d:5">
+      <article class="ch" id="2026-06-23-silent-graph" style="--d:6">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-06-23-silent-graph-body">
-            <span class="ch-num">VI</span>
+            <span class="ch-num">VII</span>
             <span class="ch-txt">
               <span class="ch-title">The graph that failed by staying quiet</span>
               <span class="ch-sub">Two silent failures in one LangGraph pipeline — a stripped state key and a pause that never resumed</span>
@@ -858,10 +942,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-25-engagement-loop" style="--d:6">
+      <article class="ch" id="2026-05-25-engagement-loop" style="--d:7">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-25-engagement-loop-body">
-            <span class="ch-num">VII</span>
+            <span class="ch-num">VIII</span>
             <span class="ch-txt">
               <span class="ch-title">The engagement loop that never ran</span>
               <span class="ch-sub">Configuration promised 32 engagements a day; the logs showed zero cycles had ever completed</span>
@@ -942,10 +1026,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:7">
+      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:8">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-10-duplicate-posting-body">
-            <span class="ch-num">VIII</span>
+            <span class="ch-num">IX</span>
             <span class="ch-txt">
               <span class="ch-title">The milestone that posted twice</span>
               <span class="ch-sub">The same update emitted twice, six minutes apart</span>
@@ -1320,7 +1404,7 @@
               <span class="ch-sub">Configuration tells you what somebody intended. Logs tell you what happened.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">3 cases</span>
+              <span class="ch-date">4 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -1340,7 +1424,7 @@
 <p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-08-22-precedence-deadlock">August 22, 2026 · The model that drafted perfectly and lost every race</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
+              <span class="chips"><a class="chip" href="#2026-08-23-wall-on-the-page">August 23, 2026 · The wall was on the page, not the data</a><a class="chip" href="#2026-08-22-precedence-deadlock">August 22, 2026 · The model that drafted perfectly and lost every race</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
             </div>
           </div>
         </div>
@@ -1365,7 +1449,7 @@
   <script>
   (function(){
     document.body.classList.remove('nojs');
-    var total = 32, opened = 0;
+    var total = 36, opened = 0;
     var fill = document.getElementById('barFill'), count = document.getElementById('barCount');
     function tick(){ opened++; count.textContent = opened + ' / ' + total; fill.style.width = (opened/total*100) + '%'; }
 
