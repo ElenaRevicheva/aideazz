@@ -15,6 +15,8 @@ https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
 https://aideazz.xyz/blog/blog-invented-its-stack-field-note/
+https://aideazz.xyz/blog/silent-graph-field-note/
+https://aideazz.xyz/blog/three-langgraph-rewrites-checkpointing-stateful-agents-in-production-2026-08-23/
 https://aideazz.xyz/blog/wall-on-the-page-field-note/
 https://aideazz.xyz/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-jobs/
 https://aideazz.xyz/blog/telegram-my-ai-agent-ops-dashboard-not-a-web-ui/
