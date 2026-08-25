@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Ops Wiki — concepts earned in production","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-08-25","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/ai-ops-wiki.html"}}</script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"AI Ops Wiki — production engineering concepts","url":"https://aideazz.xyz/ai-ops-wiki.html","description":"Named reliability and AI-operations concepts, each defined in plain language and linked to the production incident that taught it.","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Acknowledgement is not completion","description":"A receipt proves delivery. It never proves processing.","url":"https://aideazz.xyz/ai-ops-wiki.html#ack-is-not-completion"},{"@type":"DefinedTerm","name":"Fabrication under degradation","description":"When the good model runs out, the fallback does not go quiet — it goes confident.","url":"https://aideazz.xyz/ai-ops-wiki.html#fabrication-under-degradation"},{"@type":"DefinedTerm","name":"Git is not the origin","description":"The repository is the source of the next pin. The live site is the current CID. They are not the same object.","url":"https://aideazz.xyz/ai-ops-wiki.html#git-is-not-the-origin"},{"@type":"DefinedTerm","name":"Idempotency","description":"Doing it twice produces the same result as doing it once.","url":"https://aideazz.xyz/ai-ops-wiki.html#idempotency"},{"@type":"DefinedTerm","name":"Monotonic state machine","description":"States advance. They never regress.","url":"https://aideazz.xyz/ai-ops-wiki.html#monotonic-state-machine"},{"@type":"DefinedTerm","name":"Redundancy is not precedence","description":"Two systems that can both do the job is not a rule for which one should.","url":"https://aideazz.xyz/ai-ops-wiki.html#redundancy-is-not-precedence"},{"@type":"DefinedTerm","name":"Silent failure","description":"The system did something reasonable, and told nobody.","url":"https://aideazz.xyz/ai-ops-wiki.html#silent-failure"},{"@type":"DefinedTerm","name":"Single point of failure (SPOF)","description":"One component whose death kills the whole chain.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-point-of-failure"},{"@type":"DefinedTerm","name":"Single source of truth","description":"Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-source-of-truth"},{"@type":"DefinedTerm","name":"Verify from logs, not config","description":"Configuration tells you what somebody intended. Logs tell you what happened.","url":"https://aideazz.xyz/ai-ops-wiki.html#verify-from-logs"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"AI Ops Wiki — production engineering concepts","url":"https://aideazz.xyz/ai-ops-wiki.html","description":"Named reliability and AI-operations concepts, each defined in plain language and linked to the production incident that taught it.","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Acknowledgement is not completion","description":"A receipt proves delivery. It never proves processing.","url":"https://aideazz.xyz/ai-ops-wiki.html#ack-is-not-completion"},{"@type":"DefinedTerm","name":"Fabrication under degradation","description":"When the good model runs out, the fallback does not go quiet — it goes confident.","url":"https://aideazz.xyz/ai-ops-wiki.html#fabrication-under-degradation"},{"@type":"DefinedTerm","name":"Git is not the origin","description":"The repository is the source of the next pin. The live site is the current CID. They are not the same object.","url":"https://aideazz.xyz/ai-ops-wiki.html#git-is-not-the-origin"},{"@type":"DefinedTerm","name":"Idempotency","description":"Doing it twice produces the same result as doing it once.","url":"https://aideazz.xyz/ai-ops-wiki.html#idempotency"},{"@type":"DefinedTerm","name":"Liveness is not correctness","description":"A dead job announces itself. A job that runs perfectly and emits slightly wrong output never will.","url":"https://aideazz.xyz/ai-ops-wiki.html#liveness-is-not-correctness"},{"@type":"DefinedTerm","name":"Monotonic state machine","description":"States advance. They never regress.","url":"https://aideazz.xyz/ai-ops-wiki.html#monotonic-state-machine"},{"@type":"DefinedTerm","name":"Redundancy is not precedence","description":"Two systems that can both do the job is not a rule for which one should.","url":"https://aideazz.xyz/ai-ops-wiki.html#redundancy-is-not-precedence"},{"@type":"DefinedTerm","name":"Silent failure","description":"The system did something reasonable, and told nobody.","url":"https://aideazz.xyz/ai-ops-wiki.html#silent-failure"},{"@type":"DefinedTerm","name":"Single point of failure (SPOF)","description":"One component whose death kills the whole chain.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-point-of-failure"},{"@type":"DefinedTerm","name":"Single source of truth","description":"Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-source-of-truth"},{"@type":"DefinedTerm","name":"Verify from logs, not config","description":"Configuration tells you what somebody intended. Logs tell you what happened.","url":"https://aideazz.xyz/ai-ops-wiki.html#verify-from-logs"}]}</script>
 
   <style>
     /* ── A press run with two plates: ink, and one spot colour ──────────
@@ -312,7 +312,7 @@
     <div class="bar-in">
       <span class="bar-lbl">Reading progress</span>
       <span class="bar-track"><span class="bar-fill" id="barFill"></span></span>
-      <span class="bar-count" id="barCount">0 / 40</span>
+      <span class="bar-count" id="barCount">0 / 44</span>
     </div>
   </div>
 
@@ -321,7 +321,7 @@
       <div class="mast-kick">AIdeazz AI Lab · Panama · Field Journal</div>
       <h1 class="name"><span class="name-sm">AI Ops</span><span class="name-lg">WIKI</span></h1>
       <div class="rules"><span></span><span></span></div>
-      <div class="mast-meta">Rev 20 &nbsp;·&nbsp; 10 chapters &nbsp;·&nbsp; 10 entries &nbsp;·&nbsp; <b>10 cross-references</b> &nbsp;·&nbsp; 2026-08-25</div>
+      <div class="mast-meta">Rev 22 &nbsp;·&nbsp; 11 chapters &nbsp;·&nbsp; 11 entries &nbsp;·&nbsp; <b>11 cross-references</b> &nbsp;·&nbsp; 2026-08-25</div>
       <p class="tagline">Debug it with me.</p>
       <p class="lede first">Real outages on live production systems, set as chapters. Open one and it unfolds a beat at a time — the symptom, then your guess, then what was actually happening.</p>
       <p class="lede">Commit to an answer before you turn the page. That is the whole difference between reading a postmortem and keeping one.</p>
@@ -349,15 +349,99 @@
           <span class="fold-tag">Part One</span>
           <span class="fold-name">Contents</span>
           <span class="fold-note">Each chapter is one outage on a system that was live at the time. Numbers verified from production logs, never from configuration.</span>
-          <span class="fold-side"><span class="fold-count">10 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
+          <span class="fold-side"><span class="fold-count">11 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
         </button>
       </h2>
       <div class="fold-body" id="contents-body"><div class="fold-in">
 
-      <article class="ch" id="2026-08-23-blog-invented-its-stack" style="--d:0">
+      <article class="ch" id="2026-08-25-guard-that-renamed-the-problem" style="--d:0">
+        <h3 class="ch-h">
+          <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-body">
+            <span class="ch-num">I</span>
+            <span class="ch-txt">
+              <span class="ch-title">The guard that renamed the problem instead of stopping it</span>
+              <span class="ch-sub">A duplicate-detection check tested for exact equality, so a reworded title was a new article — and when it did fire, it appended the date and published anyway</span>
+            </span>
+            <span class="ch-side">
+              <span class="ch-date">August 25, 2026</span>
+              <span class="ch-leader" aria-hidden="true"></span>
+              <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+            </span>
+          </button>
+        </h3>
+
+        <div class="ch-body" id="2026-08-25-guard-that-renamed-the-problem-body">
+          <div class="ch-in">
+            <div class="beat beat-open">
+              <div class="beat-lbl"><span class="beat-n">i</span> Symptom <em>What it looked like from outside</em></div>
+              <div class="beat-txt">A publishing pipeline that had reported a clean run every day for three months was found to be republishing the same handful of articles. Of 121 published pages, 56 were near-copies of another page, falling into 19 clusters that each competed for a single search query. The largest cluster held twelve variants of one article on checkpointing; another held six on the same internal dashboard, the most recent published the same day the problem was found. Four clusters contained pages distinguished only by a date appended to the end of the URL, with headlines that matched character for character and body sizes within one percent of each other. No alert had ever fired, because from the scheduler's point of view nothing had gone wrong — an article was requested, an article was produced, and the publish step returned success.</div>
+            </div>
+
+            <div class="gate" data-gate="0">
+              <p class="gate-q">You are on call and this lands. Where do you look first?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-b0">
+                <span>Show me what it really was</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-25-guard-that-renamed-the-problem-b0">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">ii</span> Root cause <em>What was actually happening</em></div>
+                <div class="beat-txt">Two defects compounded, and the second one hid the first. The collision check asked whether the new slug already existed as a key in the publish cache. That is a test for exact equality, and the thing being tested was not exact. A generative step reworded the same topic brief differently on each run, so one day it produced “three rewrites to stop losing state” and another day “three rewrites to production stability” — different strings, different slugs, no match, nothing detected. Roughly two thirds of the duplicates were never seen by the guard at all. When the wording did land identically and the check did fire, the handler did not stop; it appended the current date to the slug and continued, because the downstream publishing API rejects a duplicate canonical URL with a hard error and a failed run looked worse than a modified one. That turned a signal that the topic supply was exhausted into a cosmetic rename, and the run stayed green. Compounding both, the cache the guard consulted held 64 entries while 121 pages were actually live, so even a correct comparison was blind to nearly half the corpus — the memory of what had been published was not the same object as what had been published.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="1">
+              <p class="gate-q">You have found it. What do you change — and what do you deliberately leave alone?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-b1">
+                <span>Show me the fix</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-25-guard-that-renamed-the-problem-b1">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iii</span> The fix <em>What changed</em></div>
+                <div class="beat-txt">Replace equality with similarity, and make the safety net fail closed. The publisher now reduces each title and slug to its topic-bearing words, discarding stopwords and any trailing date, and scores the overlap against every previously published post. At or above sixty percent it refuses outright, raising the same skip signal the pipeline already uses for insufficient evidence, and publishes nothing that day. A percentage alone over-fires on very short titles, where two shared words out of three clears any sensible threshold, so a refusal additionally requires at least three shared topic words — the guard must never silently skip a genuinely new post. The threshold was not reasoned about; it was fitted by replaying all 121 published slugs through the compiled function and checking where the boundary fell. The publish cache was then backfilled from the pages actually shipped, additively, overwriting nothing, so the dedup memory and the live site finally describe the same set. The already-published duplicates were left in place for separate canonical consolidation, because deleting them is unrecoverable and consolidating them is not.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="2">
+              <p class="gate-q">It looks fixed. How would you prove it, without trusting the config?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-b2">
+                <span>Show me the proof</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-08-25-guard-that-renamed-the-problem-b2">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iv</span> Verified by <em>Proof, not hope</em></div>
+                <div class="beat-txt">Verified against the running system rather than the configuration. The replay over the live corpus refused 56 pages and passed 65, matching an independently written clustering pass that found 54 — close enough to trust the boundary, and both far from the four cases the old exact-match guard had caught. After deploying the compiled file the running process reported a start time later than the file's modification time, which is the only evidence that a long-lived process is executing the code on disk rather than a cached copy of the previous one. The shipped artifact was then checked directly: the string that appended a date to a colliding slug appears zero times, and the refusal path appears once. Finally the guard was exercised against the real production cache of 123 entries using three titles — the two most recently published articles came back refused at a hundred percent overlap against their existing counterparts, including the one published hours earlier that same day, while an unrelated title on a topic never covered came back clear to publish.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="3">
+              <p class="gate-q">Last one. What is the lesson that outlives this system?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-b3">
+                <span>Show me the rule</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut beat-rule" id="2026-08-25-guard-that-renamed-the-problem-b3">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">v</span> The rule this earned <em>What generalises</em></div>
+                <div class="beat-txt">Liveness and correctness are different properties, and almost all monitoring measures the first. A job that dies announces itself; a job that runs perfectly and emits slightly wrong output every day is invisible, because every check in the path — did it run, did it return, did it publish — can pass while the only thing that matters fails. Prefer a safety net that refuses over one that adjusts: when a guard catches a collision and then quietly renames its way past it, the guard has stopped being a control and become a laundering step, converting a signal that the system has run out of things to say into a clean log line. And never let the record of what a system did drift from what it actually did — a deduplication check is only ever as good as its memory of the past, so seed that memory from the artifacts themselves, not from a cache that any restart or new machine can silently truncate.</div>
+              </div>
+            </div>
+
+            <div class="linkrow">
+              <span class="linkrow-lbl">Vocabulary earned</span>
+              <span class="chips"><a class="chip" href="#liveness-is-not-correctness">Liveness is not correctness</a><a class="chip" href="#silent-failure">Silent failure</a><a class="chip" href="#single-source-of-truth">Single source of truth</a></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ch" id="2026-08-23-blog-invented-its-stack" style="--d:1">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-blog-invented-its-stack-body">
-            <span class="ch-num">I</span>
+            <span class="ch-num">II</span>
             <span class="ch-txt">
               <span class="ch-title">The blog that invented its own infrastructure</span>
               <span class="ch-sub">A publishing bot ran out of credit, fell to a weaker model, and spent ten weeks describing a database the system has never used</span>
@@ -438,10 +522,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-23-wall-on-the-page" style="--d:1">
+      <article class="ch" id="2026-08-23-wall-on-the-page" style="--d:2">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-body">
-            <span class="ch-num">II</span>
+            <span class="ch-num">III</span>
             <span class="ch-txt">
               <span class="ch-title">The wall was on the page, not the data</span>
               <span class="ch-sub">A refusal from one interface was generalised into a property of the whole system, and sent the work down a billable path that was never needed</span>
@@ -522,10 +606,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:2">
+      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:3">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-22-precedence-deadlock-body">
-            <span class="ch-num">III</span>
+            <span class="ch-num">IV</span>
             <span class="ch-txt">
               <span class="ch-title">The model that drafted perfectly and lost every race</span>
               <span class="ch-sub">A paid writer was healthy, producing correct replies, and having every one of them discarded on arrival</span>
@@ -606,10 +690,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:3">
+      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:4">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-21-git-ahead-of-pin-body">
-            <span class="ch-num">IV</span>
+            <span class="ch-num">V</span>
             <span class="ch-txt">
               <span class="ch-title">The blog post GitHub had and the live CID did not</span>
               <span class="ch-sub">Dev.to and the portfolio advertised a canonical URL whose IPFS directory did not exist</span>
@@ -690,10 +774,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-ack-trap" style="--d:4">
+      <article class="ch" id="2026-08-19-ack-trap" style="--d:5">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-ack-trap-body">
-            <span class="ch-num">V</span>
+            <span class="ch-num">VI</span>
             <span class="ch-txt">
               <span class="ch-title">The webhook that returned 200 while switched off</span>
               <span class="ch-sub">A disabled workflow accepted every message and read none of them</span>
@@ -774,10 +858,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-concierge-outage" style="--d:5">
+      <article class="ch" id="2026-08-19-concierge-outage" style="--d:6">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-concierge-outage-body">
-            <span class="ch-num">VI</span>
+            <span class="ch-num">VII</span>
             <span class="ch-txt">
               <span class="ch-title">The lead pipeline that answered nobody for four days</span>
               <span class="ch-sub">A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead</span>
@@ -858,10 +942,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:6">
+      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:7">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-stage-never-moved-body">
-            <span class="ch-num">VII</span>
+            <span class="ch-num">VIII</span>
             <span class="ch-txt">
               <span class="ch-title">Answered leads that still looked untouched</span>
               <span class="ch-sub">Sending a reply logged the activity but never moved the deal</span>
@@ -942,10 +1026,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-06-23-silent-graph" style="--d:7">
+      <article class="ch" id="2026-06-23-silent-graph" style="--d:8">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-06-23-silent-graph-body">
-            <span class="ch-num">VIII</span>
+            <span class="ch-num">IX</span>
             <span class="ch-txt">
               <span class="ch-title">The graph that failed by staying quiet</span>
               <span class="ch-sub">Two silent failures in one LangGraph pipeline — a stripped state key and a pause that never resumed</span>
@@ -1026,10 +1110,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-25-engagement-loop" style="--d:8">
+      <article class="ch" id="2026-05-25-engagement-loop" style="--d:9">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-25-engagement-loop-body">
-            <span class="ch-num">IX</span>
+            <span class="ch-num">X</span>
             <span class="ch-txt">
               <span class="ch-title">The engagement loop that never ran</span>
               <span class="ch-sub">Configuration promised 32 engagements a day; the logs showed zero cycles had ever completed</span>
@@ -1110,10 +1194,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:9">
+      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:10">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-10-duplicate-posting-body">
-            <span class="ch-num">X</span>
+            <span class="ch-num">XI</span>
             <span class="ch-txt">
               <span class="ch-title">The milestone that posted twice</span>
               <span class="ch-sub">The same update emitted twice, six minutes apart</span>
@@ -1202,7 +1286,7 @@
           <span class="fold-tag">Part Two · Appendix</span>
           <span class="fold-name">The vocabulary</span>
           <span class="fold-note">Each entry is a failure mode with a name. The name is what lets you recognise the same shape somewhere new, before it costs you a weekend.</span>
-          <span class="fold-side"><span class="fold-count">10 entries</span><span class="fold-mark" aria-hidden="true"></span></span>
+          <span class="fold-side"><span class="fold-count">11 entries</span><span class="fold-mark" aria-hidden="true"></span></span>
         </button>
       </h2>
       <div class="fold-body" id="vocabulary-body"><div class="fold-in">
@@ -1344,10 +1428,44 @@
         </div>
       </article>
 
-      <article class="ch term" id="monotonic-state-machine" style="--d:4">
+      <article class="ch term" id="liveness-is-not-correctness" style="--d:4">
+        <h3 class="ch-h">
+          <button class="ch-btn" type="button" aria-expanded="false" aria-controls="liveness-is-not-correctness-body">
+            <span class="ch-num">05</span>
+            <span class="ch-txt">
+              <span class="ch-title">Liveness is not correctness</span>
+              <span class="ch-sub">A dead job announces itself. A job that runs perfectly and emits slightly wrong output never will.</span>
+            </span>
+            <span class="ch-side">
+              <span class="ch-date">1 case</span>
+              <span class="ch-leader" aria-hidden="true"></span>
+              <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+            </span>
+          </button>
+        </h3>
+        <div class="ch-body" id="liveness-is-not-correctness-body">
+          <div class="ch-in">
+            <div class="aka">a.k.a. green logs, wrong answers; the cron that succeeded at the wrong thing</div>
+            <div class="prose"><p>Almost every check you own measures <em>liveness</em>: did it run, did it return, did it exit zero, did it publish. Almost none measures <em>correctness</em>: was the thing it produced the right thing. These are different properties, and the gap between them is where the expensive incidents live.</p>
+<p>The asymmetry is what makes this dangerous. A job that stops firing is loud — the output is missing, someone notices within a day. A job that fires on schedule and produces output that is subtly wrong is silent, and it stays silent for as long as nobody reads the output, because every signal you have is reporting the truth. The scheduler really did fire. The API really did return 200. The file really was written. Each check passes honestly while the only thing that matters fails.</p>
+<p>Two shapes to watch for:</p>
+<ol>
+<li><strong>The safety net that adjusts instead of refusing.</strong> A guard catches a bad condition, then modifies the input so the operation can proceed — renaming a colliding key, truncating an over-long field, coercing a bad type. The error disappears from the logs and the bad condition ships anyway. A guard that never refuses is not a control; it is a laundering step, converting a real signal into a clean log line. Prefer failing closed: a skipped run is cheap and visible, a wrong run is expensive and invisible.</li>
+<li><strong>The record that drifts from the reality.</strong> Any check that compares against a cache, a state file, or a local ledger is only as good as that memory. When the memory can be truncated by a restart, a fresh machine, or a path that writes to one place and reads from another, the check degrades quietly and keeps returning “fine”. Seed the memory from the artifacts themselves wherever you can, and periodically assert that the two still agree.</li>
+</ol>
+<p>The practical defence is to add one check that reads the <em>output</em> rather than the exit code, and to make it something a human would actually notice — a count that should be stable, a uniqueness constraint, a spot comparison against what shipped last time. You are not trying to verify everything. You are trying to have at least one signal that fails when the job succeeds incorrectly.</p></div>
+            <div class="linkrow">
+              <span class="linkrow-lbl">Learned the hard way in</span>
+              <span class="chips"><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ch term" id="monotonic-state-machine" style="--d:5">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="monotonic-state-machine-body">
-            <span class="ch-num">05</span>
+            <span class="ch-num">06</span>
             <span class="ch-txt">
               <span class="ch-title">Monotonic state machine</span>
               <span class="ch-sub">States advance. They never regress.</span>
@@ -1379,10 +1497,10 @@
         </div>
       </article>
 
-      <article class="ch term" id="redundancy-is-not-precedence" style="--d:5">
+      <article class="ch term" id="redundancy-is-not-precedence" style="--d:6">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="redundancy-is-not-precedence-body">
-            <span class="ch-num">06</span>
+            <span class="ch-num">07</span>
             <span class="ch-txt">
               <span class="ch-title">Redundancy is not precedence</span>
               <span class="ch-sub">Two systems that can both do the job is not a rule for which one should.</span>
@@ -1421,16 +1539,16 @@
         </div>
       </article>
 
-      <article class="ch term" id="silent-failure" style="--d:6">
+      <article class="ch term" id="silent-failure" style="--d:7">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="silent-failure-body">
-            <span class="ch-num">07</span>
+            <span class="ch-num">08</span>
             <span class="ch-txt">
               <span class="ch-title">Silent failure</span>
               <span class="ch-sub">The system did something reasonable, and told nobody.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">5 cases</span>
+              <span class="ch-date">6 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -1448,16 +1566,16 @@
 </ul></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-06-23-silent-graph">June 23, 2026 · The graph that failed by staying quiet</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
+              <span class="chips"><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-06-23-silent-graph">June 23, 2026 · The graph that failed by staying quiet</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="ch term" id="single-point-of-failure" style="--d:7">
+      <article class="ch term" id="single-point-of-failure" style="--d:8">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="single-point-of-failure-body">
-            <span class="ch-num">08</span>
+            <span class="ch-num">09</span>
             <span class="ch-txt">
               <span class="ch-title">Single point of failure (SPOF)</span>
               <span class="ch-sub">One component whose death kills the whole chain.</span>
@@ -1484,16 +1602,16 @@
         </div>
       </article>
 
-      <article class="ch term" id="single-source-of-truth" style="--d:8">
+      <article class="ch term" id="single-source-of-truth" style="--d:9">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="single-source-of-truth-body">
-            <span class="ch-num">09</span>
+            <span class="ch-num">10</span>
             <span class="ch-txt">
               <span class="ch-title">Single source of truth</span>
               <span class="ch-sub">Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">2 cases</span>
+              <span class="ch-date">3 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -1511,16 +1629,16 @@
 </ul></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 · The milestone that posted twice</a></span>
+              <span class="chips"><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 · The milestone that posted twice</a></span>
             </div>
           </div>
         </div>
       </article>
 
-      <article class="ch term" id="verify-from-logs" style="--d:9">
+      <article class="ch term" id="verify-from-logs" style="--d:10">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="verify-from-logs-body">
-            <span class="ch-num">10</span>
+            <span class="ch-num">11</span>
             <span class="ch-txt">
               <span class="ch-title">Verify from logs, not config</span>
               <span class="ch-sub">Configuration tells you what somebody intended. Logs tell you what happened.</span>
@@ -1571,7 +1689,7 @@
   <script>
   (function(){
     document.body.classList.remove('nojs');
-    var total = 40, opened = 0;
+    var total = 44, opened = 0;
     var fill = document.getElementById('barFill'), count = document.getElementById('barCount');
     function tick(){ opened++; count.textContent = opened + ' / ' + total; fill.style.width = (opened/total*100) + '%'; }
 
