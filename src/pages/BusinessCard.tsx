@@ -143,13 +143,12 @@ function WhatIBuildBlock({ onCta }: { onCta?: () => void }) {
         <p className="mt-4 text-center text-sm sm:text-base font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-purple-300 bg-clip-text text-transparent">
           {t('whatIBuild.punch')}
         </p>
+        {/* Same goToForm as the service cards. On the back face this MUST flip
+            first: the form lives on the front, and scrollIntoView on a
+            backface-hidden face lands on empty particle background. */}
         <a
           href="#portfolio-inquiry-form"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            scrollToPortfolioInquiry();
-          }}
+          onClick={goToForm}
           className="mt-4 inline-flex items-center justify-center gap-2 w-full sm:w-auto mx-auto px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base font-semibold text-white shadow-lg shadow-purple-500/25 transition-all"
         >
           {t('whatIBuild.punchCta')}
