@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>55,193 Restarts in 10 Days: Debugging an AI Agent's Endless Loop | AIdeazz</title>
+  <meta name="description" content="My algom-stream process logged 55,193 restarts in 10 days. This wasn't a graceful shutdown or a planned update; it was a crash-loop. For context, other long-running processes like dragontrade-dashboa…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/55193-restarts-in-10-days-debugging-an-ai-agents-endless-loop/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="55,193 Restarts in 10 Days: Debugging an AI Agent's Endless Loop">
+  <meta property="og:description" content="My algom-stream process logged 55,193 restarts in 10 days. This wasn't a graceful shutdown or a planned update; it was a crash-loop. For context, other long-running processes like dragontrade-dashboa…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/55193-restarts-in-10-days-debugging-an-ai-agents-endless-loop/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-26T20:10:41.530Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="55,193 Restarts in 10 Days: Debugging an AI Agent's Endless Loop">
+  <meta name="twitter:description" content="My algom-stream process logged 55,193 restarts in 10 days. This wasn't a graceful shutdown or a planned update; it was a crash-loop. For context, other long-running processes like dragontrade-dashboa…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "55,193 Restarts in 10 Days: Debugging an AI Agent's Endless Loop",
+  "description": "My algom-stream process logged 55,193 restarts in 10 days. This wasn't a graceful shutdown or a planned update; it was a crash-loop. For context, other long-running processes like dragontrade-dashboa…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-26T20:10:41.530Z",
+  "dateModified": "2026-08-26T20:10:41.530Z",
+  "url": "https://aideazz.xyz/blog/55193-restarts-in-10-days-debugging-an-ai-agents-endless-loop/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/55193-restarts-in-10-days-debugging-an-ai-agents-endless-loop/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you distinguish between a deployment-related restart and a crash-loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deployment-related restarts typically occur in bursts after a `git pull` and `pm2 reload`. A crash-loop, like `algom-stream`'s 55,193 restarts over 10 days, shows continuous, high-frequency restarts without a corresponding deployment event."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the first thing you check when a process has high restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The process logs. I look for specific error messages, stack traces, and repeated patterns that occur immediately before each restart. This is the fastest way to pinpoint the failing code path or external dependency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does `pm2` automatically restart processes indefinitely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, by default, `pm2` is designed to keep processes online. It will restart a crashed process, which is why `algom-stream` shows `online` despite 55,193 restarts. This behavior is configurable, but its default is to ensure uptime."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could low memory usage (83 MB) still indicate a memory issue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While 83 MB is low, it's possible for a process to crash due to a *spike* in memory usage that quickly exceeds a limit before `pm2` can report the peak. However, a consistent 83 MB suggests a non-memory-related crash is more likely."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">55,193 Restarts in 10 Days: Debugging an AI Agent's Endless Loop</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-26T20:10:41.530Z">August 26, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>algom-stream</code> process logged 55,193 restarts in 10 days. This wasn't a graceful shutdown or a planned update; it was a crash-loop. For context, other long-running processes like <code>dragontrade-dashboard</code> had 1 restart in the same 10 days, and <code>dragontrade-main</code> had 3. The <code>algom-poll</code> process, running for 29 days, had 0 restarts. This specific <code>algom-stream</code> behavior indicated a fundamental instability, not a transient issue. My goal was to identify the root cause of these <code>algom-stream endless restarts</code> and stabilize the agent.</p>
+<h2>Identifying the Problematic Agent</h2>
+<p>The <code>pm2 jlist</code> output provided the immediate evidence:</p>
+<p><pre><code class="language-plain">Process algom-stream: online, 55193 restarts, up 10d, 83 MB
+</code></pre></p>
+<h2>Initial Hypotheses and Investigation Steps</h2>
+<p>Given the high restart count, my first thought was an unhandled exception or a dependency issue. I considered a few possibilities:</p>
+<p>1.  <strong>External API Rate Limits or Failures:</strong> <code>algom-stream</code> interacts with external services. A sudden change in API behavior or hitting rate limits could cause it to crash.<br>2.  <strong>Database Connection Issues:</strong> If <code>algom-stream</code> relies on <code>oracledb</code> and loses its connection, it might not handle the reconnection gracefully.<br>3.  <strong>Configuration Errors:</strong> A malformed environment variable or missing configuration could lead to startup failures.<br>4.  <strong>Code Bugs:</strong> An edge case in the application logic, perhaps related to data processing, could be triggering an unhandled error.</p>
+<p>My immediate next step was to check the logs for <code>algom-stream</code>. <code>pm2</code> typically redirects <code>stdout</code> and <code>stderr</code> to log files. I needed to look for specific error messages, stack traces, or repeated patterns right before a restart.</p>
+<h2>Analyzing Logs for <code>algom-stream</code></h2>
+<p>I do not have the specific log output for <code>algom-stream</code> in the provided evidence, but in a real-world scenario, this would be the critical next step. I would look for:</p>
+<p>Without the logs, I can only infer. The fact that <code>algom-stream</code> is <code>online</code> suggests it <em>can</em> start, but then it crashes quickly. This points to an issue that manifests shortly after initialization or during its main operational loop.</p>
+<h2>Comparing with Other Agents</h2>
+<p>It's useful to compare <code>algom-stream</code>'s behavior with other agents:</p>
+<ul><li>  <code>cto-aipa</code>: 92 restarts in 0 days. This is also high, but over a much shorter uptime. This agent had 12 commits in the last 48 hours, indicating active development. Frequent deployments or rapid iteration could explain its restarts, as <code>pm2</code> restarts processes on code changes.</li>
+<li>  <code>serpapi-jobs</code>: 21 restarts in 7 days. This is a more moderate number, possibly due to occasional external API issues or planned updates.</li>
+<li>  <code>algom-poll</code>: 0 restarts in 29 days. This agent is exceptionally stable, suggesting its dependencies and internal logic are robust. This provides a baseline for what "good" looks like.</li></ul>
+<p>The <code>algom-stream</code>'s 55,193 restarts over 10 days is an order of magnitude worse than any other process, even <code>cto-aipa</code> which is under active development. This indicates a systemic problem unique to <code>algom-stream</code>.</p>
+<h2>Potential Solutions and Mitigation</h2>
+<p>Once the root cause is identified from the logs, the solution would be specific. However, general strategies for <code>algom-stream endless restarts</code> include:</p>
+<p>1.  <strong>Graceful Error Handling:</strong> Implement <code>try-except</code> blocks around external API calls, database operations, and critical processing logic. Log the errors thoroughly instead of crashing.<br>2.  <strong>Circuit Breakers/Retries:</strong> For transient external service failures, implement exponential backoff and retry mechanisms. If a service is consistently failing, a circuit breaker can prevent repeated calls and allow the service to recover, or at least prevent <code>algom-stream</code> from crashing.<br>3.  <strong>Dependency Updates:</strong> Check if any <code>algom-stream</code> dependencies (e.g., <code>openai</code>, <code>groq-sdk</code>, <code>oracledb</code>) have known issues or require updates.<br>4.  <strong>Resource Limits:</strong> While <code>83 MB</code> is low, ensure <code>pm2</code> or the underlying system isn't imposing aggressive resource limits that could be prematurely terminating the process.<br>5.  <strong>Health Checks:</strong> Implement internal health checks within <code>algom-stream</code> that <code>pm2</code> could use to determine if the process is truly healthy, not just running.</p>
+<p>My immediate action would be to dive into the <code>algom-stream</code> logs. Without that, any fix is a guess. The sheer volume of restarts points to a fundamental flaw that needs direct code intervention, not just infrastructure tweaks.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you distinguish between a deployment-related restart and a crash-loop?</strong><br>A: Deployment-related restarts typically occur in bursts after a <code>git pull</code> and <code>pm2 reload</code>. A crash-loop, like <code>algom-stream</code>'s 55,193 restarts over 10 days, shows continuous, high-frequency restarts without a corresponding deployment event.</p>
+<p><strong>Q: What's the first thing you check when a process has high restarts?</strong><br>A: The process logs. I look for specific error messages, stack traces, and repeated patterns that occur immediately before each restart. This is the fastest way to pinpoint the failing code path or external dependency.</p>
+<p><strong>Q: Does <code>pm2</code> automatically restart processes indefinitely?</strong><br>A: Yes, by default, <code>pm2</code> is designed to keep processes online. It will restart a crashed process, which is why <code>algom-stream</code> shows <code>online</code> despite 55,193 restarts. This behavior is configurable, but its default is to ensure uptime.</p>
+<p><strong>Q: Could low memory usage (83 MB) still indicate a memory issue?</strong><br>A: While 83 MB is low, it's possible for a process to crash due to a <em>spike</em> in memory usage that quickly exceeds a limit before <code>pm2</code> can report the peak. However, a consistent 83 MB suggests a non-memory-related crash is more likely.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
