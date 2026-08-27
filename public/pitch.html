@@ -751,8 +751,8 @@
                     <div class="stat-sub" data-i18n="hero.stat1">Agents in production · 1 blueprint (AILA)</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big"><span class="count" data-to="13">0</span><span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
-                    <div class="stat-sub" data-i18n="hero.stat2">Solo build time</div>
+                    <div class="stat-big"><span class="count" data-to="15">0</span><span style="font-size:1.4rem;color:var(--muted);">mo</span></div>
+                    <div class="stat-sub" data-i18n="hero.stat2">Solo build time — one operator, one server</div>
                 </div>
                 <div class="tile tile-glow">
                     <div class="stat-big">&lt;$<span class="count" data-to="15">0</span>K</div>
@@ -811,12 +811,12 @@
                 <div class="tile tile-glow">
                     <div class="tag-mono">INFRASTRUCTURE</div>
                     <h3 class="mt-s" data-i18n="sol.c1.t">One VM. One database. 9 agents + blueprint.</h3>
-                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c1.b">All agents share one Oracle Cloud VM and one Oracle Autonomous Database. Coordinate through shared tables. ~$0/month on Oracle free credit grant.</p>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c1.b">All agents share one Oracle Cloud VM and one Oracle Autonomous Database. A watchdog polls every product's health check and restarts what dies — failures surface in Telegram, never silently. ~$0/month on Oracle free credit grant.</p>
                 </div>
                 <div class="tile tile-glow">
                     <div class="tag-mono">MODEL ROUTING</div>
                     <h3 class="mt-s" data-i18n="sol.c2.t">Cost-conscious by design</h3>
-                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c2.b">Claude Opus 4 for critical paths. Groq Llama 3.3 70B (free tier) for standard analysis. Explicit cost reasoning per call.</p>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c2.b">Five-provider fallback chain — Claude, OpenAI, Gemini, Grok, Groq — ordered per task: quality paths lead with the strongest model, classification with the cheapest that clears the bar. Provider retirements are a one-line config change.</p>
                 </div>
                 <div class="tile tile-glow">
                     <div class="tag-mono">VOICE-FIRST</div>
@@ -853,12 +853,13 @@
                         <tr><td>EspaLuz WhatsApp</td><td>Bilingual tutor, voice-first, 50+ emotion detection</td><td>WhatsApp</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">&lt;20 paying</span></td></tr>
                         <tr><td>EspaLuz Telegram</td><td>Bilingual tutor, structured lessons</td><td>Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span></td></tr>
                         <tr><td>EspaLuz Influencer</td><td>Automated social content EN/ES</td><td>Telegram</td><td><span class="pill pill-early"><span class="pill-dot"></span>EARLY</span></td></tr>
-                        <tr><td>CTO AIPA</td><td>GitHub webhook → diff → LLM review → comment</td><td>Telegram + API</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">25 reviews</span></td></tr>
+                        <tr><td>CTO AIPA</td><td>Ops brain — GitHub webhook → diff → LLM review → comment; outreach, concierge, briefings</td><td>Telegram + API</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">80+ commands</span></td></tr>
                         <tr><td>CMO AIPA</td><td>GEO+SEO, grounded daily blog, wiki, inbound concierge, outreach</td><td>Oracle + HubSpot + Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">gated</span></td></tr>
+                        <tr><td>Atlas</td><td>Ad-market radar + campaigns — detect → sell → measure, weekly, 7 verticals, GA4 outcomes fed back</td><td>Web + Telegram + HubSpot</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">weekly</span></td></tr>
                         <tr><td>VibeJob Hunter</td><td>Autonomous job search, scoring, ATS automation</td><td>Telegram</td><td><span class="pill pill-wip"><span class="pill-dot"></span>VERIFYING</span></td></tr>
                         <tr><td>OpenClaw Shortlist</td><td>YC AI company shortlist, voice interface</td><td>Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span></td></tr>
                         <tr><td>Algom Alpha / DragonTrade</td><td>Crypto research + auto-posting</td><td>X (Twitter)</td><td><span class="pill pill-wip"><span class="pill-dot"></span>FRAGILE</span></td></tr>
-                        <tr><td>Atuona Creative AI</td><td>NFT generation, automated image + video</td><td>Polygon + Telegram</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">48+ NFTs</span></td></tr>
+                        <tr><td>Atuona Creative AI</td><td>NFT gallery + automated AI film studio — clips in, finished film out</td><td>Polygon + Telegram + Web</td><td><span class="pill pill-live"><span class="pill-dot"></span>LIVE</span> <span style="color:var(--muted);font-size:0.72rem;">6 films</span></td></tr>
                         <tr><td>AILA</td><td>Adaptive Intelligent Life Assistant — orchestrates all 9 agents, longitudinal personal memory</td><td>Hive / Oracle</td><td><span class="pill" style="background:rgba(168,85,247,0.15);color:#c084fc;border:1px solid rgba(168,85,247,0.3);"><span class="pill-dot" style="background:#c084fc;"></span>BLUEPRINT</span></td></tr>
                     </tbody>
                 </table>
@@ -888,6 +889,7 @@
                 <div class="bento bento-2">
                     <div>
                         <div class="tag-mono mt-s">CORE FEATURES</div>
+                        <div class="feat"><span class="bullet">▸</span><div><strong>Two-layer memory</strong> — LangChain conversation context + pgvector RAG per family, so November's answer can depend on June's form</div></div>
                         <div class="feat"><span class="bullet">▸</span><div><strong>50+ emotion detection</strong> — cultural shock, language anxiety, homesickness</div></div>
                         <div class="feat"><span class="bullet">▸</span><div><strong>Voice processing</strong> — sub-2 second latency via Groq Whisper</div></div>
                         <div class="feat"><span class="bullet">▸</span><div><strong>OCR image translation</strong> — extract text from photos, translate inline</div></div>
@@ -921,8 +923,8 @@
                     </div>
                     <div class="badges">
                         <span class="pill pill-live"><span class="pill-dot"></span>LIVE</span>
-                        <span class="pill pill-early"><span class="pill-dot"></span>25 REVIEWS</span>
-                        <span class="pill" style="color:var(--muted);">3 REPOS</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>80+ COMMANDS</span>
+                        <span class="pill" style="color:var(--muted);">08:00 BRIEFING</span>
                     </div>
                 </div>
 
@@ -931,15 +933,16 @@
                         <div class="tag-mono mt-s">PIPELINE</div>
                         <div class="feat"><span class="bullet">01</span><div><strong>Webhook trigger</strong> — any push to monitored repo</div></div>
                         <div class="feat"><span class="bullet">02</span><div><strong>Diff + security scan</strong> — deterministic complexity + CVE detection</div></div>
-                        <div class="feat"><span class="bullet">03</span><div><strong>LLM routing</strong> — Claude Opus 4 (critical) or Groq Llama 3.3 70B (standard, free)</div></div>
+                        <div class="feat"><span class="bullet">03</span><div><strong>LLM routing</strong> — five-provider chain ordered per use case; quality leads with Claude, volume with the cheapest that clears the bar</div></div>
                         <div class="feat"><span class="bullet">04</span><div><strong>Posted comment</strong> + Oracle DB write for audit trail</div></div>
                         <div class="feat"><span class="bullet">05</span><div><strong>Telegram notification</strong> to founder — every review, every repo</div></div>
                     </div>
                     <div>
                         <div class="tag-mono mt-s">WHY IT MATTERS</div>
-                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;">Multi-model routing with <strong style="color:var(--text);">explicit cost reasoning</strong> — not the default behavior of LLM apps. Claude for depth, Groq for volume. One pipeline, two budgets.</p>
+                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;">The technical co-founder as software: <span class="mono" style="color:var(--cyan);">/code</span> and <span class="mono" style="color:var(--cyan);">/fix</span> open real pull requests from a phone, <strong style="color:var(--text);">a human keeps the last click</strong>, and a synthetic lead runs the whole pipeline daily at 07:45 — silent on pass, alerting on failure. Multi-model routing with explicit cost reasoning.</p>
                         <div class="flex-wrap mt-m">
                             <a href="https://t.me/aitcf_aideazz_bot" class="btn btn-primary" target="_blank">CTO AIPA Bot</a>
+                            <a href="https://webhook.aideazz.xyz/doc/nine-systems" class="btn" target="_blank" rel="noopener">Provenance dossier</a>
                         </div>
                     </div>
                 </div>
@@ -1022,13 +1025,13 @@
                     </div>
                     <div class="tile" style="border-color:var(--border-cyan);">
                         <div class="tag-mono">04 / CONCIERGE</div>
-                        <h3 class="mt-s">Inbound → draft → send</h3>
-                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">HubSpot chat + portfolio form → Telegram → drafted reply → Resend. 5-provider LLM chain so one vendor outage does not kill the inbox.</p>
+                        <h3 class="mt-s">Inbound → Fable 5 draft → send</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">HubSpot chat + portfolio form → Telegram → Claude Fable 5 drafts the reply → Resend. A dedicated watchdog re-drafts through the 5-provider chain if the primary dies, so one vendor outage does not kill the inbox.</p>
                     </div>
                     <div class="tile" style="border-color:var(--border-cyan);">
-                        <div class="tag-mono">05 / OUTREACH</div>
-                        <h3 class="mt-s">One-click email, human WhatsApp</h3>
-                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">Resend from aipa@ with optional Cc and PDF attachments (magic-byte checked, local folder only). Elena still sends WhatsApp from the HubSpot note.</p>
+                        <div class="tag-mono">05 / HUBSPOT AUTOPILOT</div>
+                        <h3 class="mt-s">Leads found, staged, followed up</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">Prospects discovered automatically (SERP + hiring boards + product launches, Bright Data enrichment) land in HubSpot with a tested WhatsApp link and a one-click email. A send moves the deal to Sent and creates a follow-up task; Resend webhooks mark delivered / opened on the deal — true delivery data, not assumptions.</p>
                     </div>
                     <div class="tile" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(168,85,247,0.05));">
                         <div class="tag-mono">06 / WIKI</div>
@@ -1067,7 +1070,7 @@
                 <div class="tile tile-glow">
                     <div class="tag-mono">INBOUND + DEDUP</div>
                     <h3 class="mt-s" data-i18n="aug.c4.t">Concierge chain · duplicate guard</h3>
-                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="aug.c4.b">Portfolio form and HubSpot chat draft through a 5-provider LLM chain. Near-duplicate blog posts are blocked by token overlap, not slug equality. Old copies get a canonical tag — never a delete.</p>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="aug.c4.b">Portfolio form and HubSpot chat draft via Claude Fable 5, with a watchdog that re-drafts through a 5-provider chain if the primary dies. Near-duplicate blog posts are blocked by token overlap, not slug equality. Old copies get a canonical tag — never a delete.</p>
                 </div>
             </div>
 
@@ -1125,24 +1128,24 @@
                     <div class="stat-sub" data-i18n="trac.s2">Tests in VJH eval harness — 4 layers, $0.03/run</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="25">25</div>
-                    <div class="stat-sub" data-i18n="trac.s3">Code reviews by CTO AIPA across 3 repos</div>
+                    <div class="stat-big" data-count-to="1004">1004</div>
+                    <div class="stat-sub" data-i18n="trac.s3">Commits on the ops-brain repo (AIPA_AITCF) — built in the open, verifiable on GitHub</div>
                 </div>
                 <div class="tile tile-glow">
                     <div class="stat-big" data-count-to="12">12</div>
                     <div class="stat-sub" data-i18n="trac.s4">AI Ops Wiki chapters — named production failure modes, live</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="48" data-count-suffix="+">48+</div>
-                    <div class="stat-sub" data-i18n="trac.s5">NFTs published by Atuona — automated image + video pipeline</div>
+                    <div class="stat-big" data-count-to="6">6</div>
+                    <div class="stat-sub" data-i18n="trac.s5">Films live in Atuona's AI film studio — automated edit, mix, −16 LUFS master</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="218">218</div>
-                    <div class="stat-sub" data-i18n="trac.s6">ATS endpoints monitored by VibeJob Hunter</div>
+                    <div class="stat-big" data-count-to="1166">1166</div>
+                    <div class="stat-sub" data-i18n="trac.s6">Roles surfaced by VibeJob Hunter — 11 sources, human on the last click</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="50" data-count-suffix="K+">50K+</div>
-                    <div class="stat-sub" data-i18n="trac.s7">Lines of production code across the ecosystem</div>
+                    <div class="stat-big" data-count-to="181" data-count-suffix="K">181K</div>
+                    <div class="stat-sub" data-i18n="trac.s7">Lines of original code — read from the running systems, 24 Aug 2026</div>
                 </div>
                 <div class="tile tile-glow">
                     <div class="stat-big" data-count-to="21">21</div>
@@ -1150,7 +1153,7 @@
                 </div>
             </div>
 
-            <div class="honest"><span>honest note:</span> Revenue is effectively zero at scale. VibeJob Hunter delivery verification is the current open problem. These are the real numbers — the story is strong enough without inflation.</div>
+            <div class="honest"><span>honest note:</span> Revenue is effectively zero at scale. VibeJob Hunter delivery verification is the current open problem. These are the real numbers — the story is strong enough without inflation. Every figure is traceable: <a href="https://webhook.aideazz.xyz/doc/nine-systems" class="link" target="_blank" rel="noopener">nine systems and why they exist</a> — the provenance dossier, read from production.</div>
         </div>
     </div>
 
@@ -1312,7 +1315,12 @@
                     <a href="https://aideazz.xyz/portfolio" class="btn btn-primary" target="_blank" data-i18n="ask.btn.portfolio">Portfolio →</a>
                     <a href="https://aideazz.xyz/ai-ops-wiki.html" class="btn" target="_blank">AI Ops Wiki</a>
                     <a href="/sop-ai-ops.html" class="btn" target="_blank" style="border-color:rgba(0,229,255,0.35);color:#00e5ff;">AI Operations SOP</a>
+                    <a href="https://webhook.aideazz.xyz/doc/nine-systems" class="btn" target="_blank" rel="noopener">Nine-systems dossier</a>
+                    <a href="https://webhook.aideazz.xyz/whitespace/atlas.html" class="btn" target="_blank" rel="noopener">Atlas radar</a>
+                    <a href="https://aideazz.xyz/api" class="btn" target="_blank">Free AI Visibility Audit</a>
                     <a href="https://aideazz.xyz/blog" class="btn" target="_blank">Blog</a>
+                    <a href="https://podcast.aideazz.xyz/" class="btn" target="_blank" rel="noopener">Podcast</a>
+                    <a href="https://atuona.xyz/aifilmstudio/" class="btn" target="_blank" rel="noopener">AI Film Studio</a>
                     <a href="https://wa.me/50766623757" class="btn" target="_blank" data-i18n="ask.btn.demo">Try EspaLuz Demo</a>
                     <a href="https://github.com/ElenaRevicheva" class="btn" target="_blank">GitHub</a>
                 </div>
@@ -1337,7 +1345,7 @@
         'hero.title': 'Agentes de IA adaptativos <span class="serif">que te ayudan a</span><br><span class="grad">prosperar en el camino.</span>',
         'hero.lead': '9 agentes autónomos en producción + blueprint AILA. Una desarrolladora desde ene 2025. Menos de $15,000. El stack sigue entregando — gates, wiki, outreach, concierge — sobre la misma infraestructura compartida.',
         'hero.stat1': 'Agentes en producción',
-        'hero.stat2': 'Tiempo de construcción solo',
+        'hero.stat2': 'Tiempo de construcción — una operadora, un servidor',
         'hero.stat3': 'Capital total invertido',
         'hero.stat4': 'Costo mensual infra',
         'hero.btn2': 'Portafolio →',
@@ -1355,9 +1363,9 @@
         'sol.title': 'Un ecosistema de agentes <span class="serif">autónomos</span>,<br>cada uno dueño de un <span class="grad">problema real</span> de punta a punta.',
         'sol.lead': 'No es una plataforma. No es un wrapper. Cada agente es un sistema de producción: raspando, calificando, decidiendo, actuando, notificando — 24/7. WhatsApp lo envía una humana. Blog, wiki, email e investigación están gated y registrados.',
         'sol.c1.t': 'Una VM. Una base de datos. 9 agentes + blueprint.',
-        'sol.c1.b': 'Todos los agentes comparten una VM Oracle Cloud y una Oracle Autonomous Database. Coordinan a través de tablas compartidas. ~$0/mes en créditos gratuitos de Oracle.',
+        'sol.c1.b': 'Todos los agentes comparten una VM Oracle Cloud y una Oracle Autonomous Database. Un watchdog sondea el health check de cada producto y reinicia lo que muere — las fallas llegan a Telegram, nunca en silencio. ~$0/mes en créditos gratuitos de Oracle.',
         'sol.c2.t': 'Consciente del costo por diseño',
-        'sol.c2.b': 'Claude Opus 4 para rutas críticas. Groq Llama 3.3 70B (tier gratuito) para análisis estándar. Razonamiento explícito de costo por llamada.',
+        'sol.c2.b': 'Cadena de respaldo de cinco proveedores — Claude, OpenAI, Gemini, Grok, Groq — ordenada por tarea: las rutas de calidad lideran con el modelo más fuerte, la clasificación con el más barato que pase el listón. Los retiros de proveedor son un cambio de config de una línea.',
         'sol.c3.t': 'Interfaces de voz en cada agente',
         'sol.c3.b': 'Transcripción Groq Whisper. Accesible vía WhatsApp y Telegram — sin instalación de app. Latencia sub-2s en EspaLuz.',
         'sol.c4.t': 'Arnés de evaluación grado producción',
@@ -1381,11 +1389,11 @@
         'trac.title': 'Los números <span class="serif">tal como son.</span>',
         'trac.s1': 'Suscriptores pagos EspaLuz — retenidos desde 2025, cero marketing',
         'trac.s2': 'Tests en arnés VJH — 4 capas, $0.03/run',
-        'trac.s3': 'Reviews por CTO AIPA en 3 repos',
+        'trac.s3': 'Commits en el repo del cerebro de operaciones (AIPA_AITCF) — construido en abierto, verificable en GitHub',
         'trac.s4': 'Capítulos del AI Ops Wiki — modos de falla de producción, en vivo',
-        'trac.s5': 'NFTs publicados por Atuona — pipeline automático',
-        'trac.s6': 'Endpoints ATS monitoreados por VibeJob Hunter',
-        'trac.s7': 'Líneas de código producción en el ecosistema',
+        'trac.s5': 'Películas en el AI film studio de Atuona — edición y mezcla automatizadas, máster −16 LUFS',
+        'trac.s6': 'Roles descubiertos por VibeJob Hunter — 11 fuentes, humano en el último clic',
+        'trac.s7': 'Líneas de código original — leídas de los sistemas en producción, 24 ago 2026',
         'trac.s8': 'Países hispanohablantes que alcanza EspaLuz',
         'fnd.label': 'LA FUNDADORA',
         'fnd.title': 'Elena Revicheva<br><span class="serif">ejecutiva que</span> <span class="grad">entrega.</span>',
@@ -1416,7 +1424,7 @@
         'aug.c3.t': 'Cc + PDF en el email de un clic',
         'aug.c3.b': 'Adjunto MIME vía Resend. Solo PDF, de una carpeta, ≤5 MB, magic-byte <span class="mono">%PDF-</span>. Si un archivo listado no carga, el envío se rechaza — el email nunca reclama un CV que no adjuntó.',
         'aug.c4.t': 'Cadena concierge · guarda de duplicados',
-        'aug.c4.b': 'El formulario del portafolio y el chat de HubSpot borran por una cadena LLM de 5 proveedores. Casi-duplicados del blog se bloquean por overlap de tokens, no por slug. Las copias viejas reciben canonical — nunca un delete.',
+        'aug.c4.b': 'El formulario del portafolio y el chat de HubSpot redactan vía Claude Fable 5, con un watchdog que re-redacta por una cadena de 5 proveedores si el primario muere. Casi-duplicados del blog se bloquean por overlap de tokens, no por slug. Las copias viejas reciben canonical — nunca un delete.',
     };
 
     const originalEn = {};

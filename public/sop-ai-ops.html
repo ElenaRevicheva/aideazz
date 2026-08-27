@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="AIdeazz AI Lab: eleven live AI co-founders plus a marketing engine (Atlas, CRM, daily blog, GA4). Plain-language status for owners, technical proof for engineers." />
-  <!-- deploy-rev: 2026-07-21-b — force 4everland rebuild -->
+  <!-- deploy-rev: 2026-08-27-a — August refresh: proof ticker, dossier links, grounded-blog copy -->
   <meta name="color-scheme" content="dark" />
   <title>AIdeazz AI Lab — Operations &amp; Marketing Engine</title>
   <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
@@ -31,7 +31,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700&family=JetBrains+Mono:wght@450;500;600&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-08-04","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://podcast.aideazz.xyz/"]},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/sop-ai-ops.html"}}
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"AI Agent Operations Runbook","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-08-27","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://podcast.aideazz.xyz/"]},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/sop-ai-ops.html"}}
   </script>
 
   <script type="application/ld+json">
@@ -40,6 +40,7 @@
     {"@type":"Question","name":"How does AIdeazz keep AI agents from dying silently?","acceptedAnswer":{"@type":"Answer","text":"Every product declares a health check, a restart command and a PM2 or systemd process name in a single resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph."}},
     {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
     {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited."}},
+    {"@type":"Question","name":"How does AIdeazz stop AI from publishing made-up numbers?","acceptedAnswer":{"@type":"Answer","text":"The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Near-duplicate articles are blocked by token overlap rather than slug equality, and every incident where a system fooled the operator is written up with a named failure mode in the public AI Ops Wiki."}},
     {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
   ]}
   </script>
@@ -1219,6 +1220,143 @@
         -webkit-text-fill-color: unset;
       }
     }
+
+    /* ---- August 2026 refresh: hero CTAs, proof ticker, reveal, shine ---- */
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 18px;
+    }
+    .cta-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #c9bcff, #67e8dd);
+      color: #0b0713;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .cta-primary:hover {
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(103, 232, 221, 0.28);
+    }
+    .cta-primary .cta-arrow { transition: transform 0.2s ease; }
+    .cta-primary:hover .cta-arrow { transform: translateX(3px); }
+    .cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(14, 16, 28, 0.6);
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+      color: var(--t2);
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .cta-ghost:hover {
+      color: var(--text);
+      border-color: rgba(157, 140, 255, 0.45);
+      box-shadow: 0 0 24px rgba(157, 140, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    /* Proof ticker — verified numbers, read from production 24 Aug 2026 */
+    .proof-ticker {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 12, 20, 0.6);
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+      padding: 12px 0;
+      margin: 0 0 30px;
+      mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    }
+    .proof-track {
+      display: flex;
+      gap: 42px;
+      width: max-content;
+      animation: ticker 46s linear infinite;
+      will-change: transform;
+    }
+    .proof-ticker:hover .proof-track { animation-play-state: paused; }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+    .proof-item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--t3);
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .proof-item b {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      background: linear-gradient(118deg, #fff 10%, #c9c2ff 55%, #5ee9d6 95%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .proof-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+      .proof-half-b { display: none; }
+    }
+
+    /* Scroll-driven section reveal — native CSS where supported, harmless elsewhere */
+    @supports (animation-timeline: view()) {
+      .section, .bento .b-card, .rule-card, .pm-block {
+        animation: rise-in both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 34%;
+      }
+      @keyframes rise-in {
+        from { opacity: 0.15; transform: translateY(22px) scale(0.985); }
+        to { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .section, .bento .b-card, .rule-card, .pm-block { animation: none; }
+      }
+    }
+
+    /* Card shine sweep on hover */
+    .b-card, .rule-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .b-card::after, .rule-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.055) 50%, transparent 58%);
+      transform: translateX(-120%);
+      transition: transform 0.7s ease;
+      pointer-events: none;
+    }
+    .b-card:hover::after, .rule-card:hover::after { transform: translateX(120%); }
   </style>
 
   <!-- Google tag (gtag.js) — this page shipped without it, so every visit to the
@@ -1255,7 +1393,13 @@
     <p class="hero-sub"><strong>This is not a demo.</strong> Eleven AI co-founder agents plus a marketing engine run 24/7: your website finds you, content publishes daily, leads land in CRM, and Atlas measures whether campaigns actually moved the needle. Below: plain-language status for business owners, then technical depth for engineers who need proof.</p>
     <p class="hero-sub" style="margin-top:14px;margin-bottom:4px;font-size:1.05rem;font-weight:600;color:#d4c8ff;letter-spacing:0.01em;">Get Recommended by ChatGPT → Close on WhatsApp</p>
     <p class="hero-sub" style="margin-top:0;margin-bottom:18px;font-size:0.88rem;color:var(--muted,#9aa3b5);letter-spacing:0.04em;">AI Search Visibility • WhatsApp Agents • AI Automation</p>
-    <p class="hero-sub" style="margin-top:16px;"><a href="/ai-ops-wiki.html" style="display:inline-flex;align-items:center;gap:9px;padding:11px 20px;border-radius:999px;background:linear-gradient(135deg,#c9bcff,#67e8dd);color:#0b0713;font-weight:700;font-size:0.95rem;text-decoration:none;">📓 Explore the AI Ops Wiki →</a> <span style="display:block;margin-top:9px;font-size:0.85rem;color:var(--muted,#9aa3b5);">Every outage below, worked through one beat at a time — and the failure modes named.</span></p>
+    <div class="hero-cta-row">
+      <a href="/ai-ops-wiki.html" class="cta-primary">Explore the AI Ops Wiki<span class="cta-arrow" aria-hidden="true">→</span></a>
+      <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener" class="cta-ghost">Nine systems — provenance dossier</a>
+      <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener" class="cta-ghost">Podcast · 11 episodes</a>
+      <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener" class="cta-ghost">AI Film Studio · 6 films</a>
+    </div>
+    <p class="hero-sub" style="margin-top:10px;font-size:0.85rem;color:var(--muted,#9aa3b5);">Every outage below, worked through one beat at a time — and the failure modes named.</p>
     <div class="meta-bar">
       <div class="meta-item">
         <div class="meta-label">Author</div>
@@ -1267,7 +1411,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Updated</div>
-        <div class="meta-val">July 22, 2026</div>
+        <div class="meta-val">August 27, 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
@@ -1280,13 +1424,35 @@
   </div>
 </header>
 
+<!-- Proof ticker — every figure read from the running systems (provenance dossier, 24 Aug 2026) -->
+<div class="proof-ticker" aria-label="Verified production numbers">
+  <div class="proof-track">
+    <span class="proof-half-a proof-item"><b>~181K</b> lines of original code</span>
+    <span class="proof-half-a proof-item"><b>15 mo</b> one operator · one server</span>
+    <span class="proof-half-a proof-item"><b>124</b> essays · daily 14:30</span>
+    <span class="proof-half-a proof-item"><b>12</b> AI Ops Wiki chapters</span>
+    <span class="proof-half-a proof-item"><b>11</b> podcast episodes</span>
+    <span class="proof-half-a proof-item"><b>6</b> films · automated edit</span>
+    <span class="proof-half-a proof-item"><b>5</b> LLM providers · one chain</span>
+    <span class="proof-half-a proof-item"><b>140</b> sitemap URLs · 7 machine-readable surfaces</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>~181K</b> lines of original code</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>15 mo</b> one operator · one server</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>124</b> essays · daily 14:30</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>12</b> AI Ops Wiki chapters</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>11</b> podcast episodes</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>6</b> films · automated edit</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>5</b> LLM providers · one chain</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>140</b> sitemap URLs · 7 machine-readable surfaces</span>
+  </div>
+</div>
+
   <main class="wrap" id="main">
 
   <div class="exec-banner" role="region" aria-label="Executive summary">
     <strong>What a business owner should take away</strong>
     <ul>
       <li><strong>One lab, many products:</strong> tutoring bots, job hunter, social growth, CRM pipeline, daily blog, and a marketing radar (Atlas) that reads the ad market and exports test campaigns—with real Google Analytics feedback since July 2026.</li>
-      <li><strong>Honest numbers:</strong> CRM has processed 700+ leads historically; outbound email sends but has not converted yet; first tagged campaign session is already in the ledger.</li>
+      <li><strong>Honest numbers:</strong> 124 essays published, 12 wiki chapters, ~181K lines of code read from production (<a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">dossier</a>); CRM has processed 900+ deals historically; revenue is still effectively zero — the systems are the proof, not the sales curve.</li>
       <li><strong>Risk control:</strong> automated health checks and isolated secrets mean one bot failing does not take down the whole fleet.</li>
       <li><strong>Why this page exists:</strong> public proof that AIdeazz runs like a product company—not slide decks—so clients, partners, and search engines can verify operational maturity.</li>
     </ul>
@@ -1314,6 +1480,11 @@
           <tr><td>Marketing radar</td><td>Weekly ad-market intelligence on the lab&rsquo;s seven sellable services — open windows arrive as ready-to-run sales briefs, and CRM outcomes feed back so the radar learns what converts</td><td><a href="https://webhook.aideazz.xyz/whitespace/atlas.html" target="_blank" rel="noopener">Atlas live radar</a></td></tr>
           <tr><td>CRM spine</td><td>All agents feed one HubSpot pipeline</td><td>HubSpot Sales Pipeline</td></tr>
           <tr><td>Measure layer</td><td>Website sessions, form leads, deals by campaign</td><td>Atlas concept cards (performance block)</td></tr>
+          <tr><td>Learning record</td><td>AI Ops Wiki — 12 production incidents, each with a named failure mode and a verified number. Generated, never hand-edited</td><td><a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></td></tr>
+          <tr><td>Provenance dossier</td><td>Nine systems and why they exist — engineering provenance for every product, figures read from production</td><td><a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">nine-systems</a></td></tr>
+          <tr><td>Publishing engine</td><td>124 essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
+          <tr><td>AI Film Studio</td><td>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 6 films live</td><td><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></td></tr>
+          <tr><td>Investor / narrative deck</td><td>The live pitch — August 2026 actualization, honest traction</td><td><a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener">pitch.html</a></td></tr>
           <tr><td>Sibling products</td><td>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></td></tr>
         </tbody>
       </table>
@@ -1376,9 +1547,9 @@
   <!-- BENTO STATS (counts animate on scroll into view) -->
   <div class="bento" id="bento-stats">
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="11" data-duration="1400">0</div><div class="b-label">Tracked capabilities · 10 live · 1 roadmap (AILA)</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="3" data-duration="1200">0</div><div class="b-label">Infrastructure layers · Oracle · AWS · static edge</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="5" data-suffix="m" data-duration="1500">0</div><div class="b-label">Automated health cadence</div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="8" data-duration="1300">0</div><div class="b-label">Repos powering live products · all on one server</div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">0</div><div class="b-label">Lines of original code · <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">provenance dossier</a></div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="124" data-duration="1400">0</div><div class="b-label">Essays published · grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">/blog</a></div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="12" data-duration="1200">0</div><div class="b-label">Named failure modes · <a href="/ai-ops-wiki.html" style="color:var(--cyan);text-decoration:none;">AI Ops Wiki</a></div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</div><div class="b-label">Manual steps in milestone → social pipeline</div></div>
   </div>
 
@@ -1395,7 +1566,7 @@
     <div class="divider"></div>
     <div class="radar" aria-label="Cross-cutting capabilities">
       <span>GEO + SEO infrastructure · aideazz.xyz · AI-crawler signals · bilingual blog · lead capture → Oracle</span>
-      <span>CRM pipeline (HubSpot) + prospecting from hiring boards &amp; product launches</span>
+      <span>CRM pipeline (HubSpot) + automatic prospecting from SERP, hiring boards &amp; product launches — staged deals carry a tested WhatsApp link + one-click email; sends auto-move the deal, create follow-up tasks, and Resend webhooks mark delivered/opened</span>
       <span>X growth automation (stream listening + engagement + alerts)</span>
       <span>Morning briefing audio via AWS Lambda + secure CTO data bridge</span>
       <span>Executive rhythm: Trello digests to Telegram</span>
@@ -1541,9 +1712,10 @@
               <div class="agent-links">
                 <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
                 <a href="https://t.me/Atuona_AI_CCF_AIdeazz_bot" target="_blank" rel="noopener">Telegram</a>
+                <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">film studio</a>
               </div>
             </td>
-            <td><strong>Creative partner:</strong> Separate bot persona + public studio site—same reliability envelope as the CTO stack.<br /><span style="color:var(--t3);font-size:12.5px;">Single PM2 orchestrator binary; site ships via static edge hosting.</span></td>
+            <td><strong>Creative partner:</strong> Separate bot persona + public gallery, now with a fully automated <strong>AI film studio</strong> — source clips in, finished film out: voiceover locked to clip duration, crossfades on a running-offset accumulator, sidechain-ducked music, −16 LUFS master. 6 films live.<br /><span style="color:var(--t3);font-size:12.5px;">Single PM2 orchestrator binary; site ships via static edge hosting.</span></td>
             <td><span class="badge b-pm2">PM2</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
@@ -1565,7 +1737,7 @@
             <td class="tname">
               AILA
               <div class="agent-links">
-                <a href="https://github.com/ElenaRevicheva/AILA" target="_blank" rel="noopener">repo</a>
+                <a href="https://github.com/ElenaRevicheva/hive" target="_blank" rel="noopener">architecture (hive)</a>
               </div>
             </td>
             <td><strong>Roadmap:</strong> Long-horizon personal orchestration—documented architecture, not yet a standalone production process.<br /><span style="color:var(--t3);font-size:12.5px;">Interim coordination fields live in Oracle until AILA ships.</span></td>
@@ -1678,8 +1850,8 @@
         <div class="p-body">
           <div class="p-card">
             <div class="p-channel">Daily blog · aideazz.xyz/blog + dev.to</div>
-            <h3>Bilingual blog publish (EN/ES)</h3>
-            <p>The daily blog publisher ships articles to aideazz.xyz/blog with dev.to crosspost (&ldquo;Also on Dev.to&rdquo;). Sliding-window mutex, title dedup, and always-notify Telegram guard against silent double publishes.</p>
+            <h3>Grounded blog publish — fail-closed on claims</h3>
+            <p>The daily publisher collects production evidence before it writes and <strong>refuses to publish any number it cannot trace to a measurement</strong> (grounding gate, Aug 2026). Near-duplicates are blocked by token overlap, not slug equality. Ships to aideazz.xyz/blog with dev.to canonical crosspost; sliding-window mutex and always-notify Telegram guard against silent double publishes.</p>
           </div>
         </div>
       </div>
@@ -1704,12 +1876,22 @@
         </div>
       </div>
       <div class="p-item">
-        <div class="p-track"><div class="p-num">6</div></div>
+        <div class="p-track"><div class="p-num">6</div><div class="p-line"></div></div>
         <div class="p-body">
           <div class="p-card">
-            <div class="p-channel">Inbound · HubSpot → Claude → Telegram</div>
+            <div class="p-channel">Inbound · HubSpot → Claude Fable 5 → Telegram</div>
             <h3>Lead Concierge — form to sent reply in minutes</h3>
-            <p>Portfolio inquiries become HubSpot contacts in seconds (server-side push, no cron wait). Make.com wakes Claude to draft a personalized reply—right language, right proof links, concrete first-engagement offer—delivered to Telegram with <strong>Send / Edit / Skip</strong> buttons. One tap emails the lead from the company domain and logs the sent text to the contact&rsquo;s CRM timeline. Full audit trail, human approval on every send, response time cut from days to minutes.</p>
+            <p>Portfolio inquiries and HubSpot chat become CRM contacts in seconds (server-side push, no cron wait). <strong>Claude Fable 5 drafts the reply</strong>—right language, right proof links—and a dedicated <strong>concierge watchdog</strong> re-drafts through the five-provider chain (Claude → OpenAI → Gemini → Grok → Groq) if the primary dies, so a single vendor outage cannot kill the inbox; on 19 Aug the chain absorbed a dead primary in 2.4 seconds. The draft lands in Telegram with <strong>Send / Edit / Skip</strong> buttons; one tap emails the lead from the company domain via Resend (optional Cc + magic-byte-checked PDF attachments) and logs the sent text to the contact&rsquo;s CRM timeline. Full audit trail, human approval on every send.</p>
+          </div>
+        </div>
+      </div>
+      <div class="p-item">
+        <div class="p-track"><div class="p-num">7</div></div>
+        <div class="p-body">
+          <div class="p-card">
+            <div class="p-channel">Outbound · leads found → HubSpot on autopilot</div>
+            <h3>Automatic lead search + CRM that works itself</h3>
+            <p>Prospects are discovered automatically—SERP, hiring boards, product launches, Bright Data enrichment—and staged into HubSpot as company + deal + contact + note, each note carrying a <strong>tested WhatsApp link</strong> and a <strong>one-click outreach email</strong>. From there the CRM works itself: an outgoing email is auto-detected and <strong>moves the deal to Sent</strong> while a <strong>soft follow-up task (+4 days)</strong> is created; <strong>Resend webhooks mark delivered / opened on the deal</strong>—true delivery events, not assumptions (delivered · bounced · complained · delayed · opened · clicked); a reply moves the deal to Replied and closes the open follow-ups. Every record names its author agent by prefix, so provenance is a filter, not an investigation.</p>
           </div>
         </div>
       </div>
@@ -2010,6 +2192,10 @@
         <p>A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited.</p>
       </div>
       <div class="faq-item">
+        <h3>How does AIdeazz stop AI from publishing made-up numbers?</h3>
+        <p>The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Every incident where a system fooled the operator gets a named failure mode in the <a href="/ai-ops-wiki.html">AI Ops Wiki</a>.</p>
+      </div>
+      <div class="faq-item">
         <h3>Who is this page for?</h3>
         <p>Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems lives on GitHub, so this page stays readable and contains no IP addresses, ports or secrets.</p>
       </div>
@@ -2022,7 +2208,10 @@
 <footer class="footer">
   <div class="wrap">
     <div class="footer-links">
-      <a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a>
+      <a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a>
+      <a href="/ai-ops-wiki.html">AI Ops Wiki</a>
+      <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">Nine-systems dossier</a>
+      <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">Podcast</a>
       <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing engine (GitHub)</a>
       <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/ORACLE_ALL_PRODUCTS_RESILIENCE.md" target="_blank" rel="noopener">Engineering appendix</a>
