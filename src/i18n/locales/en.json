@@ -9,6 +9,7 @@
     "tryButton": "Audit my site",
     "tryLoading": "Auditing…",
     "tryHint": "Enter any public URL. Runs on direct page reads — no SerpAPI, no scraping bills.",
+    "tryReceipts": "After you audit: score, top fixes, AND all 34 checks (what we saw + how to fix each). Not only five tips.",
     "errorGeneric": "Couldn't audit that URL. Check it's public and reachable, then try again.",
     "scoreLabel": "AI Visibility Score",
     "enginesTitle": "Can AI engines read this site?",

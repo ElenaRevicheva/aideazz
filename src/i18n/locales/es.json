@@ -9,6 +9,7 @@
     "tryButton": "Auditar mi sitio",
     "tryLoading": "Auditando…",
     "tryHint": "Ingresa cualquier URL pública. Funciona leyendo la página directamente — sin SerpAPI, sin cuentas de scraping.",
+    "tryReceipts": "Después de auditar: puntaje, correcciones, Y las 34 verificaciones (qué vimos + cómo arreglar cada una). No solo cinco consejos.",
     "errorGeneric": "No se pudo auditar esa URL. Verifica que sea pública y accesible, e inténtalo de nuevo.",
     "scoreLabel": "Puntaje de Visibilidad IA",
     "enginesTitle": "¿Pueden los motores de IA leer este sitio?",

@@ -269,6 +269,7 @@ export default function LabApi() {
             </button>
           </form>
           <p className="mt-3 text-xs text-gray-400">{t("labApi.tryHint")}</p>
+          <p className="mt-2 text-sm font-medium text-purple-200">{t("labApi.tryReceipts")}</p>
           <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
             <ShieldCheck className="h-3.5 w-3.5" /> {t("labApi.badge")}
           </div>
