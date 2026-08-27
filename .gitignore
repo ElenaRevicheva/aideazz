@@ -32,3 +32,6 @@ pitch-pdf/preview-*.png
 public/*.backup-*
 dist/*.backup-*
 
+
+# local safety backups from scripts/backfill-blog-internal-links.mjs
+_backup-blog-links/

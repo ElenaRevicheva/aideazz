@@ -127,11 +127,21 @@
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
     footer a { color: #6366f1; }
   </style>
+
+  <style>
+    .more-posts { margin: 3rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+    .more-posts h2 { font-size: 1.1rem; margin: 0 0 .75rem; }
+    .more-posts ul { list-style: none; padding: 0; margin: 0; }
+    .more-posts li { margin: .45rem 0; line-height: 1.45; }
+    .more-posts a { color: #6366f1; text-decoration: none; }
+    .more-posts a:hover { text-decoration: underline; }
+    .mp-date { color: #6b7280; font-size: .85em; white-space: nowrap; }
+  </style>
 </head>
 <body>
   <header>
     <a href="/">AIdeazz</a>
-    <a href="/blog">Blog</a>
+    <a href="/blog/">Blog</a>
     <a href="/about">About</a>
     <a href="/portfolio">Portfolio</a>
   </header>
@@ -172,11 +182,31 @@
 <p><strong>Q: Does this event-sourcing approach increase latency for state reads/writes?</strong><br>A: Initial state loading can be slower due to replaying events. However, subsequent appends are fast. For critical paths, I cache the current state in memory and only persist the new events to <code>oracledb</code>, updating the in-memory state after a successful write.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>
+  <!-- more-posts:v1 -->
+  <nav class="more-posts" aria-label="More articles">
+    <h2>More from this blog</h2>
+    <ul>
+      <li><a href="/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a> <span class="mp-date">August 23, 2026</span></li>
+      <li><a href="/blog/wall-on-the-page-field-note/">The wall was on the page, not the data</a> <span class="mp-date">August 23, 2026</span></li>
+      <li><a href="/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-jobs/">LangGraph Checkpointing: Three Production Rewrites to Stop Losing Jobs</a> <span class="mp-date">August 22, 2026</span></li>
+      <li><a href="/blog/telegram-my-ai-agent-ops-dashboard-not-a-web-ui/">Telegram: My AI Agent Ops Dashboard, Not a Web UI</a> <span class="mp-date">August 21, 2026</span></li>
+      <li><a href="/blog/why-my-ai-agent-ops-dashboard-is-a-telegram-bot/">Why My AI Agent Ops Dashboard is a Telegram Bot</a> <span class="mp-date">August 20, 2026</span></li>
+      <li><a href="/blog/telegram-my-production-ai-agent-dashboard-no-web-ui-needed/">Telegram: My Production AI Agent Dashboard, No Web UI Needed</a> <span class="mp-date">August 19, 2026</span></li>
+      <li><a href="/blog/stage-never-moved-field-note/">Answered leads that still looked untouched</a> <span class="mp-date">August 19, 2026</span></li>
+      <li><a href="/blog/ack-trap-field-note/">The webhook that returned 200 while switched off</a> <span class="mp-date">August 19, 2026</span></li>
+      <li><a href="/blog/concierge-outage-field-note/">The lead pipeline that answered nobody for four days</a> <span class="mp-date">August 19, 2026</span></li>
+      <li><a href="/blog/telegram-my-ai-agent-ops-dashboard-for-10-live-systems-2026-08-18/">Telegram: My AI Agent Ops Dashboard for 10 Live Systems</a> <span class="mp-date">August 18, 2026</span></li>
+      <li><a href="/blog/brightdata-web-unlocker-when-150cpm-isnt-a-waste/">BrightData Web Unlocker: When $1.50/CPM Isn't a Waste</a> <span class="mp-date">August 17, 2026</span></li>
+      <li><a href="/blog/b2b-lead-gen-on-x-my-bots-68-false-positive-rate/">B2B Lead Gen on X: My Bot's 68% False Positive Rate</a> <span class="mp-date">August 16, 2026</span></li>
+    </ul>
+    <p><a href="/blog/archive/">Browse all 124 articles →</a></p>
+  </nav>
+<!-- /more-posts:v1 -->
   </article>
 
   <footer>
     <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
-    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog/">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
   </footer>
 </body>
 </html>

@@ -127,11 +127,21 @@
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
     footer a { color: #6366f1; }
   </style>
+
+  <style>
+    .more-posts { margin: 3rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+    .more-posts h2 { font-size: 1.1rem; margin: 0 0 .75rem; }
+    .more-posts ul { list-style: none; padding: 0; margin: 0; }
+    .more-posts li { margin: .45rem 0; line-height: 1.45; }
+    .more-posts a { color: #6366f1; text-decoration: none; }
+    .more-posts a:hover { text-decoration: underline; }
+    .mp-date { color: #6b7280; font-size: .85em; white-space: nowrap; }
+  </style>
 </head>
 <body>
   <header>
     <a href="/">AIdeazz</a>
-    <a href="/blog">Blog</a>
+    <a href="/blog/">Blog</a>
     <a href="/about">About</a>
     <a href="/portfolio">Portfolio</a>
   </header>
@@ -263,11 +273,31 @@
 <p><strong>Q: Does this approach add significant latency to each agent step?</strong><br>A: Each <code>get</code> and <code>put</code> operation involves network calls to OCI Object Storage. For typical agent steps, this adds 50-200ms of latency per state access, which is acceptable for most conversational AI applications where LLM calls dominate latency (e.g., Groq 100ms, Claude 1-5s). For extremely high-throughput, low-latency scenarios, an in-memory cache with eventual consistency might be layered on top.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>
+  <!-- more-posts:v1 -->
+  <nav class="more-posts" aria-label="More articles">
+    <h2>More from this blog</h2>
+    <ul>
+      <li><a href="/blog/langgraph-checkpointing-three-production-rewrites-before-it-clicked/">LangGraph Checkpointing: Three Production Rewrites Before It Clicked</a> <span class="mp-date">August 4, 2026</span></li>
+      <li><a href="/blog/my-12000-ai-vendor-lock-in-mistakes-a-fractional-ctos-audit/">My $12,000 AI Vendor Lock-in Mistakes: A Fractional CTO's Audit</a> <span class="mp-date">August 3, 2026</span></li>
+      <li><a href="/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-ai-pipeline/">Automating GSC Gap Analysis to Publishing: 15 Queries, 1 AI Pipeline</a> <span class="mp-date">August 2, 2026</span></li>
+      <li><a href="/blog/automating-gsc-content-gaps-from-query-to-published-post-in-12-minutes/">Automating GSC Content Gaps: From Query to Published Post in 12 Minutes</a> <span class="mp-date">August 1, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-31/">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</a> <span class="mp-date">July 31, 2026</span></li>
+      <li><a href="/blog/langgraph-checkpointing-three-rewrites-to-production-stability/">LangGraph Checkpointing: Three Rewrites to Production Stability</a> <span class="mp-date">July 30, 2026</span></li>
+      <li><a href="/blog/three-langgraph-rewrites-checkpointing-production-agents/">Three LangGraph Rewrites: Checkpointing Production Agents</a> <span class="mp-date">July 29, 2026</span></li>
+      <li><a href="/blog/why-ai-cant-make-films-yet-and-what-its-missing/">Why AI Can't Make Films Yet (And What It's Missing)</a> <span class="mp-date">July 28, 2026</span></li>
+      <li><a href="/blog/business-intelligence-when-your-co-founder-is-ai/">Business Intelligence When Your Co-Founder Is AI</a> <span class="mp-date">July 28, 2026</span></li>
+      <li><a href="/blog/telegram-my-ai-agent-ops-dashboard-for-10-live-systems/">Telegram: My AI Agent Ops Dashboard for 10 Live Systems</a> <span class="mp-date">July 28, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-07-27/">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</a> <span class="mp-date">July 27, 2026</span></li>
+      <li><a href="/blog/algom-alpha-b2b-leads-from-x-my-68-false-positive-rate-and-what-a-bot-calls-qualified/">Algom Alpha: B2B Leads from X, My 68% False-Positive Rate, and What a Bot Calls 'Qualified</a> <span class="mp-date">July 26, 2026</span></li>
+    </ul>
+    <p><a href="/blog/archive/">Browse all 124 articles →</a></p>
+  </nav>
+<!-- /more-posts:v1 -->
   </article>
 
   <footer>
     <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
-    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog/">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
   </footer>
 </body>
 </html>

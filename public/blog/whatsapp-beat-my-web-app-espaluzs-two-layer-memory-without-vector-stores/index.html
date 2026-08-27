@@ -135,11 +135,21 @@
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
     footer a { color: #6366f1; }
   </style>
+
+  <style>
+    .more-posts { margin: 3rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+    .more-posts h2 { font-size: 1.1rem; margin: 0 0 .75rem; }
+    .more-posts ul { list-style: none; padding: 0; margin: 0; }
+    .more-posts li { margin: .45rem 0; line-height: 1.45; }
+    .more-posts a { color: #6366f1; text-decoration: none; }
+    .more-posts a:hover { text-decoration: underline; }
+    .mp-date { color: #6b7280; font-size: .85em; white-space: nowrap; }
+  </style>
 </head>
 <body>
   <header>
     <a href="/">AIdeazz</a>
-    <a href="/blog">Blog</a>
+    <a href="/blog/">Blog</a>
     <a href="/about">About</a>
     <a href="/portfolio">Portfolio</a>
   </header>
@@ -200,11 +210,31 @@ Summary:
 <p><strong>Q: What's the biggest technical challenge you faced with this setup?</strong><br>A: Ensuring robust error handling and retry mechanisms for WhatsApp API calls and LLM interactions. WhatsApp can have transient issues, and LLMs can occasionally return malformed JSON or rate limit. Implementing exponential backoff and clear logging was crucial for stability.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>
+  <!-- more-posts:v1 -->
+  <nav class="more-posts" aria-label="More articles">
+    <h2>More from this blog</h2>
+    <ul>
+      <li><a href="/blog/what-the-live-ad-market-says-about-ai-services-july-2026/">What the Live Ad Market Says About AI Services Right Now (July 2026)</a> <span class="mp-date">July 19, 2026</span></li>
+      <li><a href="/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing-2026-07-19/">GSC Gap Analysis: From 15 Queries to Automated Publishing</a> <span class="mp-date">July 19, 2026</span></li>
+      <li><a href="/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-pipeline/">Automating GSC Gap Analysis to Publishing: 15 Queries, 1 Pipeline</a> <span class="mp-date">July 18, 2026</span></li>
+      <li><a href="/blog/automating-content-gaps-from-gsc-to-devto-in-15-queries-2026-07-17/">Automating Content Gaps: From GSC to Dev.to in 15 Queries</a> <span class="mp-date">July 17, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-07-16/">131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First</a> <span class="mp-date">July 16, 2026</span></li>
+      <li><a href="/blog/automating-content-gaps-from-gsc-to-devto-in-15-queries/">Automating Content Gaps: From GSC to Dev.to in 15 Queries</a> <span class="mp-date">July 15, 2026</span></li>
+      <li><a href="/blog/15-gsc-queries-my-ai-content-pipelines-reality-check/">15 GSC Queries: My AI Content Pipeline's Reality Check</a> <span class="mp-date">July 14, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first/">131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First</a> <span class="mp-date">July 13, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness/">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</a> <span class="mp-date">July 12, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-why-my-ai-agents-get-an-eval-harness-first/">131 Tests, 4 Layers: Why My AI Agents Get an Eval Harness First</a> <span class="mp-date">July 11, 2026</span></li>
+      <li><a href="/blog/gsc-gap-analysis-from-15-queries-to-automated-publishing/">GSC Gap Analysis: From 15 Queries to Automated Publishing</a> <span class="mp-date">July 10, 2026</span></li>
+      <li><a href="/blog/executive-career-pivot-ai-developer-what-actually-transferred-and-what-cost-47k/">Executive Career Pivot AI Developer: What Actually Transferred (and What Cost $47k)</a> <span class="mp-date">July 9, 2026</span></li>
+    </ul>
+    <p><a href="/blog/archive/">Browse all 124 articles →</a></p>
+  </nav>
+<!-- /more-posts:v1 -->
   </article>
 
   <footer>
     <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
-    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog/">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
   </footer>
 </body>
 </html>

@@ -135,11 +135,21 @@
     footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
     footer a { color: #6366f1; }
   </style>
+
+  <style>
+    .more-posts { margin: 3rem 0 1rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+    .more-posts h2 { font-size: 1.1rem; margin: 0 0 .75rem; }
+    .more-posts ul { list-style: none; padding: 0; margin: 0; }
+    .more-posts li { margin: .45rem 0; line-height: 1.45; }
+    .more-posts a { color: #6366f1; text-decoration: none; }
+    .more-posts a:hover { text-decoration: underline; }
+    .mp-date { color: #6b7280; font-size: .85em; white-space: nowrap; }
+  </style>
 </head>
 <body>
   <header>
     <a href="/">AIdeazz</a>
-    <a href="/blog">Blog</a>
+    <a href="/blog/">Blog</a>
     <a href="/about">About</a>
     <a href="/portfolio">Portfolio</a>
   </header>
@@ -189,11 +199,31 @@ SELECT id, content FROM documents ORDER BY embedding &lt;-&gt; '[...query_vector
 <p><strong>Q: How do you handle document chunking for RAG?</strong><br>A: We use a fixed-size chunking strategy with overlap. For most documents, we chunk into 250-token segments with a 50-token overlap. For structured data like tables, we use a more sophisticated approach that attempts to keep related rows or sections together.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>
+  <!-- more-posts:v1 -->
+  <nav class="more-posts" aria-label="More articles">
+    <h2>More from this blog</h2>
+    <ul>
+      <li><a href="/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-13/">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</a> <span class="mp-date">August 13, 2026</span></li>
+      <li><a href="/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure-2026-08-12/">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</a> <span class="mp-date">August 12, 2026</span></li>
+      <li><a href="/blog/pgvector-on-oracle-autonomous-db-6-months-10k-vectors-and-rag-failure/">pgvector on Oracle Autonomous DB: 6 Months, 10k Vectors, and RAG Failure</a> <span class="mp-date">August 11, 2026</span></li>
+      <li><a href="/blog/langgraph-checkpointing-three-rewrites-to-production-stability-2026-08-10/">LangGraph Checkpointing: Three Rewrites to Production Stability</a> <span class="mp-date">August 10, 2026</span></li>
+      <li><a href="/blog/ai-startup-infrastructure-0-oracle-12-groq-40-brightdata-real-costs/">AI Startup Infrastructure: $0 Oracle, $12 Groq, $40 BrightData — Real Costs</a> <span class="mp-date">August 9, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-why-i-built-my-ai-agent-eval-harness-first-2026-08-08/">131 Tests, 4 Layers, $00.03/Run: Why I Built My AI Agent Eval Harness First</a> <span class="mp-date">August 8, 2026</span></li>
+      <li><a href="/blog/131-tests-4-layers-0003run-my-ai-agent-eval-harness-2026-08-07/">131 Tests, 4 Layers, $00.03/Run: My AI Agent Eval Harness</a> <span class="mp-date">August 7, 2026</span></li>
+      <li><a href="/blog/automated-publishing-from-gsc-gap-to-live-post-in-11-minutes/">Automated Publishing: From GSC Gap to Live Post in 11 Minutes</a> <span class="mp-date">August 6, 2026</span></li>
+      <li><a href="/blog/langgraph-checkpointing-three-production-rewrites-to-stop-losing-state-2026-08-05/">LangGraph Checkpointing: Three Production Rewrites to Stop Losing State</a> <span class="mp-date">August 5, 2026</span></li>
+      <li><a href="/blog/langgraph-checkpointing-three-production-rewrites-before-it-clicked/">LangGraph Checkpointing: Three Production Rewrites Before It Clicked</a> <span class="mp-date">August 4, 2026</span></li>
+      <li><a href="/blog/my-12000-ai-vendor-lock-in-mistakes-a-fractional-ctos-audit/">My $12,000 AI Vendor Lock-in Mistakes: A Fractional CTO's Audit</a> <span class="mp-date">August 3, 2026</span></li>
+      <li><a href="/blog/automating-gsc-gap-analysis-to-publishing-15-queries-1-ai-pipeline/">Automating GSC Gap Analysis to Publishing: 15 Queries, 1 AI Pipeline</a> <span class="mp-date">August 2, 2026</span></li>
+    </ul>
+    <p><a href="/blog/archive/">Browse all 124 articles →</a></p>
+  </nav>
+<!-- /more-posts:v1 -->
   </article>
 
   <footer>
     <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
-    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog/">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
   </footer>
 </body>
 </html>
