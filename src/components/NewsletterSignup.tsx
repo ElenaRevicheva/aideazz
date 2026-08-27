@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mail, Loader2, CheckCircle2 } from "lucide-react";
+import { track } from "@/lib/analytics";
 import {
   NEWSLETTER_SUBSCRIBE_URL,
   PORTFOLIO_NEWSLETTER_ANCHOR,
@@ -88,6 +89,7 @@ const NewsletterSignup = ({
         return;
       }
       toast.success(data.alreadySubscribed ? copy.already : copy.check);
+      track("newsletter_signup", { already_subscribed: !!data.alreadySubscribed });
       setDone(true);
       setEmail("");
     } catch (err) {

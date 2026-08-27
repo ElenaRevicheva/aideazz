@@ -21,6 +21,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import { LAB_API_INQUIRY_LINK } from "@/config/marketing";
+import { track } from "@/lib/analytics";
 
 /**
  * Base URL of the AEO/GEO/Tech-SEO Visibility API (cto-aipa express service).
@@ -151,6 +152,8 @@ export default function LabApi() {
         setError(data?.message || t("labApi.errorGeneric"));
       } else {
         setResult(data as AuditResult);
+        // Proves the /api page works as a lead magnet, not just that it loaded.
+        track("api_demo_run", { score: (data as AuditResult)?.score });
       }
     } catch {
       setError(t("labApi.errorGeneric"));

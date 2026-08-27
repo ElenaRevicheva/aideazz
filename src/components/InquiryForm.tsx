@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { MARKETING_INQUIRY_PROXY_URL } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
 import { Send, Loader2, CreditCard } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 type InquiryFormProps = {
   /** Anchor for deep links / scroll (default `inquiry-form`). */
@@ -104,6 +105,15 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
         throw new Error(data.error || r.statusText);
       }
       toast.success(t("cta.inquirySuccess"));
+      // The money event. Enhanced Measurement cannot see this submit — the form
+      // preventDefault()s and POSTs via fetch — so if it is not emitted here it
+      // is never measured anywhere. No name/email/message: source, not identity.
+      track("generate_lead", {
+        form: "inquiry",
+        utm_source: utm.utm_source,
+        utm_medium: utm.utm_medium,
+        utm_campaign: utm.utm_campaign,
+      });
       setSubmittedOk(true);
       setMessage("");
     } catch (err) {

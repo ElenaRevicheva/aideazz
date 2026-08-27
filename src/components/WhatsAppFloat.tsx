@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X, Send, CalendarClock } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { track } from "@/lib/analytics";
 
 interface WhatsAppFloatProps {
   /** Digits only, international format, no "+" — e.g. "50761666716". */
@@ -117,6 +118,9 @@ export default function WhatsAppFloat({
 
               <a
                 href={chatUrl}
+                onClick={() =>
+                  track("contact_whatsapp", { placement: "float", state: online ? "online" : "away" })
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-3 font-semibold text-white shadow-lg shadow-green-500/40 transition-all hover:bg-green-500"
