@@ -1,1 +1,1 @@
-pinned 2026-08-26T20:50:00Z prompt-poisoned-grounding-gate
+pinned 2026-08-27T21:15:00Z labapi-34-checks
