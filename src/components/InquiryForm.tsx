@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { MARKETING_INQUIRY_PROXY_URL } from "@/config/marketing";
+import { MARKETING_INQUIRY_PROXY_URL, captureInboundUtms } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
 import { Send, Loader2, CreditCard } from "lucide-react";
 import { track } from "@/lib/analytics";
@@ -44,7 +44,8 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
 
   useEffect(() => {
     const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
-    const next: Record<string, string> = {};
+    const stored = captureInboundUtms();
+    const next: Record<string, string> = { ...stored };
     for (const k of keys) {
       const v = searchParams.get(k);
       if (v) next[k] = v;

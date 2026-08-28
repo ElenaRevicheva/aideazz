@@ -21,7 +21,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
-import { LAB_API_INQUIRY_LINK } from "@/config/marketing";
+import { LAB_API_INQUIRY_LINK, captureInboundUtms, inquiryLinkFromInbound } from "@/config/marketing";
 import { track } from "@/lib/analytics";
 
 /**
@@ -133,6 +133,7 @@ export default function LabApi() {
         "Free API and live tool: audit whether ChatGPT, Perplexity, Claude and Gemini can find, understand and quote your site. AEO, GEO and technical SEO scored in seconds.",
       canonicalUrl: `${SITE_ORIGIN}/api`,
     });
+    captureInboundUtms();
   }, []);
 
   const autoRan = React.useRef(false);
@@ -146,10 +147,11 @@ export default function LabApi() {
     setError(null);
     setResult(null);
     try {
+      const inbound = captureInboundUtms();
       const res = await fetch(`${API_BASE}/v1/visibility`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "X-API-Key": DEMO_KEY },
-        body: JSON.stringify({ url: target }),
+        body: JSON.stringify({ url: target, ...inbound }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -224,7 +226,7 @@ export default function LabApi() {
       <div className="relative z-10 mx-auto max-w-4xl px-5 py-10 sm:px-8">
         {/* Top bar */}
         <div className="mb-10 flex items-center justify-between">
-          <Link to="/portfolio" className="text-sm text-purple-300 hover:text-white transition-colors">
+          <Link to={inquiryLinkFromInbound("/portfolio")} className="text-sm text-purple-300 hover:text-white transition-colors">
             ← Elena Revicheva
           </Link>
           <LanguageSwitcher syncQueryParam />
@@ -517,7 +519,7 @@ export default function LabApi() {
           <h2 className="text-2xl font-bold text-white sm:text-3xl">{t("labApi.ctaTitle")}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-400">{t("labApi.ctaBody")}</p>
           <Link
-            to={LAB_API_INQUIRY_LINK}
+            to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)}
             className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-purple-900/40 transition-all hover:from-purple-500 hover:to-pink-500"
           >
             {t("labApi.ctaButton")} <ArrowRight className="h-4 w-4" />
