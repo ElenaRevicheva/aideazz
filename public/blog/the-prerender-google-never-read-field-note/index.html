@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The prerender Google never read, and the A+ score that could not see it | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 28, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The prerender Google never read, and the A+ score that could not see it">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 28, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-28T23:20:09.118Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The prerender Google never read, and the A+ score that could not see it">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 28, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The prerender Google never read, and the A+ score that could not see it",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 28, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-28T23:20:09.118Z",
+  "dateModified": "2026-08-28T23:20:09.118Z",
+  "url": "https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The prerender Google never read, and the A+ score that could not see it</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-28T23:20:09.118Z">August 28, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 28, 2026.</em></p>
+<p><strong>A single-page app prerendered static HTML so AI crawlers could read its money pages. It worked for the crawlers that do not execute JavaScript, was discarded entirely by the one that does, and the site's own audit scored the discarded half A+ 100/100.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>The portfolio page -- the commercial page the whole site funnels toward -- appeared to have fallen out of Google, while the homepage and two other pages ranked normally. The page returned HTTP 200, was listed in the sitemap, carried a self-referencing canonical and index-follow, and no URL variant split its identity. The site's own AI visibility audit scored it A+ 100/100 with zero non-passing checks. Every instrument said the page was healthy and something external had gone wrong.</p>
+<h2>What was actually happening</h2>
+<p>The page had two identities and they disagreed. A post-build step wrote standalone static HTML for each money page -- a commercial title plus a roughly 650-word crawler article -- and placed that article inside a noscript block. The client-side application then set document.title, meta description and canonical on mount from values hardcoded in its own page component. Google executes JavaScript, so on render the noscript article was discarded by specification and the runtime values overwrote the prerendered head. The prerendered identity was therefore never indexed by Google at all, while non-executing AI crawlers read only that half and never saw the runtime one. Neither file was wrong; nothing threw; nothing was logged. The split was invisible because each surface looked correct when inspected on its own, and the internal audit read raw HTML -- the same half the AI crawlers read, and the opposite half from the one Google stores.</p>
+<h2>The fix</h2>
+<p>Proved the direction of the failure before changing anything, by string-matching the search index against the source. Then collapsed the two definitions into one JSON file that both the build-time prerender script and the client-side page component read, so the two surfaces cannot drift again, with the commercial title as the surviving value. Deliberately excluded the audit API page from the change: its runtime title and description were the ones already ranking, so unifying it would have altered a page that was working. Scoped the edit to head identity only -- no markup changed, so nothing moved visually on the live page.</p>
+<h2>How I know it worked</h2>
+<p>Google's stored title for the portfolio page matched the client component character for character, not the prerendered file; the same held for the audit page against its own component, confirming the pattern was systemic rather than a one-off. The page was never deindexed -- it ranked fourth in a site query returning 131 indexed pages, and fifth for its own name query, behind the author's own social profiles. Absence from brand queries was host crowding, roughly two results per domain, not a defect. After deploy, checked against the served bytes rather than the commit: the live JavaScript bundle contained the new title once and the old title zero times. The untouched page was byte-identical except the build's own date stamp, its ranking title still present in the live bundle; the static SOP page and the homepage were unchanged; all six money pages returned 200.</p>
+<h2>The rule this earned</h2>
+<blockquote>Decide which representation your most important consumer actually stores, and verify against that copy rather than the file you shipped. When a static build and a client-side application both set head identity, they are two sources of truth and the one that executes last silently wins -- so they must read one file. A noscript block is a fallback for absent JavaScript, not a channel to a crawler that runs it. And know which half of the audience your own checker reads: a raw-HTML scorer measures the non-executing consumers, which is a real audience and a real number, but it is not a verdict about a rendering one. A perfect score on content the primary reader discards is not a good result, it is an instrument answering a neighbouring question.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>The render is the artifact</h3>
+<p><em>What a JavaScript-executing consumer stores is the DOM after execution, not the HTML you served. Anything that exists only before execution was never delivered.</em></p>
+<p>This is one step past <a href="#git-is-not-the-origin">git is not the origin</a>. There the receipt lied about what was being served. Here the serving is genuinely correct and current -- and still the consumer stores something else, because it transforms your bytes before reading them.</p>
+<p>Modern search crawlers execute JavaScript. The thing that lands in the index is the DOM after that execution, not the file that came off the wire. Two consequences follow, and both are counter-intuitive because the served file looks perfect in <code>curl</code> and in the browser's View Source.</p>
+<p>First, content that exists <strong>only</strong> in the pre-execution HTML is invisible. <code><noscript></code> is the sharpest example: by specification its contents render only when scripting is disabled, so a crawler running with JavaScript on discards it. A <code><noscript></code> block is a fallback for the absence of JavaScript. It is not a crawler channel, even though a crawler that does <em>not</em> execute JavaScript will happily read it -- which is exactly why the technique appears to work when you test it with a plain fetch.</p>
+<p>Second, anything the application rewrites at runtime wins. If the page ships a carefully-chosen <code><title></code> and then the client-side router sets <code>document.title</code> on mount, the served title never reaches the index. Both values are "correct" in their own file. Nobody wrote a bug. The two simply describe the same page differently, and the one that executes last is the one that counts.</p>
+<p>The result is a split audience. Consumers that execute JavaScript see one page; consumers that do not -- many AI crawlers, link-preview bots, plain HTTP clients -- see the other. Optimising for one can silently be measured with a tool that reads the other, which is how a page earns a perfect score on precisely the content its most important reader throws away.</p>
+<p>Ordinary-life version: you post a letter with a covering note clipped to the front. The recipient's mailroom removes every clip before delivery. Your letter arrived. Your note never existed, as far as the reader is concerned -- and photographing the envelope on your desk will never reveal that.</p>
+<p>Defences:</p>
+<p>1. <strong>Diff the two representations deliberately.</strong> Fetch the URL raw, then fetch it through a renderer, and compare title, description, canonical and word count. If they disagree, decide which one you meant -- do not let execution order decide for you.<br>2. <strong>One definition, both surfaces.</strong> If a static build writes head identity and the client also sets it, both must read the same source file. See <a href="#single-source-of-truth">single source of truth</a>.<br>3. <strong>Verify from the consumer's stored copy, not your own.</strong> The decisive evidence is what the index actually holds. String-match it against your source: whichever file it matches character for character is the one that is really shipping.<br>4. <strong>Know which half your instrument reads.</strong> A checker that fetches raw HTML measures the non-executing audience. That is a real audience and a real score -- but it is not a verdict about a rendering one.</p>
+<h3>Single source of truth</h3>
+<p><em>Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</em></p>
+<p>When the same rule, prompt, threshold or piece of logic exists in more than one place, the copies begin identical and end different. Nothing announces the divergence. Someone updates one copy, the others keep running the old behaviour, and the system's actual conduct is now split across versions that no single file describes.</p>
+<p>The failure is especially nasty when a copy lives somewhere code review cannot see it: a hosted workflow builder, a dashboard setting, a scheduled job on one machine, a prompt pasted into a vendor interface. Those copies never appear in a diff, so the drift stays invisible until it produces a visibly wrong result in front of a customer.</p>
+<p>Two defences that work:</p>
+<ul><li><strong>One definition, imported everywhere.</strong> Every consumer reads the same file. Where a copy must physically live elsewhere, generate and push it from that file rather than editing it by hand.</li>
+<li><strong>Detect drift automatically.</strong> Re-read the remote copies on a schedule and raise an alert when one no longer matches the source. A copy you cannot diff is a copy you must monitor.</li></ul>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
