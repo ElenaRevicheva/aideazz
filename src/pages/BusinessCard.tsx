@@ -9,6 +9,7 @@ import { Globe, Twitter, Linkedin, Mail, ExternalLink, Languages, Github, Cpu, T
 import { useTranslation, Trans } from "react-i18next";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import { PORTFOLIO_INQUIRY_ANCHOR, PORTFOLIO_NEWSLETTER_ANCHOR } from "@/config/marketing";
+import ROUTE_SEO from "@/config/route-seo.json";
 import { scrollToPortfolioInquiry } from "@/lib/scrollToPortfolioInquiry";
 
 function useCountUp(end: number, duration: number = 1500, shouldStart: boolean = false) {
@@ -197,12 +198,16 @@ export default function BusinessCard() {
   };
 
   useEffect(() => {
-    const pageTitle = isSpanish
-      ? "Elena Revicheva | Portafolio de Productos de IA"
-      : "Elena Revicheva | AI Products Portfolio";
-    const pageDescription = isSpanish
-      ? "Contrata IA probada: 9 productos en produccion (EspaLuz, CTO/CMO AIPAs, Atlas), API gratuita de Auditoria de Visibilidad IA y servicios AEO/GEO/SEO tecnico. Demos en vivo."
-      : "Work with proven AI: 9 products in production (EspaLuz, CTO/CMO AIPAs, Atlas), a free AI Visibility Audit API, and AEO/GEO/tech-SEO services. Live demos on every card.";
+    // Google renders JS, so THIS value — not the prerendered <title> in
+    // dist/portfolio.html — is what ends up in the index. The two used to
+    // disagree, and the prerendered one was therefore never indexed (proved
+    // 28 Aug 2026 by string-matching Google's stored title against this file).
+    // scripts/prerender-routes.mjs now reads the same JSON. Edit titles THERE,
+    // not here, or the two surfaces drift apart again.
+    // /api is deliberately not in that file: its runtime title is ranking.
+    const seo = ROUTE_SEO.portfolio[isSpanish ? "es" : "en"];
+    const pageTitle = seo.title;
+    const pageDescription = seo.description;
 
     applyPageSeo({
       title: pageTitle,

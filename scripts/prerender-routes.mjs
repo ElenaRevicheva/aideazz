@@ -30,6 +30,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DIST = path.join(__dirname, '..', 'dist');
 const TEMPLATE = path.join(DIST, 'index.html');
 
+// Shared with src/pages/BusinessCard.tsx. Google renders JS, so the runtime value
+// there is what gets indexed — if this file and that component disagree, the
+// prerendered title is silently discarded. One file, one truth. /api is
+// deliberately not in here: its runtime title is ranking and stays untouched.
+const ROUTE_SEO = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '..', 'src', 'config', 'route-seo.json'), 'utf8'),
+);
+
 const TODAY = new Date().toISOString().slice(0, 10);
 const TODAY_HUMAN = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -260,9 +268,8 @@ const ROUTES = [
   {
     dir: 'portfolio',
     url: 'https://aideazz.xyz/portfolio',
-    title: 'Elena Revicheva — AI Portfolio | Live Agents, Audits & Fractional CTO',
-    description:
-      'Work with Elena Revicheva: 9 live AI products, WhatsApp/Telegram agents, AI automation, GEO/AEO/tech SEO, AI video and reliability engineering. Live demos inside.',
+    title: ROUTE_SEO.portfolio.en.title,
+    description: ROUTE_SEO.portfolio.en.description,
     ogType: 'website',
     article: PORTFOLIO_ARTICLE,
     jsonLd: {
