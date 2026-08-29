@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Operations: The Hidden Costs of "Free Tier" and 99 Restarts | AIdeazz</title>
+  <meta name="description" content="My cto-aipa process restarted 99 times in the last day. This isn't a new problem; algom-stream has 55193 restarts over 13 days. These numbers are not just metrics; they are direct indicators of hidde…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Operations: The Hidden Costs of "Free Tier" and 99 Restarts">
+  <meta property="og:description" content="My cto-aipa process restarted 99 times in the last day. This isn't a new problem; algom-stream has 55193 restarts over 13 days. These numbers are not just metrics; they are direct indicators of hidde…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-29T19:30:23.478Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Operations: The Hidden Costs of "Free Tier" and 99 Restarts">
+  <meta name="twitter:description" content="My cto-aipa process restarted 99 times in the last day. This isn't a new problem; algom-stream has 55193 restarts over 13 days. These numbers are not just metrics; they are direct indicators of hidde…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Operations: The Hidden Costs of \"Free Tier\" and 99 Restarts",
+  "description": "My cto-aipa process restarted 99 times in the last day. This isn't a new problem; algom-stream has 55193 restarts over 13 days. These numbers are not just metrics; they are direct indicators of hidde…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-29T19:30:23.478Z",
+  "dateModified": "2026-08-29T19:30:23.478Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you measure the \"hidden cost\" of frequent restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured in a dollar figure. However, `cto-aipa` with 99 restarts in 1 day and `algom-stream` with 55193 restarts in 13 days directly consume engineering time for monitoring, debugging, and attempting to stabilize the processes. This time is a direct operational cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the actual monthly cost of your Oracle Cloud infrastructure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured. My current setup leverages the Oracle Always Free tier for compute, storage, and networking. The primary costs are external APIs and engineering time, not direct Oracle infrastructure billing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage API costs with multiple LLM providers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured. The `VibeJobHunterAIPA_AIMCF` repository shows a commit `llm_judge: the docstring described 2 providers; the code has 5`, indicating the use of multiple providers. Managing these involves monitoring usage per provider and optimizing for cost and performance, but I don't have a specific cost management system detailed in the evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of the \"prerender Google never read\" incident on your business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured in a specific revenue loss figure. However, the incident meant the portfolio page, which is the commercial page the site funnels toward, \"appeared to have fallen out of Google.\" This directly impacts lead generation and potential deals, as evidenced by 0 deals closed won and 100 deals at \"They replied\" stage."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Operations: The Hidden Costs of "Free Tier" and 99 Restarts</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-29T19:30:23.478Z">August 29, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> process restarted 99 times in the last day. This isn't a new problem; <code>algom-stream</code> has 55193 restarts over 13 days. These numbers are not just metrics; they are direct indicators of hidden costs, especially when relying on "free tier" promises. When you're shipping production AI agents, the infrastructure cost breakdown isn't just about the monthly bill for APIs and compute. It's about the engineering hours spent debugging, the lost data, and the operational overhead that never appears on a vendor invoice.</p>
+<h2>The Illusion of "Free Tier" Compute</h2>
+<p>I run 8 processes supervised by PM2. One of them, <code>algom-poll</code>, has been online for 32 days with 0 restarts. This is the ideal. Then there's <code>cto-aipa</code>, online for 1 day with 99 restarts, and <code>algom-stream</code>, online for 13 days with 55193 restarts. These are not "free" in any meaningful sense. Each restart means a process died, and PM2 brought it back. This consumes CPU cycles, memory, and most importantly, engineering attention.</p>
+<p>My infrastructure runs on Oracle Cloud. While Oracle offers a generous Always Free tier, the operational cost of managing these frequent restarts can quickly eclipse any perceived savings. For example, the <code>n8n</code> process, which orchestrates many of my workflows, is online for 16 days with 0 restarts and consumes 520 MB of memory. This stability is a direct contrast to the <code>algom-stream</code> process, which, despite consuming only 83 MB, is a constant source of instability. The "free" compute isn't free when it requires constant monitoring and intervention.</p>
+<h2>API Costs: Beyond the Token Count</h2>
+<p>My agents interact with various external APIs. I use <code>@anthropic-ai/sdk</code> and <code>openai</code> for LLM interactions, <code>groq-sdk</code> for faster inference, and <code>twitter-api-v2</code> for social media integration. While I do not have a direct API cost breakdown in the evidence, the impact of agent behavior on these costs is clear.</p>
+<p>Consider the <code>VibeJobHunterAIPA_AIMCF</code> repository. In the last 48 hours, I made 9 commits to it. One commit, <code>llm_judge: the docstring described 2 providers; the code has 5</code>, indicates an expansion in the number of LLM providers used. More providers mean more potential API calls, and more complexity in managing usage and cost. If an agent enters a restart loop, as <code>algom-stream</code> does, it could theoretically hammer an API repeatedly, incurring costs even if the overall task fails. The <code>concierge-selftest.log</code> shows <code>3553ms to first card</code>, indicating latency in an agent's response. While not a direct cost, slow responses can lead to higher compute times on my end, or increased user abandonment, which is a business cost.</p>
+<h2>Data Collection and Scraping: The Unseen Bill</h2>
+<p>My agents rely on data. The <code>serpapi-jobs</code> process, online for 10 days with 21 restarts, consumes 37 MB. This process likely interacts with external data sources, potentially through services like BrightData (though not explicitly named in the evidence, the general category of web scraping is implied by <code>serpapi-jobs</code>).</p>
+<p>The <code>VibeJobHunterAIPA_AIMCF</code> repo also shows commits like <code>yc waas: record WHY we do not scrape it, so nobody "fixes" this later</code> and <code>sources: judge a job board by its dates, not by its marketing</code>. These indicate careful consideration of data sources and the decision <em>not</em> to scrape certain sites. This decision itself is a cost-saving measure, avoiding potential legal issues, IP blocks, and the direct financial cost of scraping services. However, the engineering time to make these decisions and implement them is a significant, often unmeasured, cost.</p>
+<h2>The Cost of Incidents and Debugging</h2>
+<p>The most significant hidden cost is the time spent debugging and resolving incidents. My wiki logs two recent incidents:<br><ul><li>  "The prerender Google never read, and the A+ score that could not see it" (2026-08-28)</li><br><li>  "A third of the measurement went dark and the report stayed green" (2026-08-27)</li></ul></p>
+<p>The first incident describes a situation where a critical commercial page, the portfolio, "appeared to have fallen out of Google" despite an A+ 100/100 audit score. This is a direct hit to lead generation and sales. The <code>aideazz</code> repository had 12 commits in the last 48 hours, including <code>home: answer "What is AIdeazz?" with what we sell, not the marketplace vision</code> and <code>home: hero leads with the AI Growth Operator offer, EspaLuz becomes the proof</code>. These changes are likely reactive, attempting to fix the visibility issue. The engineering time spent on this, and the lost business opportunities, are substantial.</p>
+<p>The second incident, "A third of the measurement went dark and the report stayed green," involved a deprecated model causing one of three AI answer engines to return <code>404</code> for about three weeks. The cron job kept reporting 0% citations, but the "only tell was the denominator." This highlights a critical monitoring failure. The <code>followup-radar.log</code> shows <code>imap.gmail.com: 544 inbox / 10 sent (last 45d)</code> and <code>imap.zoho.com: 247 inbox / 40 sent (last 45d)</code>. While these are email counts, they represent the communication overhead, some of which is undoubtedly related to resolving such incidents. The time spent diagnosing why a "green" report was actually hiding a <code>404</code> error is a pure operational cost.</p>
+<h2>The Cost of Development and Iteration</h2>
+<p>My <code>cto-aipa</code> repository saw 10 commits in the last 48 hours. These include <code>roadmap: the follow-up radar, and the four lessons the day actually taught</code> and <code>deploy: aideazz (0016 retry — real diff so the idle-page hint applies)</code>. Each commit represents development effort, testing, and deployment. Even if the underlying infrastructure is "free," the human capital required to build, maintain, and iterate on these agents is the primary cost driver.</p>
+<p>The <code>aideazz</code> repository had 12 commits in the last 48 hours, including <code>chore(sitemap): commit the generated sitemaps, 143 -> 145 URLs</code>. This shows continuous website maintenance, which supports the AI agents by providing a public face and content. The <code>VibeJobHunterAIPA_AIMCF</code> repository had 9 commits, including <code>gitattributes: pin eol=lf, because scp and git disagreed and md5 hid it</code>. This is a low-level infrastructure fix, but critical for preventing subtle bugs. These are all engineering costs, directly tied to keeping the AI agents operational and effective.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you measure the "hidden cost" of frequent restarts?</strong><br>A: I do not have that measured in a dollar figure. However, <code>cto-aipa</code> with 99 restarts in 1 day and <code>algom-stream</code> with 55193 restarts in 13 days directly consume engineering time for monitoring, debugging, and attempting to stabilize the processes. This time is a direct operational cost.</p>
+<p><strong>Q: What is the actual monthly cost of your Oracle Cloud infrastructure?</strong><br>A: I do not have that measured. My current setup leverages the Oracle Always Free tier for compute, storage, and networking. The primary costs are external APIs and engineering time, not direct Oracle infrastructure billing.</p>
+<p><strong>Q: How do you manage API costs with multiple LLM providers?</strong><br>A: I do not have that measured. The <code>VibeJobHunterAIPA_AIMCF</code> repository shows a commit <code>llm_judge: the docstring described 2 providers; the code has 5</code>, indicating the use of multiple providers. Managing these involves monitoring usage per provider and optimizing for cost and performance, but I don't have a specific cost management system detailed in the evidence.</p>
+<p><strong>Q: What is the impact of the "prerender Google never read" incident on your business?</strong><br>A: I do not have that measured in a specific revenue loss figure. However, the incident meant the portfolio page, which is the commercial page the site funnels toward, "appeared to have fallen out of Google." This directly impacts lead generation and potential deals, as evidenced by 0 deals closed won and 100 deals at "They replied" stage.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
