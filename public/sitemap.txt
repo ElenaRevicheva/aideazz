@@ -14,8 +14,10 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
-https://aideazz.xyz/blog/a-third-of-the-measurement-went-dark-field-note/
 https://aideazz.xyz/blog/archive/
+https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/
+https://aideazz.xyz/blog/when-55193-restarts-hide-a-deeper-ai-agent-problem/
+https://aideazz.xyz/blog/a-third-of-the-measurement-went-dark-field-note/
 https://aideazz.xyz/blog/the-40-that-poisoned-my-ai-agent-grounding-gate/
 https://aideazz.xyz/blog/55193-restarts-in-10-days-debugging-an-ai-agents-endless-loop/
 https://aideazz.xyz/blog/why-a-telegram-bot-replaced-my-web-dashboard-for-ai-agent-ops/
