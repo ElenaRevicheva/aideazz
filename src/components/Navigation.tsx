@@ -13,9 +13,10 @@ const Navigation = () => {
 
   const navItems = [
     { name: t("nav.home"), href: "#home" },
+    // AI Lab first — matches the page order, where the sellable section now leads.
+    { name: t("nav.aiLab"), href: "#ai-lab" },
     { name: t("nav.espaluz"), href: "#espaluz" },
     { name: t("nav.platform"), href: "#platform" },
-    { name: t("nav.aiLab"), href: "#ai-lab" },
     { name: t("nav.agents"), href: "#agents" },
     { name: t("nav.vision"), href: "#vision" },
     { name: t("nav.team"), href: "#team" },

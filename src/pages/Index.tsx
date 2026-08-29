@@ -48,9 +48,13 @@ const Index = () => {
       <Navigation />
       <main className="flex-1">
         <HeroSection />
+        {/* AI Lab leads the page (2026-08-29). It is the sellable half — services,
+            pricing intent, "Start a project" — and it used to sit fourth, below the
+            ecosystem story. Google indexes the rendered DOM, so section order is
+            also snippet order: what leads here is what gets quoted out there. */}
+        <AiLabSection />
         <EspaLuzSection />
         <AIdeazzPlatformSection />
-        <AiLabSection />
         <AIpaExplainerSection />
         <UserJourneyTimeline />
         <VisionSection />
