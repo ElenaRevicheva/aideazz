@@ -14,6 +14,8 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/
+https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/
 https://aideazz.xyz/blog/archive/
 https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/
 https://aideazz.xyz/blog/when-55193-restarts-hide-a-deeper-ai-agent-problem/
