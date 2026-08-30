@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>175 Items Marked Done, Zero Delivered: An AI Agent Queue Incident | AIdeazz</title>
+  <meta name="description" content="A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The system reported success, but the output queue was empty. This…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="175 Items Marked Done, Zero Delivered: An AI Agent Queue Incident">
+  <meta property="og:description" content="A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The system reported success, but the output queue was empty. This…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-30T19:30:13.323Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="175 Items Marked Done, Zero Delivered: An AI Agent Queue Incident">
+  <meta name="twitter:description" content="A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The system reported success, but the output queue was empty. This…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "175 Items Marked Done, Zero Delivered: An AI Agent Queue Incident",
+  "description": "A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The system reported success, but the output queue was empty. This…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-30T19:30:13.323Z",
+  "dateModified": "2026-08-30T19:30:13.323Z",
+  "url": "https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How was the \"175 items\" number determined if nothing was delivered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The internal logs of the data source showed 175 items were successfully ingested and passed to the next stage, but the downstream system's intake logs showed zero. The difference was the number marked `done` by the dedup ledger without being processed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific monitoring would have caught this faster?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A dedicated metric comparing \"items entering the processing queue\" versus \"items marked as deduplicated *before* processing\" would have immediately flagged the discrepancy. I do not have that measured yet, but it is now a priority."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this related to the high restart counts seen in other processes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, this incident was a logical error in pipeline design, not a stability issue. Processes like `algom-stream` with 55193 restarts in 14 days, or `cto-aipa` with 99 restarts in 2 days, indicate different classes of problems (e.g., memory leaks, unhandled exceptions) that are separate from this data flow issue."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">175 Items Marked Done, Zero Delivered: An AI Agent Queue Incident</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-30T19:30:13.323Z">August 30, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The system reported success, but the output queue was empty. This was not a silent failure; it was a loud success that produced nothing. The root cause was a dedup ledger stamping items as handled <em>before</em> a processing cap was applied. My AI agent queue incident meant 175 items were marked as done without ever being processed.</p>
+<h2>The "Success" That Delivered Nothing</h2>
+<p>However, the downstream systems received zero items. My <code>VibeJobHunterAIPA_AIMCF</code> agent, responsible for consuming these items, was starved. The problem was not a lack of data, but a misattribution of "done" status.</p>
+<h2>How the Dedup Ledger Burned Jobs</h2>
+<p>The core of the issue lay in the order of operations for deduplication and processing. When new items arrived from the data source, they first passed through a deduplication ledger. This ledger's role is to prevent redundant processing of the same item. If an item was already seen, it would be marked as <code>done</code> and skipped.</p>
+<p>The critical flaw was that this <code>done</code> status was applied <em>before</em> the system's processing cap was enforced. My pipeline has a built-in cap to manage resource usage and prevent overwhelming downstream services. Any items exceeding this cap for a given processing cycle are supposed to be held back for the next cycle.</p>
+<p>This led to the commit <code>3d68e45</code> in <code>VibeJobHunterAIPA_AIMCF</code> on 2026-08-30: "wellfound: stop reporting success while returning nothing". The agent was reporting success because the dedup ledger said the items were "done," but no actual work was performed on the majority of them.</p>
+<h2>The Fix: Reordering Operations</h2>
+<p>The solution involved a reordering of these two critical steps. The processing cap needed to be applied <em>before</em> the dedup ledger marked items as <code>done</code>. This ensures that only items that have genuinely passed through the processing cap and are either actively being processed or have completed processing are marked as <code>done</code>.</p>
+<p>This change was captured in commit <code>36e985c</code> in <code>VibeJobHunterAIPA_AIMCF</code> on 2026-08-30: "pipeline: stop burning jobs at the cap, and stop starving the best source". This commit directly addressed the issue of items being "burned" (discarded) due to the incorrect application of the processing cap and the dedup ledger.</p>
+<p>The incident highlights a common pitfall in designing AI agent pipelines: the interaction between different operational layers. A seemingly logical order of operations can lead to silent data loss if not carefully considered.</p>
+<h2>Monitoring and Prevention</h2>
+<p>While the immediate fix was a code change, the incident also reinforced the need for robust monitoring that goes beyond simple "success" metrics. The system reported <code>ok</code> because the dedup ledger was updated, but the actual output was zero. This kind of discrepancy requires specific checks.</p>
+<p>My current monitoring setup includes:<br><ul><li>  <strong>PM2 process list:</strong> I have 8 processes online, including <code>cto-aipa</code> which has 99 restarts in 2 days, and <code>algom-stream</code> with 55193 restarts in 14 days. These high restart counts are flags for deeper issues, but don't directly show data loss.</li><br><li>  <strong>Log tailing:</strong> I regularly check logs like <code>concierge-selftest.log</code> which shows <code>✅ PASS — 4 checks, 3318ms to first card</code>, and <code>hs-watch-manual-emails.log</code> which shows <code>"ok": true</code>. These are good for immediate operational status but don't always catch logical errors like the one described.</li><br><li>  <strong>HubSpot deals:</strong> I track "Deals at 'They replied'" (100) and "Deals closed won" (0). These are business metrics, not direct agent health.</li></ul></p>
+<p>What was missing was a direct comparison of "items ingested" vs. "items delivered downstream" with an expected delta. The <code>wiki: the queue marked 175 items done before anyone read them</code> incident entry now serves as a reminder to implement this specific metric for new data sources.</p>
+<h2>The Operator Queue and Shared Context</h2>
+<p>My current operator queue, documented in <code>/home/ubuntu/cto-aipa/docs/oracle/NOW.md</code>, explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this So this file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid".</p>
+<p>This lack of shared context between AI agents and human operators (or even between different AI agents) makes debugging incidents like this more challenging. The <code>NOW.md</code> file acts as a critical shared memory, but it's a manual process. Automating the detection of such logical inconsistencies (e.g., "X items ingested, Y items delivered, where Y << X unexpectedly") is a priority.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How was the "175 items" number determined if nothing was delivered?</strong><br>A: The internal logs of the data source showed 175 items were successfully ingested and passed to the next stage, but the downstream system's intake logs showed zero. The difference was the number marked <code>done</code> by the dedup ledger without being processed.</p>
+<p><strong>Q: What specific monitoring would have caught this faster?</strong><br>A: A dedicated metric comparing "items entering the processing queue" versus "items marked as deduplicated <em>before</em> processing" would have immediately flagged the discrepancy. I do not have that measured yet, but it is now a priority.</p>
+<p><strong>Q: Is this related to the high restart counts seen in other processes?</strong><br>A: No, this incident was a logical error in pipeline design, not a stability issue. Processes like <code>algom-stream</code> with 55193 restarts in 14 days, or <code>cto-aipa</code> with 99 restarts in 2 days, indicate different classes of problems (e.g., memory leaks, unhandled exceptions) that are separate from this data flow issue.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
