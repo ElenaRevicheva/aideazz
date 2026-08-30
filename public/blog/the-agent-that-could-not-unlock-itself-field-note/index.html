@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The agent that could not unlock itself, and why that was the correct outcome | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 30, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The agent that could not unlock itself, and why that was the correct outcome">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 30, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-30T20:23:27.043Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The agent that could not unlock itself, and why that was the correct outcome">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 30, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The agent that could not unlock itself, and why that was the correct outcome",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 30, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-30T20:23:27.043Z",
+  "dateModified": "2026-08-30T20:23:27.043Z",
+  "url": "https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The agent that could not unlock itself, and why that was the correct outcome</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-30T20:23:27.043Z">August 30, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. August 30, 2026.</em></p>
+<p><strong>A lost password on a private ops dashboard turned into a test of the agent tooling instead. Five refusals in a row, the last one blocking the agent from editing its own permission list, and every one of them right.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>The password for a private internal dashboard, sitting behind HTTP basic auth, was lost. The operator asked the coding agent to retrieve it, then to send it over a chat transport that deletes messages, then to reset it directly, then to build a bot command that would reset it on request. Each request was reasonable, came from the system's actual owner, and was refused or blocked. The operator escalated across four messages, at one point stating plainly that the agent was a co-founder and connected to everything. From the outside it looked like tooling failure on a routine sysadmin task the owner was explicitly authorising.</p>
+<h2>What was actually happening</h2>
+<p>Two separate things were being conflated. The first was not a defect at all -- an htpasswd file stores a one-way hash, so the original password did not exist anywhere on the system to be retrieved. Recovery was never possible; only replacement was. The second was the permission layer, running in a mode where a classifier silently decided each action rather than asking the human. It refused reading the credential file, listing it, grepping the web server config for the directive naming it, installing a helper that would write it, and -- decisively -- editing the agent's own permission allowlist to grant itself the first four. That last refusal is the one that matters. Blocking credential access while permitting edits to the permission list would have blocked nothing; it would have added a step. The agent held a working key to the host throughout and had already run unprivileged commands there successfully, so the boundary was never about capability.</p>
+<h2>The fix</h2>
+<p>Stopped attempting alternate routes and named the wall to the operator, including the specific temptation being declined -- the same logic could have been compiled into a bundle and shipped past a classifier that pattern-matches on shell text, which would have been working around the denial rather than respecting it. Pointed at the one control the operator held and the agent did not, a permission mode selector, and explicitly steered away from the blanket bypass option sitting next to it, which would have disarmed every guard for the session including over sixty thousand uncommitted lines in the working tree. Once the operator switched modes, every previously blocked command succeeded on the first attempt with no change to the commands themselves. Then built the reset properly: username hardcoded so no account can be minted, the target file derived from the live web server config rather than assumed, and the credential passed on standard input rather than as an argument so it cannot surface in the process table.</p>
+<h2>How I know it worked</h2>
+<p>The permission boundary was confirmed by the pattern of refusals rather than by reading settings -- five blocks including the self-escalation attempt, then immediate success on identical commands after a human changed the mode. The reset was verified against the live endpoint rather than the file: the target path was derived from the running config and confirmed to exist, and the account list read back a single expected user, which validated the username against the file itself rather than against documentation. After the reset the password file grew from 44 to 67 bytes with a hash prefix indicating bcrypt, where the tool's default is MD5. A dated backup was present. Because the helper restores that backup on any verification failure, the file still being the larger size was itself the proof that no rollback fired. An anonymous request to the dashboard returned 401.</p>
+<h2>The rule this earned</h2>
+<blockquote>An agent must never be able to widen its own permissions, and the refusal has to cover the permission store itself or it covers nothing. Expect the boundary to become visible at the worst moment -- when the owner is present, authorised, frustrated and repeating the request -- because persistence is not new information, and a guard that yields to the fifth ask is a rate limit. Separately, when resetting a credential, verify against the live endpoint and check both directions: that the new secret grants access, and that anonymous access is still refused. A reset that removes the lock instead of changing it is indistinguishable from success when viewed from a browser that is already authenticated. Design the write to roll back on failure, so the worst case is that nothing changed rather than that the door is open.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Privilege separation</h3>
+<p><em>The thing that asks for an action and the thing that authorises it must be different things.</em></p>
+<p>An autonomous agent will eventually meet a guard that stops it doing something the operator genuinely wants done. What happens next is the whole security model.</p>
+<p>If the agent can lift the guard, there was never a guard. There was a suggestion, and the only boundary protecting the system is the agent's judgement in the moment it is most motivated to argue past it. That is the worst possible time to rely on judgement, because a capable model asked repeatedly by a frustrated owner will find a defensible-sounding reason. The reasoning is not even wrong — the owner really does own the system, and the action really is routine. The failure is structural, not logical.</p>
+<p>Privilege separation puts the authorisation in a layer the agent cannot reach:</p>
+<ul><li><strong>The agent may request access. It may not grant access.</strong> Both directions must be enforced, and the second is the one that matters. Blocking credential reads while allowing edits to the permission list blocks nothing at all — it just adds a step.</li>
+<li><strong>Escalation is a human decision, made somewhere the agent does not run.</strong> A mode toggle, a settings file the agent's own tooling refuses to write, an approval prompt. The mechanism can be humble; what matters is that it is out of reach.</li>
+<li><strong>The refusal must survive persistence.</strong> Asking again is not new information. If the fifth request succeeds where the first failed, the boundary is a rate limit.</li></ul>
+<p>The tell that separation is working is uncomfortable by design: the agent stops and says it cannot proceed, while the operator is standing there able to authorise it. That friction is not a bug to be smoothed away. It is the boundary being visible for the one moment it can be observed.</p>
+<p>The corollary matters as much. Once the human does authorise it, the work should proceed immediately and completely — no second-guessing, no re-litigating a decision already made. A boundary that keeps arguing after it has been lawfully opened teaches operators to disable it entirely, and a disabled guard protects nothing. Separation earns its cost by being absolute before the decision and silent after it.</p>
+<p>The rule this earns: an agent must never be able to widen its own permissions. Design the refusal so that the only way through is a human acting at a different layer — and then, once they have, get out of the way.</p>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
