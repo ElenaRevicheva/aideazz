@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When "Online" Means 55193 Restarts: The AI Agent Restart Loop | AIdeazz</title>
+  <meta name="description" content="My algom-stream process has restarted 55193 times in the last 15 days. On the surface, pm2 jlist reports it as "online," green, and healthy. This is a lie. An AI agent in a constant restart loop is n…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/when-online-means-55193-restarts-the-ai-agent-restart-loop/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="When "Online" Means 55193 Restarts: The AI Agent Restart Loop">
+  <meta property="og:description" content="My algom-stream process has restarted 55193 times in the last 15 days. On the surface, pm2 jlist reports it as "online," green, and healthy. This is a lie. An AI agent in a constant restart loop is n…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/when-online-means-55193-restarts-the-ai-agent-restart-loop/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-08-31T19:30:26.824Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="When "Online" Means 55193 Restarts: The AI Agent Restart Loop">
+  <meta name="twitter:description" content="My algom-stream process has restarted 55193 times in the last 15 days. On the surface, pm2 jlist reports it as "online," green, and healthy. This is a lie. An AI agent in a constant restart loop is n…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "When \"Online\" Means 55193 Restarts: The AI Agent Restart Loop",
+  "description": "My algom-stream process has restarted 55193 times in the last 15 days. On the surface, pm2 jlist reports it as \"online,\" green, and healthy. This is a lie. An AI agent in a constant restart loop is n…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-08-31T19:30:26.824Z",
+  "dateModified": "2026-08-31T19:30:26.824Z",
+  "url": "https://aideazz.xyz/blog/when-online-means-55193-restarts-the-ai-agent-restart-loop/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/when-online-means-55193-restarts-the-ai-agent-restart-loop/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you differentiate between a transient restart and a persistent restart loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I look at the `restarts` count relative to the `up` time. If an agent has hundreds or thousands of restarts over several days, like `algom-stream` with 55193 restarts in 15 days, it's a persistent loop. A few restarts after a deployment or a rare external issue are transient."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the first thing you do when you see an AI agent in a restart loop?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I check the application logs for the specific process. If direct logs aren't immediately available, I increase the logging verbosity of the agent and redeploy it to capture more detailed error messages and stack traces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does PM2 provide any built-in tools to help diagnose restart loops?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`pm2 monit` can show real-time CPU and memory usage, which can sometimes reveal a resource exhaustion issue just before a crash. However, it doesn't typically provide detailed application-level error messages without explicit logging from the agent itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent a restart loop from consuming excessive resources?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PM2 has options like `max_restarts` or `min_uptime` to limit how aggressively it restarts a failing process. I haven't configured these for `algom-stream`, but they can prevent a runaway process from consuming all available CPU or memory."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">When "Online" Means 55193 Restarts: The AI Agent Restart Loop</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-08-31T19:30:26.824Z">August 31, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>algom-stream</code> process has restarted 55193 times in the last 15 days. On the surface, <code>pm2 jlist</code> reports it as "online," green, and healthy. This is a lie. An AI agent in a constant restart loop is not healthy; it's a zombie process consuming resources and failing to deliver its intended function. The system <em>appears</em> stable, but the underlying issue persists, masked by process supervision.</p>
+<h2>The Illusion of "Online"</h2>
+<p>When I check my processes, <code>algom-stream</code> shows <code>online, 55193 restarts, up 15d, 83 MB</code>. This <code>up 15d</code> is particularly misleading. It doesn't mean the process has been running continuously for 15 days. It means the <em>PM2 supervisor</em> has been running for 15 days, diligently restarting the <code>algom-stream</code> process every time it crashes. The <code>55193 restarts</code> is the critical metric here, not the "up time."</p>
+<p>This isn't unique to <code>algom-stream</code>. My <code>cto-aipa</code> process, which handles selling 8 Atlas lead drafts, shows <code>online, 106 restarts, up 0d, 180 MB</code>. Even <code>serpapi-jobs</code> has <code>21 restarts</code> over <code>12d</code>. While 106 restarts in less than a day for <code>cto-aipa</code> is concerning, it pales in comparison to <code>algom-stream</code>'s persistent failure.</p>
+<h2>Identifying the AI Agent Restart Loop</h2>
+<p>The first step is to stop trusting the "online" status alone. I've learned to look at the <code>restarts</code> column first. A high number there, especially relative to the <code>up</code> time, indicates an AI agent restart loop.</p>
+<p>For <code>algom-stream</code>, 55193 restarts over 15 days means it's crashing, on average, every ~20 seconds. This isn't a transient bug; it's a fundamental instability. The process is likely encountering an unhandled exception, running out of memory, or hitting an external rate limit that it's not designed to recover from gracefully. Given its <code>83 MB</code> memory footprint, it's unlikely to be a simple memory leak, but rather a rapid failure.</p>
+<p>In contrast, <code>algom-poll</code> shows <code>online, 0 restarts, up 34d, 96 MB</code>. This is what a stable process looks like. It's been running for over a month without a single restart, consuming a similar amount of memory. This comparison highlights the severity of the <code>algom-stream</code> issue.</p>
+<h2>Debugging Without Direct Logs</h2>
+<p>My current setup doesn't provide direct crash logs for every restart in <code>pm2 jlist</code>. To diagnose <code>algom-stream</code>, I'd typically need to:</p>
+<p>1.  <strong>Increase Logging Verbosity:</strong> Modify the <code>algom-stream</code> agent to log more aggressively, especially around potential failure points. This means adding <code>try-except</code> blocks and logging the full stack trace on any exception.<br>2.  <strong>Monitor Resource Usage:</strong> While <code>83 MB</code> is low, a quick spike in CPU or memory just before a crash could indicate an issue. Tools like <code>htop</code> or <code>pm2 monit</code> can provide real-time insights, though <code>pm2 jlist</code> only gives the current state.<br>3.  <strong>Review Recent Code Changes:</strong> I have 12 commits in <code>cto-aipa</code> in the last 48 hours, and 7 commits in <code>aideazz</code>. For <code>VibeJobHunterAIPA_AIMCF</code>, there are 2 commits in the last 48 hours, including "stop reporting success while returning nothing" and "stop burning jobs at the cap, and stop starving the best source." While these are not directly related to <code>algom-stream</code>, a recent deployment or configuration change could have introduced the instability. The <code>algom-stream</code> process has been "up 15d," suggesting the issue might be older or related to an external dependency that changed.</p>
+<h2>The Cost of a "Working" Failure</h2>
+<p>An AI agent in a restart loop isn't just a technical nuisance; it has real operational costs:</p>
+<ul><li>  <strong>Wasted Compute:</strong> Each restart consumes CPU cycles and memory, even if briefly. Over 55193 restarts, this adds up. On Oracle Cloud, even small instances have a cost.</li>
+<li>  <strong>Delayed or Missed Work:</strong> Whatever <code>algom-stream</code> is supposed to be doing, it's not doing it reliably. If it's a data ingestion agent, I'm missing data. If it's a processing agent, my pipeline is stalled.</li>
+<li>  <strong>Alert Fatigue:</strong> If I had alerts configured for every restart, I'd be drowning in notifications. The "online" status makes it easy to ignore, leading to a false sense of security.</li>
+<li>  <strong>Debugging Time:</strong> The time spent investigating these issues is time not spent building new features or improving other agents. My <code>cto-aipa</code> agent, for example, has seen 12 commits in 48 hours, indicating active development. This <code>algom-stream</code> issue is a drag on that progress.</li></ul>
+<h2>Moving Beyond PM2's "Online"</h2>
+<p>For critical AI agents, relying solely on PM2's "online" status and restart count is insufficient. I need to implement more robust health checks:</p>
+<ul><li>  <strong>Application-Level Heartbeats:</strong> The agent itself should periodically report its health to a central monitoring system. This could be a simple HTTP endpoint or a message to a queue.</li></ul>
+<em>   <strong>Outcome-Based Monitoring:</strong> Instead of just checking if the process is running, I need to check if it's </em>producing results*. For example, <code>atlas-ga4-sync.log</code> shows "0 atlas_ rows for 2026-08-28," "0 atlas_ rows for 2026-08-29," and "0 atlas_ rows for 2026-08-30." This indicates a lack of output, even if the sync process itself isn't crashing. Similarly, <code>atlas-outcomes.log</code> shows <code>"staged": 0, "sent": 0</code> for recent runs.
+<ul><li>  <strong>Error Log Aggregation:</strong> All agent logs should be aggregated into a central system (e.g., Loki, Splunk) for easy searching and alerting on specific error patterns. This would make diagnosing the 55193 restarts much faster.</li></ul>
+<p>The "online" status is a starting point, but it's not the destination for reliable AI agent operations. The <code>algom-stream</code> process, with its 55193 restarts, is a stark reminder that true health requires deeper inspection than a green light.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you differentiate between a transient restart and a persistent restart loop?</strong><br>A: I look at the <code>restarts</code> count relative to the <code>up</code> time. If an agent has hundreds or thousands of restarts over several days, like <code>algom-stream</code> with 55193 restarts in 15 days, it's a persistent loop. A few restarts after a deployment or a rare external issue are transient.</p>
+<p><strong>Q: What's the first thing you do when you see an AI agent in a restart loop?</strong><br>A: I check the application logs for the specific process. If direct logs aren't immediately available, I increase the logging verbosity of the agent and redeploy it to capture more detailed error messages and stack traces.</p>
+<p><strong>Q: Does PM2 provide any built-in tools to help diagnose restart loops?</strong><br>A: <code>pm2 monit</code> can show real-time CPU and memory usage, which can sometimes reveal a resource exhaustion issue just before a crash. However, it doesn't typically provide detailed application-level error messages without explicit logging from the agent itself.</p>
+<p><strong>Q: How do you prevent a restart loop from consuming excessive resources?</strong><br>A: PM2 has options like <code>max_restarts</code> or <code>min_uptime</code> to limit how aggressively it restarts a failing process. I haven't configured these for <code>algom-stream</code>, but they can prevent a runaway process from consuming all available CPU or memory.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
