@@ -14,7 +14,10 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/automated-stale-job-board-alert-rejecting-dead-lead-sources/
+https://aideazz.xyz/blog/when-online-means-55193-restarts-the-ai-agent-restart-loop/
 https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-incident/
+https://aideazz.xyz/blog/marked-done-before-anyone-read-them-field-note/
 https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/
 https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/
 https://aideazz.xyz/blog/archive/
