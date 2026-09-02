@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Every voice command became a new card, and three separate silences hid it | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 2, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/every-command-became-a-new-card-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Every voice command became a new card, and three separate silences hid it">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 2, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/every-command-became-a-new-card-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-02T11:26:04.685Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Every voice command became a new card, and three separate silences hid it">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 2, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Every voice command became a new card, and three separate silences hid it",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 2, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-02T11:26:04.685Z",
+  "dateModified": "2026-09-02T11:26:04.685Z",
+  "url": "https://aideazz.xyz/blog/every-command-became-a-new-card-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/every-command-became-a-new-card-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Every voice command became a new card, and three separate silences hid it</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-02T11:26:04.685Z">September 2, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 2, 2026.</em></p>
+<p><strong>"Move this card" created a card called "Move this card". Three independent defects stacked — an ASCII word boundary that could never match Cyrillic, a hand-rolled call that bypassed the five-provider chain, and an empty catch that discarded the API's exact explanation.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>A voice assistant turns spoken notes into task-board cards, and also understands management commands — move this card, archive those. The create path worked. Every management command produced a new card instead: "Move this task to the September board" created a card titled "Move task to September board"; "Archive this card" created a card titled "Archive this card". Nothing errored, nothing was logged as a failure, and each reply was a cheerful confirmation that a card had been created. The operator hit it three times in a row, in two languages, before reporting it. Because the create path was healthy and the replies were success messages, the system looked like it was working and merely misunderstanding.</p>
+<h2>What was actually happening</h2>
+<p>Three defects in series, each individually silent, and each one hiding the next. FIRST — the gate deciding "is this a management command" tested a regex of the form \b(move|archive|...|Cyrillic verbs...)\b. JavaScript's \b is defined on ASCII word characters, so a Cyrillic letter is not a word character and a boundary can never occur beside one. Every Russian command had been unmatchable since the feature shipped, including the exact example printed in the assistant's own help text — the documentation advertised a capability whose regex could not fire. SECOND — English commands passed the gate and reached a classifier that POSTed the LLM vendor's API directly instead of using the project's five-provider fallback chain. That vendor's balance had been at zero for two weeks. The chain routed everything else around it flawlessly; this one hand-rolled call could not be routed because it never entered the chain. It returned an empty action list, and the caller treated "no actions" as "not a management command" and fell through to create. THIRD — once those were fixed and a real move was finally attempted, it failed with the message "undefined". The move helper sent only the destination list id; the API requires the destination board id as well whenever the list is on a different board, which is the common case. The API said so precisely on the first call. The caller had wrapped it in an empty catch, so the exact explanation was discarded and replaced with nothing.</p>
+<h2>The fix</h2>
+<p>Replaced the ASCII word boundary with Unicode lookarounds under the u flag, with stems taking a letter-class suffix so inflected forms match in both languages while "remove" still does not match "move" — verified against a case set covering both languages and the near-miss. Routed the classifier through the five-provider chain and made its failure path log loudly rather than returning an empty list, because falling through to create is a real behaviour change the operator must be able to see. Added the destination board id to the move call, and replaced both empty catches with collected reasons surfaced in the reply. Separately, the create path was extended to honour a board and column named out loud: its routing fields were fixed enumerations that could not represent a specific board name, so an explicit instruction was being collapsed into whichever enumeration the topic suggested — a credit-card task filed itself under finance despite naming a different board. While testing that, a fourth instance of the same bypass surfaced: the create classifier ran on a two-provider pair rather than the chain, and when its remaining provider's reply did not parse it degraded to a default that discarded every hint, reporting confidence 0.3 with the reason "parsing failed" while looking exactly like a routing bug.</p>
+<h2>How I know it worked</h2>
+<p>Each layer proven separately rather than by trying the feature again. The word boundary was demonstrated to be impossible before it was fixed: a bare test of the pattern against the Cyrillic verb returned false while the same pattern without boundaries returned true, and the replacement then scored 6/6 across both languages plus the "remove"/"move" near-miss. The classifier fix was confirmed by log lines naming which provider answered — the previously dead vendor was skipped and a different one responded — with the command classified as move and archive rather than create. The move fix was proven in both directions against a real record: sending only the list id returned HTTP 404 with the message "list does not exist on board", and adding the board id returned HTTP 200 with the record on its new board. The explicit-routing fix was verified end to end with a temporary record that was deleted afterwards, landing on the named board and the named column — matching that column despite a stray punctuation character in its real name — with confidence 1 instead of 0.3. Final confirmation came from the operator's own next-morning transcript: one spoken note created a task on the board and column she named, and a second moved it to a different column, with no manual editing.</p>
+<h2>The rule this earned</h2>
+<blockquote>Three rules, one per silence. A regex word boundary is ASCII-only in most engines — never use it to gate non-Latin input, and test a matcher against a string you know must match before trusting it to route anything. A fallback chain protects only the calls that route through it, so audit for direct vendor calls rather than assuming the wrapper is universal; every hand-rolled call is a second, unprotected system wearing the first one's reputation. And never write an empty catch around a network call: the API's own error message is usually a complete diagnosis, and discarding it converts a thirty-second fix into a multi-session investigation. The cost here was entirely in the discarded message, not in any of the defects.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Resilience is opt-in</h3>
+<p><em>A fallback chain protects only the calls that route through it. Every hand-rolled call is a second, unprotected system wearing the first one's reputation.</em></p>
+<p>You build a provider chain: five vendors, ordered by cost and quality, each failure falling through to the next. You test it. A vendor goes dark and the system keeps answering. The claim "we survive a provider outage" is now true, demonstrated, and written on the architecture diagram.</p>
+<p>Then, somewhere in the codebase, one function calls the vendor directly. Not maliciously — it was written before the chain existed, or in a hurry, or by someone who only needed one quick classification and reached for the SDK. It works perfectly. It goes on working perfectly for months.</p>
+<p>The day the primary vendor's balance hits zero, the chain routes around it exactly as designed, and that one function returns nothing.</p>
+<p><strong>The failure is invisible in a specific and dangerous way.</strong> The system is not down — most of it demonstrably still works, which is the strongest possible argument that the outage is not your problem. The broken path usually has a fallback of its own: an empty array, a default value, a "not classified" branch. So it does not error. It quietly does the <em>other</em> thing, and the other thing is often plausible enough to look like a product decision rather than a defect.</p>
+<p>Three properties make this worth naming as its own failure mode:</p>
+<ul><li><strong>The bypass is invisible from the resilient side.</strong> Nothing in the chain's code, tests or metrics can see a call that never enters it. Coverage of the chain tells you nothing about coverage of the system.</li>
+<li><strong>It survives exactly as long as the primary works.</strong> Which means it is introduced, reviewed, tested and shipped without ever being wrong. There is no moment where the mistake is observable — until the outage.</li>
+<li><strong>Its blast radius is the opposite of its footprint.</strong> One function, five lines. The behaviour it silently disables can be an entire product surface.</li></ul>
+<p>The defences are unglamorous and cheap:</p>
+<ul><li><strong>Grep for the vendor, not for the wrapper.</strong> The audit question is "what calls <code>api.vendor.com</code> or imports the SDK?", not "does everything use our chain?" One of those has an answer.</li>
+<li><strong>Make the wrapper the only thing holding the credential.</strong> A function that cannot reach the key cannot bypass the chain.</li>
+<li><strong>Never let a classifier fail into a default.</strong> Returning <code>[]</code> on error is the mechanism that converts an outage into a silent behaviour change. Fail loudly, or fail into a state the operator can see.</li>
+<li><strong>Name the responder.</strong> If every routed call logs which provider answered, a bypass is visible as an <em>absence</em> — the one path that never names anybody.</li></ul>
+<p>The rule this earns: resilience is a property of calls, not of systems. Audit the call sites, because the chain cannot audit them for you.</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
