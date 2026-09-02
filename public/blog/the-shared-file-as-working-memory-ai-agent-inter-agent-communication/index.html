@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Shared File as Working Memory: AI Agent Inter-Agent Communication | AIdeazz</title>
+  <meta name="description" content="My AI agents cannot talk to each other. This isn't a design choice; it's a fundamental operational constraint. I run eight processes supervised by PM2, including cto-aipa (202 MB, 125 restarts in les…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-shared-file-as-working-memory-ai-agent-inter-agent-communication/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Shared File as Working Memory: AI Agent Inter-Agent Communication">
+  <meta property="og:description" content="My AI agents cannot talk to each other. This isn't a design choice; it's a fundamental operational constraint. I run eight processes supervised by PM2, including cto-aipa (202 MB, 125 restarts in les…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-shared-file-as-working-memory-ai-agent-inter-agent-communication/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-02T19:30:17.851Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Shared File as Working Memory: AI Agent Inter-Agent Communication">
+  <meta name="twitter:description" content="My AI agents cannot talk to each other. This isn't a design choice; it's a fundamental operational constraint. I run eight processes supervised by PM2, including cto-aipa (202 MB, 125 restarts in les…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Shared File as Working Memory: AI Agent Inter-Agent Communication",
+  "description": "My AI agents cannot talk to each other. This isn't a design choice; it's a fundamental operational constraint. I run eight processes supervised by PM2, including cto-aipa (202 MB, 125 restarts in les…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-02T19:30:17.851Z",
+  "dateModified": "2026-09-02T19:30:17.851Z",
+  "url": "https://aideazz.xyz/blog/the-shared-file-as-working-memory-ai-agent-inter-agent-communication/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-shared-file-as-working-memory-ai-agent-inter-agent-communication/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a message queue or a database for inter-agent communication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My current operational setup prioritizes simplicity and minimal overhead. While message queues or databases offer more robust IPC, they introduce additional infrastructure and maintenance complexity. The shared file is a low-cost, immediate solution for coordination between agents that cannot directly communicate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prevent race conditions with a shared file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I rely on explicit protocols defined within the `NOW.md` file itself, which agents are programmed to follow. This includes conventions for reading, processing, and writing, effectively creating a manual semaphore. I do not have a measured rate of race condition occurrences."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if the shared file gets corrupted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "File corruption is a risk. Agents are designed to handle malformed input gracefully where possible, or to log errors and restart. The `cto-aipa` process, with 125 restarts, indicates that agents can recover from various issues, though the specific cause of each restart is not always file corruption."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor the state of inter-agent communication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Monitoring relies heavily on individual agent logs (e.g., `cita-sort.log`, `concierge-selftest.log`) and the wiki for incident post-mortems. There isn't a centralized dashboard specifically for inter-agent communication state; it's inferred from the outcomes and error logs of the individual agents."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The Shared File as Working Memory: AI Agent Inter-Agent Communication</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-02T19:30:17.851Z">September 2, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI agents cannot talk to each other. This isn't a design choice; it's a fundamental operational constraint. I run eight processes supervised by PM2, including <code>cto-aipa</code> (202 MB, 125 restarts in less than a day) and <code>algom-stream</code> (83 MB, 55193 restarts over 17 days). These agents, and others like <code>dragontrade-main</code> (189 MB, 3 restarts over 17 days), need to coordinate. But there's no shared conversation, no Claude MCP in Cursor, no way to send one agent a direct message from another. The only things all of them read are HubSpot and a specific Markdown file. This file, <code>NOW.md</code>, isn't documentation. It's the working memory for whichever agent isn't currently running, and the protocol within it is how two agents that cannot talk avoid stepping on each other.</p>
+<h2>The Cost of Disconnected Agents</h2>
+<p>The immediate consequence of this communication gap is a reliance on external systems or shared files for state management. My <code>NOW.md</code> file explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This means any complex workflow requiring multiple agents to contribute to a single task must use an external artifact as its central nervous system.</p>
+<p>For example, the <code>VibeJobHunterAIPA_AIMCF</code> repository saw 6 commits in the last 48 hours, addressing issues like "a fresh thread gets no clear button" and "a null company took down the whole run." These are symptoms of agents operating with incomplete context. If one agent processes a job lead and another is responsible for follow-up, the state of that lead (e.g., "replied," "rejected") must be written to a shared, accessible location. HubSpot serves this purpose for deals, with 102 deals currently in "They replied" stage. But for internal, real-time coordination, a file becomes the lowest common denominator.</p>
+<h2>Shared Files as a Primitive IPC</h2>
+<p>Using a shared file like <code>NOW.md</code> for AI agent inter-agent communication is a primitive form of inter-process communication (IPC). It works, but it's brittle. The file acts as a message queue, a shared memory segment, and a semaphore all at once. An agent reads the file, performs an action, updates the file, and then another agent reads the updated file.</p>
+<p>This approach introduces several failure modes:</p>
+<p>1.  <strong>Race Conditions:</strong> If two agents attempt to write to the file simultaneously, one write will overwrite the other, leading to lost state. I mitigate this by defining a strict protocol in <code>NOW.md</code> itself, but it relies on agent discipline, not system enforcement.<br>2.  <strong>Stale State:</strong> An agent might read the file, process for a long time, and then write back stale information, overwriting more recent updates from another agent.<br>3.  <strong>Parsing Overhead:</strong> Each agent must parse the file to understand the current state and then serialize its updates back into the file. This adds computational overhead, especially for complex states.<br>4.  <strong>Lack of Atomicity:</strong> Operations on the file are not atomic. A crash mid-write can corrupt the file, leaving it in an unreadable or inconsistent state.</p>
+<p>The <code>cto-aipa</code> process, with 125 restarts in less than a day, highlights the fragility. While the exact cause of these restarts isn't always tied to file corruption, any agent relying on a shared file for its working memory is vulnerable to such disruptions.</p>
+<h2>The Wiki as a Post-Mortem Communication Channel</h2>
+<p>When the shared file mechanism fails, the wiki becomes the primary communication channel for understanding what went wrong. I've logged two significant incidents in the last two days:</p>
+<ul><li>  <strong>"Every voice command became a new card, and three separate silences hid it"</strong> (2026-09-02): A voice assistant created cards like "Move this card" instead of executing the command. This was due to "an ASCII word boundary that could never match Cyrillic, a hand-rolled call that bypassed the five-provider chain, and an empty catch that discarded the API's exact explanation." This incident involved multiple layers of failure, where agents (or their underlying components) failed to communicate errors effectively, leading to incorrect behavior.</li>
+<li>  <strong>"The generator that refused, and why that is the feature"</strong> (2026-09-01): An autonomous job-discovery pipeline wrote the same three sentences into every record for eleven days. The fix wasn't a better prompt, but teaching the model to decline. This points to a lack of feedback mechanisms. The agent was "communicating" success, but its output was garbage. Without a higher-level agent or human intervention to interpret the output, the problem persisted for days.</li></ul>
+<p>These incidents demonstrate that even when agents appear "online" (all 8 PM2 processes are online), their internal state and communication can be deeply flawed. The wiki serves as a critical, albeit asynchronous and human-mediated, channel for documenting and resolving these inter-agent communication breakdowns.</p>
+<h2>Building Resilience with Explicit Protocols</h2>
+<p>Given the constraints, building resilience means establishing explicit protocols for AI agent inter-agent communication, even if it's through a shared file. My <code>NOW.md</code> file defines how agents should interact with it. This includes:</p>
+<ul><li>  <strong>Clear Ownership:</strong> Defining which agent is responsible for which section or type of update.</li>
+<li>  <strong>State Representation:</strong> Standardizing how state is written and read.</li>
+<li>  <strong>Error Handling:</strong> Specifying how agents should react to unexpected content or errors in the file.</li></ul>
+<p>For example, the <code>concierge-selftest.log</code> shows "duplicate suppressed (redundant drafters collapse)" and "ok a Telegram card was produced." This implies a mechanism where agents check for existing work before creating new items, preventing redundant actions. This is a form of implicit communication: by checking the shared state (e.g., a database or a file representing existing cards), agents avoid duplicating efforts.</p>
+<p>The <code>job-board-watch.log</code> shows a "FAIL: newest posting is 22 days old (need <=21) - board looks abandoned" and "VERDICT: REJECTED." This is an agent communicating its findings and decision to a downstream system (and likely triggering a Telegram alert). While not direct agent-to-agent chat, it's a critical piece of information flow.</p>
+<h2>The Path Forward: Structured Communication</h2>
+<p>The current setup, with its reliance on shared files and external systems, is a testament to shipping with what's available. However, as the system grows, the limitations of this primitive AI agent inter-agent communication become more apparent. The 55193 restarts of <code>algom-stream</code> over 17 days, while not directly tied to communication issues, highlight the need for more robust and observable agent interactions.</p>
+<p>Moving forward, I need to explore more structured communication patterns. This doesn't necessarily mean a full-blown message queue or event bus for every interaction, but rather:</p>
+<ul><li>  <strong>Standardized Schemas:</strong> For any data exchanged via files or external systems, defining clear schemas to reduce parsing errors and ensure consistency.</li>
+<li>  <strong>Atomic Operations:</strong> Where possible, using database transactions or cloud storage features that offer atomic writes to prevent data corruption.</li></ul>
+<em>   <strong>Observability:</strong> Enhancing logging to capture not just what an agent did, but what information it received and sent, and from where. The <code>cita-sort.log</code> showing "0 card(s) repositioned across 3 board(s)" is a good start, but deeper insights into the </em>why* are needed.
+<p>The reality of shipping production AI agents with zero VC funding means leveraging existing tools and patterns. The shared file is a pragmatic solution, but its operational challenges demand constant vigilance and a clear understanding of its limitations.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a message queue or a database for inter-agent communication?</strong><br>A: My current operational setup prioritizes simplicity and minimal overhead. While message queues or databases offer more robust IPC, they introduce additional infrastructure and maintenance complexity. The shared file is a low-cost, immediate solution for coordination between agents that cannot directly communicate.</p>
+<p><strong>Q: How do you prevent race conditions with a shared file?</strong><br>A: I rely on explicit protocols defined within the <code>NOW.md</code> file itself, which agents are programmed to follow. This includes conventions for reading, processing, and writing, effectively creating a manual semaphore. I do not have a measured rate of race condition occurrences.</p>
+<p><strong>Q: What happens if the shared file gets corrupted?</strong><br>A: File corruption is a risk. Agents are designed to handle malformed input gracefully where possible, or to log errors and restart. The <code>cto-aipa</code> process, with 125 restarts, indicates that agents can recover from various issues, though the specific cause of each restart is not always file corruption.</p>
+<p><strong>Q: How do you monitor the state of inter-agent communication?</strong><br>A: Monitoring relies heavily on individual agent logs (e.g., <code>cita-sort.log</code>, <code>concierge-selftest.log</code>) and the wiki for incident post-mortems. There isn't a centralized dashboard specifically for inter-agent communication state; it's inferred from the outcomes and error logs of the individual agents.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
