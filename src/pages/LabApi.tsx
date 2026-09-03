@@ -536,67 +536,89 @@ export default function LabApi() {
           </Link>
         </section>
 
-        {/* Ending — hud's move: the film carries all the way down, the closing
-            line is set large in the display serif, and every way to reach her is
-            in one place. Only channels the site already publishes appear here. */}
-        <footer className="mt-8 border-t border-white/10 pt-14 pb-4">
-          <div className="grid gap-12 sm:grid-cols-[1.3fr_1fr_1fr]">
+        {/* Ending — hud's structure exactly: small wordmark and tagline top-left,
+            social row beneath, link columns to the right, and then the copyright
+            set ENORMOUS in the display serif across the bottom. The oversized
+            copyright is the signature move; the brand mark stays quiet. */}
+        <footer className="mt-10 border-t border-white/10 pt-16 pb-6">
+          <div className="grid gap-12 sm:grid-cols-[1.2fr_repeat(3,minmax(0,0.6fr))]">
             <div>
-              <div
-                className="text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl"
-                style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 50px rgba(8,5,14,.9)" }}
-              >
-                AIdeazz AI Lab
+              <div className="text-2xl font-bold tracking-tight text-white">
+                AIdeazz <span className="text-purple-300">Lab</span>
               </div>
-              <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-300" style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
+              <p className="mt-4 max-w-[22rem] text-sm leading-relaxed text-gray-300"
+                 style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
                 {t("labApi.footerNote")}
               </p>
-              <div className="mt-6 flex items-center gap-4">
+              <div className="mt-7 flex items-center gap-5">
                 <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
                    aria-label="GitHub" className="text-gray-400 transition-colors hover:text-white">
-                  <Github className="h-5 w-5" />
+                  <Github className="h-[18px] w-[18px]" />
                 </a>
                 <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener noreferrer"
                    aria-label="LinkedIn" className="text-gray-400 transition-colors hover:text-white">
-                  <Linkedin className="h-5 w-5" />
+                  <Linkedin className="h-[18px] w-[18px]" />
                 </a>
                 <a href="https://dev.to/elenarevicheva" target="_blank" rel="noopener noreferrer"
                    aria-label="Dev.to" className="text-gray-400 transition-colors hover:text-white">
-                  <Braces className="h-5 w-5" />
+                  <Braces className="h-[18px] w-[18px]" />
                 </a>
                 <a href="https://t.me/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
                    aria-label="Telegram" className="text-gray-400 transition-colors hover:text-white">
-                  <Send className="h-5 w-5" />
+                  <Send className="h-[18px] w-[18px]" />
                 </a>
               </div>
             </div>
 
             <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">Lab</div>
-              <nav className="mt-4 flex flex-col gap-2.5 text-sm">
-                <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">Portfolio</Link>
-                <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
-                <Link to={inquiryLinkFromInbound("/about")} className="text-gray-300 transition-colors hover:text-white">About</Link>
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Product</div>
+              <nav className="mt-5 flex flex-col gap-3 text-[15px]">
+                <a href="#" className="text-gray-300 transition-colors hover:text-white">Visibility Audit</a>
                 <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
+                <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">Portfolio</Link>
               </nav>
             </div>
 
             <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">Contact</div>
-              <nav className="mt-4 flex flex-col gap-2.5 text-sm">
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Resources</div>
+              <nav className="mt-5 flex flex-col gap-3 text-[15px]">
+                <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
+                <a href="https://dev.to/elenarevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">Dev.to</a>
+                <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">GitHub</a>
+              </nav>
+            </div>
+
+            <div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Company</div>
+              <nav className="mt-5 flex flex-col gap-3 text-[15px]">
+                <Link to={inquiryLinkFromInbound("/about")} className="text-gray-300 transition-colors hover:text-white">About</Link>
                 <a href="mailto:hello@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">hello@aideazz.xyz</a>
                 <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
-                <a href="https://t.me/ElenaRevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">Telegram</a>
-                <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white">
+                <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
                 </Link>
               </nav>
             </div>
           </div>
 
-          <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-            <span>© {new Date().getFullYear()} AIdeazz AI Lab · Elena Revicheva · Panama</span>
-            <span className="font-mono tracking-wide">34 SIGNALS · DIRECT PAGE READ · NO SIGNUP</span>
+          {/* the oversized close */}
+          <div className="mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <div
+                className="text-[clamp(2rem,6.4vw,4.75rem)] leading-[0.95] tracking-tight text-white"
+                style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.9)" }}
+              >
+                © {new Date().getFullYear()} AIdeazz AI Lab
+              </div>
+              <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
+                Elena Revicheva · Panama · All rights reserved
+              </div>
+            </div>
+            <div className="flex shrink-0 gap-7 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-500">
+              <span>34 Signals</span>
+              <span>Direct Page Read</span>
+              <span>No Signup</span>
+            </div>
           </div>
         </footer>
       </div>

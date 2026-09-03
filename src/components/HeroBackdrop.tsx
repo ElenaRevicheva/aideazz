@@ -30,10 +30,21 @@ export default function HeroBackdrop() {
   // between A and B: while one plays, the other silently preloads the next, and
   // 1.2s before the end they cross-dissolve on opacity. The viewer sees one
   // continuous piece of footage rather than three clips in a row.
-  const REEL = React.useMemo(
-    () => ["/media/orange-burst.mp4", "/media/pomegranate.mp4", "/media/kiwi.mp4"],
-    [],
-  );
+  // WebM where the browser takes it, MP4 otherwise. Read off hud.ai, which ships
+  // its hero as `hero_scene.webm`: at matched quality VP9 lands ~17% under x264
+  // (2505 KB vs 3002 KB on the orange), so this is sharper AND lighter rather
+  // than a trade between them. `src` is set imperatively by the crossfade below,
+  // so the choice is made here rather than with <source> children.
+  const REEL = React.useMemo(() => {
+    const probe = document.createElement("video");
+    const webm = probe.canPlayType('video/webm; codecs="vp9"') !== "";
+    const ext = webm ? "webm" : "mp4";
+    return [
+      `/media/orange-burst.${ext}`,
+      `/media/pomegranate.${ext}`,
+      `/media/kiwi.${ext}`,
+    ];
+  }, []);
 
   React.useEffect(() => {
     const a = aRef.current;
@@ -207,7 +218,7 @@ export default function HeroBackdrop() {
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true">
       <img
-        src="/media/orange-burst.jpg"
+        src="/media/orange-burst.webp"
         alt=""
         className="absolute inset-0 h-full w-full object-cover"
       />
@@ -216,7 +227,7 @@ export default function HeroBackdrop() {
         muted
         playsInline
         preload="none"
-        poster="/media/orange-burst.jpg"
+        poster="/media/orange-burst.webp"
         style={{ opacity: 0, transitionDuration: "1200ms" }}
         className="absolute inset-0 h-full w-full object-cover transition-opacity"
       />
@@ -237,6 +248,28 @@ export default function HeroBackdrop() {
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      {/* hud's vertical guide rules — hairline columns, each masked to fade out at
+          a different height, so the grid dissolves downward instead of ruling the
+          whole frame. Theirs use linear-gradient masks at 30% / 22% / 15%. */}
+      <div className="absolute inset-0 hidden sm:block">
+        {[
+          { left: "12%", stop: "34%" },
+          { left: "30%", stop: "22%" },
+          { left: "50%", stop: "44%" },
+          { left: "70%", stop: "18%" },
+          { left: "88%", stop: "30%" },
+        ].map((c) => (
+          <div
+            key={c.left}
+            className="absolute top-0 h-full w-px bg-white/10"
+            style={{
+              left: c.left,
+              WebkitMaskImage: `linear-gradient(#000 0%, #000 ${c.stop}, transparent 100%)`,
+              maskImage: `linear-gradient(#000 0%, #000 ${c.stop}, transparent 100%)`,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
