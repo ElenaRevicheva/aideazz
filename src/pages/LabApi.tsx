@@ -15,9 +15,6 @@ import {
   CheckCheck,
   Bot,
   AlertTriangle,
-  Github,
-  Linkedin,
-  Send,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -634,24 +631,10 @@ export default function LabApi() {
                   puts the solo framing back in the one place nobody scrolls to
                   check. */}
               <Brand tail="AI Lab" className="text-2xl font-semibold tracking-tight" />
-              <div className="mt-7 flex items-center gap-5">
-                <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
-                   aria-label="GitHub" className="text-gray-400 transition-colors hover:text-white">
-                  <Github className="h-[18px] w-[18px]" />
-                </a>
-                <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener noreferrer"
-                   aria-label="LinkedIn" className="text-gray-400 transition-colors hover:text-white">
-                  <Linkedin className="h-[18px] w-[18px]" />
-                </a>
-                <a href="https://dev.to/elenarevicheva" target="_blank" rel="noopener noreferrer"
-                   aria-label="Dev.to" className="text-gray-400 transition-colors hover:text-white">
-                  <Braces className="h-[18px] w-[18px]" />
-                </a>
-                <a href="https://t.me/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
-                   aria-label="Telegram" className="text-gray-400 transition-colors hover:text-white">
-                  <Send className="h-[18px] w-[18px]" />
-                </a>
-              </div>
+              {/* Social icon row removed. Four unlabelled glyphs at the bottom of a
+                  product page, competing with the two links that actually convert --
+                  and GitHub and Dev.to already had text links in the columns beside
+                  them. An icon a reader has to decode is a worse link than a word. */}
             </div>
 
             {/* Trimmed from three columns to two. What went, and why -- none of

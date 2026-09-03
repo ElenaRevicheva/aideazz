@@ -49,8 +49,7 @@
     "moreSub": "This audit is one of the things I build. The rest are delivered as projects, wired into your stack and documented so you own them.",
     "ctaTitle": "Want this wired into your site?",
     "ctaBody": "A live audit dashboard, scheduled scans, your whole site scored, or AI visibility built into your product — let's scope it.",
-    "ctaButton": "Start a project",
-    "footerNote": "Built by Elena Revicheva · AIdeazz AI Lab · runs on direct page reads, zero paid scraping"
+    "ctaButton": "Start a project"
   },
   "whatsappFloat": {
     "header": "Chat on WhatsApp",
