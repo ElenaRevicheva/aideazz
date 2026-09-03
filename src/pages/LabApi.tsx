@@ -148,7 +148,7 @@ const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className
  * finishes while off-screen is just a number), `once` so scrolling back does not
  * replay it, and reduced-motion gets the final value immediately.
  */
-const CountUp: React.FC<{ to: number; label: string }> = ({ to, label }) => {
+const CountUp: React.FC<{ to: number; label: string; suffix?: string }> = ({ to, label, suffix }) => {
   const ref = React.useRef<HTMLDivElement | null>(null);
   // Starts AT the number, not at zero. If IntersectionObserver never fires, or
   // requestAnimationFrame is parked because the tab is backgrounded, the visitor
@@ -206,6 +206,7 @@ const CountUp: React.FC<{ to: number; label: string }> = ({ to, label }) => {
         style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
       >
         {n.toLocaleString()}
+        {suffix ? <span className="text-white/50">{suffix}</span> : null}
       </div>
     </div>
   );
@@ -430,9 +431,13 @@ export default function LabApi() {
             {/* Single amber, all of it. The pill is one quiet line of status text,
                 not a second place to perform the brand — that was what made the
                 header noisy: two elements competing to be the logo. */}
-            <span className="font-mono text-[13px] uppercase tracking-[0.16em] text-amber-200/85">
-              AIdeazz Lab API
-              <span className="mx-2 text-amber-200/35">·</span>
+            {/* The same running gradient as the wordmark. This line is the best
+                surface on the page for it -- 35 characters of monospace give the
+                sweep somewhere to travel, where the two letters of "AI" barely do.
+                One shared .az-flow class, so the pill and the mark can never drift
+                out of step. */}
+            <span className="az-flow font-mono text-[13px] uppercase tracking-[0.16em]">
+              AIdeazz Lab API<span className="mx-2 opacity-40">·</span>
               {t("labApi.eyebrowMeta")}
             </span>
           </span>
@@ -701,10 +706,17 @@ export default function LabApi() {
         {/* Measured, not claimed. Counted from the production log line the API
             writes per audit; see CountUp above for how each figure was obtained. */}
         <section className="mt-20 border-y border-white/10 py-12">
-          <div className="grid grid-cols-3 gap-6">
-            <CountUp to={420} label={t("labApi.statAudits")} />
-            <CountUp to={226} label={t("labApi.statSites")} />
-            <CountUp to={34} label={t("labApi.statSignals")} />
+          {/* Rounded DOWN, with a +. The log count only ever grows, so a floor can
+              go stale in the safe direction -- 420+ was true at 428 and stays true
+              at 4,280. Rounding UP or printing the exact figure would make the page
+              wrong by tomorrow, and a number that expires is worse than a vaguer
+              one that does not. Median is exact because it is a distribution
+              statistic, not a running total. */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-6">
+            <CountUp to={420} suffix="+" label={t("labApi.statAudits")} />
+            <CountUp to={14000} suffix="+" label={t("labApi.statSignals")} />
+            <CountUp to={210} suffix="+" label={t("labApi.statSites")} />
+            <CountUp to={85} label={t("labApi.statMedian")} />
           </div>
           <p className="mt-8 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/30">
             {t("labApi.statNote")}
