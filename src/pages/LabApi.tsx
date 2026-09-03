@@ -20,6 +20,7 @@ import {
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import HeroBackdrop from "@/components/HeroBackdrop";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import { LAB_API_INQUIRY_LINK, captureInboundUtms, inquiryLinkFromInbound } from "@/config/marketing";
 import { track } from "@/lib/analytics";
@@ -211,15 +212,7 @@ export default function LabApi() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white antialiased relative overflow-hidden">
-      <div className="fixed inset-0 bg-gradient-to-br from-slate-950 via-purple-950/70 to-slate-950" />
-      <div
-        className="fixed inset-0 opacity-30"
-        style={{
-          backgroundImage: `radial-gradient(at 15% 15%, rgba(120,40,200,0.35) 0px, transparent 50%),
-            radial-gradient(at 85% 10%, rgba(30,64,175,0.3) 0px, transparent 50%),
-            radial-gradient(at 50% 80%, rgba(168,85,247,0.2) 0px, transparent 50%)`,
-        }}
-      />
+      <HeroBackdrop />
 
       <WhatsAppFloat />
 
@@ -237,16 +230,19 @@ export default function LabApi() {
           <span className="inline-flex items-center gap-2 rounded-full border border-purple-400/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-purple-200">
             <Sparkles className="h-3.5 w-3.5" /> {t("labApi.eyebrow")}
           </span>
-          <h1 className="mx-auto mt-6 max-w-3xl bg-gradient-to-br from-white via-purple-100 to-purple-300 bg-clip-text text-4xl font-bold leading-tight text-transparent sm:text-5xl">
+          <h1
+            className="mx-auto mt-6 max-w-3xl text-5xl font-normal leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.75)" }}
+          >
             {t("labApi.title")}
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-gray-300 sm:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base text-gray-200 sm:text-lg" style={{ textShadow: "0 1px 24px rgba(8,5,14,.9)" }}>
             {t("labApi.subtitle")}
           </p>
         </div>
 
         {/* Try-it widget */}
-        <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-purple-950/40 backdrop-blur sm:p-7">
+        <div className="mt-10 rounded-2xl border border-white/15 bg-black/40 p-5 shadow-2xl shadow-black/60 backdrop-blur-xl sm:p-7">
           <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-purple-200">
             <Gauge className="h-4 w-4" /> {t("labApi.tryTitle")}
           </div>
