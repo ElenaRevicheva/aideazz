@@ -60,43 +60,37 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
  * to change. `id` is scoped per instance so two marks on one page cannot collide.
  */
 const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id = "az" }) => (
-  <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
+  <svg viewBox="0 0 72 72" className={className} fill="none" aria-hidden="true">
     <defs>
-      <linearGradient id={`${id}-g`} x1="6" y1="60" x2="58" y2="6" gradientUnits="userSpaceOnUse">
-        {/* Same 11s cycle as the wordmark, so mark and type breathe together
-            instead of drifting in and out of phase with each other. */}
-        <animate attributeName="x1" values="6;-46;6" dur="11s" repeatCount="indefinite" />
-        <animate attributeName="x2" values="58;106;58" dur="11s" repeatCount="indefinite" />
-        {/* Two stops. Violet and yellow, with nothing in between: a third and
-            fourth colour is not a richer version of two, it is a different mark.
-            Any hue the ramp passes through on its way is interpolation, not a
-            brand colour, so the ramp has to be short enough not to invent one. */}
+      <linearGradient id={`${id}-g`} x1="6" y1="68" x2="66" y2="6" gradientUnits="userSpaceOnUse">
+        <animate attributeName="x1" values="6;-54;6" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="x2" values="66;126;66" dur="8s" repeatCount="indefinite" />
         <stop offset="0" stopColor="#7c3aed" />
         <stop offset="1" stopColor="#facc15" />
       </linearGradient>
     </defs>
-    <path d="M32 4 60 60H48.5L32 26.5 15.5 60H4L32 4Z" fill={`url(#${id}-g)`} />
+    {/* Mitred joins and flat caps, not round: the reference is cut, not drawn with
+        a felt tip, and rounded terminals were most of why the first attempt read
+        soft where the original reads sharp. The A's left leg runs the full height
+        so it dominates, and the Z nests against its right flank rather than
+        sitting beside it. */}
     <path
-      d="M20.5 39.5h23L27 53h18"
+      d="M5 67 35 5l11 23"
       stroke={`url(#${id}-g)`}
-      strokeWidth="6.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeWidth="9"
+      strokeLinecap="butt"
+      strokeLinejoin="miter"
+    />
+    <path
+      d="M28 36h32L30 62h32"
+      stroke={`url(#${id}-g)`}
+      strokeWidth="9"
+      strokeLinecap="butt"
+      strokeLinejoin="miter"
     />
   </svg>
 );
 
-/**
- * Flowing gradient, read off podcast.aideazz.xyz so the two properties move the
- * same way. One band of colour travelling THROUGH the letters -- not three static
- * colours chopping the word into pieces, which is what read as a mess before. The
- * seam stays where it was: the name is white, the AI and the tail carry the colour.
- *
- * `background-size: 300%` is what makes it flow: the gradient is three times wider
- * than the text, so sliding its position sweeps a different slice across the
- * glyphs instead of recolouring them in place. Reduced motion parks it mid-sweep,
- * so the mark still looks deliberate rather than dropping to flat purple.
- */
 const BRAND_FLOW_CSS = `
 @keyframes az-flow {
   0%   { background-position:   0% 50%; }
@@ -105,11 +99,11 @@ const BRAND_FLOW_CSS = `
 }
 .az-flow {
   background-image: linear-gradient(100deg,#7c3aed,#facc15,#7c3aed,#facc15,#7c3aed);
-  background-size: 300% 100%;
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: az-flow 11s ease-in-out infinite;
+  animation: az-flow 8s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .az-flow { animation: none; background-position: 30% 50%; }
@@ -123,9 +117,16 @@ const BRAND_FLOW_CSS = `
  * and unmixed, which is what makes them read as the palette rather than as
  * whatever the gradient happens to be passing through at that moment.
  */
+
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
   <span className={`inline-flex flex-col leading-none ${className ?? ""}`}>
     <style>{BRAND_FLOW_CSS}</style>
+    {/* The reference's own split: AI coloured, deazz white. Running the flow across
+        all seven letters was my fix for "two letters cannot show a sweep" -- but it
+        changed her logo to solve my problem. The real fix is background-size: at
+        200% the whole violet-to-yellow ramp fits across "AI", so the pair shows a
+        gradient AND the animation visibly moves it. At 400% only a slice landed on
+        them, which is why it read as flat colour changing rather than as flow. */}
     <span className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[30px]">
       <span className="az-flow">AI</span>
       <span className="text-white">deazz</span>
@@ -139,87 +140,6 @@ const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className
     </span>
   </span>
 );
-
-type CheckStatus = "pass" | "warn" | "fail";
-interface EngineVisibility {
-  engine: string;
-  crawler: string;
-  crawlable: "yes" | "blocked" | "unknown";
-}
-interface CategoryScore {
-  id: string;
-  label: string;
-  score: number;
-  weight: number;
-  passed: number;
-  total: number;
-}
-interface AuditCheck {
-  id: string;
-  category: string;
-  label: string;
-  status: CheckStatus;
-  impact: "high" | "medium" | "low";
-  detail: string;
-  fix?: string;
-  /** Evergreen reason the check exists. Present on EVERY check, passing or not. */
-  why?: string;
-}
-interface AuditResult {
-  url: string;
-  score: number;
-  grade: string;
-  verdict: string;
-  aiEngines: EngineVisibility[];
-  categories: CategoryScore[];
-  checks: AuditCheck[];
-  topFixes: string[];
-}
-
-function gradeColor(score: number): string {
-  if (score >= 85) return "#34d399"; // emerald
-  if (score >= 70) return "#a3e635"; // lime
-  if (score >= 55) return "#fbbf24"; // amber
-  if (score >= 40) return "#fb923c"; // orange
-  return "#f87171"; // red
-}
-
-const ScoreRing: React.FC<{ score: number; grade: string; label: string }> = ({
-  score,
-  grade,
-  label,
-}) => {
-  const r = 54;
-  const c = 2 * Math.PI * r;
-  const color = gradeColor(score);
-  return (
-    <div className="relative flex h-40 w-40 shrink-0 items-center justify-center">
-      <svg className="h-40 w-40 -rotate-90" viewBox="0 0 128 128">
-        <circle cx="64" cy="64" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
-        <motion.circle
-          cx="64"
-          cy="64"
-          r={r}
-          fill="none"
-          stroke={color}
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: c - (c * score) / 100 }}
-          transition={{ duration: 1.1, ease: "easeOut" }}
-        />
-      </svg>
-      <div className="absolute flex flex-col items-center">
-        <span className="text-4xl font-bold text-white">{score}</span>
-        <span className="text-sm font-semibold" style={{ color }}>
-          {grade}
-        </span>
-        <span className="mt-0.5 text-[10px] uppercase tracking-wide text-gray-400">{label}</span>
-      </div>
-    </div>
-  );
-};
 
 export default function LabApi() {
   const { t } = useTranslation();
@@ -722,7 +642,12 @@ export default function LabApi() {
               lists were huddling in the left corner of a full-width footer with
               half the row empty beside them. Pushed apart they span the measure and
               the whitespace reads as layout instead of as something missing. */}
-          <div className="flex flex-col gap-10 sm:flex-row sm:justify-between sm:gap-12">
+          {/* Two columns on a phone as well, not a stack. flex-col left both lists
+              hugging the left edge with the right half of the screen empty -- the
+              same "everything in the left corner" the desktop had before
+              justify-between. A grid fills the width at every size; the flex row
+              only takes over at sm, where justify-between can spread them. */}
+          <div className="grid grid-cols-2 gap-8 sm:flex sm:justify-between sm:gap-12">
             {/* Trimmed from three columns to two. What went, and why -- none of
                 these were broken links, they were links that did not belong here:
                   - "Visibility Audit"  href="#"  a dead anchor, on the page it
