@@ -228,7 +228,7 @@ export default function HeroBackdrop() {
         playsInline
         preload="none"
         poster="/media/orange-burst.webp"
-        style={{ opacity: 0, transitionDuration: "1200ms" }}
+        style={{ opacity: 0, transitionDuration: "1200ms", filter: "saturate(0.82) brightness(0.78)" }}
         className="absolute inset-0 h-full w-full object-cover transition-opacity"
       />
       <video
@@ -236,7 +236,7 @@ export default function HeroBackdrop() {
         muted
         playsInline
         preload="none"
-        style={{ opacity: 0, transitionDuration: "1200ms" }}
+        style={{ opacity: 0, transitionDuration: "1200ms", filter: "saturate(0.82) brightness(0.78)" }}
         className="absolute inset-0 h-full w-full object-cover transition-opacity"
       />
       {/* legibility veil — dark at top and bottom, the burst survives in the middle */}
@@ -244,31 +244,34 @@ export default function HeroBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(8,5,14,.90) 0%, rgba(8,5,14,.55) 26%, rgba(8,5,14,.60) 58%, rgba(8,5,14,.78) 100%)",
+            "linear-gradient(180deg, rgba(8,5,14,.92) 0%, rgba(8,5,14,.62) 24%, rgba(8,5,14,.72) 52%, rgba(8,5,14,.86) 78%, rgba(8,5,14,.90) 100%)",
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      {/* hud's vertical guide rules — hairline columns, each masked to fade out at
-          a different height, so the grid dissolves downward instead of ruling the
-          whole frame. Theirs use linear-gradient masks at 30% / 22% / 15%. */}
-      <div className="absolute inset-0 hidden sm:block">
-        {[
-          { left: "12%", stop: "34%" },
-          { left: "30%", stop: "22%" },
-          { left: "50%", stop: "44%" },
-          { left: "70%", stop: "18%" },
-          { left: "88%", stop: "30%" },
-        ].map((c) => (
-          <div
-            key={c.left}
-            className="absolute top-0 h-full w-px bg-white/10"
-            style={{
-              left: c.left,
-              WebkitMaskImage: `linear-gradient(#000 0%, #000 ${c.stop}, transparent 100%)`,
-              maskImage: `linear-gradient(#000 0%, #000 ${c.stop}, transparent 100%)`,
-            }}
-          />
-        ))}
+      {/* Glassy mosaic — hud's real move. Their hero is not one clean image: it
+          is broken into vertical panels of slightly different tint and blur, so
+          the footage reads as light through frosted glass rather than as a
+          photograph competing with the type. Sixteen panels, each with its own
+          tint and its own mask stop, so the grid dissolves downward instead of
+          ruling the whole frame. */}
+      <div className="absolute inset-0 hidden sm:flex">
+        {Array.from({ length: 16 }).map((_, i) => {
+          const tint = [0.10, 0.03, 0.16, 0.06, 0.13, 0.02, 0.09, 0.05][i % 8];
+          const stop = [46, 30, 58, 36, 52, 26, 42, 34][i % 8];
+          return (
+            <div
+              key={i}
+              className="h-full flex-1 border-r border-white/[0.07] last:border-r-0"
+              style={{
+                background: `linear-gradient(180deg, rgba(8,5,14,${tint}) 0%, rgba(8,5,14,${tint + 0.1}) 100%)`,
+                backdropFilter: i % 3 === 0 ? "blur(1.5px)" : undefined,
+                WebkitBackdropFilter: i % 3 === 0 ? "blur(1.5px)" : undefined,
+                WebkitMaskImage: `linear-gradient(#000 0%, #000 ${stop}%, rgba(0,0,0,0.55) 100%)`,
+                maskImage: `linear-gradient(#000 0%, #000 ${stop}%, rgba(0,0,0,0.55) 100%)`,
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
