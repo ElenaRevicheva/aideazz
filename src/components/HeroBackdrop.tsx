@@ -93,11 +93,12 @@ export default function HeroBackdrop() {
     size();
     window.addEventListener("resize", size);
 
-    // Widened on Elena's note that the dots should hold more of the screen:
-    // the patch was a fifth of the width sitting low; now it spans most of the
-    // frame and rides higher. Still ONE feathered region rather than a global
-    // grid -- edge falloff is what keeps it reading as light in the scene.
-    const PX = 0.06, PY = 0.4, PW = 0.88, PH = 0.5, GAP = 13;
+    // Near full-frame now, and each dot carries its own colour: warm gold on the
+    // left, white through the centre, violet on the right -- the arcoiris Elena
+    // asked for. The rainbow lives IN the dots rather than only in the streak,
+    // which is what makes the field read as refracted sunlight instead of a grid
+    // with a coloured smear laid over it.
+    const PX = 0.02, PY = 0.16, PW = 0.96, PH = 0.76, GAP = 14;
 
     const frame = (t: number) => {
       x.clearRect(0, 0, W, H);
@@ -109,26 +110,35 @@ export default function HeroBackdrop() {
           const u = gx / w, v = gy / h;
           const f = Math.min(1, Math.min(Math.min(u, 1 - u) / 0.34, Math.min(v, 1 - v) / 0.34));
           if (f <= 0.02) continue;
-          const flick = 0.72 + 0.28 * Math.sin(t * 0.0011 + gx * 0.21 + gy * 0.13);
-          x.fillStyle = `rgba(255,252,244,${(f * flick * 0.17 * breathe).toFixed(3)})`;
+          const flick = 0.7 + 0.3 * Math.sin(t * 0.0011 + gx * 0.21 + gy * 0.13);
+          // arcoiris across the frame, with a slow hue drift so it never sits still
+          const hx = (x0 + gx) / W + Math.sin(t * 0.00012) * 0.06;
+          const R = Math.round(255 - Math.max(0, hx - 0.45) * 150);
+          const G = Math.round(238 - Math.abs(hx - 0.5) * 120);
+          const B = Math.round(196 + hx * 59);
+          x.fillStyle = `rgba(${R},${G},${B},${(f * flick * 0.3 * breathe).toFixed(3)})`;
           x.beginPath();
-          x.arc(x0 + gx, y0 + gy, 1.15, 0, 6.283);
+          x.arc(x0 + gx, y0 + gy, 1.3, 0, 6.283);
           x.fill();
         }
       }
 
-      const sx = W * 0.62, sy = H * 0.6, sw = W * 0.2, sh = H * 0.055;
-      const g = x.createLinearGradient(sx, 0, sx + sw, 0);
-      g.addColorStop(0, "rgba(255,178,61,0)");
-      g.addColorStop(0.22, "rgba(255,178,61,.16)");
-      g.addColorStop(0.48, "rgba(140,255,214,.13)");
-      g.addColorStop(0.74, "rgba(180,124,255,.15)");
-      g.addColorStop(1, "rgba(180,124,255,0)");
+      // two broad prism bands, drifting out of phase
       x.save();
       x.globalCompositeOperation = "screen";
-      x.filter = "blur(14px)";
-      x.fillStyle = g;
-      x.fillRect(sx, sy + Math.sin(t * 0.0004) * 6, sw, sh);
+      x.filter = "blur(22px)";
+      const band = (cx: number, cy: number, bw: number, bh: number, ph: number) => {
+        const g = x.createLinearGradient(cx, 0, cx + bw, 0);
+        g.addColorStop(0, "rgba(255,178,61,0)");
+        g.addColorStop(0.2, "rgba(255,178,61,.20)");
+        g.addColorStop(0.45, "rgba(140,255,214,.16)");
+        g.addColorStop(0.72, "rgba(180,124,255,.19)");
+        g.addColorStop(1, "rgba(180,124,255,0)");
+        x.fillStyle = g;
+        x.fillRect(cx, cy + Math.sin(t * 0.0004 + ph) * 9, bw, bh);
+      };
+      band(W * 0.1, H * 0.34, W * 0.55, H * 0.07, 0);
+      band(W * 0.42, H * 0.66, W * 0.5, H * 0.06, 2.1);
       x.restore();
 
       raf = requestAnimationFrame(frame);
