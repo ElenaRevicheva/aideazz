@@ -63,6 +63,10 @@ const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id =
   <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
     <defs>
       <linearGradient id={`${id}-g`} x1="6" y1="60" x2="58" y2="6" gradientUnits="userSpaceOnUse">
+        {/* Same 11s cycle as the wordmark, so mark and type breathe together
+            instead of drifting in and out of phase with each other. */}
+        <animate attributeName="x1" values="6;-46;6" dur="11s" repeatCount="indefinite" />
+        <animate attributeName="x2" values="58;106;58" dur="11s" repeatCount="indefinite" />
         <stop offset="0" stopColor="#7c3aed" />
         <stop offset="0.42" stopColor="#c026d3" />
         <stop offset="0.76" stopColor="#f97316" />
@@ -80,11 +84,42 @@ const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id =
   </svg>
 );
 
+/**
+ * Flowing gradient, read off podcast.aideazz.xyz so the two properties move the
+ * same way. One band of colour travelling THROUGH the letters -- not three static
+ * colours chopping the word into pieces, which is what read as a mess before. The
+ * seam stays where it was: the name is white, the AI and the tail carry the colour.
+ *
+ * `background-size: 300%` is what makes it flow: the gradient is three times wider
+ * than the text, so sliding its position sweeps a different slice across the
+ * glyphs instead of recolouring them in place. Reduced motion parks it mid-sweep,
+ * so the mark still looks deliberate rather than dropping to flat purple.
+ */
+const BRAND_FLOW_CSS = `
+@keyframes az-flow {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+.az-flow {
+  background-image: linear-gradient(100deg,#7c3aed,#c026d3,#f97316,#fbbf24,#c026d3,#7c3aed);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: az-flow 11s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .az-flow { animation: none; background-position: 30% 50%; }
+}
+`;
+
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
   <span className={className}>
-    <span className="text-purple-400">AI</span>
+    <style>{BRAND_FLOW_CSS}</style>
+    <span className="az-flow">AI</span>
     <span className="text-white">deazz</span>{" "}
-    <span className="text-purple-400">{tail}</span>
+    <span className="az-flow">{tail}</span>
   </span>
 );
 
