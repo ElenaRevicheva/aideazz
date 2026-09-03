@@ -67,10 +67,12 @@ const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id =
             instead of drifting in and out of phase with each other. */}
         <animate attributeName="x1" values="6;-46;6" dur="11s" repeatCount="indefinite" />
         <animate attributeName="x2" values="58;106;58" dur="11s" repeatCount="indefinite" />
+        {/* Two stops. Violet and yellow, with nothing in between: a third and
+            fourth colour is not a richer version of two, it is a different mark.
+            Any hue the ramp passes through on its way is interpolation, not a
+            brand colour, so the ramp has to be short enough not to invent one. */}
         <stop offset="0" stopColor="#7c3aed" />
-        <stop offset="0.42" stopColor="#c026d3" />
-        <stop offset="0.76" stopColor="#f97316" />
-        <stop offset="1" stopColor="#fbbf24" />
+        <stop offset="1" stopColor="#facc15" />
       </linearGradient>
     </defs>
     <path d="M32 4 60 60H48.5L32 26.5 15.5 60H4L32 4Z" fill={`url(#${id}-g)`} />
@@ -102,7 +104,7 @@ const BRAND_FLOW_CSS = `
   100% { background-position:   0% 50%; }
 }
 .az-flow {
-  background-image: linear-gradient(100deg,#7c3aed,#c026d3,#f97316,#fbbf24,#c026d3,#7c3aed);
+  background-image: linear-gradient(100deg,#7c3aed,#facc15,#7c3aed,#facc15,#7c3aed);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -114,12 +116,27 @@ const BRAND_FLOW_CSS = `
 }
 `;
 
+/**
+ * The lockup, built to the reference: mark on the left, AIdeazz on the first line,
+ * and AI LAB on a second, letterspaced and flanked by a violet rule and a yellow
+ * one. The two rules are the only place the two brand colours appear side by side
+ * and unmixed, which is what makes them read as the palette rather than as
+ * whatever the gradient happens to be passing through at that moment.
+ */
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
-  <span className={className}>
+  <span className={`inline-flex flex-col leading-none ${className ?? ""}`}>
     <style>{BRAND_FLOW_CSS}</style>
-    <span className="az-flow">AI</span>
-    <span className="text-white">deazz</span>{" "}
-    <span className="az-flow">{tail}</span>
+    <span className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[30px]">
+      <span className="az-flow">AI</span>
+      <span className="text-white">deazz</span>
+    </span>
+    <span className="mt-2 flex items-center gap-2.5">
+      <span className="h-px w-6 shrink-0 bg-violet-500" />
+      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/85 sm:text-[11px]">
+        {tail}
+      </span>
+      <span className="h-px w-6 shrink-0 bg-yellow-400" />
+    </span>
   </span>
 );
 
@@ -320,8 +337,8 @@ export default function LabApi() {
               CTA buttons keep the helper, because converting is their job. */}
           <Link to="/" className="transition-opacity hover:opacity-85">
             <span className="inline-flex items-center gap-3">
-              <AZMark id="hdr" className="h-9 w-9 sm:h-10 sm:w-10" />
-              <Brand tail="AI Lab" className="text-[28px] font-semibold tracking-[-0.03em] sm:text-[32px]" />
+              <AZMark id="hdr" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
+              <Brand tail="AI Lab" />
             </span>
           </Link>
           <LanguageSwitcher syncQueryParam />
