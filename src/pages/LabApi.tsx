@@ -42,6 +42,31 @@ const API_BASE = (
 
 const DEMO_KEY = "aidz_demo_visibility_2026";
 
+/**
+ * The AIdeazz mark: AI purple, deazz white, then the tail purple again — so the
+ * two letters the whole company is about are the ones that carry the colour.
+ *
+ * Defined ONCE and rendered twice (the top-left wordmark and the status pill)
+ * because two hand-tuned copies of a logo drift the moment either is touched,
+ * and a brand that renders differently in two places on the SAME page reads as
+ * carelessness. The tail differs, the treatment cannot.
+ */
+const BRAND_GRADIENT = "linear-gradient(135deg,#c9a6ff 0%,#a855f7 44%,#e879f9 100%)";
+const gradText: React.CSSProperties = {
+  backgroundImage: BRAND_GRADIENT,
+  WebkitBackgroundClip: "text",
+  backgroundClip: "text",
+  color: "transparent",
+};
+
+const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
+  <span className={className} style={{ filter: "drop-shadow(0 0 22px rgba(168,85,247,.28))" }}>
+    <span style={gradText}>AI</span>
+    <span className="text-white">deazz</span>
+    <span style={gradText}>&nbsp;{tail}</span>
+  </span>
+);
+
 type CheckStatus = "pass" | "warn" | "fail";
 interface EngineVisibility {
   engine: string;
@@ -226,11 +251,15 @@ export default function LabApi() {
               same page under a lab wordmark reads as a company with an API. The
               destination is unchanged — only what a stranger concludes in the
               first second. */}
+          {/* Fallback was /portfolio. "Portfolio" is a freelancer's word and it was
+              the one thing a visitor saw on hover; a lab wordmark goes home. The
+              UTM branch above it is untouched, so inbound campaign traffic still
+              routes to the attributed inquiry form. */}
           <Link
-            to={inquiryLinkFromInbound("/portfolio")}
-            className="text-lg font-semibold tracking-tight text-white transition-opacity hover:opacity-80"
+            to={inquiryLinkFromInbound("/")}
+            className="transition-opacity hover:opacity-85"
           >
-            AIdeazz <span className="text-purple-400">Lab</span>
+            <Brand tail="AI Lab" className="text-[26px] font-semibold tracking-[-0.035em] sm:text-[30px]" />
           </Link>
           <LanguageSwitcher syncQueryParam />
         </div>
@@ -242,15 +271,15 @@ export default function LabApi() {
               two facts beside it are the offer — what you get, what it costs. Type
               matches the footer exactly (mono, 11px, 0.18em) so the page opens and
               closes in the same voice. */}
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-black/50 px-4 py-2 backdrop-blur-md">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-black/50 px-5 py-2.5 backdrop-blur-md">
             <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-70" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-400" />
             </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-100/90">
-              {t("labApi.eyebrow")}
-              <span className="mx-1.5 text-white/25">·</span>
-              {t("labApi.eyebrowMeta")}
+            <span className="font-mono text-[13px] uppercase tracking-[0.16em]">
+              <Brand tail="Lab API" />
+              <span className="mx-2 text-white/25">·</span>
+              <span className="text-amber-100/80">{t("labApi.eyebrowMeta")}</span>
             </span>
           </span>
           {/* Google is the first half, literally and visually. The films run
@@ -258,7 +287,7 @@ export default function LabApi() {
               same shape — the settled world in small mono type, then the open
               question in serif. The last two words carry the amber because they
               are the only ones a visitor is actually worried about. */}
-          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">
+          <p className="mx-auto mt-6 max-w-xl font-mono text-[11px] uppercase leading-[1.7] tracking-[0.18em] text-white/45">
             {t("labApi.kicker")}
           </p>
           <h1
