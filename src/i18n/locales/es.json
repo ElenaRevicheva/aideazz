@@ -2,6 +2,8 @@
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
     "eyebrowMeta": "34 señales · Gratis",
+    "policies": "Políticas de servicio",
+    "policiesNote": "Privacidad, entrega y garantías.",
     "checkWhyPrefix": "Por qué importa:",
     "ctaTitleA": "¿Quieres esto integrado en",
     "ctaTitleB": "tu sitio?",

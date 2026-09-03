@@ -675,6 +675,19 @@ export default function LabApi() {
               <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
                 Panama · All rights reserved
               </div>
+              {/* Service Policies, styled to match the button on the main site so the
+                  two pages read as one company. It sits by the copyright rather than
+                  in the COMPANY column because that is where a reader looks for the
+                  legal line -- and it is a plain <a>, not a react-router <Link>:
+                  policies.html is a static file in public/, so routing it through the
+                  SPA would hand back index.html instead of the document. */}
+              <a
+                href="https://aideazz.xyz/policies.html"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-300/40 bg-amber-300/[0.06] px-5 py-2.5 text-sm font-semibold text-amber-200 transition-colors hover:border-amber-300/70 hover:bg-amber-300/10 hover:text-amber-100"
+              >
+                {t("labApi.policies")}
+              </a>
+              <p className="mt-2 text-xs text-gray-500">{t("labApi.policiesNote")}</p>
             </div>
           </div>
         </footer>
