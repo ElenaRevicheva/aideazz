@@ -235,24 +235,35 @@ export default function HeroBackdrop() {
       // UI chrome, a few degrees off horizontal reads as sun through a window.
       x.save();
       x.globalCompositeOperation = "screen";
-      x.filter = "blur(34px)";
-      const ray = (rx: number, ry: number, bw: number, bh: number, ang: number, ph: number) => {
+      x.filter = "blur(30px)";
+      // The rays follow the pointer too, but each sits at its OWN depth, so they
+      // slide at different rates. Moving them together would read as one flat
+      // sheet dragged across the screen; moving them unequally is what makes the
+      // eye read distance. Small factors on purpose -- this is a drift, not a
+      // dodge, and the rays must never chase the cursor hard enough to be noticed
+      // as an effect.
+      const pdx = ptr.lit ? ptr.x - W / 2 : 0;
+      const pdy = ptr.lit ? ptr.y - H / 2 : 0;
+      const ray = (
+        rx: number, ry: number, bw: number, bh: number,
+        ang: number, ph: number, depth: number,
+      ) => {
         x.save();
-        x.translate(rx, ry + Math.sin(t * 0.0004 + ph) * 12);
+        x.translate(rx + pdx * depth, ry + pdy * depth + Math.sin(t * 0.0004 + ph) * 12);
         x.rotate(ang);
         const g = x.createLinearGradient(-bw / 2, 0, bw / 2, 0);
         g.addColorStop(0, "rgba(255,178,61,0)");
-        g.addColorStop(0.22, "rgba(255,178,61,.12)");
-        g.addColorStop(0.46, "rgba(140,255,214,.10)");
-        g.addColorStop(0.74, "rgba(180,124,255,.12)");
+        g.addColorStop(0.22, "rgba(255,178,61,.20)");
+        g.addColorStop(0.46, "rgba(140,255,214,.17)");
+        g.addColorStop(0.74, "rgba(180,124,255,.20)");
         g.addColorStop(1, "rgba(180,124,255,0)");
         x.fillStyle = g;
         x.fillRect(-bw / 2, -bh / 2, bw, bh);
         x.restore();
       };
-      ray(W * 0.38, H * 0.32, W * 0.88, H * 0.09, -0.13, 0);
-      ray(W * 0.64, H * 0.66, W * 0.8, H * 0.08, 0.1, 2.1);
-      ray(W * 0.5, H * 0.49, W * 0.96, H * 0.06, -0.04, 4.2);
+      ray(W * 0.38, H * 0.32, W * 0.88, H * 0.09, -0.13, 0, 0.07);
+      ray(W * 0.64, H * 0.66, W * 0.8, H * 0.08, 0.1, 2.1, 0.045);
+      ray(W * 0.5, H * 0.49, W * 0.96, H * 0.06, -0.04, 4.2, 0.105);
       x.restore();
 
       raf = requestAnimationFrame(frame);
