@@ -62,10 +62,15 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
 const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id = "az" }) => (
   <svg viewBox="0 0 72 72" className={className} fill="none" aria-hidden="true">
     <defs>
-      <linearGradient id={`${id}-g`} x1="6" y1="68" x2="66" y2="6" gradientUnits="userSpaceOnUse">
-        <animate attributeName="x1" values="6;-54;6" dur="8s" repeatCount="indefinite" />
-        <animate attributeName="x2" values="66;126;66" dur="8s" repeatCount="indefinite" />
+      <linearGradient id={`${id}-g`} x1="6" y1="68" x2="66" y2="6" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
+        {/* spreadMethod="repeat" plus a ONE-WAY sweep, so the mark travels the
+            same direction as the wordmark instead of oscillating. A gradient that
+            runs out and comes back reads as a pulse; one that keeps going reads as
+            flow, which is the whole difference the podcast gets right. */}
+        <animate attributeName="x1" values="6;-54" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="x2" values="66;6" dur="5s" repeatCount="indefinite" />
         <stop offset="0" stopColor="#7c3aed" />
+        <stop offset="0.42" stopColor="#a855f7" />
         <stop offset="1" stopColor="#facc15" />
       </linearGradient>
     </defs>
@@ -92,31 +97,19 @@ const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id =
 );
 
 const BRAND_FLOW_CSS = `
-@keyframes az-flow {
-  0%   { background-position:   0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position:   0% 50%; }
-}
+@keyframes az-flow { 100% { background-position: 220% center; } }
 .az-flow {
-  background-image: linear-gradient(100deg,#7c3aed,#facc15,#7c3aed,#facc15,#7c3aed);
-  background-size: 200% 100%;
+  background-image: linear-gradient(115deg,#7c3aed,#a855f7 42%,#facc15);
+  background-size: 220%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: az-flow 8s linear infinite;
+  animation: az-flow 5s linear infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .az-flow { animation: none; background-position: 30% 50%; }
+  .az-flow { animation: none; background-position: 40% center; }
 }
 `;
-
-/**
- * The lockup, built to the reference: mark on the left, AIdeazz on the first line,
- * and AI LAB on a second, letterspaced and flanked by a violet rule and a yellow
- * one. The two rules are the only place the two brand colours appear side by side
- * and unmixed, which is what makes them read as the palette rather than as
- * whatever the gradient happens to be passing through at that moment.
- */
 
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
   <span className={`inline-flex flex-col leading-none ${className ?? ""}`}>
