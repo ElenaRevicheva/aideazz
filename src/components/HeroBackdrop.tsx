@@ -69,7 +69,11 @@ export default function HeroBackdrop() {
     size();
     window.addEventListener("resize", size);
 
-    const PX = 0.3, PY = 0.63, PW = 0.2, PH = 0.22, GAP = 11;
+    // Widened on Elena's note that the dots should hold more of the screen:
+    // the patch was a fifth of the width sitting low; now it spans most of the
+    // frame and rides higher. Still ONE feathered region rather than a global
+    // grid -- edge falloff is what keeps it reading as light in the scene.
+    const PX = 0.06, PY = 0.4, PW = 0.88, PH = 0.5, GAP = 13;
 
     const frame = (t: number) => {
       x.clearRect(0, 0, W, H);
@@ -82,7 +86,7 @@ export default function HeroBackdrop() {
           const f = Math.min(1, Math.min(Math.min(u, 1 - u) / 0.34, Math.min(v, 1 - v) / 0.34));
           if (f <= 0.02) continue;
           const flick = 0.72 + 0.28 * Math.sin(t * 0.0011 + gx * 0.21 + gy * 0.13);
-          x.fillStyle = `rgba(255,252,244,${(f * flick * 0.26 * breathe).toFixed(3)})`;
+          x.fillStyle = `rgba(255,252,244,${(f * flick * 0.17 * breathe).toFixed(3)})`;
           x.beginPath();
           x.arc(x0 + gx, y0 + gy, 1.15, 0, 6.283);
           x.fill();

@@ -510,13 +510,24 @@ export default function LabApi() {
           <p className="mt-3 text-sm leading-relaxed text-gray-300">{t("labApi.whyBody")}</p>
         </section>
 
-        {/* CTA */}
-        <section className="mt-16 text-center">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">{t("labApi.ctaTitle")}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-gray-400">{t("labApi.ctaBody")}</p>
+        {/* CTA — no card. It sits directly on the film, the way hud closes on its
+            landscape: the footage is the surface, the type is the only object. */}
+        <section className="mt-24 py-16 text-center sm:py-24">
+          <h2
+            className="mx-auto max-w-3xl text-4xl font-normal leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
+            style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.85)" }}
+          >
+            {t("labApi.ctaTitle")}
+          </h2>
+          <p
+            className="mx-auto mt-5 max-w-2xl text-base text-gray-200"
+            style={{ textShadow: "0 1px 26px rgba(8,5,14,.95)" }}
+          >
+            {t("labApi.ctaBody")}
+          </p>
           <Link
             to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-7 py-3.5 font-semibold text-white shadow-lg shadow-purple-900/40 transition-all hover:from-purple-500 hover:to-pink-500"
+            className="mt-9 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-slate-950 shadow-2xl shadow-black/50 transition-transform hover:-translate-y-0.5"
           >
             {t("labApi.ctaButton")} <ArrowRight className="h-4 w-4" />
           </Link>
