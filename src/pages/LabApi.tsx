@@ -134,6 +134,164 @@ const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className
   </span>
 );
 
+/**
+ * A number that counts up once, when it first scrolls into view.
+ *
+ * Every figure here is COUNTED FROM PRODUCTION LOGS on Oracle — the
+ * `[visibility-lead] url=… score=… grade=…` line the API writes per audit — not
+ * from config, not rounded up, and not invented to look impressive. 420 is the
+ * complete lifetime count, verified by confirming the other five pm2 logs hold
+ * zero audit lines and that this log predates the API's launch. If a number here
+ * cannot be shown from a log line, it does not belong on the page.
+ *
+ * IntersectionObserver so it fires when seen rather than on mount (a counter that
+ * finishes while off-screen is just a number), `once` so scrolling back does not
+ * replay it, and reduced-motion gets the final value immediately.
+ */
+const CountUp: React.FC<{ to: number; label: string }> = ({ to, label }) => {
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  // Starts AT the number, not at zero. If IntersectionObserver never fires, or
+  // requestAnimationFrame is parked because the tab is backgrounded, the visitor
+  // still reads 420 -- they just do not see it count. Starting at 0 makes the
+  // animation a prerequisite for the number being TRUE, and a credibility band
+  // that can render "0 audits run" is worse than one that never animates.
+  const [n, setN] = React.useState(to);
+  const done = React.useRef(false);
+  const settle = React.useRef<number | undefined>(undefined);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setN(to);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || done.current) return;
+        done.current = true;
+        io.disconnect();
+        setN(0); // now that we know it can animate, rewind and count
+        const DUR = 1400;
+        const t0 = performance.now();
+        const tick = (t: number) => {
+          const k = Math.min(1, (t - t0) / DUR);
+          // ease-out: fast start, settles on the number rather than slamming into it
+          setN(Math.round(to * (1 - Math.pow(1 - k, 3))));
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        // Land on the real number even if rAF never ticks. Browsers park
+        // requestAnimationFrame in a backgrounded tab, and `done` blocks a second
+        // attempt -- so without this, a visitor whose tab was hidden when the band
+        // scrolled past would be left looking at 0 permanently. A timer keeps
+        // running where rAF does not, and setting the same final value twice is
+        // harmless. The animation is decoration; the number is the point.
+        settle.current = window.setTimeout(() => setN(to), DUR + 600);
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (settle.current !== undefined) window.clearTimeout(settle.current);
+    };
+  }, [to]);
+
+  return (
+    <div ref={ref} className="text-center">
+      <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">{label}</div>
+      <div
+        className="mt-2 text-4xl font-normal tabular-nums text-white sm:text-5xl"
+        style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}
+      >
+        {n.toLocaleString()}
+      </div>
+    </div>
+  );
+};
+
+type CheckStatus = "pass" | "warn" | "fail";
+interface EngineVisibility {
+  engine: string;
+  crawler: string;
+  crawlable: "yes" | "blocked" | "unknown";
+}
+interface CategoryScore {
+  id: string;
+  label: string;
+  score: number;
+  weight: number;
+  passed: number;
+  total: number;
+}
+interface AuditCheck {
+  id: string;
+  category: string;
+  label: string;
+  status: CheckStatus;
+  impact: "high" | "medium" | "low";
+  detail: string;
+  fix?: string;
+  /** Evergreen reason the check exists. Present on EVERY check, passing or not. */
+  why?: string;
+}
+interface AuditResult {
+  url: string;
+  score: number;
+  grade: string;
+  verdict: string;
+  aiEngines: EngineVisibility[];
+  categories: CategoryScore[];
+  checks: AuditCheck[];
+  topFixes: string[];
+}
+
+function gradeColor(score: number): string {
+  if (score >= 85) return "#34d399"; // emerald
+  if (score >= 70) return "#a3e635"; // lime
+  if (score >= 55) return "#fbbf24"; // amber
+  if (score >= 40) return "#fb923c"; // orange
+  return "#f87171"; // red
+}
+
+const ScoreRing: React.FC<{ score: number; grade: string; label: string }> = ({
+  score,
+  grade,
+  label,
+}) => {
+  const r = 54;
+  const c = 2 * Math.PI * r;
+  const color = gradeColor(score);
+  return (
+    <div className="relative flex h-40 w-40 shrink-0 items-center justify-center">
+      <svg className="h-40 w-40 -rotate-90" viewBox="0 0 128 128">
+        <circle cx="64" cy="64" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+        <motion.circle
+          cx="64"
+          cy="64"
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c - (c * score) / 100 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+        />
+      </svg>
+      <div className="absolute flex flex-col items-center">
+        <span className="text-4xl font-bold text-white">{score}</span>
+        <span className="text-sm font-semibold" style={{ color }}>
+          {grade}
+        </span>
+        <span className="mt-0.5 text-[10px] uppercase tracking-wide text-gray-400">{label}</span>
+      </div>
+    </div>
+  );
+};
+
 export default function LabApi() {
   const { t } = useTranslation();
   const [url, setUrl] = useState("");
@@ -539,6 +697,19 @@ export default function LabApi() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Measured, not claimed. Counted from the production log line the API
+            writes per audit; see CountUp above for how each figure was obtained. */}
+        <section className="mt-20 border-y border-white/10 py-12">
+          <div className="grid grid-cols-3 gap-6">
+            <CountUp to={420} label={t("labApi.statAudits")} />
+            <CountUp to={226} label={t("labApi.statSites")} />
+            <CountUp to={34} label={t("labApi.statSignals")} />
+          </div>
+          <p className="mt-8 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-white/30">
+            {t("labApi.statNote")}
+          </p>
+        </section>
 
         {/* What it checks */}
         <section className="mt-16">

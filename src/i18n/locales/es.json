@@ -2,6 +2,10 @@
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
     "eyebrowMeta": "34 señales · Gratis",
+    "statAudits": "Auditorías realizadas",
+    "statSites": "Sitios evaluados",
+    "statSignals": "Señales por auditoría",
+    "statNote": "Contado desde los registros de producción",
     "policies": "Políticas de servicio",
     "checkWhyPrefix": "Por qué importa:",
     "ctaTitleA": "¿Quieres esto integrado en",
