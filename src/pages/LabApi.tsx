@@ -619,24 +619,12 @@ export default function LabApi() {
             set ENORMOUS in the display serif across the bottom. The oversized
             copyright is the signature move; the brand mark stays quiet. */}
         <footer className="mt-10 border-t border-white/10 pt-16 pb-6">
-          <div className="grid gap-12 sm:grid-cols-[1.2fr_repeat(3,minmax(0,0.6fr))]">
-            <div>
-              {/* The shared <Brand>, not a third hand-rolled copy -- this one had
-                  already drifted to "Lab" while the header said "AI Lab".
-                  The tagline under it is gone. Its three claims were each already
-                  on the page: "runs on direct page reads" is in the hint, "zero
-                  paid scraping" is in the subtitle AND the badge, and the brand
-                  name is in the wordmark directly above it and the copyright
-                  directly below. It also opened "Built by Elena Revicheva", which
-                  puts the solo framing back in the one place nobody scrolls to
-                  check. */}
-              <Brand tail="AI Lab" className="text-2xl font-semibold tracking-tight" />
-              {/* Social icon row removed. Four unlabelled glyphs at the bottom of a
-                  product page, competing with the two links that actually convert --
-                  and GitHub and Dev.to already had text links in the columns beside
-                  them. An icon a reader has to decode is a worse link than a word. */}
-            </div>
-
+          {/* The footer wordmark is gone. The copyright below is set ENORMOUS in
+              the display serif and already says AIdeazz AI Lab -- a second, smaller
+              mark eight lines above it was the brand introducing itself twice on
+              its way out. Grid was 4 columns for what is now 2 link lists, so it
+              is a flex row: no empty cells to leave behind. */}
+          <div className="flex flex-col gap-10 sm:flex-row sm:gap-24">
             {/* Trimmed from three columns to two. What went, and why -- none of
                 these were broken links, they were links that did not belong here:
                   - "Visibility Audit"  href="#"  a dead anchor, on the page it
@@ -666,7 +654,7 @@ export default function LabApi() {
                     CTA and wrong for a nav link -- "About" was dropping people onto
                     #portfolio-inquiry-form instead of the page about her. "Start a project"
                     below keeps the helper, because that one IS the CTA. */}
-                <Link to="/portfolio" className="text-gray-300 transition-colors hover:text-white">About Elena</Link>
+                <Link to="/portfolio" className="text-gray-300 transition-colors hover:text-white">About</Link>
                 <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
                 <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
