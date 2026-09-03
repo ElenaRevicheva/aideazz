@@ -251,10 +251,12 @@ export default function LabApi() {
               the one thing a visitor saw on hover; a lab wordmark goes home. The
               UTM branch above it is untouched, so inbound campaign traffic still
               routes to the attributed inquiry form. */}
-          <Link
-            to={inquiryLinkFromInbound("/")}
-            className="transition-opacity hover:opacity-85"
-          >
+          {/* Plain "/" — aideazz.xyz, the mission site. Deliberately NOT wrapped in
+              inquiryLinkFromInbound: that helper redirects to the attributed inquiry
+              form whenever UTMs are present, so campaign traffic clicking the LOGO
+              would have landed on a contact form. Same trap as the About link. The
+              CTA buttons keep the helper, because converting is their job. */}
+          <Link to="/" className="transition-opacity hover:opacity-85">
             <Brand tail="AI Lab" className="text-[28px] font-semibold tracking-[-0.03em] sm:text-[32px]" />
           </Link>
           <LanguageSwitcher syncQueryParam />
