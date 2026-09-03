@@ -20,50 +20,103 @@ import React from "react";
  * 3. **`prefers-reduced-motion` disables both** the film and the canvas.
  */
 export default function HeroBackdrop() {
-  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+  const aRef = React.useRef<HTMLVideoElement | null>(null);
+  const bRef = React.useRef<HTMLVideoElement | null>(null);
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
   // ── the reel ────────────────────────────────────────────────────────────
-  // Each film runs its full 10s, then the next begins. No `loop` attribute:
-  // the `ended` event drives the sequence, so adding a fourth fruit is one line
-  // in this array and nothing else.
+  // TWO video elements, not one. Swapping `src` on a single element gave a hard
+  // cut and a black flash while the next file buffered. Here the films alternate
+  // between A and B: while one plays, the other silently preloads the next, and
+  // 1.2s before the end they cross-dissolve on opacity. The viewer sees one
+  // continuous piece of footage rather than three clips in a row.
   const REEL = React.useMemo(
     () => ["/media/orange-burst.mp4", "/media/pomegranate.mp4", "/media/kiwi.mp4"],
     [],
   );
 
   React.useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || window.innerWidth < 860) return;
+    const a = aRef.current;
+    const b = bRef.current;
+    if (!a || !b) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.innerWidth < 860) return;
 
+    const XFADE = 1.2; // seconds of overlap
+    let cur = a;
+    let nxt = b;
     let i = 0;
-    const play = () => {
-      v.play()
-        .then(() => v.classList.add("opacity-100"))
+    let handing = false;
+    let dead = false;
+
+    const show = (el: HTMLVideoElement) => (el.style.opacity = "1");
+    const hide = (el: HTMLVideoElement) => (el.style.opacity = "0");
+
+    const preloadNext = () => {
+      const j = (i + 1) % REEL.length;
+      if (nxt.getAttribute("data-src") !== REEL[j]) {
+        nxt.setAttribute("data-src", REEL[j]);
+        nxt.src = REEL[j];
+        nxt.load();
+      }
+    };
+
+    // The hand-off. Fires once per film, on the last 1.2s.
+    const onTime = () => {
+      if (dead || handing) return;
+      const left = (cur.duration || 0) - cur.currentTime;
+      if (!cur.duration || left > XFADE) return;
+      handing = true;
+      nxt.currentTime = 0;
+      nxt
+        .play()
+        .then(() => {
+          show(nxt);
+          hide(cur);
+          window.setTimeout(() => {
+            if (dead) return;
+            const finished = cur;
+            cur = nxt;
+            nxt = finished;
+            i = (i + 1) % REEL.length;
+            finished.pause();
+            handing = false;
+            preloadNext();
+          }, XFADE * 1000);
+        })
         .catch(() => {
-          /* autoplay refused — the poster stays, which is a fine outcome */
+          handing = false;
         });
     };
-    const onReady = () => play();
-    const onEnded = () => {
-      // Advance the reel. A failed load must not freeze on a black frame, so
-      // `error` walks forward too.
+
+    // A file that will not load must not strand the reel on a frozen frame.
+    const onError = () => {
+      if (dead) return;
       i = (i + 1) % REEL.length;
-      v.src = REEL[i];
-      v.load();
-      play();
+      cur.src = REEL[i];
+      cur.load();
+      cur.play().then(() => show(cur)).catch(() => {});
+      preloadNext();
     };
-    v.addEventListener("canplay", onReady);
-    v.addEventListener("ended", onEnded);
-    v.addEventListener("error", onEnded);
-    v.preload = "auto";
-    v.src = REEL[0];
+
+    a.addEventListener("timeupdate", onTime);
+    b.addEventListener("timeupdate", onTime);
+    a.addEventListener("error", onError);
+    b.addEventListener("error", onError);
+
+    a.preload = "auto";
+    a.src = REEL[0];
+    a.setAttribute("data-src", REEL[0]);
+    a.play().then(() => { show(a); preloadNext(); }).catch(() => {
+      /* autoplay refused — the poster stays, which is a fine outcome */
+    });
+
     return () => {
-      v.removeEventListener("canplay", onReady);
-      v.removeEventListener("ended", onEnded);
-      v.removeEventListener("error", onEnded);
+      dead = true;
+      a.removeEventListener("timeupdate", onTime);
+      b.removeEventListener("timeupdate", onTime);
+      a.removeEventListener("error", onError);
+      b.removeEventListener("error", onError);
     };
   }, [REEL]);
 
@@ -159,12 +212,21 @@ export default function HeroBackdrop() {
         className="absolute inset-0 h-full w-full object-cover"
       />
       <video
-        ref={videoRef}
+        ref={aRef}
         muted
         playsInline
         preload="none"
         poster="/media/orange-burst.jpg"
-        className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-1000"
+        style={{ opacity: 0, transitionDuration: "1200ms" }}
+        className="absolute inset-0 h-full w-full object-cover transition-opacity"
+      />
+      <video
+        ref={bRef}
+        muted
+        playsInline
+        preload="none"
+        style={{ opacity: 0, transitionDuration: "1200ms" }}
+        className="absolute inset-0 h-full w-full object-cover transition-opacity"
       />
       {/* legibility veil — dark at top and bottom, the burst survives in the middle */}
       <div

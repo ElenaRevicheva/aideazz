@@ -16,6 +16,9 @@ import {
   Sparkles,
   Bot,
   AlertTriangle,
+  Github,
+  Linkedin,
+  Send,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -533,11 +536,11 @@ export default function LabApi() {
           </Link>
         </section>
 
-        {/* Ending — hud's move: the film carries all the way down and the closing
-            line is set large in the display serif, so the page finishes on the
-            footage rather than trailing off into grey small print. */}
+        {/* Ending — hud's move: the film carries all the way down, the closing
+            line is set large in the display serif, and every way to reach her is
+            in one place. Only channels the site already publishes appear here. */}
         <footer className="mt-8 border-t border-white/10 pt-14 pb-4">
-          <div className="grid gap-10 sm:grid-cols-[1.4fr_1fr]">
+          <div className="grid gap-12 sm:grid-cols-[1.3fr_1fr_1fr]">
             <div>
               <div
                 className="text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl"
@@ -545,24 +548,54 @@ export default function LabApi() {
               >
                 AIdeazz AI Lab
               </div>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-300" style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-gray-300" style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
                 {t("labApi.footerNote")}
               </p>
+              <div className="mt-6 flex items-center gap-4">
+                <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
+                   aria-label="GitHub" className="text-gray-400 transition-colors hover:text-white">
+                  <Github className="h-5 w-5" />
+                </a>
+                <a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener noreferrer"
+                   aria-label="LinkedIn" className="text-gray-400 transition-colors hover:text-white">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <a href="https://dev.to/elenarevicheva" target="_blank" rel="noopener noreferrer"
+                   aria-label="Dev.to" className="text-gray-400 transition-colors hover:text-white">
+                  <Braces className="h-5 w-5" />
+                </a>
+                <a href="https://t.me/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
+                   aria-label="Telegram" className="text-gray-400 transition-colors hover:text-white">
+                  <Send className="h-5 w-5" />
+                </a>
+              </div>
             </div>
-            <nav className="flex flex-col gap-3 text-sm sm:items-end">
-              <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">
-                Portfolio
-              </Link>
-              <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">
-                Blog
-              </Link>
-              <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-gray-300 transition-colors hover:text-white">
-                {t("labApi.ctaButton")}
-              </Link>
-            </nav>
+
+            <div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">Lab</div>
+              <nav className="mt-4 flex flex-col gap-2.5 text-sm">
+                <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">Portfolio</Link>
+                <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
+                <Link to={inquiryLinkFromInbound("/about")} className="text-gray-300 transition-colors hover:text-white">About</Link>
+                <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
+              </nav>
+            </div>
+
+            <div>
+              <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">Contact</div>
+              <nav className="mt-4 flex flex-col gap-2.5 text-sm">
+                <a href="mailto:hello@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">hello@aideazz.xyz</a>
+                <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
+                <a href="https://t.me/ElenaRevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">Telegram</a>
+                <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white">
+                  {t("labApi.ctaButton")}
+                </Link>
+              </nav>
+            </div>
           </div>
-          <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-            <span>© {new Date().getFullYear()} AIdeazz AI Lab · Elena Revicheva</span>
+
+          <div className="mt-14 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
+            <span>© {new Date().getFullYear()} AIdeazz AI Lab · Elena Revicheva · Panama</span>
             <span className="font-mono tracking-wide">34 SIGNALS · DIRECT PAGE READ · NO SIGNUP</span>
           </div>
         </footer>
