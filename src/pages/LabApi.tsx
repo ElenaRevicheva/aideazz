@@ -61,6 +61,87 @@ const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className
   </span>
 );
 
+type CheckStatus = "pass" | "warn" | "fail";
+interface EngineVisibility {
+  engine: string;
+  crawler: string;
+  crawlable: "yes" | "blocked" | "unknown";
+}
+interface CategoryScore {
+  id: string;
+  label: string;
+  score: number;
+  weight: number;
+  passed: number;
+  total: number;
+}
+interface AuditCheck {
+  id: string;
+  category: string;
+  label: string;
+  status: CheckStatus;
+  impact: "high" | "medium" | "low";
+  detail: string;
+  fix?: string;
+  /** Evergreen reason the check exists. Present on EVERY check, passing or not. */
+  why?: string;
+}
+interface AuditResult {
+  url: string;
+  score: number;
+  grade: string;
+  verdict: string;
+  aiEngines: EngineVisibility[];
+  categories: CategoryScore[];
+  checks: AuditCheck[];
+  topFixes: string[];
+}
+
+function gradeColor(score: number): string {
+  if (score >= 85) return "#34d399"; // emerald
+  if (score >= 70) return "#a3e635"; // lime
+  if (score >= 55) return "#fbbf24"; // amber
+  if (score >= 40) return "#fb923c"; // orange
+  return "#f87171"; // red
+}
+
+const ScoreRing: React.FC<{ score: number; grade: string; label: string }> = ({
+  score,
+  grade,
+  label,
+}) => {
+  const r = 54;
+  const c = 2 * Math.PI * r;
+  const color = gradeColor(score);
+  return (
+    <div className="relative flex h-40 w-40 shrink-0 items-center justify-center">
+      <svg className="h-40 w-40 -rotate-90" viewBox="0 0 128 128">
+        <circle cx="64" cy="64" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+        <motion.circle
+          cx="64"
+          cy="64"
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth="10"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          initial={{ strokeDashoffset: c }}
+          animate={{ strokeDashoffset: c - (c * score) / 100 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+        />
+      </svg>
+      <div className="absolute flex flex-col items-center">
+        <span className="text-4xl font-bold text-white">{score}</span>
+        <span className="text-sm font-semibold" style={{ color }}>
+          {grade}
+        </span>
+        <span className="mt-0.5 text-[10px] uppercase tracking-wide text-gray-400">{label}</span>
+      </div>
+    </div>
+  );
+};
+
 export default function LabApi() {
   const { t } = useTranslation();
   const [url, setUrl] = useState("");
@@ -244,10 +325,12 @@ export default function LabApi() {
             <button
               type="submit"
               disabled={loading || !url.trim()}
-              className="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 font-semibold text-white shadow-lg shadow-purple-900/40 transition-all hover:from-purple-500 hover:to-pink-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="group flex items-center justify-center gap-2 rounded-xl bg-white px-7 py-3 font-semibold tracking-tight text-slate-950 ring-1 ring-white/60 transition-all hover:shadow-[0_10px_34px_-10px_rgba(245,200,120,.55)] hover:ring-amber-200 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:shadow-none"
             >
               {loading ? t("labApi.tryLoading") : t("labApi.tryButton")}
-              {!loading && <ArrowRight className="h-4 w-4" />}
+              {!loading && (
+                <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              )}
             </button>
           </form>
           <p className="mt-3 text-xs text-gray-400">{t("labApi.tryHint")}</p>
@@ -410,9 +493,20 @@ export default function LabApi() {
                                       <span>{c.label}</span>
                                     </div>
                                     <p className="mt-1 pl-6 text-xs text-gray-300">{c.detail}</p>
+                                    {/* `why` is on every check, passing or not. A fix only
+                                        helps someone already failing; the 30 checks a good
+                                        site passes are where the report either teaches
+                                        something or reads as a pass/fail list. */}
+                                    {c.why ? (
+                                      <p className="mt-1 pl-6 text-xs leading-relaxed text-gray-400">
+                                        <span className="text-gray-500">{t("labApi.checkWhyPrefix")}</span>{" "}
+                                        {c.why}
+                                      </p>
+                                    ) : null}
                                     {c.fix ? (
-                                      <p className="mt-1 pl-6 text-xs text-purple-200">
-                                        {t("labApi.checkFixPrefix")} {c.fix}
+                                      <p className="mt-1 pl-6 text-xs leading-relaxed text-amber-200/90">
+                                        <span className="text-amber-200/60">{t("labApi.checkFixPrefix")}</span>{" "}
+                                        {c.fix}
                                       </p>
                                     ) : null}
                                   </li>
@@ -501,7 +595,10 @@ export default function LabApi() {
             className="mx-auto max-w-3xl text-4xl font-normal leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
             style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.85)" }}
           >
-            {t("labApi.ctaTitle")}
+            {t("labApi.ctaTitleA")}{" "}
+            <span className="italic" style={{ color: "#edb867" }}>
+              {t("labApi.ctaTitleB")}
+            </span>
           </h2>
           <p
             className="mx-auto mt-5 max-w-2xl text-base text-gray-200"
@@ -511,9 +608,10 @@ export default function LabApi() {
           </p>
           <Link
             to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)}
-            className="mt-9 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-slate-950 shadow-2xl shadow-black/50 transition-transform hover:-translate-y-0.5"
+            className="group mt-9 inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 text-[17px] font-semibold tracking-tight text-slate-950 ring-1 ring-white/60 shadow-2xl shadow-black/50 transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_rgba(245,200,120,.55)] hover:ring-amber-200"
           >
-            {t("labApi.ctaButton")} <ArrowRight className="h-4 w-4" />
+            {t("labApi.ctaButton")}
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </section>
 
@@ -551,20 +649,24 @@ export default function LabApi() {
               </div>
             </div>
 
-            <div>
-              <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Product</div>
-              <nav className="mt-5 flex flex-col gap-3 text-[15px]">
-                <a href="#" className="text-gray-300 transition-colors hover:text-white">Visibility Audit</a>
-                <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
-                <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">Portfolio</Link>
-              </nav>
-            </div>
-
+            {/* Trimmed from three columns to two. What went, and why -- none of
+                these were broken links, they were links that did not belong here:
+                  - "Visibility Audit"  href="#"  a dead anchor, on the page it
+                    pointed at. It did nothing at all.
+                  - "Portfolio"         the freelancer word already dropped from
+                    the header; it undercut the same page twice.
+                  - "Dev.to"            already in the social icons two columns
+                    left. The same link twice is not two links.
+                  - "hello@"            two addresses side by side make a reader
+                    choose, and the docs above already name aipa@ as the one that
+                    answers about production keys.
+                A footer is a place to leave, and every extra exit costs the ones
+                that matter. */}
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Resources</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
+                <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
                 <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
-                <a href="https://dev.to/elenarevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">Dev.to</a>
                 <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">GitHub</a>
               </nav>
             </div>
@@ -572,8 +674,12 @@ export default function LabApi() {
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Company</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
-                <Link to={inquiryLinkFromInbound("/about")} className="text-gray-300 transition-colors hover:text-white">About</Link>
-                <a href="mailto:hello@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">hello@aideazz.xyz</a>
+                {/* NOT wrapped in inquiryLinkFromInbound. That helper swaps its target for the
+                    attributed inquiry form whenever UTMs are present, which is right for a
+                    CTA and wrong for a nav link -- "About" was dropping people onto
+                    #portfolio-inquiry-form instead of the page about her. "Start a project"
+                    below keeps the helper, because that one IS the CTA. */}
+                <Link to="/portfolio" className="text-gray-300 transition-colors hover:text-white">About Elena</Link>
                 <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
                 <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
@@ -586,13 +692,13 @@ export default function LabApi() {
           <div className="mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div
-                className="text-[clamp(2rem,6.4vw,4.75rem)] leading-[0.95] tracking-tight text-white"
+                className="whitespace-nowrap text-[clamp(1.5rem,4.2vw,3.25rem)] leading-[1.05] tracking-tight text-white"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.9)" }}
               >
                 © {new Date().getFullYear()} AIdeazz AI Lab
               </div>
               <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
-                Elena Revicheva · Panama · All rights reserved
+                Panama · All rights reserved
               </div>
             </div>
             <div className="flex shrink-0 gap-7 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-500">

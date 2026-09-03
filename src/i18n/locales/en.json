@@ -2,6 +2,9 @@
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
     "eyebrowMeta": "34 signals · Free",
+    "checkWhyPrefix": "Why it matters:",
+    "ctaTitleA": "Want this wired into",
+    "ctaTitleB": "your site?",
     "kicker": "Google ranked your page — and in 2026 that's just half of the fruit",
     "titleA": "Can AI find, understand and",
     "titleB": "cite you?",
@@ -13,7 +16,7 @@
     "tryButton": "Audit my site",
     "tryLoading": "Auditing…",
     "tryHint": "Enter any public URL. Runs on direct page reads.",
-    "tryReceipts": "After you audit: your score, the priority fixes, and all 34 checks — what we actually saw on your page, with a fix for every one that fails. Free key: 20 audits an hour.",
+    "tryReceipts": "After you audit: your score, the priority fixes, and all 34 checks — what we actually saw on your page, why each one matters, and how to fix the ones that fail. Free key: 20 audits an hour.",
     "errorGeneric": "Couldn't audit that URL. Check it's public and reachable, then try again.",
     "scoreLabel": "AI Visibility Score",
     "enginesTitle": "Can AI engines read this site?",
