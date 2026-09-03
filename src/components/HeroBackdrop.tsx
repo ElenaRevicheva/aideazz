@@ -15,8 +15,9 @@ import React from "react";
  *    first. The film fades in only once `canplay` fires; if it never does — slow
  *    network, missing file, codec refusal — the page looks exactly as it did
  *    before this component existed.
- * 2. **Phones never download it.** 1.4 MB of decoration on cellular is somebody
- *    else's money. Under 860px the video element is never given a `src`.
+ * 2. **Phones get their own encode, not the desktop one.** 640x360 MP4s at
+ *    100-376 KB against 1148-3137 KB, so the film plays on a phone for roughly a
+ *    tenth of the bytes. Data Saver and 2g still get the poster only.
  * 3. **`prefers-reduced-motion` disables both** the film and the canvas.
  */
 export default function HeroBackdrop() {
@@ -36,15 +37,16 @@ export default function HeroBackdrop() {
   // than a trade between them. `src` is set imperatively by the crossfade below,
   // so the choice is made here rather than with <source> children.
   const REEL = React.useMemo(() => {
+    const names = ["orange-burst", "pomegranate", "kiwi", "pineapple"];
+    // Phones get their own 640x360 encodes, not the desktop files scaled down in
+    // the browser. 298 KB against 3002 KB for the same shot -- and at this
+    // bitrate x264 beats our VP9 settings (298 vs 473 KB), so mobile takes MP4,
+    // which is also the only thing iOS Safari will play. Behind a veil at 0.62-0.92
+    // alpha and brightness 0.78 the resolution drop is invisible.
+    if (window.innerWidth < 860) return names.map((n) => `/media/${n}-m.mp4`);
     const probe = document.createElement("video");
-    const webm = probe.canPlayType('video/webm; codecs="vp9"') !== "";
-    const ext = webm ? "webm" : "mp4";
-    return [
-      `/media/orange-burst.${ext}`,
-      `/media/pomegranate.${ext}`,
-      `/media/kiwi.${ext}`,
-      `/media/pineapple.${ext}`,
-    ];
+    const ext = probe.canPlayType('video/webm; codecs="vp9"') !== "" ? "webm" : "mp4";
+    return names.map((n) => `/media/${n}.${ext}`);
   }, []);
 
   React.useEffect(() => {
@@ -52,7 +54,14 @@ export default function HeroBackdrop() {
     const b = bRef.current;
     if (!a || !b) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (window.innerWidth < 860) return;
+
+    // Width was the wrong thing to gate on: a narrow screen is not a metered
+    // connection, and the rule left every phone looking at a still. Gate on the
+    // actual cost instead -- Data Saver on, or a connection that genuinely cannot
+    // afford it. Where the API is missing the film plays, which is the right
+    // default now that mobile downloads 298 KB rather than 3 MB.
+    const conn = (navigator as unknown as { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (conn && (conn.saveData === true || /^(slow-)?2g$/.test(conn.effectiveType || ""))) return;
 
     const XFADE = 1.2; // seconds of overlap
     let cur = a;
@@ -175,6 +184,12 @@ export default function HeroBackdrop() {
       }
     };
     const onLeave = () => (ptr.lit = false);
+    // A touch screen has no hovering pointer, so the torch can never light. Left
+    // as-is the field would sit at its faint ambient forever and phones would see
+    // almost nothing. There, ambient carries the whole effect on its own.
+    const coarse = window.matchMedia("(hover: none)").matches;
+    const AMB = coarse ? 0.34 : 0.13;
+    const SPOT = coarse ? 0 : 0.44;
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave, { passive: true });
     const R2 = 320 * 320;
@@ -223,7 +238,7 @@ export default function HeroBackdrop() {
           const px = gx - ptr.x, py = gy - ptr.y;
           const sd = (px * px + py * py) / R2;
           const spot = ptr.lit && sd < 1 ? (1 - sd) * (1 - sd) : 0;
-          const a = f * flick * breathe * (0.13 + 0.44 * spot);
+          const a = f * flick * breathe * (AMB + SPOT * spot);
           if (a < 0.012) continue;
           x.fillStyle = `rgba(${R},${G},${B},${a.toFixed(3)})`;
           x.fillRect(gx, gy, DOT, DOT);
