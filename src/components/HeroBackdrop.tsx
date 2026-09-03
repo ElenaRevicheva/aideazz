@@ -1,7 +1,7 @@
 import React from "react";
 
 /**
- * The AIdeazz Lab backdrop: the orange-burst film behind a localised dot patch.
+ * The AIdeazz Lab backdrop: a film reel of fruit bursts behind a dot field.
  *
  * Made in Elena's own Runway account rather than bought from a stock library —
  * the violet glass shell cut open to a glowing citrus core is the product
@@ -23,25 +23,49 @@ export default function HeroBackdrop() {
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
   const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
-  // ── the film ────────────────────────────────────────────────────────────
+  // ── the reel ────────────────────────────────────────────────────────────
+  // Each film runs its full 10s, then the next begins. No `loop` attribute:
+  // the `ended` event drives the sequence, so adding a fourth fruit is one line
+  // in this array and nothing else.
+  const REEL = React.useMemo(
+    () => ["/media/orange-burst.mp4", "/media/pomegranate.mp4"],
+    [],
+  );
+
   React.useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced || window.innerWidth < 860) return;
 
-    const onReady = () => {
+    let i = 0;
+    const play = () => {
       v.play()
         .then(() => v.classList.add("opacity-100"))
         .catch(() => {
           /* autoplay refused — the poster stays, which is a fine outcome */
         });
     };
-    v.addEventListener("canplay", onReady, { once: true });
+    const onReady = () => play();
+    const onEnded = () => {
+      // Advance the reel. A failed load must not freeze on a black frame, so
+      // `error` walks forward too.
+      i = (i + 1) % REEL.length;
+      v.src = REEL[i];
+      v.load();
+      play();
+    };
+    v.addEventListener("canplay", onReady);
+    v.addEventListener("ended", onEnded);
+    v.addEventListener("error", onEnded);
     v.preload = "auto";
-    v.src = "/media/orange-burst.mp4";
-    return () => v.removeEventListener("canplay", onReady);
-  }, []);
+    v.src = REEL[0];
+    return () => {
+      v.removeEventListener("canplay", onReady);
+      v.removeEventListener("ended", onEnded);
+      v.removeEventListener("error", onEnded);
+    };
+  }, [REEL]);
 
   // ── the dot patch + prismatic streak ────────────────────────────────────
   // Read off hud.ai rather than invented: one contained patch of dot-matrix,
@@ -127,7 +151,6 @@ export default function HeroBackdrop() {
       <video
         ref={videoRef}
         muted
-        loop
         playsInline
         preload="none"
         poster="/media/orange-burst.jpg"
