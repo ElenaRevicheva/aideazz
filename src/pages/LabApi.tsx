@@ -13,7 +13,6 @@ import {
   HelpCircle,
   Copy,
   CheckCheck,
-  Sparkles,
   Bot,
   AlertTriangle,
   Github,
@@ -230,8 +229,21 @@ export default function LabApi() {
 
         {/* Hero */}
         <div className="text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-purple-400/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-purple-200">
-            <Sparkles className="h-3.5 w-3.5" /> {t("labApi.eyebrow")}
+          {/* A status pill, not a badge. The sparkle icon read as decoration and
+              said nothing; a live dot says the thing is running right now, and the
+              two facts beside it are the offer — what you get, what it costs. Type
+              matches the footer exactly (mono, 11px, 0.18em) so the page opens and
+              closes in the same voice. */}
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-black/50 px-4 py-2 backdrop-blur-md">
+            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-400" />
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-100/90">
+              {t("labApi.eyebrow")}
+              <span className="mx-1.5 text-white/25">·</span>
+              {t("labApi.eyebrowMeta")}
+            </span>
           </span>
           <h1
             className="mx-auto mt-6 max-w-3xl text-5xl font-normal leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"

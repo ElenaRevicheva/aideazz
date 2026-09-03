@@ -1,6 +1,7 @@
 {
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
+    "eyebrowMeta": "34 signals · Free",
     "title": "Can AI find, understand and cite you?",
     "subtitle": "Google ranked your page. ChatGPT, Claude, Gemini and Perplexity have to quote it — and six crawlers decide whether they can. We read your page directly and score all thirty-four signals. No scraping vendor, no signup.",
     "badge": "Free · No signup · No scraping cost",
