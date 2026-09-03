@@ -158,6 +158,27 @@ export default function HeroBackdrop() {
     size();
     window.addEventListener("resize", size);
 
+    // The pointer is a torch, not a cursor. The field sits very low everywhere
+    // and only lifts where she is looking — which is where her mouse is. Kept in
+    // a plain object rather than state: this changes every frame, and a re-render
+    // per mousemove would cost more than the whole canvas.
+    // `tx/ty` is where the mouse actually is, `x/y` is where the light has got
+    // to. Easing between them stops the halo snapping around on fast moves.
+    const ptr = { x: -9999, y: -9999, tx: -9999, ty: -9999, lit: false };
+    const onMove = (e: PointerEvent) => {
+      ptr.tx = e.clientX;
+      ptr.ty = e.clientY;
+      if (!ptr.lit) {
+        ptr.x = e.clientX;
+        ptr.y = e.clientY;
+        ptr.lit = true;
+      }
+    };
+    const onLeave = () => (ptr.lit = false);
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerleave", onLeave, { passive: true });
+    const R2 = 320 * 320;
+
     // Near full-frame now, and each dot carries its own colour: warm gold on the
     // left, white through the centre, violet on the right -- the arcoiris Elena
     // asked for. The rainbow lives IN the dots rather than only in the streak,
@@ -181,6 +202,8 @@ export default function HeroBackdrop() {
       const cx = W * 0.5, cy = H * 0.52;
       const rad = Math.hypot(W, H) * 0.58;
       const breathe = Math.sin(t * 0.00035) * 0.14 + 0.86;
+      ptr.x += (ptr.tx - ptr.x) * 0.12;
+      ptr.y += (ptr.ty - ptr.y) * 0.12;
       for (let gy = 0; gy < H; gy += GAP) {
         for (let gx = 0; gx < W; gx += GAP) {
           const d = Math.hypot(gx - cx, gy - cy) / rad;
@@ -196,7 +219,13 @@ export default function HeroBackdrop() {
           const R = Math.round(255 - Math.max(0, hx - 0.42) * 168);
           const G = Math.round(240 - Math.abs(hx - 0.5) * 150);
           const B = Math.round(188 + hx * 67);
-          x.fillStyle = `rgba(${R},${G},${B},${(f * flick * 0.52 * breathe).toFixed(3)})`;
+          // ambient is deliberately faint; the torch does the rest
+          const px = gx - ptr.x, py = gy - ptr.y;
+          const sd = (px * px + py * py) / R2;
+          const spot = ptr.lit && sd < 1 ? (1 - sd) * (1 - sd) : 0;
+          const a = f * flick * breathe * (0.13 + 0.44 * spot);
+          if (a < 0.012) continue;
+          x.fillStyle = `rgba(${R},${G},${B},${a.toFixed(3)})`;
           x.fillRect(gx, gy, DOT, DOT);
         }
       }
@@ -206,16 +235,16 @@ export default function HeroBackdrop() {
       // UI chrome, a few degrees off horizontal reads as sun through a window.
       x.save();
       x.globalCompositeOperation = "screen";
-      x.filter = "blur(26px)";
+      x.filter = "blur(34px)";
       const ray = (rx: number, ry: number, bw: number, bh: number, ang: number, ph: number) => {
         x.save();
         x.translate(rx, ry + Math.sin(t * 0.0004 + ph) * 12);
         x.rotate(ang);
         const g = x.createLinearGradient(-bw / 2, 0, bw / 2, 0);
         g.addColorStop(0, "rgba(255,178,61,0)");
-        g.addColorStop(0.22, "rgba(255,178,61,.30)");
-        g.addColorStop(0.46, "rgba(140,255,214,.26)");
-        g.addColorStop(0.74, "rgba(180,124,255,.30)");
+        g.addColorStop(0.22, "rgba(255,178,61,.12)");
+        g.addColorStop(0.46, "rgba(140,255,214,.10)");
+        g.addColorStop(0.74, "rgba(180,124,255,.12)");
         g.addColorStop(1, "rgba(180,124,255,0)");
         x.fillStyle = g;
         x.fillRect(-bw / 2, -bh / 2, bw, bh);
@@ -233,6 +262,8 @@ export default function HeroBackdrop() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", size);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 
