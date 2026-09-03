@@ -171,7 +171,7 @@ export default function HeroBackdrop() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(8,5,14,.90) 0%, rgba(8,5,14,.55) 26%, rgba(8,5,14,.62) 58%, rgba(8,5,14,.95) 100%)",
+            "linear-gradient(180deg, rgba(8,5,14,.90) 0%, rgba(8,5,14,.55) 26%, rgba(8,5,14,.60) 58%, rgba(8,5,14,.78) 100%)",
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

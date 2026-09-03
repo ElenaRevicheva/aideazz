@@ -533,8 +533,38 @@ export default function LabApi() {
           </Link>
         </section>
 
-        <footer className="mt-16 border-t border-white/10 pt-6 text-center text-xs text-gray-500">
-          {t("labApi.footerNote")}
+        {/* Ending — hud's move: the film carries all the way down and the closing
+            line is set large in the display serif, so the page finishes on the
+            footage rather than trailing off into grey small print. */}
+        <footer className="mt-8 border-t border-white/10 pt-14 pb-4">
+          <div className="grid gap-10 sm:grid-cols-[1.4fr_1fr]">
+            <div>
+              <div
+                className="text-4xl leading-[1.05] tracking-tight text-white sm:text-5xl"
+                style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 50px rgba(8,5,14,.9)" }}
+              >
+                AIdeazz AI Lab
+              </div>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-300" style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
+                {t("labApi.footerNote")}
+              </p>
+            </div>
+            <nav className="flex flex-col gap-3 text-sm sm:items-end">
+              <Link to={inquiryLinkFromInbound("/portfolio")} className="text-gray-300 transition-colors hover:text-white">
+                Portfolio
+              </Link>
+              <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">
+                Blog
+              </Link>
+              <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-gray-300 transition-colors hover:text-white">
+                {t("labApi.ctaButton")}
+              </Link>
+            </nav>
+          </div>
+          <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-gray-500 sm:flex-row sm:items-center sm:justify-between">
+            <span>© {new Date().getFullYear()} AIdeazz AI Lab · Elena Revicheva</span>
+            <span className="font-mono tracking-wide">34 SIGNALS · DIRECT PAGE READ · NO SIGNUP</span>
+          </div>
         </footer>
       </div>
     </div>
