@@ -248,34 +248,7 @@ export default function HeroBackdrop() {
         }}
       />
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-      {/* Glassy mosaic. First pass used only dark tints at 2-16% over already-dark
-          footage, which is invisible by construction -- darkening a dark thing
-          changes nothing you can see. Glass reads as glass because panels differ
-          in BOTH directions: some catch light, some fall into shadow. So the
-          tints now alternate between a white lift and a dark sink, with brighter
-          dividers and a real blur on every other panel. */}
-      <div className="absolute inset-0 hidden sm:flex">
-        {Array.from({ length: 14 }).map((_, i) => {
-          const lift = [0.055, 0, 0.03, 0, 0.075, 0, 0.02, 0][i % 8];
-          const sink = [0, 0.30, 0, 0.18, 0, 0.34, 0, 0.22][i % 8];
-          const stop = [52, 34, 62, 40, 56, 30, 46, 38][i % 8];
-          return (
-            <div
-              key={i}
-              className="h-full flex-1 border-r border-white/[0.14] last:border-r-0"
-              style={{
-                background: lift
-                  ? `linear-gradient(180deg, rgba(255,255,255,${lift}) 0%, rgba(255,255,255,${lift * 0.35}) 100%)`
-                  : `linear-gradient(180deg, rgba(6,4,11,${sink}) 0%, rgba(6,4,11,${Math.min(0.55, sink + 0.16)}) 100%)`,
-                backdropFilter: i % 2 === 0 ? "blur(3px)" : undefined,
-                WebkitBackdropFilter: i % 2 === 0 ? "blur(3px)" : undefined,
-                WebkitMaskImage: `linear-gradient(#000 0%, #000 ${stop}%, rgba(0,0,0,0.6) 100%)`,
-                maskImage: `linear-gradient(#000 0%, #000 ${stop}%, rgba(0,0,0,0.6) 100%)`,
-              }}
-            />
-          );
-        })}
-      </div>
+
     </div>
   );
 }
