@@ -1,8 +1,8 @@
 {
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
-    "title": "Is your business visible to AI search?",
-    "subtitle": "When someone asks ChatGPT, Perplexity, Claude or Gemini what you sell — can they find you, understand you, and quote you? Audit any page in seconds.",
+    "title": "Can AI find, understand and cite you?",
+    "subtitle": "Google ranked your page. ChatGPT, Claude, Gemini and Perplexity have to quote it — and six crawlers decide whether they can. We read your page directly and score all thirty-four signals. No scraping vendor, no signup.",
     "badge": "Free · No signup · No scraping cost",
     "tryTitle": "Try it live",
     "tryPlaceholder": "yourwebsite.com",

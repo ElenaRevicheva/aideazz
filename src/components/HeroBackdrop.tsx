@@ -43,6 +43,7 @@ export default function HeroBackdrop() {
       `/media/orange-burst.${ext}`,
       `/media/pomegranate.${ext}`,
       `/media/kiwi.${ext}`,
+      `/media/pineapple.${ext}`,
     ];
   }, []);
 
