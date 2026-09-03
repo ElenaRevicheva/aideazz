@@ -162,47 +162,67 @@ export default function HeroBackdrop() {
     // asked for. The rainbow lives IN the dots rather than only in the streak,
     // which is what makes the field read as refracted sunlight instead of a grid
     // with a coloured smear laid over it.
-    const PX = 0.02, PY = 0.16, PW = 0.96, PH = 0.76, GAP = 14;
+    // Read off hud.ai's own login page rather than invented: small SQUARES on a
+    // tight grid, not circles on a loose one, massed into a single soft-edged
+    // blob that fills the frame instead of sitting in a rectangle.
+    //
+    // Two details do the work. Each dot twitches on its own pseudo-random phase,
+    // so the field SCINTILLATES like light on water rather than pulsing in
+    // visible waves — a shared phase reads as a screensaver, an independent one
+    // reads as something alive. And the hue runs gold → white → violet across
+    // the width, so the arcoiris lives IN the dots; a coloured smear laid over a
+    // grey grid always looks like a filter stuck on the glass.
+    const GAP = 12, DOT = 2;
 
     const frame = (t: number) => {
       x.clearRect(0, 0, W, H);
 
-      const x0 = W * PX, y0 = H * PY, w = W * PW, h = H * PH;
-      const breathe = Math.sin(t * 0.00035) * 0.18 + 0.82;
-      for (let gy = 0; gy < h; gy += GAP) {
-        for (let gx = 0; gx < w; gx += GAP) {
-          const u = gx / w, v = gy / h;
-          const f = Math.min(1, Math.min(Math.min(u, 1 - u) / 0.34, Math.min(v, 1 - v) / 0.34));
-          if (f <= 0.02) continue;
-          const flick = 0.7 + 0.3 * Math.sin(t * 0.0011 + gx * 0.21 + gy * 0.13);
-          // arcoiris across the frame, with a slow hue drift so it never sits still
-          const hx = (x0 + gx) / W + Math.sin(t * 0.00012) * 0.06;
-          const R = Math.round(255 - Math.max(0, hx - 0.45) * 150);
-          const G = Math.round(238 - Math.abs(hx - 0.5) * 120);
-          const B = Math.round(196 + hx * 59);
-          x.fillStyle = `rgba(${R},${G},${B},${(f * flick * 0.3 * breathe).toFixed(3)})`;
-          x.beginPath();
-          x.arc(x0 + gx, y0 + gy, 1.3, 0, 6.283);
-          x.fill();
+      const cx = W * 0.5, cy = H * 0.52;
+      const rad = Math.hypot(W, H) * 0.58;
+      const breathe = Math.sin(t * 0.00035) * 0.14 + 0.86;
+      for (let gy = 0; gy < H; gy += GAP) {
+        for (let gx = 0; gx < W; gx += GAP) {
+          const d = Math.hypot(gx - cx, gy - cy) / rad;
+          const blob = Math.max(0, 1 - d * d);
+          // feather the frame edges too, so the blob never hits a hard wall
+          const edge = Math.min(1, Math.min(gx, W - gx) / 90, Math.min(gy, H - gy) / 90);
+          const f = blob * edge;
+          if (f <= 0.015) continue;
+          // cheap per-dot hash → neighbours are never in step
+          const hash = (gx * 12.9898 + gy * 78.233) % 6.283;
+          const flick = 0.42 + 0.58 * Math.abs(Math.sin(t * 0.0026 + hash));
+          const hx = gx / W + Math.sin(t * 0.00016) * 0.09;
+          const R = Math.round(255 - Math.max(0, hx - 0.42) * 168);
+          const G = Math.round(240 - Math.abs(hx - 0.5) * 150);
+          const B = Math.round(188 + hx * 67);
+          x.fillStyle = `rgba(${R},${G},${B},${(f * flick * 0.52 * breathe).toFixed(3)})`;
+          x.fillRect(gx, gy, DOT, DOT);
         }
       }
 
-      // two broad prism bands, drifting out of phase
+      // Three prism rays, tilted rather than level and drifting out of phase.
+      // Tilt is what separates a ray of light from a stripe: level bands read as
+      // UI chrome, a few degrees off horizontal reads as sun through a window.
       x.save();
       x.globalCompositeOperation = "screen";
-      x.filter = "blur(22px)";
-      const band = (cx: number, cy: number, bw: number, bh: number, ph: number) => {
-        const g = x.createLinearGradient(cx, 0, cx + bw, 0);
+      x.filter = "blur(26px)";
+      const ray = (rx: number, ry: number, bw: number, bh: number, ang: number, ph: number) => {
+        x.save();
+        x.translate(rx, ry + Math.sin(t * 0.0004 + ph) * 12);
+        x.rotate(ang);
+        const g = x.createLinearGradient(-bw / 2, 0, bw / 2, 0);
         g.addColorStop(0, "rgba(255,178,61,0)");
-        g.addColorStop(0.2, "rgba(255,178,61,.20)");
-        g.addColorStop(0.45, "rgba(140,255,214,.16)");
-        g.addColorStop(0.72, "rgba(180,124,255,.19)");
+        g.addColorStop(0.22, "rgba(255,178,61,.30)");
+        g.addColorStop(0.46, "rgba(140,255,214,.26)");
+        g.addColorStop(0.74, "rgba(180,124,255,.30)");
         g.addColorStop(1, "rgba(180,124,255,0)");
         x.fillStyle = g;
-        x.fillRect(cx, cy + Math.sin(t * 0.0004 + ph) * 9, bw, bh);
+        x.fillRect(-bw / 2, -bh / 2, bw, bh);
+        x.restore();
       };
-      band(W * 0.1, H * 0.34, W * 0.55, H * 0.07, 0);
-      band(W * 0.42, H * 0.66, W * 0.5, H * 0.06, 2.1);
+      ray(W * 0.38, H * 0.32, W * 0.88, H * 0.09, -0.13, 0);
+      ray(W * 0.64, H * 0.66, W * 0.8, H * 0.08, 0.1, 2.1);
+      ray(W * 0.5, H * 0.49, W * 0.96, H * 0.06, -0.04, 4.2);
       x.restore();
 
       raf = requestAnimationFrame(frame);
