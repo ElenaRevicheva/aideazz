@@ -221,8 +221,16 @@ export default function LabApi() {
       <div className="relative z-10 mx-auto max-w-4xl px-5 py-10 sm:px-8">
         {/* Top bar */}
         <div className="mb-10 flex items-center justify-between">
-          <Link to={inquiryLinkFromInbound("/portfolio")} className="text-sm text-purple-300 hover:text-white transition-colors">
-            ← Elena Revicheva
+          {/* Was "← Elena Revicheva". A personal name at the top of a product
+              page frames everything under it as one person's side project; the
+              same page under a lab wordmark reads as a company with an API. The
+              destination is unchanged — only what a stranger concludes in the
+              first second. */}
+          <Link
+            to={inquiryLinkFromInbound("/portfolio")}
+            className="text-lg font-semibold tracking-tight text-white transition-opacity hover:opacity-80"
+          >
+            AIdeazz <span className="text-purple-400">Lab</span>
           </Link>
           <LanguageSwitcher syncQueryParam />
         </div>
@@ -245,11 +253,22 @@ export default function LabApi() {
               {t("labApi.eyebrowMeta")}
             </span>
           </span>
+          {/* Google is the first half, literally and visually. The films run
+              natural fruit → cut open → technical object; the headline runs the
+              same shape — the settled world in small mono type, then the open
+              question in serif. The last two words carry the amber because they
+              are the only ones a visitor is actually worried about. */}
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-white/45">
+            {t("labApi.kicker")}
+          </p>
           <h1
-            className="mx-auto mt-6 max-w-3xl text-5xl font-normal leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            className="mx-auto mt-3 max-w-3xl text-5xl font-normal leading-[1.02] tracking-tight text-white sm:text-6xl lg:text-7xl"
             style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.75)" }}
           >
-            {t("labApi.title")}
+            {t("labApi.titleA")}{" "}
+            <span className="italic" style={{ color: "#edb867" }}>
+              {t("labApi.titleB")}
+            </span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-gray-200 sm:text-lg" style={{ textShadow: "0 1px 24px rgba(8,5,14,.9)" }}>
             {t("labApi.subtitle")}

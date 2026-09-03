@@ -2,8 +2,11 @@
   "labApi": {
     "eyebrow": "AIdeazz Lab API",
     "eyebrowMeta": "34 señales · Gratis",
+    "kicker": "Google posicionó tu página",
+    "titleA": "¿Puede la IA encontrarte, entenderte y",
+    "titleB": "citarte?",
     "title": "¿Puede la IA encontrarte, entenderte y citarte?",
-    "subtitle": "Google posicionó tu página. ChatGPT, Claude, Gemini y Perplexity tienen que citarla — y seis rastreadores deciden si pueden. Leemos tu página directamente y evaluamos las treinta y cuatro señales. Sin proveedor de scraping, sin registro.",
+    "subtitle": "Seis rastreadores deciden si ChatGPT, Claude, Gemini y Perplexity pueden citar tu sitio. Leemos tu página directamente y evaluamos las treinta y cuatro señales — sin proveedor de scraping, sin registro.",
     "badge": "Gratis · Sin registro · Sin costo de scraping",
     "tryTitle": "Pruébalo en vivo",
     "tryPlaceholder": "tusitio.com",
