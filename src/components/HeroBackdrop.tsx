@@ -28,7 +28,7 @@ export default function HeroBackdrop() {
   // the `ended` event drives the sequence, so adding a fourth fruit is one line
   // in this array and nothing else.
   const REEL = React.useMemo(
-    () => ["/media/orange-burst.mp4", "/media/pomegranate.mp4"],
+    () => ["/media/orange-burst.mp4", "/media/pomegranate.mp4", "/media/kiwi.mp4"],
     [],
   );
 
