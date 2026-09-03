@@ -624,13 +624,16 @@ export default function LabApi() {
         <footer className="mt-10 border-t border-white/10 pt-16 pb-6">
           <div className="grid gap-12 sm:grid-cols-[1.2fr_repeat(3,minmax(0,0.6fr))]">
             <div>
-              <div className="text-2xl font-bold tracking-tight text-white">
-                AIdeazz <span className="text-purple-300">Lab</span>
-              </div>
-              <p className="mt-4 max-w-[22rem] text-sm leading-relaxed text-gray-300"
-                 style={{ textShadow: "0 1px 20px rgba(8,5,14,.95)" }}>
-                {t("labApi.footerNote")}
-              </p>
+              {/* The shared <Brand>, not a third hand-rolled copy -- this one had
+                  already drifted to "Lab" while the header said "AI Lab".
+                  The tagline under it is gone. Its three claims were each already
+                  on the page: "runs on direct page reads" is in the hint, "zero
+                  paid scraping" is in the subtitle AND the badge, and the brand
+                  name is in the wordmark directly above it and the copyright
+                  directly below. It also opened "Built by Elena Revicheva", which
+                  puts the solo framing back in the one place nobody scrolls to
+                  check. */}
+              <Brand tail="AI Lab" className="text-2xl font-semibold tracking-tight" />
               <div className="mt-7 flex items-center gap-5">
                 <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer"
                    aria-label="GitHub" className="text-gray-400 transition-colors hover:text-white">
@@ -669,7 +672,6 @@ export default function LabApi() {
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
                 <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
                 <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
-                <a href="https://github.com/ElenaRevicheva" target="_blank" rel="noopener noreferrer" className="text-gray-300 transition-colors hover:text-white">GitHub</a>
               </nav>
             </div>
 
@@ -702,11 +704,6 @@ export default function LabApi() {
               <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
                 Panama · All rights reserved
               </div>
-            </div>
-            <div className="flex shrink-0 gap-7 font-mono text-[11px] uppercase tracking-[0.14em] text-gray-500">
-              <span>34 Signals</span>
-              <span>Direct Page Read</span>
-              <span>No Signup</span>
             </div>
           </div>
         </footer>
