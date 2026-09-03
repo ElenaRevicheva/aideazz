@@ -43,108 +43,23 @@ const API_BASE = (
 const DEMO_KEY = "aidz_demo_visibility_2026";
 
 /**
- * The AIdeazz mark: AI purple, deazz white, then the tail purple again — so the
- * two letters the whole company is about are the ones that carry the colour.
+ * The AIdeazz mark: white name, purple tail. TWO tones, one break.
  *
- * Defined ONCE and rendered twice (the top-left wordmark and the status pill)
- * because two hand-tuned copies of a logo drift the moment either is touched,
- * and a brand that renders differently in two places on the SAME page reads as
- * carelessness. The tail differs, the treatment cannot.
+ * The previous version ran a violet gradient across "AI", left "deazz" white and
+ * gradient-filled the tail again — three colour events inside a single word. It
+ * read as a mess, and it was: a wordmark's job is to be recognised instantly, and
+ * every extra colour boundary is one more thing the eye has to resolve before it
+ * can do that. Gradient text also renders differently across browsers, so the one
+ * element that must look identical everywhere was the one least able to.
+ *
+ * Flat fills, one seam, no drop-shadow. Boring on purpose.
  */
-const BRAND_GRADIENT = "linear-gradient(135deg,#c9a6ff 0%,#a855f7 44%,#e879f9 100%)";
-const gradText: React.CSSProperties = {
-  backgroundImage: BRAND_GRADIENT,
-  WebkitBackgroundClip: "text",
-  backgroundClip: "text",
-  color: "transparent",
-};
-
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
-  <span className={className} style={{ filter: "drop-shadow(0 0 22px rgba(168,85,247,.28))" }}>
-    <span style={gradText}>AI</span>
-    <span className="text-white">deazz</span>
-    <span style={gradText}>&nbsp;{tail}</span>
+  <span className={className}>
+    <span className="text-white">AIdeazz</span>{" "}
+    <span className="text-purple-400">{tail}</span>
   </span>
 );
-
-type CheckStatus = "pass" | "warn" | "fail";
-interface EngineVisibility {
-  engine: string;
-  crawler: string;
-  crawlable: "yes" | "blocked" | "unknown";
-}
-interface CategoryScore {
-  id: string;
-  label: string;
-  score: number;
-  weight: number;
-  passed: number;
-  total: number;
-}
-interface AuditCheck {
-  id: string;
-  category: string;
-  label: string;
-  status: CheckStatus;
-  impact: "high" | "medium" | "low";
-  detail: string;
-  fix?: string;
-}
-interface AuditResult {
-  url: string;
-  score: number;
-  grade: string;
-  verdict: string;
-  aiEngines: EngineVisibility[];
-  categories: CategoryScore[];
-  checks: AuditCheck[];
-  topFixes: string[];
-}
-
-function gradeColor(score: number): string {
-  if (score >= 85) return "#34d399"; // emerald
-  if (score >= 70) return "#a3e635"; // lime
-  if (score >= 55) return "#fbbf24"; // amber
-  if (score >= 40) return "#fb923c"; // orange
-  return "#f87171"; // red
-}
-
-const ScoreRing: React.FC<{ score: number; grade: string; label: string }> = ({
-  score,
-  grade,
-  label,
-}) => {
-  const r = 54;
-  const c = 2 * Math.PI * r;
-  const color = gradeColor(score);
-  return (
-    <div className="relative flex h-40 w-40 shrink-0 items-center justify-center">
-      <svg className="h-40 w-40 -rotate-90" viewBox="0 0 128 128">
-        <circle cx="64" cy="64" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
-        <motion.circle
-          cx="64"
-          cy="64"
-          r={r}
-          fill="none"
-          stroke={color}
-          strokeWidth="10"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: c - (c * score) / 100 }}
-          transition={{ duration: 1.1, ease: "easeOut" }}
-        />
-      </svg>
-      <div className="absolute flex flex-col items-center">
-        <span className="text-4xl font-bold text-white">{score}</span>
-        <span className="text-sm font-semibold" style={{ color }}>
-          {grade}
-        </span>
-        <span className="mt-0.5 text-[10px] uppercase tracking-wide text-gray-400">{label}</span>
-      </div>
-    </div>
-  );
-};
 
 export default function LabApi() {
   const { t } = useTranslation();
@@ -259,7 +174,7 @@ export default function LabApi() {
             to={inquiryLinkFromInbound("/")}
             className="transition-opacity hover:opacity-85"
           >
-            <Brand tail="AI Lab" className="text-[26px] font-semibold tracking-[-0.035em] sm:text-[30px]" />
+            <Brand tail="AI Lab" className="text-[28px] font-semibold tracking-[-0.03em] sm:text-[32px]" />
           </Link>
           <LanguageSwitcher syncQueryParam />
         </div>
@@ -276,10 +191,13 @@ export default function LabApi() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-70" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-400" />
             </span>
-            <span className="font-mono text-[13px] uppercase tracking-[0.16em]">
-              <Brand tail="Lab API" />
-              <span className="mx-2 text-white/25">·</span>
-              <span className="text-amber-100/80">{t("labApi.eyebrowMeta")}</span>
+            {/* Single amber, all of it. The pill is one quiet line of status text,
+                not a second place to perform the brand — that was what made the
+                header noisy: two elements competing to be the logo. */}
+            <span className="font-mono text-[13px] uppercase tracking-[0.16em] text-amber-200/85">
+              AIdeazz Lab API
+              <span className="mx-2 text-amber-200/35">·</span>
+              {t("labApi.eyebrowMeta")}
             </span>
           </span>
           {/* Google is the first half, literally and visually. The films run
@@ -287,7 +205,10 @@ export default function LabApi() {
               same shape — the settled world in small mono type, then the open
               question in serif. The last two words carry the amber because they
               are the only ones a visitor is actually worried about. */}
-          <p className="mx-auto mt-6 max-w-xl font-mono text-[11px] uppercase leading-[1.7] tracking-[0.18em] text-white/45">
+          <p
+            className="mx-auto mt-7 max-w-3xl font-mono text-[13px] uppercase leading-[1.8] tracking-[0.11em] text-white/60 sm:text-[15px]"
+            style={{ textWrap: "balance" } as React.CSSProperties}
+          >
             {t("labApi.kicker")}
           </p>
           <h1
