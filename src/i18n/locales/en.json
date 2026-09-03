@@ -6,7 +6,7 @@
     "statMedian": "Median score",
     "statSites": "Sites scored",
     "statSignals": "Signals measured",
-    "statNote": "Counted from production logs · 34 signals every audit",
+    "statNote": "Counted from production logs on Oracle Cloud · 34 signals every audit",
     "policies": "Service Policies",
     "checkWhyPrefix": "Why it matters:",
     "ctaTitleA": "Want this wired into",

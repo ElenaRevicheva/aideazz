@@ -79,19 +79,26 @@ const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id =
         soft where the original reads sharp. The A's left leg runs the full height
         so it dominates, and the Z nests against its right flank rather than
         sitting beside it. */}
+    {/* Weight is what was missing. The reference reads as cut metal -- solid
+        masses with mitred corners -- and thin strokes read as a wireframe of it
+        however correct the geometry is. Stroke 9 -> 13 on the same 72 box, and a
+        miter limit high enough that the apex stays a point instead of being
+        chamfered flat by the renderer at that thickness. */}
     <path
-      d="M5 67 35 5l11 23"
+      d="M4 68 35 3l12 25"
       stroke={`url(#${id}-g)`}
-      strokeWidth="9"
+      strokeWidth="13"
       strokeLinecap="butt"
       strokeLinejoin="miter"
+      strokeMiterlimit={10}
     />
     <path
-      d="M28 36h32L30 62h32"
+      d="M29 35h33L31 63h33"
       stroke={`url(#${id}-g)`}
-      strokeWidth="9"
+      strokeWidth="13"
       strokeLinecap="butt"
       strokeLinejoin="miter"
+      strokeMiterlimit={10}
     />
   </svg>
 );
