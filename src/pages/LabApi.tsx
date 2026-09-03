@@ -51,9 +51,39 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
  *
  * Flat fills, one seam, no drop-shadow. Boring on purpose.
  */
+/**
+ * The AIdeazz A/Z monogram: an A whose crossbar carries on into a Z.
+ *
+ * Inline SVG rather than a PNG on purpose — it is crisp at every size and on every
+ * display, it costs no request, and the gradient is defined in the same place as
+ * the rest of the palette instead of baked into pixels somebody has to re-export
+ * to change. `id` is scoped per instance so two marks on one page cannot collide.
+ */
+const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id = "az" }) => (
+  <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id={`${id}-g`} x1="6" y1="60" x2="58" y2="6" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stopColor="#7c3aed" />
+        <stop offset="0.42" stopColor="#c026d3" />
+        <stop offset="0.76" stopColor="#f97316" />
+        <stop offset="1" stopColor="#fbbf24" />
+      </linearGradient>
+    </defs>
+    <path d="M32 4 60 60H48.5L32 26.5 15.5 60H4L32 4Z" fill={`url(#${id}-g)`} />
+    <path
+      d="M20.5 39.5h23L27 53h18"
+      stroke={`url(#${id}-g)`}
+      strokeWidth="6.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className }) => (
   <span className={className}>
-    <span className="text-white">AIdeazz</span>{" "}
+    <span className="text-purple-400">AI</span>
+    <span className="text-white">deazz</span>{" "}
     <span className="text-purple-400">{tail}</span>
   </span>
 );
@@ -254,7 +284,10 @@ export default function LabApi() {
               would have landed on a contact form. Same trap as the About link. The
               CTA buttons keep the helper, because converting is their job. */}
           <Link to="/" className="transition-opacity hover:opacity-85">
-            <Brand tail="AI Lab" className="text-[28px] font-semibold tracking-[-0.03em] sm:text-[32px]" />
+            <span className="inline-flex items-center gap-3">
+              <AZMark id="hdr" className="h-9 w-9 sm:h-10 sm:w-10" />
+              <Brand tail="AI Lab" className="text-[28px] font-semibold tracking-[-0.03em] sm:text-[32px]" />
+            </span>
           </Link>
           <LanguageSwitcher syncQueryParam />
         </div>
@@ -435,13 +468,22 @@ export default function LabApi() {
                     <div className="mb-2 text-sm font-semibold text-purple-200">
                       {t("labApi.fixesTitle")}
                     </div>
-                    <ol className="space-y-2">
+                    <ol className="space-y-1">
                       {result.topFixes.map((f, i) => (
-                        <li key={i} className="flex gap-3 rounded-lg bg-white/[0.04] px-3 py-2 text-sm text-gray-200">
-                          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-500/30 text-xs font-bold text-purple-200">
-                            {i + 1}
+                        // Zero-padded mono index against a rule, not a bold digit in a
+                        // filled purple circle. A circled numeral is the visual language
+                        // of a child's worksheet; 01 / 02 / 03 set in monospace is the
+                        // language of a terminal, a diff, a line number -- which is what
+                        // this list actually is. Padding also keeps the column aligned
+                        // once a site scores badly enough to return ten of these.
+                        <li
+                          key={i}
+                          className="flex items-baseline gap-4 border-l border-white/10 py-2 pl-4 text-sm text-gray-200 transition-colors hover:border-amber-300/50"
+                        >
+                          <span className="shrink-0 font-mono text-[11px] tabular-nums tracking-[0.14em] text-amber-200/70">
+                            {String(i + 1).padStart(2, "0")}
                           </span>
-                          {f}
+                          <span className="leading-relaxed">{f}</span>
                         </li>
                       ))}
                     </ol>
@@ -624,7 +666,11 @@ export default function LabApi() {
               mark eight lines above it was the brand introducing itself twice on
               its way out. Grid was 4 columns for what is now 2 link lists, so it
               is a flex row: no empty cells to leave behind. */}
-          <div className="flex flex-col gap-10 sm:flex-row sm:gap-24">
+          {/* justify-between, not a fixed gap. With the identity block gone the two
+              lists were huddling in the left corner of a full-width footer with
+              half the row empty beside them. Pushed apart they span the measure and
+              the whitespace reads as layout instead of as something missing. */}
+          <div className="flex flex-col gap-10 sm:flex-row sm:justify-between sm:gap-12">
             {/* Trimmed from three columns to two. What went, and why -- none of
                 these were broken links, they were links that did not belong here:
                   - "Visibility Audit"  href="#"  a dead anchor, on the page it
@@ -659,6 +705,15 @@ export default function LabApi() {
                 <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
                 </Link>
+                {/* Same class as every other link in this column. It was an amber
+                    bordered pill, which made the legal page the loudest thing in the
+                    footer -- louder than "Start a project", which is the one link
+                    here that earns money. A policy link should be findable, not
+                    persuasive. Plain <a>: policies.html is a static file, so the SPA
+                    router would answer it with index.html. */}
+                <a href="https://aideazz.xyz/policies.html" className="text-gray-300 transition-colors hover:text-white">
+                  {t("labApi.policies")}
+                </a>
               </nav>
             </div>
           </div>
@@ -675,19 +730,7 @@ export default function LabApi() {
               <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.16em] text-gray-500">
                 Panama · All rights reserved
               </div>
-              {/* Service Policies, styled to match the button on the main site so the
-                  two pages read as one company. It sits by the copyright rather than
-                  in the COMPANY column because that is where a reader looks for the
-                  legal line -- and it is a plain <a>, not a react-router <Link>:
-                  policies.html is a static file in public/, so routing it through the
-                  SPA would hand back index.html instead of the document. */}
-              <a
-                href="https://aideazz.xyz/policies.html"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg border border-amber-300/40 bg-amber-300/[0.06] px-5 py-2.5 text-sm font-semibold text-amber-200 transition-colors hover:border-amber-300/70 hover:bg-amber-300/10 hover:text-amber-100"
-              >
-                {t("labApi.policies")}
-              </a>
-              <p className="mt-2 text-xs text-gray-500">{t("labApi.policiesNote")}</p>
+
             </div>
           </div>
         </footer>
