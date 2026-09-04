@@ -59,33 +59,33 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
  * the rest of the palette instead of baked into pixels somebody has to re-export
  * to change. `id` is scoped per instance so two marks on one page cannot collide.
  */
-const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id = "az" }) => (
-  <svg viewBox="0 0 100 100" className={className} fill="none" aria-hidden="true">
-    <defs>
-      <linearGradient id={`${id}-g`} x1="4" y1="97" x2="94" y2="4" gradientUnits="userSpaceOnUse">
-        <stop offset="0" stopColor="#7c3aed" />
-        <stop offset="0.45" stopColor="#c084fc" />
-        <stop offset="1" stopColor="#facc15" />
-      </linearGradient>
-    </defs>
-    {/* FILLED polygons, not strokes. A stroke has one uniform width and identical
-        ends, which is exactly why every previous attempt read as a wireframe: the
-        reference is cut metal, and cut metal has angled terminals and edges that
-        change weight along their length. Drawing the outline explicitly is the
-        only way to get a leg that tapers and a foot that is sheared rather than
-        chopped square.
-        A: one long thick leg to a sharp apex, short right leg. */}
-    <path d="M54 3 L78 47 L64 55 L50 27 L24 97 L2 97 Z" fill={`url(#${id}-g)`} />
-    {/* Z: nested into the A's right flank so the two letters share space rather
-        than standing next to each other. */}
-    <path d="M38 40 H93 L57 84 H93 V97 H33 L69 53 H38 Z" fill={`url(#${id}-g)`} />
-  </svg>
+/**
+ * The real mark, not a redrawing of it.
+ *
+ * Eight rounds of hand-written SVG never matched Elena's logo, and they were never
+ * going to: I was reading bezier coordinates off a screenshot by eye. The asset
+ * already existed — she had made it — so the correct move was to USE it rather than
+ * keep approximating it. Extracted from her own file, with the black background
+ * keyed out by luminance (alpha = max(r,g,b)), which suits a glowing mark on black
+ * far better than a colour key: it keeps the soft edge of the glow instead of
+ * cutting a hard silhouette through it.
+ *
+ * 176px wide for a mark drawn at ~56px, so it stays sharp to 3x DPR.
+ */
+const AZMark: React.FC<{ className?: string; id?: string }> = ({ className }) => (
+  <img src="/media/az-mark.png" alt="" aria-hidden="true" className={className} draggable={false} />
 );
 
 const BRAND_FLOW_CSS = `
 @keyframes az-flow { 100% { background-position: 220% center; } }
 .az-flow {
-  background-image: linear-gradient(115deg,#7c3aed,#a855f7 42%,#facc15);
+  /* Two stops. Violet and yellow, nothing declared between them -- the podcast's
+     own ramp carries #a855f7 in the middle and that middle is what read as "mixed".
+     Palindromic (violet -> yellow -> violet) so the tile joins violet-to-violet and
+     the one-way sweep loops with no seam; a plain two-stop ramp would snap from
+     yellow back to violet once per cycle. in oklab keeps the crossing clean instead
+     of sagging through muddy pink the way sRGB interpolation does. */
+  background-image: linear-gradient(115deg in oklab,#7c3aed,#facc15 50%,#7c3aed);
   background-size: 220%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -398,7 +398,7 @@ export default function LabApi() {
               CTA buttons keep the helper, because converting is their job. */}
           <Link to="/" className="transition-opacity hover:opacity-85">
             <span className="inline-flex items-center gap-3">
-              <AZMark id="hdr" className="h-12 w-12 shrink-0 sm:h-14 sm:w-14" />
+              <AZMark className="h-12 w-auto shrink-0 sm:h-14" />
               <Brand tail="AI Lab" />
             </span>
           </Link>
