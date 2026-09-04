@@ -20,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HeroBackdrop from "@/components/HeroBackdrop";
+import AmbientAudio from "@/components/AmbientAudio";
 import { applyPageSeo, SITE_ORIGIN } from "@/lib/seo";
 import { LAB_API_INQUIRY_LINK, captureInboundUtms, inquiryLinkFromInbound } from "@/config/marketing";
 import { track } from "@/lib/analytics";
@@ -135,13 +136,16 @@ const Brand: React.FC<{ tail: string; className?: string }> = ({ tail, className
         200% the whole violet-to-yellow ramp fits across "AI", so the pair shows a
         gradient AND the animation visibly moves it. At 400% only a slice landed on
         them, which is why it read as flat colour changing rather than as flow. */}
-    <span className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[30px]">
-      <span className="az-flow">AI</span>
-      <span className="text-white">deazz</span>
+    <span className="text-[31px] tracking-[-0.02em] sm:text-[36px]">
+      <span className="az-flow font-semibold">AI</span>
+      {/* deazz carries the name; AI carries the colour. Dropping deazz to a light
+          weight lets the two coloured letters lead without making the mark shout,
+          and the weight contrast is what stops a 36px wordmark reading as heavy. */}
+      <span className="font-light text-white">deazz</span>
     </span>
     <span className="mt-2 flex items-center gap-2.5">
       <span className="h-px w-6 shrink-0 bg-violet-500" />
-      <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/85 sm:text-[11px]">
+      <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-white/85 sm:text-[12px]">
         {tail}
       </span>
       <span className="h-px w-6 shrink-0 bg-yellow-400" />
@@ -402,6 +406,7 @@ export default function LabApi() {
   return (
     <div className="min-h-screen bg-slate-950 text-white antialiased relative overflow-hidden">
       <HeroBackdrop />
+      <AmbientAudio />
 
       <WhatsAppFloat />
 
@@ -424,7 +429,7 @@ export default function LabApi() {
               CTA buttons keep the helper, because converting is their job. */}
           <Link to="/" className="transition-opacity hover:opacity-85">
             <span className="inline-flex items-center gap-3">
-              <AZMark className="h-12 shrink-0 sm:h-14" />
+              <AZMark className="h-16 shrink-0 sm:h-20" />
               <Brand tail="AI Lab" />
             </span>
           </Link>
@@ -463,7 +468,7 @@ export default function LabApi() {
               question in serif. The last two words carry the amber because they
               are the only ones a visitor is actually worried about. */}
           <p
-            className="mx-auto mt-7 max-w-3xl font-mono text-[13px] uppercase leading-[1.8] tracking-[0.11em] text-white/60 sm:text-[15px]"
+            className="mx-auto mt-8 max-w-4xl font-mono text-[15px] uppercase leading-[1.75] tracking-[0.1em] text-white/80 sm:text-[18px]"
             style={{ textWrap: "balance" } as React.CSSProperties}
           >
             {t("labApi.kicker")}
