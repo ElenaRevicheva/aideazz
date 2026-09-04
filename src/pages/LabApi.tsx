@@ -72,8 +72,19 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
  *
  * 176px wide for a mark drawn at ~56px, so it stays sharp to 3x DPR.
  */
+/**
+ * Elena's own mark, with the gradient flowing THROUGH it.
+ *
+ * The PNG is used as a MASK rather than drawn as an image: the element paints the
+ * same animated violet-to-yellow ramp as the wordmark, and the logo's alpha channel
+ * decides where it shows. That is what lets the colour travel across the mark --
+ * an <img> is a fixed set of pixels and cannot animate its own fill.
+ *
+ * The trade is the logo's baked-in bevel, which the mask discards; the shape,
+ * proportions and soft glow edges are hers exactly, and the colour is now live.
+ */
 const AZMark: React.FC<{ className?: string; id?: string }> = ({ className }) => (
-  <img src="/media/az-mark.png" alt="" aria-hidden="true" className={className} draggable={false} />
+  <span className={`az-mask ${className ?? ""}`} aria-hidden="true" />
 );
 
 const BRAND_FLOW_CSS = `
@@ -92,10 +103,25 @@ const BRAND_FLOW_CSS = `
   color: transparent;
   animation: az-flow 5s linear infinite;
 }
+.az-mask {
+  display: inline-block;
+  aspect-ratio: 176 / 202;
+  background-image: linear-gradient(115deg in oklab,#7c3aed,#facc15 50%,#7c3aed);
+  background-size: 220%;
+  animation: az-flow 5s linear infinite;
+  -webkit-mask-image: url(/media/az-mark.png);
+  mask-image: url(/media/az-mark.png);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
 @keyframes az-ticker { to { transform: translateX(-50%); } }
 .az-ticker { animation: az-ticker 30s linear infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .az-flow { animation: none; background-position: 40% center; }
+  .az-flow, .az-mask { animation: none; background-position: 40% center; }
   .az-ticker { animation: none; }
 }
 `;
@@ -398,7 +424,7 @@ export default function LabApi() {
               CTA buttons keep the helper, because converting is their job. */}
           <Link to="/" className="transition-opacity hover:opacity-85">
             <span className="inline-flex items-center gap-3">
-              <AZMark className="h-12 w-auto shrink-0 sm:h-14" />
+              <AZMark className="h-12 shrink-0 sm:h-14" />
               <Brand tail="AI Lab" />
             </span>
           </Link>
@@ -865,7 +891,7 @@ export default function LabApi() {
           <div className="mt-20 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div
-                className="whitespace-nowrap text-[clamp(1.5rem,4.2vw,3.25rem)] leading-[1.05] tracking-tight text-white"
+                className="whitespace-nowrap text-[clamp(1.15rem,3.1vw,2.4rem)] leading-[1.05] tracking-tight text-white"
                 style={{ fontFamily: "'Instrument Serif', Georgia, serif", textShadow: "0 2px 60px rgba(8,5,14,.9)" }}
               >
                 © {new Date().getFullYear()} AIdeazz AI Lab
