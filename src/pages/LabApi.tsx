@@ -60,46 +60,25 @@ const DEMO_KEY = "aidz_demo_visibility_2026";
  * to change. `id` is scoped per instance so two marks on one page cannot collide.
  */
 const AZMark: React.FC<{ className?: string; id?: string }> = ({ className, id = "az" }) => (
-  <svg viewBox="0 0 72 72" className={className} fill="none" aria-hidden="true">
+  <svg viewBox="0 0 100 100" className={className} fill="none" aria-hidden="true">
     <defs>
-      <linearGradient id={`${id}-g`} x1="6" y1="68" x2="66" y2="6" gradientUnits="userSpaceOnUse" spreadMethod="repeat">
-        {/* spreadMethod="repeat" plus a ONE-WAY sweep, so the mark travels the
-            same direction as the wordmark instead of oscillating. A gradient that
-            runs out and comes back reads as a pulse; one that keeps going reads as
-            flow, which is the whole difference the podcast gets right. */}
-        <animate attributeName="x1" values="6;-54" dur="5s" repeatCount="indefinite" />
-        <animate attributeName="x2" values="66;6" dur="5s" repeatCount="indefinite" />
+      <linearGradient id={`${id}-g`} x1="4" y1="97" x2="94" y2="4" gradientUnits="userSpaceOnUse">
         <stop offset="0" stopColor="#7c3aed" />
-        <stop offset="0.42" stopColor="#a855f7" />
+        <stop offset="0.45" stopColor="#c084fc" />
         <stop offset="1" stopColor="#facc15" />
       </linearGradient>
     </defs>
-    {/* Mitred joins and flat caps, not round: the reference is cut, not drawn with
-        a felt tip, and rounded terminals were most of why the first attempt read
-        soft where the original reads sharp. The A's left leg runs the full height
-        so it dominates, and the Z nests against its right flank rather than
-        sitting beside it. */}
-    {/* Weight is what was missing. The reference reads as cut metal -- solid
-        masses with mitred corners -- and thin strokes read as a wireframe of it
-        however correct the geometry is. Stroke 9 -> 13 on the same 72 box, and a
-        miter limit high enough that the apex stays a point instead of being
-        chamfered flat by the renderer at that thickness. */}
-    <path
-      d="M4 68 35 3l12 25"
-      stroke={`url(#${id}-g)`}
-      strokeWidth="13"
-      strokeLinecap="butt"
-      strokeLinejoin="miter"
-      strokeMiterlimit={10}
-    />
-    <path
-      d="M29 35h33L31 63h33"
-      stroke={`url(#${id}-g)`}
-      strokeWidth="13"
-      strokeLinecap="butt"
-      strokeLinejoin="miter"
-      strokeMiterlimit={10}
-    />
+    {/* FILLED polygons, not strokes. A stroke has one uniform width and identical
+        ends, which is exactly why every previous attempt read as a wireframe: the
+        reference is cut metal, and cut metal has angled terminals and edges that
+        change weight along their length. Drawing the outline explicitly is the
+        only way to get a leg that tapers and a foot that is sheared rather than
+        chopped square.
+        A: one long thick leg to a sharp apex, short right leg. */}
+    <path d="M54 3 L78 47 L64 55 L50 27 L24 97 L2 97 Z" fill={`url(#${id}-g)`} />
+    {/* Z: nested into the A's right flank so the two letters share space rather
+        than standing next to each other. */}
+    <path d="M38 40 H93 L57 84 H93 V97 H33 L69 53 H38 Z" fill={`url(#${id}-g)`} />
   </svg>
 );
 
@@ -113,8 +92,11 @@ const BRAND_FLOW_CSS = `
   color: transparent;
   animation: az-flow 5s linear infinite;
 }
+@keyframes az-ticker { to { transform: translateX(-50%); } }
+.az-ticker { animation: az-ticker 30s linear infinite; }
 @media (prefers-reduced-motion: reduce) {
   .az-flow { animation: none; background-position: 40% center; }
+  .az-ticker { animation: none; }
 }
 `;
 
@@ -425,29 +407,30 @@ export default function LabApi() {
 
         {/* Hero */}
         <div className="text-center">
-          {/* A status pill, not a badge. The sparkle icon read as decoration and
-              said nothing; a live dot says the thing is running right now, and the
-              two facts beside it are the offer — what you get, what it costs. Type
-              matches the footer exactly (mono, 11px, 0.18em) so the page opens and
-              closes in the same voice. */}
-          <span className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-black/50 px-5 py-2.5 backdrop-blur-md">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-70" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber-400" />
-            </span>
-            {/* Single amber, all of it. The pill is one quiet line of status text,
-                not a second place to perform the brand — that was what made the
-                header noisy: two elements competing to be the logo. */}
-            {/* The same running gradient as the wordmark. This line is the best
-                surface on the page for it -- 35 characters of monospace give the
-                sweep somewhere to travel, where the two letters of "AI" barely do.
-                One shared .az-flow class, so the pill and the mark can never drift
-                out of step. */}
-            <span className="az-flow font-mono text-[13px] uppercase tracking-[0.16em]">
-              AIdeazz Lab API<span className="mx-2 opacity-40">·</span>
-              {t("labApi.eyebrowMeta")}
-            </span>
-          </span>
+          {/* A ticker, not a pill. Elena asked for it to run "along all the screen",
+              which a centred badge cannot do however it is animated -- the colour was
+              moving but the ELEMENT was not. Full-bleed via left-1/2 + -translate-x-1/2
+              because this sits inside a max-w-4xl column.
+              The list is rendered TWICE and the animation travels exactly -50%: at
+              that point copy two sits precisely where copy one began, so the loop is
+              seamless. Any other distance leaves a visible jump. */}
+          <div className="relative left-1/2 mt-2 w-screen -translate-x-1/2 overflow-hidden border-y border-white/10 py-3">
+            <div className="az-ticker flex w-max items-center">
+              {Array.from({ length: 2 }).map((_, copy) => (
+                <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <span key={i} className="flex shrink-0 items-center">
+                      <span className="az-flow font-mono text-[13px] uppercase tracking-[0.16em]">
+                        AIdeazz Lab API<span className="mx-2 opacity-40">·</span>
+                        {t("labApi.eyebrowMeta")}
+                      </span>
+                      <span className="mx-7 h-1 w-1 shrink-0 rounded-full bg-amber-300/60" />
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
           {/* Google is the first half, literally and visually. The films run
               natural fruit → cut open → technical object; the headline runs the
               same shape — the settled world in small mono type, then the open
