@@ -120,7 +120,7 @@ export default function AmbientAudio() {
   };
 
   return (
-    <>
+    <span className="inline-flex items-center">
       <audio ref={ref} loop preload="none" playsInline>
         <source src="/media/ambient.webm" type="audio/webm" />
         <source src="/media/ambient.mp3" type="audio/mpeg" />
@@ -132,7 +132,13 @@ export default function AmbientAudio() {
         aria-label={playing ? "Mute background music" : "Play background music"}
         aria-pressed={playing}
         title={playing ? "Mute music" : "Play music"}
-        className="fixed bottom-5 left-5 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-black/60 text-white/80 backdrop-blur-md transition-colors hover:border-white/35 hover:text-white"
+        /* NOT fixed to a corner. Both bottom corners of this page already hold
+           third-party chat bubbles, which render above everything and swallowed
+           this button whole -- it was on the page, and invisible. A control the
+           user cannot find is the same as one that does not exist, so it lives in
+           the header beside the language switcher, where the page's own controls
+           are and nothing else is competing for the space. */
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 transition-colors hover:border-white/35 hover:text-white"
         style={{ visibility: ready ? "visible" : "hidden" }}
       >
         {playing ? (
@@ -150,6 +156,6 @@ export default function AmbientAudio() {
           </svg>
         )}
       </button>
-    </>
+    </span>
   );
 }

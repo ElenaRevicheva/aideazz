@@ -406,7 +406,6 @@ export default function LabApi() {
   return (
     <div className="min-h-screen bg-slate-950 text-white antialiased relative overflow-hidden">
       <HeroBackdrop />
-      <AmbientAudio />
 
       <WhatsAppFloat />
 
@@ -433,7 +432,10 @@ export default function LabApi() {
               <Brand tail="AI Lab" />
             </span>
           </Link>
-          <LanguageSwitcher syncQueryParam />
+          <span className="flex items-center gap-3">
+            <AmbientAudio />
+            <LanguageSwitcher syncQueryParam />
+          </span>
         </div>
 
         {/* Hero */}
