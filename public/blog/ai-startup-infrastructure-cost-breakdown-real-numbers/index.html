@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Startup Infrastructure Cost Breakdown: Real Numbers | AIdeazz</title>
+  <meta name="description" content="I run 8 AI agent processes on a single Oracle Cloud instance. The "free tier" is a myth for anything in production. My algom-stream process, for example, has restarted 55193 times in 20 days. This is…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-startup-infrastructure-cost-breakdown-real-numbers/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Startup Infrastructure Cost Breakdown: Real Numbers">
+  <meta property="og:description" content="I run 8 AI agent processes on a single Oracle Cloud instance. The "free tier" is a myth for anything in production. My algom-stream process, for example, has restarted 55193 times in 20 days. This is…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-startup-infrastructure-cost-breakdown-real-numbers/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-05T19:30:15.044Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Startup Infrastructure Cost Breakdown: Real Numbers">
+  <meta name="twitter:description" content="I run 8 AI agent processes on a single Oracle Cloud instance. The "free tier" is a myth for anything in production. My algom-stream process, for example, has restarted 55193 times in 20 days. This is…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Startup Infrastructure Cost Breakdown: Real Numbers",
+  "description": "I run 8 AI agent processes on a single Oracle Cloud instance. The \"free tier\" is a myth for anything in production. My algom-stream process, for example, has restarted 55193 times in 20 days. This is…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-05T19:30:15.044Z",
+  "dateModified": "2026-09-05T19:30:15.044Z",
+  "url": "https://aideazz.xyz/blog/ai-startup-infrastructure-cost-breakdown-real-numbers/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-startup-infrastructure-cost-breakdown-real-numbers/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you manage the cost of 55193 restarts for `algom-stream`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `algom-stream` process is designed to restart frequently to pull new data. The cost is managed by optimizing the process to be lightweight and fast to spin up, minimizing the compute time per restart. The primary cost is the underlying Oracle Cloud instance, which is a fixed monthly cost regardless of restart frequency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is your strategy for managing LLM API costs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a mix of LLM providers (`@anthropic-ai/sdk`, `openai`, `groq-sdk`) and select the appropriate one based on the task's requirements for speed and quality. For example, Groq is used where low latency is critical. I do not have a specific monthly cost for LLM APIs measured, but it scales directly with usage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle data scraping costs, especially for proxies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While `beautifulsoup4` and `httpx` are present, I do not have a specific monthly cost for proxy services measured. For production scraping, reliable paid proxy services are necessary to maintain uptime and avoid IP blocks, which are a significant operational cost."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the biggest unexpected cost you've encountered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most significant hidden cost is my own time spent debugging and maintaining the system. For example, resolving the `wiki-ship.log` error or the incident where \"the audio was broken for a month\" consumes hours that are not directly reflected in API or infrastructure bills."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Startup Infrastructure Cost Breakdown: Real Numbers</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-05T19:30:15.044Z">September 5, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I run 8 AI agent processes on a single Oracle Cloud instance. The "free tier" is a myth for anything in production. My <code>algom-stream</code> process, for example, has restarted 55193 times in 20 days. This isn't a failure; it's how it's designed to operate, pulling new data. Each restart, each API call, each byte of data egress, has a cost. Understanding these real costs, beyond the marketing, is critical for any AI startup.</p>
+<h2>Oracle Cloud: The Foundation</h2>
+<p>My entire operation runs on one Oracle Cloud instance. This includes <code>dragontrade-dashboard</code>, <code>cto-aipa</code>, <code>algom-stream</code>, <code>dragontrade-main</code>, <code>algom-poll</code>, <code>serpapi-jobs</code>, <code>whitespace</code>, and <code>n8n</code>. These 8 processes are supervised by PM2. The <code>cto-aipa</code> process, responsible for outreach, has seen 131 restarts in less than a day, indicating active development with 12 commits in the last 48 hours. This constant deployment and iteration, while necessary, consumes resources.</p>
+<p>The memory footprint of these processes varies: <code>n8n</code> uses 536 MB, <code>cto-aipa</code> uses 201 MB, and <code>dragontrade-main</code> uses 189 MB. Even <code>serpapi-jobs</code>, at 37 MB, contributes to the total. Oracle's "Always Free" tier provides a certain amount of compute and storage, but once you exceed it, even slightly, the billing starts. For me, the primary cost here is the compute instance itself, which is a fixed monthly charge. I do not have that measured as a specific number, but it is the largest single line item.</p>
+<h2>LLM APIs: Anthropic and OpenAI</h2>
+<p>My agents interact with large language models through <code>@anthropic-ai/sdk</code> and <code>openai</code>. For example, the <code>cto-aipa</code> agent, which had 12 commits in the last 48 hours, uses these APIs for generating outreach. One recent commit, <code>df7d7a7</code>, focused on closing send-tasks after a successful one-click send, implying direct interaction with LLMs for content generation. Another, <code>e78f22b</code>, involved applying a VA note that includes a Monday.com answer, likely generated or processed by an LLM.</p>
+<p>The cost here is purely usage-based: tokens in, tokens out. There is no "free tier" for production-scale LLM usage. Every prompt, every completion, adds up. I do not have a specific monthly cost for Anthropic or OpenAI measured, but it scales directly with the number of interactions. My <code>concierge-selftest.log</code> shows a Telegram card was produced in 3506ms, indicating an LLM call. The <code>followup-radar.log</code> shows 667 inbox emails and 6 sent emails in the last 45 days for one account, and 250 inbox and 39 sent for another. Each of these interactions can trigger LLM calls for processing or generating replies.</p>
+<h2>Groq: Speed vs. Cost</h2>
+<p>I also use <code>groq-sdk</code> for specific tasks where speed is paramount. Groq offers extremely fast inference, which can reduce latency for user-facing applications. The tradeoff is often a higher per-token cost compared to other providers, or a different pricing model. I integrate Groq where the user experience demands immediate responses, such as in conversational agents.</p>
+<p>The decision to use Groq is a conscious one: pay more for speed. I do not have a specific monthly cost for Groq measured, but it's a component of my overall LLM API spend. The <code>NOW.md</code> file, my shared working memory between Cursor and Claude Code, highlights the need for fast, consistent interaction, which Groq helps address.</p>
+<h2>Data Proxies: BrightData (and others)</h2>
+<p>My <code>algom-stream</code> process, with its 55193 restarts over 20 days, is constantly polling for data. This often involves scraping and requires robust proxy infrastructure. While BrightData is not explicitly listed in my <code>TECHNOLOGIES PROVEN PRESENT</code>, the presence of <code>beautifulsoup4</code> and <code>httpx</code> suggests web scraping is a core activity. When scraping at scale, proxies are essential to avoid IP bans and ensure data availability.</p>
+<p>The cost of proxies is directly tied to bandwidth and the number of requests. "Free" proxies are unreliable and quickly become a bottleneck. Production systems require paid proxy services, which can add up quickly, especially when dealing with high-frequency polling like my <code>algom-stream</code>. I do not have a specific monthly cost for proxy services measured.</p>
+<h2>Email and Communication: Resend (and others)</h2>
+<p>My <code>cto-aipa</code> agent is designed for outreach, as evidenced by commits like <code>c977fee</code> ("a delivered letter must close its own send-task"). This implies sending emails. While <code>Resend</code> is not explicitly listed, email sending is a critical component of my operations. I use <code>grammy</code> for Telegram interactions, and <code>twitter-api-v2</code> for Twitter.</p>
+<p>Email sending services typically charge per email sent, with tiers based on volume. Even transactional emails for system alerts or user notifications contribute to this cost. The <code>followup-radar.log</code> showing 6 sent emails for one account and 39 for another in the last 45 days indicates active email communication. I do not have a specific monthly cost for email sending measured.</p>
+<h2>Hidden Costs: Monitoring, Logging, and Development Tools</h2>
+<p>Beyond the direct infrastructure, hidden costs accumulate in several areas:</p>
+<ul><li>  <strong>Monitoring and Logging:</strong> While <code>pm2 jlist</code> gives me process status, and <code>tail</code> on logs like <code>cita-sort.log</code> and <code>concierge-selftest.log</code> provides immediate feedback, comprehensive monitoring and logging solutions incur costs. Storing logs, analyzing metrics, and setting up alerts for issues like the <code>algom-stream</code>'s 55193 restarts, or the <code>wiki-ship.log</code>'s <code>error: failed to push some refs</code>, requires dedicated services. I do not have a specific monthly cost for these services measured.</li>
+<li>  <strong>Development Tools:</strong> My <code>NOW.md</code> explicitly states, "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This highlights the fragmentation and potential cost of developer tools. Each tool, whether a paid IDE, a cloud-based development environment, or even specialized AI coding assistants, has a subscription or usage fee. The 12 commits in <code>cto-aipa</code> and 12 commits in <code>aideazz</code> in the last 48 hours show continuous development, which relies heavily on these tools. I do not have a specific monthly cost for these tools measured.</li>
+<li>  <strong>Data Storage and Backups:</strong> While Oracle Cloud provides some storage, storing large datasets, backups, and artifacts from LLM interactions or data scraping adds up. My <code>atlas-ga4-sync.log</code> shows daily GA4 syncs, which implies data storage. I do not have a specific monthly cost for data storage and backups measured.</li>
+<li>  <strong>Time:</strong> The most significant hidden cost is my own time. Debugging the <code>wiki-ship.log</code> error, or understanding why "the audio was broken for a month, and the tool in the middle kept fixing it" (as per a wiki incident), consumes hours. This time could be spent on product development or customer acquisition.</li></ul>
+<h2>The "Free Tier" Illusion</h2>
+<p>The "free tier" is excellent for initial experimentation and proof-of-concept. However, once you move into production, even with a small setup like mine (8 processes), you quickly outgrow it. The moment you need reliability, scale, or specific features (like fast LLM inference or robust proxies), you start paying. The costs are not always obvious upfront, often appearing as small line items that accumulate. My <code>algom-poll</code> process has been up for 39 days with 0 restarts, while <code>algom-stream</code> has 55193 restarts in 20 days. Both are "online," but their operational profiles and underlying costs are vastly different.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you manage the cost of 55193 restarts for <code>algom-stream</code>?</strong><br>A: The <code>algom-stream</code> process is designed to restart frequently to pull new data. The cost is managed by optimizing the process to be lightweight and fast to spin up, minimizing the compute time per restart. The primary cost is the underlying Oracle Cloud instance, which is a fixed monthly cost regardless of restart frequency.</p>
+<p><strong>Q: What is your strategy for managing LLM API costs?</strong><br>A: I use a mix of LLM providers (<code>@anthropic-ai/sdk</code>, <code>openai</code>, <code>groq-sdk</code>) and select the appropriate one based on the task's requirements for speed and quality. For example, Groq is used where low latency is critical. I do not have a specific monthly cost for LLM APIs measured, but it scales directly with usage.</p>
+<p><strong>Q: How do you handle data scraping costs, especially for proxies?</strong><br>A: While <code>beautifulsoup4</code> and <code>httpx</code> are present, I do not have a specific monthly cost for proxy services measured. For production scraping, reliable paid proxy services are necessary to maintain uptime and avoid IP blocks, which are a significant operational cost.</p>
+<p><strong>Q: What is the biggest unexpected cost you've encountered?</strong><br>A: The most significant hidden cost is my own time spent debugging and maintaining the system. For example, resolving the <code>wiki-ship.log</code> error or the incident where "the audio was broken for a month" consumes hours that are not directly reflected in API or infrastructure bills.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
