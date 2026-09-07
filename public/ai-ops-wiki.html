@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Ops Wiki — concepts earned in production","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-09-04","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/ai-ops-wiki.html"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Ops Wiki — concepts earned in production","author":{"@type":"Person","name":"Elena Revicheva","url":"https://aideazz.xyz/portfolio","jobTitle":"AI Engineer & Fractional CTO","sameAs":["https://linkedin.com/in/elenarevicheva","https://github.com/ElenaRevicheva","https://x.com/reviceva","https://dev.to/elenarevicheva"]},"dateModified":"2026-09-07","publisher":{"@type":"Organization","name":"AIdeazz","url":"https://aideazz.xyz"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://aideazz.xyz/ai-ops-wiki.html"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTermSet","name":"AI Ops Wiki — production engineering concepts","url":"https://aideazz.xyz/ai-ops-wiki.html","description":"Named reliability and AI-operations concepts, each defined in plain language and linked to the production incident that taught it.","hasDefinedTerm":[{"@type":"DefinedTerm","name":"Acknowledgement is not completion","description":"A receipt proves delivery. It never proves processing.","url":"https://aideazz.xyz/ai-ops-wiki.html#ack-is-not-completion"},{"@type":"DefinedTerm","name":"Fabrication under degradation","description":"When the good model runs out, the fallback does not go quiet — it goes confident.","url":"https://aideazz.xyz/ai-ops-wiki.html#fabrication-under-degradation"},{"@type":"DefinedTerm","name":"Git is not the origin","description":"The repository is the source of the next pin. The live site is the current CID. They are not the same object.","url":"https://aideazz.xyz/ai-ops-wiki.html#git-is-not-the-origin"},{"@type":"DefinedTerm","name":"Idempotency","description":"Doing it twice produces the same result as doing it once.","url":"https://aideazz.xyz/ai-ops-wiki.html#idempotency"},{"@type":"DefinedTerm","name":"Liveness is not correctness","description":"A dead job announces itself. A job that runs perfectly and emits slightly wrong output never will.","url":"https://aideazz.xyz/ai-ops-wiki.html#liveness-is-not-correctness"},{"@type":"DefinedTerm","name":"Monotonic state machine","description":"States advance. They never regress.","url":"https://aideazz.xyz/ai-ops-wiki.html#monotonic-state-machine"},{"@type":"DefinedTerm","name":"Name the wrong output","description":"A generative model that keeps producing the wrong thing is usually obeying you exactly — describe the failure and forbid it by name.","url":"https://aideazz.xyz/ai-ops-wiki.html#name-the-wrong-output"},{"@type":"DefinedTerm","name":"Null is not zero","description":"A measurement that could not be taken is not a measurement of zero.","url":"https://aideazz.xyz/ai-ops-wiki.html#null-is-not-zero"},{"@type":"DefinedTerm","name":"Privilege separation","description":"The thing that asks for an action and the thing that authorises it must be different things.","url":"https://aideazz.xyz/ai-ops-wiki.html#privilege-separation"},{"@type":"DefinedTerm","name":"Redundancy is not precedence","description":"Two systems that can both do the job is not a rule for which one should.","url":"https://aideazz.xyz/ai-ops-wiki.html#redundancy-is-not-precedence"},{"@type":"DefinedTerm","name":"Resilience is opt-in","description":"A fallback chain protects only the calls that route through it. Every hand-rolled call is a second, unprotected system wearing the first one's reputation.","url":"https://aideazz.xyz/ai-ops-wiki.html#resilience-is-opt-in"},{"@type":"DefinedTerm","name":"Silent failure","description":"The system did something reasonable, and told nobody.","url":"https://aideazz.xyz/ai-ops-wiki.html#silent-failure"},{"@type":"DefinedTerm","name":"Single point of failure (SPOF)","description":"One component whose death kills the whole chain.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-point-of-failure"},{"@type":"DefinedTerm","name":"Single source of truth","description":"Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.","url":"https://aideazz.xyz/ai-ops-wiki.html#single-source-of-truth"},{"@type":"DefinedTerm","name":"The prompt is a source","description":"A numbered claim in a system prompt is as much a source as a log line -- and a fail-closed gate will treat it that way.","url":"https://aideazz.xyz/ai-ops-wiki.html#the-prompt-is-a-source"},{"@type":"DefinedTerm","name":"The render is the artifact","description":"What a JavaScript-executing consumer stores is the DOM after execution, not the HTML you served. Anything that exists only before execution was never delivered.","url":"https://aideazz.xyz/ai-ops-wiki.html#the-render-is-the-artifact"},{"@type":"DefinedTerm","name":"Tolerance erases evidence","description":"A component that repairs bad input destroys the proof that something upstream is broken.","url":"https://aideazz.xyz/ai-ops-wiki.html#tolerance-erases-evidence"},{"@type":"DefinedTerm","name":"Verify from logs, not config","description":"Configuration tells you what somebody intended. Logs tell you what happened.","url":"https://aideazz.xyz/ai-ops-wiki.html#verify-from-logs"}]}</script>
 
   <style>
@@ -312,7 +312,7 @@
     <div class="bar-in">
       <span class="bar-lbl">Reading progress</span>
       <span class="bar-track"><span class="bar-fill" id="barFill"></span></span>
-      <span class="bar-count" id="barCount">0 / 80</span>
+      <span class="bar-count" id="barCount">0 / 84</span>
     </div>
   </div>
 
@@ -321,7 +321,7 @@
       <div class="mast-kick">AIdeazz AI Lab · Panama · Field Journal</div>
       <h1 class="name"><span class="name-sm">AI Ops</span><span class="name-lg">WIKI</span></h1>
       <div class="rules"><span></span><span></span></div>
-      <div class="mast-meta">Rev 38 &nbsp;·&nbsp; 20 chapters &nbsp;·&nbsp; 18 entries &nbsp;·&nbsp; <b>18 cross-references</b> &nbsp;·&nbsp; 2026-09-04</div>
+      <div class="mast-meta">Rev 39 &nbsp;·&nbsp; 21 chapters &nbsp;·&nbsp; 18 entries &nbsp;·&nbsp; <b>18 cross-references</b> &nbsp;·&nbsp; 2026-09-07</div>
       <p class="tagline">Debug it with me.</p>
       <p class="lede first">Real outages on live production systems, set as chapters. Open one and it unfolds a beat at a time — the symptom, then your guess, then what was actually happening.</p>
       <p class="lede">Commit to an answer before you turn the page. That is the whole difference between reading a postmortem and keeping one.</p>
@@ -349,15 +349,99 @@
           <span class="fold-tag">Part One</span>
           <span class="fold-name">Contents</span>
           <span class="fold-note">Each chapter is one outage on a system that was live at the time. Numbers verified from production logs, never from configuration.</span>
-          <span class="fold-side"><span class="fold-count">20 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
+          <span class="fold-side"><span class="fold-count">21 chapters</span><span class="fold-mark" aria-hidden="true"></span></span>
         </button>
       </h2>
       <div class="fold-body" id="contents-body"><div class="fold-in">
 
-      <article class="ch" id="2026-09-04-the-repair-that-hid-the-fault" style="--d:0">
+      <article class="ch" id="2026-09-07-the-token-that-was-live-and-dead-at-once" style="--d:0">
+        <h3 class="ch-h">
+          <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-09-07-the-token-that-was-live-and-dead-at-once-body">
+            <span class="ch-num">I</span>
+            <span class="ch-txt">
+              <span class="ch-title">The credential was live and dead at the same time, and the healthy half hid the other</span>
+              <span class="ch-sub">One access token had two homes — a credential store used by version control, and an environment file read by seven application modules. Rotating it updated one. Version control kept working perfectly, so nothing looked wrong, while every API call from the same machine returned Bad credentials</span>
+            </span>
+            <span class="ch-side">
+              <span class="ch-date">September 7, 2026</span>
+              <span class="ch-leader" aria-hidden="true"></span>
+              <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
+            </span>
+          </button>
+        </h3>
+
+        <div class="ch-body" id="2026-09-07-the-token-that-was-live-and-dead-at-once-body">
+          <div class="ch-in">
+            <div class="beat beat-open">
+              <div class="beat-lbl"><span class="beat-n">i</span> Symptom <em>What it looked like from outside</em></div>
+              <div class="beat-txt">An operations agent on a single virtual machine publishes a daily article to several destinations. On the day of the incident the article was written, cross-posted to a developer community, scheduled to social channels, and announced with a link to the operator's own site. The link returned a content-addressed storage error — no such page. Nothing in the run had reported a failure. In the same window, a commit-review bot stopped posting reviews and a media agent stopped reading its metadata, both without an operator-visible error. Version control on that same machine was completely healthy throughout: pushes, pulls and remote listings all succeeded against all seven repositories, which is exactly why the fault was invisible for as long as it was.</div>
+            </div>
+
+            <div class="gate" data-gate="0">
+              <p class="gate-q">You are on call and this lands. Where do you look first?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-09-07-the-token-that-was-live-and-dead-at-once-b0">
+                <span>Show me what it really was</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-09-07-the-token-that-was-live-and-dead-at-once-b0">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">ii</span> Root cause <em>What was actually happening</em></div>
+                <div class="beat-txt">The access token existed in two places, and only one was rotated. Version control authenticated from a credential store on disk; seven compiled modules read the same token from an environment file for direct API calls. Earlier the same day the token had been consolidated to a single location for VERSION CONTROL, and that work was verified thoroughly — every repository was proven to authenticate. The verification never covered the application layer, because the application layer does not use version control to reach the API. When the operator regenerated the token, the credential store received the new value and the environment file kept the old one. Two further mechanisms hid the split. The credential store's helper ERASES an entry the server rejects, so the moment version control tried the dead value it purged the line and re-read the live one, leaving no trace and a zero-byte file that looked like corruption rather than self-cleaning. And the modules read the environment their process manager handed them at start-up, so the stale value was pinned in memory and would not have refreshed even if the file had been corrected.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="1">
+              <p class="gate-q">You have found it. What do you change — and what do you deliberately leave alone?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-09-07-the-token-that-was-live-and-dead-at-once-b1">
+                <span>Show me the fix</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-09-07-the-token-that-was-live-and-dead-at-once-b1">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iii</span> The fix <em>What changed</em></div>
+                <div class="beat-txt">Rotation is now a single action that writes BOTH destinations — the credential store and the environment file — backs up the latter first, and then schedules a detached restart of the long-running process so the modules pick the new value up. The restart is detached and delayed on purpose: the rotation helper runs as a child of the process it must restart, so restarting inline would kill the parent before it could confirm the result to the operator. A second entry point re-copies the existing token from the store into the environment file without rotating anything, so a drift discovered later does not force a needless regeneration. The daily expiry watch that had been added hours earlier was kept unchanged, and it is what surfaced the dead token in the first place.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="2">
+              <p class="gate-q">It looks fixed. How would you prove it, without trusting the config?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-09-07-the-token-that-was-live-and-dead-at-once-b2">
+                <span>Show me the proof</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut" id="2026-09-07-the-token-that-was-live-and-dead-at-once-b2">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">iv</span> Verified by <em>Proof, not hope</em></div>
+                <div class="beat-txt">From logs and live probes, not from configuration. Before the fix the process log carried “Error processing push - Bad credentials” with HTTP 401 against the repository comparison endpoint and against the media agent's metadata reads. After the fix, the token in the environment file returned HTTP 200 from the identity endpoint, and a twenty-second watch of the error log recorded zero new Bad-credentials entries where there had been eight. The missing article was restored through the same publishing channel the daily run uses, and the page reappeared in version control as a single regeneration commit. The expiry watch itself was tested four ways rather than assumed: under a stripped scheduler environment, against a healthy token, against a rejected delivery, and against a dead token — because an alarm that reports success on the strength of the sending command exiting zero is the failure it exists to catch.</div>
+              </div>
+            </div>
+            <div class="gate" data-gate="3">
+              <p class="gate-q">Last one. What is the lesson that outlives this system?</p>
+              <button class="gate-btn" type="button" aria-expanded="false" aria-controls="2026-09-07-the-token-that-was-live-and-dead-at-once-b3">
+                <span>Show me the rule</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+              </button>
+            </div>
+            <div class="beat beat-shut beat-rule" id="2026-09-07-the-token-that-was-live-and-dead-at-once-b3">
+              <div class="beat-in">
+                <div class="beat-lbl"><span class="beat-n">v</span> The rule this earned <em>What generalises</em></div>
+                <div class="beat-txt">A secret with more than one home has more than one expiry, and rotation is only atomic if a single action updates every copy. The specific trap is that the copies are rarely equal in loudness. Here version control ran constantly and visibly, so its health was ambient reassurance, while the API callers failed into a log nobody reads. When you consolidate a credential, enumerate its CONSUMERS rather than its locations — grep for the variable and for the vendor's endpoint, not for the store you already know about — and verify one call per consumer class, because proving that version control works proves nothing about a module that never touches it. Two corollaries earned here: a credential store that erases a rejected entry will make a rotation failure look like file corruption, so read the emptiness as self-cleaning rather than damage; and a process that reads its environment at start-up needs a restart, which means writing the file is only half the fix.</div>
+              </div>
+            </div>
+
+            <div class="linkrow">
+              <span class="linkrow-lbl">Vocabulary earned</span>
+              <span class="chips"><a class="chip" href="#single-source-of-truth">Single source of truth</a><a class="chip" href="#silent-failure">Silent failure</a><a class="chip" href="#verify-from-logs">Verify from logs, not config</a></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="ch" id="2026-09-04-the-repair-that-hid-the-fault" style="--d:1">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-09-04-the-repair-that-hid-the-fault-body">
-            <span class="ch-num">I</span>
+            <span class="ch-num">II</span>
             <span class="ch-txt">
               <span class="ch-title">The audio was broken for a month, and the tool in the middle kept fixing it</span>
               <span class="ch-sub">A voice reply was built by concatenating 24 kHz speech with 44.1 kHz silence. The transcoder silently repaired the malformed result, so every check downstream passed — valid container, clean decode, real audio, carrier reporting delivered — while users could not open the file</span>
@@ -438,10 +522,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-09-04-the-studio-that-designed-the-page" style="--d:1">
+      <article class="ch" id="2026-09-04-the-studio-that-designed-the-page" style="--d:2">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-09-04-the-studio-that-designed-the-page-body">
-            <span class="ch-num">II</span>
+            <span class="ch-num">III</span>
             <span class="ch-txt">
               <span class="ch-title">A product page built from its own AI film studio, and the prompts that kept being obeyed exactly</span>
               <span class="ch-sub">Four generated films became the argument for the product instead of decoration. Every hard problem turned out to be a wrong choice of dimension — prompt adjectives instead of negative constraints, the video instead of the source frame, bezier coordinates instead of the real asset</span>
@@ -522,10 +606,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-09-02-every-command-became-a-new-card" style="--d:2">
+      <article class="ch" id="2026-09-02-every-command-became-a-new-card" style="--d:3">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-09-02-every-command-became-a-new-card-body">
-            <span class="ch-num">III</span>
+            <span class="ch-num">IV</span>
             <span class="ch-txt">
               <span class="ch-title">Every voice command became a new card, and three separate silences hid it</span>
               <span class="ch-sub">“Move this card” created a card called “Move this card”. Three independent defects stacked — an ASCII word boundary that could never match Cyrillic, a hand-rolled call that bypassed the five-provider chain, and an empty catch that discarded the API's exact explanation</span>
@@ -606,10 +690,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-09-01-the-generator-that-refused" style="--d:3">
+      <article class="ch" id="2026-09-01-the-generator-that-refused" style="--d:4">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-09-01-the-generator-that-refused-body">
-            <span class="ch-num">IV</span>
+            <span class="ch-num">V</span>
             <span class="ch-txt">
               <span class="ch-title">The generator that refused, and why that is the feature</span>
               <span class="ch-sub">An agent had been writing the same three sentences into every record for eleven days and calling it a draft. The repair was not a better prompt. It was teaching the model to decline — and the first thing it did after shipping was refuse to write anything at all</span>
@@ -690,10 +774,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-30-marked-done-before-anyone-read-them" style="--d:4">
+      <article class="ch" id="2026-08-30-marked-done-before-anyone-read-them" style="--d:5">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-30-marked-done-before-anyone-read-them-body">
-            <span class="ch-num">V</span>
+            <span class="ch-num">VI</span>
             <span class="ch-txt">
               <span class="ch-title">The queue marked 175 items done before anyone read them, and logged it as success</span>
               <span class="ch-sub">A newly added data source ran on schedule for a full day, logged a healthy count every hour, and delivered nothing at all downstream. The dedup ledger was stamped before the processing cap was applied, so everything past the cap was recorded as already handled without ever being handled</span>
@@ -774,10 +858,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-30-the-agent-that-could-not-unlock-itself" style="--d:5">
+      <article class="ch" id="2026-08-30-the-agent-that-could-not-unlock-itself" style="--d:6">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-30-the-agent-that-could-not-unlock-itself-body">
-            <span class="ch-num">VI</span>
+            <span class="ch-num">VII</span>
             <span class="ch-txt">
               <span class="ch-title">The agent that could not unlock itself, and why that was the correct outcome</span>
               <span class="ch-sub">A lost password on a private ops dashboard turned into a test of the agent tooling instead. Five refusals in a row, the last one blocking the agent from editing its own permission list, and every one of them right</span>
@@ -858,10 +942,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-28-the-prerender-google-never-read" style="--d:6">
+      <article class="ch" id="2026-08-28-the-prerender-google-never-read" style="--d:7">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-28-the-prerender-google-never-read-body">
-            <span class="ch-num">VII</span>
+            <span class="ch-num">VIII</span>
             <span class="ch-txt">
               <span class="ch-title">The prerender Google never read, and the A+ score that could not see it</span>
               <span class="ch-sub">A single-page app prerendered static HTML so AI crawlers could read its money pages. It worked for the crawlers that do not execute JavaScript, was discarded entirely by the one that does, and the site's own audit scored the discarded half A+ 100/100</span>
@@ -942,10 +1026,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-27-a-third-of-the-measurement-went-dark" style="--d:7">
+      <article class="ch" id="2026-08-27-a-third-of-the-measurement-went-dark" style="--d:8">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-27-a-third-of-the-measurement-went-dark-body">
-            <span class="ch-num">VIII</span>
+            <span class="ch-num">IX</span>
             <span class="ch-txt">
               <span class="ch-title">A third of the measurement went dark and the report stayed green</span>
               <span class="ch-sub">A deprecated model made one of three AI answer engines return 404 for about three weeks. The weekly cron kept exiting 0 and reporting 0% citations, and the only tell was the denominator.</span>
@@ -1026,10 +1110,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-26-prompt-poisoned-the-grounding-gate" style="--d:8">
+      <article class="ch" id="2026-08-26-prompt-poisoned-the-grounding-gate" style="--d:9">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-26-prompt-poisoned-the-grounding-gate-body">
-            <span class="ch-num">IX</span>
+            <span class="ch-num">X</span>
             <span class="ch-txt">
               <span class="ch-title">The prompt poisoned the grounding gate</span>
               <span class="ch-sub">A leftover $40 in the topic brief made a fail-closed verifier skip the daily blog on a day that had real evidence</span>
@@ -1110,10 +1194,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-25-guard-that-renamed-the-problem" style="--d:9">
+      <article class="ch" id="2026-08-25-guard-that-renamed-the-problem" style="--d:10">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-25-guard-that-renamed-the-problem-body">
-            <span class="ch-num">X</span>
+            <span class="ch-num">XI</span>
             <span class="ch-txt">
               <span class="ch-title">The guard that renamed the problem instead of stopping it</span>
               <span class="ch-sub">A duplicate-detection check tested for exact equality, so a reworded title was a new article — and when it did fire, it appended the date and published anyway</span>
@@ -1194,10 +1278,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-23-blog-invented-its-stack" style="--d:10">
+      <article class="ch" id="2026-08-23-blog-invented-its-stack" style="--d:11">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-blog-invented-its-stack-body">
-            <span class="ch-num">XI</span>
+            <span class="ch-num">XII</span>
             <span class="ch-txt">
               <span class="ch-title">The blog that invented its own infrastructure</span>
               <span class="ch-sub">A publishing bot ran out of credit, fell to a weaker model, and spent ten weeks describing a database the system has never used</span>
@@ -1278,10 +1362,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-23-wall-on-the-page" style="--d:11">
+      <article class="ch" id="2026-08-23-wall-on-the-page" style="--d:12">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-23-wall-on-the-page-body">
-            <span class="ch-num">XII</span>
+            <span class="ch-num">XIII</span>
             <span class="ch-txt">
               <span class="ch-title">The wall was on the page, not the data</span>
               <span class="ch-sub">A refusal from one interface was generalised into a property of the whole system, and sent the work down a billable path that was never needed</span>
@@ -1362,10 +1446,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:12">
+      <article class="ch" id="2026-08-22-precedence-deadlock" style="--d:13">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-22-precedence-deadlock-body">
-            <span class="ch-num">XIII</span>
+            <span class="ch-num">XIV</span>
             <span class="ch-txt">
               <span class="ch-title">The model that drafted perfectly and lost every race</span>
               <span class="ch-sub">A paid writer was healthy, producing correct replies, and having every one of them discarded on arrival</span>
@@ -1446,10 +1530,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:13">
+      <article class="ch" id="2026-08-21-git-ahead-of-pin" style="--d:14">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-21-git-ahead-of-pin-body">
-            <span class="ch-num">XIV</span>
+            <span class="ch-num">XV</span>
             <span class="ch-txt">
               <span class="ch-title">The blog post GitHub had and the live CID did not</span>
               <span class="ch-sub">Dev.to and the portfolio advertised a canonical URL whose IPFS directory did not exist</span>
@@ -1530,10 +1614,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-ack-trap" style="--d:14">
+      <article class="ch" id="2026-08-19-ack-trap" style="--d:15">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-ack-trap-body">
-            <span class="ch-num">XV</span>
+            <span class="ch-num">XVI</span>
             <span class="ch-txt">
               <span class="ch-title">The webhook that returned 200 while switched off</span>
               <span class="ch-sub">A disabled workflow accepted every message and read none of them</span>
@@ -1614,10 +1698,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-concierge-outage" style="--d:15">
+      <article class="ch" id="2026-08-19-concierge-outage" style="--d:16">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-concierge-outage-body">
-            <span class="ch-num">XVI</span>
+            <span class="ch-num">XVII</span>
             <span class="ch-txt">
               <span class="ch-title">The lead pipeline that answered nobody for four days</span>
               <span class="ch-sub">A prepaid balance inside a hosted workflow tool was the single point of failure for every inbound lead</span>
@@ -1698,10 +1782,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:16">
+      <article class="ch" id="2026-08-19-stage-never-moved" style="--d:17">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-08-19-stage-never-moved-body">
-            <span class="ch-num">XVII</span>
+            <span class="ch-num">XVIII</span>
             <span class="ch-txt">
               <span class="ch-title">Answered leads that still looked untouched</span>
               <span class="ch-sub">Sending a reply logged the activity but never moved the deal</span>
@@ -1782,10 +1866,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-06-23-silent-graph" style="--d:17">
+      <article class="ch" id="2026-06-23-silent-graph" style="--d:18">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-06-23-silent-graph-body">
-            <span class="ch-num">XVIII</span>
+            <span class="ch-num">XIX</span>
             <span class="ch-txt">
               <span class="ch-title">The graph that failed by staying quiet</span>
               <span class="ch-sub">Two silent failures in one LangGraph pipeline — a stripped state key and a pause that never resumed</span>
@@ -1866,10 +1950,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-25-engagement-loop" style="--d:18">
+      <article class="ch" id="2026-05-25-engagement-loop" style="--d:19">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-25-engagement-loop-body">
-            <span class="ch-num">XIX</span>
+            <span class="ch-num">XX</span>
             <span class="ch-txt">
               <span class="ch-title">The engagement loop that never ran</span>
               <span class="ch-sub">Configuration promised 32 engagements a day; the logs showed zero cycles had ever completed</span>
@@ -1950,10 +2034,10 @@
         </div>
       </article>
 
-      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:19">
+      <article class="ch" id="2026-05-10-duplicate-posting" style="--d:20">
         <h3 class="ch-h">
           <button class="ch-btn" type="button" aria-expanded="false" aria-controls="2026-05-10-duplicate-posting-body">
-            <span class="ch-num">XX</span>
+            <span class="ch-num">21</span>
             <span class="ch-txt">
               <span class="ch-title">The milestone that posted twice</span>
               <span class="ch-sub">The same update emitted twice, six minutes apart</span>
@@ -2462,7 +2546,7 @@
               <span class="ch-sub">The system did something reasonable, and told nobody.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">13 cases</span>
+              <span class="ch-date">14 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -2480,7 +2564,7 @@
 </ul></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-09-04-the-repair-that-hid-the-fault">September 4, 2026 · The audio was broken for a month, and the tool in the middle kept fixing it</a><a class="chip" href="#2026-09-02-every-command-became-a-new-card">September 2, 2026 · Every voice command became a new card, and three separate silences hid it</a><a class="chip" href="#2026-09-01-the-generator-that-refused">September 1, 2026 · The generator that refused, and why that is the feature</a><a class="chip" href="#2026-08-30-marked-done-before-anyone-read-them">August 30, 2026 · The queue marked 175 items done before anyone read them, and logged it as success</a><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-27-a-third-of-the-measurement-went-dark">August 27, 2026 · A third of the measurement went dark and the report stayed green</a><a class="chip" href="#2026-08-26-prompt-poisoned-the-grounding-gate">August 26, 2026 · The prompt poisoned the grounding gate</a><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-06-23-silent-graph">June 23, 2026 · The graph that failed by staying quiet</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
+              <span class="chips"><a class="chip" href="#2026-09-07-the-token-that-was-live-and-dead-at-once">September 7, 2026 · The credential was live and dead at the same time, and the healthy half hid the other</a><a class="chip" href="#2026-09-04-the-repair-that-hid-the-fault">September 4, 2026 · The audio was broken for a month, and the tool in the middle kept fixing it</a><a class="chip" href="#2026-09-02-every-command-became-a-new-card">September 2, 2026 · Every voice command became a new card, and three separate silences hid it</a><a class="chip" href="#2026-09-01-the-generator-that-refused">September 1, 2026 · The generator that refused, and why that is the feature</a><a class="chip" href="#2026-08-30-marked-done-before-anyone-read-them">August 30, 2026 · The queue marked 175 items done before anyone read them, and logged it as success</a><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-27-a-third-of-the-measurement-went-dark">August 27, 2026 · A third of the measurement went dark and the report stayed green</a><a class="chip" href="#2026-08-26-prompt-poisoned-the-grounding-gate">August 26, 2026 · The prompt poisoned the grounding gate</a><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-06-23-silent-graph">June 23, 2026 · The graph that failed by staying quiet</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
             </div>
           </div>
         </div>
@@ -2525,7 +2609,7 @@
               <span class="ch-sub">Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">4 cases</span>
+              <span class="ch-date">5 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -2543,7 +2627,7 @@
 </ul></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 · The milestone that posted twice</a></span>
+              <span class="chips"><a class="chip" href="#2026-09-07-the-token-that-was-live-and-dead-at-once">September 7, 2026 · The credential was live and dead at the same time, and the healthy half hid the other</a><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-25-guard-that-renamed-the-problem">August 25, 2026 · The guard that renamed the problem instead of stopping it</a><a class="chip" href="#2026-08-19-concierge-outage">August 19, 2026 · The lead pipeline that answered nobody for four days</a><a class="chip" href="#2026-05-10-duplicate-posting">May 10, 2026 · The milestone that posted twice</a></span>
             </div>
           </div>
         </div>
@@ -2677,7 +2761,7 @@
               <span class="ch-sub">Configuration tells you what somebody intended. Logs tell you what happened.</span>
             </span>
             <span class="ch-side">
-              <span class="ch-date">13 cases</span>
+              <span class="ch-date">14 cases</span>
               <span class="ch-leader" aria-hidden="true"></span>
               <span class="ch-open">Read<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></span>
             </span>
@@ -2697,7 +2781,7 @@
 <p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p></div>
             <div class="linkrow">
               <span class="linkrow-lbl">Learned the hard way in</span>
-              <span class="chips"><a class="chip" href="#2026-09-04-the-repair-that-hid-the-fault">September 4, 2026 · The audio was broken for a month, and the tool in the middle kept fixing it</a><a class="chip" href="#2026-09-04-the-studio-that-designed-the-page">September 4, 2026 · A product page built from its own AI film studio, and the prompts that kept being obeyed exactly</a><a class="chip" href="#2026-09-02-every-command-became-a-new-card">September 2, 2026 · Every voice command became a new card, and three separate silences hid it</a><a class="chip" href="#2026-09-01-the-generator-that-refused">September 1, 2026 · The generator that refused, and why that is the feature</a><a class="chip" href="#2026-08-30-marked-done-before-anyone-read-them">August 30, 2026 · The queue marked 175 items done before anyone read them, and logged it as success</a><a class="chip" href="#2026-08-30-the-agent-that-could-not-unlock-itself">August 30, 2026 · The agent that could not unlock itself, and why that was the correct outcome</a><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-27-a-third-of-the-measurement-went-dark">August 27, 2026 · A third of the measurement went dark and the report stayed green</a><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-23-wall-on-the-page">August 23, 2026 · The wall was on the page, not the data</a><a class="chip" href="#2026-08-22-precedence-deadlock">August 22, 2026 · The model that drafted perfectly and lost every race</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
+              <span class="chips"><a class="chip" href="#2026-09-07-the-token-that-was-live-and-dead-at-once">September 7, 2026 · The credential was live and dead at the same time, and the healthy half hid the other</a><a class="chip" href="#2026-09-04-the-repair-that-hid-the-fault">September 4, 2026 · The audio was broken for a month, and the tool in the middle kept fixing it</a><a class="chip" href="#2026-09-04-the-studio-that-designed-the-page">September 4, 2026 · A product page built from its own AI film studio, and the prompts that kept being obeyed exactly</a><a class="chip" href="#2026-09-02-every-command-became-a-new-card">September 2, 2026 · Every voice command became a new card, and three separate silences hid it</a><a class="chip" href="#2026-09-01-the-generator-that-refused">September 1, 2026 · The generator that refused, and why that is the feature</a><a class="chip" href="#2026-08-30-marked-done-before-anyone-read-them">August 30, 2026 · The queue marked 175 items done before anyone read them, and logged it as success</a><a class="chip" href="#2026-08-30-the-agent-that-could-not-unlock-itself">August 30, 2026 · The agent that could not unlock itself, and why that was the correct outcome</a><a class="chip" href="#2026-08-28-the-prerender-google-never-read">August 28, 2026 · The prerender Google never read, and the A+ score that could not see it</a><a class="chip" href="#2026-08-27-a-third-of-the-measurement-went-dark">August 27, 2026 · A third of the measurement went dark and the report stayed green</a><a class="chip" href="#2026-08-23-blog-invented-its-stack">August 23, 2026 · The blog that invented its own infrastructure</a><a class="chip" href="#2026-08-23-wall-on-the-page">August 23, 2026 · The wall was on the page, not the data</a><a class="chip" href="#2026-08-22-precedence-deadlock">August 22, 2026 · The model that drafted perfectly and lost every race</a><a class="chip" href="#2026-08-21-git-ahead-of-pin">August 21, 2026 · The blog post GitHub had and the live CID did not</a><a class="chip" href="#2026-05-25-engagement-loop">May 25, 2026 · The engagement loop that never ran</a></span>
             </div>
           </div>
         </div>
@@ -2715,14 +2799,14 @@
     <footer>
       <span>Kept by <a href="https://aideazz.xyz/portfolio">Elena Revicheva</a></span>
       <span><a href="/sop-ai-ops.html">AI Ops Runbook</a></span>
-      <span>Updated 2026-09-04</span>
+      <span>Updated 2026-09-07</span>
     </footer>
   </div>
 
   <script>
   (function(){
     document.body.classList.remove('nojs');
-    var total = 80, opened = 0;
+    var total = 84, opened = 0;
     var fill = document.getElementById('barFill'), count = document.getElementById('barCount');
     function tick(){ opened++; count.textContent = opened + ' / ' + total; fill.style.width = (opened/total*100) + '%'; }
 
