@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The credential was live and dead at the same time, and the healthy half hid the other | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 7, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-token-that-was-live-and-dead-at-once-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The credential was live and dead at the same time, and the healthy half hid the other">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 7, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-token-that-was-live-and-dead-at-once-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-07T19:50:40.057Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The credential was live and dead at the same time, and the healthy half hid the other">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 7, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The credential was live and dead at the same time, and the healthy half hid the other",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 7, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-07T19:50:40.057Z",
+  "dateModified": "2026-09-07T19:50:40.057Z",
+  "url": "https://aideazz.xyz/blog/the-token-that-was-live-and-dead-at-once-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-token-that-was-live-and-dead-at-once-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The credential was live and dead at the same time, and the healthy half hid the other</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-07T19:50:40.057Z">September 7, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 7, 2026.</em></p>
+<p><strong>One access token had two homes — a credential store used by version control, and an environment file read by seven application modules. Rotating it updated one. Version control kept working perfectly, so nothing looked wrong, while every API call from the same machine returned Bad credentials.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>An operations agent on a single virtual machine publishes a daily article to several destinations. On the day of the incident the article was written, cross-posted to a developer community, scheduled to social channels, and announced with a link to the operator's own site. The link returned a content-addressed storage error — no such page. Nothing in the run had reported a failure. In the same window, a commit-review bot stopped posting reviews and a media agent stopped reading its metadata, both without an operator-visible error. Version control on that same machine was completely healthy throughout: pushes, pulls and remote listings all succeeded against all seven repositories, which is exactly why the fault was invisible for as long as it was.</p>
+<h2>What was actually happening</h2>
+<p>The access token existed in two places, and only one was rotated. Version control authenticated from a credential store on disk; seven compiled modules read the same token from an environment file for direct API calls. Earlier the same day the token had been consolidated to a single location for VERSION CONTROL, and that work was verified thoroughly — every repository was proven to authenticate. The verification never covered the application layer, because the application layer does not use version control to reach the API. When the operator regenerated the token, the credential store received the new value and the environment file kept the old one. Two further mechanisms hid the split. The credential store's helper ERASES an entry the server rejects, so the moment version control tried the dead value it purged the line and re-read the live one, leaving no trace and a zero-byte file that looked like corruption rather than self-cleaning. And the modules read the environment their process manager handed them at start-up, so the stale value was pinned in memory and would not have refreshed even if the file had been corrected.</p>
+<h2>The fix</h2>
+<p>Rotation is now a single action that writes BOTH destinations — the credential store and the environment file — backs up the latter first, and then schedules a detached restart of the long-running process so the modules pick the new value up. The restart is detached and delayed on purpose: the rotation helper runs as a child of the process it must restart, so restarting inline would kill the parent before it could confirm the result to the operator. A second entry point re-copies the existing token from the store into the environment file without rotating anything, so a drift discovered later does not force a needless regeneration. The daily expiry watch that had been added hours earlier was kept unchanged, and it is what surfaced the dead token in the first place.</p>
+<h2>How I know it worked</h2>
+<p>From logs and live probes, not from configuration. Before the fix the process log carried "Error processing push - Bad credentials" with HTTP 401 against the repository comparison endpoint and against the media agent's metadata reads. After the fix, the token in the environment file returned HTTP 200 from the identity endpoint, and a twenty-second watch of the error log recorded zero new Bad-credentials entries where there had been eight. The missing article was restored through the same publishing channel the daily run uses, and the page reappeared in version control as a single regeneration commit. The expiry watch itself was tested four ways rather than assumed: under a stripped scheduler environment, against a healthy token, against a rejected delivery, and against a dead token — because an alarm that reports success on the strength of the sending command exiting zero is the failure it exists to catch.</p>
+<h2>The rule this earned</h2>
+<blockquote>A secret with more than one home has more than one expiry, and rotation is only atomic if a single action updates every copy. The specific trap is that the copies are rarely equal in loudness. Here version control ran constantly and visibly, so its health was ambient reassurance, while the API callers failed into a log nobody reads. When you consolidate a credential, enumerate its CONSUMERS rather than its locations — grep for the variable and for the vendor's endpoint, not for the store you already know about — and verify one call per consumer class, because proving that version control works proves nothing about a module that never touches it. Two corollaries earned here: a credential store that erases a rejected entry will make a rotation failure look like file corruption, so read the emptiness as self-cleaning rather than damage; and a process that reads its environment at start-up needs a restart, which means writing the file is only half the fix.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Single source of truth</h3>
+<p><em>Copy logic instead of calling it, and you have scheduled a bug for a date nobody will tell you about.</em></p>
+<p>When the same rule, prompt, threshold or piece of logic exists in more than one place, the copies begin identical and end different. Nothing announces the divergence. Someone updates one copy, the others keep running the old behaviour, and the system's actual conduct is now split across versions that no single file describes.</p>
+<p>The failure is especially nasty when a copy lives somewhere code review cannot see it: a hosted workflow builder, a dashboard setting, a scheduled job on one machine, a prompt pasted into a vendor interface. Those copies never appear in a diff, so the drift stays invisible until it produces a visibly wrong result in front of a customer.</p>
+<p>Two defences that work:</p>
+<ul><li><strong>One definition, imported everywhere.</strong> Every consumer reads the same file. Where a copy must physically live elsewhere, generate and push it from that file rather than editing it by hand.</li>
+<li><strong>Detect drift automatically.</strong> Re-read the remote copies on a schedule and raise an alert when one no longer matches the source. A copy you cannot diff is a copy you must monitor.</li></ul>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
