@@ -14,6 +14,11 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/106-replied-deals-zero-closed-won-a-deal-conversion-failure-analysis/
+https://aideazz.xyz/blog/ga4-sync-zero-rows-for-three-days-no-alert/
+https://aideazz.xyz/blog/ai-startup-infrastructure-cost-breakdown-real-numbers/
+https://aideazz.xyz/blog/ai-startup-infrastructure-real-costs-beyond-the-free-tier/
+https://aideazz.xyz/blog/127-restarts-in-24-hours-the-cto-aipa-agent-loop/
 https://aideazz.xyz/blog/every-command-became-a-new-card-field-note/
 https://aideazz.xyz/blog/the-shared-file-as-working-memory-ai-agent-inter-agent-communication/
 https://aideazz.xyz/blog/automated-stale-job-board-alert-rejecting-dead-lead-sources/
