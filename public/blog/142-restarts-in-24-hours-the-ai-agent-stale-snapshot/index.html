@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>142 Restarts in 24 Hours: The AI Agent Stale Snapshot | AIdeazz</title>
+  <meta name="description" content="My cto-aipa agent restarted 142 times in less than a day. This happened despite a recent commit, 40b1c22, explicitly stating "stale snapshot solved, 4 of 8 pass" on 2026-09-07. The agent, responsible…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/142-restarts-in-24-hours-the-ai-agent-stale-snapshot/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="142 Restarts in 24 Hours: The AI Agent Stale Snapshot">
+  <meta property="og:description" content="My cto-aipa agent restarted 142 times in less than a day. This happened despite a recent commit, 40b1c22, explicitly stating "stale snapshot solved, 4 of 8 pass" on 2026-09-07. The agent, responsible…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/142-restarts-in-24-hours-the-ai-agent-stale-snapshot/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-08T19:30:16.762Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="142 Restarts in 24 Hours: The AI Agent Stale Snapshot">
+  <meta name="twitter:description" content="My cto-aipa agent restarted 142 times in less than a day. This happened despite a recent commit, 40b1c22, explicitly stating "stale snapshot solved, 4 of 8 pass" on 2026-09-07. The agent, responsible…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "142 Restarts in 24 Hours: The AI Agent Stale Snapshot",
+  "description": "My cto-aipa agent restarted 142 times in less than a day. This happened despite a recent commit, 40b1c22, explicitly stating \"stale snapshot solved, 4 of 8 pass\" on 2026-09-07. The agent, responsible…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-08T19:30:16.762Z",
+  "dateModified": "2026-09-08T19:30:16.762Z",
+  "url": "https://aideazz.xyz/blog/142-restarts-in-24-hours-the-ai-agent-stale-snapshot/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/142-restarts-in-24-hours-the-ai-agent-stale-snapshot/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you define a \"stale snapshot\" in your AI agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A stale snapshot occurs when an AI agent operates on data that is not the most current available from its source, leading to incorrect processing or decision-making. For `cto-aipa`, this was evident when `pii_qc_llm` was grading a stale archive, as noted in commit `456731b`."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the primary cause of these frequent restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While specific root causes vary, the pattern of 142 restarts for `cto-aipa` and 55193 for `algom-stream` suggests issues with agents encountering unexpected data states, failing to recover gracefully from external service interruptions (like the `github-token-watch` 401 error), or internal logic errors when processing outdated information."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor for stale data sources like the GA4 sync issue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Currently, I rely on log tailing and manual checks, as seen with `atlas-ga4-sync.log` showing \"0 atlas_ rows.\" I do not have an automated alert system specifically for data freshness across all sources, which is a gap I need to address."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why use `NOW.md` as shared memory instead of a database or message queue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`NOW.md` was adopted as a low-overhead, human-readable mechanism for agents like Cursor and Claude Code, which cannot directly communicate, to share working memory. It allows for quick iteration and visibility into agent state without introducing additional infrastructure complexity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of 142 restarts on your Oracle Cloud costs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured directly. While each restart itself is a small event, 142 restarts in a short period indicate wasted compute cycles and potential for increased I/O if the agent is constantly re-fetching data, which would contribute to overall operational costs on Oracle Cloud."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">142 Restarts in 24 Hours: The AI Agent Stale Snapshot</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-08T19:30:16.762Z">September 8, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> agent restarted 142 times in less than a day. This happened despite a recent commit, <code>40b1c22</code>, explicitly stating "stale snapshot solved, 4 of 8 pass" on 2026-09-07. The agent, responsible for critical quality control runs on new listings, was effectively stuck in a loop, consuming resources without completing its core task reliably. This isn't a new problem; another agent, <code>algom-stream</code>, shows 55193 restarts over 23 days, indicating a systemic issue with agent stability under certain conditions.</p>
+<h2>The Illusion of "Solved"</h2>
+<p>The <code>cto-aipa</code> agent's role is to perform quality control on new listings. A related commit, <code>456731b</code>, from the same day, mentioned "pii_qc_llm is grading a stale archive, with proof." This suggests the stale snapshot issue is tied to the data the agent processes, not just its internal state. If the agent is consistently pulling old data, its output will be incorrect, and its internal logic might trigger restarts when it detects inconsistencies or fails to process the outdated information.</p>
+<h2>The Shared Memory Problem</h2>
+<p>The <code>NOW.md</code> file in the <code>cto-aipa</code> repository serves as a critical piece of shared working memory for my AI agents. It explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this So this file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid."</p>
+<p>This setup, while functional for avoiding direct communication, introduces a vulnerability. If one agent writes to <code>NOW.md</code> based on a stale snapshot of external data, and another agent reads that <code>NOW.md</code> file, it propagates the staleness. The <code>cto-aipa</code> agent, with its 142 restarts, is likely encountering this. It might be reading a <code>NOW.md</code> that reflects an outdated view of the world, leading to failed operations and subsequent restarts. The <code>aideazz</code> repository also had 4 commits in the last 48 hours, including <code>3aedb30</code> which refreshed the "ai-ops-wiki" journal, indicating active development and potential changes to how agents interact with shared state.</p>
+<h2>The Data Source Discrepancy</h2>
+<p>The problem isn't just internal to the agent or its shared memory. The <code>atlas-ga4-sync.log</code> shows "GA4 sync: 0 atlas_ rows for 2026-09-05," "0 atlas_ rows for 2026-09-06," and "0 atlas_ rows for 2026-09-07." This means for three consecutive days, a critical data source for analytics was not syncing any new data. If <code>cto-aipa</code> or any other agent relies on this data for its operations, it would be operating on a stale view of user activity or business metrics.</p>
+<p>Similarly, the <code>atlas-lead-machine.log</code> shows "staged 8 · looked at 32 · no-email 15 · already-in-CRM 13 · outside-band 1 · audit-failed 0 · crawler-blocked rescued 0." While it shows some activity, the <code>atlas-outcomes.log</code> reports "staged": 0, "sent": 0, "pushed to Atlas: {"ok":true,"lanes":7}." This discrepancy suggests that even if leads are being processed, they are not being staged or sent, which could lead to agents like <code>cto-aipa</code> having an incomplete or outdated understanding of the sales pipeline. The <code>concierge-selftest.log</code> shows "ok a Telegram card was produced — draft 430a887f54e35e54" and "duplicate suppressed," indicating some parts of the system are working, but the overall data flow might be compromised.</p>
+<h2>The Broader System Instability</h2>
+<p>The <code>cto-aipa</code> agent is not alone in its instability. <code>algom-stream</code> has 55193 restarts over 23 days, and <code>serpapi-jobs</code> has 21 restarts over 20 days. Even <code>dragontrade-main</code> has 3 restarts over 23 days. While <code>algom-poll</code> and <code>n8n</code> show 0 restarts over 42 and 26 days respectively, the pattern of frequent restarts across multiple agents points to a broader issue with how state is managed, how data is synchronized, or how errors are handled.</p>
+<p>The <code>wiki-ship.log</code> shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" three times, indicating issues with version control synchronization. This could directly impact agents that pull code or configuration from the repository, potentially leading to them running outdated versions or failing to start correctly. The <code>github-token-watch.log</code> shows a "DELIVERY FAILED: telegram said {"ok":false,"error_code":401,"description":"Unauthorized: invalid token specified"}" on 2026-09-07, followed by an "OK: 302 days left" later that day, and "OK: 301 days left" on 2026-09-08. This suggests a temporary credential issue that was resolved, but such incidents can contribute to a stale state if agents fail during the unauthorized period and don't recover gracefully.</p>
+<h2>Mitigating Stale Snapshots</h2>
+<p>To address the <code>AI Agent Stale Snapshot</code> problem, I need to implement more robust state management and data validation.</p>
+<p>1.  <strong>Explicit Data Versioning:</strong> Instead of relying on implicit timestamps or "last updated" fields, I need to version critical data snapshots. When <code>cto-aipa</code> processes a listing, it should record the version of the data it's working with. If a restart occurs, it can check if the data version has changed and, if so, re-fetch the latest.<br>2.  <strong>Atomic Updates for Shared State:</strong> The <code>NOW.md</code> file, while useful, is a simple text file. For critical shared state, I need to consider a more robust mechanism that supports atomic reads and writes, ensuring that agents always get a consistent view. This could involve a lightweight key-value store or a message queue for state changes.<br>3.  <strong>Proactive Data Source Monitoring:</strong> The <code>GA4 sync: 0 atlas_ rows</code> issue should trigger an immediate alert. Agents relying on this data should have circuit breakers that prevent them from operating on stale data and instead report an upstream data issue.<br>4.  <strong>Idempotent Operations:</strong> All agent operations should be idempotent. If an agent restarts mid-process, re-running the operation should not cause side effects or data corruption. This is crucial when restarts are frequent.<br>5.  <strong>Health Checks with Data Freshness:</strong> Beyond just checking if a process is "online," health checks need to incorporate data freshness. An agent is not truly healthy if it's online but operating on data that is days old.</p>
+<p>The 142 restarts of <code>cto-aipa</code> are a symptom of a deeper problem: a lack of consistent, versioned state across a distributed system of AI agents. The "stale snapshot solved" commit was a step, but the problem is more pervasive and requires a systemic approach to data integrity and agent resilience.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you define a "stale snapshot" in your AI agents?</strong><br>A: A stale snapshot occurs when an AI agent operates on data that is not the most current available from its source, leading to incorrect processing or decision-making. For <code>cto-aipa</code>, this was evident when <code>pii_qc_llm</code> was grading a stale archive, as noted in commit <code>456731b</code>.</p>
+<p><strong>Q: What is the primary cause of these frequent restarts?</strong><br>A: While specific root causes vary, the pattern of 142 restarts for <code>cto-aipa</code> and 55193 for <code>algom-stream</code> suggests issues with agents encountering unexpected data states, failing to recover gracefully from external service interruptions (like the <code>github-token-watch</code> 401 error), or internal logic errors when processing outdated information.</p>
+<p><strong>Q: How do you monitor for stale data sources like the GA4 sync issue?</strong><br>A: Currently, I rely on log tailing and manual checks, as seen with <code>atlas-ga4-sync.log</code> showing "0 atlas_ rows." I do not have an automated alert system specifically for data freshness across all sources, which is a gap I need to address.</p>
+<p><strong>Q: Why use <code>NOW.md</code> as shared memory instead of a database or message queue?</strong><br>A: <code>NOW.md</code> was adopted as a low-overhead, human-readable mechanism for agents like Cursor and Claude Code, which cannot directly communicate, to share working memory. It allows for quick iteration and visibility into agent state without introducing additional infrastructure complexity.</p>
+<p><strong>Q: What is the impact of 142 restarts on your Oracle Cloud costs?</strong><br>A: I do not have that measured directly. While each restart itself is a small event, 142 restarts in a short period indicate wasted compute cycles and potential for increased I/O if the agent is constantly re-fetching data, which would contribute to overall operational costs on Oracle Cloud.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
