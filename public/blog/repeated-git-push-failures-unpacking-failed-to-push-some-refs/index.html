@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repeated Git Push Failures: Unpacking "failed to push some refs | AIdeazz</title>
+  <meta name="description" content="My wiki-ship.log shows a recurring problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This message appeared three times in the log, modified 22.0 hours ago. …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/repeated-git-push-failures-unpacking-failed-to-push-some-refs/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Repeated Git Push Failures: Unpacking "failed to push some refs">
+  <meta property="og:description" content="My wiki-ship.log shows a recurring problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This message appeared three times in the log, modified 22.0 hours ago. …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/repeated-git-push-failures-unpacking-failed-to-push-some-refs/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-10T19:30:21.625Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Repeated Git Push Failures: Unpacking "failed to push some refs">
+  <meta name="twitter:description" content="My wiki-ship.log shows a recurring problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This message appeared three times in the log, modified 22.0 hours ago. …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Repeated Git Push Failures: Unpacking \"failed to push some refs",
+  "description": "My wiki-ship.log shows a recurring problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This message appeared three times in the log, modified 22.0 hours ago. …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-10T19:30:21.625Z",
+  "dateModified": "2026-09-10T19:30:21.625Z",
+  "url": "https://aideazz.xyz/blog/repeated-git-push-failures-unpacking-failed-to-push-some-refs/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/repeated-git-push-failures-unpacking-failed-to-push-some-refs/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the most common reason for \"failed to push some refs\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most common reason is a non-fast-forward update, meaning the remote branch has new commits that are not present in your local branch. This requires pulling the remote changes first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I prevent this error in an automated script?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Implement a `git pull --rebase` before `git push` to integrate remote changes. Also, consider a retry mechanism with backoff to handle transient issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is a GitHub token expiration a possible cause?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In my case, `github-token-watch.log` shows 299 days left on the token, so it is not the cause of these specific failures. However, it can be a cause for other `git push` issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does high PM2 restart count correlate with `git push` failures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not directly. `git push` failures are typically Git-specific. However, highly unstable processes like `cto-aipa` (142 restarts) or `algom-stream` (55193 restarts) might indicate broader system issues that could indirectly affect deployment stability if they are involved in Git operations."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Repeated Git Push Failures: Unpacking "failed to push some refs</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-10T19:30:21.625Z">September 10, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>wiki-ship.log</code> shows a recurring problem: <code>error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'</code>. This message appeared three times in the log, modified 22.0 hours ago. It's a clear indicator of friction in my deployment workflow, specifically when attempting to update the <code>aideazz</code> repository. While the system reports 8 of 8 PM2 processes online, and logs like <code>cita-sort.log</code> show <code>OK</code> status, these <code>git push</code> failures point to an underlying issue that needs addressing to maintain smooth operations and reliable code delivery.</p>
+<h2>The Impact of <code>git push</code> Failures on Deployment</h2>
+<p>When <code>git push</code> fails, it means recent changes are not reaching the remote repository. For <code>aideazz</code>, this directly affects the AI Ops wiki, which is crucial for documenting agent behavior and operational procedures. I made 2 commits to <code>aideazz</code> in the last 48 hours: <code>51fef16</code> on 2026-09-09 and <code>4ddf236</code> on 2026-09-08. If the push fails, these updates, which include "refresh journal + AEO surfaces," are not live. This creates a discrepancy between my local development environment and the deployed version, potentially leading to outdated information for other AI agents or manual processes that rely on the wiki.</p>
+<p>The <code>VibeJobHunterAIPA_AIMCF</code> repository also saw 2 commits in the last 48 hours, with <code>4f1e3e4</code> on 2026-09-09 and <code>48650e6</code> on 2026-09-08. While its log doesn't show push failures, the <code>aideazz</code> issue highlights a potential systemic problem with Git operations that could affect other repositories.</p>
+<h2>Investigating the Root Cause of "failed to push some refs"</h2>
+<p>The <code>error: failed to push some refs</code> message typically indicates a non-fast-forward update. This happens when the remote branch has commits that are not present in the local branch you're trying to push. Common causes include:</p>
+<p>1.  <strong>Concurrent Pushes:</strong> Another user or automated process pushed changes to the same branch before my push.<br>2.  <strong>Local Rebase/Reset:</strong> I might have rebased or reset my local branch, rewriting history that conflicts with the remote.<br>3.  <strong>Protected Branches:</strong> The branch might be protected, requiring a pull request or specific permissions.</p>
+<p>Given that <code>wiki-ship.log</code> is an automated process, concurrent pushes from other automated scripts or manual interventions are a strong possibility. I need to review the exact timing of these failures against other system activities.</p>
+<h2>Operational Stability vs. Deployment Friction</h2>
+<p>My PM2 processes show a mixed picture of stability. <code>algom-poll</code> and <code>n8n</code> have 0 restarts, running for 44 and 28 days respectively. <code>dragontrade-dashboard</code>, <code>dragontrade-main</code>, <code>whitespace</code>, and <code>serpapi-jobs</code> have low restart counts (1, 3, 4, and 21 respectively), running for 25, 25, 24, and 22 days. This indicates general stability for core services.</p>
+<p>However, <code>cto-aipa</code> has 142 restarts over 2 days, and <code>algom-stream</code> has 55193 restarts over 25 days. These high restart counts suggest significant underlying issues in those specific agents. While not directly related to <code>git push failures production</code>, they highlight areas where system instability could indirectly contribute to deployment issues if these agents are also involved in Git operations or trigger conflicting updates.</p>
+<p>The <code>github-token-watch.log</code> shows the GitHub token is valid for 299 days, 300 days, and 301 days, indicating that credential expiration is not the cause of these specific push failures.</p>
+<h2>Mitigating <code>git push</code> Failures in Automated Workflows</h2>
+<p>To address the <code>git push failures production</code> issue, I need to implement a more robust deployment strategy for the <code>aideazz</code> wiki.</p>
+<p>1.  <strong>Fetch Before Push:</strong> Ensure the automated script always performs a <code>git pull --rebase</code> or <code>git fetch</code> followed by a <code>git rebase</code> before attempting a <code>git push</code>. This integrates remote changes locally first, resolving conflicts before pushing.<br>2.  <strong>Retry Mechanism:</strong> Implement a retry logic with exponential backoff for <code>git push</code> commands. If the first push fails, wait a short period and try again. This can mitigate transient network issues or brief concurrent pushes.<br>3.  <strong>Atomic Updates:</strong> For critical deployments, consider using a deployment key with write access only to specific branches, or a system that ensures only one deployment process can push at a time.<br>4.  <strong>Monitoring and Alerting:</strong> Set up alerts for <code>git push</code> failures in <code>wiki-ship.log</code> to get immediate notification. This allows for quicker manual intervention when automated retries fail.</p>
+<p>The <code>NOW.md</code> file, which serves as a shared session between Cursor and Claude Code, mentions "No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This fragmented communication between AI agents could contribute to uncoordinated Git operations if multiple agents are attempting to update the same repository without a clear protocol. The <code>NOW.md</code> explicitly states, "This file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid." This underscores the need for explicit protocols, even for Git operations, to prevent conflicts.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: What is the most common reason for "failed to push some refs"?</strong><br>A: The most common reason is a non-fast-forward update, meaning the remote branch has new commits that are not present in your local branch. This requires pulling the remote changes first.</p>
+<p><strong>Q: How can I prevent this error in an automated script?</strong><br>A: Implement a <code>git pull --rebase</code> before <code>git push</code> to integrate remote changes. Also, consider a retry mechanism with backoff to handle transient issues.</p>
+<p><strong>Q: Is a GitHub token expiration a possible cause?</strong><br>A: In my case, <code>github-token-watch.log</code> shows 299 days left on the token, so it is not the cause of these specific failures. However, it can be a cause for other <code>git push</code> issues.</p>
+<p><strong>Q: Does high PM2 restart count correlate with <code>git push</code> failures?</strong><br>A: Not directly. <code>git push</code> failures are typically Git-specific. However, highly unstable processes like <code>cto-aipa</code> (142 restarts) or <code>algom-stream</code> (55193 restarts) might indicate broader system issues that could indirectly affect deployment stability if they are involved in Git operations.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
