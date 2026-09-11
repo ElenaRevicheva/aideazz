@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algom-Stream Restarts and Zero GA Rows: A Production Anomaly | AIdeazz</title>
+  <meta name="description" content="The algom-stream process has restarted 55193 times. This is not a typo. It's been online for 26 days, yet it has cycled over fifty-five thousand times. Simultaneously, the atlas-ga4-sync.log shows "G…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/algom-stream-restarts-and-zero-ga-rows-a-production-anomaly/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Algom-Stream Restarts and Zero GA Rows: A Production Anomaly">
+  <meta property="og:description" content="The algom-stream process has restarted 55193 times. This is not a typo. It's been online for 26 days, yet it has cycled over fifty-five thousand times. Simultaneously, the atlas-ga4-sync.log shows "G…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/algom-stream-restarts-and-zero-ga-rows-a-production-anomaly/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-11T19:30:15.667Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Algom-Stream Restarts and Zero GA Rows: A Production Anomaly">
+  <meta name="twitter:description" content="The algom-stream process has restarted 55193 times. This is not a typo. It's been online for 26 days, yet it has cycled over fifty-five thousand times. Simultaneously, the atlas-ga4-sync.log shows "G…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Algom-Stream Restarts and Zero GA Rows: A Production Anomaly",
+  "description": "The algom-stream process has restarted 55193 times. This is not a typo. It's been online for 26 days, yet it has cycled over fifty-five thousand times. Simultaneously, the atlas-ga4-sync.log shows \"G…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-11T19:30:15.667Z",
+  "dateModified": "2026-09-11T19:30:15.667Z",
+  "url": "https://aideazz.xyz/blog/algom-stream-restarts-and-zero-ga-rows-a-production-anomaly/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/algom-stream-restarts-and-zero-ga-rows-a-production-anomaly/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is 55193 restarts in 26 days a normal operational state for any process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. This indicates a severe, persistent failure. A healthy process should have 0 or very few restarts over such a period, like `algom-poll` (0 restarts in 45 days) or `n8n` (0 restarts in 29 days)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the most likely immediate cause of the `algom-stream` restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Without specific application logs for `algom-stream`, the most likely immediate cause is an uncaught exception in the application code or a memory leak leading to an OOM kill. I do not have that measured in the current evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I confirm if `algom-stream` is directly responsible for GA4 data ingestion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I would need to examine the source code or internal documentation for `algom-stream` to understand its specific responsibilities and dependencies related to GA4. I do not have that measured in the current evidence."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of \"GA4 sync: 0 atlas_ rows\" for three days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This means any analytics, dashboards, or AI agents relying on fresh Google Analytics 4 data are operating on stale information, impacting the accuracy of insights and decisions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the Git push failures related to the `algom-stream` or GA4 issues?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's unlikely to be directly related. The Git push failures suggest a separate issue with repository access or network connectivity, while `algom-stream` and GA4 sync point to application-level or data pipeline problems."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Algom-Stream Restarts and Zero GA Rows: A Production Anomaly</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-11T19:30:15.667Z">September 11, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>The <code>algom-stream</code> process has restarted 55193 times. This is not a typo. It's been online for 26 days, yet it has cycled over fifty-five thousand times. Simultaneously, the <code>atlas-ga4-sync.log</code> shows "GA4 sync: 0 atlas_ rows" for three consecutive days: 2026-09-08, 2026-09-09, and 2026-09-10. This combination of extreme process instability and a complete lack of data ingestion from Google Analytics 4 points to a critical production anomaly that needs immediate attention.</p>
+<p>My system relies on <code>algom-stream</code> for real-time data processing, though the exact connection to GA4 data ingestion isn't immediately obvious from the logs. The sheer number of restarts, however, indicates a fundamental instability that could easily cascade into other parts of the system, including data pipelines. When a process restarts 55193 times, it's not just a minor glitch; it's a persistent failure to maintain state or complete its intended operations.</p>
+<h2>Diagnosing the Algom-Stream Restart Loop</h2>
+<p>The <code>algom-stream</code> process shows "online" in <code>pm2 jlist</code>, but its 55193 restarts over 26 days tell a different story. This isn't an online process; it's a zombie process constantly dying and being resurrected. For context, other long-running processes like <code>algom-poll</code> have 0 restarts over 45 days, and <code>n8n</code> has 0 restarts over 29 days. Even <code>cto-aipa</code>, which has seen its own share of issues, has only 142 restarts over 3 days. The <code>algom-stream</code> restart count is an order of magnitude higher than any other process.</p>
+<p>This level of instability suggests several potential root causes:</p>
+<p>1.  <strong>Memory Leak:</strong> The process might be consuming increasing amounts of memory until it hits a limit and is killed by the OS or PM2. While <code>pm2 jlist</code> shows <code>algom-stream</code> at 83 MB, this is its current state after a restart, not necessarily its peak consumption before crashing. I do not have historical memory usage measured.<br>2.  <strong>Uncaught Exceptions:</strong> The application code itself might be encountering unhandled errors that cause it to exit. Without detailed application logs for <code>algom-stream</code>, pinpointing the exact exception is difficult.<br>3.  <strong>External Dependency Failure:</strong> <code>algom-stream</code> might be trying to connect to a database, API, or message queue that is unavailable or returning malformed data, leading to a crash.<br>4.  <strong>Resource Contention:</strong> The server might be under heavy load, causing <code>algom-stream</code> to be starved of CPU or I/O resources, leading to timeouts and crashes. However, other processes appear stable.</p>
+<p>My immediate action is to review the specific logs for <code>algom-stream</code> (which are not provided in the current evidence) to identify the last few lines before each restart. This is the most direct path to understanding why it's failing.</p>
+<h2>The Zero GA Rows Problem</h2>
+<p>The <code>atlas-ga4-sync.log</code> clearly states "GA4 sync: 0 atlas_ rows" for three consecutive days. This means no data has been successfully ingested from Google Analytics 4 into my <code>atlas_</code> tables since at least 2026-09-08. This is a critical data integrity issue. Without GA4 data, any analytics, reporting, or AI agents relying on this information are operating on stale or incomplete data.</p>
+<p>The <code>atlas-ga4-sync.log</code> itself was last modified 13.2 hours ago, indicating that the sync process is running, but it's consistently reporting zero rows. This isn't a case of the sync process not running; it's a case of it running and failing to find or ingest data.</p>
+<p>Possible reasons for zero rows:</p>
+<p>1.  <strong>Authentication/Authorization Issues:</strong> The credentials used to access GA4 might have expired or been revoked. I do not have that measured in the current logs.<br>2.  <strong>GA4 API Changes:</strong> Google might have made changes to the GA4 Data API that my sync process is not yet compatible with.<br>3.  <strong>Incorrect Query Parameters:</strong> The query being sent to GA4 might be malformed, requesting data that doesn't exist, or using incorrect date ranges.<br>4.  <strong>Upstream Data Issues:</strong> There might be no new data in GA4 itself for the specified period, though this is highly unlikely for three consecutive days in a live system.<br>5.  <strong>Connection to Algom-Stream:</strong> While not directly evident, if <code>algom-stream</code> is responsible for any pre-processing, transformation, or even triggering of the GA4 sync, its instability could indirectly cause this issue. The <code>algom-stream</code> process is a core data component, and its failure could easily impact downstream data pipelines.</p>
+<h2>Investigating the Connection</h2>
+<p>The critical question is whether the <code>algom-stream</code> restarts are directly or indirectly causing the zero GA rows.</p>
+<ul><li>  <strong>Direct Connection (Hypothetical):</strong> If <code>algom-stream</code> is responsible for fetching, transforming, or pushing data from GA4, its constant restarts would prevent any successful data transfer. I do not have the specific architecture of <code>algom-stream</code> measured in the evidence to confirm this.</li>
+<li>  <strong>Indirect Connection (More Likely):</strong> Even if <code>algom-stream</code> isn't directly handling GA4 data, its instability could be consuming system resources (CPU, memory, network connections) that the GA4 sync process needs to operate effectively. A system under stress from one failing component can lead to degraded performance or outright failure in others.</li></ul>
+<p>Given the evidence, I will prioritize investigating <code>algom-stream</code>'s logs first. Resolving its 55193 restarts might stabilize the system enough to reveal if the GA4 sync issue resolves itself, or if it's an independent problem.</p>
+<h2>Operational Impact and Mitigation</h2>
+<p>The combined effect of <code>algom-stream</code>'s instability and the GA4 data ingestion failure is significant.</p>
+<ul><li>  <strong>Data Stale:</strong> Any business decisions or AI models relying on GA4 data are now operating on information that is at least three days old.</li>
+<li>  <strong>Resource Waste:</strong> The constant restarting of <code>algom-stream</code> consumes CPU cycles and generates log noise, making it harder to identify other issues.</li>
+<li>  <strong>Alert Fatigue:</strong> If PM2 is configured to alert on restarts, 55193 restarts would generate an overwhelming number of alerts, desensitizing operators to genuine issues.</li></ul>
+<p>My immediate mitigation steps:</p>
+<p>1.  <strong>Isolate Algom-Stream Logs:</strong> Access the detailed logs for <code>algom-stream</code> to pinpoint the exact error messages causing the restarts.<br>2.  <strong>Restart GA4 Sync Manually:</strong> Attempt a manual trigger of the GA4 sync process to see if it produces any different output or error messages.<br>3.  <strong>Resource Monitoring:</strong> While I don't have historical data, I will monitor CPU, memory, and network usage to see if <code>algom-stream</code>'s restarts correlate with resource spikes.</p>
+<p>The <code>wiki-ship.log</code> also shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" three times, last modified 22.0 hours ago. This indicates a separate issue with Git pushes, possibly related to credentials or network, but it's unlikely to be directly connected to the <code>algom-stream</code> or GA4 sync problems. However, it points to general system health issues.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is 55193 restarts in 26 days a normal operational state for any process?</strong><br>A: No. This indicates a severe, persistent failure. A healthy process should have 0 or very few restarts over such a period, like <code>algom-poll</code> (0 restarts in 45 days) or <code>n8n</code> (0 restarts in 29 days).</p>
+<p><strong>Q: What is the most likely immediate cause of the <code>algom-stream</code> restarts?</strong><br>A: Without specific application logs for <code>algom-stream</code>, the most likely immediate cause is an uncaught exception in the application code or a memory leak leading to an OOM kill. I do not have that measured in the current evidence.</p>
+<p><strong>Q: How can I confirm if <code>algom-stream</code> is directly responsible for GA4 data ingestion?</strong><br>A: I would need to examine the source code or internal documentation for <code>algom-stream</code> to understand its specific responsibilities and dependencies related to GA4. I do not have that measured in the current evidence.</p>
+<p><strong>Q: What is the impact of "GA4 sync: 0 atlas_ rows" for three days?</strong><br>A: This means any analytics, dashboards, or AI agents relying on fresh Google Analytics 4 data are operating on stale information, impacting the accuracy of insights and decisions.</p>
+<p><strong>Q: Are the Git push failures related to the <code>algom-stream</code> or GA4 issues?</strong><br>A: It's unlikely to be directly related. The Git push failures suggest a separate issue with repository access or network connectivity, while <code>algom-stream</code> and GA4 sync point to application-level or data pipeline problems.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
