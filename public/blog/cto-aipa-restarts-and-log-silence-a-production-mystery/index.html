@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTO-AIPA Restarts and Log Silence: A Production Mystery | AIdeazz</title>
+  <meta name="description" content="My cto-aipa process has restarted 151 times today. It's currently up 0d, according to pm2 jlist. This is a significant number of restarts for a process that should be stable, yet my logs for cto-aipa…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/cto-aipa-restarts-and-log-silence-a-production-mystery/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CTO-AIPA Restarts and Log Silence: A Production Mystery">
+  <meta property="og:description" content="My cto-aipa process has restarted 151 times today. It's currently up 0d, according to pm2 jlist. This is a significant number of restarts for a process that should be stable, yet my logs for cto-aipa…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/cto-aipa-restarts-and-log-silence-a-production-mystery/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-12T19:30:13.367Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CTO-AIPA Restarts and Log Silence: A Production Mystery">
+  <meta name="twitter:description" content="My cto-aipa process has restarted 151 times today. It's currently up 0d, according to pm2 jlist. This is a significant number of restarts for a process that should be stable, yet my logs for cto-aipa…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTO-AIPA Restarts and Log Silence: A Production Mystery",
+  "description": "My cto-aipa process has restarted 151 times today. It's currently up 0d, according to pm2 jlist. This is a significant number of restarts for a process that should be stable, yet my logs for cto-aipa…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-12T19:30:13.367Z",
+  "dateModified": "2026-09-12T19:30:13.367Z",
+  "url": "https://aideazz.xyz/blog/cto-aipa-restarts-and-log-silence-a-production-mystery/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/cto-aipa-restarts-and-log-silence-a-production-mystery/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is `pm2 jlist` showing \"online\" for a process with 151 restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`pm2` reports a process as \"online\" if it is currently running, even if it has restarted many times. It indicates the process is managed and PM2 successfully brought it back up after a crash, not that the process itself is stable or error-free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any other processes with high restart counts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, `algom-stream` has 55193 restarts, but it has been `up 27d`. This suggests it eventually stabilizes for long periods despite frequent initial or intermittent restarts. `cto-aipa` is `up 0d`, indicating continuous instability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the memory usage of `cto-aipa` compared to other processes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`cto-aipa` uses 197 MB. This is higher than `dragontrade-dashboard` (56 MB) and `algom-stream` (53 MB), but significantly less than `n8n` (500 MB). It's not the highest memory consumer, but a sudden spike could still cause issues."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Have there been recent code changes that could affect `cto-aipa`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There were two commits in `aideazz` and two in `VibeJobHunterAIPA_AIMCF` within the last 48 hours. While these commits don't directly target `cto-aipa`, an indirect dependency update or a shared library change could potentially introduce instability."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">CTO-AIPA Restarts and Log Silence: A Production Mystery</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-12T19:30:13.367Z">September 12, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> process has restarted 151 times today. It's currently <code>up 0d</code>, according to <code>pm2 jlist</code>. This is a significant number of restarts for a process that should be stable, yet my logs for <code>cto-aipa</code> are silent. There are no error messages, no stack traces, and no indications of why it's restarting so frequently. This silence makes debugging a challenge, as the system reports "online" while exhibiting clear instability.</p>
+<h2>The Illusion of "Online"</h2>
+<p>The <code>pm2 jlist</code> output shows <code>cto-aipa</code> as <code>online</code>. This status is misleading when paired with 151 restarts in less than a day. Other processes, like <code>dragontrade-dashboard</code> with 1 restart over 27 days, or <code>n8n</code> with 0 restarts over 30 days, represent true stability. Even <code>algom-stream</code>, with its 55193 restarts over 27 days, at least has a long uptime, suggesting it eventually stabilizes for periods. The <code>cto-aipa</code> process, however, is in a constant cycle of failure and restart, yet <code>pm2</code> reports it as healthy. This discrepancy means I cannot rely solely on the "online" status for critical processes.</p>
+<h2>Log Silence: A Debugging Black Hole</h2>
+<p>The core problem is the lack of diagnostic information. I have checked the standard log locations, and there is no output related to the <code>cto-aipa</code> restarts. This isn't a case of too much noise; it's a complete absence of signal. When a process restarts 151 times, I expect to see at least some indication of what caused the termination. Without this, I'm left guessing whether it's an out-of-memory issue, an unhandled exception, or an external dependency failure.</p>
+<p>Other logs, like <code>cita-sort.log</code> and <code>github-token-watch.log</code>, show regular, successful operations. <code>cita-sort.log</code> reports <code>cita-sort OK — 0 card(s) repositioned across 3 board(s)</code> hourly. <code>github-token-watch.log</code> confirms <code>OK: 297 days left</code> for my GitHub token. Even <code>wiki-ship.log</code> shows explicit <code>error: failed to push some refs</code> messages, which, while problematic, at least provide a starting point for investigation. The <code>cto-aipa</code> log, by contrast, offers nothing.</p>
+<h2>Potential Causes for Silent Restarts</h2>
+<p>Given the log silence, I'm considering a few possibilities for the <code>CTO-AIPA Restarts and Log Silence</code>:</p>
+<p>1.  <strong>Uncaught Exceptions:</strong> The application might be crashing due to an uncaught exception that isn't being logged before the process terminates. This could be a bug in my code or an issue with one of the many libraries I use, such as <code>@anthropic-ai/sdk</code>, <code>groq-sdk</code>, or <code>openai</code>.<br>2.  <strong>Resource Exhaustion:</strong> The process might be hitting a memory limit or other system resource constraint that causes the operating system or PM2 to terminate it without the application itself having a chance to log. <code>cto-aipa</code> is currently using 197 MB of memory, which is higher than <code>dragontrade-dashboard</code> (56 MB) or <code>algom-stream</code> (53 MB), but lower than <code>n8n</code> (500 MB). It's not immediately obvious that 197 MB is a critical threshold, but a spike could be occurring.<br>3.  <strong>External Dependency Failure:</strong> A critical external service that <code>cto-aipa</code> relies on might be failing in a way that causes the process to exit immediately without logging. This could involve issues with <code>oracledb</code> connections, <code>replicate</code> API calls, or <code>twitter-api-v2</code> interactions.<br>4.  <strong>PM2 Configuration:</strong> There might be a misconfiguration in PM2 itself that is suppressing logs or causing restarts under specific conditions that aren't being reported. However, other processes managed by PM2 are logging correctly.</p>
+<h2>Next Steps: Instrumenting for Visibility</h2>
+<p>My immediate action is to instrument the <code>cto-aipa</code> process more aggressively. This involves:</p>
+<ul><li>  <strong>Adding more granular logging:</strong> Implementing <code>try-catch</code> blocks around critical operations and ensuring all potential exit points log their status.</li>
+<li>  <strong>Monitoring memory and CPU usage more closely:</strong> While <code>pm2 jlist</code> gives a snapshot, real-time monitoring might reveal spikes just before restarts.</li>
+<li>  <strong>Enabling PM2's error logging:</strong> Double-checking PM2's own error logs for any system-level messages related to <code>cto-aipa</code>'s termination.</li>
+<li>  <strong>Reviewing recent code changes:</strong> The <code>aideazz</code> repository had two commits in the last 48 hours, <code>b5cc107</code> and <code>13c693e</code>, both related to <code>ai-ops-wiki</code>. The <code>VibeJobHunterAIPA_AIMCF</code> repository also had two commits, <code>5bc2d09</code> and <code>ad34fb3</code>, fixing public image URLs. While these don't directly point to <code>cto-aipa</code>, a dependency update or an indirect change could be at fault.</li></ul>
+<p>The <code>NOW.md</code> file, which serves as a shared session between Cursor and Claude Code, highlights the challenge of fragmented AI agents. "No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This lack of integrated debugging tools extends to the production environment. When an agent like <code>cto-aipa</code> fails silently, the fragmented tooling makes the problem significantly harder to diagnose.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why is <code>pm2 jlist</code> showing "online" for a process with 151 restarts?</strong><br>A: <code>pm2</code> reports a process as "online" if it is currently running, even if it has restarted many times. It indicates the process is managed and PM2 successfully brought it back up after a crash, not that the process itself is stable or error-free.</p>
+<p><strong>Q: Are there any other processes with high restart counts?</strong><br>A: Yes, <code>algom-stream</code> has 55193 restarts, but it has been <code>up 27d</code>. This suggests it eventually stabilizes for long periods despite frequent initial or intermittent restarts. <code>cto-aipa</code> is <code>up 0d</code>, indicating continuous instability.</p>
+<p><strong>Q: What is the memory usage of <code>cto-aipa</code> compared to other processes?</strong><br>A: <code>cto-aipa</code> uses 197 MB. This is higher than <code>dragontrade-dashboard</code> (56 MB) and <code>algom-stream</code> (53 MB), but significantly less than <code>n8n</code> (500 MB). It's not the highest memory consumer, but a sudden spike could still cause issues.</p>
+<p><strong>Q: Have there been recent code changes that could affect <code>cto-aipa</code>?</strong><br>A: There were two commits in <code>aideazz</code> and two in <code>VibeJobHunterAIPA_AIMCF</code> within the last 48 hours. While these commits don't directly target <code>cto-aipa</code>, an indirect dependency update or a shared library change could potentially introduce instability.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
