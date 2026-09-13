@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Restart Patterns: From Zero to 55193 in Production | AIdeazz</title>
+  <meta name="description" content="My production environment currently shows 8 AI agents online, supervised by PM2. This looks healthy on the surface, but a deeper look at their restart counts reveals a spectrum of stability, from per…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-restart-patterns-from-zero-to-55193-in-production/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Restart Patterns: From Zero to 55193 in Production">
+  <meta property="og:description" content="My production environment currently shows 8 AI agents online, supervised by PM2. This looks healthy on the surface, but a deeper look at their restart counts reveals a spectrum of stability, from per…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-restart-patterns-from-zero-to-55193-in-production/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-13T19:30:24.905Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Restart Patterns: From Zero to 55193 in Production">
+  <meta name="twitter:description" content="My production environment currently shows 8 AI agents online, supervised by PM2. This looks healthy on the surface, but a deeper look at their restart counts reveals a spectrum of stability, from per…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Restart Patterns: From Zero to 55193 in Production",
+  "description": "My production environment currently shows 8 AI agents online, supervised by PM2. This looks healthy on the surface, but a deeper look at their restart counts reveals a spectrum of stability, from per…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-13T19:30:24.905Z",
+  "dateModified": "2026-09-13T19:30:24.905Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-restart-patterns-from-zero-to-55193-in-production/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-restart-patterns-from-zero-to-55193-in-production/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does PM2's \"online\" status mean an AI agent is working correctly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. As seen with `algom-stream` having 55193 restarts while \"online,\" PM2 only indicates the process manager is attempting to keep the process running. It does not guarantee the application logic is executing successfully or producing valid output."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you differentiate between a planned restart and an error-induced restart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Planned restarts typically correlate with deployment events (like the 2 commits in the last 48 hours) or scheduled maintenance. Error-induced restarts show specific error messages in application logs immediately preceding the restart, often in a recurring pattern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the first step when an AI agent shows 55193 restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Immediately check the agent's specific application logs for the exact error message causing the crash. This high restart count indicates a fundamental, unhandled exception or resource issue that needs to be addressed directly in the code or environment configuration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is 151 restarts in 1 day acceptable for an AI agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, 151 restarts in 1 day is not acceptable. It points to a recurring issue that is significantly impacting the agent's uptime and potentially its ability to complete tasks, even if it eventually recovers. This pattern warrants investigation to improve stability."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Restart Patterns: From Zero to 55193 in Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-13T19:30:24.905Z">September 13, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My production environment currently shows 8 AI agents online, supervised by PM2. This looks healthy on the surface, but a deeper look at their restart counts reveals a spectrum of stability, from perfect uptime to catastrophic loops. Understanding these AI Agent Restart Patterns is critical for anyone shipping production AI.</p>
+<h2>The Zero-Restart Agents: Quiet Stability</h2>
+<p>Two of my agents, <code>algom-poll</code> and <code>n8n</code>, show 0 restarts. <code>algom-poll</code> has been up for 47 days, consuming 72 MB of memory. <code>n8n</code> has been up for 31 days, using 500 MB. These are the ideal cases. They perform their tasks without interruption, indicating robust code, stable dependencies, and predictable resource usage. For <code>algom-poll</code>, its log shows consistent <code>cita-sort OK</code> messages, with 0 cards repositioned across 3 boards, hourly. This suggests a steady, uneventful operation.</p>
+<h2>The Low-Restart Agents: Minor Glitches or Planned Maintenance</h2>
+<p>Most of my agents fall into the low-restart category, with counts ranging from 1 to 21.</p>
+<ul><li>  <code>dragontrade-dashboard</code>: 1 restart, up 28 days, 56 MB. A single restart over nearly a month is negligible. This could be a manual restart for an update, or a transient network blip.</li>
+<li>  <code>dragontrade-main</code>: 3 restarts, up 28 days, 148 MB. Similar to the dashboard, a few restarts over a long period are generally acceptable.</li>
+<li>  <code>whitespace</code>: 4 restarts, up 27 days, 101 MB. This agent also demonstrates good stability.</li>
+<li>  <code>serpapi-jobs</code>: 21 restarts, up 25 days, 35 MB. While higher than the others in this group, 21 restarts over 25 days averages less than one restart per day. This could point to occasional external API rate limits, minor memory leaks that are resolved by a restart, or specific job types causing crashes. The <code>concierge-selftest.log</code> shows successful Telegram card production and duplicate suppression, indicating core functionality is working despite these restarts.</li></ul>
+<p>These low restart counts often indicate either minor, self-correcting issues, or planned restarts for deployments. My git log shows 2 commits in the last 48 hours, specifically <code>51158b3</code> and <code>b5cc107</code> on 2026-09-12 and 2026-09-11 respectively, related to <code>ai-ops-wiki</code> surfaces. These deployments could account for some of the restarts if agents were updated.</p>
+<h2>The Moderate-Restart Agent: <code>cto-aipa</code></h2>
+<p>The <code>cto-aipa</code> agent stands out with 151 restarts, but has only been up for 1 day, consuming 211 MB. This is a significant number of restarts in a short timeframe. 151 restarts in 1 day means it's restarting roughly every 9.5 minutes. This pattern suggests a recurring, non-fatal error that PM2 is configured to handle by restarting the process.</p>
+<p>The <code>NOW.md</code> file, which serves as a shared session between Cursor and Claude Code, mentions: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this So this file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid". This fragmented communication could be a source of instability if <code>cto-aipa</code> relies on state that is not consistently shared or synchronized, leading to crashes. The <code>followup-radar.log</code> shows email processing, with 245 inbox items for imap.zoho.com and 661 for imap.gmail.com, suggesting <code>cto-aipa</code> is actively working with external services. Failures in these external interactions could trigger restarts.</p>
+<h2>The High-Restart Agent: <code>algom-stream</code></h2>
+<p>Despite this, PM2 reports it as "online." This highlights a critical distinction: "online" does not mean "healthy" or "functional." It simply means the process manager is attempting to keep the process running. The low memory usage (53 MB) might suggest it's crashing before it can consume significant resources, or it's a very lightweight process that quickly re-initializes.</p>
+<h2>Implications for AI Agent Operations</h2>
+<p>These varied AI Agent Restart Patterns reveal different classes of operational issues:</p>
+<p>1.  <strong>Zero Restarts:</strong> Indicates robust, stable agents. Focus on monitoring for performance degradation or unexpected log entries.<br>2.  <strong>Low Restarts (1-21):</strong> Suggests minor, transient issues or planned deployments. Review logs for error messages around restart times.<br>3.  <strong>Moderate Restarts (151 in 1 day):</strong> Points to a recurring problem that the agent can't recover from gracefully without a full restart. This requires deeper investigation into the specific code path causing the failure.<br>4.  <strong>High Restarts (55193 in 28 days):</strong> This is a critical failure mode. The agent is effectively non-functional, even if PM2 reports it as "online." Immediate debugging is required to identify the root cause of the continuous crash.</p>
+<p>The <code>wiki-ship.log</code> shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" repeatedly. While not directly tied to agent restarts, it indicates other operational issues in my system that could indirectly affect agent stability if deployments are failing or code is not being updated correctly.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Does PM2's "online" status mean an AI agent is working correctly?</strong><br>A: No. As seen with <code>algom-stream</code> having 55193 restarts while "online," PM2 only indicates the process manager is attempting to keep the process running. It does not guarantee the application logic is executing successfully or producing valid output.</p>
+<p><strong>Q: How do you differentiate between a planned restart and an error-induced restart?</strong><br>A: Planned restarts typically correlate with deployment events (like the 2 commits in the last 48 hours) or scheduled maintenance. Error-induced restarts show specific error messages in application logs immediately preceding the restart, often in a recurring pattern.</p>
+<p><strong>Q: What's the first step when an AI agent shows 55193 restarts?</strong><br>A: Immediately check the agent's specific application logs for the exact error message causing the crash. This high restart count indicates a fundamental, unhandled exception or resource issue that needs to be addressed directly in the code or environment configuration.</p>
+<p><strong>Q: Is 151 restarts in 1 day acceptable for an AI agent?</strong><br>A: No, 151 restarts in 1 day is not acceptable. It points to a recurring issue that is significantly impacting the agent's uptime and potentially its ability to complete tasks, even if it eventually recovers. This pattern warrants investigation to improve stability.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
