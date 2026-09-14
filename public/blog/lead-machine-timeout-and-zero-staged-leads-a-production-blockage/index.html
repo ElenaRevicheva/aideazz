@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lead Machine Timeout and Zero Staged Leads: A Production Blockage | AIdeazz</title>
+  <meta name="description" content="My atlas-lead-machine process is online, yet it consistently stages zero leads. The logs show a clear pattern: [BD-SERP] fetch error for "medical tourism clinic Cancun Mexico": The operation was abor…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/lead-machine-timeout-and-zero-staged-leads-a-production-blockage/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Lead Machine Timeout and Zero Staged Leads: A Production Blockage">
+  <meta property="og:description" content="My atlas-lead-machine process is online, yet it consistently stages zero leads. The logs show a clear pattern: [BD-SERP] fetch error for "medical tourism clinic Cancun Mexico": The operation was abor…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/lead-machine-timeout-and-zero-staged-leads-a-production-blockage/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-14T19:30:13.881Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Lead Machine Timeout and Zero Staged Leads: A Production Blockage">
+  <meta name="twitter:description" content="My atlas-lead-machine process is online, yet it consistently stages zero leads. The logs show a clear pattern: [BD-SERP] fetch error for "medical tourism clinic Cancun Mexico": The operation was abor…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Lead Machine Timeout and Zero Staged Leads: A Production Blockage",
+  "description": "My atlas-lead-machine process is online, yet it consistently stages zero leads. The logs show a clear pattern: [BD-SERP] fetch error for \"medical tourism clinic Cancun Mexico\": The operation was abor…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-14T19:30:13.881Z",
+  "dateModified": "2026-09-14T19:30:13.881Z",
+  "url": "https://aideazz.xyz/blog/lead-machine-timeout-and-zero-staged-leads-a-production-blockage/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/lead-machine-timeout-and-zero-staged-leads-a-production-blockage/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the `atlas-lead-machine` process actually running, given it's not in `pm2 jlist`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the process is running. It's likely managed by `n8n`, which is online and `up 32d`. The `atlas-lead-machine.log` is actively being written to, with the last modification `2.9h ago`, confirming the job execution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the immediate impact of \"staged 0\" on my business?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "\"Staged 0\" means no new leads are being added to the sales pipeline. This will eventually starve the top of the funnel, preventing new deals from progressing through stages like \"They replied\" (currently `116` deals) and ultimately impacting \"closed won\" deals (currently `0`)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could other processes be causing this timeout?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unlikely. While `algom-stream` has `55193` restarts and `cto-aipa` has `151` restarts, these are separate processes. The `atlas-lead-machine.log` explicitly states `[BD-SERP] fetch error` and `timeout`, pointing to an external dependency or its integration, not internal resource contention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I confirm the `BD-SERP` API is the problem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The most direct way is to make the exact same API call (with the query \"medical tourism clinic Cancun Mexico\") from a separate script or `curl` command, outside the `atlas-lead-machine` environment. This will isolate whether the timeout originates from the external service or the integration logic."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Lead Machine Timeout and Zero Staged Leads: A Production Blockage</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-14T19:30:13.881Z">September 14, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>atlas-lead-machine</code> process is online, yet it consistently stages zero leads. The logs show a clear pattern: <code>[BD-SERP] fetch error for "medical tourism clinic Cancun Mexico": The operation was aborted due to timeout</code>. This isn't a process crash; <code>pm2 jlist</code> confirms <code>atlas-lead-machine</code> is not listed, but <code>n8n</code> is online, <code>up 32d</code>, and <code>atlas-lead-machine</code> logs are being written, indicating the job runs. The problem is a silent failure to produce.</p>
+<h2>Diagnosing the Timeout</h2>
+<p>The <code>atlas-lead-machine.log</code> shows the core issue: a timeout during a fetch operation. Specifically, <code>The operation was aborted due to timeout</code> for a query like "medical tourism clinic Cancun Mexico". This suggests an external dependency is failing to respond within the expected timeframe. The process then reports <code>done · staged 0 · looked at 0 · no-email 9 · already-in-CRM 0 · outside-band 0 · audit-failed 0 · crawler-blocked rescued 0</code>. The "staged 0" is the critical outcome.</p>
+<p>This isn't a memory issue; <code>n8n</code> is using <code>500 MB</code> of memory, which is within its operational range. Other processes like <code>cto-aipa</code> are at <code>217 MB</code> and <code>dragontrade-main</code> at <code>150 MB</code>. The system isn't starved for resources. The problem is specific to the external call made by the lead machine.</p>
+<h2>Impact on Downstream Systems</h2>
+<p>The immediate consequence of zero staged leads is a lack of new entries in my CRM. <code>atlas-outcomes.log</code> confirms this: <code>"staged": 0, "sent": 0</code>. This means no new leads are being pushed to Atlas, despite <code>pushed to Atlas: {"ok":true,"lanes":7}</code> indicating the push mechanism itself is functional.</p>
+<p>My HubSpot deals show <code>116</code> deals at "They replied" stage, but <code>0</code> deals closed won. While not directly caused by the current lead machine issue, a consistent lack of new leads will eventually starve the top of the funnel, impacting future closed-won numbers. The <code>atlas-ga4-sync.log</code> also shows <code>GA4 sync: 0 atlas_ rows for 2026-09-11</code>, <code>0 atlas_ rows for 2026-09-12</code>, <code>0 atlas_ rows for 2026-09-13</code>. This indicates a broader issue with data flowing into Atlas, potentially related to the same upstream data source or a separate sync problem.</p>
+<h2>Investigating the External Dependency</h2>
+<p>The <code>[BD-SERP]</code> prefix in the log entry <code>[BD-SERP] fetch error</code> points to a specific component responsible for fetching data, likely from a search engine results page (SERP) API. The timeout suggests either the API itself is slow, or my network connection to it is unstable, or the timeout setting in my <code>atlas-lead-machine</code> configuration is too aggressive.</p>
+<h2>Next Steps for Resolution</h2>
+<p>1.  <strong>Isolate the <code>BD-SERP</code> call:</strong> I need to replicate the <code>fetch error</code> outside the <code>atlas-lead-machine</code> process. A simple <code>node-fetch</code> script or <code>curl</code> command with the exact query "medical tourism clinic Cancun Mexico" would confirm if the external SERP API is indeed timing out.<br>2.  <strong>Adjust Timeout Configuration:</strong> If the external API is consistently slow but eventually returns data, increasing the timeout in <code>atlas-lead-machine</code> might be a temporary fix. I do not have that measured, but I would start by doubling the current timeout value, if available, or setting it to <code>30</code> seconds if it's currently <code>15</code>.<br>3.  <strong>Monitor <code>BD-SERP</code> API Status:</strong> Check the status page or documentation for the <code>BD-SERP</code> provider for any reported outages or performance degradation.<br>4.  <strong>Review Query Complexity:</strong> The specific query "medical tourism clinic Cancun Mexico" might be particularly complex or resource-intensive for the <code>BD-SERP</code> API, leading to longer response times. Testing with simpler queries could help identify if the problem is query-specific.</p>
+<p>The <code>wiki-ship.log</code> shows <code>error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'</code> repeatedly, with the last modification <code>22.0h ago</code>. This indicates issues with my internal documentation or code deployment, which could indirectly affect the lead machine if critical updates or configuration changes are not being pushed. However, <code>git log</code> shows <code>2</code> commits in <code>aideazz</code> within the last <code>48h</code>, dated <code>2026-09-13</code> and <code>2026-09-12</code>, so some updates are getting through. The <code>github-token-watch.log</code> shows <code>295 days left</code> on the token, so it's not a credential expiry issue.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is the <code>atlas-lead-machine</code> process actually running, given it's not in <code>pm2 jlist</code>?</strong><br>A: Yes, the process is running. It's likely managed by <code>n8n</code>, which is online and <code>up 32d</code>. The <code>atlas-lead-machine.log</code> is actively being written to, with the last modification <code>2.9h ago</code>, confirming the job execution.</p>
+<p><strong>Q: What is the immediate impact of "staged 0" on my business?</strong><br>A: "Staged 0" means no new leads are being added to the sales pipeline. This will eventually starve the top of the funnel, preventing new deals from progressing through stages like "They replied" (currently <code>116</code> deals) and ultimately impacting "closed won" deals (currently <code>0</code>).</p>
+<p><strong>Q: Could other processes be causing this timeout?</strong><br>A: Unlikely. While <code>algom-stream</code> has <code>55193</code> restarts and <code>cto-aipa</code> has <code>151</code> restarts, these are separate processes. The <code>atlas-lead-machine.log</code> explicitly states <code>[BD-SERP] fetch error</code> and <code>timeout</code>, pointing to an external dependency or its integration, not internal resource contention.</p>
+<p><strong>Q: How can I confirm the <code>BD-SERP</code> API is the problem?</strong><br>A: The most direct way is to make the exact same API call (with the query "medical tourism clinic Cancun Mexico") from a separate script or <code>curl</code> command, outside the <code>atlas-lead-machine</code> environment. This will isolate whether the timeout originates from the external service or the integration logic.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
