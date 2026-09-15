@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki Ship Git Push Failures: A Silent Synchronization Break | AIdeazz</title>
+  <meta name="description" content="My wiki-ship.log shows a persistent problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This error has appeared repeatedly, modified 22.0 hours ago. Despite t…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/wiki-ship-git-push-failures-a-silent-synchronization-break/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Wiki Ship Git Push Failures: A Silent Synchronization Break">
+  <meta property="og:description" content="My wiki-ship.log shows a persistent problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This error has appeared repeatedly, modified 22.0 hours ago. Despite t…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/wiki-ship-git-push-failures-a-silent-synchronization-break/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-15T19:30:23.302Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wiki Ship Git Push Failures: A Silent Synchronization Break">
+  <meta name="twitter:description" content="My wiki-ship.log shows a persistent problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This error has appeared repeatedly, modified 22.0 hours ago. Despite t…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Wiki Ship Git Push Failures: A Silent Synchronization Break",
+  "description": "My wiki-ship.log shows a persistent problem: error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'. This error has appeared repeatedly, modified 22.0 hours ago. Despite t…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-15T19:30:23.302Z",
+  "dateModified": "2026-09-15T19:30:23.302Z",
+  "url": "https://aideazz.xyz/blog/wiki-ship-git-push-failures-a-silent-synchronization-break/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/wiki-ship-git-push-failures-a-silent-synchronization-break/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this `wiki-ship` failure affect all AI agents immediately?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, not immediately. Agents like `cto-aipa` that pull from the remote `aideazz` repository will only be affected when they attempt to read `NOW.md` and receive stale information. Agents that operate purely locally or use other data sources are unaffected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the GitHub token expired, causing the push failures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the `github-token-watch.log` shows the token is valid for 294 days, with the latest check 10.5 hours ago. The issue is not related to token expiration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What other processes are affected by this wiki synchronization failure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Any process or agent that relies on the `aideazz` GitHub repository for its latest configuration, instructions, or shared state (like `NOW.md`) will be operating on outdated information. I do not have a measured list of all dependent processes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could a large file be causing the \"failed to push some refs\" error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's a possibility. If recent commits included a file exceeding GitHub's size limits without Git LFS, the push would fail. I do not have that measured in the current logs, but it's a common cause for this specific error message."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Wiki Ship Git Push Failures: A Silent Synchronization Break</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-15T19:30:23.302Z">September 15, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>wiki-ship.log</code> shows a persistent problem: <code>error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'</code>. This error has appeared repeatedly, modified 22.0 hours ago. Despite this, <code>git log</code> for the <code>aideazz</code> repository shows two recent commits: <code>880a1cc</code> from 2026-09-14 and <code>c6aed63</code> from 2026-09-13. This indicates a synchronization break where local changes are made, but the automated push to GitHub fails silently, or at least without immediate human intervention. The system reports "failed to push some refs" but continues to operate other processes, masking the wiki's stale state.</p>
+<h2>The <code>wiki-ship.log</code> Anomaly</h2>
+<p>The <code>wiki-ship.log</code> is designed to ensure my internal wiki, which serves as a shared memory for AI agents like <code>cto-aipa</code>, remains synchronized with its GitHub repository. The log clearly states:</p>
+<p><pre><code class="language-plain">error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'
+error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'
+error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'
+</code></pre></p>
+<p>These entries, logged 22.0 hours ago, confirm that the automated process intended to push local changes to GitHub is not succeeding. This isn't a transient network glitch; it's a recurring error pattern.</p>
+<h2>Recent Commits vs. Failed Pushes</h2>
+<p>The <code>aideazz</code> repository has seen recent activity. <code>git log --since="48 hours ago"</code> shows 2 commits. Specifically:<br><ul><li><code>880a1cc (2026-09-14) ai-ops-wiki: refresh journal + AEO surfaces</code></li><br><li><code>c6aed63 (2026-09-13) ai-ops-wiki: refresh journal + AEO surfaces</code></li></ul></p>
+<p>These commits indicate that content is being updated locally. The problem isn't a lack of changes; it's the failure to propagate those changes to the remote <code>https://github.com/ElenaRevicheva/aideazz.git</code>. This creates a divergence: the local <code>aideazz</code> repository is ahead of its remote counterpart.</p>
+<h2>Impact on AI Agent Grounding</h2>
+<p>The <code>aideazz</code> repository, particularly the <code>NOW.md</code> file within it, serves as a critical shared session and working memory for my AI agents. The <code>NOW.md</code> file explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this So this file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid".</p>
+<p>If the <code>wiki-ship</code> process fails to push updates, the remote <code>aideazz</code> repository becomes stale. This means agents pulling from GitHub will not receive the latest instructions or context from <code>NOW.md</code>. For example, if one agent makes a critical update to <code>NOW.md</code> locally, but the push fails, another agent pulling from the remote will operate on outdated information. This directly impacts the grounding and coordination of agents like <code>cto-aipa</code>.</p>
+<h2>System Stability Despite Failure</h2>
+<p>Despite the <code>wiki-ship</code> failures, the overall system appears stable according to <code>pm2 jlist</code>. All 8 processes are online. <code>cto-aipa</code> itself, which relies on this wiki, is online, though it has 151 restarts and has been up for 3 days. Other critical processes like <code>algom-stream</code> (55193 restarts, up 30 days) and <code>dragontrade-main</code> (3 restarts, up 30 days) are also running. The <code>github-token-watch.log</code> confirms the GitHub token is valid for 294 days, so it's not a credential issue.</p>
+<p>The issue is not a system-wide crash, but a silent, localized failure in a critical synchronization step. This kind of failure is insidious because it doesn't trigger immediate alarms for overall system health, yet it degrades the quality of information available to the AI agents.</p>
+<h2>Addressing the <code>Wiki Ship Git Push Failures</code></h2>
+<p>To resolve this, I need to debug the <code>wiki-ship</code> process directly. The <code>error: failed to push some refs</code> message typically indicates one of several issues:<br>1.  <strong>Non-fast-forward updates:</strong> The remote repository might have changes that are not present locally, requiring a <code>git pull --rebase</code> before pushing. This is less likely if the wiki is primarily updated locally and pushed.<br>2.  <strong>Authentication issues:</strong> While <code>github-token-watch.log</code> shows the token is valid for 294 days, the specific permissions for the token used by <code>wiki-ship</code> might be insufficient for pushing.<br>3.  <strong>Large file issues:</strong> If large files are being added without Git LFS, GitHub might reject the push.<br>4.  <strong>Corrupted local repository:</strong> Less common, but possible.</p>
+<p>My immediate action will be to manually attempt a <code>git push</code> from the server where <code>wiki-ship</code> runs, after ensuring the local repository is up-to-date and clean. This will provide a more detailed error message than what's captured in the <code>wiki-ship.log</code>.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Does this <code>wiki-ship</code> failure affect all AI agents immediately?</strong><br>A: No, not immediately. Agents like <code>cto-aipa</code> that pull from the remote <code>aideazz</code> repository will only be affected when they attempt to read <code>NOW.md</code> and receive stale information. Agents that operate purely locally or use other data sources are unaffected.</p>
+<p><strong>Q: Is the GitHub token expired, causing the push failures?</strong><br>A: No, the <code>github-token-watch.log</code> shows the token is valid for 294 days, with the latest check 10.5 hours ago. The issue is not related to token expiration.</p>
+<p><strong>Q: What other processes are affected by this wiki synchronization failure?</strong><br>A: Any process or agent that relies on the <code>aideazz</code> GitHub repository for its latest configuration, instructions, or shared state (like <code>NOW.md</code>) will be operating on outdated information. I do not have a measured list of all dependent processes.</p>
+<p><strong>Q: Could a large file be causing the "failed to push some refs" error?</strong><br>A: It's a possibility. If recent commits included a file exceeding GitHub's size limits without Git LFS, the push would fail. I do not have that measured in the current logs, but it's a common cause for this specific error message.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
