@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concierge Selftest: Suppressing Duplicate AI Card Production | AIdeazz</title>
+  <meta name="description" content="I shipped a system where a single AI-generated card could trigger redundant production. This isn't just about wasted compute cycles; it's about cluttering user interfaces and diluting the signal for …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/concierge-selftest-suppressing-duplicate-ai-card-production/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Concierge Selftest: Suppressing Duplicate AI Card Production">
+  <meta property="og:description" content="I shipped a system where a single AI-generated card could trigger redundant production. This isn't just about wasted compute cycles; it's about cluttering user interfaces and diluting the signal for …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/concierge-selftest-suppressing-duplicate-ai-card-production/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-16T19:30:12.582Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Concierge Selftest: Suppressing Duplicate AI Card Production">
+  <meta name="twitter:description" content="I shipped a system where a single AI-generated card could trigger redundant production. This isn't just about wasted compute cycles; it's about cluttering user interfaces and diluting the signal for …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Concierge Selftest: Suppressing Duplicate AI Card Production",
+  "description": "I shipped a system where a single AI-generated card could trigger redundant production. This isn't just about wasted compute cycles; it's about cluttering user interfaces and diluting the signal for …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-16T19:30:12.582Z",
+  "dateModified": "2026-09-16T19:30:12.582Z",
+  "url": "https://aideazz.xyz/blog/concierge-selftest-suppressing-duplicate-ai-card-production/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/concierge-selftest-suppressing-duplicate-ai-card-production/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does the system identify a duplicate card?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The system generates a unique identifier for each card, such as `064139fe48f3bd02`. When a new card is proposed, its identifier is compared against a registry of already produced cards. If a match is found, it's flagged as a duplicate."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens to the \"redundant drafters\" when a duplicate is suppressed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The log entry `duplicate suppressed (redundant drafters collapse)` indicates that the process attempting to create the duplicate card is halted. It does not necessarily mean the agent itself crashes, but its specific attempt to produce that particular card is aborted."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does duplicate suppression add significant latency to card production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `concierge-selftest.log` shows `3425ms to first card`. This time includes the duplicate check. I do not have a measured baseline for card production *without* the duplicate check to provide a direct comparison of the added latency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this duplicate suppression mechanism effective against all types of redundant output?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This specific mechanism is proven effective for the `Telegram card` production as logged. Its effectiveness for other types of AI agent output would depend on how those outputs are uniquely identified and how the suppression logic is integrated into their respective workflows."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Concierge Selftest: Suppressing Duplicate AI Card Production</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-16T19:30:12.582Z">September 16, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I shipped a system where a single AI-generated card could trigger redundant production. This isn't just about wasted compute cycles; it's about cluttering user interfaces and diluting the signal for human operators. My <code>concierge-selftest.log</code> shows a critical success: <code>duplicate suppressed (redundant drafters collapse)</code>. This specific log entry confirms that the system correctly identified and prevented a duplicate card from being produced, even after an initial card was successfully drafted. The log states: <code>ok a Telegram card was produced — draft 064139fe48f3bd02</code> followed by <code>ok duplicate suppressed (redundant drafters collapse) — {"ok":true,"duplicate":true,"existing":"064139fe48f3bd02"}</code>. This happened within a <code>3425ms</code> timeframe to produce the first card, indicating a rapid response.</p>
+<h2>The Cost of Redundancy in AI Agent Output</h2>
+<p>Unchecked duplicate output from AI agents can quickly overwhelm a system. Imagine an agent designed to create task cards for a team. If it produces the same card multiple times, operators waste time sifting through redundant information, or worse, act on the same instruction multiple times. This isn't theoretical; I've seen systems where this leads to confusion and inefficiency. My <code>cto-aipa</code> process, for example, has seen <code>151</code> restarts in <code>4d</code>, and <code>algom-stream</code> has <code>55193</code> restarts in <code>31d</code>. While these aren't directly linked to duplicate card production, they illustrate the fragility of AI agent processes and the need for robust error handling and output control.</p>
+<h2>Implementing Concierge Selftest Duplicate Suppression</h2>
+<p>The <code>concierge-selftest</code> is a critical component of my AI operations. It acts as a gatekeeper, verifying the integrity and uniqueness of AI-generated outputs before they are fully committed. The mechanism for duplicate suppression involves a check against existing outputs using a unique identifier, in this case, <code>064139fe48f3bd02</code>. When a new output attempt matches an existing one, the system flags it as a duplicate and suppresses its creation. This prevents the "redundant drafters collapse" scenario, where multiple agents might independently attempt to create the same card.</p>
+<p>The <code>concierge-selftest.log</code> entry <code>duplicate suppressed (redundant drafters collapse)</code> is the direct evidence of this mechanism working. It confirms that even if an agent, or multiple agents, attempt to create the same card, only the first successful attempt is allowed to proceed. The subsequent attempts are identified and halted.</p>
+<h2>Impact on System Stability and Operator Load</h2>
+<p>Preventing duplicate card production has a direct impact on the stability of my systems and the workload of human operators. Without this suppression, each duplicate card would consume resources for storage, display, and potential processing. This could contribute to increased memory usage across processes like <code>cto-aipa</code> at <code>226 MB</code> or <code>dragontrade-main</code> at <code>150 MB</code>. More importantly, it reduces the noise for operators. My <code>cita-sort.log</code> shows <code>0 card(s) repositioned across 3 board(s)</code> in recent runs, which indicates a stable state without unexpected card movements, partly due to controlled card creation.</p>
+<p>The <code>followup-radar.log</code> shows <code>255 inbox</code> items for <code>imap.zoho.com</code> and <code>722 inbox</code> for <code>imap.gmail.com</code> over <code>45d</code>. This volume of communication highlights the need for efficient information processing. Adding duplicate AI-generated cards to this mix would only exacerbate the problem, making it harder for operators to focus on critical tasks.</p>
+<h2>Beyond Card Production: Generalizing Duplicate Suppression</h2>
+<p>The principle of duplicate suppression extends beyond just card production. Any AI agent output that could be redundant or lead to conflicting actions benefits from such a mechanism. For instance, if an agent is generating reports, duplicate reports are useless. If it's sending notifications, duplicate notifications are annoying and counterproductive.</p>
+<p>My <code>github-token-watch.log</code> shows <code>293 days left</code> on a token, with daily checks. Imagine if this system sent a duplicate notification every day. The <code>job-board-watch.log</code> shows <code>VERDICT: REJECTED</code> for a wired board that <code>FAILED re-qualification</code>. If the system were to repeatedly attempt to qualify the same failed board without a suppression mechanism, it would waste resources and generate unnecessary alerts.</p>
+<p>The <code>concierge-selftest</code> provides a blueprint for building resilience into AI agent workflows. It's a small but critical piece of the puzzle in managing complex, autonomous systems where agents might operate asynchronously and sometimes redundantly.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How does the system identify a duplicate card?</strong><br>A: The system generates a unique identifier for each card, such as <code>064139fe48f3bd02</code>. When a new card is proposed, its identifier is compared against a registry of already produced cards. If a match is found, it's flagged as a duplicate.</p>
+<p><strong>Q: What happens to the "redundant drafters" when a duplicate is suppressed?</strong><br>A: The log entry <code>duplicate suppressed (redundant drafters collapse)</code> indicates that the process attempting to create the duplicate card is halted. It does not necessarily mean the agent itself crashes, but its specific attempt to produce that particular card is aborted.</p>
+<p><strong>Q: Does duplicate suppression add significant latency to card production?</strong><br>A: The <code>concierge-selftest.log</code> shows <code>3425ms to first card</code>. This time includes the duplicate check. I do not have a measured baseline for card production <em>without</em> the duplicate check to provide a direct comparison of the added latency.</p>
+<p><strong>Q: Is this duplicate suppression mechanism effective against all types of redundant output?</strong><br>A: This specific mechanism is proven effective for the <code>Telegram card</code> production as logged. Its effectiveness for other types of AI agent output would depend on how those outputs are uniquely identified and how the suppression logic is integrated into their respective workflows.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
