@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Restart Analysis: The 55193-Restart Anomaly vs. Stable Operations | AIdeazz</title>
+  <meta name="description" content="My algom-stream process has restarted 55193 times in 32 days. This isn't a minor glitch; it's a persistent, high-frequency failure that demands a deep dive into AI agent restart analysis. In contrast…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-restart-analysis-the-55193-restart-anomaly-vs-stable-operations/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Restart Analysis: The 55193-Restart Anomaly vs. Stable Operations">
+  <meta property="og:description" content="My algom-stream process has restarted 55193 times in 32 days. This isn't a minor glitch; it's a persistent, high-frequency failure that demands a deep dive into AI agent restart analysis. In contrast…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-restart-analysis-the-55193-restart-anomaly-vs-stable-operations/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-17T19:30:27.349Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Restart Analysis: The 55193-Restart Anomaly vs. Stable Operations">
+  <meta name="twitter:description" content="My algom-stream process has restarted 55193 times in 32 days. This isn't a minor glitch; it's a persistent, high-frequency failure that demands a deep dive into AI agent restart analysis. In contrast…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Restart Analysis: The 55193-Restart Anomaly vs. Stable Operations",
+  "description": "My algom-stream process has restarted 55193 times in 32 days. This isn't a minor glitch; it's a persistent, high-frequency failure that demands a deep dive into AI agent restart analysis. In contrast…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-17T19:30:27.349Z",
+  "dateModified": "2026-09-17T19:30:27.349Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-restart-analysis-the-55193-restart-anomaly-vs-stable-operations/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-restart-analysis-the-55193-restart-anomaly-vs-stable-operations/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you differentiate between a \"healthy\" restart and a \"failure\" restart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A healthy restart is typically planned (e.g., for deployment) or a rare, transient event. A failure restart is indicated by a high frequency of restarts over a short period, especially if accompanied by a lack of expected output, like `algom-stream`'s 55193 restarts with zero GA4 rows."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the first step you take when an agent shows 151 restarts in 5 days?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I check the agent's specific logs for error messages. For `cto-aipa`, I would look for patterns in the logs that correspond to the restart times, focusing on recent code changes in `VibeJobHunterAIPA_AIMCF` that might have introduced regressions or fixed bugs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does PM2's \"online\" status mean the agent is functioning correctly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. PM2's \"online\" status only means the process is running and hasn't explicitly exited with an error code that PM2 doesn't handle. As shown by `algom-stream`'s 55193 restarts and zero GA4 sync rows, an \"online\" agent can still be failing to perform its intended function."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor for these restart patterns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use `pm2 jlist` to get raw restart counts and uptime, combined with tailing specific application logs (e.g., `atlas-ga4-sync.log`, `wiki-ship.log`) to correlate restarts with functional failures or error messages."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Restart Analysis: The 55193-Restart Anomaly vs. Stable Operations</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-17T19:30:27.349Z">September 17, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>algom-stream</code> process has restarted 55193 times in 32 days. This isn't a minor glitch; it's a persistent, high-frequency failure that demands a deep dive into AI agent restart analysis. In contrast, <code>algom-poll</code> has zero restarts over 51 days, and <code>n8n</code> also shows zero restarts over 35 days. This stark difference across my production agents, all supervised by PM2, highlights the critical need to understand what constitutes "online" in an AI agent context and how to interpret varying restart patterns.</p>
+<h2>The 55193-Restart Anomaly: <code>algom-stream</code></h2>
+<p>The <code>algom-stream</code> agent, despite its 55193 restarts, is reported as "online" by PM2 and has been running for 32 days. It consumes 53 MB of memory. This indicates a process that is continuously crashing and being automatically resurrected. While PM2 ensures the service remains available, each restart represents a disruption: state loss, potential data reprocessing, and increased load on the system.</p>
+<p>My <code>atlas-ga4-sync.log</code> shows "GA4 sync: 0 atlas_ rows for 2026-09-14", "GA4 sync: 0 atlas_ rows for 2026-09-15", and "GA4 sync: 0 atlas_ rows for 2026-09-16". This log, modified 13.2 hours ago, suggests that despite <code>algom-stream</code> being "online" for 32 days, it might not be performing its intended function of syncing data. The high restart count could be masking a deeper issue where the agent fails to complete its tasks before crashing, leading to zero output rows.</p>
+<h2>Moderate Restarts: <code>cto-aipa</code> and <code>serpapi-jobs</code></h2>
+<p>Similarly, <code>serpapi-jobs</code> shows 22 restarts in less than one day, using 33 MB. This agent is relatively new or has just been restarted, making its restart count harder to contextualize over a longer period. However, 22 restarts in a single day is a warning sign. These agents, while not in the extreme failure loop of <code>algom-stream</code>, still require attention to identify the root causes of their instability. The <code>VibeJobHunterAIPA_AIMCF</code> repository, which likely relates to <code>cto-aipa</code>, has seen 3 commits in the last 48 hours, including "fix(judge): N+ years of overall experience is met; ingest says Bright Data, not SerpAPI" and "fix(judge): size only for certain household-name enterprises; every lane is AI work". These recent code changes suggest active development and bug fixing, which could be contributing to or addressing the observed restarts.</p>
+<h2>Stable Operations: <code>algom-poll</code> and <code>n8n</code></h2>
+<p>In stark contrast, <code>algom-poll</code> has 0 restarts over 51 days, running at 72 MB. This agent demonstrates true stability. It performs its function without interruption, maintaining its state and consuming resources efficiently. The <code>n8n</code> process also shows 0 restarts over 35 days, using 500 MB. These agents represent the ideal state for production systems: long uptime, no unexpected restarts, and consistent performance.</p>
+<p>The <code>cita-sort.log</code>, modified 0.7 hours ago, shows "cita-sort OK — 0 card(s) repositioned across 3 board(s)" for three consecutive hourly runs. This indicates a stable, predictable operation, likely managed by a reliable agent like <code>algom-poll</code> or <code>n8n</code>, where the "OK" status is consistent, even if no actions are taken.</p>
+<h2>Low Restarts: <code>dragontrade-dashboard</code>, <code>dragontrade-main</code>, <code>whitespace</code></h2>
+<p>Other agents fall into a low-restart category. <code>dragontrade-dashboard</code> has 1 restart in 32 days (56 MB), <code>dragontrade-main</code> has 3 restarts in 32 days (150 MB), and <code>whitespace</code> has 4 restarts in 31 days (102 MB). These low numbers suggest occasional, perhaps planned, restarts or minor, self-correcting issues. They are not indicative of systemic instability but warrant monitoring. A single restart over a month could be a deployment, a configuration change, or a transient network issue. These are acceptable operational events, not critical failures.</p>
+<h2>Implications for AI Agent Operations</h2>
+<p>The data reveals a spectrum of AI agent stability. The <code>algom-stream</code> case (55193 restarts) is a critical issue. While PM2 keeps it "online," the underlying problem is not resolved. This pattern suggests a fundamental flaw in the agent's logic, its dependencies, or its environment, causing it to crash repeatedly. My <code>wiki-ship.log</code> shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" repeated three times, modified 22.0 hours ago. This kind of persistent error, even in a different system, highlights how a seemingly "online" process can still be failing to perform its core function.</p>
+<p>For <code>cto-aipa</code> (151 restarts) and <code>serpapi-jobs</code> (22 restarts in 0 days), the focus should be on identifying the specific error conditions leading to crashes. These are likely more tractable issues than <code>algom-stream</code>'s continuous loop. Recent commits in <code>VibeJobHunterAIPA_AIMCF</code> (3 in 48 hours) indicate active development, which could be a source of, or a solution to, these restarts.</p>
+<p>The stable agents like <code>algom-poll</code> (0 restarts) and <code>n8n</code> (0 restarts) provide a baseline for healthy operation. Their long uptimes demonstrate robust design and execution. The <code>github-token-watch.log</code> showing "OK: 292 days left" for a token, modified 10.5 hours ago, is another example of a stable, predictable system check.</p>
+<p>My <code>NOW.md</code> file describes the current operator queue: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This highlights a critical operational constraint: fragmented agent communication. When agents cannot share context, diagnosing issues like high restart counts becomes more complex. Each agent operates in its own silo, making it harder to correlate failures or understand cascading effects.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you differentiate between a "healthy" restart and a "failure" restart?</strong><br>A: A healthy restart is typically planned (e.g., for deployment) or a rare, transient event. A failure restart is indicated by a high frequency of restarts over a short period, especially if accompanied by a lack of expected output, like <code>algom-stream</code>'s 55193 restarts with zero GA4 rows.</p>
+<p><strong>Q: What is the first step you take when an agent shows 151 restarts in 5 days?</strong><br>A: I check the agent's specific logs for error messages. For <code>cto-aipa</code>, I would look for patterns in the logs that correspond to the restart times, focusing on recent code changes in <code>VibeJobHunterAIPA_AIMCF</code> that might have introduced regressions or fixed bugs.</p>
+<p><strong>Q: Does PM2's "online" status mean the agent is functioning correctly?</strong><br>A: No. PM2's "online" status only means the process is running and hasn't explicitly exited with an error code that PM2 doesn't handle. As shown by <code>algom-stream</code>'s 55193 restarts and zero GA4 sync rows, an "online" agent can still be failing to perform its intended function.</p>
+<p><strong>Q: How do you monitor for these restart patterns?</strong><br>A: I use <code>pm2 jlist</code> to get raw restart counts and uptime, combined with tailing specific application logs (e.g., <code>atlas-ga4-sync.log</code>, <code>wiki-ship.log</code>) to correlate restarts with functional failures or error messages.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
