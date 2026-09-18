@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Restart Discrepancies: Stability vs. Relentless Recovery | AIdeazz</title>
+  <meta name="description" content="My PM2-supervised AI agents show a wide range of restart counts, from 0 to 55193. This isn't just a metric; it's a direct indicator of system stability and, critically, how much hidden work goes into…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Restart Discrepancies: Stability vs. Relentless Recovery">
+  <meta property="og:description" content="My PM2-supervised AI agents show a wide range of restart counts, from 0 to 55193. This isn't just a metric; it's a direct indicator of system stability and, critically, how much hidden work goes into…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-18T19:30:24.858Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Restart Discrepancies: Stability vs. Relentless Recovery">
+  <meta name="twitter:description" content="My PM2-supervised AI agents show a wide range of restart counts, from 0 to 55193. This isn't just a metric; it's a direct indicator of system stability and, critically, how much hidden work goes into…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Restart Discrepancies: Stability vs. Relentless Recovery",
+  "description": "My PM2-supervised AI agents show a wide range of restart counts, from 0 to 55193. This isn't just a metric; it's a direct indicator of system stability and, critically, how much hidden work goes into…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-18T19:30:24.858Z",
+  "dateModified": "2026-09-18T19:30:24.858Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does a high restart count always mean a problem?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always a complete outage, but it indicates instability. For `algom-stream` with 55193 restarts in 33 days, it means the process is constantly failing and being brought back up, which consumes resources and can lead to missed operations or data inconsistencies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you diagnose the cause of frequent restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The primary method is detailed logging. For agents like `algom-stream` where I do not have specific logs measured, I need to implement more granular error logging to capture the exact exceptions or conditions leading to the restarts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of fragmented AI agent communication on restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If agents like Cursor and Claude Code cannot share context, as described in `NOW.md`, they might operate on outdated or inconsistent information. This can lead to logic errors, unexpected states, and subsequent process crashes that trigger restarts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any agents that never restart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, `algom-poll` has 0 restarts over 52 days and `n8n` has 0 restarts over 36 days. These agents demonstrate robust stability, likely due to effective error handling and predictable operational environments."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Restart Discrepancies: Stability vs. Relentless Recovery</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-18T19:30:24.858Z">September 18, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My PM2-supervised AI agents show a wide range of restart counts, from 0 to 55193. This isn't just a metric; it's a direct indicator of system stability and, critically, how much hidden work goes into keeping an agent "online." The <code>algom-stream</code> process, for example, has restarted 55193 times over 33 days. In contrast, <code>algom-poll</code> has 0 restarts over 52 days, and <code>n8n</code> also has 0 restarts over 36 days. This discrepancy forces a re-evaluation of what "online" truly means for an AI agent in production.</p>
+<h2>The 55193-Restart Agent: <code>algom-stream</code></h2>
+<p>The <code>algom-stream</code> agent is a case study in relentless recovery. With 55193 restarts in 33 days, it's effectively a process that fails and restarts almost constantly. Its memory usage is 53 MB, which isn't particularly high. This high restart count suggests a fundamental instability, likely an unhandled exception or a resource contention issue that PM2 is diligently masking. While PM2 keeps it "online," the underlying problem is never resolved, only reset. This creates a false sense of security; the service is technically available, but its operational efficiency and reliability are severely compromised. I do not have logs for <code>algom-stream</code> measured in the evidence, so the specific cause of these restarts remains unpinned.</p>
+<h2>The Moderately Restarted Agents: <code>cto-aipa</code> and <code>serpapi-jobs</code></h2>
+<p>Other agents exhibit moderate restart counts. <code>cto-aipa</code> has 152 restarts, but it's only been up for 0 days. This indicates a recent deployment or a period of intense instability followed by a restart of the PM2 daemon itself. Its memory usage is 188 MB. The <code>serpapi-jobs</code> agent has 22 restarts over 1 day, using 35 MB of memory. These numbers, while not as extreme as <code>algom-stream</code>, still point to intermittent issues. For <code>cto-aipa</code>, the <code>NOW.md</code> file, which serves as working memory for Cursor and Claude Code, highlights the challenge of fragmented AI agent communication. The file explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This lack of shared context could contribute to unexpected states and subsequent restarts if agents are making assumptions about the system's state that are not globally consistent.</p>
+<h2>The Stable Agents: <code>algom-poll</code> and <code>n8n</code></h2>
+<p>On the other end of the spectrum, <code>algom-poll</code> and <code>n8n</code> demonstrate remarkable stability. <code>algom-poll</code> has 0 restarts over 52 days, consuming 72 MB. <code>n8n</code> also has 0 restarts over 36 days, with 500 MB memory usage. These agents represent the ideal state for production systems: long uptime without interruption. Their stability suggests robust error handling, predictable external dependencies, or simpler operational logic that is less prone to failure. The <code>cita-sort.log</code> shows <code>cita-sort OK</code> messages, indicating successful operations without issues, which aligns with the stability observed in some agents.</p>
+<h2>Implications for AI Agent Development and Monitoring</h2>
+<p>The wide range of AI agent restart discrepancies highlights several critical points for development and monitoring:</p>
+<p>1.  <strong>"Online" is not "Healthy":</strong> A process being listed as "online" by PM2 does not guarantee it's operating efficiently or without underlying issues. A high restart count, like <code>algom-stream</code>'s 55193, indicates a system that is constantly failing and recovering, which consumes resources and can lead to data inconsistencies or missed operations.<br>2.  <strong>Log Granularity is Key:</strong> Without detailed logs for agents like <code>algom-stream</code>, diagnosing the root cause of frequent restarts is impossible. My <code>wiki-ship.log</code> shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" repeatedly, which is a clear error message. Similar clarity is needed for all agents.<br>3.  <strong>Proactive vs. Reactive Monitoring:</strong> Relying solely on PM2's restart mechanism is reactive. While it prevents total service outages, it doesn't address the underlying instability. Proactive monitoring should track restart rates, memory usage patterns, and application-specific health checks beyond just process status. The <code>concierge-selftest.log</code> shows <code>✅ PASS — 4 checks, 3102ms to first card</code>, which is an example of a good application-level health check.<br>4.  <strong>Agent Communication and State Management:</strong> For multi-agent systems, the <code>NOW.md</code> file's description of fragmented communication between Cursor and Claude Code is a critical insight. If agents cannot share context, they might operate on stale or incorrect assumptions, leading to errors and restarts. This underscores the need for robust inter-agent communication protocols or shared, consistent state.</p>
+<h2>Addressing Restart Discrepancies</h2>
+<p>My immediate action items involve deeper investigation into the highly restarting agents. For <code>algom-stream</code>, I need to implement comprehensive logging to capture the specific errors causing its 55193 restarts. This might involve adding more <code>try-catch</code> blocks, detailed error messages, and perhaps integrating with a centralized logging system. For <code>cto-aipa</code>, given its recent 152 restarts and the <code>NOW.md</code> context, I need to review its interaction patterns and state management to ensure it's not encountering race conditions or inconsistent data due to fragmented agent communication. The <code>VibeJobHunterAIPA_AIMCF</code> repository has seen 3 commits in the last 48 hours, indicating active development, which could also contribute to recent instability if changes introduce new bugs.</p>
+<p>The goal is not just to reduce restart counts but to understand <em>why</em> they are happening. A stable system, like <code>algom-poll</code> with 0 restarts over 52 days, is one where failures are either gracefully handled internally or are so rare that they don't trigger a process restart. This is the standard I aim for across all my AI agents.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Does a high restart count always mean a problem?</strong><br>A: Not always a complete outage, but it indicates instability. For <code>algom-stream</code> with 55193 restarts in 33 days, it means the process is constantly failing and being brought back up, which consumes resources and can lead to missed operations or data inconsistencies.</p>
+<p><strong>Q: How do you diagnose the cause of frequent restarts?</strong><br>A: The primary method is detailed logging. For agents like <code>algom-stream</code> where I do not have specific logs measured, I need to implement more granular error logging to capture the exact exceptions or conditions leading to the restarts.</p>
+<p><strong>Q: What is the impact of fragmented AI agent communication on restarts?</strong><br>A: If agents like Cursor and Claude Code cannot share context, as described in <code>NOW.md</code>, they might operate on outdated or inconsistent information. This can lead to logic errors, unexpected states, and subsequent process crashes that trigger restarts.</p>
+<p><strong>Q: Are there any agents that never restart?</strong><br>A: Yes, <code>algom-poll</code> has 0 restarts over 52 days and <code>n8n</code> has 0 restarts over 36 days. These agents demonstrate robust stability, likely due to effective error handling and predictable operational environments.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
