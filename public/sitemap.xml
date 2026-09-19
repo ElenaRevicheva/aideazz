@@ -97,6 +97,12 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://aideazz.xyz/blog/fragmented-ai-agent-communication-the-nowmd-constraint/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
