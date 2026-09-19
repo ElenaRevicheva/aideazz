@@ -39,7 +39,7 @@
     {"@type":"Question","name":"What is the AIdeazz AI Lab?","acceptedAnswer":{"@type":"Answer","text":"A production fleet of eleven AI co-founder agents plus a marketing engine, running 24/7 on a single Oracle VM at zero monthly infrastructure cost. It publishes content daily, captures leads into a CRM, and measures whether campaigns moved the needle rather than reporting vanity metrics."}},
     {"@type":"Question","name":"How does AIdeazz keep AI agents from dying silently?","acceptedAnswer":{"@type":"Answer","text":"Every product declares a health check, a restart command and a PM2 or systemd process name in a single resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph."}},
     {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
-    {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited."}},
+    {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited."}},
     {"@type":"Question","name":"How does AIdeazz stop AI from publishing made-up numbers?","acceptedAnswer":{"@type":"Answer","text":"The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Near-duplicate articles are blocked by token overlap rather than slug equality, and every incident where a system fooled the operator is written up with a named failure mode in the public AI Ops Wiki."}},
     {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
   ]}
@@ -1514,7 +1514,7 @@
       </div>
       <div class="meta-item">
         <div class="meta-label">Updated</div>
-        <div class="meta-val">August 27, 2026</div>
+        <div class="meta-val">September 19, 2026</div>
       </div>
       <div class="meta-item">
         <div class="meta-label">Status</div>
@@ -1527,25 +1527,25 @@
   </div>
 </header>
 
-<!-- Proof ticker — every figure read from the running systems (provenance dossier, 24 Aug 2026) -->
+<!-- Proof ticker — every figure read from the running systems (provenance dossier 24 Aug 2026; counts refreshed 19 Sep 2026) -->
 <div class="proof-ticker" aria-label="Verified production numbers">
   <div class="proof-track">
     <span class="proof-half-a proof-item"><b>~181K</b> lines of original code</span>
-    <span class="proof-half-a proof-item"><b>15 mo</b> one operator · one server</span>
-    <span class="proof-half-a proof-item"><b>124</b> essays · daily 14:30</span>
-    <span class="proof-half-a proof-item"><b>12</b> AI Ops Wiki chapters</span>
+    <span class="proof-half-a proof-item"><b>20 mo</b> one operator · one server</span>
+    <span class="proof-half-a proof-item"><b>150+</b> essays · daily 14:30</span>
+    <span class="proof-half-a proof-item"><b>21</b> AI Ops Wiki incidents · 18 failure modes</span>
     <span class="proof-half-a proof-item"><b>11</b> podcast episodes</span>
     <span class="proof-half-a proof-item"><b>6</b> films · automated edit</span>
     <span class="proof-half-a proof-item"><b>5</b> LLM providers · one chain</span>
-    <span class="proof-half-a proof-item"><b>140</b> sitemap URLs · 7 machine-readable surfaces</span>
+    <span class="proof-half-a proof-item"><b>173</b> sitemap URLs · 7 machine-readable surfaces</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>~181K</b> lines of original code</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>15 mo</b> one operator · one server</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>124</b> essays · daily 14:30</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>12</b> AI Ops Wiki chapters</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>20 mo</b> one operator · one server</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>150+</b> essays · daily 14:30</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>21</b> AI Ops Wiki incidents · 18 failure modes</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>11</b> podcast episodes</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>6</b> films · automated edit</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>5</b> LLM providers · one chain</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>140</b> sitemap URLs · 7 machine-readable surfaces</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>173</b> sitemap URLs · 7 machine-readable surfaces</span>
   </div>
 </div>
 
@@ -1555,7 +1555,7 @@
     <strong>What a business owner should take away</strong>
     <ul>
       <li><strong>One lab, many products:</strong> tutoring bots, job hunter, social growth, CRM pipeline, daily blog, and a marketing radar (Atlas) that reads the ad market and exports test campaigns—with real Google Analytics feedback since July 2026.</li>
-      <li><strong>Honest numbers:</strong> 124 essays published, 12 wiki chapters, ~181K lines of code read from production (<a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">dossier</a>); CRM has processed 900+ deals historically; revenue is still effectively zero — the systems are the proof, not the sales curve.</li>
+      <li><strong>Honest numbers:</strong> 150+ essays published, 21 wiki incidents and 18 named failure modes, ~181K lines of code read from production (<a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">dossier</a>); CRM has processed 900+ deals historically; revenue is still effectively zero — the systems are the proof, not the sales curve.</li>
       <li><strong>Risk control:</strong> automated health checks and isolated secrets mean one bot failing does not take down the whole fleet.</li>
       <li><strong>Why this page exists:</strong> public proof that AIdeazz runs like a product company—not slide decks—so clients, partners, and search engines can verify operational maturity.</li>
     </ul>
@@ -1585,7 +1585,7 @@
           <tr><td>Measure layer</td><td>Website sessions, form leads, deals by campaign</td><td>Atlas concept cards (performance block)</td></tr>
           <tr><td>Learning record</td><td>AI Ops Wiki — 12 production incidents, each with a named failure mode and a verified number. Generated, never hand-edited</td><td><a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></td></tr>
           <tr><td>Provenance dossier</td><td>Nine systems and why they exist — engineering provenance for every product, figures read from production</td><td><a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">nine-systems</a></td></tr>
-          <tr><td>Publishing engine</td><td>124 essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
+          <tr><td>Publishing engine</td><td>150+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
           <tr><td>AI Film Studio</td><td>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 6 films live</td><td><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></td></tr>
           <tr><td>Investor / narrative deck</td><td>The live pitch — August 2026 actualization, honest traction</td><td><a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener">pitch.html</a></td></tr>
           <tr><td>Sibling products</td><td>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></td></tr>
@@ -1651,7 +1651,7 @@
   <div class="bento" id="bento-stats">
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="11" data-duration="1400">0</div><div class="b-label">Tracked capabilities · 10 live · 1 roadmap (AILA)</div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">0</div><div class="b-label">Lines of original code · <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">provenance dossier</a></div></div>
-    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="124" data-duration="1400">0</div><div class="b-label">Essays published · grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">/blog</a></div></div>
+    <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="150" data-duration="1400">0</div><div class="b-label">Essays published · grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none;">/blog</a></div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="0" data-end="12" data-duration="1200">0</div><div class="b-label">Named failure modes · <a href="/ai-ops-wiki.html" style="color:var(--cyan);text-decoration:none;">AI Ops Wiki</a></div></div>
     <div class="b-card"><div class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</div><div class="b-label">Manual steps in milestone → social pipeline</div></div>
   </div>
@@ -1804,7 +1804,7 @@
                 <a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a>
               </div>
             </td>
-            <td><strong>Founder ritual:</strong> Daily audio briefing synthesized from tasks, notes, and captures.<br /><span style="color:var(--t3);font-size:12.5px;">AWS Lambda on a schedule; pulls context through the CTO service over HTTPS with shared-secret auth—no database wallet inside Lambda.</span></td>
+            <td><strong>Founder ritual:</strong> Daily audio briefing synthesized from tasks, notes, and captures. Since 18&nbsp;Sep&nbsp;2026 it reads only the current month&#8217;s Trello board (Just for Today + To Dos), voice notes from the last 48&nbsp;hours and the last day&#8217;s commits &#8212; and says so plainly when nothing is new, instead of replaying old items.<br /><span style="color:var(--t3);font-size:12.5px;">AWS Lambda on a schedule; pulls context through the CTO service over HTTPS with shared-secret auth—no database wallet inside Lambda.</span></td>
             <td><span class="badge b-lambda">Lambda</span></td>
             <td><span class="badge b-live">● Live</span></td>
           </tr>
@@ -1868,6 +1868,9 @@
     </div>
     <div class="callout">
       <div><strong>Model retirements are config, not rewrites:</strong> providers retire hosted models every few months (Groq drops Llama&nbsp;3.3 for its dev tier in Aug&nbsp;2026). Every agent resolves its model id through one fleet-wide switch, so a cutover is a one-line <code>.env</code> change — tested against a golden-set eval before flipping, and instantly reversible. The switch shipped fleet-wide in July&nbsp;2026, weeks ahead of the deadline. <em>For founders:</em> the AI vendor treadmill is priced into the architecture, not paid for in rebuild weeks.</div>
+    </div>
+    <div class="callout">
+      <div><strong>A failure must reach a human, not a log (Sep&nbsp;2026):</strong> two silent failures surfaced the same week. The wiki publisher had been jammed for 15&nbsp;days by an interrupted rebase that one <code>catch&nbsp;{}</code> swallowed every night, so the AEO manifest froze while every run looked finished. The morning briefing was running a three-month-old Lambda bundle with a revoked token and a retired model id &#8212; the fleet-wide model switch had never reached the one agent deployed off the VM. Fixes: the publisher now syncs before it generates and alerts Telegram on any failure; the Lambda was rebuilt from source and joined the switch. Rule since: <strong>verify the deployed artifact, not the config.</strong></div>
     </div>
     <div class="health-list">
       <div class="health-head">
@@ -2292,7 +2295,7 @@
       </div>
       <div class="faq-item">
         <h3>How is content optimized for AI search, not just Google?</h3>
-        <p>A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini and OpenAI search whether AIdeazz was actually cited.</p>
+        <p>A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited.</p>
       </div>
       <div class="faq-item">
         <h3>How does AIdeazz stop AI from publishing made-up numbers?</h3>
