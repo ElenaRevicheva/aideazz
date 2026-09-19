@@ -41,6 +41,7 @@
     {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
     {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited."}},
     {"@type":"Question","name":"How does AIdeazz stop AI from publishing made-up numbers?","acceptedAnswer":{"@type":"Answer","text":"The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Near-duplicate articles are blocked by token overlap rather than slug equality, and every incident where a system fooled the operator is written up with a named failure mode in the public AI Ops Wiki."}},
+    {"@type":"Question","name":"What is the AI Visibility Audit API?","acceptedAnswer":{"@type":"Answer","text":"A free public API that scores any website 0 to 100 for AI search visibility: 34 automated checks in four weighted categories (AI crawler access 25%, structured data or GEO 25%, answer-readiness or AEO 30%, technical foundation 20%) plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 19 September 2026 aideazz.xyz, the podcast and this runbook scored 100 out of 100. Try it free at aideazz.xyz/api."}},
     {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
   ]}
   </script>
@@ -1997,7 +1998,7 @@
           <div class="p-card">
             <div class="p-channel">Instagram · Even days 18:00 Panama</div>
             <h3>EspaLuz Influencer</h3>
-            <p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending.</p>
+            <p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending. Since Sep 2026 the same channel also carries the AI Visibility API campaign two days in three (EspaLuz on the third), alternating English and Spanish.</p>
           </div>
         </div>
       </div>
@@ -2320,6 +2321,10 @@
       <div class="faq-item">
         <h3>How does AIdeazz stop AI from publishing made-up numbers?</h3>
         <p>The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Every incident where a system fooled the operator gets a named failure mode in the <a href="/ai-ops-wiki.html">AI Ops Wiki</a>.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is the AI Visibility Audit API?</h3>
+        <p>A free public API that scores any website 0–100 for AI search visibility: <strong>34 automated checks</strong> in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 19 September 2026 aideazz.xyz, the podcast and this runbook scored 100/A+. Try it free at <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">aideazz.xyz/api</a>.</p>
       </div>
       <div class="faq-item">
         <h3>Who is this page for?</h3>

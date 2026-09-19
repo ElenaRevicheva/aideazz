@@ -828,7 +828,7 @@
                 <div class="tile tile-glow">
                     <div class="tag-mono">EVALUATION</div>
                     <h3 class="mt-s" data-i18n="sol.c4.t">Production-grade eval harness</h3>
-                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c4.b">131-test, 4-layer VJH harness ($0.03/run). Daily blog grounding gate: fail-closed on unsourced numbers, fail-open on cadence. Named failure modes live in the AI Ops Wiki (21 incidents, 18 failure modes).</p>
+                    <p style="font-size:0.85rem;color:var(--muted);line-height:1.6;" data-i18n="sol.c4.b">550-test, 4-layer VJH harness ($0.03/run). Daily blog grounding gate: fail-closed on unsourced numbers, fail-open on cadence. Named failure modes live in the AI Ops Wiki (21 incidents, 18 failure modes).</p>
                 </div>
             </div>
         </div>
@@ -966,7 +966,7 @@
                     </div>
                     <div class="badges">
                         <span class="pill pill-wip"><span class="pill-dot"></span>DELIVERY VERIFYING</span>
-                        <span class="pill pill-early"><span class="pill-dot"></span>131 TESTS</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span>550 TESTS</span>
                     </div>
                 </div>
 
@@ -982,6 +982,7 @@
                     <div>
                         <div class="tag-mono mt-s">PIPELINE — LANGGRAPH (LIVE APR 2026)</div>
                         <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;"><strong style="color:var(--text);">7-node StateGraph:</strong> gate → score → route → submit/outreach/discard → notify. SQLite checkpointer per job_id eliminates duplicate processing. Human-approval interrupt for score 60–69. Real HTTP status + confirmation_id capture on every ATS submission. First Oracle cycle: 8 jobs, all correctly discarded, zero errors.</p>
+                        <p style="font-size:0.9rem;color:var(--muted);line-height:1.7;margin-top:10px;" data-i18n="vjh.sep"><strong style="color:var(--text);">Sep 2026:</strong> the target-role list lives in one shared registry rendered into every prompt and gate, guarded by 413 contract tests; a dry-run replay of 51 rejected jobs proved 20 were wrong before deploy.</p>
                         <div class="flex-wrap mt-m">
                             <a href="https://t.me/vibejob_hunter_bot" class="btn btn-primary" target="_blank">VibeJob Bot</a>
                         </div>
@@ -1102,6 +1103,64 @@
         </div>
     </div>
 
+    <!-- 8c. AI VISIBILITY LAYER — added 2026-09-19 (additive). Scores measured that day with the live API. -->
+    <div class="slide" data-slide>
+        <div class="shell">
+            <div class="strip"><span class="accent">08c</span><span class="sep">//</span><span data-i18n="s8c.strip">AI VISIBILITY LAYER · API + AEO / GEO / TECH SEO</span></div>
+            <h2 data-i18n="s8c.title">Built to be <span class="serif">read and quoted</span><br><span class="grad">by AI answer engines.</span></h2>
+
+            <div class="spot mt-m">
+                <div class="spot-head">
+                    <div>
+                        <div class="spot-name" data-i18n="s8c.name">AI Visibility Audit API — the product and the instrument</div>
+                        <div class="spot-sub" data-i18n="s8c.sub">I sell it, and I run it on every surface I own. 34 checks in four weighted categories, plus a verdict for each of six AI crawlers.</div>
+                    </div>
+                    <div class="badges">
+                        <span class="pill pill-live"><span class="pill-dot"></span>LIVE</span>
+                        <span class="pill pill-early"><span class="pill-dot"></span><span data-i18n="s8c.pill">SELF-AUDITED 19 SEP</span></span>
+                    </div>
+                </div>
+
+                <div class="bento bento-3">
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono" data-i18n="s8c.t1.tag">01 / GEO — MACHINE-READABLE IDENTITY</div>
+                        <h3 class="mt-s" data-i18n="s8c.t1.h">Facts a model can cite</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;" data-i18n="s8c.t1.p">JSON-LD for the organisation, the person, the site, FAQs and lists; <span class="mono">llms.txt</span> plus its <span class="mono">.well-known</span> mirror; a dated <span class="mono">geo-manifest</span> naming the API, blog, wiki and podcast.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono" data-i18n="s8c.t2.tag">02 / AEO — ANSWER-READY CONTENT</div>
+                        <h3 class="mt-s" data-i18n="s8c.t2.h">Content shaped as answers</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;" data-i18n="s8c.t2.p">150+ grounded blog posts (EN/ES), 21 wiki incidents with named failure modes, 11 podcast episodes linked to their posts, FAQ markup on the ops runbook — every figure traceable to a source.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono" data-i18n="s8c.t3.tag">03 / TECH SEO — CRAWLABLE BY DESIGN</div>
+                        <h3 class="mt-s" data-i18n="s8c.t3.h">Nothing hides from the crawlers</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;" data-i18n="s8c.t3.p">robots.txt explicitly allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot and more); a 173-URL sitemap plus the podcast sitemap; static pages served from an IPFS edge.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(168,85,247,0.06));">
+                        <div class="tag-mono" data-i18n="s8c.t4.tag">04 / SELF-AUDIT · 19 SEP 2026</div>
+                        <h3 class="mt-s" data-i18n="s8c.t4.h">The API, run on my own products</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.6;" data-i18n="s8c.t4.p">aideazz.xyz <span class="mono" style="color:var(--cyan);">100 A+</span> · podcast <span class="mono" style="color:var(--cyan);">100 A+</span> · ops runbook <span class="mono" style="color:var(--cyan);">100 A+</span> · /api <span class="mono" style="color:var(--cyan);">98 A+</span> · wiki <span class="mono" style="color:var(--cyan);">93 A+</span> · atuona.xyz <span class="mono">69 C</span> — 0 of 6 AI crawlers allowed: the audit's own finding, fix queued.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono" data-i18n="s8c.t5.tag">05 / DISTRIBUTION</div>
+                        <h3 class="mt-s" data-i18n="s8c.t5.h">One story, every channel</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;" data-i18n="s8c.t5.p">LinkedIn, Instagram and YouTube through Buffer and Make.com — including a daily rotation of the API's own product film — and X through Algom Alpha on the X API.</p>
+                    </div>
+                    <div class="tile" style="border-color:var(--border-cyan);">
+                        <div class="tag-mono" data-i18n="s8c.t6.tag">06 / MEASUREMENT</div>
+                        <h3 class="mt-s" data-i18n="s8c.t6.h">Citations, not assumptions</h3>
+                        <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;" data-i18n="s8c.t6.p">A weekly probe asks Google AI Overviews, Gemini, OpenAI search and Perplexity real buying questions and records whether AIdeazz is cited, named without a link, or missed.</p>
+                    </div>
+                </div>
+                <div class="flex-wrap mt-m">
+                    <a href="https://aideazz.xyz/api" class="btn btn-primary" target="_blank" rel="noopener" data-i18n="s8c.btn">Score any site free →</a>
+                    <a href="https://aideazz.xyz/sop-ai-ops.html" class="btn" target="_blank" rel="noopener" data-i18n="s8c.btn2">How the fleet runs</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 9. AUGUST 2026 · WHAT THE STACK LEARNED -->
     <div class="slide" data-slide>
         <div class="shell">
@@ -1183,23 +1242,23 @@
                     <div class="stat-sub" data-i18n="trac.s1">EspaLuz paying subs — retained since 2025, zero marketing</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="131">131</div>
+                    <div class="stat-big" data-count-to="550">550</div>
                     <div class="stat-sub" data-i18n="trac.s2">Tests in VJH eval harness — 4 layers, $0.03/run</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="1004">1004</div>
+                    <div class="stat-big" data-count-to="1581">1581</div>
                     <div class="stat-sub" data-i18n="trac.s3">Commits on the ops-brain repo (AIPA_AITCF) — built in the open, verifiable on GitHub</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="12">12</div>
-                    <div class="stat-sub" data-i18n="trac.s4">AI Ops Wiki chapters — named production failure modes, live</div>
+                    <div class="stat-big" data-count-to="21">21</div>
+                    <div class="stat-sub" data-i18n="trac.s4">AI Ops Wiki incidents — 18 named production failure modes, live</div>
                 </div>
                 <div class="tile tile-glow">
                     <div class="stat-big" data-count-to="6">6</div>
                     <div class="stat-sub" data-i18n="trac.s5">Films live in Atuona's AI film studio — automated edit, mix, −16 LUFS master</div>
                 </div>
                 <div class="tile tile-glow">
-                    <div class="stat-big" data-count-to="1166">1166</div>
+                    <div class="stat-big" data-count-to="1495">1495</div>
                     <div class="stat-sub" data-i18n="trac.s6">Roles surfaced by VibeJob Hunter — 11 sources, human on the last click</div>
                 </div>
                 <div class="tile tile-glow">
@@ -1242,6 +1301,10 @@
                 <div class="tl-row">
                     <div class="tl-yr">Aug 2026</div>
                     <div class="tl-txt" data-i18n="fnd.r5"><strong>Same stack, stricter:</strong> daily blog grounding gate (fail-closed on claims, fail-open on cadence), AI Ops Wiki (12 chapters), one-click outreach with Cc + PDF that refuses to send if the file is missing, inbound concierge on a 5-provider chain. Portfolio is the money page.</div>
+                </div>
+                <div class="tl-row">
+                    <div class="tl-yr">Sep 2026</div>
+                    <div class="tl-txt" data-i18n="fnd.r6"><strong>AI visibility, measured:</strong> the lab's own surfaces audited by its own API — aideazz.xyz, the podcast and the ops runbook score 100/A+, the wiki 93; the API and podcast are now named in llms.txt and the geo-manifest; the nightly wiki publisher was unjammed and now alerts on failure.</div>
                 </div>
             </div>
 
@@ -1345,7 +1408,7 @@
                 <div class="tile tile-glow" style="border-color:var(--border-cyan);background:linear-gradient(135deg,rgba(0,229,255,0.06),rgba(0,229,255,0.02));">
                     <div class="tag-mono" style="color:#00e5ff;">● PRIMARY · FOUNDING AI HIRE</div>
                     <h3 class="mt-s" data-i18n="ask.a.t">Join the right team</h3>
-                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="ask.a.b">Full-time remote, founding / senior AI or applied-AI engineer. $3.5K–$5K+/mo USD. LATAM-friendly hours. Someone who can design, build, and ship AI systems end-to-end — board-level operator + production builder. Rare combination, fully verifiable above.</p>
+                    <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;" data-i18n="ask.a.b">Full-time remote, founding / senior AI or applied-AI engineer — or AI Product Manager, AI Solutions Architect, AI Systems Consultant, fractional Chief AI Officer. $3.5K–$5K+/mo USD. LATAM-friendly hours. Someone who can design, build, and ship AI systems end-to-end — board-level operator + production builder. Rare combination, fully verifiable above.</p>
                 </div>
                 <div class="tile tile-glow" style="border-color:rgba(168,85,247,0.35);">
                     <div class="tag-mono" style="color:#c084fc;">● SECONDARY · ACCELERATOR / INVESTMENT</div>
@@ -1402,6 +1465,34 @@
     // Translations (Spanish)
     const translations = {
         // --- 8b PUBLIC SURFACES (added 2026-09-19, additive) ---
+        // --- 8c AI VISIBILITY LAYER + Sep 2026 rows (added 2026-09-19, additive) ---
+        's8c.strip': 'CAPA DE VISIBILIDAD EN IA · API + AEO / GEO / SEO TÉCNICO',
+        's8c.title': 'Hecho para ser <span class="serif">leído y citado</span><br><span class="grad">por los motores de respuesta de IA.</span>',
+        's8c.name': 'API de Auditoría de Visibilidad en IA — el producto y el instrumento',
+        's8c.sub': 'La vendo, y la aplico a cada superficie propia. 34 verificaciones en cuatro categorías ponderadas, más un veredicto por cada uno de seis rastreadores de IA.',
+        's8c.pill': 'AUTOAUDITADO 19 SEP',
+        's8c.t1.tag': '01 / GEO — IDENTIDAD LEGIBLE POR MÁQUINAS',
+        's8c.t1.h': 'Datos que un modelo puede citar',
+        's8c.t1.p': 'JSON-LD para la organización, la persona, el sitio, preguntas frecuentes y listas; <span class="mono">llms.txt</span> y su espejo <span class="mono">.well-known</span>; un <span class="mono">geo-manifest</span> fechado que nombra la API, el blog, el wiki y el podcast.',
+        's8c.t2.tag': '02 / AEO — CONTENIDO LISTO PARA RESPONDER',
+        's8c.t2.h': 'Contenido con forma de respuesta',
+        's8c.t2.p': 'Más de 150 artículos fundamentados (EN/ES), 21 incidentes del wiki con modos de falla nombrados, 11 episodios de podcast enlazados a su artículo, marcado FAQ en el runbook de operaciones — cada cifra con fuente verificable.',
+        's8c.t3.tag': '03 / SEO TÉCNICO — RASTREABLE POR DISEÑO',
+        's8c.t3.h': 'Nada se oculta a los rastreadores',
+        's8c.t3.p': 'robots.txt permite explícitamente los rastreadores de IA (GPTBot, ClaudeBot, PerplexityBot y más); un sitemap de 173 URLs más el del podcast; páginas estáticas servidas desde un edge IPFS.',
+        's8c.t4.tag': '04 / AUTOAUDITORÍA · 19 SEP 2026',
+        's8c.t4.h': 'La API, aplicada a mis propios productos',
+        's8c.t4.p': 'aideazz.xyz <span class="mono" style="color:var(--cyan);">100 A+</span> · podcast <span class="mono" style="color:var(--cyan);">100 A+</span> · runbook <span class="mono" style="color:var(--cyan);">100 A+</span> · /api <span class="mono" style="color:var(--cyan);">98 A+</span> · wiki <span class="mono" style="color:var(--cyan);">93 A+</span> · atuona.xyz <span class="mono">69 C</span> — 0 de 6 rastreadores de IA permitidos: hallazgo de la propia auditoría, arreglo en cola.',
+        's8c.t5.tag': '05 / DISTRIBUCIÓN',
+        's8c.t5.h': 'Una historia, todos los canales',
+        's8c.t5.p': 'LinkedIn, Instagram y YouTube vía Buffer y Make.com — incluida una rotación diaria del propio film de la API — y X vía Algom Alpha con la API de X.',
+        's8c.t6.tag': '06 / MEDICIÓN',
+        's8c.t6.h': 'Citas, no suposiciones',
+        's8c.t6.p': 'Una sonda semanal hace preguntas reales de compra a Google AI Overviews, Gemini, OpenAI search y Perplexity y registra si AIdeazz aparece citado, nombrado sin enlace u omitido.',
+        's8c.btn': 'Puntúe cualquier sitio gratis →',
+        's8c.btn2': 'Cómo funciona la flota',
+        'vjh.sep': '<strong style="color:var(--text);">Sep 2026:</strong> la lista de roles objetivo vive en un único registro compartido que alimenta cada prompt y filtro, protegida por 413 pruebas de contrato; una repetición en seco de 51 empleos rechazados demostró que 20 estaban mal rechazados antes de desplegar.',
+        'fnd.r6': '<strong>Visibilidad en IA, medida:</strong> las superficies del laboratorio auditadas con su propia API — aideazz.xyz, el podcast y el runbook de operaciones con 100/A+, el wiki 93; la API y el podcast ahora figuran en llms.txt y el geo-manifest; el publicador nocturno del wiki se desbloqueó y ahora avisa si falla.',
         'hero.pillApi': '● API DE AUDITORÍA DE VISIBILIDAD EN IA · EN VIVO · GRATIS',
         'hero.btnApi': 'API de Auditoría de Visibilidad',
         's8b.flow': '<span class="mono" style="color:var(--cyan);">CÓMO SE CONECTAN —</span> las sesiones de desarrollo se convierten en incidentes del wiki → el wiki publica en el blog y en Dev.to → los 11 episodios del podcast enlazan a su artículo del blog → el blog y el wiki figuran para los rastreadores de IA en llms.txt, el sitemap y un manifiesto GEO fechado → una sonda semanal verifica si los motores de respuesta de IA realmente los citan.',
@@ -1455,7 +1546,7 @@
         'sol.c3.t': 'Interfaces de voz en cada agente',
         'sol.c3.b': 'Transcripción Groq Whisper. Accesible vía WhatsApp y Telegram — sin instalación de app. Latencia sub-2s en EspaLuz.',
         'sol.c4.t': 'Arnés de evaluación grado producción',
-        'sol.c4.b': '131 tests, 4 capas VJH ($0.03/run). Gate de grounding del blog diario: fail-closed en cifras sin fuente, fail-open en cadencia. Modos de falla nombrados en el AI Ops Wiki (21 incidentes, 18 modos de falla; capítulos).',
+        'sol.c4.b': '550 tests, 4 capas VJH ($0.03/run). Gate de grounding del blog diario: fail-closed en cifras sin fuente, fail-open en cadencia. Modos de falla nombrados en el AI Ops Wiki (21 incidentes, 18 modos de falla; capítulos).',
         'ag.label': 'LO QUE ESTÁ EN VIVO',
         'ag.title': '9 agentes en producción. <span class="grad">1 blueprint.</span>',
         'ag.lead': 'Cada agente corre 24/7 en Oracle Cloud, coordinando a través de tablas compartidas. Verificable vía <span class="mono" style="color:var(--cyan);">pm2 list</span> + <span class="mono" style="color:var(--cyan);">systemctl is-active</span>. Usuarios reales. Despliegues reales. AILA es el blueprint de la capa siguiente, aún no desplegado.',
@@ -1476,7 +1567,7 @@
         'trac.s1': 'Suscriptores pagos EspaLuz — retenidos desde 2025, cero marketing',
         'trac.s2': 'Tests en arnés VJH — 4 capas, $0.03/run',
         'trac.s3': 'Commits en el repo del cerebro de operaciones (AIPA_AITCF) — construido en abierto, verificable en GitHub',
-        'trac.s4': 'Capítulos del AI Ops Wiki — modos de falla de producción, en vivo',
+        'trac.s4': 'Incidentes del AI Ops Wiki — 18 modos de falla de producción con nombre, en vivo',
         'trac.s5': 'Películas en el AI film studio de Atuona — edición y mezcla automatizadas, máster −16 LUFS',
         'trac.s6': 'Roles descubiertos por VibeJob Hunter — 11 fuentes, humano en el último clic',
         'trac.s7': 'Líneas de código original — leídas de los sistemas en producción, 24 ago 2026',
@@ -1492,7 +1583,7 @@
         'ask.title': 'Lista para ser contratada.<br><span class="serif">Abierta a</span> <span class="grad">inversión alineada.</span>',
         'ask.lead': 'El trabajo es real. Los sistemas están en vivo. La meta honesta es ingreso estable — primero unirme a un equipo digno, después inversión.',
         'ask.a.t': 'Unirme al equipo correcto',
-        'ask.a.b': 'Remoto tiempo completo, ingeniera de IA fundadora / senior. $3.5K–$5K+/mes USD. Horario LATAM. Alguien que diseña, construye y entrega sistemas de IA de punta a punta — operadora a nivel junta + constructora de producción. Combinación rara, totalmente verificable arriba.',
+        'ask.a.b': 'Remoto tiempo completo, ingeniera de IA fundadora / senior — o Product Manager de IA, Arquitecta de Soluciones de IA, Consultora de Sistemas de IA, Chief AI Officer fraccional. $3.5K–$5K+/mes USD. Horario LATAM. Alguien que diseña, construye y entrega sistemas de IA de punta a punta — operadora a nivel junta + constructora de producción. Combinación rara, totalmente verificable arriba.',
         'ask.b.t': 'Fondear el ecosistema',
         'ask.b.b': 'Arreglar tracking de pagos de EspaLuz. Verificar entrega de VibeJob Hunter. Contratar un ingeniero. Extender runway antes de que expiren créditos Oracle. Presupuesto pequeño de marketing.',
         'hero.sub': 'Construido para probar que puedo entregar. <span style="color:#00e5ff;">Meta principal: unirme al equipo correcto como ingeniera de IA fundadora / aplicada.</span> Inversión bienvenida — ingreso estable es la misión.',
