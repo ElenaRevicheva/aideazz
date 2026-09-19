@@ -21,7 +21,10 @@
     "about": "/about",
     "blog": "/blog",
     "pitch": "/pitch.html",
-    "aiOpsWiki": "/ai-ops-wiki.html"
+    "aiOpsWiki": "/ai-ops-wiki.html",
+    "visibilityApi": "/api",
+    "podcast": "https://podcast.aideazz.xyz",
+    "podcastFeed": "https://podcast.aideazz.xyz/feed.xml"
   },
   "founder": {
     "name": "Elena Revicheva",

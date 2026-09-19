@@ -119,3 +119,4 @@ Disallow: /gitignore
 
 Sitemap: https://aideazz.xyz/sitemap.txt
 Sitemap: https://aideazz.xyz/sitemap.xml
+Sitemap: https://podcast.aideazz.xyz/sitemap.xml
