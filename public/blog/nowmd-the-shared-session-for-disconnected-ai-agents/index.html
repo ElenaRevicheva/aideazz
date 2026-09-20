@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOW.md: The Shared Session for Disconnected AI Agents | AIdeazz</title>
+  <meta name="description" content="My AI agents cannot talk to each other directly. I run a fleet of 8 processes, including cto-aipa, algom-stream, and dragontrade-main, all supervised by PM2. These agents, built with technologies lik…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/nowmd-the-shared-session-for-disconnected-ai-agents/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="NOW.md: The Shared Session for Disconnected AI Agents">
+  <meta property="og:description" content="My AI agents cannot talk to each other directly. I run a fleet of 8 processes, including cto-aipa, algom-stream, and dragontrade-main, all supervised by PM2. These agents, built with technologies lik…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/nowmd-the-shared-session-for-disconnected-ai-agents/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-20T19:30:46.033Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NOW.md: The Shared Session for Disconnected AI Agents">
+  <meta name="twitter:description" content="My AI agents cannot talk to each other directly. I run a fleet of 8 processes, including cto-aipa, algom-stream, and dragontrade-main, all supervised by PM2. These agents, built with technologies lik…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "NOW.md: The Shared Session for Disconnected AI Agents",
+  "description": "My AI agents cannot talk to each other directly. I run a fleet of 8 processes, including cto-aipa, algom-stream, and dragontrade-main, all supervised by PM2. These agents, built with technologies lik…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-20T19:30:46.033Z",
+  "dateModified": "2026-09-20T19:30:46.033Z",
+  "url": "https://aideazz.xyz/blog/nowmd-the-shared-session-for-disconnected-ai-agents/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/nowmd-the-shared-session-for-disconnected-ai-agents/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you ensure `NOW.md` is always up-to-date for all agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Updates are primarily manual or triggered by specific scripts after an agent completes a task. There's no real-time push; agents read the file when they start or before taking a significant action. The `wiki-ship.log` errors show that even this simple synchronization can fail, requiring manual intervention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if two agents try to write to `NOW.md` simultaneously?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is mitigated by convention and the nature of the tasks. Most writes are append-only or involve specific sections. In cases where contention might occur, a human operator resolves it, or the last write wins, which is acceptable given the low-frequency, human-mediated nature of this specific AI Agent Inter-Agent Communication Protocol."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is `NOW.md` version controlled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it's part of a Git repository. This provides a history of changes, which is crucial for debugging and understanding past operational decisions. The commit `4b96b8e` (\"chore(blog-static): regenerate fragmented-ai-agent-communication-the-nowmd-constraint/index.html\") shows it's part of the tracked codebase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often is `NOW.md` typically updated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured precisely, but it's event-driven. It's updated when a new task is initiated, a significant outcome is achieved (like a Telegram card being produced, as seen in `concierge-selftest.log`), or when an operational shift requires all agents to be aware of a new directive."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">NOW.md: The Shared Session for Disconnected AI Agents</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-20T19:30:46.033Z">September 20, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI agents cannot talk to each other directly. I run a fleet of 8 processes, including <code>cto-aipa</code>, <code>algom-stream</code>, and <code>dragontrade-main</code>, all supervised by PM2. These agents, built with technologies like <code>openai</code>, <code>anthropic</code>, and <code>groq-sdk</code>, operate in isolation. There is no shared conversation context between, say, a Claude Code session and a Cursor Desktop session. This fragmentation means a direct AI Agent Inter-Agent Communication Protocol is impossible without significant architectural changes I haven't prioritized.</p>
+<p>Instead, I use a <code>NOW.md</code> file. This isn't documentation; it's a shared session, a silent working memory. It's the only common ground where agents can leave notes for each other, or for me, about their current state or required actions. This approach emerged from the constraint that "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." The <code>NOW.md</code> file serves as the explicit protocol for how these disconnected agents avoid stepping on each other's toes or duplicating work.</p>
+<h2>The NOW.md as a Shared State Register</h2>
+<p>The <code>NOW.md</code> file acts as a simple, human-readable register for agent state. When I check <code>/home/ubuntu/cto-aipa/docs/oracle/NOW.md</code>, I see instructions and observations from various agents. For instance, it explicitly states: "No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This isn't a problem description; it's the operational reality that the <code>NOW.md</code> file addresses.</p>
+<p>This file is updated manually and sometimes programmatically. For example, recent commits like <code>cb64d12</code> ("ai-ops-wiki: refresh journal + AEO surfaces") and <code>0564798</code> ("pitch + runbook pass 2: dedicated API + AEO/GEO/Tech-SEO slide, Sep 2026 rows, stale counters refreshed") indicate human-driven updates to the broader operational context, which often includes <code>NOW.md</code> or related wiki entries. The file itself contains directives like "This file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid" — a clear statement of its purpose.</p>
+<h2>Operationalizing the NOW.md Protocol</h2>
+<p>The protocol within <code>NOW.md</code> is essentially a set of conventions. Agents (or I, acting as an agent) read <code>NOW.md</code> to understand the current operational context and write to it to signal completion or new tasks. This is critical for processes like <code>cto-aipa</code>, which has seen 152 restarts and is up for 2 days, or <code>algom-stream</code>, with 55193 restarts over 35 days. These agents, despite their varying stability, need a consistent way to understand the current "plan."</p>
+<p>For example, if <code>concierge-selftest.log</code> shows "✅ PASS — 4 checks, 3148ms to first card" and "ok a Telegram card was produced," this outcome might be noted in <code>NOW.md</code> by a human operator or another agent. This prevents a different agent from attempting to produce the same card, especially given the "duplicate suppressed" message in the log. The <code>NOW.md</code> file becomes the shared source of truth for what has been done and what needs doing.</p>
+<h2>Addressing Agent Restarts and State Loss</h2>
+<p>The high restart counts for some agents, like <code>algom-stream</code> at 55193 restarts, highlight the challenge of maintaining state. While <code>algom-poll</code> has 0 restarts over 54 days, <code>serpapi-jobs</code> has 25 restarts in 0 days. Each restart means potential loss of in-memory context. The <code>NOW.md</code> file provides a persistent, albeit simple, external memory.</p>
+<p>When an agent restarts, its first action often involves reading <code>NOW.md</code> to re-establish its understanding of the system's current state. This is a manual or script-driven process, not an automated inter-process communication. It's a low-tech solution to a complex problem: how do you coordinate fragmented, potentially stateless processes without a robust message queue or shared database specifically designed for agent communication? The answer, in my setup, is a text file.</p>
+<h2>Limitations and Future Considerations</h2>
+<p>The <code>NOW.md</code> approach has clear limitations. It's not real-time. The latest <code>wiki-ship.log</code> shows "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" repeated three times, indicating that even this simple shared state mechanism can face synchronization issues. If <code>NOW.md</code> itself is part of a Git repository that fails to push, then the shared state becomes stale.</p>
+<p>Furthermore, the protocol relies on convention and manual parsing. There's no structured schema or validation. This works for a single operator managing a small fleet, but it wouldn't scale to a large team or complex, high-throughput systems. The 127 deals in "They replied" stage and 0 deals "closed won" in HubSpot indicate a business process that needs careful coordination, and <code>NOW.md</code> plays a role in ensuring agents contributing to this process are aligned.</p>
+<p>Despite these limitations, <code>NOW.md</code> has been effective. It's a pragmatic solution born from the constraint of disconnected AI agents. It allows me to operate a system where <code>cto-aipa</code> (236 MB), <code>dragontrade-main</code> (150 MB), and <code>whitespace</code> (102 MB) can all contribute to a larger goal, even if they can't directly exchange messages.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you ensure <code>NOW.md</code> is always up-to-date for all agents?</strong><br>A: Updates are primarily manual or triggered by specific scripts after an agent completes a task. There's no real-time push; agents read the file when they start or before taking a significant action. The <code>wiki-ship.log</code> errors show that even this simple synchronization can fail, requiring manual intervention.</p>
+<p><strong>Q: What happens if two agents try to write to <code>NOW.md</code> simultaneously?</strong><br>A: This is mitigated by convention and the nature of the tasks. Most writes are append-only or involve specific sections. In cases where contention might occur, a human operator resolves it, or the last write wins, which is acceptable given the low-frequency, human-mediated nature of this specific AI Agent Inter-Agent Communication Protocol.</p>
+<p><strong>Q: Is <code>NOW.md</code> version controlled?</strong><br>A: Yes, it's part of a Git repository. This provides a history of changes, which is crucial for debugging and understanding past operational decisions. The commit <code>4b96b8e</code> ("chore(blog-static): regenerate fragmented-ai-agent-communication-the-nowmd-constraint/index.html") shows it's part of the tracked codebase.</p>
+<p><strong>Q: How often is <code>NOW.md</code> typically updated?</strong><br>A: I do not have that measured precisely, but it's event-driven. It's updated when a new task is initiated, a significant outcome is achieved (like a Telegram card being produced, as seen in <code>concierge-selftest.log</code>), or when an operational shift requires all agents to be aware of a new directive.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
