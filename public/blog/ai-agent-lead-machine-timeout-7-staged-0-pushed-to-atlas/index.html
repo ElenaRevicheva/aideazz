@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Lead Machine Timeout: 7 Staged, 0 Pushed to Atlas | AIdeazz</title>
+  <meta name="description" content="My atlas-lead-machine process logged a timeout, specifically "[BD-SERP] fetch error for "restaurante Panama City": The operation was aborted due to timeout". This is a critical signal. Despite this e…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-lead-machine-timeout-7-staged-0-pushed-to-atlas/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Lead Machine Timeout: 7 Staged, 0 Pushed to Atlas">
+  <meta property="og:description" content="My atlas-lead-machine process logged a timeout, specifically "[BD-SERP] fetch error for "restaurante Panama City": The operation was aborted due to timeout". This is a critical signal. Despite this e…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-lead-machine-timeout-7-staged-0-pushed-to-atlas/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-22T19:30:34.238Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Lead Machine Timeout: 7 Staged, 0 Pushed to Atlas">
+  <meta name="twitter:description" content="My atlas-lead-machine process logged a timeout, specifically "[BD-SERP] fetch error for "restaurante Panama City": The operation was aborted due to timeout". This is a critical signal. Despite this e…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Lead Machine Timeout: 7 Staged, 0 Pushed to Atlas",
+  "description": "My atlas-lead-machine process logged a timeout, specifically \"[BD-SERP] fetch error for \"restaurante Panama City\": The operation was aborted due to timeout\". This is a critical signal. Despite this e…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-22T19:30:34.238Z",
+  "dateModified": "2026-09-22T19:30:34.238Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-lead-machine-timeout-7-staged-0-pushed-to-atlas/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-lead-machine-timeout-7-staged-0-pushed-to-atlas/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does `atlas-lead-machine.log` say \"staged 7\" but `atlas-outcomes.log` says \"staged\": 0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `atlas-lead-machine` process successfully identifies and stages 7 leads internally. However, the `atlas-outcomes.log` indicates that 0 of these staged leads were successfully pushed to Atlas. This suggests a failure in the subsequent step responsible for persisting these staged leads into the Atlas system, likely due to a state loss from `cto-aipa`'s 156 restarts or a communication breakdown."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the \"[BD-SERP] fetch error\" the root cause of the zero leads in Atlas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not directly. The fetch error indicates a problem acquiring raw data for \"restaurante Panama City\", but the `atlas-lead-machine.log` still reports 7 leads staged from other sources or successful fetches. The root cause of zero leads in Atlas appears to be a failure in the handoff or persistence of already-staged leads, rather than the initial data fetching."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the `cto-aipa` process's 156 restarts affect lead flow?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "High restart counts for `cto-aipa` (which contains `atlas-lead-machine`) mean that any in-memory state, such as the 7 staged leads, could be lost before being written to a persistent store or pushed to Atlas. This frequent interruption likely contributes to the discrepancy between staged and pushed leads."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the significance of \"lanes\":7 in `atlas-outcomes.log` if \"staged\":0?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `lanes:7` likely indicates that the system *attempted* to process or push 7 items, perhaps based on an internal count or a previous state. However, the accompanying `\"staged\": 0` and `\"sent\": 0` confirm that despite this attempt, no leads were actually staged or sent to Atlas, highlighting a mismatch between the intended operation and the actual outcome."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Lead Machine Timeout: 7 Staged, 0 Pushed to Atlas</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-22T19:30:34.238Z">September 22, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>atlas-lead-machine</code> process logged a timeout, specifically "[BD-SERP] fetch error for "restaurante Panama City": The operation was aborted due to timeout". This is a critical signal. Despite this error, the log shows "staged 7" leads. However, the <code>atlas-outcomes.log</code> from 28.0 hours ago reports <code>"staged": 0, "sent": 0, pushed to Atlas: {"ok":true,"lanes":7}</code>. This discrepancy indicates a blockage: leads are being staged by the machine, but not making it to Atlas.</p>
+<h2>The <code>atlas-lead-machine</code> Timeout and Staging Discrepancy</h2>
+<p>The <code>atlas-lead-machine.log</code> shows a clear timeout for a specific search query. This suggests an external dependency issue, likely with the SERP API or the network path to it. The process is still running, as <code>pm2 jlist</code> confirms <code>atlas-lead-machine</code> is online (it's part of the <code>cto-aipa</code> process, which has 156 restarts and is up 0 days). The log entry from 27.4 hours ago states "staged 7 · looked at 46 · no-email 36 · already-in-CRM 13 · outside-band 1 · audit-failed 0 · crawler-blocked rescued 0". This means the agent successfully identified 7 potential leads after filtering 46 entries.</p>
+<p>The problem isn't the staging itself, but what happens next. The <code>atlas-outcomes.log</code>, last modified 28.0 hours ago, indicates that 0 leads were staged and 0 were sent, even though it reports <code>pushed to Atlas: {"ok":true,"lanes":7}</code>. The <code>lanes:7</code> suggests an attempt to push something, but the <code>staged:0</code> and <code>sent:0</code> contradict the <code>atlas-lead-machine</code>'s report of 7 staged leads. This points to a failure in the handoff or a subsequent processing step, not just the initial fetch timeout.</p>
+<h2>Investigating the <code>cto-aipa</code> Restarts</h2>
+<p>The <code>cto-aipa</code> process, which likely encapsulates <code>atlas-lead-machine</code>, has experienced 156 restarts and has only been up for 0 days. This high restart count for <code>cto-aipa</code> is concerning. While <code>algom-stream</code> has 55193 restarts over 37 days, <code>cto-aipa</code>'s restarts are more recent and directly impact lead generation. A recent commit in <code>cto-aipa</code> (21782df) from 2026-09-21 mentions "selling: 7 Atlas lead draft(s) + registry (auto)". This commit aligns with the 7 staged leads reported by <code>atlas-lead-machine</code>, suggesting recent development activity around this functionality. The frequent restarts could be interrupting the lead processing pipeline before the staged leads can be successfully pushed to Atlas.</p>
+<h2>Disconnected AI Agent State: NOW.md</h2>
+<p>The <code>NOW.md</code> file describes a critical operational constraint: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This fragmented communication model means that if one agent stages leads and another is responsible for pushing them to Atlas, a failure in communication or state persistence between restarts could easily lead to the observed discrepancy.</p>
+<p>The <code>NOW.md</code> acts as a shared memory, but it's a passive one. If <code>cto-aipa</code> restarts 156 times, any in-memory state about staged leads that hasn't been persisted to a shared database or file (beyond the log itself) would be lost. The <code>atlas-outcomes.log</code> showing 0 staged and 0 sent, despite the <code>atlas-lead-machine</code> log showing 7 staged, strongly suggests such a state loss or a failure in the persistence mechanism before the push to Atlas.</p>
+<h2>Absence of GA4 Sync Data</h2>
+<p>The <code>atlas-ga4-sync.log</code> shows "GA4 sync: 0 atlas_ rows for 2026-09-19", "0 atlas_ rows for 2026-09-20", and "0 atlas_ rows for 2026-09-21". This indicates a complete lack of data flowing from Atlas to GA4 for three consecutive days. While not directly related to the lead machine timeout, it points to a broader issue with data synchronization and potentially the health of the Atlas system itself. If Atlas isn't receiving leads from the lead machine, it naturally won't have any <code>atlas_</code> rows to sync to GA4. This reinforces the idea that the lead generation pipeline is broken somewhere between staging and final persistence in Atlas.</p>
+<h2>Impact on Deal Flow</h2>
+<p>My HubSpot deals search API shows 130 deals at the "They replied" stage, but 0 deals closed won. While the lead machine is designed to generate new leads, a blockage in this pipeline directly impacts the top of the sales funnel. If new leads aren't making it into the CRM (Atlas, then HubSpot), the existing deals will eventually dry up, and the 0 closed won deals will persist. The current situation, where 7 leads are staged but 0 are pushed to Atlas, means potential revenue is being lost due to an operational glitch. The <code>atlas-lead-machine</code> is looking at 46 entries and identifying 7 viable leads, but these are not progressing.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why does <code>atlas-lead-machine.log</code> say "staged 7" but <code>atlas-outcomes.log</code> says "staged": 0?</strong><br>A: The <code>atlas-lead-machine</code> process successfully identifies and stages 7 leads internally. However, the <code>atlas-outcomes.log</code> indicates that 0 of these staged leads were successfully pushed to Atlas. This suggests a failure in the subsequent step responsible for persisting these staged leads into the Atlas system, likely due to a state loss from <code>cto-aipa</code>'s 156 restarts or a communication breakdown.</p>
+<p><strong>Q: Is the "[BD-SERP] fetch error" the root cause of the zero leads in Atlas?</strong><br>A: Not directly. The fetch error indicates a problem acquiring raw data for "restaurante Panama City", but the <code>atlas-lead-machine.log</code> still reports 7 leads staged from other sources or successful fetches. The root cause of zero leads in Atlas appears to be a failure in the handoff or persistence of already-staged leads, rather than the initial data fetching.</p>
+<p><strong>Q: How does the <code>cto-aipa</code> process's 156 restarts affect lead flow?</strong><br>A: High restart counts for <code>cto-aipa</code> (which contains <code>atlas-lead-machine</code>) mean that any in-memory state, such as the 7 staged leads, could be lost before being written to a persistent store or pushed to Atlas. This frequent interruption likely contributes to the discrepancy between staged and pushed leads.</p>
+<p><strong>Q: What is the significance of "lanes":7 in <code>atlas-outcomes.log</code> if "staged":0?</strong><br>A: The <code>lanes:7</code> likely indicates that the system <em>attempted</em> to process or push 7 items, perhaps based on an internal count or a previous state. However, the accompanying <code>"staged": 0</code> and <code>"sent": 0</code> confirm that despite this attempt, no leads were actually staged or sent to Atlas, highlighting a mismatch between the intended operation and the actual outcome.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
