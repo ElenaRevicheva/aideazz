@@ -14,7 +14,9 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/ai-agent-log-silence-the-no-note-on-the-deal-skipped-anomaly/
 https://aideazz.xyz/blog/ai-agent-lead-machine-timeout-7-staged-0-pushed-to-atlas/
+https://aideazz.xyz/blog/the-spending-cap-that-could-never-fire-field-note/
 https://aideazz.xyz/blog/nowmd-the-shared-session-for-disconnected-ai-agents/
 https://aideazz.xyz/blog/fragmented-ai-agent-communication-the-nowmd-constraint/
 https://aideazz.xyz/blog/ai-agent-restart-discrepancies-stability-vs-relentless-recovery/
