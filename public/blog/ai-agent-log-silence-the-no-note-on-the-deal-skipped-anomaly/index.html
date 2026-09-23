@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Log Silence: The "no note on the deal, skipped" Anomaly | AIdeazz</title>
+  <meta name="description" content="My attach-cv.log shows a silent failure: "no note on the deal, skipped" for three different roles. This isn't an error, it's a decision. The agent processed a deal, found no associated note, and expl…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-log-silence-the-no-note-on-the-deal-skipped-anomaly/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Log Silence: The "no note on the deal, skipped" Anomaly">
+  <meta property="og:description" content="My attach-cv.log shows a silent failure: "no note on the deal, skipped" for three different roles. This isn't an error, it's a decision. The agent processed a deal, found no associated note, and expl…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-log-silence-the-no-note-on-the-deal-skipped-anomaly/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-23T19:30:13.504Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Log Silence: The "no note on the deal, skipped" Anomaly">
+  <meta name="twitter:description" content="My attach-cv.log shows a silent failure: "no note on the deal, skipped" for three different roles. This isn't an error, it's a decision. The agent processed a deal, found no associated note, and expl…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Log Silence: The \"no note on the deal, skipped\" Anomaly",
+  "description": "My attach-cv.log shows a silent failure: \"no note on the deal, skipped\" for three different roles. This isn't an error, it's a decision. The agent processed a deal, found no associated note, and expl…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-23T19:30:13.504Z",
+  "dateModified": "2026-09-23T19:30:13.504Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-log-silence-the-no-note-on-the-deal-skipped-anomaly/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-log-silence-the-no-note-on-the-deal-skipped-anomaly/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the \"no note on the deal, skipped\" message an error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, it is not an error. It is an explicit log entry indicating that the `attach-cv` agent processed a deal, found no associated note, and followed its programmed logic to skip further action on that specific deal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I detect this type of silent failure without traditional error monitoring?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You need to implement business logic monitoring that checks for the absence of expected data or outcomes. For example, set up an alert if deals reach a specific stage (like \"They replied\" with 131 deals) but lack the required notes for subsequent processing by the `attach-cv` agent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of `cto-aipa` having 167 restarts and `algom-stream` having 55193 restarts on this specific issue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While these restart counts indicate potential instability or resilience in other parts of the system, they do not directly cause the \"no note, skipped\" issue. The `attach-cv` agent is online and executing its logic, even if that logic leads to skipping deals due to missing data."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the `NOW.md` file address this kind of inter-agent data dependency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `NOW.md` file helps disconnected agents avoid collisions by providing shared working memory. However, it does not inherently ensure data completeness or prevent silent failures like missing notes, as it's a coordination mechanism, not a data validation pipeline."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Log Silence: The "no note on the deal, skipped" Anomaly</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-23T19:30:13.504Z">September 23, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>attach-cv.log</code> shows a silent failure: "no note on the deal, skipped" for three different roles. This isn't an error, it's a decision. The agent processed a deal, found no associated note, and explicitly chose to skip it. This behavior, while logged, doesn't trigger an alert. It represents a gap in my deal processing pipeline, where potential leads are silently discarded without further action or notification.</p>
+<p>This pattern appeared for "Executive Operations & Finance Specialist", "Growth Marketing & Paid Media Specialist", and "Staff Product Manager - Conversational AI". These are valid roles. The agent is online, with <code>cto-aipa</code> showing 167 restarts and <code>algom-stream</code> a staggering 55193 restarts, but <code>attach-cv.log</code> itself was last modified 1.3 hours ago, indicating recent activity. The issue isn't a crash, but a logic branch that leads to inaction.</p>
+<h2>The "No Note" Condition: A Design Choice</h2>
+<p>The log entry "no note on the deal, skipped" is not an exception or an error message. It's a standard output from the <code>attach-cv</code> agent. This agent's purpose is to process deals and, presumably, attach relevant CVs or information based on notes associated with those deals. When a note is absent, the agent's current logic dictates a skip. This is a deliberate design choice, not a bug in the traditional sense.</p>
+<p>The problem lies in the implication: deals are being evaluated and then ignored. My HubSpot deals search API shows 131 deals at the "They replied" stage, but 0 deals closed won. While the "no note" skip isn't directly tied to the closed-won metric, it highlights a potential leak in the sales funnel. If deals are reaching a stage where they require notes for further processing, and those notes are consistently missing, then the upstream process for creating or associating notes is failing silently.</p>
+<h2>The Impact of Silent Skips on Deal Flow</h2>
+<p>A silent skip means no immediate alarm. The <code>attach-cv.log</code> shows activity, so the process isn't stalled. <code>pm2 jlist</code> confirms <code>cto-aipa</code> is online, and <code>algom-stream</code> is online. The system appears healthy. However, the business outcome is compromised. Deals for roles like "Executive Operations & Finance Specialist" are not progressing.</p>
+<p>This is distinct from explicit failures like the <code>wiki-ship.log</code> showing "error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'" three times, or the <code>job-board-watch.log</code> explicitly stating "VERDICT: REJECTED" and "a wired board FAILED re-qualification (Telegram alert sent)". Those are loud failures. The "no note, skipped" is an AI agent log silence that requires active monitoring and interpretation, not just error detection.</p>
+<h2>Tracing the Upstream Gap</h2>
+<p>To address this, I need to trace back why deals are reaching the <code>attach-cv</code> agent without notes. This involves examining the processes that feed into it. Is there a human process failing to add notes? Is another AI agent responsible for generating these notes, and if so, is <em>that</em> agent failing silently or explicitly?</p>
+<p>My <code>aideazz</code> repository shows 4 commits in the last 48 hours, including one related to "the spending cap that could never fire" and another on "ai-ops-wiki: refresh journal + AEO surfaces". This indicates active development and attention to operational issues, but the "no note" condition persists. The wiki incident "The spending cap could never fire, because it compared against a field the vendor never sends" is another example of a silent failure, where a guardrail was present but ineffective due to a mismatch in data fields. This reinforces the need to validate data contracts and expected inputs at every stage.</p>
+<h2>Monitoring for Absence, Not Just Presence</h2>
+<p>The challenge with AI agent log silence is that traditional monitoring often focuses on error codes, high CPU usage, or process restarts. My <code>cto-aipa</code> process has 167 restarts, and <code>algom-stream</code> has 55193 restarts, indicating resilience or instability depending on the context. But the <code>attach-cv</code> agent isn't restarting due to this. It's executing its logic as designed.</p>
+<p>Effective monitoring for this type of issue requires looking for the <em>absence</em> of expected outcomes. For instance, if a deal reaches the "They replied" stage (131 deals currently), it should ideally have a note within a certain timeframe. I need to implement a check that flags deals in this stage that lack the required notes for the <code>attach-cv</code> agent to proceed. This is a business logic alert, not a system health alert.</p>
+<h2>The NOW.md Constraint and Inter-Agent Communication</h2>
+<p>The <code>NOW.md</code> file explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This highlights a significant challenge in debugging issues that span multiple agents or human-AI interactions. If the note-creation process is handled by a different agent or human, the lack of shared context makes it harder to diagnose why notes are missing.</p>
+<p>The <code>NOW.md</code> serves as a "working memory of whichever agent is not currently running," acting as a protocol for disconnected agents to avoid collisions. However, it doesn't solve the problem of ensuring data completeness across the pipeline. The "no note, skipped" issue is a symptom of this fragmented communication, where one agent's dependency (the note) is not guaranteed by another, and the failure to provide it is silently absorbed.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is the "no note on the deal, skipped" message an error?</strong><br>A: No, it is not an error. It is an explicit log entry indicating that the <code>attach-cv</code> agent processed a deal, found no associated note, and followed its programmed logic to skip further action on that specific deal.</p>
+<p><strong>Q: How can I detect this type of silent failure without traditional error monitoring?</strong><br>A: You need to implement business logic monitoring that checks for the absence of expected data or outcomes. For example, set up an alert if deals reach a specific stage (like "They replied" with 131 deals) but lack the required notes for subsequent processing by the <code>attach-cv</code> agent.</p>
+<p><strong>Q: What is the impact of <code>cto-aipa</code> having 167 restarts and <code>algom-stream</code> having 55193 restarts on this specific issue?</strong><br>A: While these restart counts indicate potential instability or resilience in other parts of the system, they do not directly cause the "no note, skipped" issue. The <code>attach-cv</code> agent is online and executing its logic, even if that logic leads to skipping deals due to missing data.</p>
+<p><strong>Q: Does the <code>NOW.md</code> file address this kind of inter-agent data dependency?</strong><br>A: The <code>NOW.md</code> file helps disconnected agents avoid collisions by providing shared working memory. However, it does not inherently ensure data completeness or prevent silent failures like missing notes, as it's a coordination mechanism, not a data validation pipeline.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
