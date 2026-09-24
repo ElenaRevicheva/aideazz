@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot Rate Limit Error: When 429 Blocks Manual Email Processing | AIdeazz</title>
+  <meta name="description" content="I hit a 429 error from HubSpot's API. Specifically, GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage returned {"status":"error","message":"You have reached your ten_secondly_rolling limit…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/hubspot-rate-limit-error-when-429-blocks-manual-email-processing/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HubSpot Rate Limit Error: When 429 Blocks Manual Email Processing">
+  <meta property="og:description" content="I hit a 429 error from HubSpot's API. Specifically, GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage returned {"status":"error","message":"You have reached your ten_secondly_rolling limit…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/hubspot-rate-limit-error-when-429-blocks-manual-email-processing/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-24T19:30:14.136Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HubSpot Rate Limit Error: When 429 Blocks Manual Email Processing">
+  <meta name="twitter:description" content="I hit a 429 error from HubSpot's API. Specifically, GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage returned {"status":"error","message":"You have reached your ten_secondly_rolling limit…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HubSpot Rate Limit Error: When 429 Blocks Manual Email Processing",
+  "description": "I hit a 429 error from HubSpot's API. Specifically, GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage returned {\"status\":\"error\",\"message\":\"You have reached your ten_secondly_rolling limit…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-24T19:30:14.136Z",
+  "dateModified": "2026-09-24T19:30:14.136Z",
+  "url": "https://aideazz.xyz/blog/hubspot-rate-limit-error-when-429-blocks-manual-email-processing/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/hubspot-rate-limit-error-when-429-blocks-manual-email-processing/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you determine the optimal delay for exponential backoff without a `Retry-After` header?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I start with a 1-second delay, doubling it for each subsequent retry (e.g., 1s, 2s, 4s, 8s). I cap this at a reasonable maximum, typically 30 seconds, to prevent indefinite blocking."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does HubSpot provide specific guidance on their `TEN_SECONDLY_ROLLING` limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The error message itself (`policyName\":\"TEN_SECONDLY_ROLLING\"`) is the primary indicator. I do not have specific documentation from HubSpot measured in my logs beyond this error."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you ensure that multiple AI agents don't independently hit the same rate limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is a challenge with fragmented agents. My `NOW.md` file is the shared memory. Any solution for rate limiting must be explicitly documented there, and ideally, a centralized queue or token bucket mechanism would be implemented to serialize HubSpot API calls across agents. I do not have that measured yet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the impact of this rate limit on your deal conversion?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With 131 deals in \"They replied\" and 0 \"closed won\" deals, the inability to update deal properties due to the rate limit directly hinders the progression of these deals through the pipeline. It creates a manual bottleneck where the system should be automated."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">HubSpot Rate Limit Error: When 429 Blocks Manual Email Processing</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-24T19:30:14.136Z">September 24, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I hit a <code>429</code> error from HubSpot's API. Specifically, <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code> returned <code>{"status":"error","message":"You have reached your ten_secondly_rolling limit.","errorType":"RATE_LIMIT","correlationId":"01a0d4ca-5387-7fd5-a033-8b4b2e91cb88","policyName":"TEN_SECONDLY_ROLLING","groupName":"publicapi:private_app-api-calls-ten-secondly:39045903:51409153"}</code>. This isn't just a log entry; it's a production blockage. My <code>hs-watch-manual-emails.log</code> shows this error, preventing the system from fetching deal properties like <code>dealname</code> and <code>dealstage</code>. This directly impacts the processing of manual emails, which are critical for updating deal statuses. With 131 deals currently in the "They replied" stage, and 0 closed won, this rate limit is a direct impediment to moving deals forward.</p>
+<h2>The Immediate Impact of the HubSpot Rate Limit Error</h2>
+<p>The <code>TEN_SECONDLY_ROLLING</code> policy name in the error message indicates a tight window for API calls. My <code>hs-watch-manual-emails.log</code> shows the <code>429</code> status code, meaning too many requests. This isn't a theoretical problem; it's stopping my system from doing its job. The process <code>hs-watch-manual-emails</code> is designed to monitor and process emails that require manual intervention, often involving updating deal properties in HubSpot. When it can't query deal details, it can't correctly categorize or act on those emails. This creates a backlog and delays critical updates for deals.</p>
+<p>The <code>followup-radar.log</code> shows I'm processing emails from <code>imap.gmail.com</code> (634 inbox / 4 sent) and <code>imap.zoho.com</code> (279 inbox / 30 sent). These are the sources for the manual emails that <code>hs-watch-manual-emails</code> is trying to process. The rate limit directly prevents the system from linking these emails to their respective deals and updating their status.</p>
+<h2>Identifying the Source of the Overload</h2>
+<p>My PM2 process list shows 8 processes online. <code>cto-aipa</code> has 167 restarts in 1 day, and <code>algom-stream</code> has 55193 restarts in 39 days. While these processes are active, the <code>hs-watch-manual-emails</code> process itself is not listed with an excessive restart count, suggesting the issue isn't a crashing process but rather an aggressive calling pattern. The <code>TEN_SECONDLY_ROLLING</code> limit implies that the system is making too many calls within a 10-second window, not necessarily over a longer period.</p>
+<p>I need to examine the code for <code>hs-watch-manual-emails</code> to see where it's making repeated HubSpot API calls without sufficient backoff or batching. The error message's <code>correlationId</code> (<code>01a0d4ca-5387-7fd5-a033-8b4b2e91cb88</code>) and <code>groupName</code> (<code>publicapi:private_app-api-calls-ten-secondly:39045903:51409153</code>) are specific to this particular rate limit instance, confirming it's a direct API issue.</p>
+<h2>Strategies for Mitigating HubSpot Rate Limits</h2>
+<p>To address the HubSpot rate limit error, I have two immediate strategies:</p>
+<p>1.  <strong>Implement Exponential Backoff and Retry:</strong> When a <code>429</code> is received, the system should not immediately retry. Instead, it needs to wait for an increasing duration before retrying the request. The HubSpot API often includes <code>Retry-After</code> headers, which should be respected. If not present, I'll start with a small delay (e.g., 1 second) and double it with each subsequent retry, up to a reasonable maximum. This prevents hammering the API during a rate-limited period.</p>
+<p>2.  <strong>Batch API Calls and Reduce Frequency:</strong> Instead of fetching deal properties one by one, I need to explore if HubSpot's API supports batch retrieval of deal properties for multiple IDs. If so, I can collect a list of deal IDs from the manual emails and make a single, batched request. If batching isn't an option, I'll need to introduce explicit delays between individual API calls to stay under the <code>TEN_SECONDLY_ROLLING</code> limit. This might mean processing fewer emails per second, but it ensures successful processing rather than constant failure.</p>
+<p>The <code>NOW.md</code> file, which serves as working memory for my disconnected AI agents (Cursor Cloud, Cursor Desktop, and Claude Code), highlights the challenge of shared context. While it doesn't directly solve the rate limit, it's a reminder that any solution needs to be clearly documented and understood across these fragmented tools.</p>
+<h2>Monitoring and Verification</h2>
+<p>After implementing changes, I will monitor <code>hs-watch-manual-emails.log</code> closely for the <code>429</code> errors. The goal is to see these errors disappear and observe successful <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code> calls. I'll also track the number of deals in the "They replied" stage (currently 131) to ensure they are being processed and moved forward.</p>
+<p>My <code>concierge-selftest.log</code> shows <code>✅ PASS — 4 checks, 4432ms to first card</code>, indicating other parts of the system are functioning. This confirms that the <code>hs-watch-manual-emails</code> process is the specific bottleneck here, not a broader system failure. The <code>cita-sort.log</code> shows <code>cita-sort OK — 0 card(s) repositioned across 3 board(s)</code> hourly, which is unrelated to the HubSpot issue but confirms other scheduled tasks are running.</p>
+<p>The <code>wiki-ship.log</code> shows <code>error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'</code>, which is a separate issue related to Git synchronization, but it's a reminder that production systems have multiple points of failure. For now, the HubSpot rate limit is the priority.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you determine the optimal delay for exponential backoff without a <code>Retry-After</code> header?</strong><br>A: I start with a 1-second delay, doubling it for each subsequent retry (e.g., 1s, 2s, 4s, 8s). I cap this at a reasonable maximum, typically 30 seconds, to prevent indefinite blocking.</p>
+<p><strong>Q: Does HubSpot provide specific guidance on their <code>TEN_SECONDLY_ROLLING</code> limit?</strong><br>A: The error message itself (<code>policyName":"TEN_SECONDLY_ROLLING"</code>) is the primary indicator. I do not have specific documentation from HubSpot measured in my logs beyond this error.</p>
+<p><strong>Q: How do you ensure that multiple AI agents don't independently hit the same rate limit?</strong><br>A: This is a challenge with fragmented agents. My <code>NOW.md</code> file is the shared memory. Any solution for rate limiting must be explicitly documented there, and ideally, a centralized queue or token bucket mechanism would be implemented to serialize HubSpot API calls across agents. I do not have that measured yet.</p>
+<p><strong>Q: What's the impact of this rate limit on your deal conversion?</strong><br>A: With 131 deals in "They replied" and 0 "closed won" deals, the inability to update deal properties due to the rate limit directly hinders the progression of these deals through the pipeline. It creates a manual bottleneck where the system should be automated.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
