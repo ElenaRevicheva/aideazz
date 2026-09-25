@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Alerts for apply-queue: A Critical Feedback Loop | AIdeazz</title>
+  <meta name="description" content="My apply-queue process is critical for lead processing, and its health directly impacts my ability to convert deals. I rely on it to send timely notifications. Recently, I observed that while apply-q…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Telegram Alerts for apply-queue: A Critical Feedback Loop">
+  <meta property="og:description" content="My apply-queue process is critical for lead processing, and its health directly impacts my ability to convert deals. I rely on it to send timely notifications. Recently, I observed that while apply-q…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-25T19:30:13.929Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Telegram Alerts for apply-queue: A Critical Feedback Loop">
+  <meta name="twitter:description" content="My apply-queue process is critical for lead processing, and its health directly impacts my ability to convert deals. I rely on it to send timely notifications. Recently, I observed that while apply-q…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Telegram Alerts for apply-queue: A Critical Feedback Loop",
+  "description": "My apply-queue process is critical for lead processing, and its health directly impacts my ability to convert deals. I rely on it to send timely notifications. Recently, I observed that while apply-q…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-25T19:30:13.929Z",
+  "dateModified": "2026-09-25T19:30:13.929Z",
+  "url": "https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you ensure Telegram alerts are actually received, beyond the `✓ sent to Telegram` log?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use `concierge-selftest`, which verifies the end-to-end production of a Telegram card. Its output `✅ PASS — 4 checks, 3850ms to first card` confirms the card was created, providing a higher level of assurance than just the internal log."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical latency for a Telegram alert from `apply-queue`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `concierge-selftest` reports `3850ms to first card`, which is the measured time from test initiation to the first card being produced. This gives an indication of the system's responsiveness for critical alerts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle duplicate alerts from `apply-queue` or other agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My `concierge-selftest` explicitly includes logic for duplicate suppression, logging `ok duplicate suppressed (redundant drafters collapse)`. This prevents alert fatigue by ensuring only unique, actionable notifications are sent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of high restart counts in other processes on `apply-queue`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While `apply-queue` itself isn't listed with restarts in the `pm2 jlist` output, processes like `algom-stream` with 55193 restarts can consume system resources and potentially introduce latency or instability that indirectly affects all running processes, including `apply-queue`."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Telegram Alerts for apply-queue: A Critical Feedback Loop</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-25T19:30:13.929Z">September 25, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>apply-queue</code> process is critical for lead processing, and its health directly impacts my ability to convert deals. I rely on it to send timely notifications. Recently, I observed that while <code>apply-queue.log</code> shows <code>✓ sent to Telegram</code> repeatedly, the underlying system still needs constant vigilance. This log entry confirms the <em>attempt</em> to send, but it doesn't guarantee the message was received or acted upon. This is a common blind spot in automated systems: the success of an internal operation doesn't always translate to the desired external outcome.</p>
+<h2>Monitoring <code>apply-queue</code> Health</h2>
+<p>The <code>apply-queue</code> process is one of eight processes supervised by PM2. It's designed to push updates to Telegram, ensuring I get immediate alerts on new leads or critical events. The logs confirm its activity: <code>✓ sent to Telegram</code> is the latest outcome in <code>apply-queue.log</code>, modified 6.2 hours ago. This indicates the process is actively trying to send messages.</p>
+<p>However, relying solely on log entries like "sent to Telegram" can be misleading. It confirms the internal action but not the external delivery or impact. For instance, if the Telegram API rate-limits me, or if my internet connection drops, the log might still show "sent" even if the message never reaches my device. This is why I pair these internal logs with external checks and other system health indicators.</p>
+<h2>The Broader System Context</h2>
+<p>My production environment runs several critical AI agents. Looking at <code>pm2 jlist</code>, I see:</p>
+<ul><li>  <code>dragontrade-dashboard</code>: online, 1 restarts, up 40d, 56 MB</li>
+<li>  <code>cto-aipa</code>: online, 167 restarts, up 2d, 249 MB</li>
+<li>  <code>algom-stream</code>: online, 55193 restarts, up 40d, 53 MB</li>
+<li>  <code>dragontrade-main</code>: online, 3 restarts, up 40d, 151 MB</li>
+<li>  <code>algom-poll</code>: online, 0 restarts, up 59d, 72 MB</li>
+<li>  <code>serpapi-jobs</code>: online, 25 restarts, up 5d, 37 MB</li>
+<li>  <code>whitespace</code>: online, 4 restarts, up 39d, 102 MB</li>
+<li>  <code>n8n</code>: online, 0 restarts, up 43d, 497 MB</li></ul>
+<p>The <code>algom-stream</code> process, with 55193 restarts over 40 days, stands out. This level of instability is a constant concern, even if other processes like <code>algom-poll</code> and <code>n8n</code> show 0 restarts over 59 and 43 days respectively. While <code>apply-queue</code> itself shows no restart count in this specific <code>pm2 jlist</code> output, the overall system stability affects all components. A highly unstable component can consume resources or introduce latency that impacts seemingly stable processes.</p>
+<h2>The Role of <code>concierge-selftest</code></h2>
+<p>To validate the end-to-end delivery of critical alerts, I use <code>concierge-selftest</code>. Its latest outcome is <code>✅ PASS — 4 checks, 3850ms to first card</code>, modified 6.7 hours ago. This test specifically checks if a Telegram card was produced. It also includes logic to suppress duplicates: <code>ok duplicate suppressed (redundant drafters collapse)</code>. This is crucial for preventing alert fatigue and ensuring that only unique, actionable information reaches me.</p>
+<p>The <code>concierge-selftest</code> output confirms that the mechanism for sending Telegram cards is functional. This provides a higher level of assurance than <code>apply-queue.log</code> alone, as it verifies the actual creation of a card, not just the internal "send" command.</p>
+<h2>Impact on Deal Flow</h2>
+<p>My HubSpot deals dashboard shows 134 deals currently at the "They replied" stage. However, I have 0 deals closed won. This gap highlights the importance of timely and reliable alerts from <code>apply-queue</code>. If I miss a critical reply or a new lead due to a failure in the alert system, it directly impacts my ability to move deals forward.</p>
+<p>The <code>reply-radar.log</code> shows <code>APPLY — scanned 240 · automated/own skipped 1 · no CRM match 0 · REPLIES MATCHED 0 · errors 0</code> and <code>APPLY — scanned 241 · automated/own skipped 1 · no CRM match 0 · REPLIES MATCHED 0 · errors 0</code>. This indicates that <code>reply-radar</code> is actively scanning and processing replies, but it's not matching any new replies that require action. This could be a normal state if there are no new replies, or it could indicate an issue if replies are indeed coming in but not being matched. The <code>apply-queue</code> Telegram alerts are designed to bridge this gap, notifying me when manual intervention is needed.</p>
+<h2>The Challenge of Fragmented AI Agents</h2>
+<p>My AI agents operate in a fragmented environment. As stated in <code>NOW.md</code>, "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This means there's no shared conversation or direct inter-agent communication. <code>NOW.md</code> itself serves as the "working memory of whichever agent is not currently running."</p>
+<p>This fragmentation makes robust monitoring and alerting even more critical. Each agent, including <code>apply-queue</code>, must be self-sufficient in its reporting, or rely on a centralized system like Telegram for critical updates. The <code>apply-queue</code> Telegram alerts are a direct response to this constraint, providing a unified channel for me to receive actionable information from disparate agents.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you ensure Telegram alerts are actually received, beyond the <code>✓ sent to Telegram</code> log?</strong><br>A: I use <code>concierge-selftest</code>, which verifies the end-to-end production of a Telegram card. Its output <code>✅ PASS — 4 checks, 3850ms to first card</code> confirms the card was created, providing a higher level of assurance than just the internal log.</p>
+<p><strong>Q: What is the typical latency for a Telegram alert from <code>apply-queue</code>?</strong><br>A: The <code>concierge-selftest</code> reports <code>3850ms to first card</code>, which is the measured time from test initiation to the first card being produced. This gives an indication of the system's responsiveness for critical alerts.</p>
+<p><strong>Q: How do you handle duplicate alerts from <code>apply-queue</code> or other agents?</strong><br>A: My <code>concierge-selftest</code> explicitly includes logic for duplicate suppression, logging <code>ok duplicate suppressed (redundant drafters collapse)</code>. This prevents alert fatigue by ensuring only unique, actionable notifications are sent.</p>
+<p><strong>Q: What is the impact of high restart counts in other processes on <code>apply-queue</code>?</strong><br>A: While <code>apply-queue</code> itself isn't listed with restarts in the <code>pm2 jlist</code> output, processes like <code>algom-stream</code> with 55193 restarts can consume system resources and potentially introduce latency or instability that indirectly affects all running processes, including <code>apply-queue</code>.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
