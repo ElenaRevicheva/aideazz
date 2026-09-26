@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Algom-Stream Restart Anomaly: 55193 Restarts in 41 Days | AIdeazz</title>
+  <meta name="description" content="My algom-stream process has restarted 55193 times in 41 days. This isn't a new issue; it's a persistent anomaly that stands in stark contrast to other processes running on the same Oracle Cloud insta…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Algom-Stream Restart Anomaly: 55193 Restarts in 41 Days">
+  <meta property="og:description" content="My algom-stream process has restarted 55193 times in 41 days. This isn't a new issue; it's a persistent anomaly that stands in stark contrast to other processes running on the same Oracle Cloud insta…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-26T19:30:31.827Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Algom-Stream Restart Anomaly: 55193 Restarts in 41 Days">
+  <meta name="twitter:description" content="My algom-stream process has restarted 55193 times in 41 days. This isn't a new issue; it's a persistent anomaly that stands in stark contrast to other processes running on the same Oracle Cloud insta…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Algom-Stream Restart Anomaly: 55193 Restarts in 41 Days",
+  "description": "My algom-stream process has restarted 55193 times in 41 days. This isn't a new issue; it's a persistent anomaly that stands in stark contrast to other processes running on the same Oracle Cloud insta…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-26T19:30:31.827Z",
+  "dateModified": "2026-09-26T19:30:31.827Z",
+  "url": "https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why isn't `algom-stream` considered \"down\" if it restarts so frequently?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`pm2` is a process manager designed to keep applications running. When `algom-stream` crashes, `pm2` immediately restarts it, so it's technically \"online\" from `pm2`'s perspective. The high restart count is an indicator of instability, not a complete outage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific errors are causing the 55193 restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured from the provided `pm2 jlist` output. The `pm2` command only reports the restart count and uptime, not the underlying error messages. A deeper dive into `algom-stream`'s specific application logs would be required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this compare to other processes like `cto-aipa`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`cto-aipa` has 167 restarts over 3 days, which is also high but significantly less than `algom-stream`'s 55193 restarts over 41 days. While both show instability, `algom-stream`'s issue is far more severe in terms of frequency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this a problem with the Oracle Cloud infrastructure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Given that `algom-poll` (0 restarts, 60 days up) and `n8n` (0 restarts, 44 days up) run stably on the same instance, it's unlikely to be a general infrastructure problem. The issue is more likely specific to `algom-stream`'s code, its dependencies, or its interaction with external services."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The Algom-Stream Restart Anomaly: 55193 Restarts in 41 Days</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-26T19:30:31.827Z">September 26, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>algom-stream</code> process has restarted 55193 times in 41 days. This isn't a new issue; it's a persistent anomaly that stands in stark contrast to other processes running on the same Oracle Cloud instance. While <code>algom-stream</code> continues to report as "online" via <code>pm2 jlist</code>, its restart count indicates a deep-seated instability that hasn't triggered a full system failure. This behavior is distinct from other processes like <code>algom-poll</code>, which has 0 restarts over 60 days, or <code>n8n</code>, also with 0 restarts over 44 days. The system is operating, but one critical component is in a constant state of self-recovery.</p>
+<h2>The Scale of Instability</h2>
+<p>To put the <code>algom-stream</code> restart count into perspective, consider the other processes. <code>dragontrade-dashboard</code> has 1 restart over 41 days. <code>dragontrade-main</code> has 3 restarts over 41 days. Even <code>cto-aipa</code>, which I've previously debugged for restart issues, shows 167 restarts over 3 days – a high number, but still orders of magnitude less than <code>algom-stream</code>'s 55193 restarts over 41 days. The <code>algom-stream</code> process is designed to handle real-time data ingestion, and this level of churn suggests it's constantly hitting an edge case or resource contention that forces a restart.</p>
+<p>The <code>pm2 jlist</code> output confirms <code>algom-stream</code> is "online" and consuming 53 MB of memory. This indicates the process manager is successfully restarting it, preventing a complete outage. However, each restart implies a brief interruption in data processing, potential loss of in-flight data, and increased CPU cycles for re-initialization. For a streaming process, this is far from ideal, even if it's not a hard crash.</p>
+<h2>Contrasting Stability: <code>algom-poll</code> and <code>n8n</code></h2>
+<p>The same <code>pm2 jlist</code> output highlights processes that exhibit remarkable stability. <code>algom-poll</code> has 0 restarts and has been up for 60 days, consuming 72 MB. <code>n8n</code> also shows 0 restarts, running for 44 days and using 497 MB. These processes demonstrate that stable, long-running operation is achievable on this infrastructure. The difference in behavior points to <code>algom-stream</code>'s specific implementation or its interaction with external dependencies as the source of the problem, rather than a systemic infrastructure issue.</p>
+<p>The <code>algom-poll</code> process is responsible for polling external APIs, a task that can be prone to network issues or API rate limits. Yet, it remains stable. <code>n8n</code> handles workflow automation, often integrating with various services. Its stability suggests robust error handling or less volatile external dependencies. This contrast is crucial for diagnosing <code>algom-stream</code>'s problem: it's not the environment, it's the code or its immediate runtime context.</p>
+<h2>The Impact of Constant Restarts</h2>
+<p>1.  <strong>Data Integrity:</strong> Each restart risks losing data that was being processed at the moment of failure. While I do not have that measured for <code>algom-stream</code> specifically, it's a general concern for streaming applications.<br>2.  <strong>Resource Consumption:</strong> Frequent restarts consume CPU cycles for process initialization and memory allocation. While <code>algom-stream</code> only uses 53 MB, the cumulative effect of 55193 restarts adds overhead.<br>3.  <strong>Debugging Complexity:</strong> The process is always "online," masking the underlying instability. Standard monitoring might not flag it as down, making it harder to prioritize. The <code>pm2 jlist</code> output is the only clear indicator of this specific <code>Algom-Stream Restart Anomaly</code>.<br>4.  <strong>Hidden Errors:</strong> The rapid restart cycle might be suppressing detailed error logs, as the process might not stay up long enough to write comprehensive diagnostics before the next restart. I need to investigate its specific log output, which I do not have measured here.</p>
+<h2>Next Steps: Deep Dive into <code>algom-stream</code> Logs</h2>
+<p>The <code>wiki-ship.log</code> shows an <code>error: failed to push some refs to 'https://github.com/ElenaRevicheva/aideazz.git'</code> 22.0 hours ago, indicating a different kind of operational issue. Other logs like <code>apply-queue.log</code>, <code>atlas-ga4-sync.log</code>, and <code>cita-sort.log</code> show successful operations or expected outcomes. The <code>hs-watch-manual-emails.log</code> shows <code>"ok": true</code> outcomes, and <code>reply-radar.log</code> shows <code>REPLIES MATCHED 0</code> but no errors. This suggests the core system is generally functioning.</p>
+<p>The <code>algom-stream</code> issue is isolated. My immediate next step is to analyze the specific logs for <code>algom-stream</code>. I need to configure more verbose logging or capture the output of the process before it restarts. The current <code>pm2 jlist</code> only provides the restart count, not the reason. Without detailed error messages, diagnosing the root cause of 55193 restarts is speculative. Given the presence of <code>oracledb</code> in the proven technologies, a common source of streaming issues is database connection drops or query timeouts, but I do not have that measured for <code>algom-stream</code> specifically.</p>
+<p>The <code>NOW.md</code> file, which serves as a shared session for my disconnected AI agents (Cursor Cloud, Cursor Desktop, and Claude Code), highlights the challenge of inter-agent communication. While this isn't directly related to <code>algom-stream</code>'s restarts, it underscores the fragmented nature of my AI-driven operations. Each agent works independently, and there's no shared context for debugging or problem-solving across them. This means the <code>algom-stream</code> issue will likely require manual investigation, as no AI agent is currently tasked with monitoring or diagnosing this specific restart anomaly.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why isn't <code>algom-stream</code> considered "down" if it restarts so frequently?</strong><br>A: <code>pm2</code> is a process manager designed to keep applications running. When <code>algom-stream</code> crashes, <code>pm2</code> immediately restarts it, so it's technically "online" from <code>pm2</code>'s perspective. The high restart count is an indicator of instability, not a complete outage.</p>
+<p><strong>Q: What specific errors are causing the 55193 restarts?</strong><br>A: I do not have that measured from the provided <code>pm2 jlist</code> output. The <code>pm2</code> command only reports the restart count and uptime, not the underlying error messages. A deeper dive into <code>algom-stream</code>'s specific application logs would be required.</p>
+<p><strong>Q: How does this compare to other processes like <code>cto-aipa</code>?</strong><br>A: <code>cto-aipa</code> has 167 restarts over 3 days, which is also high but significantly less than <code>algom-stream</code>'s 55193 restarts over 41 days. While both show instability, <code>algom-stream</code>'s issue is far more severe in terms of frequency.</p>
+<p><strong>Q: Is this a problem with the Oracle Cloud infrastructure?</strong><br>A: Given that <code>algom-poll</code> (0 restarts, 60 days up) and <code>n8n</code> (0 restarts, 44 days up) run stably on the same instance, it's unlikely to be a general infrastructure problem. The issue is more likely specific to <code>algom-stream</code>'s code, its dependencies, or its interaction with external services.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
