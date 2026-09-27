@@ -14,6 +14,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/ai-agent-followup-radar-671-inbox-emails-290-zoho-emails-monitored/
 https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/
 https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/
 https://aideazz.xyz/blog/hubspot-rate-limit-error-when-429-blocks-manual-email-processing/
