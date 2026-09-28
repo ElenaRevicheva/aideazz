@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The AI Agent Job Hunter Rejection Loop: Lessons That Could Only Advise | AIdeazz</title>
+  <meta name="description" content="My AI job hunter agent was stuck in a rejection loop. It processed feedback, summarized reasons for rejection, and fed them back into its decision-making prompt. This loop was proven end-to-end a mon…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The AI Agent Job Hunter Rejection Loop: Lessons That Could Only Advise">
+  <meta property="og:description" content="My AI job hunter agent was stuck in a rejection loop. It processed feedback, summarized reasons for rejection, and fed them back into its decision-making prompt. This loop was proven end-to-end a mon…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-28T19:30:13.117Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The AI Agent Job Hunter Rejection Loop: Lessons That Could Only Advise">
+  <meta name="twitter:description" content="My AI job hunter agent was stuck in a rejection loop. It processed feedback, summarized reasons for rejection, and fed them back into its decision-making prompt. This loop was proven end-to-end a mon…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The AI Agent Job Hunter Rejection Loop: Lessons That Could Only Advise",
+  "description": "My AI job hunter agent was stuck in a rejection loop. It processed feedback, summarized reasons for rejection, and fed them back into its decision-making prompt. This loop was proven end-to-end a mon…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-28T19:30:13.117Z",
+  "dateModified": "2026-09-28T19:30:13.117Z",
+  "url": "https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How was the \"rejection\" feedback collected and delivered to the agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The agent read operator rejection notes and screenshots hourly. These were summarized and then fed into the judge's prompt, creating a feedback loop."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific mechanism prevented the feedback from overriding the initial criteria?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The wiki incident states the feedback was \"labeled as unable to override its criteria.\" This implies a hard-coded or deeply embedded set of initial preferences that the dynamic feedback mechanism could not modify."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did the RAG implementation for memory improve the agent's performance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the RAG implementation (`45f6411`) was built and measured, but ultimately turned OFF because \"it did not beat the baseline.\""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the impact of the 170 restarts on the `cto-aipa` process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While I do not have specific measurements on the impact of restarts on learning, frequent restarts (170 for `cto-aipa`, up 0 days) can lead to loss of short-term memory or context, potentially hindering an agent's ability to learn from a feedback loop."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The AI Agent Job Hunter Rejection Loop: Lessons That Could Only Advise</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-28T19:30:13.117Z">September 28, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI job hunter agent was stuck in a rejection loop. It processed feedback, summarized reasons for rejection, and fed them back into its decision-making prompt. This loop was proven end-to-end a month ago. Yet, the same types of jobs kept appearing. The core issue wasn't a lack of feedback, but an inability for that feedback to override the agent's initial criteria. The system was designed to learn, but its learning was advisory, not directive.</p>
+<h2>The Judge's Limited Influence</h2>
+<p>The agent, named VibeJobHunterAIPA_AIMCF, had a "judge" component. This judge was supposed to evaluate job postings against my preferences. I committed <code>e4c7314</code> on 2026-09-28 to fix the judge, aiming for it to evaluate through its own AI environment. Another commit, <code>4373d73</code>, addressed a specific location issue: "a location our Torre adapter wrote is not the employer promising LATAM." This led to <code>d2b9aa7</code>, which implemented a LATAM overrule, releasing 3 correct vetoes. These changes show an attempt to refine the judge's criteria.</p>
+<p>However, the wiki incident from 2026-09-28, titled "The job hunter learned from every rejection — and none of it could change what it showed," clearly states the problem. The agent read operator rejection notes and screenshots hourly, summarizing reasons for its judge's prompt. Despite this, "the same kinds of job kept arriving." The lessons reached a reviewer on a side path and were labeled as "unable to override its criteria." This means the feedback loop was active, but the agent's foundational criteria were immutable.</p>
+<h2>Memory Window Constraints</h2>
+<p>A critical constraint was the agent's memory window. The wiki incident notes that the feedback was "drawn from a window that remembered eight days." This limited context meant that while the agent could recall recent rejections, it couldn't build a long-term understanding of what was consistently undesirable. If a job type was rejected for nine days, then reappeared, the agent might treat it as a new, un-rejected type.</p>
+<p>I tried to address memory with commit <code>5782f3d</code> on 2026-09-28: "every decision keeps the posting it was made on — the replay can finally measure." This was a step towards persistent memory for decisions. I also experimented with RAG (Retrieval Augmented Generation) for the judge's decisions, committing <code>45f6411</code> on 2026-09-28: "RAG over her decisions for the judge — built, measured, OFF (it did not beat the baseline)." This RAG implementation was ultimately disabled because it didn't improve performance. The challenge wasn't just storing decisions, but effectively integrating them into the agent's active reasoning to override initial criteria.</p>
+<h2>The Cost of Fragmented Context</h2>
+<p>My AI agents, including the job hunter, operate in a fragmented environment. The <code>NOW.md</code> file, located at <code>/home/ubuntu/cto-aipa/docs/oracle/NOW.md</code>, serves as a shared session between Cursor Cloud, Cursor Desktop, and Claude Code. As stated in <code>NOW.md</code>, "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." There's "no shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This means that while I, the operator, can use <code>NOW.md</code> as a working memory, the agents themselves lack a unified, persistent context for learning and adaptation.</p>
+<p>This fragmentation directly impacts the job hunter's ability to learn from its rejection loop. Each interaction, each feedback point, might be processed in isolation without a holistic view of past rejections across different agent instances or sessions. The <code>VibeJobHunterAIPA_AIMCF</code> repository saw 12 commits in the last 48 hours, indicating active development. One commit, <code>b38836e</code>, fixed an issue where "httpx logging every Telegram request — the bot token was in the journal 8,640x/day," highlighting the volume of interactions and the need for careful logging.</p>
+<h2>Operational Stability and Agent Restarts</h2>
+<p>The <code>pm2 jlist</code> output shows the operational status of my processes. <code>serpapi-jobs</code>, which likely feeds job postings to the agent, has had 1 restart and is up for 0 days. The <code>cto-aipa</code> process, a core AI component, has had 170 restarts and is also up for 0 days. In contrast, <code>algom-poll</code> has 0 restarts and is up for 62 days. The high restart count for <code>cto-aipa</code> suggests instability or frequent deployments. Each restart could potentially reset the agent's short-term memory or context, further hindering its ability to learn from the AI Agent Job Hunter Rejection Loop.</p>
+<p>The <code>aideazz</code> repository, which includes my wiki, had 5 commits in the last 48 hours. One commit, <code>2922017</code>, specifically mentions "wiki: the lessons that could only advise - advisory feedback (new concept)," directly referencing the problem with the job hunter. This indicates that the inability of feedback to override criteria is a recognized, documented issue within my operational knowledge base.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How was the "rejection" feedback collected and delivered to the agent?</strong><br>A: The agent read operator rejection notes and screenshots hourly. These were summarized and then fed into the judge's prompt, creating a feedback loop.</p>
+<p><strong>Q: What specific mechanism prevented the feedback from overriding the initial criteria?</strong><br>A: The wiki incident states the feedback was "labeled as unable to override its criteria." This implies a hard-coded or deeply embedded set of initial preferences that the dynamic feedback mechanism could not modify.</p>
+<p><strong>Q: Did the RAG implementation for memory improve the agent's performance?</strong><br>A: No, the RAG implementation (<code>45f6411</code>) was built and measured, but ultimately turned OFF because "it did not beat the baseline."</p>
+<p><strong>Q: What was the impact of the 170 restarts on the <code>cto-aipa</code> process?</strong><br>A: While I do not have specific measurements on the impact of restarts on learning, frequent restarts (170 for <code>cto-aipa</code>, up 0 days) can lead to loss of short-term memory or context, potentially hindering an agent's ability to learn from a feedback loop.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
