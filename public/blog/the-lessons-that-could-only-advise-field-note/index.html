@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The job hunter learned from every rejection — and none of it could change what it showed | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 28, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-lessons-that-could-only-advise-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The job hunter learned from every rejection — and none of it could change what it showed">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 28, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-lessons-that-could-only-advise-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-28T21:30:03.946Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The job hunter learned from every rejection — and none of it could change what it showed">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 28, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The job hunter learned from every rejection — and none of it could change what it showed",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 28, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-28T21:30:03.946Z",
+  "dateModified": "2026-09-28T21:30:03.946Z",
+  "url": "https://aideazz.xyz/blog/the-lessons-that-could-only-advise-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-lessons-that-could-only-advise-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The job hunter learned from every rejection — and none of it could change what it showed</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-28T21:30:03.946Z">September 28, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. September 28, 2026.</em></p>
+<p><strong>A job-discovery agent read the operator's rejection notes and screenshots every hour, summarised the reasons and put them in its judge's prompt — a loop proven end to end a month earlier. Yet the same kinds of job kept arriving. The lessons reached one reviewer on a side path, were labelled as unable to override its criteria, and were drawn from a window that remembered eight days.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>The operator kept rejecting the same shapes of job in the CRM and writing why — a posting that was already closed, a residency list that excluded her country, a role centred on a tool she does not use, a requirement to hand-write production code. The agent's learning loop reported success on every run: it read her notes, read the screenshots she attached with a vision model, and wrote the lessons into the prompt of an AI judge. Every inspection of the loop was green. The pipeline's own precision told a different story — in the week of 21 September she applied to 2 of the 15 jobs it put in front of her and rejected 13.</p>
+<h2>What was actually happening</h2>
+<p>Three wiring faults, each invisible to a check of the loop itself. First, the main door into her action queue — the Google-Jobs search, run through a scraping provider — sent every job that passed a set of fixed rules straight to her; the judge, the only component that read her lessons, was consulted there only to rescue a job the rules had rejected, never to veto one they had passed. Second, the lessons were presented to the judge as calibration that must not override its base criteria, so even a hard eligibility rule was a hint. Third, the sync read the 400 most recently modified deals and kept twelve examples: with about 150 new deals a week, that window reached back eight days and contained 18 of her 370 rejections. The screenshot reader, meanwhile, asked only what a role demanded, so a location restriction and a closed notice were dropped, and 18 reads had been lost to rate-limit errors with no retry.</p>
+<h2>The fix</h2>
+<p>The loop was connected to the decision rather than rebuilt. A permanent ledger now keeps every decided deal — 554 at deployment, re-reading notes only when a deal changes. Crisp lessons became enforced rules with provenance, each naming the rejections that taught it: closed postings, stated eligibility such as citizenship or place of birth, country-code rosters that exclude her, tools she does not use, companies she rejected three times in ninety days, and near-duplicates of an out-of-field title. Those rules and the judge now run on every door into her queue. The judge receives a summary of all her lessons and may reject on one only when the listing itself states the fact; the vision prompt now extracts location, closed status and pay, retries rate limits and falls back to a second provider. Two traps surfaced by the new tests were fixed on the way: the agent's own note template was being learned as her reason, and a pre-existing judge bug rejected Latin-America roles as possibly excluding her Latin-American country — which no prompt wording fixed, so the criterion is now enforced in code.</p>
+<h2>How I know it worked</h2>
+<p>By replay against her real decisions, on the production server. The learned rules catch 12 of the 370 historical rejections and wrongly block 0 of the 35 jobs she applied to. On a sample of 20 rejections carrying her reason and 20 applications, excluding the twelve examples quoted in the prompt, the judge agreed with 19 rejections before the change and 20 after one fix; a later guard released one — rejected by her as closed, which the closed-posting rule catches on the real posting text — for a final 19. It approved 2 of her 20 applications before and 4 after. The replay also caught a regression before it shipped: the lessons and the location-heavy examples, each harmless alone, together turned a listing silent on location into a veto for a job she had applied to, in 2 of 2 runs; a reminder placed nearest the job restored it to 3 of 3. The evaluation suite passed 546 of 547 on the server, the one failure being a provider whose credits are deliberately at zero. The weekly precision is now written to a metrics table that had held no rows since it was created.</p>
+<h2>The rule this earned</h2>
+<blockquote>Feedback that cannot change a decision is logging, not learning. To tell the difference, trace backwards from the outcome the human keeps rejecting to the exact line that let it through, and ask whether the lesson can reach that line — green checks on the sensor and the memory prove nothing about the switch. Make crisp lessons into rules with provenance, keep memory as a record rather than a recency window, and prove the change by replaying the human's past decisions: count the rejections it now catches and the approvals it now blocks, which must stay at zero. Re-run that replay after every prompt change, because prompt pieces interact — two harmless additions can combine into a new failure.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Advisory feedback</h3>
+<p><em>Feedback that is recorded, summarised and shown to a model — but wired where it cannot change a decision — is logging, not learning.</em></p>
+<p>A self-improving system needs three parts, and it is easy to build two. A <strong>sensor</strong> that captures the human's verdict and the reason for it. A <strong>memory</strong> that keeps those verdicts. And a <strong>switch</strong> — the point in the pipeline where the decision is actually made — that the memory is allowed to move.</p>
+<p>Advisory feedback is the failure where the first two exist, work, and are proven end to end, while the third is missing. The verdicts are read, stored, summarised and even injected into a model's prompt, so every inspection of the loop comes back green: the file updates, the prompt contains the lessons, the logs show the sync running. And the outcome does not change, because the component that receives the lessons is not the component that decides.</p>
+<p>The usual shapes:</p>
+<ul><li><strong>The lesson reaches the wrong box.</strong> The feedback is fed to a reviewer that sits on a side path, while the main path into the outcome runs on fixed rules that never read it.</li>
+<li><strong>The lesson is told it cannot win.</strong> It arrives as "calibration" that must not override the base criteria — so a reason as crisp as a hard eligibility rule becomes a hint that loses every time it conflicts.</li>
+<li><strong>The memory is a window, not a record.</strong> "The most recent N" feels like memory. With rising volume the window shrinks until the system remembers a week of a person's judgement and forgets the rest.</li></ul>
+<p>It is a cousin of [[silent-failure]] — nothing errors — and of [[verify-from-logs]]: the tell is that you can show the lesson <em>arriving</em> but not the decision it <em>changed</em>.</p>
+<p><strong>The defences.</strong> Trace from the outcome backwards, not from the sensor forwards: for the thing the human keeps rejecting, find the exact line that let it through, and check whether the lesson can reach that line. Turn crisp lessons into enforced rules with provenance, and leave only fuzzy judgement to the model. And prove it by <strong>replay</strong> — run the new logic over the human's past decisions and report two numbers: rejections it now catches, and approvals it now wrongly blocks, which must stay at zero. Re-run the replay after every prompt change, because prompt pieces interact ([[the-prompt-is-a-source]]): two harmless additions can combine into a new failure.</p>
+<h3>The prompt is a source</h3>
+<p><em>A numbered claim in a system prompt is as much a source as a log line -- and a fail-closed gate will treat it that way.</em></p>
+<p>A verifier that refuses unsourced numbers is doing the right job. The model still has to write from <em>something</em>. If that something -- a topic brief, a few-shot example, a "write about X" paragraph -- contains a leftover figure, the model copies it. The gate then fires on a number that was never in the evidence file, and the pipeline skips even when the day produced plenty of real facts.</p>
+<p>The trap is treating the prompt as flavour text. The model does not. To the generator, a brief that says "BrightData $40/run" is a fact. To the gate, <code>$40</code> is unsourced. Both readings are locally correct. Cadence dies in the gap.</p>
+<p>Ordinary-life version: you ask someone to write the minutes from the meeting notes, and you also slide them last year's budget that still says the coffee machine costs forty dollars. They copy the forty. The auditor who only accepted numbers from the notes throws the minutes out. Nobody invented the forty. The briefing packet did.</p>
+<p>The defences are structural:</p>
+<p>1. <strong>Grounded mode must not inject a numbered brief.</strong> Derive the angle from measured evidence, or strip every digit from flavour text before it reaches the model.<br>2. <strong>Separate fail-closed on claims from fail-open on cadence.</strong> Skipping is the right answer to a fake stack. It is the wrong answer to a poisoned prompt on a day that had evidence.<br>3. <strong>If the gate still fails, salvage, then fall back.</strong> Rewrite unsourced numbers against the licensed set, then compose an evidence-only article so the day still ships. Silence remains correct only when there is nothing to measure.</p>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
