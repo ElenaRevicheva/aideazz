@@ -375,14 +375,16 @@
     "inquiryErrorCaptcha": "Security check failed. Refresh the page and try again.",
     "inquiryErrorTimeout": "Request timed out. Check your connection and try again.",
     "inquiryValidation": "Please add at least your name, email, or a short message.",
+    "inquiryConsultNote": "Not sure yet where to start? Book a 1:1 diagnostic call with Elena first. Before the call she reviews your website and how AI assistants describe your business — then tells you plainly whether an audit is worth it for you.",
+    "inquiryConsultLink": "Book a 1:1 diagnostic call with Elena — $100",
     "inquiryAuditNote": "Ready to move forward? Order a web visibility & GEO / AEO / Tech SEO audit — domain, hosting, forms, integrations, and how you show up in search and AI answers. Secure payment via PagueloFacil (Panama cards).",
     "inquiryAuditLink": "Order web visibility & GEO / AEO / Tech SEO audit",
-    "inquirySuccessAudit": "Inquiry received. If you’d like the technical web audit now, continue below."
+    "inquirySuccessAudit": "Inquiry received. If you’d like to go further now, book a diagnostic call or order the audit below."
   },
   "servicePay": {
     "title": "Technical web analysis",
     "paymentBadge": "Secure payment · PagueloFacil (Panama cards)",
-    "subtitle": "Order your technical web report below. You will be redirected to PagueloFacil to complete payment.",
+    "subtitle": "Start with a 1:1 diagnostic call, or order your technical web report directly. You will be redirected to PagueloFacil to complete payment.",
     "formTitle": "Your contact details",
     "name": "Full name",
     "email": "Email",
@@ -393,9 +395,14 @@
     "checkoutError": "Payment could not be started. Please try again or write to Elena on WhatsApp.",
     "blueprintBlocked": "The full blueprint is available after your preliminary audit. Please contact Elena if you need assistance.",
     "validationContact": "Please enter your name and email before continuing.",
-    "afterPayNote": "After payment is confirmed, you will receive your report by email. If we asked you technical questions (domain, hosting, forms, etc.), please include your answers in the notes field above — this helps us deliver a useful report faster.",
+    "afterPayNote": "After payment is confirmed: for the diagnostic call, Elena writes to you by email to agree the date and time; for an audit, you will receive your report by email. If we asked you technical questions (domain, hosting, forms, etc.), please include your answers in the notes field above — this helps us deliver a useful report faster.",
     "footer": "Secure payment via PagueloFacil",
     "products": {
+      "diagnostic_call": {
+        "title": "1:1 diagnostic call with Elena",
+        "description": "A live video call with Elena before you commit to an audit. She reviews your website and how AI assistants describe your business beforehand, so the call goes to your questions — and you leave knowing whether an audit is worth it for you.",
+        "price": "100"
+      },
       "web_audit_prelim": {
         "title": "Preliminary technical audit",
         "description": "A concrete report on your domain, hosting, forms, integrations, and technical risks — without interfering with your current web vendors.",

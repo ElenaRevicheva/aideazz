@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MARKETING_INQUIRY_PROXY_URL, captureInboundUtms } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
-import { Send, Loader2, CreditCard } from "lucide-react";
+import { Send, Loader2, CreditCard, Video } from "lucide-react";
 import { track } from "@/lib/analytics";
 
 type InquiryFormProps = {
@@ -32,15 +32,20 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
   const [sending, setSending] = useState(false);
   const [submittedOk, setSubmittedOk] = useState(false);
 
-  const auditPayUrl = useMemo(() => {
-    const params = new URLSearchParams();
-    params.set("sku", "web_audit_prelim");
-    params.set("lng", i18n.language.startsWith("es") ? "es" : "en");
-    for (const [k, v] of Object.entries(utm)) {
-      if (v) params.set(k, v);
-    }
-    return `/pay/analisis-tecnico?${params.toString()}`;
-  }, [utm, i18n.language]);
+  const payUrlFor = useMemo(
+    () => (sku: "diagnostic_call" | "web_audit_prelim") => {
+      const params = new URLSearchParams();
+      params.set("sku", sku);
+      params.set("lng", i18n.language.startsWith("es") ? "es" : "en");
+      for (const [k, v] of Object.entries(utm)) {
+        if (v) params.set(k, v);
+      }
+      return `/pay/analisis-tecnico?${params.toString()}`;
+    },
+    [utm, i18n.language],
+  );
+  const consultPayUrl = payUrlFor("diagnostic_call");
+  const auditPayUrl = payUrlFor("web_audit_prelim");
 
   useEffect(() => {
     const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
@@ -227,6 +232,21 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
         {submittedOk && (
           <p className="text-sm text-emerald-300 mb-3">{t("cta.inquirySuccessAudit")}</p>
         )}
+        <p className="text-sm text-gray-400 mb-4 leading-relaxed">{t("cta.inquiryConsultNote")}</p>
+        <Button
+          asChild
+          variant="outline"
+          className="w-full h-auto min-h-10 !whitespace-normal py-3 px-4 mb-6 border-purple-400/40 text-purple-200 hover:bg-purple-500/10 hover:text-purple-100"
+        >
+          <Link
+            to={consultPayUrl}
+            onClick={() => track("diagnostic_call_click", { location: id })}
+            className="flex w-full min-w-0 flex-wrap items-center justify-center gap-2 text-center leading-snug whitespace-normal"
+          >
+            <Video className="w-4 h-4 shrink-0" />
+            <span className="min-w-0 break-words">{t("cta.inquiryConsultLink")}</span>
+          </Link>
+        </Button>
         <p className="text-sm text-gray-400 mb-4 leading-relaxed">{t("cta.inquiryAuditNote")}</p>
         <Button
           asChild

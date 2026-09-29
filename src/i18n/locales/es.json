@@ -375,14 +375,16 @@
     "inquiryErrorCaptcha": "Falló la verificación de seguridad. Actualiza la página e inténtalo de nuevo.",
     "inquiryErrorTimeout": "La solicitud tardó demasiado. Revisa tu conexión e inténtalo de nuevo.",
     "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje.",
+    "inquiryConsultNote": "¿Aún no sabe por dónde empezar? Reserve primero una llamada de diagnóstico 1:1 con Elena. Antes de la llamada ella revisa su sitio web y cómo los asistentes de IA describen su negocio — y le dice con claridad si una auditoría vale la pena en su caso.",
+    "inquiryConsultLink": "Reservar llamada de diagnóstico 1:1 con Elena — $100",
     "inquiryAuditNote": "¿Listo para avanzar? Encargue una auditoría de visibilidad web y GEO / AEO / Tech SEO — dominio, hosting, formularios, integraciones y cómo aparece en buscadores y respuestas de IA. Pago seguro con PagueloFacil (tarjetas Panamá).",
     "inquiryAuditLink": "Encargar auditoría de visibilidad web y GEO / AEO / Tech SEO",
-    "inquirySuccessAudit": "Consulta recibida. Si desea el análisis técnico web ahora, continúe abajo."
+    "inquirySuccessAudit": "Consulta recibida. Si desea avanzar ahora, reserve una llamada de diagnóstico o encargue la auditoría abajo."
   },
   "servicePay": {
     "title": "Análisis técnico web",
     "paymentBadge": "Pago seguro · PagueloFacil (tarjetas Panamá)",
-    "subtitle": "Encargue su informe técnico web a continuación. Será redirigido a PagueloFacil para completar el pago.",
+    "subtitle": "Empiece con una llamada de diagnóstico 1:1 o encargue directamente su informe técnico web. Será redirigido a PagueloFacil para completar el pago.",
     "formTitle": "Sus datos de contacto",
     "name": "Nombre completo",
     "email": "Correo electrónico",
@@ -393,9 +395,14 @@
     "checkoutError": "No se pudo iniciar el pago. Intente de nuevo o escríbame por WhatsApp.",
     "blueprintBlocked": "El plan completo está disponible después de su auditoría preliminar. Escríbame si necesita ayuda.",
     "validationContact": "Ingrese su nombre y correo antes de continuar.",
-    "afterPayNote": "Una vez confirmado el pago, recibirá su informe por correo. Si le enviamos preguntas técnicas (dominio, hosting, formularios, etc.), inclúyalas en el campo de notas — así podremos entregar un informe útil más rápido.",
+    "afterPayNote": "Una vez confirmado el pago: para la llamada de diagnóstico, Elena le escribirá por correo para acordar la fecha y hora; para una auditoría, recibirá su informe por correo. Si le enviamos preguntas técnicas (dominio, hosting, formularios, etc.), inclúyalas en el campo de notas — así podremos entregar un informe útil más rápido.",
     "footer": "Pago seguro vía PagueloFacil",
     "products": {
+      "diagnostic_call": {
+        "title": "Llamada de diagnóstico 1:1 con Elena",
+        "description": "Una videollamada en vivo con Elena antes de comprometerse con una auditoría. Ella revisa antes su sitio web y cómo los asistentes de IA describen su negocio, para que la llamada se dedique a sus preguntas — y usted sepa si una auditoría vale la pena en su caso.",
+        "price": "100"
+      },
       "web_audit_prelim": {
         "title": "Informe técnico preliminar",
         "description": "Informe concreto sobre su dominio, hosting, formularios, integraciones y riesgos técnicos — sin interferir con sus proveedores web actuales.",

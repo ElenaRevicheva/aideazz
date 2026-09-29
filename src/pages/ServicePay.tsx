@@ -10,9 +10,9 @@ import { SERVICE_CHECKOUT_API } from "@/config/services";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { ArrowLeft, CreditCard, Loader2 } from "lucide-react";
 
-type Sku = "web_audit_prelim" | "web_audit_blueprint";
+type Sku = "diagnostic_call" | "web_audit_prelim" | "web_audit_blueprint";
 
-const SKUS: Sku[] = ["web_audit_prelim", "web_audit_blueprint"];
+const SKUS: Sku[] = ["diagnostic_call", "web_audit_prelim", "web_audit_blueprint"];
 
 const ServicePay = () => {
   const { t, i18n } = useTranslation();
