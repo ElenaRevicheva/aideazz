@@ -375,33 +375,60 @@
     "inquiryErrorCaptcha": "Falló la verificación de seguridad. Actualiza la página e inténtalo de nuevo.",
     "inquiryErrorTimeout": "La solicitud tardó demasiado. Revisa tu conexión e inténtalo de nuevo.",
     "inquiryValidation": "Añade al menos tu nombre, correo o un breve mensaje.",
-    "inquiryConsultNote": "¿Aún no sabe por dónde empezar? Reserve primero una llamada de diagnóstico 1:1 con Elena. Antes de la llamada ella revisa su sitio web y cómo los asistentes de IA describen su negocio — y le dice con claridad si una auditoría vale la pena en su caso.",
-    "inquiryConsultLink": "Reservar llamada de diagnóstico 1:1 con Elena — $100",
+    "inquiryConsultNote": "¿No sabe qué sistemas de IA necesita realmente su negocio? Empiece con un diagnóstico rápido AI Growth Operator: Elena revisa cómo ve su sitio la búsqueda con IA y qué módulos le resultarían rentables — recibe los resultados por escrito y una llamada de 45 minutos para revisarlos. Los $100 se abonan si decide continuar.",
+    "inquiryConsultLink": "Solicitar diagnóstico AI Growth Operator — $100",
     "inquiryAuditNote": "¿Listo para avanzar? Encargue una auditoría de visibilidad web y GEO / AEO / Tech SEO — dominio, hosting, formularios, integraciones y cómo aparece en buscadores y respuestas de IA. Pago seguro con PagueloFacil (tarjetas Panamá).",
     "inquiryAuditLink": "Encargar auditoría de visibilidad web y GEO / AEO / Tech SEO",
-    "inquirySuccessAudit": "Consulta recibida. Si desea avanzar ahora, reserve una llamada de diagnóstico o encargue la auditoría abajo."
+    "inquirySuccessAudit": "Consulta recibida. Si desea avanzar ahora, empiece con el diagnóstico o encargue la auditoría abajo."
   },
   "servicePay": {
     "title": "Análisis técnico web",
     "paymentBadge": "Pago seguro · PagueloFacil (tarjetas Panamá)",
-    "subtitle": "Empiece con una llamada de diagnóstico 1:1 o encargue directamente su informe técnico web. Será redirigido a PagueloFacil para completar el pago.",
+    "subtitle": "Empiece con un diagnóstico rápido AI Growth Operator o encargue directamente su informe técnico web. Será redirigido a PagueloFacil para completar el pago.",
     "formTitle": "Sus datos de contacto",
     "name": "Nombre completo",
     "email": "Correo electrónico",
     "company": "Empresa",
-    "notes": "URL del sitio web o notas adicionales",
-    "notesPlaceholder": "ej. https://suempresa.com — o pegue aquí las respuestas a las preguntas técnicas que le enviamos",
+    "notes": "Notas adicionales",
+    "notesPlaceholder": "ej. qué desea mejorar — o pegue aquí las respuestas a las preguntas técnicas que le enviamos",
     "payButton": "Continuar al pago",
     "checkoutError": "No se pudo iniciar el pago. Intente de nuevo o escríbame por WhatsApp.",
     "blueprintBlocked": "El plan completo está disponible después de su auditoría preliminar. Escríbame si necesita ayuda.",
     "validationContact": "Ingrese su nombre y correo antes de continuar.",
-    "afterPayNote": "Una vez confirmado el pago: para la llamada de diagnóstico, Elena le escribirá por correo para acordar la fecha y hora; para una auditoría, recibirá su informe por correo. Si le enviamos preguntas técnicas (dominio, hosting, formularios, etc.), inclúyalas en el campo de notas — así podremos entregar un informe útil más rápido.",
+    "validationWebsite": "Indique su sitio web para que Elena pueda realizar el diagnóstico.",
+    "intake": {
+      "website": "Su sitio web",
+      "websitePlaceholder": "https://suempresa.com",
+      "title": "Para el diagnóstico",
+      "channels": "¿Cómo le contactan normalmente los nuevos clientes?",
+      "channelOptions": {
+        "whatsapp": "WhatsApp",
+        "phone": "Teléfono",
+        "form": "Formulario web",
+        "email": "Correo",
+        "social": "Instagram / redes",
+        "referrals": "Referidos / en persona"
+      },
+      "saleValue": "¿Cuánto vale una venta típica?",
+      "saleOptions": {
+        "under500": "Menos de $500",
+        "s500to2k": "$500–2.000",
+        "s2kto10k": "$2.000–10.000",
+        "over10k": "Más de $10.000"
+      }
+    },
+    "afterPayNote": "Una vez confirmado el pago, recibirá un correo con los próximos pasos. Diagnóstico: Elena le envía los resultados por escrito, junto con un enlace para reservar su llamada. Auditorías: recibirá su informe por correo. Si le enviamos preguntas técnicas (dominio, hosting, formularios, etc.), inclúyalas en el campo de notas — así podremos entregar un informe útil más rápido.",
     "footer": "Pago seguro vía PagueloFacil",
     "products": {
       "diagnostic_call": {
-        "title": "Llamada de diagnóstico 1:1 con Elena",
-        "description": "Una videollamada en vivo con Elena antes de comprometerse con una auditoría. Ella revisa antes su sitio web y cómo los asistentes de IA describen su negocio, para que la llamada se dedique a sus preguntas — y usted sepa si una auditoría vale la pena en su caso.",
-        "price": "100"
+        "title": "Diagnóstico rápido AI Growth Operator",
+        "description": "¿Tiene sentido un AI Growth Operator para su negocio — y qué módulos exactamente? Visibilidad en búsquedas con IA, investigación de prospectos, calificación por WhatsApp / formulario, seguimiento, operación del CRM, reportes matutinos.",
+        "price": "100",
+        "howTitle": "Cómo funciona",
+        "step1": "Usted paga y responde tres preguntas breves arriba.",
+        "step2": "Elena realiza el diagnóstico: cómo ve su sitio la búsqueda con IA y qué módulos encajan con su negocio — y cuáles no.",
+        "step3": "Recibe los resultados por escrito por correo, con un enlace para reservar una videollamada de 45 minutos para revisarlos.",
+        "credit": "Los $100 se abonan a la auditoría o a la instalación si decide continuar."
       },
       "web_audit_prelim": {
         "title": "Informe técnico preliminar",

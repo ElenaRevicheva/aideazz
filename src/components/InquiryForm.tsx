@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MARKETING_INQUIRY_PROXY_URL, captureInboundUtms } from "@/config/marketing";
 import { getRecaptchaSiteKey, getRecaptchaToken } from "@/lib/recaptcha";
-import { Send, Loader2, CreditCard, Video } from "lucide-react";
+import { Send, Loader2, CreditCard, ScanSearch } from "lucide-react";
 import { track } from "@/lib/analytics";
 
 type InquiryFormProps = {
@@ -243,7 +243,7 @@ const InquiryForm = ({ id = "inquiry-form", className }: InquiryFormProps) => {
             onClick={() => track("diagnostic_call_click", { location: id })}
             className="flex w-full min-w-0 flex-wrap items-center justify-center gap-2 text-center leading-snug whitespace-normal"
           >
-            <Video className="w-4 h-4 shrink-0" />
+            <ScanSearch className="w-4 h-4 shrink-0" />
             <span className="min-w-0 break-words">{t("cta.inquiryConsultLink")}</span>
           </Link>
         </Button>
