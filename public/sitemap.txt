@@ -14,7 +14,9 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-610-discarded-jobs-to-643-passing-checks/
 https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/
+https://aideazz.xyz/blog/the-lessons-that-could-only-advise-field-note/
 https://aideazz.xyz/blog/ai-agent-followup-radar-671-inbox-emails-290-zoho-emails-monitored/
 https://aideazz.xyz/blog/the-algom-stream-restart-anomaly-55193-restarts-in-41-days/
 https://aideazz.xyz/blog/telegram-alerts-for-apply-queue-a-critical-feedback-loop/
