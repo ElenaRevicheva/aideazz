@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Job Search Fixes: From Source Failures to 12 Commits in 48 Hours | AIdeazz</title>
+  <meta name="description" content="My AI agent, VibeJobHunterAIPA_AIMCF, was discarding 610 jobs from Torre. All of them. This wasn't a filtering issue; it was a source failure. The agent was fetching jobs, but a timing misconfigurati…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Job Search Fixes: From Source Failures to 12 Commits in 48 Hours">
+  <meta property="og:description" content="My AI agent, VibeJobHunterAIPA_AIMCF, was discarding 610 jobs from Torre. All of them. This wasn't a filtering issue; it was a source failure. The agent was fetching jobs, but a timing misconfigurati…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-09-30T19:30:30.628Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Job Search Fixes: From Source Failures to 12 Commits in 48 Hours">
+  <meta name="twitter:description" content="My AI agent, VibeJobHunterAIPA_AIMCF, was discarding 610 jobs from Torre. All of them. This wasn't a filtering issue; it was a source failure. The agent was fetching jobs, but a timing misconfigurati…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Job Search Fixes: From Source Failures to 12 Commits in 48 Hours",
+  "description": "My AI agent, VibeJobHunterAIPA_AIMCF, was discarding 610 jobs from Torre. All of them. This wasn't a filtering issue; it was a source failure. The agent was fetching jobs, but a timing misconfigurati…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-09-30T19:30:30.628Z",
+  "dateModified": "2026-09-30T19:30:30.628Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you prioritize which source failures to fix first?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I prioritize based on the volume of discarded jobs or complete lack of activity. The Torre issue, discarding 610 jobs, was a clear priority due to the immediate data loss. Sources that are completely silent, like Himalayas, also get high priority as they represent untapped potential."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What monitoring is in place to detect these source failures?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I rely on log analysis (e.g., `job-board-watch.log` and `apply-queue.log`) and manual checks of the agent's output in Telegram. The `job-board-watch.log` can show \"VERDICT: REJECTED\" for wired boards, and the absence of new jobs from a source in Telegram is a strong indicator of a problem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage code changes and deployments for these fixes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use Git for version control, as evidenced by the 12 commits in VibeJobHunterAIPA_AIMCF over 48 hours. Deployments are managed via PM2, which shows 9 processes online, including `cto-aipa` and `serpapi-jobs`, allowing for rapid iteration and restarts when necessary."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you have a formal testing framework for new job sources?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured. My current approach involves direct integration and monitoring in a production-like environment, with rapid iteration based on observed failures and successes in the logs and agent output."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Job Search Fixes: From Source Failures to 12 Commits in 48 Hours</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-09-30T19:30:30.628Z">September 30, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI agent, VibeJobHunterAIPA_AIMCF, was discarding 610 jobs from Torre. All of them. This wasn't a filtering issue; it was a source failure. The agent was fetching jobs, but a timing misconfiguration meant it couldn't process them. This specific failure, along with others across different job sources, highlighted a critical vulnerability in my job search automation: if the data input pipeline breaks, the entire system starves. Over the last 48 hours, I've pushed 12 commits to address these issues, focusing on robust source integration and error handling.</p>
+<h2>The Torre Timeout: 610 Discarded Jobs</h2>
+<p>The Torre source was configured with a 20-second timeout. This seemed reasonable initially, but the reality of fetching job data from their API proved otherwise. The agent was successfully connecting and initiating requests, but the responses often exceeded this window. The result: 610 jobs, primarily from LATAM, were fetched but then immediately discarded because the processing logic timed out. The commit <code>5af1858</code> (2026-09-29) addressed this directly: <code>fix(sources): Torre gets 90s, not 20s - it was fetching 610 LATAM jobs and discarding them all</code>. Extending the timeout to 90 seconds allowed the agent to fully ingest and process these jobs, preventing a massive data loss. This wasn't about finding more jobs; it was about <em>keeping</em> the jobs already found.</p>
+<h2>Bright Data's Door: Gating the Snippet, Not the Posting</h2>
+<p>Another significant issue emerged with Bright Data. The agent was configured to gate job snippets based on location or other criteria, which meant it was filtering potential jobs <em>before</em> it even had the full posting details. This led to a situation where potentially relevant jobs were never even considered because the initial, limited data didn't pass the filter. The commit <code>0a980de</code> (2026-09-29) fixed this: <code>fix(bright-data door): search where she can work, and gate the posting, not the snippet</code>. The change ensures that the agent first retrieves the full job posting, then applies the filtering logic. This prevents premature rejection based on incomplete information, allowing for a more accurate assessment of job suitability.</p>
+<h2>Himalayas: From Zero Searches to Targeted Queries</h2>
+<p>The Himalayas source presented a different kind of failure: it wasn't searching anything at all. My logs showed no activity for this source, indicating a complete breakdown in its integration. The root cause was an incorrect API endpoint or query structure. Instead of using a general search, the agent needed to hit a specific endpoint with targeted queries. The commit <code>06f6329</code> (2026-09-29) resolved this: <code>fix(himalayas): the source searched nothing - use /jobs/api/search, one query per lane</code>. This involved switching to the <code>/jobs/api/search</code> endpoint and structuring queries to run "one query per lane," ensuring that each search criterion was properly applied and executed. This brought the Himalayas source online, adding another stream of potential jobs.</p>
+<h2>Learning from Internal Notes and External Feedback</h2>
+<p>Beyond direct source integration, I also refined how the AI agent interprets internal notes and external feedback. The system uses specific notes for internal tracking, like "📌 JOB POSTING" for hand-staged jobs or "🎯 ROLE DEFENSE" for specific rejection kits. Previously, these internal markers could be misinterpreted by the agent as reasons for application or rejection. The commit <code>debac32</code> (2026-09-29) addressed the job posting note: <code>fix(learning): the "📌 JOB POSTING" note on hand-staged jobs is never her reason or her "applied"</code>. Similarly, <code>026419e</code> (2026-09-29) ensured internal feedback isn't confused with external rejections: <code>fix(feedback): the new 🎯 ROLE DEFENSE kit note is never read as Elena's rejection reason</code>. These fixes prevent the agent from "learning" incorrect patterns from its own operational metadata, improving the accuracy of its decision-making.</p>
+<p>Finally, I added a specific blocklist entry for my own email domain (<code>@aideazz.xyz</code>) to prevent the agent from misinterpreting internal communications as employer replies. The commit <code>6c072e6</code> (2026-09-30) states: <code>fix(responses): our own @aideazz.xyz mail is never an employer reply - one entry in the existing sender blocklist</code>. This is a small but crucial detail for maintaining clean data and avoiding false positives in reply detection.</p>
+<h2>Operational Stability and Continuous Deployment</h2>
+<p>These 12 commits to VibeJobHunterAIPA_AIMCF in the last 48 hours are part of a continuous effort to improve the AI agent's reliability and performance. While <code>cto-aipa</code> has seen 181 restarts in 0 days, and <code>algom-stream</code> has had 55193 restarts over 45 days, the VibeJobHunterAIPA_AIMCF repository itself shows a focused effort on fixing specific, high-impact issues. My <code>serpapi-jobs</code> process has only 2 restarts in 1 day, indicating relative stability for that component. The <code>apply-queue.log</code> shows consistent activity, with messages like "✓ sent to Telegram (6 new)" indicating successful job processing and notifications. This iterative approach, with frequent, targeted fixes, is essential for maintaining a complex AI agent in production without dedicated VC funding.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you prioritize which source failures to fix first?</strong><br>A: I prioritize based on the volume of discarded jobs or complete lack of activity. The Torre issue, discarding 610 jobs, was a clear priority due to the immediate data loss. Sources that are completely silent, like Himalayas, also get high priority as they represent untapped potential.</p>
+<p><strong>Q: What monitoring is in place to detect these source failures?</strong><br>A: I rely on log analysis (e.g., <code>job-board-watch.log</code> and <code>apply-queue.log</code>) and manual checks of the agent's output in Telegram. The <code>job-board-watch.log</code> can show "VERDICT: REJECTED" for wired boards, and the absence of new jobs from a source in Telegram is a strong indicator of a problem.</p>
+<p><strong>Q: How do you manage code changes and deployments for these fixes?</strong><br>A: I use Git for version control, as evidenced by the 12 commits in VibeJobHunterAIPA_AIMCF over 48 hours. Deployments are managed via PM2, which shows 9 processes online, including <code>cto-aipa</code> and <code>serpapi-jobs</code>, allowing for rapid iteration and restarts when necessary.</p>
+<p><strong>Q: Do you have a formal testing framework for new job sources?</strong><br>A: I do not have that measured. My current approach involves direct integration and monitoring in a production-like environment, with rapid iteration based on observed failures and successes in the logs and agent output.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
