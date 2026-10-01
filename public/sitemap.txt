@@ -14,6 +14,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/cto-aipa-restart-spike-181-restarts-in-one-day/
 https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/
 https://aideazz.xyz/blog/ai-agent-job-search-fixes-from-610-discarded-jobs-to-643-passing-checks/
 https://aideazz.xyz/blog/the-ai-agent-job-hunter-rejection-loop-lessons-that-could-only-advise/
