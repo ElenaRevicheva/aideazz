@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTO-AIPA Restart Spike: 181 Restarts in One Day | AIdeazz</title>
+  <meta name="description" content="The cto-aipa process recorded 181 restarts in the last day. This number stands out sharply against the stability of most other processes I supervise with PM2. For context, dragontrade-dashboard had 1…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/cto-aipa-restart-spike-181-restarts-in-one-day/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CTO-AIPA Restart Spike: 181 Restarts in One Day">
+  <meta property="og:description" content="The cto-aipa process recorded 181 restarts in the last day. This number stands out sharply against the stability of most other processes I supervise with PM2. For context, dragontrade-dashboard had 1…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/cto-aipa-restart-spike-181-restarts-in-one-day/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-01T19:30:14.708Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CTO-AIPA Restart Spike: 181 Restarts in One Day">
+  <meta name="twitter:description" content="The cto-aipa process recorded 181 restarts in the last day. This number stands out sharply against the stability of most other processes I supervise with PM2. For context, dragontrade-dashboard had 1…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTO-AIPA Restart Spike: 181 Restarts in One Day",
+  "description": "The cto-aipa process recorded 181 restarts in the last day. This number stands out sharply against the stability of most other processes I supervise with PM2. For context, dragontrade-dashboard had 1…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-01T19:30:14.708Z",
+  "dateModified": "2026-10-01T19:30:14.708Z",
+  "url": "https://aideazz.xyz/blog/cto-aipa-restart-spike-181-restarts-in-one-day/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/cto-aipa-restart-spike-181-restarts-in-one-day/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the `cto-aipa` restart spike affecting other processes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the restart spike is isolated to `cto-aipa`. Other processes like `dragontrade-dashboard` (1 restart in 46 days) and `algom-poll` (0 restarts in 65 days) show normal, stable operation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could the recent commits be directly responsible for the 181 restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `fix(responses)` commit (`6c072e6`) on 2026-09-30 in `VibeJobHunterAIPA_AIMCF` is a strong candidate, as it directly relates to the `cto-aipa` agent's core function of handling email responses. The `aideazz` commits are less likely to be direct causes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the memory usage of the `cto-aipa` process compared to others?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `cto-aipa` process uses 217 MB. This is higher than `algom-stream` (52 MB) and `algom-poll` (70 MB), but lower than `n8n` (496 MB). Its memory footprint alone does not explain the restart count."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any other system-wide issues indicated by the logs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `hs-watch-manual-emails.log` shows a HubSpot API rate limit error (429) 0.2 hours ago. While not directly linked to `cto-aipa`'s restarts, it indicates that external API interactions can be a source of transient failures in the broader system."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">CTO-AIPA Restart Spike: 181 Restarts in One Day</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-01T19:30:14.708Z">October 1, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>The <code>cto-aipa</code> process recorded 181 restarts in the last day. This number stands out sharply against the stability of most other processes I supervise with PM2. For context, <code>dragontrade-dashboard</code> had 1 restart over 46 days, <code>dragontrade-main</code> had 3 restarts over 46 days, and <code>algom-poll</code> had 0 restarts over 65 days. Even <code>serpapi-jobs</code>, which has been up for 2 days, only registered 2 restarts. The <code>cto-aipa</code> process, despite being online for 1 day, shows a clear anomaly.</p>
+<p>This isn't a system-wide instability. My <code>algom-stream</code> process, for instance, has 55193 restarts over 46 days, which is a known, expected pattern for its specific workload. The <code>cto-aipa</code> spike, however, is new and specific to this process.</p>
+<h2>Identifying the Anomaly</h2>
+<p>My PM2 list shows 9 processes online. Most are stable:<br><ul><li><code>dragontrade-dashboard</code>: 1 restart, up 46d, 55 MB</li><br><li><code>cto-aipa</code>: 181 restarts, up 1d, 217 MB</li><br><li><code>algom-stream</code>: 55193 restarts, up 46d, 52 MB</li><br><li><code>dragontrade-main</code>: 3 restarts, up 46d, 150 MB</li><br><li><code>algom-poll</code>: 0 restarts, up 65d, 70 MB</li><br><li><code>whitespace</code>: 4 restarts, up 45d, 102 MB</li><br><li><code>n8n</code>: 0 restarts, up 49d, 496 MB</li><br><li><code>serpapi-jobs</code>: 2 restarts, up 2d, 113 MB</li><br><li><code>pm2-logrotate</code>: 5 restarts, up 3d, 96 MB</li></ul></p>
+<p>The <code>cto-aipa</code> process, with 181 restarts in 1 day, is an outlier. Its memory usage is 217 MB, which is not the highest (e.g., <code>n8n</code> uses 496 MB), but the restart count is disproportionate to its uptime compared to other processes.</p>
+<h2>Correlating with Recent Code Changes</h2>
+<p>I checked recent commits in the <code>aideazz</code> and <code>VibeJobHunterAIPA_AIMCF</code> repositories for the last 48 hours.</p>
+<p>In <code>aideazz</code>, there were 4 commits:<br><ul><li><code>7f11cf7</code> (2026-09-30): ai-ops-wiki: refresh journal + AEO surfaces</li><br><li><code>20a5577</code> (2026-09-30): chore(blog-static): regenerate ai-agent-job-search-fixes-from-source-failures-to-12-commits-in-48-hours/index.html</li><br><li><code>54f02ac</code> (2026-09-29): ai-ops-wiki: refresh journal + AEO surfaces</li><br><li><code>bc47818</code> (2026-09-29): chore(blog-static): regenerate ai-agent-job-search-fixes-from-610-discarded-jobs-to-643-passing-checks/index.html</li></ul></p>
+<p>These commits are primarily related to wiki updates and blog static regeneration. They are unlikely to directly impact the runtime stability of the <code>cto-aipa</code> process.</p>
+<p>In <code>VibeJobHunterAIPA_AIMCF</code>, which is more directly related to the <code>cto-aipa</code> agent, there were 3 commits in the last 48 hours:<br><ul><li><code>2c317c8</code> (2026-10-01): learning: the cto-aipa kit's 📋 COMET PROMPT note is a kit note, never her reason</li><br><li><code>6c072e6</code> (2026-09-30): fix(responses): our own @aideazz.xyz mail is never an employer reply - one entry in the existing sender blocklist</li><br><li><code>026419e</code> (2026-09-29): fix(feedback): the new 🎯 ROLE DEFENSE kit note is never read as Elena's rejection reason</li></ul></p>
+<p>The commit <code>6c072e6</code> on 2026-09-30, a day before the restart spike, is a <code>fix(responses)</code> related to email handling. The commit <code>2c317c8</code> on 2026-10-01 is a <code>learning</code> commit, likely a refinement. It's plausible that the <code>fix(responses)</code> commit, or an interaction with it, could introduce a new edge case leading to process restarts. The <code>cto-aipa</code> agent is responsible for processing and generating responses, so changes in this area are high-impact.</p>
+<h2>Examining Log Outcomes</h2>
+<p>I checked the logs for other processes to see if there were any cascading failures or related issues.</p>
+<ul><li><code>apply-queue.log</code>: Shows successful Telegram sends (<code>✓ sent to Telegram (2 new)</code>, <code>✓ sent to Telegram (6 new)</code>, <code>✓ sent to Telegram (2 new)</code>). Last modified 6.2 hours ago. This indicates the application queue is still processing.</li>
+<li><code>cita-sort.log</code>: Shows <code>cita-sort OK — 0 card(s) repositioned across 3 board(s)</code>. Last modified 0.7 hours ago. This process is stable.</li>
+<li><code>concierge-selftest.log</code>: Shows <code>✅ PASS — 4 checks, 3331ms to first card</code>. Last modified 6.7 hours ago. The self-test is passing.</li>
+<li><code>followup-radar.log</code>: Shows email counts for <code>imap.gmail.com</code> (709 inbox / 5 sent) and <code>imap.zoho.com</code> (292 inbox / 29 sent). Last modified 7.5 hours ago. Email monitoring is active.</li>
+<li><code>reply-radar.log</code>: Shows <code>APPLY — scanned 244 · automated/own skipped 0 · no CRM match 0 · REPLIES MATCHED 0 · errors 0</code>. Last modified 0.2 hours ago. This indicates the reply scanning is running, though no replies were matched in the latest run.</li></ul>
+<p>One log entry from <code>hs-watch-manual-emails.log</code> shows a HubSpot API rate limit error: <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage → 429: {"status":"error","message":"You have reached your ten_secondly_rolling limit."}</code>. This occurred 0.2 hours ago. While this is a separate issue, it highlights that external API interactions can cause disruptions. The <code>cto-aipa</code> process also interacts with external services, and a similar rate limit or unexpected response could trigger restarts.</p>
+<h2>The Shared Session Constraint</h2>
+<p>My <code>NOW.md</code> file, which serves as the shared working memory for my AI agents, describes a critical constraint: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This means that if a code change or a new operational pattern in one agent causes issues, the other agents cannot directly communicate or adapt. The <code>cto-aipa</code> process might be encountering an edge case that was not anticipated by the agent that introduced the recent <code>fix(responses)</code> commit, and the lack of real-time inter-agent communication prevents a quick, coordinated resolution.</p>
+<p>The <code>cto-aipa</code> process is part of a complex system. The 181 restarts suggest a recurring, transient failure rather than a hard crash. This points to an issue that might resolve itself temporarily, only to re-emerge under specific conditions or data inputs. Given the recent <code>fix(responses)</code> commit, I will investigate the specific email processing logic for any new failure modes or unhandled exceptions that could lead to a <code>CTO-AIPA Restart Spike</code>.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is the <code>cto-aipa</code> restart spike affecting other processes?</strong><br>A: No, the restart spike is isolated to <code>cto-aipa</code>. Other processes like <code>dragontrade-dashboard</code> (1 restart in 46 days) and <code>algom-poll</code> (0 restarts in 65 days) show normal, stable operation.</p>
+<p><strong>Q: Could the recent commits be directly responsible for the 181 restarts?</strong><br>A: The <code>fix(responses)</code> commit (<code>6c072e6</code>) on 2026-09-30 in <code>VibeJobHunterAIPA_AIMCF</code> is a strong candidate, as it directly relates to the <code>cto-aipa</code> agent's core function of handling email responses. The <code>aideazz</code> commits are less likely to be direct causes.</p>
+<p><strong>Q: What is the memory usage of the <code>cto-aipa</code> process compared to others?</strong><br>A: The <code>cto-aipa</code> process uses 217 MB. This is higher than <code>algom-stream</code> (52 MB) and <code>algom-poll</code> (70 MB), but lower than <code>n8n</code> (496 MB). Its memory footprint alone does not explain the restart count.</p>
+<p><strong>Q: Are there any other system-wide issues indicated by the logs?</strong><br>A: The <code>hs-watch-manual-emails.log</code> shows a HubSpot API rate limit error (429) 0.2 hours ago. While not directly linked to <code>cto-aipa</code>'s restarts, it indicates that external API interactions can be a source of transient failures in the broader system.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
