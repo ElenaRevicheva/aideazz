@@ -871,12 +871,18 @@ export default function LabApi() {
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Company</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
-                {/* NOT wrapped in inquiryLinkFromInbound. That helper swaps its target for the
-                    attributed inquiry form whenever UTMs are present, which is right for a
-                    CTA and wrong for a nav link -- "About" was dropping people onto
-                    #portfolio-inquiry-form instead of the page about her. "Start a project"
-                    below keeps the helper, because that one IS the CTA. */}
-                <Link to="/portfolio" className="text-gray-300 transition-colors hover:text-white">About</Link>
+                {/* "About" opens Elena's Professional Outlook deck (a PDF), in the reader's
+                    language: labApi.aboutDeckHref is the EN deck in en.json and the ES deck in
+                    es.json. It replaced the /portfolio link on 1 Oct 2026 at Elena's request.
+                    Source + rebuild: cto-aipa docs/applications/professional-outlook/.
+                    Plain <a>, not <Link>: the PDF is a static file in public/, so the SPA
+                    router would answer it with index.html. NOT wrapped in
+                    inquiryLinkFromInbound either -- that helper swaps its target for the
+                    inquiry form whenever UTMs are present, right for a CTA, wrong for this.
+                    "Start a project" below keeps the helper, because that one IS the CTA. */}
+                <a href={t("labApi.aboutDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
+                  {t("labApi.about")}
+                </a>
                 <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
                 <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
