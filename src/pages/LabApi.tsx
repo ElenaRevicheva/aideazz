@@ -883,6 +883,14 @@ export default function LabApi() {
                 <a href={t("labApi.aboutDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
                   {t("labApi.about")}
                 </a>
+                {/* "AI Growth Operator" opens the client deck (a PDF) in the reader's language, the same way
+                    "About" opens the Outlook deck: labApi.aigoDeckHref is EN in en.json, ES in es.json.
+                    Added 1 Oct 2026 at Elena's request ("somewhere nearby the outlook deck").
+                    Source + rebuild: cto-aipa docs/selling/ai-growth-operator-deck/. Plain <a> for the
+                    same reason as above: the PDF is a static file in public/. */}
+                <a href={t("labApi.aigoDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
+                  {t("labApi.aigoDeck")}
+                </a>
                 <a href="mailto:aipa@aideazz.xyz" className="text-gray-300 transition-colors hover:text-white">aipa@aideazz.xyz</a>
                 <Link to={inquiryLinkFromInbound(LAB_API_INQUIRY_LINK)} className="text-white transition-colors hover:text-purple-200">
                   {t("labApi.ctaButton")}
