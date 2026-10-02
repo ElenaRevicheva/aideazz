@@ -863,6 +863,17 @@ export default function LabApi() {
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Resources</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
+                {/* "Professional Outlook" opens Elena's Professional Outlook deck (a PDF), in the reader's
+                    language: labApi.aboutDeckHref is the EN deck in en.json and the ES deck in es.json.
+                    It replaced the /portfolio link on 1 Oct 2026; same day Elena renamed it from "About"
+                    and moved it here, above the wiki. Source + rebuild: cto-aipa
+                    docs/applications/professional-outlook/. Plain <a>, not <Link>: the PDF is a static
+                    file in public/, so the SPA router would answer it with index.html. NOT wrapped in
+                    inquiryLinkFromInbound -- that helper swaps its target for the inquiry form whenever
+                    UTMs are present, right for a CTA, wrong for this. */}
+                <a href={t("labApi.aboutDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
+                  {t("labApi.about")}
+                </a>
                 <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
                 <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
               </nav>
@@ -871,20 +882,8 @@ export default function LabApi() {
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Company</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
-                {/* "About" opens Elena's Professional Outlook deck (a PDF), in the reader's
-                    language: labApi.aboutDeckHref is the EN deck in en.json and the ES deck in
-                    es.json. It replaced the /portfolio link on 1 Oct 2026 at Elena's request.
-                    Source + rebuild: cto-aipa docs/applications/professional-outlook/.
-                    Plain <a>, not <Link>: the PDF is a static file in public/, so the SPA
-                    router would answer it with index.html. NOT wrapped in
-                    inquiryLinkFromInbound either -- that helper swaps its target for the
-                    inquiry form whenever UTMs are present, right for a CTA, wrong for this.
-                    "Start a project" below keeps the helper, because that one IS the CTA. */}
-                <a href={t("labApi.aboutDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
-                  {t("labApi.about")}
-                </a>
                 {/* "AI Growth Operator" opens the client deck (a PDF) in the reader's language, the same way
-                    "About" opens the Outlook deck: labApi.aigoDeckHref is EN in en.json, ES in es.json.
+                    "Professional Outlook" (Resources column) opens the Outlook deck: labApi.aigoDeckHref is EN in en.json, ES in es.json.
                     Added 1 Oct 2026 at Elena's request ("somewhere nearby the outlook deck").
                     Source + rebuild: cto-aipa docs/selling/ai-growth-operator-deck/. Plain <a> for the
                     same reason as above: the PDF is a static file in public/. */}
