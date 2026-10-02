@@ -863,8 +863,9 @@ export default function LabApi() {
             <div>
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Resources</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
-                {/* "AI Leadership" / "Liderazgo en IA" (Elena, 1 Oct: renamed from "About", "Professional Outlook" and
-                    "Founder" — never a solo-founder framing; Elena + AIPA is one operating unit)
+                {/* "Human-Backed AI" / "IA con respaldo humano" (Elena, 1 Oct, after "About", "Professional Outlook",
+                    "Founder", "AI Leadership": she asked for "Backed…" — never a solo-founder framing; Elena + AIPA
+                    is one operating unit, AI at scale with an accountable human owning the outcome)
                     opens Elena's Professional Outlook deck (a PDF), in the reader's
                     language: labApi.aboutDeckHref is the EN deck in en.json and the ES deck in es.json.
                     It replaced the /portfolio link on 1 Oct 2026; same day Elena renamed it from "About"
@@ -885,7 +886,7 @@ export default function LabApi() {
               <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-gray-500">Company</div>
               <nav className="mt-5 flex flex-col gap-3 text-[15px]">
                 {/* "AI Growth Operator" opens the client deck (a PDF) in the reader's language, the same way
-                    "AI Leadership" (Resources column) opens the Outlook deck: labApi.aigoDeckHref is EN in en.json, ES in es.json.
+                    "Human-Backed AI" (Resources column) opens the Outlook deck: labApi.aigoDeckHref is EN in en.json, ES in es.json.
                     Added 1 Oct 2026 at Elena's request ("somewhere nearby the outlook deck").
                     Source + rebuild: cto-aipa docs/selling/ai-growth-operator-deck/. Plain <a> for the
                     same reason as above: the PDF is a static file in public/. */}
