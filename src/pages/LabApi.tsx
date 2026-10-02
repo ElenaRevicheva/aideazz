@@ -877,6 +877,9 @@ export default function LabApi() {
                 <a href={t("labApi.aboutDeckHref")} target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">
                   {t("labApi.about")}
                 </a>
+                {/* YouTube (Elena, 2 Oct 2026: "wire my YouTube channel above AI Ops Wiki") - the channel carries the
+                    AI Growth Operator films (yacht, /api, villa + charter, relocation). Opens in a new tab like the decks. */}
+                <a href="https://www.youtube.com/@AIdeazz" target="_blank" rel="noopener" className="text-gray-300 transition-colors hover:text-white">YouTube</a>
                 <a href="https://aideazz.xyz/ai-ops-wiki.html" className="text-gray-300 transition-colors hover:text-white">AI Ops Wiki</a>
                 <Link to={inquiryLinkFromInbound("/blog")} className="text-gray-300 transition-colors hover:text-white">Blog</Link>
               </nav>
