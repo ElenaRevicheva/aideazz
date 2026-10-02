@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The CTO-AIPA's 181 Restarts: A NOW.md-Driven Recovery | AIdeazz</title>
+  <meta name="description" content="My cto-aipa process restarted 181 times in the last 2 days. This isn't a silent failure; it's a symptom of a system designed for relentless recovery, where a single shared document, NOW.md, acts as t…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-cto-aipas-181-restarts-a-nowmd-driven-recovery/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The CTO-AIPA's 181 Restarts: A NOW.md-Driven Recovery">
+  <meta property="og:description" content="My cto-aipa process restarted 181 times in the last 2 days. This isn't a silent failure; it's a symptom of a system designed for relentless recovery, where a single shared document, NOW.md, acts as t…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-cto-aipas-181-restarts-a-nowmd-driven-recovery/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-02T19:30:25.594Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The CTO-AIPA's 181 Restarts: A NOW.md-Driven Recovery">
+  <meta name="twitter:description" content="My cto-aipa process restarted 181 times in the last 2 days. This isn't a silent failure; it's a symptom of a system designed for relentless recovery, where a single shared document, NOW.md, acts as t…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The CTO-AIPA's 181 Restarts: A NOW.md-Driven Recovery",
+  "description": "My cto-aipa process restarted 181 times in the last 2 days. This isn't a silent failure; it's a symptom of a system designed for relentless recovery, where a single shared document, NOW.md, acts as t…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-02T19:30:25.594Z",
+  "dateModified": "2026-10-02T19:30:25.594Z",
+  "url": "https://aideazz.xyz/blog/the-cto-aipas-181-restarts-a-nowmd-driven-recovery/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-cto-aipas-181-restarts-a-nowmd-driven-recovery/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not use a message queue or a database for AI agent communication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My current setup prioritizes simplicity and low overhead given zero VC funding. A message queue or database would introduce additional infrastructure, maintenance, and development complexity that I do not have the resources to manage effectively at this stage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the `NOW.md` file ever get corrupted or have merge conflicts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`NOW.md` is primarily written by me, the human operator, and read by the agents. This minimizes merge conflicts. Agents append to logs or update specific fields in HubSpot, which is the other shared state, rather than directly modifying `NOW.md` in a conflicting manner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you monitor the state of the `NOW.md` file and agent activity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I monitor `NOW.md` directly via `tail` commands and `git log` to see recent changes. Agent activity is monitored through their respective logs, such as `apply-queue.log` and `concierge-selftest.log`, and by observing changes in HubSpot."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The CTO-AIPA's 181 Restarts: A NOW.md-Driven Recovery</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-02T19:30:25.594Z">October 2, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> process restarted 181 times in the last 2 days. This isn't a silent failure; it's a symptom of a system designed for relentless recovery, where a single shared document, <code>NOW.md</code>, acts as the primary AI agent communication protocol. When direct chat between agents like Cursor Cloud, Cursor Desktop, and Claude Code is impossible, this file becomes the critical shared memory. It's not documentation; it's the live state, the instruction set for the next agent to pick up the task. This setup ensures that even with frequent restarts, work progresses, albeit with a higher operational cost in terms of compute cycles and log noise.</p>
+<h2>The Constraint: Disconnected Agents, Shared State</h2>
+<p>The core challenge I face with my AI agents is their inherent disconnection. I use Cursor Cloud, Cursor Desktop, and Claude Code, but they cannot communicate directly. There's no shared conversation history, no Claude MCP in Cursor, no way to send a message from one agent to another. This is a fundamental architectural constraint. Without a direct AI agent communication protocol, I needed a robust mechanism for coordination.</p>
+<p>My solution is <code>NOW.md</code>. This file lives in <code>/home/ubuntu/cto-aipa/docs/oracle/NOW.md</code> and serves as the sole shared memory. It's the working memory for whichever agent isn't currently running, and it defines the protocol for how these disconnected agents avoid stepping on each other's toes. The file explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats... The only things all of them read are <strong>HubSpot</strong> and <strong>this file</strong>." This makes <code>NOW.md</code> the central nervous system for my AI operations.</p>
+<h2>The <code>cto-aipa</code> Restart Pattern</h2>
+<p>Looking at <code>pm2 jlist</code>, the <code>cto-aipa</code> process shows 181 restarts and has been up for 2 days. This contrasts sharply with other stable processes like <code>algom-poll</code>, which has 0 restarts and has been up for 66 days, or <code>n8n</code>, also with 0 restarts and up for 50 days. Even <code>algom-stream</code>, with its 55193 restarts over 47 days, operates differently; its restarts are often due to external data stream volatility. The <code>cto-aipa</code> restarts, however, are frequently tied to its role as a central orchestrator, processing instructions from <code>NOW.md</code> and interacting with external systems.</p>
+<p>Each restart means the agent re-reads its state, including <code>NOW.md</code>, and re-evaluates its next action. This is a deliberate design choice. Instead of building complex, stateful agents that might get stuck or require manual intervention after an error, I opted for stateless, resilient agents that can crash and recover by re-initializing from a shared, persistent state. The 181 restarts indicate that the agent is encountering conditions that trigger a reset, but the system as a whole continues to function.</p>
+<h2><code>NOW.md</code> as the Operational Journal</h2>
+<p>The content of <code>NOW.md</code> isn't just a static configuration; it's a dynamic operational journal. It contains directives, observations, and the current status of tasks. For example, the latest <code>NOW.md</code> entry begins: "NOW — the shared session between Cursor and Claude Code". It then details the communication constraint and establishes the file as the protocol.</p>
+<p>When <code>cto-aipa</code> restarts, it reads this file to understand the current context and what needs to be done. This is critical for tasks like the <code>apply-queue.log</code>, which shows "✓ sent to Telegram (2 new)" multiple times, or <code>concierge-selftest.log</code> reporting "✅ PASS — 4 checks, 4050ms to first card". These outcomes are driven by instructions or state changes recorded in <code>NOW.md</code> or inferred from HubSpot, which is the other shared data source. The agent's ability to pick up exactly where it left off, or to re-evaluate the situation, is directly enabled by this shared, persistent state.</p>
+<h2>Impact on System Stability and Development Velocity</h2>
+<p>While 181 restarts in 2 days might seem like instability, it's a controlled instability. The <code>cto-aipa</code> process consumes 172 MB of memory, which is manageable. Other processes like <code>n8n</code> use 492 MB, and <code>dragontrade-main</code> uses 148 MB. The memory footprint of <code>cto-aipa</code> is not indicative of a runaway process.</p>
+<p>Development velocity is also influenced. I made 5 commits to <code>aideazz</code> in the last 48 hours, including <code>92b3a74</code> ("ai-ops-wiki: refresh journal + AEO surfaces") and <code>a49193a</code> ("feat(api): footer 'About' opens Elena's Professional Outlook deck (EN/ES)"). There was also 1 commit to <code>VibeJobHunterAIPA_AIMCF</code> (<code>2c317c8</code>). These commits often involve updates to agent logic or the <code>NOW.md</code> protocol itself. The frequent restarts of <code>cto-aipa</code> mean that new code or updated instructions from <code>NOW.md</code> are picked up quickly, enabling rapid iteration and deployment without a formal redeployment process for each agent. This is a trade-off: higher restart count for faster iteration and resilience to individual agent failures.</p>
+<h2>The Cost of Resilience: Log Noise and Resource Usage</h2>
+<p>The downside of this restart-driven resilience is the increased log noise and potential for higher resource usage. Each restart generates log entries, which can make debugging more challenging if not properly managed. For example, the <code>algom-stream</code> process, with its 55193 restarts, generates a significant volume of logs. While <code>cto-aipa</code>'s 181 restarts are far fewer, they still contribute to the overall operational overhead.</p>
+<p>However, the alternative — a complex, distributed messaging system for AI agent communication — would introduce its own set of challenges, including increased development time, higher infrastructure costs, and greater complexity in debugging. Given my zero VC funding constraint, the <code>NOW.md</code> approach, while imperfect, is a pragmatic and effective solution for coordinating disconnected AI agents on Oracle Cloud. It allows me to ship production AI agents and manage a system that processes tasks like sending 138 deals to "They replied" stage in HubSpot, even with frequent individual agent resets.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not use a message queue or a database for AI agent communication?</strong><br>A: My current setup prioritizes simplicity and low overhead given zero VC funding. A message queue or database would introduce additional infrastructure, maintenance, and development complexity that I do not have the resources to manage effectively at this stage.</p>
+<p><strong>Q: Does the <code>NOW.md</code> file ever get corrupted or have merge conflicts?</strong><br>A: <code>NOW.md</code> is primarily written by me, the human operator, and read by the agents. This minimizes merge conflicts. Agents append to logs or update specific fields in HubSpot, which is the other shared state, rather than directly modifying <code>NOW.md</code> in a conflicting manner.</p>
+<p><strong>Q: How do you monitor the state of the <code>NOW.md</code> file and agent activity?</strong><br>A: I monitor <code>NOW.md</code> directly via <code>tail</code> commands and <code>git log</code> to see recent changes. Agent activity is monitored through their respective logs, such as <code>apply-queue.log</code> and <code>concierge-selftest.log</code>, and by observing changes in HubSpot.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
