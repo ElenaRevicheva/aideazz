@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The job agent said "I Act TODAY" 26 times — and delivered two jobs | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 6, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The job agent said "I Act TODAY" 26 times — and delivered two jobs">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 6, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-06T21:30:04.094Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The job agent said "I Act TODAY" 26 times — and delivered two jobs">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 6, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The job agent said \"I Act TODAY\" 26 times — and delivered two jobs",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 6, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-06T21:30:04.094Z",
+  "dateModified": "2026-10-06T21:30:04.094Z",
+  "url": "https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The job agent said "I Act TODAY" 26 times — and delivered two jobs</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-06T21:30:04.094Z">October 6, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 6, 2026.</em></p>
+<p><strong>A job-discovery agent kept logging that it had put strong matches in front of the operator, every twelve hours, for a week. Her action queue received nothing new for three days. The success line was printed before the CRM answered, the best regional source had been refusing every request while reporting "0 jobs found" with a green tick, and approved jobs were being dropped or folded into deals she had already closed.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>The operator noticed that the agent had not delivered a single new position to apply to in days. Every component looked healthy. The processes were running and restarting cleanly, the search door ran twice a day and logged "Done — new jobs: 30", and its log held a steady stream of lines reading "IRON-CLAD FIT + judge OK -> I Act TODAY". The hourly engine reported each source with a green tick. The CRM told a different story. The last new job to enter her action queue had arrived three days earlier.</p>
+<h2>What was actually happening</h2>
+<p>Four faults, each hidden by a success message. First, the search door printed "I Act TODAY" before it pushed the job to the CRM and never read the answer. Since 29 September it printed that line 26 times, for 10 distinct jobs, and exactly 2 became new deals. Twelve of those approvals carried a blank company name, because the code read the company from the subdomain of a Lever link ("jobs") instead of its path, and the CRM endpoint rejected each one with HTTP 400 that nobody read. Twelve more matched deals that already existed, most of them one she had closed as not a fit, so the CRM added another note and left the deal where it was. Second, the regional job board that had produced most of her good matches began refusing every request on 2 October with HTTP 400. The fetch code skipped non-200 responses and swallowed exceptions, then printed "✅ 0 jobs found" every hour. Third, the local seen-list was trimmed in hash order rather than by age, so recent jobs fell out and came back as "new" every twelve hours: 488 processed rows were only 379 distinct jobs. Fourth, a third of the paid searches failed on an empty or non-JSON body with no retry, and each failure became "→ 0 results".</p>
+<h2>The fix</h2>
+<p>Every success line now waits for the system that has to act on it. The search door reads the CRM's answer and logs "I Act TODAY" only for a new deal; a duplicate is logged as "already in CRM (stage …) — not new", a rejection as "CRM REJECTED (HTTP code: message)", and a 2xx with no deal id as unknown. The CRM side now answers with whether the job was a duplicate and whether the operator had already decided it, and a re-sighted job she decided is left untouched: no note, no queue entry, no paid cover-letter call. A reply or interview invite on that same deal still lands. The company is read from the link path, with a conservative title fallback measured against 890 real blank-company titles. The seen-list drops the oldest entry. Empty search bodies are retried once. The refusing job board was not worked around: it now serves only its own client, and its terms forbid scraping, so its failure is logged as a failure and the decision about it went to the operator. A regional placement agency with stated pay and eligibility was added as a source instead. The same change aligned the agent's targeting with the role list in the operator's published professional profile, adding eleven titles that no layer of the agent had ever searched for.</p>
+<h2>How I know it worked</h2>
+<p>Against the CRM, not the log. Before the change, 26 "I Act TODAY" lines produced 2 new deals, and the last new deal was three days old. In the first five minutes after deployment, eight new jobs entered her action queue. A replay of the job she had closed returned "duplicate, decided, closed lost", and the CRM log changed from "already exists — refresh action note" to "already decided — left alone". The refusing source now logs "❌ 0 jobs — 3/3 requests failed (HTTP 400)" instead of a green tick. The full evaluation suite passed on the production server (862 tests). A before/after replay of the AI judge approved in-lane roles 3 of 3 and rejected out-of-lane gigs 3 of 3.</p>
+<h2>The rule this earned</h2>
+<blockquote>A success line must be printed by whoever can see the result, never by whoever sent the request. If a component logs "done" before the downstream system answers, the log measures effort, not outcome. Count the outcome where it lands: here, new deals in the CRM per day against "approved" lines per day. When the two numbers diverge, the gap is the bug. A source that returns zero needs to say whether it found nothing or failed to ask. "✅ 0" and "❌ 0" are different facts, and a dashboard that cannot tell them apart will stay green through an outage.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Acknowledgement is not completion</h3>
+<p><em>A receipt proves delivery. It never proves processing.</em></p>
+<p>When you hand work to something asynchronous -- a queue, a webhook, a workflow tool, a background job -- the response you get back means <em>"I have received this"</em>. It does not mean <em>"I have done this"</em>, and very often it does not even mean <em>"I intend to do this"</em>.</p>
+<p>This is the trap behind a large share of "the data just vanished" incidents. The sending side logs a success, the receiving side never processes anything, and both halves look healthy in isolation. A queue that accepts your message and never reads it looks exactly like one that works.</p>
+<p>Defences, in order of strength:</p>
+<p>1. <strong>Do not branch on the acknowledgement.</strong> If your fallback logic reads <em>"if the handoff failed, do it myself"</em>, it will never run, because the handoff reports success. Make the local path unconditional and let idempotency absorb the duplicate.<br>2. <strong>Confirm from the other side.</strong> Check that the work actually completed -- a status endpoint, a result record, a callback -- rather than trusting the receipt.<br>3. <strong>Set a deadline.</strong> If the expected outcome has not appeared within N minutes, treat it as failed and act, rather than waiting forever.</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
