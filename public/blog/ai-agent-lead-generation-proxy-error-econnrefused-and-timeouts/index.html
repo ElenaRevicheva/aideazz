@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Lead Generation Proxy Error: ECONNREFUSED and Timeouts | AIdeazz</title>
+  <meta name="description" content="My Atlas Lead Machine is failing to generate leads, specifically encountering an AI Agent Lead Generation Proxy Error. The atlas-lead-machine.log shows two distinct issues: connect ECONNREFUSED [ip]:…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Lead Generation Proxy Error: ECONNREFUSED and Timeouts">
+  <meta property="og:description" content="My Atlas Lead Machine is failing to generate leads, specifically encountering an AI Agent Lead Generation Proxy Error. The atlas-lead-machine.log shows two distinct issues: connect ECONNREFUSED [ip]:…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-06T19:30:13.545Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Lead Generation Proxy Error: ECONNREFUSED and Timeouts">
+  <meta name="twitter:description" content="My Atlas Lead Machine is failing to generate leads, specifically encountering an AI Agent Lead Generation Proxy Error. The atlas-lead-machine.log shows two distinct issues: connect ECONNREFUSED [ip]:…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Lead Generation Proxy Error: ECONNREFUSED and Timeouts",
+  "description": "My Atlas Lead Machine is failing to generate leads, specifically encountering an AI Agent Lead Generation Proxy Error. The atlas-lead-machine.log shows two distinct issues: connect ECONNREFUSED [ip]:…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-06T19:30:13.545Z",
+  "dateModified": "2026-10-06T19:30:13.545Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is the proxy server itself down, or is it a network issue from the AI agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `ECONNREFUSED` error indicates the proxy server actively refused the connection. This typically means the proxy service is not running on the specified port, or a firewall is blocking the connection at the proxy server's end, rather than a general network issue from the AI agent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I differentiate between a proxy overload and a slow target website for the timeout errors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To differentiate, I would first monitor the proxy server's resource utilization (CPU, memory, network I/O). If the proxy is under heavy load, it's likely an overload. If the proxy is idle, I would then attempt to access the target websites directly from the proxy server's host to see if they are slow to respond independently."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical restart frequency for the `cto-aipa` process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `cto-aipa` process has 185 restarts and has been up for 0 days. This is significantly higher than stable processes like `algom-poll` (0 restarts, up 70 days) or `n8n` (0 restarts, up 54 days), indicating recent instability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are other AI agents experiencing similar proxy issues?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured directly in the provided logs. The `atlas-lead-machine.log` is the only one explicitly showing `Proxy request failed` and `ECONNREFUSED`. However, if the proxy is a shared resource, it's possible other agents relying on it could be silently failing or experiencing degraded performance."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Lead Generation Proxy Error: ECONNREFUSED and Timeouts</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-06T19:30:13.545Z">October 6, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My Atlas Lead Machine is failing to generate leads, specifically encountering an AI Agent Lead Generation Proxy Error. The <code>atlas-lead-machine.log</code> shows two distinct issues: <code>connect ECONNREFUSED [ip]:44445</code> and "The operation was aborted due to timeout." These errors are preventing the system from staging leads, with the latest log showing "staged 2" leads after looking at 31, but also indicating 13 "no-email" and 18 "already-in-CRM" entries. This means the system is processing some data, but the core external data fetching is broken.</p>
+<h2>Diagnosing the <code>ECONNREFUSED</code> Error</h2>
+<p>The <code>ECONNREFUSED</code> error, specifically <code>connect ECONNREFUSED [ip]:44445</code>, points directly to a network-level issue. My <code>atlas-lead-machine.log</code> shows this for <code>[BD-SERP] gimnasio Panama City</code>. This isn't an application-level bug within my code; it means the connection attempt from my AI agent to the proxy server on port 44445 was actively rejected. The proxy server itself is either not running, not listening on that port, or a firewall is blocking the connection.</p>
+<p>Given that the <code>cto-aipa</code> process, which likely orchestrates these agents, has seen 185 restarts and is only up for 0 days, it suggests recent instability or deployment. However, other core processes like <code>algom-poll</code> are up for 70 days with 0 restarts, and <code>n8n</code> is up for 54 days with 0 restarts. This indicates the server itself is generally stable, isolating the problem to the proxy or the specific agent configuration.</p>
+<h2>Addressing the Timeout Issue</h2>
+<p>Alongside the connection refusal, the log also shows "fetch error for "spa Panama City": The operation was aborted due to timeout." This is a different class of problem. While <code>ECONNREFUSED</code> is an immediate rejection, a timeout means the connection was attempted, but no response was received within the allotted time. This could be due to:</p>
+<p>1.  <strong>Proxy overload:</strong> The proxy server is too busy to respond.<br>2.  <strong>Network latency:</strong> The path to the proxy or the target website is slow.<br>3.  <strong>Target website issues:</strong> The website being scraped is slow to respond or intentionally delaying requests.</p>
+<p>The <code>atlas-lead-machine</code> process last modified its log 27.4 hours ago, suggesting the problem has persisted for over a day. During this time, the <code>atlas-ga4-sync.log</code> shows "0 atlas_ rows" for the last three days (2026-10-03, 2026-10-04, 2026-10-05), indicating a complete halt in new lead data flowing into analytics.</p>
+<h2>Impact on Lead Generation and CRM</h2>
+<p>The direct consequence of these proxy errors is a stalled lead generation pipeline. The <code>atlas-lead-machine.log</code> shows "staged 2" leads, but also "no-email 13" and "already-in-CRM 18". While some internal processing happens, the critical external data fetching is failing.</p>
+<p>My <code>atlas-outcomes.log</code> shows "staged": 0, "sent": 0, for the latest push to Atlas, which occurred 28.0 hours ago. This confirms that despite some internal staging, no new leads are successfully making it into the Atlas system.</p>
+<p>Furthermore, the <code>hs-watch-manual-emails.log</code> shows a HubSpot rate limit error: <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage → 429: {"status":"error","message":"You have reached your ten_secondly_rolling limit."}</code>. This is a separate issue, but it highlights that even if leads were generated, other parts of the CRM integration are also encountering bottlenecks. I have 151 deals at "They replied" stage, but 0 deals closed won, indicating that the entire sales pipeline is struggling, not just the initial lead generation.</p>
+<h2>Next Steps for Resolution</h2>
+<p>My immediate focus is on the proxy. I will:</p>
+<p>1.  <strong>Verify Proxy Server Status:</strong> Check if the proxy server at the specified IP and port 44445 is actually running and listening. This involves checking the server logs for the proxy itself or attempting a direct connection from the AI agent's host.<br>2.  <strong>Firewall Configuration:</strong> Ensure no firewall rules are blocking outbound connections from my AI agent to the proxy, or inbound connections to the proxy server.<br>3.  <strong>Proxy Resource Utilization:</strong> If the proxy is running, monitor its CPU, memory, and network usage. High utilization could explain the timeouts.<br>4.  <strong>Agent Configuration Review:</strong> Double-check the <code>atlas-lead-machine</code> configuration to ensure the proxy address and port are correct and that there are no recent changes that might have introduced an invalid proxy setting. The <code>cto-aipa</code> repo had a commit <code>5325e2c</code> on 2026-10-05 related to "Atlas lead draft(s) + registry (auto)", which might be relevant to the lead machine's configuration.</p>
+<p>The <code>VibeJobHunterAIPA_AIMCF</code> agent, which also uses external data, has seen 2 commits in the last 48 hours, including <code>83d8d04</code> on 2026-10-06 for "deliver again + search for the Professional Outlook roles". This suggests other agents are actively being developed and deployed, increasing the potential for shared infrastructure issues like proxy stability.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Is the proxy server itself down, or is it a network issue from the AI agent?</strong><br>A: The <code>ECONNREFUSED</code> error indicates the proxy server actively refused the connection. This typically means the proxy service is not running on the specified port, or a firewall is blocking the connection at the proxy server's end, rather than a general network issue from the AI agent.</p>
+<p><strong>Q: How can I differentiate between a proxy overload and a slow target website for the timeout errors?</strong><br>A: To differentiate, I would first monitor the proxy server's resource utilization (CPU, memory, network I/O). If the proxy is under heavy load, it's likely an overload. If the proxy is idle, I would then attempt to access the target websites directly from the proxy server's host to see if they are slow to respond independently.</p>
+<p><strong>Q: What is the typical restart frequency for the <code>cto-aipa</code> process?</strong><br>A: The <code>cto-aipa</code> process has 185 restarts and has been up for 0 days. This is significantly higher than stable processes like <code>algom-poll</code> (0 restarts, up 70 days) or <code>n8n</code> (0 restarts, up 54 days), indicating recent instability.</p>
+<p><strong>Q: Are other AI agents experiencing similar proxy issues?</strong><br>A: I do not have that measured directly in the provided logs. The <code>atlas-lead-machine.log</code> is the only one explicitly showing <code>Proxy request failed</code> and <code>ECONNREFUSED</code>. However, if the proxy is a shared resource, it's possible other agents relying on it could be silently failing or experiencing degraded performance.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
