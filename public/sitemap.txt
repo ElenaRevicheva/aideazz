@@ -14,7 +14,9 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/
 https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/
+https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/
 https://aideazz.xyz/blog/proxy-connection-refusal-halts-lead-generation/
 https://aideazz.xyz/blog/commit-aideazz-2026-10-04/
 https://aideazz.xyz/blog/hubspot-rate-limiting-when-429-blocks-deal-enrichment/
