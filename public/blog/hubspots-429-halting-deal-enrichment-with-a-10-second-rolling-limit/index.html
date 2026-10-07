@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot's 429: Halting Deal Enrichment with a 10-Second Rolling Limit | AIdeazz</title>
+  <meta name="description" content="I hit a 429 error from HubSpot while trying to enrich deals. The specific message was: "You have reached your ten_secondly_rolling limit." This wasn't a one-off. My hs-watch-manual-emails.log shows r…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HubSpot's 429: Halting Deal Enrichment with a 10-Second Rolling Limit">
+  <meta property="og:description" content="I hit a 429 error from HubSpot while trying to enrich deals. The specific message was: "You have reached your ten_secondly_rolling limit." This wasn't a one-off. My hs-watch-manual-emails.log shows r…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-07T19:30:13.273Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HubSpot's 429: Halting Deal Enrichment with a 10-Second Rolling Limit">
+  <meta name="twitter:description" content="I hit a 429 error from HubSpot while trying to enrich deals. The specific message was: "You have reached your ten_secondly_rolling limit." This wasn't a one-off. My hs-watch-manual-emails.log shows r…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HubSpot's 429: Halting Deal Enrichment with a 10-Second Rolling Limit",
+  "description": "I hit a 429 error from HubSpot while trying to enrich deals. The specific message was: \"You have reached your ten_secondly_rolling limit.\" This wasn't a one-off. My hs-watch-manual-emails.log shows r…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-07T19:30:13.273Z",
+  "dateModified": "2026-10-07T19:30:13.273Z",
+  "url": "https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many HubSpot API calls are allowed within the ten-secondly rolling limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The specific number of calls allowed within the `TEN_SECONDLY_ROLLING` window is not explicitly stated in the error message, only that the limit was reached. I do not have that measured."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the `429` error affect other HubSpot API endpoints, or just deal enrichment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "My `hs-watch-manual-emails.log` specifically shows the `GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage` endpoint being affected. I have not observed `429` errors on other HubSpot endpoints in this log."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the average delay introduced by the backoff strategy for HubSpot API calls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have the average delay measured. The delay is exponential, so it varies significantly based on the number of consecutive `429` errors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there different rate limits for different HubSpot API keys or applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The error message includes `groupName\":\"publicapi:private_app-api-calls-ten-secondly:39045903:51409153\"`, which suggests the rate limit is tied to a specific private app ID. I do not have information on whether different applications have different limits."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">HubSpot's 429: Halting Deal Enrichment with a 10-Second Rolling Limit</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-07T19:30:13.273Z">October 7, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I hit a <code>429</code> error from HubSpot while trying to enrich deals. The specific message was: <code>"You have reached your ten_secondly_rolling limit."</code> This wasn't a one-off. My <code>hs-watch-manual-emails.log</code> shows repeated <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code> requests failing with this <code>429</code> status. This directly impacts my ability to retrieve <code>dealname</code> and <code>dealstage</code> for deals, which are critical for my AI agents to understand context and prioritize actions.</p>
+<p>The problem isn't just a single process. I have 9 processes online, including <code>cto-aipa</code> which has seen 192 restarts, and <code>algom-stream</code> with 55193 restarts. This indicates a system under constant pressure, where rate limits become a bottleneck for even basic data retrieval. The <code>TEN_SECONDLY_ROLLING</code> policy means I can't just burst requests; I need a sustained, throttled approach.</p>
+<h2>The Impact of HubSpot's <code>TEN_SECONDLY_ROLLING</code> Policy</h2>
+<p>The <code>429</code> error with <code>policyName: "TEN_SECONDLY_ROLLING"</code> is explicit. HubSpot limits API calls within any 10-second window. This isn't a daily or hourly limit; it's a constant, short-term throttle. For my <code>hs-watch-manual-emails</code> process, which is designed to enrich deal data, this means any rapid succession of requests, even for different deals, will trigger the limit.</p>
+<p>My <code>reply-radar.log</code> shows <code>APPLY — scanned 220</code> emails in its latest run, with <code>REPLIES MATCHED 2</code>. Each matched reply likely triggers an attempt to enrich the associated HubSpot deal. If these attempts happen too quickly, the <code>429</code> is inevitable. The system is designed to process new information as it arrives, but HubSpot's rate limit forces an artificial delay.</p>
+<h2>Implementing a Rate Limit Backoff Strategy</h2>
+<p>To mitigate the <code>429</code> errors, I've implemented an exponential backoff strategy for HubSpot API calls. When a <code>429</code> is received, the agent waits for a calculated period before retrying. This period increases with each consecutive failure, up to a defined maximum. This prevents a continuous hammering of the API and allows the <code>TEN_SECONDLY_ROLLING</code> window to reset.</p>
+<p>However, this strategy introduces latency. My <code>concierge-selftest.log</code> shows <code>4603ms to first card</code> in its latest run. While this isn't directly tied to HubSpot, it highlights that delays in one part of the system can propagate. If deal enrichment is delayed, the subsequent actions of my AI agents, such as drafting replies or updating internal dashboards, are also delayed. The <code>NOW.md</code> file, which serves as a shared working memory for my disconnected agents (Cursor Cloud, Cursor Desktop, Claude Code), explicitly states: "The only things all of them read are <strong>HubSpot</strong> and <strong>this</strong>". This means HubSpot data is a central dependency.</p>
+<h2>Monitoring and Adjusting for HubSpot Rate Limits</h2>
+<p>I monitor the <code>hs-watch-manual-emails.log</code> closely for <code>429</code> errors. The frequency of these errors dictates adjustments to the rate at which my agents query HubSpot. Currently, I have 155 deals in the "They replied" stage, according to a HubSpot deals search API query. Each of these deals potentially requires enrichment.</p>
+<p>The <code>cto-aipa</code> process, responsible for core AI operations, has 192 restarts. While not all restarts are due to HubSpot rate limits, a process restarting frequently indicates underlying instability or resource contention. If <code>cto-aipa</code> is aggressively querying HubSpot, its restarts could be a symptom of hitting these limits and failing to recover gracefully. The <code>algom-stream</code> process, with 55193 restarts, shows an even more extreme case of instability, though its direct interaction with HubSpot is not measured here.</p>
+<h2>The Trade-off: Real-time Enrichment vs. API Compliance</h2>
+<p>The core challenge is the trade-off between real-time deal enrichment and strict adherence to HubSpot's API rate limits. My AI agents are designed to act quickly on new information. For example, the <code>apply-queue.log</code> shows <code>✓ sent to Telegram (2 new)</code> and <code>✓ sent to Telegram (4 new)</code> messages, indicating rapid processing of new applications. If the deal context (name, stage) isn't immediately available due to a <code>429</code>, the quality or speed of these subsequent actions can suffer.</p>
+<p>I am currently exploring ways to pre-fetch or cache deal data where possible, reducing the number of live API calls. However, <code>dealstage</code> is a dynamic property, making caching less effective for real-time updates. The <code>TEN_SECONDLY_ROLLING</code> limit means I cannot simply queue up all requests and fire them off. Each request must be carefully spaced. My <code>github-token-watch.log</code> shows my GitHub token is valid for 272 days, indicating long-term operational stability in other areas, but HubSpot remains a specific, persistent challenge.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How many HubSpot API calls are allowed within the ten-secondly rolling limit?</strong><br>A: The specific number of calls allowed within the <code>TEN_SECONDLY_ROLLING</code> window is not explicitly stated in the error message, only that the limit was reached. I do not have that measured.</p>
+<p><strong>Q: Does the <code>429</code> error affect other HubSpot API endpoints, or just deal enrichment?</strong><br>A: My <code>hs-watch-manual-emails.log</code> specifically shows the <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code> endpoint being affected. I have not observed <code>429</code> errors on other HubSpot endpoints in this log.</p>
+<p><strong>Q: What is the average delay introduced by the backoff strategy for HubSpot API calls?</strong><br>A: I do not have the average delay measured. The delay is exponential, so it varies significantly based on the number of consecutive <code>429</code> errors.</p>
+<p><strong>Q: Are there different rate limits for different HubSpot API keys or applications?</strong><br>A: The error message includes <code>groupName":"publicapi:private_app-api-calls-ten-secondly:39045903:51409153"</code>, which suggests the rate limit is tied to a specific private app ID. I do not have information on whether different applications have different limits.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
