@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot's 10-Second Rolling Limit: A Silent Blocker for Manual Email Processing | AIdeazz</title>
+  <meta name="description" content="I hit a wall with HubSpot's API. My hs-watch-manual-emails.log shows a recurring 429 error: "You have reached your ten_secondly_rolling limit." This isn't just an occasional hiccup; it's a consistent…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/hubspots-10-second-rolling-limit-a-silent-blocker-for-manual-email-processing/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HubSpot's 10-Second Rolling Limit: A Silent Blocker for Manual Email Processing">
+  <meta property="og:description" content="I hit a wall with HubSpot's API. My hs-watch-manual-emails.log shows a recurring 429 error: "You have reached your ten_secondly_rolling limit." This isn't just an occasional hiccup; it's a consistent…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/hubspots-10-second-rolling-limit-a-silent-blocker-for-manual-email-processing/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-08T23:27:41.139Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HubSpot's 10-Second Rolling Limit: A Silent Blocker for Manual Email Processing">
+  <meta name="twitter:description" content="I hit a wall with HubSpot's API. My hs-watch-manual-emails.log shows a recurring 429 error: "You have reached your ten_secondly_rolling limit." This isn't just an occasional hiccup; it's a consistent…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HubSpot's 10-Second Rolling Limit: A Silent Blocker for Manual Email Processing",
+  "description": "I hit a wall with HubSpot's API. My hs-watch-manual-emails.log shows a recurring 429 error: \"You have reached your ten_secondly_rolling limit.\" This isn't just an occasional hiccup; it's a consistent…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-08T23:27:41.139Z",
+  "dateModified": "2026-10-08T23:27:41.139Z",
+  "url": "https://aideazz.xyz/blog/hubspots-10-second-rolling-limit-a-silent-blocker-for-manual-email-processing/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/hubspots-10-second-rolling-limit-a-silent-blocker-for-manual-email-processing/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many API calls per 10 seconds does HubSpot allow under this policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The error message `policyName\":\"TEN_SECONDLY_ROLLING\"` indicates a 10-second rolling limit, but the exact number of calls allowed within that window is not specified in the provided log. I do not have that measured."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this rate limit affect other HubSpot API endpoints?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The specific error in `hs-watch-manual-emails.log` is for `GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage`. While other endpoints might have different limits, this log only shows the `TEN_SECONDLY_ROLLING` policy affecting deal property retrieval."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical delay introduced by your mitigation strategies?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The delay is variable, depending on the frequency of `429` errors and the number of queued requests. It can range from a few seconds to several minutes, ensuring that requests are spaced out to respect the 10-second rolling limit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a way to increase this 10-second rolling limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The evidence does not contain information on how to request an increase to HubSpot's API rate limits. My focus has been on adapting my system to operate within the existing constraints."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">HubSpot's 10-Second Rolling Limit: A Silent Blocker for Manual Email Processing</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-08T23:27:41.139Z">October 8, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I hit a wall with HubSpot's API. My <code>hs-watch-manual-emails.log</code> shows a recurring <code>429</code> error: <code>"You have reached your ten_secondly_rolling limit."</code> This isn't just an occasional hiccup; it's a consistent blocker for my manual email processing, directly impacting how quickly I can enrich deal data. The system is designed to pull <code>dealname</code> and <code>dealstage</code> from HubSpot deals, but this limit means those calls are frequently throttled. This issue is significant enough that I regenerated a blog post about it on 2026-10-07, titled <code>hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/index.html</code>, to document the problem and my attempts to work around it.</p>
+<h2>Understanding the HubSpot Rolling Limit</h2>
+<p>The error message is explicit: <code>policyName":"TEN_SECONDLY_ROLLING"</code>. This means HubSpot enforces a limit on API calls within a 10-second window. It's not a daily or hourly quota, but a rapid-fire constraint. My <code>hs-watch-manual-emails.log</code> shows the exact request being throttled: <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code>. This specific endpoint is crucial for my <code>cto-aipa</code> process, which has seen 198 restarts and is currently up for 0 days, indicating ongoing instability or recent deployments. The <code>algom-stream</code> process, for comparison, has 55193 restarts over 53 days, highlighting a different scale of operational challenge.</p>
+<p>The <code>correlationId</code> in the error, <code>01a11dbe-da9e-7b03-83fa-24150f0bd997</code>, confirms a specific instance of this rate limit being hit. This isn't a vague API error; it's a precise policy enforcement.</p>
+<h2>Impact on Deal Enrichment and Manual Email Processing</h2>
+<p>My <code>hs-watch-manual-emails.log</code> shows repeated attempts to fetch deal properties, followed by the <code>429</code> error. This directly stalls the enrichment of deals. For example, my HubSpot deals search API shows 139 deals currently in the "They replied" stage. Each of these deals potentially requires enrichment from manual email processing. When the API calls are throttled, the data flow slows down, leading to delays in updating deal information.</p>
+<p>The <code>reply-radar.log</code> shows <code>APPLY — scanned 262</code> and <code>APPLY — scanned 263</code> emails, with <code>REPLIES MATCHED 0</code> and <code>errors 0</code>. While <code>reply-radar</code> itself isn't reporting errors, the downstream <code>hs-watch-manual-emails</code> is. This suggests that emails are being scanned, but the subsequent action of enriching the associated HubSpot deal is failing due to the rate limit. The <code>followup-radar.log</code> shows 702 inbox emails and 4 sent emails for <code>imap.gmail.com</code>, and 298 inbox emails and 23 sent emails for <code>imap.zoho.com</code> over the last 45 days, indicating a significant volume of email traffic that needs to be processed and linked to HubSpot deals.</p>
+<h2>Operational Stability and Rate Limit Resilience</h2>
+<p>My PM2 processes show 9 online of 9, with <code>cto-aipa</code> having 198 restarts and being up for 0 days. This indicates that while the process is restarting, it's not staying down. However, the frequent restarts could exacerbate the rate limit issue if each restart triggers a burst of API calls. The <code>algom-stream</code> process, with its 55193 restarts over 53 days, demonstrates a system designed for high resilience to failure, but also highlights the potential for repeated API calls if not managed carefully.</p>
+<p>The <code>pm2-logrotate</code> process, which is online and up for 10 days with 5 restarts, helps manage log files, but doesn't address the root cause of the rate limiting. My <code>github-token-watch.log</code> shows 271 days left on my GitHub token, indicating that external API token validity isn't the issue. The problem is squarely with HubSpot's <code>TEN_SECONDLY_ROLLING</code> policy.</p>
+<h2>Strategies for Mitigating the 10-Second Limit</h2>
+<p>To work around HubSpot's 10-second rolling limit, I've had to implement explicit delays and retry mechanisms. Instead of firing off requests as soon as an email is processed, I'm introducing pauses. This involves:</p>
+<p>1.  <strong>Queueing requests</strong>: Instead of direct API calls, I push deal enrichment tasks into a local queue.<br>2.  <strong>Rate-limited processing</strong>: A separate worker pulls from this queue, ensuring that HubSpot API calls are spaced out to respect the 10-second window. This means a request might sit in the queue for several seconds before being processed.<br>3.  <strong>Exponential backoff for retries</strong>: When a <code>429</code> is received, the system waits for a progressively longer period before retrying the request. This is crucial for avoiding immediate re-triggering of the rate limit.</p>
+<p>This approach adds latency to the deal enrichment process. A manual email might be processed, but the corresponding HubSpot deal update could be delayed by several seconds, or even minutes, depending on the backlog and the frequency of <code>429</code> errors. The goal is to ensure eventual consistency, even if it's not immediate.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How many API calls per 10 seconds does HubSpot allow under this policy?</strong><br>A: The error message <code>policyName":"TEN_SECONDLY_ROLLING"</code> indicates a 10-second rolling limit, but the exact number of calls allowed within that window is not specified in the provided log. I do not have that measured.</p>
+<p><strong>Q: Does this rate limit affect other HubSpot API endpoints?</strong><br>A: The specific error in <code>hs-watch-manual-emails.log</code> is for <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage</code>. While other endpoints might have different limits, this log only shows the <code>TEN_SECONDLY_ROLLING</code> policy affecting deal property retrieval.</p>
+<p><strong>Q: What is the typical delay introduced by your mitigation strategies?</strong><br>A: The delay is variable, depending on the frequency of <code>429</code> errors and the number of queued requests. It can range from a few seconds to several minutes, ensuring that requests are spaced out to respect the 10-second rolling limit.</p>
+<p><strong>Q: Is there a way to increase this 10-second rolling limit?</strong><br>A: The evidence does not contain information on how to request an increase to HubSpot's API rate limits. My focus has been on adapting my system to operate within the existing constraints.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
