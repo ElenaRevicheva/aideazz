@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM2 Process Restarts: From Zero to 55193 | AIdeazz</title>
+  <meta name="description" content="My PM2-supervised processes show 9 online of 9, which is good. However, a closer look at the restart counts reveals a spectrum of operational stability, from perfectly stable to relentlessly failing.…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pm2-process-restarts-from-zero-to-55193/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PM2 Process Restarts: From Zero to 55193">
+  <meta property="og:description" content="My PM2-supervised processes show 9 online of 9, which is good. However, a closer look at the restart counts reveals a spectrum of operational stability, from perfectly stable to relentlessly failing.…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pm2-process-restarts-from-zero-to-55193/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-09T19:30:13.113Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PM2 Process Restarts: From Zero to 55193">
+  <meta name="twitter:description" content="My PM2-supervised processes show 9 online of 9, which is good. However, a closer look at the restart counts reveals a spectrum of operational stability, from perfectly stable to relentlessly failing.…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PM2 Process Restarts: From Zero to 55193",
+  "description": "My PM2-supervised processes show 9 online of 9, which is good. However, a closer look at the restart counts reveals a spectrum of operational stability, from perfectly stable to relentlessly failing.…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-09T19:30:13.113Z",
+  "dateModified": "2026-10-09T19:30:13.113Z",
+  "url": "https://aideazz.xyz/blog/pm2-process-restarts-from-zero-to-55193/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pm2-process-restarts-from-zero-to-55193/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does a high restart count always mean a bug in my code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always. While `algom-stream`'s 55193 restarts likely point to a code issue, `cto-aipa`'s 198 restarts in 0 days could be due to external factors like a `429` rate limit from an API, or a temporary resource exhaustion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you prioritize which process to investigate first when multiple have restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I prioritize based on the restart count relative to uptime and the process's criticality. `cto-aipa` with 198 restarts in 0 days is more urgent than `algom-stream` with 55193 restarts over 54 days, because the former indicates a recent, acute failure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What tools do you use to diagnose the root cause of restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I start with `pm2 logs [process_name]` to check application output. For deeper issues, I review system logs, check external API logs (like the HubSpot `429` error), and use `git log` to correlate restarts with recent code changes, such as the 3 commits to `aideazz` in the last 48 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a threshold for \"acceptable\" restarts for a PM2 process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the process. For critical, long-running services like `algom-poll` or `n8n`, 0 restarts over 50+ days is the goal. For others, 1-4 restarts over 50+ days (like `dragontrade-dashboard` or `whitespace`) might be acceptable, but 198 restarts in 0 days (like `cto-aipa`) or 55193 restarts over 54 days (like `algom-stream`) are clear indicators of problems."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">PM2 Process Restarts: From Zero to 55193</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-09T19:30:13.113Z">October 9, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My PM2-supervised processes show 9 online of 9, which is good. However, a closer look at the restart counts reveals a spectrum of operational stability, from perfectly stable to relentlessly failing. This isn't just about uptime; it's about the hidden costs of recovery and the silent failures that don't always trigger alerts.</p>
+<h2>The Algom-Stream Anomaly: 55193 Restarts</h2>
+<p>The <code>algom-stream</code> process stands out with 55193 restarts. This process has been up for 54 days, consuming 51 MB of memory. This number is not a minor glitch; it represents a persistent, underlying issue that PM2 is diligently masking through automatic restarts. While the process is technically "online," its operational efficiency and the integrity of its output over 54 days are severely compromised. This kind of restart count indicates a fundamental flaw in the application logic or its environment, not a transient network blip. It's a system that's constantly falling over and being propped back up, burning CPU cycles and potentially losing state with each restart.</p>
+<h2>CTO-AIPA: 198 Restarts in Under a Day</h2>
+<p>Another process, <code>cto-aipa</code>, shows 198 restarts and has been up for 0 days, using 212 MB. This is a different kind of problem than <code>algom-stream</code>. While <code>algom-stream</code> has accumulated its restarts over 54 days, <code>cto-aipa</code> hit 198 restarts within a single day. This suggests a more immediate and critical failure mode. It could be a new deployment with a bug, a dependency issue, or an external service it relies on failing. The fact that it's still "online" means PM2 is doing its job, but 198 restarts in such a short period demands immediate investigation. I recently committed 3 times to <code>aideazz</code> in the last 48 hours, and 1 commit to <code>VibeJobHunterAIPA_AIMCF</code>. These commits, specifically <code>273a03d</code> and <code>367efa6</code> (both related to <code>ai-ops-wiki: refresh journal + AEO surfaces</code>), and <code>fbff8da</code> (related to <code>responses: boardy.ai is an AI networking assistant, never an employer reply</code>), could be related to changes that impact <code>cto-aipa</code>'s stability.</p>
+<h2>Stable Operations: Zero Restarts</h2>
+<p>On the other end of the spectrum, <code>algom-poll</code> and <code>n8n</code> demonstrate remarkable stability with 0 restarts. <code>algom-poll</code> has been up for 73 days, using 68 MB, and <code>n8n</code> for 57 days, using 495 MB. These processes represent the ideal state: applications running continuously without interruption, indicating robust code, stable dependencies, and predictable environments. They serve as a benchmark for what's achievable and highlight the severity of the issues in processes like <code>algom-stream</code> and <code>cto-aipa</code>.</p>
+<h2>Moderate Restarts: Daily and Weekly Cycles</h2>
+<p>Several other processes show moderate restart counts:<br><ul><li>  <code>dragontrade-dashboard</code>: 1 restart, up 54 days, 55 MB. This is an acceptable level for a long-running process; a single restart over 54 days could be a manual intervention or a very rare, self-correcting issue.</li><br><li>  <code>dragontrade-main</code>: 4 restarts, up 1 day, 141 MB. Four restarts in a single day is concerning but not catastrophic. It warrants monitoring to see if it escalates.</li><br><li>  <code>whitespace</code>: 4 restarts, up 53 days, 84 MB. Similar to <code>dragontrade-dashboard</code>, 4 restarts over 53 days is a low, manageable rate.</li><br><li>  <code>serpapi-jobs</code>: 3 restarts, up 3 days, 99 MB. Three restarts over three days is one per day, which might indicate a daily scheduled task causing a hiccup or a minor resource contention.</li><br><li>  <code>pm2-logrotate</code>: 7 restarts, up 0 days, 78 MB. Seven restarts in less than a day for a utility process like log rotation is high. This process should be stable, and this count suggests an issue with its execution or the environment it's trying to clean up.</li></ul></p>
+<h2>The Impact of External Factors: HubSpot Rate Limits</h2>
+<p>While PM2 handles restarts, the root causes are often external. For example, my <code>hs-watch-manual-emails.log</code> shows a <code>429</code> error from HubSpot: "You have reached your ten_secondly_rolling limit." The correlation ID is <code>01a12209-739c-7d10-9041-72efca9b280a</code>, and the policy name is <code>TEN_SECONDLY_ROLLING</code>. This kind of external rate limiting can cause processes that interact with HubSpot to crash and restart. If <code>cto-aipa</code> or other processes are hitting this limit, it could explain their restart behavior. The <code>reply-radar.log</code> shows <code>APPLY — scanned 247 · automated/own skipped 0 · no CRM match 0 · REPLIES MATCHED 0 · errors 0</code>, indicating that some processes are interacting with the CRM, and these interactions can be subject to such limits. Currently, there are 120 deals at the "They replied" stage, which means active CRM engagement.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Does a high restart count always mean a bug in my code?</strong><br>A: Not always. While <code>algom-stream</code>'s 55193 restarts likely point to a code issue, <code>cto-aipa</code>'s 198 restarts in 0 days could be due to external factors like a <code>429</code> rate limit from an API, or a temporary resource exhaustion.</p>
+<p><strong>Q: How do you prioritize which process to investigate first when multiple have restarts?</strong><br>A: I prioritize based on the restart count relative to uptime and the process's criticality. <code>cto-aipa</code> with 198 restarts in 0 days is more urgent than <code>algom-stream</code> with 55193 restarts over 54 days, because the former indicates a recent, acute failure.</p>
+<p><strong>Q: What tools do you use to diagnose the root cause of restarts?</strong><br>A: I start with <code>pm2 logs [process_name]</code> to check application output. For deeper issues, I review system logs, check external API logs (like the HubSpot <code>429</code> error), and use <code>git log</code> to correlate restarts with recent code changes, such as the 3 commits to <code>aideazz</code> in the last 48 hours.</p>
+<p><strong>Q: Is there a threshold for "acceptable" restarts for a PM2 process?</strong><br>A: It depends on the process. For critical, long-running services like <code>algom-poll</code> or <code>n8n</code>, 0 restarts over 50+ days is the goal. For others, 1-4 restarts over 50+ days (like <code>dragontrade-dashboard</code> or <code>whitespace</code>) might be acceptable, but 198 restarts in 0 days (like <code>cto-aipa</code>) or 55193 restarts over 54 days (like <code>algom-stream</code>) are clear indicators of problems.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
