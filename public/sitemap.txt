@@ -14,6 +14,8 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/pm2-process-restarts-from-zero-to-55193/
+https://aideazz.xyz/blog/hubspots-10-second-rolling-limit-a-silent-blocker-for-manual-email-processing/
 https://aideazz.xyz/blog/hubspots-429-halting-deal-enrichment-with-a-10-second-rolling-limit/
 https://aideazz.xyz/blog/ai-agent-lead-generation-proxy-error-econnrefused-and-timeouts/
 https://aideazz.xyz/blog/the-success-line-printed-before-the-save-field-note/
