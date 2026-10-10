@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Dead Deals Resurfacing Bug: When "Last Modified" Isn't Last Activity | AIdeazz</title>
+  <meta name="description" content="The daily lead brief flagged 19 dead deals as "new" this week, filling 19 of its 25 available slots. These were deals from July to September that had been explicitly marked as closed and inactive. My…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-dead-deals-resurfacing-bug-when-last-modified-isnt-last-activity/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Dead Deals Resurfacing Bug: When "Last Modified" Isn't Last Activity">
+  <meta property="og:description" content="The daily lead brief flagged 19 dead deals as "new" this week, filling 19 of its 25 available slots. These were deals from July to September that had been explicitly marked as closed and inactive. My…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-dead-deals-resurfacing-bug-when-last-modified-isnt-last-activity/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-10T19:30:12.785Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Dead Deals Resurfacing Bug: When "Last Modified" Isn't Last Activity">
+  <meta name="twitter:description" content="The daily lead brief flagged 19 dead deals as "new" this week, filling 19 of its 25 available slots. These were deals from July to September that had been explicitly marked as closed and inactive. My…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The Dead Deals Resurfacing Bug: When \"Last Modified\" Isn't Last Activity",
+  "description": "The daily lead brief flagged 19 dead deals as \"new\" this week, filling 19 of its 25 available slots. These were deals from July to September that had been explicitly marked as closed and inactive. My…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-10T19:30:12.785Z",
+  "dateModified": "2026-10-10T19:30:12.785Z",
+  "url": "https://aideazz.xyz/blog/the-dead-deals-resurfacing-bug-when-last-modified-isnt-last-activity/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-dead-deals-resurfacing-bug-when-last-modified-isnt-last-activity/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you prevent HubSpot's hidden rollups from affecting your \"new deal\" logic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I will implement explicit filtering based on deal stage (e.g., excluding \"closed lost\" deals) and prioritize `last_activity_date` over `last_modified_date` if available, as `last_activity_date` typically reflects direct interaction with the deal itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of the HubSpot `TEN_SECONDLY_ROLLING` rate limit on debugging this issue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `429` rate limit on `hs-watch-manual-emails.log` restricts my ability to aggressively poll HubSpot for granular activity logs, making it harder to precisely pinpoint the timing and nature of external updates that trigger the `last-modified` changes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the high restart count of `cto-aipa` related to the `dead deals resurfacing bug`?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 198 restarts of `cto-aipa` indicate instability, but the `dead deals resurfacing bug` is primarily a data interpretation issue (misinterpreting `last-modified`). While `cto-aipa` generates the brief, its restarts don't directly cause the incorrect `last-modified` dates in HubSpot."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many \"dead deals\" were incorrectly flagged as new?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The daily lead brief flagged 19 dead deals as new, out of 25 available slots, after a cleanup. These were deals from July to September."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The Dead Deals Resurfacing Bug: When "Last Modified" Isn't Last Activity</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-10T19:30:12.785Z">October 10, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>The daily lead brief flagged 19 dead deals as "new" this week, filling 19 of its 25 available slots. These were deals from July to September that had been explicitly marked as closed and inactive. My system, designed to surface genuinely new or active leads, was showing me noise. The immediate question was: what process touched these deals to reset their "last modified" timestamp, triggering the brief? The answer, it turned out, was nothing I had written.</p>
+<h2>The Morning Brief's False Positives</h2>
+<p>My daily lead brief is generated by <code>cto-aipa</code>, a process that has seen 198 restarts in the last day, indicating some instability, but not necessarily a data corruption issue. The brief relies on HubSpot's <code>last-modified</code> property to identify recent activity. The incident, documented in my AI Ops Wiki as "The morning brief called nineteen dead deals new — and no one had touched them," highlighted a critical mismatch: a deal's <code>last-modified</code> timestamp was updating without any direct write operations from my agents.</p>
+<p>The wiki incident specifically noted: "All nineteen hung off one contact, the operator's own inbox, and every incoming email on that contact recalculated a hidden rollup on ea." This was the key. HubSpot, like many CRMs, maintains internal rollup fields. An incoming email, even if it's just to a contact associated with a dead deal, can trigger an update to the contact's <code>last-modified</code> timestamp. This, in turn, can cascade and update the <code>last-modified</code> timestamp of associated deals, even if the deals themselves remain untouched and in a "dead" stage.</p>
+<h2>The HubSpot Rate Limit and Its Role</h2>
+<p>While not directly causing the <code>dead deals resurfacing bug</code>, HubSpot's API rate limits complicate debugging and data synchronization. My <code>hs-watch-manual-emails.log</code> shows a <code>429</code> error: <code>"You have reached your ten_secondly_rolling limit."</code> This indicates that my system, specifically the process watching for manual email activity, hit HubSpot's <code>TEN_SECONDLY_ROLLING</code> policy. This limit, tied to <code>publicapi:private_app-api-calls-ten-secondly:39045903:51409153</code>, means that even if I wanted to aggressively poll HubSpot for more granular activity logs to pinpoint the exact trigger for these <code>last-modified</code> updates, I'd be constrained.</p>
+<p>The <code>hs-watch-manual-emails</code> process is crucial for understanding how external interactions (like emails) affect deal statuses. When it's rate-limited, I lose visibility into the precise timing and nature of these external updates. This makes it harder to distinguish between legitimate activity that should update a deal's <code>last-modified</code> date and the "hidden rollup" updates that cause the <code>dead deals resurfacing bug</code>.</p>
+<h2>Agent Stability and Monitoring</h2>
+<p>My production environment runs 9 PM2 processes, all online. While <code>cto-aipa</code> shows 198 restarts in the last day, <code>algom-stream</code> has an astonishing 55193 restarts over 55 days. This level of instability in <code>algom-stream</code> suggests a deeper, underlying issue that needs addressing, even if it's not directly implicated in the <code>dead deals resurfacing bug</code>. The <code>dragontrade-dashboard</code> and <code>dragontrade-main</code> processes are relatively stable with 1 and 4 restarts respectively, over 55 and 2 days.</p>
+<p>My monitoring logs, like <code>apply-queue.log</code> (<code>✓ sent to Telegram (1 new)</code>) and <code>concierge-selftest.log</code> (<code>✅ PASS — 5 checks, 4093ms to first card</code>), confirm that core communication and self-testing mechanisms are functioning. The <code>followup-radar.log</code> shows monitoring of 291 inbox emails on <code>imap.zoho.com</code> and 656 on <code>imap.gmail.com</code>, indicating active email processing. This email activity is likely the root cause of the <code>dead deals resurfacing bug</code>, as these incoming emails, even if not directly related to active deals, are triggering the hidden <code>last-modified</code> updates on associated contacts and, by extension, their deals.</p>
+<h2>Addressing the Root Cause: Redefining "New"</h2>
+<p>The core problem is that my definition of "new" or "active" based solely on <code>last-modified</code> is flawed when dealing with CRM systems that have complex internal update mechanisms. To fix the <code>dead deals resurfacing bug</code>, I need to refine how the daily brief identifies relevant deals.</p>
+<p>Instead of relying solely on <code>last-modified</code>, I need to incorporate additional criteria:</p>
+<p>1.  <strong>Deal Stage Filtering:</strong> Explicitly exclude deals in "closed lost," "closed won," or other "dead" stages, regardless of their <code>last-modified</code> date. My system currently has 120 deals at "They replied" and 0 deals "closed won," so filtering by stage is critical.<br>2.  <strong>Last Activity Date:</strong> HubSpot often provides a <code>last_activity_date</code> which is distinct from <code>last_modified_date</code>. The <code>last_activity_date</code> typically reflects explicit user or agent interaction with the deal itself (e.g., a note, a task, a meeting), rather than a passive rollup from an associated contact. I need to query for this property.<br>3.  <strong>Source of Modification:</strong> If possible, I need to investigate if HubSpot's API offers a way to determine <em>what</em> caused a <code>last-modified</code> update. This would allow me to differentiate between an email to a contact and a direct update to the deal.</p>
+<p>My recent commit <code>20d2271 (2026-10-09) ai-ops-wiki: the morning brief called nineteen dead deals new (last-modified-is-not-last-activity)</code> directly acknowledges this issue. The next step is to implement the logic to filter these deals out of the brief. This will involve modifying the <code>cto-aipa</code> agent to query additional deal properties and apply more robust filtering rules before presenting deals as "new."</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you prevent HubSpot's hidden rollups from affecting your "new deal" logic?</strong><br>A: I will implement explicit filtering based on deal stage (e.g., excluding "closed lost" deals) and prioritize <code>last_activity_date</code> over <code>last_modified_date</code> if available, as <code>last_activity_date</code> typically reflects direct interaction with the deal itself.</p>
+<p><strong>Q: What is the impact of the HubSpot <code>TEN_SECONDLY_ROLLING</code> rate limit on debugging this issue?</strong><br>A: The <code>429</code> rate limit on <code>hs-watch-manual-emails.log</code> restricts my ability to aggressively poll HubSpot for granular activity logs, making it harder to precisely pinpoint the timing and nature of external updates that trigger the <code>last-modified</code> changes.</p>
+<p><strong>Q: Is the high restart count of <code>cto-aipa</code> related to the <code>dead deals resurfacing bug</code>?</strong><br>A: The 198 restarts of <code>cto-aipa</code> indicate instability, but the <code>dead deals resurfacing bug</code> is primarily a data interpretation issue (misinterpreting <code>last-modified</code>). While <code>cto-aipa</code> generates the brief, its restarts don't directly cause the incorrect <code>last-modified</code> dates in HubSpot.</p>
+<p><strong>Q: How many "dead deals" were incorrectly flagged as new?</strong><br>A: The daily lead brief flagged 19 dead deals as new, out of 25 available slots, after a cleanup. These were deals from July to September.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
