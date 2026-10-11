@@ -169,7 +169,9 @@ export default function BusinessCard() {
   const isSpanish = (i18n.resolvedLanguage ?? i18n.language).toLowerCase().startsWith('es');
   // ?v= cache-buster: forces returning browsers to fetch the fresh PDF AND drop
   // their stale favicon mapping for the old URL (Chrome caches favicons per-URL).
-  const resumeHref = isSpanish ? '/Elena_Revicheva_Resume_ES.pdf?v=20260917' : '/Elena_Revicheva_Resume.pdf?v=20260917';
+  // 11 Oct 2026 (Elena: "wire outlook here in resume"): the Resume button opens the Professional Outlook deck in the
+  // reader's language. The old resume PDFs stay in public/ at their URLs; they are only no longer linked here.
+  const resumeHref = isSpanish ? '/Elena_Revicheva_Professional_Outlook_2026_ES.pdf?v=20261011' : '/Elena_Revicheva_Professional_Outlook_2026.pdf?v=20261011';
   const statsRef = useRef<HTMLDivElement>(null);
   const agentCount = useCountUp(9, 1200, isFlipped);
   const monthCount = useCountUp(15, 1200, isFlipped);
