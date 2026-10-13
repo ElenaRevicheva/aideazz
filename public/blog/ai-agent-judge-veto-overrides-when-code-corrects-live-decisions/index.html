@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Agent Judge Veto Overrides: When Code Corrects Live Decisions | AIdeazz</title>
+  <meta name="description" content="My VibeJobHunterAIPA_AIMCF agent, designed to find job postings, recently vetoed a candidate from Epoch AI for "three hours of overlap with Pacific Time" on October 7. This was a live decision by the…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/ai-agent-judge-veto-overrides-when-code-corrects-live-decisions/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="AI Agent Judge Veto Overrides: When Code Corrects Live Decisions">
+  <meta property="og:description" content="My VibeJobHunterAIPA_AIMCF agent, designed to find job postings, recently vetoed a candidate from Epoch AI for "three hours of overlap with Pacific Time" on October 7. This was a live decision by the…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/ai-agent-judge-veto-overrides-when-code-corrects-live-decisions/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-13T20:21:19.965Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agent Judge Veto Overrides: When Code Corrects Live Decisions">
+  <meta name="twitter:description" content="My VibeJobHunterAIPA_AIMCF agent, designed to find job postings, recently vetoed a candidate from Epoch AI for "three hours of overlap with Pacific Time" on October 7. This was a live decision by the…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AI Agent Judge Veto Overrides: When Code Corrects Live Decisions",
+  "description": "My VibeJobHunterAIPA_AIMCF agent, designed to find job postings, recently vetoed a candidate from Epoch AI for \"three hours of overlap with Pacific Time\" on October 7. This was a live decision by the…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-13T20:21:19.965Z",
+  "dateModified": "2026-10-13T20:21:19.965Z",
+  "url": "https://aideazz.xyz/blog/ai-agent-judge-veto-overrides-when-code-corrects-live-decisions/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/ai-agent-judge-veto-overrides-when-code-corrects-live-decisions/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why not retrain the AI judge instead of hard-coding overrides?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Retraining is a longer cycle and doesn't guarantee immediate correction for specific, critical logical errors like time zone interpretation. Hard-coding provides an immediate, deterministic fix that prevents further incorrect vetoes while allowing for future model improvements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you identify when an AI judge's decision needs to be overridden?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live vetoes that contradict known facts or business rules, like the Epoch AI time zone issue, are flagged. My `apply-queue.log` and `concierge-selftest.log` provide some visibility, but ultimately, manual review of specific rejections is still necessary to catch these edge cases."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of these overrides on the AI agent's overall learning?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The overrides prevent the agent from making the same specific error, but they don't necessarily \"teach\" the underlying model. The judge's veto still stands for other criteria like residence or country lock, meaning its general decision-making framework remains, but with specific guardrails."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often do you find yourself overriding AI agent decisions in code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This is the second instance of a direct override for time zone compatibility (the \"LATAM rule\" being the first). It's not a daily occurrence, but it happens when the AI's interpretation of a critical, deterministic rule consistently deviates from the desired outcome."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">AI Agent Judge Veto Overrides: When Code Corrects Live Decisions</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-13T20:21:19.965Z">October 13, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My VibeJobHunterAIPA_AIMCF agent, designed to find job postings, recently vetoed a candidate from Epoch AI for "three hours of overlap with Pacific Time" on October 7. This was a live decision by the judge component, based on its understanding of time zone compatibility with Panama (UTC-5). The problem? Pacific Time (UTC-8) 9-17 is 11-19 in Panama, a perfectly compatible working window. The agent's reasoning was flawed, leading to an incorrect rejection. This isn't just a minor bug; it's a direct override of an AI's judgment by hard-coded rules, a pattern I've had to implement before.</p>
+<h2>The Judge's Flawed Logic and Its Impact</h2>
+<p>The VibeJobHunterAIPA_AIMCF agent's judge component is designed to evaluate job postings against specific criteria, including location and working hours. When it vetoed Epoch AI on October 7, it did so with a prompt line indicating insufficient time zone overlap. This was a critical error. My goal is to find suitable roles, and rejecting a viable candidate due to a misinterpretation of time zones directly impacts the agent's effectiveness. The <code>apply-queue.log</code> shows recent activity, with "sent to Telegram (1 new)" and "sent to Telegram (3 new)" entries, indicating the agent is actively processing and forwarding opportunities. However, if the judge is incorrectly filtering, the quality of these opportunities suffers.</p>
+<h2>Enforcing Compatibility Through Code</h2>
+<p>To prevent similar issues, I pushed two commits to VibeJobHunterAIPA_AIMCF on October 12. The first, <code>7b4a975</code>, explicitly states: "fix(judge): US Mountain/Pacific hours are compatible with Panama (UTC-5 all year: Pacific 9-17 = 11-19 Panama)". This commit directly addresses the specific time zone miscalculation. The second commit, <code>6a0a94e</code>, goes further: "fix(judge): enforce in code that US Mountain/Pacific hours fit Panama - the live judge vetoed Epoch AI again on 12 Oct WITH the prompt line, so like the LATAM rule the criterion is overruled in code (veto stands for residence, country lock, a range without UTC-5, or non-US hours); tests".</p>
+<p>This is a direct AI Agent Judge Veto Override. The agent's internal logic, even when prompted, continued to make the same mistake. This forced me to hard-code the rule. The judge can still veto for residence, country lock, or non-US hours, but the specific time zone compatibility for US Mountain/Pacific is now an explicit, unchangeable rule within the agent's codebase. This mirrors a previous "LATAM rule" override, indicating a recurring pattern where the AI's judgment requires manual correction for critical business logic.</p>
+<h2>The Cost of AI Autonomy Without Guardrails</h2>
+<p>Allowing the AI judge full autonomy in these critical areas led to missed opportunities. While the <code>cto-aipa</code> process has seen 201 restarts and is up for 0 days, and <code>algom-stream</code> has 55193 restarts over 58 days, the VibeJobHunterAIPA_AIMCF agent itself has had 2 commits in the last 48 hours directly related to this judge override. This shows active intervention. The <code>atlas-lead-machine.log</code> indicates a recent timeout error: "The operation was aborted due to timeout", and "staged 8" leads, but only "pushed to Atlas: {"ok":true,"lanes":7}" in <code>atlas-outcomes.log</code>. This suggests that even with lead generation, there are still operational hurdles. The judge's incorrect vetoes add another layer of inefficiency.</p>
+<p>My <code>aideazz</code> repository also saw 4 commits in the last 48 hours, including <code>a9fab1f</code> which notes "the cut landed inside an emoji (code-unit truncation broke every structured call; loud fallback changed who reviewed the CV)". This incident, detailed in the AI-Ops wiki, describes how a job posting trimmed to 6,000 characters broke structured calls, forcing a fallback model to review the CV. Another incident, <code>f0c1307</code>, highlights "the reviewer wrote its verdict where nobody looked (advisory feedback, single source of truth, first writer wins)". These incidents underscore the fragility of AI pipelines and the need for robust oversight, even when the AI is designed to be autonomous.</p>
+<h2>The "NOW.md" Constraint: Disconnected AI Agents</h2>
+<p>The challenge of correcting AI behavior is compounded by the communication limitations between my AI agents. As stated in <code>NOW.md</code>, "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." There is "No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This means that lessons learned by one agent, or even insights gained during a debugging session with one tool, are not automatically propagated. The <code>NOW.md</code> file itself serves as the "working memory of whichever agent is not currently running," and the protocol within it is how "two agents that cannot talk avoid" conflicts.</p>
+<p>This lack of shared context means that when the VibeJobHunterAIPA_AIMCF agent's judge component makes a mistake, the correction must be explicitly coded and deployed, rather than relying on a shared learning or communication mechanism. The <code>concierge-selftest.log</code> shows "duplicate suppressed (redundant drafters collapse)", indicating some internal logic for efficiency, but this is not a general communication channel.</p>
+<h2>Future Implications for AI Agent Design</h2>
+<p>The necessity of AI Agent Judge Veto Overrides highlights a critical design consideration: for high-stakes decisions, human-defined rules must sometimes take precedence over learned or inferred AI judgments. While the goal is often to create autonomous agents, there are boundaries where explicit, hard-coded logic is required to ensure correctness and prevent business-critical errors. My system has 9 processes online, with <code>algom-poll</code> up for 77 days with 0 restarts, and <code>n8n</code> up for 61 days with 0 restarts, showing stability in some areas. However, processes like <code>cto-aipa</code> with 201 restarts in 0 days, and <code>algom-stream</code> with 55193 restarts in 58 days, indicate areas of ongoing volatility and the constant need for intervention. The judge's vetoes are another form of this intervention, albeit a reactive one.</p>
+<p>The <code>github-token-watch.log</code> shows "266 days left" on my GitHub token, indicating long-term operational planning. However, the immediate need to override AI decisions with code points to a more fundamental challenge: balancing AI flexibility with deterministic outcomes. For now, when the AI judge makes a decision that contradicts established, non-negotiable business logic, the code will enforce the correct behavior.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why not retrain the AI judge instead of hard-coding overrides?</strong><br>A: Retraining is a longer cycle and doesn't guarantee immediate correction for specific, critical logical errors like time zone interpretation. Hard-coding provides an immediate, deterministic fix that prevents further incorrect vetoes while allowing for future model improvements.</p>
+<p><strong>Q: How do you identify when an AI judge's decision needs to be overridden?</strong><br>A: Live vetoes that contradict known facts or business rules, like the Epoch AI time zone issue, are flagged. My <code>apply-queue.log</code> and <code>concierge-selftest.log</code> provide some visibility, but ultimately, manual review of specific rejections is still necessary to catch these edge cases.</p>
+<p><strong>Q: What is the impact of these overrides on the AI agent's overall learning?</strong><br>A: The overrides prevent the agent from making the same specific error, but they don't necessarily "teach" the underlying model. The judge's veto still stands for other criteria like residence or country lock, meaning its general decision-making framework remains, but with specific guardrails.</p>
+<p><strong>Q: How often do you find yourself overriding AI agent decisions in code?</strong><br>A: This is the second instance of a direct override for time zone compatibility (the "LATAM rule" being the first). It's not a daily occurrence, but it happens when the AI's interpretation of a critical, deterministic rule consistently deviates from the desired outcome.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
