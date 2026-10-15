@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fixing the AI Agent Learning Loop: Staging Notes as Rejection Reasons | AIdeazz</title>
+  <meta name="description" content="A critical bug in my job-screening judge agent taught it false rejection reasons. The agent, designed to learn from my decisions, was incorporating staging script instructions into its understanding …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/fixing-the-ai-agent-learning-loop-staging-notes-as-rejection-reasons/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fixing the AI Agent Learning Loop: Staging Notes as Rejection Reasons">
+  <meta property="og:description" content="A critical bug in my job-screening judge agent taught it false rejection reasons. The agent, designed to learn from my decisions, was incorporating staging script instructions into its understanding …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/fixing-the-ai-agent-learning-loop-staging-notes-as-rejection-reasons/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-15T20:26:26.152Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fixing the AI Agent Learning Loop: Staging Notes as Rejection Reasons">
+  <meta name="twitter:description" content="A critical bug in my job-screening judge agent taught it false rejection reasons. The agent, designed to learn from my decisions, was incorporating staging script instructions into its understanding …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fixing the AI Agent Learning Loop: Staging Notes as Rejection Reasons",
+  "description": "A critical bug in my job-screening judge agent taught it false rejection reasons. The agent, designed to learn from my decisions, was incorporating staging script instructions into its understanding …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-15T20:26:26.152Z",
+  "dateModified": "2026-10-15T20:26:26.152Z",
+  "url": "https://aideazz.xyz/blog/fixing-the-ai-agent-learning-loop-staging-notes-as-rejection-reasons/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/fixing-the-ai-agent-learning-loop-staging-notes-as-rejection-reasons/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How did the agent distinguish between a staging note and Elena's actual rejection reason?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The fix involved explicitly classifying the staging note ('🚨 The form pre-fills') as an internal `_KIT_NOTE` within the `VibeJobHunterAIPA_AIMCF` repository. This prevented the agent from learning it as an external, user-provided reason."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the immediate impact on the agent's learned reasons after the fix?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The number of instances where the false reason was attributed dropped from 54 to 47. The \"pay below her floor\" lesson, which previously appeared 8x, was corrected to 1x."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does this fix relate to other agent learning improvements?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This fix is part of a broader effort to improve agent learning. Another recent fix ensures that my \"No-fit screenshots\" are fully read, allowing up to 4 images to be joined and retrying failed reads, rather than prioritizing CV PDFs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is \"label-provenance\" in this context?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Label-provenance refers to the origin and context of the data labels or reasons an AI agent learns from. In this case, it was crucial to establish whether a \"reason\" originated from an internal staging instruction or from my direct feedback."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Fixing the AI Agent Learning Loop: Staging Notes as Rejection Reasons</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-15T20:26:26.152Z">October 15, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>A critical bug in my job-screening judge agent taught it false rejection reasons. The agent, designed to learn from my decisions, was incorporating staging script instructions into its understanding of why I rejected certain roles. This wasn't a minor data anomaly; it fundamentally corrupted the agent's core learning loop, leading to a persistent, incorrect lesson: "pay below her floor 8x."</p>
+<p>This specific lesson originated not from my actual feedback, but from a micro-note in a staging environment: '🚨 The form pre-fills'. This note, intended for internal agent guidance during form filling, was mistakenly interpreted as my personal reason for rejecting a job. The impact was significant. A read-only audit of how my operation's agents share knowledge revealed this issue in the screening judge's live lesson file, the summary it consults for every job.</p>
+<h2>The False Lesson: "Pay Below Her Floor 8x"</h2>
+<p>The agent's internal model for my rejection reasons was heavily skewed by this staging note. The "pay below her floor 8x" lesson was the strongest, appearing eight times in its learned reasons. Seven of those eight instances were directly attributable to the staging script's instructions. This meant that for a significant portion of its decision-making, the agent was operating under a false premise about my compensation preferences.</p>
+<p>My <code>aideazz</code> repository commit <code>37ec1cd</code> on 2026-10-15 explicitly states: "another agent wrote her top lesson (new concept: label-provenance) - a staging script's form instructions were learned as Elena's rejection reason; verified 54 -> 47 with her reason, pay lesson 8x -> 1x". This commit details the discovery and the immediate impact of the fix: the number of instances where this false reason was attributed dropped from 54 to 47. More importantly, the "pay below her floor" lesson, previously appearing 8x, was corrected to 1x.</p>
+<h2>Identifying the Source of Corruption</h2>
+<p>The <code>VibeJobHunterAIPA_AIMCF</code> repository, specifically commit <code>e864641</code> on 2026-10-15, outlines the fix: "the cto-aipa micro1 staging note ('🚨 The form pre-fills') is an agent note, not Elena's reason - added to _KIT_NOTE; a cached reason that matches _KIT_NOTE is re-derived once (removes the false 'pay below her floor 8x' lesson from every judge prompt)".</p>
+<p>This commit highlights the precise origin of the problem: a staging note from the <code>cto-aipa</code> microservice. The fix involved classifying this specific note as an internal <code>_KIT_NOTE</code> rather than a user-provided reason. Any cached reason that matched this <code>_KIT_NOTE</code> was then re-derived, effectively purging the false lesson from the agent's memory. The <code>cto-aipa</code> process itself has seen 209 restarts and has been up for 0 days, indicating recent, active development and deployment.</p>
+<h2>The Broader Impact on Agent Learning</h2>
+<p>This incident underscores a critical challenge in building robust AI agents: ensuring the provenance of learning data. When agents learn from human feedback, it's crucial to distinguish between actual user input and internal system notes, staging instructions, or even agent-generated observations. Without clear label provenance, the agent's internal model can become polluted, leading to incorrect inferences and suboptimal decision-making.</p>
+<p>Another related fix, commit <code>6b9ebd4</code> in <code>VibeJobHunterAIPA_AIMCF</code> on 2026-10-15, addressed how my "No-fit screenshots" were processed. Previously, the agent prioritized the kit's CV PDFs, taking up the two available slots for image processing. This meant my actual rejection notes, often conveyed through screenshots, were not being fully read. The fix ensures that "only her notes' images (the kit's CV PDFs took the 2 slots), up to 4 joined, one model's NONE gets a second opinion, a failed read is retried, recent reason-less rejections re-read; on-site/hybrid/must-live-in teach the location lesson." This further refines the agent's ability to learn accurate rejection reasons directly from my input, rather than relying on incomplete or misinterpreted data.</p>
+<h2>Operational Stability and Continuous Improvement</h2>
+<p>My <code>cto-aipa</code> repository has seen 12 commits in the last 48 hours, demonstrating continuous development. These commits include updates to the resilience documentation (<code>a689ad72</code>, <code>effd7ddf</code>), voice default changes (<code>38489e2f</code>, <code>de06ac75</code>), and other fixes related to agent wiring (<code>bb25cdb3</code>). The voice default change, for instance, moved from <code>gpt-4o-mini-tts</code> (which stalled 1 in 4 calls) to <code>tts-1</code> (which completed 12/12 calls in 1.7-3.5 seconds), improving reliability.</p>
+<p>The <code>aideazz</code> repository also shows 4 commits in the last 48 hours, including the <code>ai-ops-wiki</code> updates (<code>37ec1cd</code>, <code>3dabeca</code>, <code>b8614b3</code>) and a blog regeneration (<code>3334377</code>). This consistent activity across repositories reflects the ongoing effort to refine and stabilize the AI agent ecosystem. The <code>pm2 jlist</code> shows 9 processes online, with <code>cto-aipa</code> having 209 restarts and <code>algom-stream</code> having 55193 restarts, indicating a system that is actively managed and recovers from failures.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How did the agent distinguish between a staging note and Elena's actual rejection reason?</strong><br>A: The fix involved explicitly classifying the staging note ('🚨 The form pre-fills') as an internal <code>_KIT_NOTE</code> within the <code>VibeJobHunterAIPA_AIMCF</code> repository. This prevented the agent from learning it as an external, user-provided reason.</p>
+<p><strong>Q: What was the immediate impact on the agent's learned reasons after the fix?</strong><br>A: The number of instances where the false reason was attributed dropped from 54 to 47. The "pay below her floor" lesson, which previously appeared 8x, was corrected to 1x.</p>
+<p><strong>Q: How does this fix relate to other agent learning improvements?</strong><br>A: This fix is part of a broader effort to improve agent learning. Another recent fix ensures that my "No-fit screenshots" are fully read, allowing up to 4 images to be joined and retrying failed reads, rather than prioritizing CV PDFs.</p>
+<p><strong>Q: What is "label-provenance" in this context?</strong><br>A: Label-provenance refers to the origin and context of the data labels or reasons an AI agent learns from. In this case, it was crucial to establish whether a "reason" originated from an internal staging instruction or from my direct feedback.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
