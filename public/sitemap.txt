@@ -14,6 +14,8 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/cto-aipas-216-restarts-iterating-deal-sheets-by-stage/
+https://aideazz.xyz/blog/the-inbox-was-read-only-on-busy-hours-field-note/
 https://aideazz.xyz/blog/another-agent-wrote-her-top-lesson-field-note/
 https://aideazz.xyz/blog/fixing-the-ai-agent-learning-loop-staging-notes-as-rejection-reasons/
 https://aideazz.xyz/blog/ai-agent-emoji-truncation-how-a-6000-character-cut-broke-structured-calls/
