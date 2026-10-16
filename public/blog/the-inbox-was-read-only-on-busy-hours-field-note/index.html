@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The inbox was read only on busy hours | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 16, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-inbox-was-read-only-on-busy-hours-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The inbox was read only on busy hours">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 16, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-inbox-was-read-only-on-busy-hours-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-16T17:57:57.729Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The inbox was read only on busy hours">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 16, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The inbox was read only on busy hours",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 16, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-16T17:57:57.729Z",
+  "dateModified": "2026-10-16T17:57:57.729Z",
+  "url": "https://aideazz.xyz/blog/the-inbox-was-read-only-on-busy-hours-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-inbox-was-read-only-on-busy-hours-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The inbox was read only on busy hours</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-16T17:57:57.729Z">October 16, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. October 16, 2026.</em></p>
+<p><strong>An hourly job hunter also reads two mailboxes for employer replies. An hour that found no new jobs ended early, before the mailbox step, so replies were read in 278 of 466 cycles, with gaps of up to 14.4 hours.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>While the bot's help screens were being rewritten, a read-only check compared every sentence with the service's own log, including how often the job-search inboxes were read. Over the 466 hourly cycles in the retained log (27 September to 16 October 2026), the mailbox step started 278 times. The hours that skipped it did not look broken: each logged a calm, true line, "No new jobs this cycle (N consecutive) - waiting for next run", and the service never crashed; its restarts in that period were all clean, deliberate ones.</p>
+<h2>What was actually happening</h2>
+<p>One function runs the whole cycle as numbered steps: find jobs, score and route them, send a summary, send follow-ups and warm introductions, then read the mailboxes for replies. When the search found zero new jobs, the function returned right after saying so. That was correct for the scoring steps, which had nothing to score, but it also skipped the mailbox step, which has nothing to do with whether new jobs exist. Reading replies shared the fate of finding jobs: 187 of the 466 cycles found nothing new, so about four hours in ten never looked at the inbox. A 24-hour look-back in the mailbox scan hid the gap. The longest stretch between two checks was 14.4 hours, fourteen quiet cycles in a row, inside the window, but that was margin, not design: a quiet spell longer than a day would have made replies invisible.</p>
+<h2>The fix</h2>
+<p>In the zero-jobs branch, the same reply-check block now runs before the early return. Nothing else in the cycle changed, and the existing de-duplication still alerts each email once. Because the check now runs every hour, the reply-check mail connections also got a 60-second timeout, so a hung mail server can block the single event loop the cycle shares with the chat bot and a daily marketing post for about a minute per call instead of indefinitely. The change does not touch the marketing post's code or schedule.</p>
+<h2>How I know it worked</h2>
+<p>From the service log. Before the fix, over the retained log from 27 September to 16 October 2026: 466 cycles, 187 with zero new jobs, 278 mailbox checks, and a longest gap of 14.4 hours between two checks. An independent fact-check recounted those numbers from the same log and matched them. After the deploy, the first quiet cycle, at 17:55:59 UTC, logged "Found 0 new jobs", then "No new jobs this cycle (1 consecutive) - waiting for next run", then "Checking for responses", and "Response check complete" at 17:56:43: the step a quiet hour used to skip now runs. The cycles that found jobs that afternoon completed the check as before.</p>
+<h2>The rule this earned</h2>
+<blockquote>Count how often each duty actually runs from its own log line, not how often the loop runs. When one function carries several duties, an early return is a decision about all of them: put a duty that does not depend on the branch before the branch, or give it its own trigger.</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Fate-sharing</h3>
+<p><em>Two duties that should be independent ride the same code path, so when one has nothing to do, the other quietly stops too.</em></p>
+<p>In network design, <strong>fate-sharing</strong> is a deliberate choice: David Clark's 1988 paper on the design of the Internet's protocols argued that the state of a connection should live with the endpoints that use it, so that the state is lost only when those endpoints themselves are lost. Two things that share fate fail together, and that is the point.</p>
+<p>The bug is the <em>unintended</em> version: two duties that have nothing to do with each other end up sharing fate because they happen to live in the same function, the same job, or the same branch. The usual carrier is an early return. A loop does A, then B, then C; someone adds "if A found nothing, stop here" — correct for B, which depends on A — and C, which never depended on A, now runs only when A happens to be busy.</p>
+<p>Ordinary-life version: a night guard is asked to sign for deliveries and, while at the door, to check the mailbox. One day the instruction becomes "if there is no delivery tonight, go back to your desk." Quiet nights get quieter. Nobody told the guard to stop checking the mail; it just stopped happening on every night without a parcel.</p>
+<p>The usual shapes:</p>
+<ul><li><strong>The early return.</strong> "Nothing new — waiting for next run" ends the whole cycle, including the steps that had their own reason to run.</li>
+<li><strong>The shared try block.</strong> One failing step aborts every step after it, so a broken scraper also silences the health report written at the end.</li>
+<li><strong>The chained schedule.</strong> Job 2 is triggered by job 1's output; when job 1 legitimately produces nothing, job 2 never runs.</li>
+<li><strong>The monitor on the patient.</strong> The thing that watches a system runs on that system, so the outage it should report also takes the reporter down.</li></ul>
+<p>It is a special case of <a href="https://aideazz.xyz/ai-ops-wiki.html#silent-failure">silent failure</a>: the skipped duty leaves no trace, and the line that is logged ("no new jobs") is true and calm. It also hides behind <a href="https://aideazz.xyz/ai-ops-wiki.html#liveness-is-not-correctness">liveness is not correctness</a>: the loop runs every hour, so every liveness signal is green, while one of its duties runs only some of the hours.</p>
+<p><strong>The defences.</strong> Put a duty that does not depend on a branch <em>before</em> the branch, or give it its own trigger. Treat every early return as a decision about everything after it, not only about the step that motivated it. And measure each duty's real frequency from its own log line (<a href="https://aideazz.xyz/ai-ops-wiki.html#verify-from-logs">verify from logs, not config</a>) — count "mailbox checked" per cycle, not "cycle ran".</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Liveness is not correctness</h3>
+<p><em>A dead job announces itself. A job that runs perfectly and emits slightly wrong output never will.</em></p>
+<p>Almost every check you own measures <em>liveness</em>: did it run, did it return, did it exit zero, did it publish. Almost none measures <em>correctness</em>: was the thing it produced the right thing. These are different properties, and the gap between them is where the expensive incidents live.</p>
+<p>The asymmetry is what makes this dangerous. A job that stops firing is loud — the output is missing, someone notices within a day. A job that fires on schedule and produces output that is subtly wrong is silent, and it stays silent for as long as nobody reads the output, because every signal you have is reporting the truth. The scheduler really did fire. The API really did return 200. The file really was written. Each check passes honestly while the only thing that matters fails.</p>
+<p>Two shapes to watch for:</p>
+<p>1. <strong>The safety net that adjusts instead of refusing.</strong> A guard catches a bad condition, then modifies the input so the operation can proceed — renaming a colliding key, truncating an over-long field, coercing a bad type. The error disappears from the logs and the bad condition ships anyway. A guard that never refuses is not a control; it is a laundering step, converting a real signal into a clean log line. Prefer failing closed: a skipped run is cheap and visible, a wrong run is expensive and invisible.<br>2. <strong>The record that drifts from the reality.</strong> Any check that compares against a cache, a state file, or a local ledger is only as good as that memory. When the memory can be truncated by a restart, a fresh machine, or a path that writes to one place and reads from another, the check degrades quietly and keeps returning "fine". Seed the memory from the artifacts themselves wherever you can, and periodically assert that the two still agree.</p>
+<p>The practical defence is to add one check that reads the <em>output</em> rather than the exit code, and to make it something a human would actually notice — a count that should be stable, a uniqueness constraint, a spot comparison against what shipped last time. You are not trying to verify everything. You are trying to have at least one signal that fails when the job succeeds incorrectly.</p>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
