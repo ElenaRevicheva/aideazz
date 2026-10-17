@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VJH Q&amp;A Bilingual Logic: Fixing English Questions Answered in Spanish | AIdeazz</title>
+  <meta name="description" content="My VibeJobHunterAIPA_AIMCF (VJH) bot recently answered an English question about job counts in Spanish. This wasn't a minor translation error; it was a fundamental breakdown in the expected bilingual…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="VJH Q&amp;A Bilingual Logic: Fixing English Questions Answered in Spanish">
+  <meta property="og:description" content="My VibeJobHunterAIPA_AIMCF (VJH) bot recently answered an English question about job counts in Spanish. This wasn't a minor translation error; it was a fundamental breakdown in the expected bilingual…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-17T19:30:14.972Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="VJH Q&amp;A Bilingual Logic: Fixing English Questions Answered in Spanish">
+  <meta name="twitter:description" content="My VibeJobHunterAIPA_AIMCF (VJH) bot recently answered an English question about job counts in Spanish. This wasn't a minor translation error; it was a fundamental breakdown in the expected bilingual…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "VJH Q&A Bilingual Logic: Fixing English Questions Answered in Spanish",
+  "description": "My VibeJobHunterAIPA_AIMCF (VJH) bot recently answered an English question about job counts in Spanish. This wasn't a minor translation error; it was a fundamental breakdown in the expected bilingual…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-17T19:30:14.972Z",
+  "dateModified": "2026-10-17T19:30:14.972Z",
+  "url": "https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How did the bot determine the language of the user's question for the VJH Q&A bilingual logic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The system now explicitly checks for words in the typed question that clearly lean English or Spanish. If the language is unambiguous, it triggers an explicit language line in the response. If the input is mixed or unclear, a generic language line is used."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the specific impact of the \"half-Spanish data\" on English questions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Live proof showed that an English question, particularly one asking for counts, was answered in Spanish because the underlying shared facts relevant to the answer were partially in Spanish. This led to a user experience where the bot responded in an unexpected language."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did you verify the fix for \"honest counts\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `evals/test_qa_conscience.py` suite was used. Before the fix, 17 tests failed. After the commit `5204521`, all 17 tests passed, confirming that counts were accurately pulled from HubSpot totals in the deals sheet header."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the purpose of the \"language reminder right before the answer\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This reminder, introduced in commit `a2ecb38`, explicitly states the language of the answer to the user. It uses Whisper's detected language if known, otherwise it defaults to \"the language of her message,\" to prevent confusion when the bot's response language might differ from the user's expectation due to mixed data sources."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">VJH Q&amp;A Bilingual Logic: Fixing English Questions Answered in Spanish</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-17T19:30:14.972Z">October 17, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My VibeJobHunterAIPA_AIMCF (VJH) bot recently answered an English question about job counts in Spanish. This wasn't a minor translation error; it was a fundamental breakdown in the expected bilingual logic. The underlying issue was that shared facts, half in Spanish, were influencing the language of the entire response, even when the user's input was clearly English. This led to a commit, <code>0215cb0</code>, on 2026-10-16, specifically addressing how VJH Q&A handles language detection and response generation to ensure explicit language lines and honest counts.</p>
+<p>This wasn't an isolated incident. The <code>cto-aipa</code> process, which VJH interacts with, has seen 216 restarts and has been up for 1 day. My <code>algom-stream</code> process has 55193 restarts over 62 days. These numbers highlight the continuous iteration and debugging required to keep these systems operational and accurate.</p>
+<h2>The Bilingual Problem: Shared Data and Implicit Language</h2>
+<p>The core of the VJH Q&A bilingual logic issue was that the bot's knowledge base contained a mix of English and Spanish data. When a user asked a question, especially one involving counts, the system would often default to Spanish if any part of the relevant data was in that language. This was particularly problematic for questions like "How many jobs are available?" where the answer, even if numerical, would be prefaced or followed by Spanish text.</p>
+<p>The commit <code>a2ecb38</code> (2026-10-16) was the first step, introducing a "language reminder right before the answer." This was a direct response to live proof showing an English question answered in Spanish because "the shared facts are half Spanish." The goal was to explicitly state the language of the answer, using Whisper's detected language when available, or "the language of her message" otherwise. Screenshots, however, kept their own rule.</p>
+<h2>Ensuring Honest Counts and Explicit Language Lines</h2>
+<p>The problem extended beyond just language. The bot was also giving "false 'complete' label" responses, where job counts were not fully accurate. The commit <code>5204521</code> (2026-10-16) tackled this by ensuring counts came directly from HubSpot totals in the deals sheet header. This meant parsing the old header but prioritizing the real, per-stage totals from HubSpot. My <code>evals/test_qa_conscience.py</code> suite was crucial here, with 17 failures on the old code and 0 on the new, specifically pinning the language reminder, the "AI working is not an interview" message, and honest counts.</p>
+<p>The final piece of the puzzle came with <code>0215cb0</code> (2026-10-16). This commit refined the VJH Q&A logic:<br><ul><li>  A typed question with clear English or Spanish words now gets an explicit language line.</li><br><li>  Mixed or unclear language inputs retain the generic line.</li><br><li>  The "conscience test" now pins both scenarios, with 26 passes.</li></ul></p>
+<p>This change directly addressed the "English count question answered in Spanish, live 17:55" incident, ensuring that the bot's response language aligns with the user's explicit input, not just the language mix of the underlying data.</p>
+<h2>Broader System Stability and Iteration</h2>
+<p>These VJH Q&A bilingual logic fixes are part of a larger, continuous effort. The <code>cto-aipa</code> repository, which includes VJH, saw 12 commits in the last 48 hours. This rapid iteration is standard. For example, commit <code>191b9f22</code> (2026-10-16) ensured "all 14 act-today deals reach the bots" and included a "VJH honest counts + conscience test." Another commit, <code>6e32c38f</code> (2026-10-16), refined how deal digests are picked, prioritizing 14 "I act today" job deals by stage, then recent deals, then the newest bots to fill. This also updated the header line to keep '<ISO>Z · N live job deals' (VJH regex) and add HubSpot's real per-stage totals. The <code>deal-digest.log</code> shows 31 live job deals, with 14 in the <code>decisionmakerboughtin</code> stage according to HubSpot totals, and 11 in <code>qualifiedtobuy</code>.</p>
+<p>The system's stability is monitored by PM2, showing 9 online processes out of 9. While <code>cto-aipa</code> has 216 restarts, other processes like <code>algom-poll</code> have 0 restarts over 81 days, and <code>n8n</code> has 0 restarts over 65 days. This indicates that while some components are under active development and seeing frequent restarts, the core infrastructure remains stable. My <code>followup-radar.log</code> shows 618 inbox emails and 3 sent emails on <code>imap.gmail.com</code>, and 281 inbox emails and 15 sent emails on <code>imap.zoho.com</code> over the last 45 days, indicating active email processing.</p>
+<p>The <code>aideazz</code> repository, my AI Ops wiki, also saw 8 commits in the last 48 hours, including regenerating blog posts related to these fixes, such as <code>cto-aipas-216-restarts-iterating-deal-sheets-by-stage/index.html</code>. This ensures that operational incidents and their resolutions are documented and shared. The <code>wiki-ship.log</code> confirms a successful publication of <code>2026-10-16-the-inbox-was-read-only-on-busy-hours</code>, even though Dev.to was paused.</p>
+<h2>The Operator Queue: A Shared Memory for Disconnected Agents</h2>
+<p>The <code>NOW.md</code> file in <code>cto-aipa/docs/oracle/</code> serves as the "working memory of whichever agent is not currently running." It explicitly states: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats." This means there's no shared conversation, no Claude MCP in Cursor, and no way to send messages between agents. The only shared elements are HubSpot and this <code>NOW.md</code> file. This protocol is critical for avoiding conflicts when multiple AI agents, like Cursor and Claude Code, are working on the same repository without direct communication channels.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How did the bot determine the language of the user's question for the VJH Q&A bilingual logic?</strong><br>A: The system now explicitly checks for words in the typed question that clearly lean English or Spanish. If the language is unambiguous, it triggers an explicit language line in the response. If the input is mixed or unclear, a generic language line is used.</p>
+<p><strong>Q: What was the specific impact of the "half-Spanish data" on English questions?</strong><br>A: Live proof showed that an English question, particularly one asking for counts, was answered in Spanish because the underlying shared facts relevant to the answer were partially in Spanish. This led to a user experience where the bot responded in an unexpected language.</p>
+<p><strong>Q: How did you verify the fix for "honest counts"?</strong><br>A: The <code>evals/test_qa_conscience.py</code> suite was used. Before the fix, 17 tests failed. After the commit <code>5204521</code>, all 17 tests passed, confirming that counts were accurately pulled from HubSpot totals in the deals sheet header.</p>
+<p><strong>Q: What is the purpose of the "language reminder right before the answer"?</strong><br>A: This reminder, introduced in commit <code>a2ecb38</code>, explicitly states the language of the answer to the user. It uses Whisper's detected language if known, otherwise it defaults to "the language of her message," to prevent confusion when the bot's response language might differ from the user's expectation due to mixed data sources.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
