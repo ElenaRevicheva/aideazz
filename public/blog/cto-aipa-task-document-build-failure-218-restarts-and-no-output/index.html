@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTO-AIPA Task Document Build Failure: 218 Restarts and No Output | AIdeazz</title>
+  <meta name="description" content="My cto-aipa process has restarted 218 times. This is a critical failure, especially when compared to dragontrade-dashboard at 1 restart or algom-poll at 0 restarts. The immediate problem is a task-&gt;d…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="CTO-AIPA Task Document Build Failure: 218 Restarts and No Output">
+  <meta property="og:description" content="My cto-aipa process has restarted 218 times. This is a critical failure, especially when compared to dragontrade-dashboard at 1 restart or algom-poll at 0 restarts. The immediate problem is a task-&gt;d…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-18T19:30:18.966Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CTO-AIPA Task Document Build Failure: 218 Restarts and No Output">
+  <meta name="twitter:description" content="My cto-aipa process has restarted 218 times. This is a critical failure, especially when compared to dragontrade-dashboard at 1 restart or algom-poll at 0 restarts. The immediate problem is a task-&gt;d…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTO-AIPA Task Document Build Failure: 218 Restarts and No Output",
+  "description": "My cto-aipa process has restarted 218 times. This is a critical failure, especially when compared to dragontrade-dashboard at 1 restart or algom-poll at 0 restarts. The immediate problem is a task->d…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-18T19:30:18.966Z",
+  "dateModified": "2026-10-18T19:30:18.966Z",
+  "url": "https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why is `cto-aipa` restarting 218 times if other processes are stable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `cto-aipa` process is experiencing a specific `task->document not built` error, as noted in a recent commit. This indicates a failure in its core document generation logic, causing the process to crash and PM2 to restart it repeatedly. Other processes like `algom-poll` (0 restarts) or `dragontrade-dashboard` (1 restart) do not share this specific failure mode."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does \"task->document not built (run stopped, nothing on disk)\" mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It means the AI agent attempted to process a task and generate a document (e.g., PDF or Word file), but the process terminated prematurely, and no output file was written to the disk. This suggests a failure in the document rendering pipeline or file system interaction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the \"shared renderer first (Claude Code)\" related to the failure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, commit `a9567991` explicitly states this shared renderer is intended for `task -> document` generation. The failure to build a document suggests an issue either in `cto-aipa`'s interaction with this renderer or in the renderer's own execution, which could be challenging to debug due to the lack of direct inter-agent chat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the significance of \"watchdog cron lacks +x\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This means the watchdog cron script, which is likely responsible for monitoring and managing processes, does not have execute permissions. While not directly causing the `task->document not built` error, a non-executable watchdog could prevent proper error handling or recovery, potentially contributing to the high restart count."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any other processes that handle documents successfully?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, `VibeJobHunterAIPA_AIMCF` has recent commits (`d51fe5f`) detailing robust PDF and Word document processing, including 62 conscience tests (37/37 passing on Oracle's venv). This suggests that the underlying Python libraries for document handling are functional on the system, implying the issue is specific to `cto-aipa`'s implementation or integration."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">CTO-AIPA Task Document Build Failure: 218 Restarts and No Output</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-18T19:30:18.966Z">October 18, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My <code>cto-aipa</code> process has restarted 218 times. This is a critical failure, especially when compared to <code>dragontrade-dashboard</code> at 1 restart or <code>algom-poll</code> at 0 restarts. The immediate problem is a <code>task->document not built</code> error, meaning the core functionality of converting a task into a document (PDF/Word EN/ES) is failing. This is happening despite 12 commits to <code>cto-aipa</code> in the last 48 hours, many directly addressing document processing and agent task evaluation.</p>
+<h2>The <code>task->document not built</code> Error</h2>
+<p>The specific commit <code>b563a820</code> from 2026-10-18 states: "now: task->document not built (run stopped, nothing on disk); apply kit + OpenClaw/VJH prep verified intact (audit 11/11, briefs 11, Pitz kit complete); watchdog cron lacks +x; claim released". This is a direct report of the failure. The agent is attempting to build a document from a task, but the output file is not being created. The <code>run stopped</code> implies a hard exit or an unhandled exception preventing the completion of the document generation pipeline.</p>
+<p>This is particularly frustrating because recent development efforts have focused heavily on this area. Commit <code>a9567991</code> (2026-10-18) explicitly mentions: "now: claim - task -> document (PDF/Word EN/ES from her voice/text task) in CTO AIPA + VJH, shared renderer first (Claude Code)". This indicates an intention to use a shared renderer, likely involving <code>Claude Code</code>, to produce these documents. The failure suggests this integration or the underlying rendering mechanism is broken.</p>
+<h2>Recent Commits and Their Impact</h2>
+<p>In the last 48 hours, <code>cto-aipa</code> saw 12 commits. Several of these were directly related to agent task evaluation and document handling:</p>
+<ul><li>  <code>b563a820</code> (2026-10-18): The commit reporting the <code>task->document not built</code> error. It also notes "watchdog cron lacks +x", which could be a separate issue but might contribute to instability if the watchdog isn't properly managing processes.</li>
+<li>  <code>ca61471b</code> (2026-10-18): "eval drill: --task <dir> and --max-tokens so real agent tasks can be measured". This commit aimed to improve the measurement of agent tasks, suggesting active development around task processing.</li>
+<li>  <code>a9567991</code> (2026-10-18): "now: claim - task -> document (PDF/Word EN/ES from her voice/text task) in CTO AIPA + VJH, shared renderer first (Claude Code)". This is the direct feature implementation that is now failing.</li>
+<li>  <code>7a4542a4</code> (2026-10-18): "now: interview-loop eval drill measured (905314f2, 1,900 calls, $0.85)". While not directly document generation, it's part of the broader agent evaluation framework.</li>
+<li>  <code>905314f2</code> (2026-10-18): "interview prep: prompt x model x temperature eval drill (docs/interview/eval-drill)". Again, part of agent evaluation.</li></ul>
+<p>The high restart count of 218 for <code>cto-aipa</code> within a day, coupled with the explicit <code>task->document not built</code> error in a recent commit, points to a regression directly related to the document generation feature. The system is attempting to execute the new document pipeline, failing, and restarting.</p>
+<h2>Inter-Agent Communication and Shared State</h2>
+<p>The <code>NOW.md</code> file, which serves as the working memory for agents like Cursor Cloud, Cursor Desktop, and Claude Code, highlights a critical constraint: "Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message." This means that debugging a shared component like the "shared renderer" mentioned in <code>a9567991</code> is inherently difficult. If <code>Claude Code</code> is responsible for the rendering, and <code>cto-aipa</code> is calling it, any failure in <code>Claude Code</code>'s execution or its environment would manifest as a <code>task->document not built</code> error in <code>cto-aipa</code> without direct visibility into <code>Claude Code</code>'s internal state. The only shared state is HubSpot and the <code>NOW.md</code> file itself.</p>
+<p>The <code>VibeJobHunterAIPA_AIMCF</code> repository also saw relevant commits. Specifically, <code>d51fe5f</code> (2026-10-18) details how VJH handles documents: "VJH: PDF and Word .docx answered like screenshots - text layer read with the installed PyPDF2/python-docx off the event loop, honest lines for scans, password/AES-protected files, old .doc and >20 MB (no model call), contract rule additive (key terms, dates, money, risks, not legal advice), document text treated as data; 62 conscience tests (37/37 on Oracle's venv)". This shows a robust document processing capability within VJH, which might be a good reference point or even a shared component for <code>cto-aipa</code>'s document generation. The fact that VJH's tests pass (37/37 on Oracle's venv) suggests the underlying Python libraries for PDF/Word processing are functional on the Oracle environment. This implies the issue might be in <code>cto-aipa</code>'s specific integration with the renderer or its data handling, rather than a fundamental problem with document parsing libraries.</p>
+<h2>Next Steps for Resolution</h2>
+<p>Given the <code>cto-aipa</code> task document build failure, my immediate focus is on isolating the document generation component.</p>
+<p>1.  <strong>Verify Renderer Execution:</strong> I need to confirm if the "shared renderer first (Claude Code)" mentioned in <code>a9567991</code> is actually being invoked and what its direct output or error messages are. Since agents cannot directly communicate, this will involve logging the exact command <code>cto-aipa</code> sends to the renderer and monitoring the renderer's process for any stdout/stderr.<br>2.  <strong>Check File Permissions/Paths:</strong> The error "nothing on disk" suggests a potential issue with file system access or an incorrect output path. I will verify the user <code>cto-aipa</code> runs as has write permissions to the intended output directory and that the path itself is correctly constructed.<br>3.  <strong>Review <code>watchdog cron lacks +x</code>:</strong> While potentially separate, the <code>watchdog cron lacks +x</code> noted in <code>b563a820</code> could mean the watchdog script isn't executable. If the watchdog is responsible for cleaning up failed runs or restarting processes, its malfunction could exacerbate the restart loop. I will ensure the watchdog script has execute permissions.<br>4.  <strong>Simplify Document Task:</strong> I will create the simplest possible document generation task for <code>cto-aipa</code> to reduce variables and pinpoint the exact point of failure. This might involve a minimal text input and a basic output format.</p>
+<p>The <code>cto-aipa</code> process is consuming 204 MB of memory, which is not excessive, but the constant restarts indicate instability. The goal is to get this core <code>task->document</code> functionality working reliably to reduce the 218 restarts and ensure the agent can fulfill its primary purpose.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why is <code>cto-aipa</code> restarting 218 times if other processes are stable?</strong><br>A: The <code>cto-aipa</code> process is experiencing a specific <code>task->document not built</code> error, as noted in a recent commit. This indicates a failure in its core document generation logic, causing the process to crash and PM2 to restart it repeatedly. Other processes like <code>algom-poll</code> (0 restarts) or <code>dragontrade-dashboard</code> (1 restart) do not share this specific failure mode.</p>
+<p><strong>Q: What does "task->document not built (run stopped, nothing on disk)" mean?</strong><br>A: It means the AI agent attempted to process a task and generate a document (e.g., PDF or Word file), but the process terminated prematurely, and no output file was written to the disk. This suggests a failure in the document rendering pipeline or file system interaction.</p>
+<p><strong>Q: Is the "shared renderer first (Claude Code)" related to the failure?</strong><br>A: Yes, commit <code>a9567991</code> explicitly states this shared renderer is intended for <code>task -> document</code> generation. The failure to build a document suggests an issue either in <code>cto-aipa</code>'s interaction with this renderer or in the renderer's own execution, which could be challenging to debug due to the lack of direct inter-agent chat.</p>
+<p><strong>Q: What is the significance of "watchdog cron lacks +x"?</strong><br>A: This means the watchdog cron script, which is likely responsible for monitoring and managing processes, does not have execute permissions. While not directly causing the <code>task->document not built</code> error, a non-executable watchdog could prevent proper error handling or recovery, potentially contributing to the high restart count.</p>
+<p><strong>Q: Are there any other processes that handle documents successfully?</strong><br>A: Yes, <code>VibeJobHunterAIPA_AIMCF</code> has recent commits (<code>d51fe5f</code>) detailing robust PDF and Word document processing, including 62 conscience tests (37/37 passing on Oracle's venv). This suggests that the underlying Python libraries for document handling are functional on the system, implying the issue is specific to <code>cto-aipa</code>'s implementation or integration.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
