@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Board Watch: Why 47 Postings Triggered a Re-Qualification Halt | AIdeazz</title>
+  <meta name="description" content="My job-board-watch script failed re-qualification yesterday. The log entry was clear: FAIL: ~47 live postings on the whole board (need &gt;=50) - not enough supply to be a source. This VERDICT: REJECTED…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Job Board Watch: Why 47 Postings Triggered a Re-Qualification Halt">
+  <meta property="og:description" content="My job-board-watch script failed re-qualification yesterday. The log entry was clear: FAIL: ~47 live postings on the whole board (need &gt;=50) - not enough supply to be a source. This VERDICT: REJECTED…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-19T19:30:15.457Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Job Board Watch: Why 47 Postings Triggered a Re-Qualification Halt">
+  <meta name="twitter:description" content="My job-board-watch script failed re-qualification yesterday. The log entry was clear: FAIL: ~47 live postings on the whole board (need &gt;=50) - not enough supply to be a source. This VERDICT: REJECTED…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Job Board Watch: Why 47 Postings Triggered a Re-Qualification Halt",
+  "description": "My job-board-watch script failed re-qualification yesterday. The log entry was clear: FAIL: ~47 live postings on the whole board (need >=50) - not enough supply to be a source. This VERDICT: REJECTED…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-19T19:30:15.457Z",
+  "dateModified": "2026-10-19T19:30:15.457Z",
+  "url": "https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How often does the `job-board-watch` script run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The script is intended to run weekly, specifically called by a `Tue 11:00 UTC` cron job, as indicated by the `git log` entry for `VibeJobHunterAIPA_AIMCF`."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the minimum number of live postings required for a job board to pass re-qualification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A job board needs to have at least `50` live postings to pass the re-qualification check, as stated in the `job-board-watch.log` (`need >=50`)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the root cause of the `job-board-watch` script failing to run since September?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The script failed to run due to a `Permission denied` error, meaning the `scripts/job-board-watch.sh` file lacked executable permissions (`+x`) for the cron user."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the system automatically re-qualify a rejected job board once its posting count recovers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the `job-board-watch supply failure re-qualification` mechanism is designed to automatically re-add a board once it meets the `50` posting threshold again, assuming the script itself is running correctly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the measured number of live postings that triggered the rejection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `job-board-watch.log` reported `~47 live postings on the whole board`, which was below the required `50` threshold."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Job Board Watch: Why 47 Postings Triggered a Re-Qualification Halt</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-19T19:30:15.457Z">October 19, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My job-board-watch script failed re-qualification yesterday. The log entry was clear: <code>FAIL: ~47 live postings on the whole board (need >=50) - not enough supply to be a source</code>. This <code>VERDICT: REJECTED</code> message meant a wired board was automatically removed from my active sources, and a Telegram alert was sent. This isn't just a single failure; it's a symptom of a deeper issue that has prevented weekly re-qualification cycles since September, traced back to a <code>Permission denied</code> error on <code>scripts/job-board-watch.sh</code>.</p>
+<h2>The Silent Failure of a Critical Cron Job</h2>
+<p>The <code>job-board-watch.sh</code> script is designed to run weekly, ensuring that the job boards I rely on maintain a sufficient volume of postings. Without this check, I risk feeding my job-hunting agents into a dry well, wasting compute cycles and API calls on sources that no longer provide value. The <code>git log</code> for <code>VibeJobHunterAIPA_AIMCF</code> revealed a critical commit on 2026-10-18: <code>job-board watchdog runnable: scripts/job-board-watch.sh +x (the Tue 11:00 UTC cron calls it directly and has logged 'Permission denied' since 9 Sep - the weekly board re-qualification never ran; Elena's yes, 18 Oct)</code>.</p>
+<p>For over a month, the cron job had been failing silently due to a missing executable permission. This meant the <code>job-board-watch</code> process, which should have been regularly assessing job board health, simply wasn't running. The <code>job-board-watch.log</code> shows the last successful run, and its subsequent failure, only after I manually intervened and fixed the permission on 2026-10-18. The <code>23.7h</code> ago timestamp on the log entry confirms this recent execution.</p>
+<h2>The <code>job-board-watch</code> Logic: A Hard Threshold</h2>
+<p>The core logic of the <code>job-board-watch</code> script is straightforward: it counts live postings and compares that number against a hard threshold. In this case, the threshold is <code>50</code> live postings. If the count falls below this, the board is rejected. The log explicitly states <code>~47 live postings on the whole board (need >=50)</code>. This isn't a soft recommendation; it's a binary decision.</p>
+<p>This hard threshold is crucial for maintaining the quality of my job-board-watch supply. If a board consistently provides fewer than <code>50</code> relevant postings, the signal-to-noise ratio becomes too low, making it inefficient for my agents to process. The cost of scraping, parsing, and filtering a low-volume board often outweighs the potential benefit.</p>
+<h2>Re-qualifying the Supply Chain</h2>
+<p>The re-qualification process is designed to be self-correcting. When a board is rejected, it's temporarily removed from the active list. The <code>job-board-watch supply failure re-qualification</code> mechanism means that once the underlying issue (like the <code>Permission denied</code> error) is resolved, and the board's posting count recovers above <code>50</code>, it can be automatically re-added.</p>
+<p>My <code>VibeJobHunterAIPA_AIMCF</code> repository saw <code>5</code> commits in the last <code>48h</code>, including the fix for the <code>job-board-watch</code> script. Other recent commits in <code>VibeJobHunterAIPA_AIMCF</code> include improvements to document processing (<code>d51fe5f</code>), radar functionality (<code>6f383fd</code>), and learning from postings (<code>95efbf3</code>). These changes are all part of an ongoing effort to refine the job-hunting AI's capabilities, but they depend on a reliable supply of job postings.</p>
+<h2>Impact on AI Agent Operations</h2>
+<p>The failure of the <code>job-board-watch</code> had a direct impact on the overall efficiency of my job-hunting AI agents. While other processes like <code>algom-poll</code> (up <code>83d</code> with <code>0</code> restarts) and <code>dragontrade-dashboard</code> (up <code>64d</code> with <code>1</code> restart) continued to run stably, the <code>serpapi-jobs</code> process, which likely consumes data from these boards, might have been operating on stale or insufficient data.</p>
+<p>The <code>apply-queue.log</code> shows <code>✓ sent to Telegram (3 new)</code> and <code>✓ sent to Telegram (4 new)</code> entries, indicating that some jobs are still being processed and sent. However, without a robust <code>job-board-watch supply failure re-qualification</code> mechanism, the quality and quantity of these jobs could degrade over time. The <code>deal-digest.log</code> shows <code>32 live job deals</code>, with <code>11</code> in <code>qualifiedtobuy</code> and <code>11</code> in <code>decisionmakerboughtin</code> stages, and <code>1442</code> appointments scheduled in HubSpot totals. These numbers highlight the importance of a consistent and high-quality job supply for the entire deal pipeline.</p>
+<h2>Preventing Future Silent Failures</h2>
+<p>The <code>Permission denied</code> error was a simple fix, but its impact was significant due to the lack of immediate alerting. While a Telegram alert was sent <em>after</em> the <code>job-board-watch</code> finally ran and rejected the board, the cron job itself was failing silently for over a month.</p>
+<p>To prevent similar issues, I need to implement more robust monitoring for cron job execution status, not just the outcome of the script. This could involve:</p>
+<p>1.  <strong>Direct Cron Log Monitoring:</strong> Parsing cron logs for <code>Permission denied</code> or other execution errors.<br>2.  <strong>Health Checks:</strong> A simple script that checks if the <code>job-board-watch</code> script has run successfully within its expected interval.<br>3.  <strong>Proactive Alerting:</strong> Sending an alert if a critical cron job hasn't reported success within a defined timeframe.</p>
+<p>My <code>cto-aipa</code> process, with <code>219</code> restarts and <code>0d</code> uptime, shows active development, with <code>12</code> commits in the last <code>48h</code>. This rapid iteration is essential for fixing issues quickly, but it also means that new deployments need careful attention to permissions and cron configurations. The <code>NOW.md</code> file, serving as a shared working memory between Cursor and Claude Code, emphasizes the need for clear protocols to avoid communication gaps, especially when dealing with critical infrastructure tasks like cron jobs.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How often does the <code>job-board-watch</code> script run?</strong><br>A: The script is intended to run weekly, specifically called by a <code>Tue 11:00 UTC</code> cron job, as indicated by the <code>git log</code> entry for <code>VibeJobHunterAIPA_AIMCF</code>.</p>
+<p><strong>Q: What is the minimum number of live postings required for a job board to pass re-qualification?</strong><br>A: A job board needs to have at least <code>50</code> live postings to pass the re-qualification check, as stated in the <code>job-board-watch.log</code> (<code>need >=50</code>).</p>
+<p><strong>Q: What was the root cause of the <code>job-board-watch</code> script failing to run since September?</strong><br>A: The script failed to run due to a <code>Permission denied</code> error, meaning the <code>scripts/job-board-watch.sh</code> file lacked executable permissions (<code>+x</code>) for the cron user.</p>
+<p><strong>Q: Does the system automatically re-qualify a rejected job board once its posting count recovers?</strong><br>A: Yes, the <code>job-board-watch supply failure re-qualification</code> mechanism is designed to automatically re-add a board once it meets the <code>50</code> posting threshold again, assuming the script itself is running correctly.</p>
+<p><strong>Q: What was the measured number of live postings that triggered the rejection?</strong><br>A: The <code>job-board-watch.log</code> reported <code>~47 live postings on the whole board</code>, which was below the required <code>50</code> threshold.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
