@@ -14,6 +14,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/
 https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/
 https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/
 https://aideazz.xyz/blog/cto-aipas-216-restarts-iterating-deal-sheets-by-stage/
