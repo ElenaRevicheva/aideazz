@@ -230,6 +230,8 @@
       q.delete('token'); q.delete('ship_token');
       var s = q.toString() ? '?' + q.toString() : '';
       if (location.pathname !== path || location.search !== s) history.replaceState(null, '', path + s + location.hash);
+      // the tab title follows the page shown in the frame, like the address bar
+      document.title = e.data.page === 'finder' ? 'WHITESPACE — find the ad nobody is running yet · AIdeazz' : 'Atlas — Angle Window Radar by AIdeazz AI Lab';
     });
   } catch (e) {}
 })();
