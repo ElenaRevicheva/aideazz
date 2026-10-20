@@ -125,7 +125,7 @@ EN = {
             ('lead', 'Marketing that runs itself: campaigns, content and reporting, with the numbers '
                      'traced back to where the money came from.'),
             ('b', '<b>Atlas Shifted AIPA</b>, an AI marketing strategist for competitive intelligence, '
-                  'creative ideation and campaign optimization (live: webhook.aideazz.xyz/whitespace/atlas.html).'),
+                  'creative ideation and campaign optimization (live: aideazz.xyz/atlas).'),
             ('b', 'Automated revenue operations in HubSpot: AI lead qualification, campaign attribution '
                   'and <b>GA4 reporting</b>.'),
             ('b', 'Multi-channel publishing across <b>LinkedIn, Instagram</b> and web, synchronizing '
@@ -274,7 +274,7 @@ ES = {
                      'trazados hasta el origen del dinero.'),
             ('b', '<b>Atlas Shifted AIPA</b>, un estratega de marketing con IA para inteligencia '
                   'competitiva, ideación creativa y optimización de campañas (en vivo: '
-                  'webhook.aideazz.xyz/whitespace/atlas.html).'),
+                  'aideazz.xyz/atlas).'),
             ('b', 'RevOps automatizado en HubSpot: calificación de prospectos con IA, atribución de '
                   'campañas y <b>reportes en GA4</b>.'),
             ('b', 'Publicación multicanal en <b>LinkedIn, Instagram</b> y web, sincronizando '

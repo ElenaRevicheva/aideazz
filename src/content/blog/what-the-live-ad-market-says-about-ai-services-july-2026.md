@@ -50,7 +50,7 @@ Three ways:
 
 ## Can I see the radar itself?
 
-Yes — the board is public: **[Atlas live dashboard](https://webhook.aideazz.xyz/whitespace/atlas.html)**. Verticals, angle scores, evidence links, and the concepts it drafts from real winning ads.
+Yes — the board is public: **[Atlas live dashboard](https://aideazz.xyz/atlas)**. Verticals, angle scores, evidence links, and the concepts it drafts from real winning ads.
 
 And everything Atlas detects flows into how we build for clients — WhatsApp agents that answer and book 24/7, end-to-end automation, AI-search visibility (GEO/AEO), AI video pipelines, and rescue of AI systems that break. Live demos of all of it: **[aideazz.xyz/portfolio](https://aideazz.xyz/portfolio)**.
 

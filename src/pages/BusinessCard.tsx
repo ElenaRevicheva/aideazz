@@ -416,7 +416,7 @@ export default function BusinessCard() {
       traction: t('section1.atlas.traction'),
       tech: t('section1.atlas.tech'),
       action: t('section1.atlas.action'),
-      link: "https://webhook.aideazz.xyz/whitespace/atlas.html",
+      link: "https://aideazz.xyz/atlas",
       badge: t('section1.atlas.badge')
     }
   ];

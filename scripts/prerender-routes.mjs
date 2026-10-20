@@ -69,7 +69,7 @@ const PORTFOLIO_ARTICLE = `
           <ul>
             <li><a href="https://aideazz.xyz/api">Free AI Visibility Audit — score any site 0–100 in seconds (live API + widget)</a></li>
             <li><a href="https://aideazz.xyz/portfolio#portfolio-inquiry-form">Start a project — inquiry form that writes straight into the CRM</a></li>
-            <li><a href="https://webhook.aideazz.xyz/whitespace/atlas.html">WHITESPACE / Atlas — live creative-angle intelligence board</a></li>
+            <li><a href="https://aideazz.xyz/atlas">WHITESPACE / Atlas — live creative-angle intelligence board</a></li>
             <li><a href="https://aideazz.xyz/sop-ai-ops.html">AI ops &amp; marketing engine SOP — how the whole system actually runs</a></li>
             <li><a href="https://aideazz.xyz/blog">Engineering blog</a> · <a href="https://dev.to/elenarevicheva">Dev.to</a></li>
             <li><a href="https://podcast.aideazz.xyz/">Building in Public — the AIdeazz podcast</a></li>
@@ -110,7 +110,7 @@ const PORTFOLIO_ARTICLE = `
             <li><a href="https://aideazz.xyz/api">AI Visibility Audit API</a> — free public AEO/GEO/tech-SEO scoring endpoint with weekly self-audit CI.</li>
             <li><a href="https://x.com/reviceva">ALGOM Alpha</a> — crypto education and transparent paper-trading bot on X.</li>
             <li><a href="https://atuona.xyz">Atuona</a> — AI creative co-founder: poetry → images → films → NFTs (<a href="https://atuona.xyz/aifilmstudio">AI Film Studio</a>).</li>
-            <li><a href="https://webhook.aideazz.xyz/whitespace/atlas.html">WHITESPACE / Atlas</a> — agentic creative-angle intelligence for media buying.</li>
+            <li><a href="https://aideazz.xyz/atlas">WHITESPACE / Atlas</a> — agentic creative-angle intelligence for media buying.</li>
             <li><a href="https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF">VibeJobHunter</a> — autonomous job-search agent: LangGraph 7-node pipeline, 131-test eval harness.</li>
             <li><a href="https://github.com/ElenaRevicheva/AIPA_AITCF">CTO AIPA</a> — AI technical co-founder: code review, webhooks, Oracle-backed memory.</li>
             <li><a href="https://github.com/ElenaRevicheva/aideazz">This site</a> — bilingual React/Vite with automated daily blog and stacked GEO surfaces.</li>
