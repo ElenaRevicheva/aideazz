@@ -293,8 +293,8 @@ const html = `<!DOCTYPE html>
   <meta name="description" content="A field journal of real production outages, set as chapters: open one and work it a beat at a time — symptom, your guess, root cause, fix, proof. Then keep the vocabulary: single point of failure, silent failure, idempotency." />
   <meta name="color-scheme" content="light" />
   <title>AI Ops Wiki — a field journal of production failures | AIdeazz</title>
-  <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+  <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
   <link rel="canonical" href="${URL_SELF}" />
   <meta property="og:type" content="article" />
