@@ -588,7 +588,7 @@
     },
     "atlas": {
       "title": "Atlas Shifted AIPA",
-      "subtitle": "Autonomous Marketing Strategist — Angle Window Radar",
+      "subtitle": "Autonomous Marketing Strategist — The Monday Move",
       "desc": "Watches the public ad market every Monday, detects which creative angle is opening before it saturates (ENTER / WATCH / AVOID), and generates the evidence-grounded creative — image + real Seedance 2.0 video via the Atuona pipeline. Built on the same Bright Data engine (Web Unlocker · SERP · Scraping Browser) from the Web Data UNLOCKED hackathon, now pointed at live ad-transparency intelligence. Capture-first immutable JSONL log + OpenAI-embedding angle classifier + SQLite projection; 5-tier LLM failover (Claude → OpenAI → Gemini → Grok → Groq). Public data only — no spend or CTR claimed; window states are ranked hypotheses. Dogfooded on the EspaLuz expat vertical.",
       "traction": "Angle time-series every Monday across 16 lanes • Live radar dashboard + on-demand whitespace finder • Real Seedance 2.0 video creative • Built for the It's Today Media Build Challenge",
       "tech": "TypeScript, Node.js, Express (SSE), Bright Data (Web Unlocker/SERP/Scraping Browser), OpenAI embeddings + gpt-image-1, Claude/OpenAI/Gemini/Grok/Groq failover, Runway (Seedance 2.0/Kling 3.0), SQLite, JSONL, PM2 (Oracle), Panama-time cron",
