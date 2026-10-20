@@ -58,7 +58,7 @@ PAGES = {
         "alt_names": ["Atlas Shifted AIPA", "Atlas Shifted Adaptive Intelligent Personal Assistant", NAME["es"]],
         "h1": "Atlas — " + NAME["en"],
         "lede": {"en": NAME["tagEn"], "es": NAME["tagEs"]},
-        "handle": {"en": "About Atlas · FAQ ↓", "es": "Sobre Atlas · Preguntas ↓"},
+        "handle": {"en": "About Atlas · FAQ", "es": "Sobre Atlas · Preguntas"},
         "links": {"en": [("/atlas/finder", "WHITESPACE free scan", "btn ghost"), (PAY + "en", "Book the $100 diagnostic", "btn")],
                   "es": [("/atlas/finder", "Escaneo gratuito WHITESPACE", "btn ghost"), (PAY + "es", "Reservar el diagnóstico de $100", "btn")]},
         "crumbs": [("AIdeazz", SITE), ("Atlas", SITE + "/atlas")],
@@ -73,7 +73,7 @@ PAGES = {
         "h1": "WHITESPACE — find the angle nobody is running yet",
         # the app's own hero chip (index.html I18N `kicker`, EN / ES)
         "lede": {"en": "Ad & content whitespace finder · LatAm", "es": "Buscador de whitespace en anuncios y contenido · LatAm"},
-        "handle": {"en": "About WHITESPACE · FAQ ↓", "es": "Sobre WHITESPACE · Preguntas ↓"},
+        "handle": {"en": "About WHITESPACE · FAQ", "es": "Sobre WHITESPACE · Preguntas"},
         "links": {"en": [("/atlas", "Atlas · " + NAME["en"], "btn ghost"), (PAY + "en", "Book the $100 diagnostic", "btn")],
                   "es": [("/atlas", "Atlas · " + NAME["es"], "btn ghost"), (PAY + "es", "Reservar el diagnóstico de $100", "btn")]},
         "crumbs": [("AIdeazz", SITE), ("Atlas", SITE + "/atlas"), ("WHITESPACE", SITE + "/atlas/finder")],
@@ -132,9 +132,13 @@ TEMPLATE = """<!doctype html>
   /* the skin tokens of whitespace/public/skin.css, copied inline (this page loads no app CSS) */
   html,body{margin:0;background:#020617;color:#e5e7eb}
   @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-  .app{display:block;width:100%;height:calc(100vh - 44px);height:calc(100dvh - 44px);border:0;background:#020617}
-  .handle{display:flex;align-items:center;justify-content:center;height:44px;box-sizing:border-box;padding:0 16px;background:rgba(10,8,20,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-block:1px solid rgba(255,255,255,.1);font:600 14px/1 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.01em;color:rgba(255,255,255,.8);text-decoration:none;white-space:nowrap}
+  .app{display:block;width:100%;height:100vh;height:100dvh;border:0;background:#020617}
+  .aboutfold>summary{list-style:none}
+  .aboutfold>summary::-webkit-details-marker{display:none}
+  .handle{display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;height:44px;box-sizing:border-box;padding:0 16px;background:rgba(10,8,20,.72);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-block:1px solid rgba(255,255,255,.1);font:600 14px/1 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.01em;color:rgba(255,255,255,.8);text-decoration:none;white-space:nowrap}
   .handle:hover,.handle:focus-visible{color:#fde68a}
+  .handle::after{content:"";width:7px;height:7px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .16s}
+  .aboutfold[open]>.handle::after{transform:translateY(2px) rotate(-135deg)}
   .about{max-width:960px;margin:0 auto;padding:48px 16px 72px;font:16px/1.65 Manrope,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:#e5e7eb}
   .ahead{margin:0 0 28px}
   .eyebrow{display:block;margin:0 0 12px;font:500 11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:#edb867}
@@ -177,7 +181,11 @@ TEMPLATE = """<!doctype html>
 <main>
   <iframe id="app" class="app" title="@@FRAME_TITLE@@" allow="autoplay; fullscreen; clipboard-write" allowfullscreen></iframe>
   <noscript><p style="padding:16px"><a style="color:#c4b5fd" href="@@BASE@@@@FRAME@@?direct=1">Open the live @@APP_NAME@@</a></p></noscript>
-  <a class="handle" id="handle" href="#about" data-es="@@HANDLE_ES@@">@@HANDLE_EN@@</a>
+  <!-- The article below is for answer engines and for anyone who asks: it repeats the app's FAQ, so it stays CLOSED
+       at the end of the page (Elena, 20 Oct: no duplicated section after the site ends). Closed, not hidden: it is in
+       the raw HTML, one click opens it, and /atlas#about opens it on arrival. -->
+  <details class="aboutfold" id="aboutfold">
+  <summary class="handle" id="handle" data-es="@@HANDLE_ES@@">@@HANDLE_EN@@</summary>
   <article class="about" id="about">
     <header class="ahead">
       <span class="eyebrow">AIdeazz AI Lab</span>
@@ -188,9 +196,12 @@ TEMPLATE = """<!doctype html>
 @@BLOCKS@@
     <p class="fine">AIdeazz AI Lab · <a href="/portfolio">Portfolio</a> · <a href="/api">GEO/AEO Visibility API</a> · <a href="@@BASE@@@@FRAME@@?direct=1" target="_blank" rel="noopener">Open full screen ↗</a></p>
   </article>
+  </details>
   <script>/* Language: a Spanish browser gets the Español block open and English closed. Without JS, English is open.
      Both blocks always stay in the DOM (inside <details>, never display:none), and the JSON-LD carries both. */
   (function(){try{if(!/^es/i.test(navigator.language||''))return;var d=document.querySelectorAll('#about details.lang');if(d.length===2){d[0].open=false;d[1].open=true;}var h=document.getElementById('handle');if(h&&h.getAttribute('data-es'))h.textContent=h.getAttribute('data-es');}catch(e){}})();
+  /* a link to #about (or #aboutfold) opens the closed article and scrolls to it */
+  (function(){function go(){if(!/^#about(fold)?$/.test(location.hash))return;var f=document.getElementById('aboutfold');if(f){f.open=true;f.scrollIntoView();}}go();addEventListener('hashchange',go);})();
   </script>
 </main>
 <script>
