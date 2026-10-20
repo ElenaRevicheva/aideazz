@@ -19,4 +19,10 @@
 /portfolio/     /portfolio.html         200
 /api            /api.html               200
 /api/           /api.html               200
+# Atlas radar + WHITESPACE finder: FLAT shell pages that frame the live app on the webhook host (Oct 2026).
+# NEVER a public/atlas/ directory (IPFS would 301 /atlas -> /atlas/ and can serve a DirIndex).
+/atlas           /atlas.html             200
+/atlas/          /atlas.html             200
+/atlas/finder    /atlas-finder.html      200
+/atlas/finder/   /atlas-finder.html      200
 /*             /index.html   200

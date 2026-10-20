@@ -1,5 +1,7 @@
 https://aideazz.xyz/portfolio
 https://aideazz.xyz/api
+https://aideazz.xyz/atlas
+https://aideazz.xyz/atlas/finder
 https://aideazz.xyz/
 https://aideazz.xyz/about
 https://aideazz.xyz/blog/
@@ -14,6 +16,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/archive/
 https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/
 https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/
 https://aideazz.xyz/blog/vjh-qa-bilingual-logic-fixing-english-questions-answered-in-spanish/
@@ -76,7 +79,6 @@ https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-
 https://aideazz.xyz/blog/marked-done-before-anyone-read-them-field-note/
 https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/
 https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/
-https://aideazz.xyz/blog/archive/
 https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/
 https://aideazz.xyz/blog/when-55193-restarts-hide-a-deeper-ai-agent-problem/
 https://aideazz.xyz/blog/a-third-of-the-measurement-went-dark-field-note/

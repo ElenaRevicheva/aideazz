@@ -38,6 +38,9 @@ const STATIC_PAGES = [
   // The free audit API — a proof surface linked from /portfolio, and the page
   // directory listings will point at. It was missing from the sitemap entirely.
   { path: "/api", changefreq: "weekly", priority: "0.95" },
+  // Atlas radar + WHITESPACE finder (flat shell pages framing the live app; see public/_redirects).
+  { path: "/atlas", changefreq: "weekly", priority: "0.85" },
+  { path: "/atlas/finder", changefreq: "weekly", priority: "0.8" },
   { path: "/", changefreq: "weekly", priority: "0.9" },
   { path: "/about", changefreq: "monthly", priority: "0.8" },
   // Trailing slash: /blog is a real directory, so the host 301s /blog -> /blog/.
