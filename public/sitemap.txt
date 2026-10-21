@@ -16,6 +16,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/job-board-live-percentage-threshold-why-193-wasnt-enough/
 https://aideazz.xyz/blog/generative-engine-optimization-structured-data-for-ai-citations/
 https://aideazz.xyz/blog/job-board-watch-why-47-postings-triggered-a-re-qualification-halt/
 https://aideazz.xyz/blog/cto-aipa-task-document-build-failure-218-restarts-and-no-output/
