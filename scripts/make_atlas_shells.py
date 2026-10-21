@@ -35,7 +35,7 @@ NAME = {"en": "The Monday Move", "es": "La Jugada del Lunes",
         "tagEs": "Tu jugada publicitaria de la semana: entrar, vigilar o evitar."}
 
 # skin.js TIER_T t1 (EN): the free scan, used as the description of the finder's $0 Offer.
-T1_EN = ["2 scans a day · 10 LatAm markets + Spain + US", "Crowded lanes + the open angle",
+T1_EN = ["Free scans every day · all of Latin America + Spain + US", "Crowded lanes + the open angle",
          "Ad copy or a GEO/AEO content brief", "Evidence links to the live units"]
 # The $100 diagnostic is a SERVICE of AIdeazz (skin.js TIER_T t2), not a price of either app: its own node.
 DIAG_SERVICE = {"@type": "Service", "@id": SITE + "/#ai-growth-diagnostic", "name": "AI Growth diagnostic",
