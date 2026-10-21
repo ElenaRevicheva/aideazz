@@ -17,6 +17,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { auditCategoryEs, auditFixEs, auditLabelEs, auditWhyEs } from "@/i18n/auditEs";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HeroBackdrop from "@/components/HeroBackdrop";
@@ -313,7 +314,9 @@ const ScoreRing: React.FC<{ score: number; grade: string; label: string }> = ({
 };
 
 export default function LabApi() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // Spanish site: the audit's fixed texts come from src/i18n/auditEs.ts (the API answers in English).
+  const esAudit = (i18n.language || "").startsWith("es");
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<AuditResult | null>(null);
@@ -596,7 +599,7 @@ export default function LabApi() {
                     {result.categories.map((c) => (
                       <div key={c.id}>
                         <div className="mb-1 flex justify-between text-xs text-gray-300">
-                          <span>{c.label}</span>
+                          <span>{esAudit ? auditCategoryEs(c.id, c.label) : c.label}</span>
                           <span className="font-semibold text-white">{c.score}/100</span>
                         </div>
                         <div className="h-2 overflow-hidden rounded-full bg-white/10">
@@ -634,7 +637,7 @@ export default function LabApi() {
                           <span className="shrink-0 font-mono text-[11px] tabular-nums tracking-[0.14em] text-amber-200/70">
                             {String(i + 1).padStart(2, "0")}
                           </span>
-                          <span className="leading-relaxed">{f}</span>
+                          <span className="leading-relaxed">{esAudit ? auditFixEs(f) : f}</span>
                         </li>
                       ))}
                     </ol>
@@ -657,7 +660,7 @@ export default function LabApi() {
                         return (
                           <div key={cat.id}>
                             <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
-                              {cat.label}
+                              {esAudit ? auditCategoryEs(cat.id, cat.label) : cat.label}
                             </div>
                             <ul className="space-y-2">
                               {items.map((c) => {
@@ -682,7 +685,7 @@ export default function LabApi() {
                                   >
                                     <div className="flex gap-2 font-medium text-white">
                                       {icon}
-                                      <span>{c.label}</span>
+                                      <span>{esAudit ? auditLabelEs(c.id, c.label) : c.label}</span>
                                     </div>
                                     <p className="mt-1 pl-6 text-xs text-gray-300">{c.detail}</p>
                                     {/* `why` is on every check, passing or not. A fix only
@@ -692,13 +695,13 @@ export default function LabApi() {
                                     {c.why ? (
                                       <p className="mt-1 pl-6 text-xs leading-relaxed text-gray-400">
                                         <span className="text-gray-500">{t("labApi.checkWhyPrefix")}</span>{" "}
-                                        {c.why}
+                                        {esAudit ? auditWhyEs(c.id, c.why) : c.why}
                                       </p>
                                     ) : null}
                                     {c.fix ? (
                                       <p className="mt-1 pl-6 text-xs leading-relaxed text-amber-200/90">
                                         <span className="text-amber-200/60">{t("labApi.checkFixPrefix")}</span>{" "}
-                                        {c.fix}
+                                        {esAudit ? auditFixEs(c.fix) : c.fix}
                                       </p>
                                     ) : null}
                                   </li>
