@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Board Live Percentage Threshold: Why 19.3% Wasn't Enough | AIdeazz</title>
+  <meta name="description" content="My job board failed re-qualification. The system reported: "FAIL: only 19.3% still live after removing expired and stale postings (need &gt;=40.0%)". This verdict, "REJECTED", was delivered by job-board…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/job-board-live-percentage-threshold-why-193-wasnt-enough/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Job Board Live Percentage Threshold: Why 19.3% Wasn't Enough">
+  <meta property="og:description" content="My job board failed re-qualification. The system reported: "FAIL: only 19.3% still live after removing expired and stale postings (need &gt;=40.0%)". This verdict, "REJECTED", was delivered by job-board…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/job-board-live-percentage-threshold-why-193-wasnt-enough/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-21T19:30:12.489Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Job Board Live Percentage Threshold: Why 19.3% Wasn't Enough">
+  <meta name="twitter:description" content="My job board failed re-qualification. The system reported: "FAIL: only 19.3% still live after removing expired and stale postings (need &gt;=40.0%)". This verdict, "REJECTED", was delivered by job-board…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Job Board Live Percentage Threshold: Why 19.3% Wasn't Enough",
+  "description": "My job board failed re-qualification. The system reported: \"FAIL: only 19.3% still live after removing expired and stale postings (need >=40.0%)\". This verdict, \"REJECTED\", was delivered by job-board…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-21T19:30:12.489Z",
+  "dateModified": "2026-10-21T19:30:12.489Z",
+  "url": "https://aideazz.xyz/blog/job-board-live-percentage-threshold-why-193-wasnt-enough/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/job-board-live-percentage-threshold-why-193-wasnt-enough/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What caused the `job-board-watch` process to fail re-qualification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The process failed because only 19.3% of the job postings were still live after removing expired and stale entries, falling short of the required 40.0% viability threshold. This was reported in `job-board-watch.log` 32.5 hours ago."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the system define \"live\" postings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A \"live\" posting is one that has not been identified as expired or stale by the `job-board-watch` process. The specific criteria for expiration and staleness are internal to the process's logic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the impact of this failure on job applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A rejected job board means a reduced pool of verified, active job opportunities. This directly affects the effectiveness of automated application processes and the quality of leads for \"live job deals,\" which currently stand at 28."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are there any other processes indicating issues with data freshness or quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The `algom-stream` process has seen 55193 restarts over 66 days, which is a known anomaly. While not directly linked to the job board's live percentage, it suggests potential instability in data streaming components that could indirectly affect data freshness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the immediate next step to fix this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The immediate next step is to investigate the `job-board-watch`'s internal logic for defining \"expired\" and \"stale\" postings, as well as auditing the quality and freshness of the job data sources."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Job Board Live Percentage Threshold: Why 19.3% Wasn't Enough</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-21T19:30:12.489Z">October 21, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My job board failed re-qualification. The system reported: "FAIL: only 19.3% still live after removing expired and stale postings (need >=40.0%)". This verdict, "REJECTED", was delivered by <code>job-board-watch.log</code> 32.5 hours ago. It meant a wired board, designed to surface relevant opportunities, was deemed non-viable because less than half of its listed jobs were genuinely active. The threshold for viability was 40.0%. We missed it by a critical margin.</p>
+<h2>The <code>job-board-watch</code> Process</h2>
+<p>The <code>job-board-watch</code> process is one of nine online processes supervised by PM2. It runs alongside critical components like <code>cto-aipa</code> (which has seen 223 restarts and is up 0 days) and <code>algom-stream</code> (with 55193 restarts over 66 days). While <code>algom-stream</code>'s restarts are a known anomaly, <code>job-board-watch</code>'s failure was a direct functional block. Its purpose is simple: audit the live status of job postings and ensure a minimum quality bar. If the <code>Job Board Live Percentage Threshold</code> isn't met, the board is flagged.</p>
+<h2>Defining "Live" Postings</h2>
+<p>For <code>job-board-watch</code>, a "live" posting means it's not expired and not stale. The system automatically removes these. The specific criteria for "expired" and "stale" are internal to the <code>job-board-watch</code> logic and are not detailed in the current logs. However, the outcome is clear: 19.3% of the postings met these criteria. This figure is a direct measurement, not an estimate. The system's expectation was 40.0%. This gap highlights a fundamental issue in either the sourcing, the expiration logic, or the refresh rate of the board itself.</p>
+<h2>Impact on Deal Flow and Applications</h2>
+<p>The failure to meet the 40.0% threshold has downstream effects. My <code>deal-digest.log</code> shows 28 live job deals. These are the opportunities that have progressed through various stages in HubSpot: 13 in "qualifiedtobuy", 6 in "decisionmakerboughtin", 7 in "contractsent", and 2 in "appointmentscheduled". While the <code>deal-digest</code> itself reports 28 live job deals, the <code>job-board-watch</code> failure indicates that the <em>underlying pool</em> of available jobs is not healthy enough to sustain consistent deal flow. The <code>apply-kit-audit.log</code> shows recent successful applications, for example, to "Implementation / Solutions Consultant @ Puente Talent Partne" and "Technical Account Manager @ Puente Talent Partners". These applications depend on a robust, live job board. A rejected board means fewer quality opportunities for the <code>apply-queue</code> to process, which recently sent 3 new and 4 new items to Telegram.</p>
+<h2>The Role of AI Agents and Data Freshness</h2>
+<p>My AI agents are constantly working to find and process jobs. The <code>cto-aipa</code> process, despite its 223 restarts, is actively being developed, with 12 commits in the last 48 hours. Recent commits include "WHITESPACE LatAm Spanish search + relevance live" and "WHITESPACE background-finish live". These indicate ongoing efforts to improve job sourcing and data processing. The <code>serpapi-jobs</code> process, which is online and has 6 restarts, is likely a key component in fetching job data. However, if the data sources themselves have a high rate of expired or stale postings, or if the <code>job-board-watch</code>'s definition of "live" is too stringent for the available data, then this 19.3% figure will persist. The <code>algom-poll</code> process, online for 85 days with 0 restarts, suggests a stable polling mechanism, but stability doesn't guarantee data quality.</p>
+<h2>Next Steps: Addressing the Live Percentage</h2>
+<p>To address the low <code>Job Board Live Percentage Threshold</code>, I need to investigate several areas:</p>
+<p>1.  <strong>Source Quality:</strong> Are the job sources providing a high volume of already expired or soon-to-be-expired postings? This would require auditing the raw data from <code>serpapi-jobs</code> or other sources.<br>2.  <strong>Expiration Logic:</strong> Is the internal logic for identifying "expired" and "stale" postings too aggressive? A review of the <code>job-board-watch</code> code is necessary.<br>3.  <strong>Refresh Frequency:</strong> How often are postings being re-validated or removed? If the refresh cycle is too slow, many jobs might become stale before the system can update their status.<br>4.  <strong>Agent Feedback Loop:</strong> Can the <code>cto-aipa</code> agent be trained to prioritize jobs with longer expected live durations or to flag sources known for high churn? The <code>NOW.md</code> file, which serves as working memory for my Cursor and Claude Code agents, indicates a need for better communication and shared context between these agents. This could extend to sharing insights on job board quality.</p>
+<p>The <code>job-board-watch</code> failure is a clear signal that the underlying data pipeline for job postings needs attention. Achieving the 40.0% threshold is not just about a number; it's about ensuring the utility and reliability of the job board for its users and for my own automated application processes.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: What caused the <code>job-board-watch</code> process to fail re-qualification?</strong><br>A: The process failed because only 19.3% of the job postings were still live after removing expired and stale entries, falling short of the required 40.0% viability threshold. This was reported in <code>job-board-watch.log</code> 32.5 hours ago.</p>
+<p><strong>Q: How does the system define "live" postings?</strong><br>A: A "live" posting is one that has not been identified as expired or stale by the <code>job-board-watch</code> process. The specific criteria for expiration and staleness are internal to the process's logic.</p>
+<p><strong>Q: What is the impact of this failure on job applications?</strong><br>A: A rejected job board means a reduced pool of verified, active job opportunities. This directly affects the effectiveness of automated application processes and the quality of leads for "live job deals," which currently stand at 28.</p>
+<p><strong>Q: Are there any other processes indicating issues with data freshness or quality?</strong><br>A: The <code>algom-stream</code> process has seen 55193 restarts over 66 days, which is a known anomaly. While not directly linked to the job board's live percentage, it suggests potential instability in data streaming components that could indirectly affect data freshness.</p>
+<p><strong>Q: What is the immediate next step to fix this?</strong><br>A: The immediate next step is to investigate the <code>job-board-watch</code>'s internal logic for defining "expired" and "stale" postings, as well as auditing the quality and freshness of the job data sources.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
