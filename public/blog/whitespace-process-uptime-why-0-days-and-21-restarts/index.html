@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whitespace Process Uptime: Why 0 Days and 21 Restarts? | AIdeazz</title>
+  <meta name="description" content="The whitespace process shows 0 days uptime and 21 restarts. This is a fresh deployment, yet it already has a restart count. Other processes like algom-poll and n8n have 0 restarts and up 86 days and …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/whitespace-process-uptime-why-0-days-and-21-restarts/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Whitespace Process Uptime: Why 0 Days and 21 Restarts?">
+  <meta property="og:description" content="The whitespace process shows 0 days uptime and 21 restarts. This is a fresh deployment, yet it already has a restart count. Other processes like algom-poll and n8n have 0 restarts and up 86 days and …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/whitespace-process-uptime-why-0-days-and-21-restarts/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-22T19:30:45.038Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Whitespace Process Uptime: Why 0 Days and 21 Restarts?">
+  <meta name="twitter:description" content="The whitespace process shows 0 days uptime and 21 restarts. This is a fresh deployment, yet it already has a restart count. Other processes like algom-poll and n8n have 0 restarts and up 86 days and …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Whitespace Process Uptime: Why 0 Days and 21 Restarts?",
+  "description": "The whitespace process shows 0 days uptime and 21 restarts. This is a fresh deployment, yet it already has a restart count. Other processes like algom-poll and n8n have 0 restarts and up 86 days and …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-22T19:30:45.038Z",
+  "dateModified": "2026-10-22T19:30:45.038Z",
+  "url": "https://aideazz.xyz/blog/whitespace-process-uptime-why-0-days-and-21-restarts/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/whitespace-process-uptime-why-0-days-and-21-restarts/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does this compare to `cto-aipa`'s 223 restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`cto-aipa` has 223 restarts but has been up for 1 day. This suggests its restarts might be spread out over that day, or occurred in bursts, but it managed to stay online for a full day. `whitespace` hasn't achieved even one full day of uptime without 21 restarts, indicating a more immediate and severe problem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the immediate next step to fix the `whitespace` process?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The immediate next step is to examine the specific logs for the `whitespace` process to identify the exact error messages or crash reasons. This will pinpoint whether it's a code bug, a configuration issue, or a dependency problem."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Could recent code changes be responsible for the `whitespace` restarts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it is highly probable. The `aideazz` repository, which contains code related to `WHITESPACE` functionality, had 7 commits in the last 48 hours, including `f5e552d` on 2026-10-21, which directly mentions \"Atlas/WHITESPACE shells\". This timing aligns with the observed instability."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Whitespace Process Uptime: Why 0 Days and 21 Restarts?</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-22T19:30:45.038Z">October 22, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>The <code>whitespace</code> process shows 0 days uptime and 21 restarts. This is a fresh deployment, yet it already has a restart count. Other processes like <code>algom-poll</code> and <code>n8n</code> have 0 restarts and up 86 days and 70 days respectively. The <code>dragontrade-dashboard</code> is up 67 days with only 1 restart. This discrepancy immediately signals a problem: a new process should not be restarting at all, let alone 21 times, on its first day.</p>
+<h2>The Anomaly of <code>whitespace</code></h2>
+<p>My <code>pm2 jlist</code> output shows <code>whitespace</code> as <code>online</code>, consuming 114 MB of memory, but with an uptime of <code>0d</code> and <code>21 restarts</code>. This is a critical indicator. A process that has been restarted 21 times on the same day it was deployed is not stable. For comparison, <code>cto-aipa</code> has 223 restarts but has been up for 1 day, implying those restarts happened over a longer period, or in bursts. <code>algom-stream</code> has 55193 restarts but has been up 67 days, which is a known issue I've addressed in other contexts. The <code>whitespace</code> process, however, is failing to maintain stability from the outset.</p>
+<p>The <code>whitespace</code> process is related to the Atlas/WHITESPACE shells, which provide "free daily scans across all of Latin America + Spain + US". This functionality is critical for our lead generation and market intelligence. A commit in <code>aideazz</code> on 2026-10-21, <code>f5e552d</code>, specifically mentions "Atlas/WHITESPACE shells: free daily scans across all of Latin America + Spain + US (regenerated from the app's faqData)". This suggests recent deployment or modification.</p>
+<h2>Investigating Recent Deployments and Commits</h2>
+<p>The <code>aideazz</code> repository, where the <code>whitespace</code> process's related code likely resides, shows 7 commits in the last 48 hours. The <code>f5e552d</code> commit on 2026-10-21 is directly related to <code>WHITESPACE</code> functionality. This timing aligns with the <code>0d</code> uptime observed for the <code>whitespace</code> process. It's highly probable that the restarts are a direct consequence of this recent deployment or the code changes introduced.</p>
+<p>While the <code>cto-aipa</code> repository also saw 12 commits in the last 48 hours, these were focused on "Pitz deep dive" and "Deals sheet merges", as seen in commits like <code>3b2cddc5</code> and <code>6d7ca384</code> on 2026-10-22. These changes are unlikely to directly affect the <code>whitespace</code> process. The <code>aideazz</code> commits, however, are directly relevant.</p>
+<h2>The Impact of <code>whitespace</code> Instability</h2>
+<p>The <code>whitespace</code> process is designed to provide "free daily scans". If it's restarting 21 times in less than a day, it's not reliably performing these scans. This directly impacts the data quality for deals. The <code>deal-digest.log</code> shows "digest: 28 live job deals" and "HubSpot totals qualifiedtobuy=13 presentationscheduled=0 decisionmakerboughtin=73 contractsent=122 appointmentscheduled=1451". Accurate and timely market scans are crucial for populating and enriching these deal stages.</p>
+<p>The <code>reply-radar.log</code> shows "APPLY — scanned 249" and "REPLIES MATCHED 0". While not directly tied to <code>whitespace</code>, the overall health of background processes contributes to the effectiveness of the entire system. An unstable <code>whitespace</code> process could lead to missed opportunities or outdated market intelligence, ultimately affecting the sales pipeline.</p>
+<h2>Addressing <code>whitespace</code> Process Uptime Reset</h2>
+<p>The immediate action is to review the code changes introduced by commit <code>f5e5e52d</code> and any subsequent <code>aideazz</code> commits that might affect <code>whitespace</code>. The <code>whitespace</code> process uptime reset to 0 days with 21 restarts indicates a fundamental issue, likely an unhandled exception or a configuration error that causes the process to crash and PM2 to restart it.</p>
+<p>My approach would be to:<br>1.  <strong>Examine <code>whitespace</code> logs:</strong> While not explicitly provided in the <code>pm2 jlist</code> output, PM2 manages logs for each process. I need to check the specific logs for <code>whitespace</code> to identify the exact error messages or crash reasons.<br>2.  <strong>Rollback or hotfix:</strong> If the logs point to a clear error introduced by the recent <code>f5e5e52d</code> commit, a rollback to the previous stable version or a targeted hotfix is necessary.<br>3.  <strong>Resource monitoring:</strong> Although 114 MB memory usage is not excessive, I would monitor memory and CPU usage more closely for <code>whitespace</code> to rule out resource exhaustion as a cause for restarts.</p>
+<p>The goal is to achieve stability comparable to <code>algom-poll</code> (up 86 days, 0 restarts) or <code>n8n</code> (up 70 days, 0 restarts). A <code>whitespace</code> process uptime reset to 0 days with 21 restarts is unacceptable for a production system, especially one responsible for critical data acquisition.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How does this compare to <code>cto-aipa</code>'s 223 restarts?</strong><br>A: <code>cto-aipa</code> has 223 restarts but has been up for 1 day. This suggests its restarts might be spread out over that day, or occurred in bursts, but it managed to stay online for a full day. <code>whitespace</code> hasn't achieved even one full day of uptime without 21 restarts, indicating a more immediate and severe problem.</p>
+<p><strong>Q: What is the immediate next step to fix the <code>whitespace</code> process?</strong><br>A: The immediate next step is to examine the specific logs for the <code>whitespace</code> process to identify the exact error messages or crash reasons. This will pinpoint whether it's a code bug, a configuration issue, or a dependency problem.</p>
+<p><strong>Q: Could recent code changes be responsible for the <code>whitespace</code> restarts?</strong><br>A: Yes, it is highly probable. The <code>aideazz</code> repository, which contains code related to <code>WHITESPACE</code> functionality, had 7 commits in the last 48 hours, including <code>f5e552d</code> on 2026-10-21, which directly mentions "Atlas/WHITESPACE shells". This timing aligns with the observed instability.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
