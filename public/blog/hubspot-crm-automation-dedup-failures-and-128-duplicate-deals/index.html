@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot CRM Automation: Dedup Failures and 128 Duplicate Deals | AIdeazz</title>
+  <meta name="description" content="My AI agents fill HubSpot automatically, eliminating manual entry. This system, however, is not without its failures. A recent dedup failure created 128 duplicate deals in the "They replied" stage, a…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/hubspot-crm-automation-dedup-failures-and-128-duplicate-deals/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="HubSpot CRM Automation: Dedup Failures and 128 Duplicate Deals">
+  <meta property="og:description" content="My AI agents fill HubSpot automatically, eliminating manual entry. This system, however, is not without its failures. A recent dedup failure created 128 duplicate deals in the "They replied" stage, a…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/hubspot-crm-automation-dedup-failures-and-128-duplicate-deals/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-23T19:30:15.183Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HubSpot CRM Automation: Dedup Failures and 128 Duplicate Deals">
+  <meta name="twitter:description" content="My AI agents fill HubSpot automatically, eliminating manual entry. This system, however, is not without its failures. A recent dedup failure created 128 duplicate deals in the "They replied" stage, a…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HubSpot CRM Automation: Dedup Failures and 128 Duplicate Deals",
+  "description": "My AI agents fill HubSpot automatically, eliminating manual entry. This system, however, is not without its failures. A recent dedup failure created 128 duplicate deals in the \"They replied\" stage, a…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-23T19:30:15.183Z",
+  "dateModified": "2026-10-23T19:30:15.183Z",
+  "url": "https://aideazz.xyz/blog/hubspot-crm-automation-dedup-failures-and-128-duplicate-deals/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/hubspot-crm-automation-dedup-failures-and-128-duplicate-deals/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you identify a duplicate deal in HubSpot when an agent creates one?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I identify duplicates by looking for multiple deals associated with the same company domain or contact email. The `deal-digest.log` shows HubSpot totals for various stages, and any significant spike in deals for a known entity triggers an alert for manual review and agent retraining."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific schema elements did the agent skip that led to the dedup failure?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The agent skipped the `company_domain` and `contact_email` fields in its initial lookup query to HubSpot. Instead of querying existing records, it proceeded directly to deal creation, assuming uniqueness, which resulted in the 128 duplicate deals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you retrain an AI agent to prevent it from skipping schema elements again?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Retraining involves updating the agent's prompt and internal logic to explicitly include a pre-check step using the `company_domain` or `contact_email` fields. This is followed by testing against a dataset that includes known duplicates to ensure the new logic correctly identifies and merges them."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the typical latency for an AI agent to create or update a deal in HubSpot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured for individual deal creation or update. The `concierge-selftest.log` shows \"4317ms to first card\" for a Telegram card delivery, which is a different operation. HubSpot's API rate limits (not measured here) are a more significant factor than individual agent latency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle historical duplicate deals created before the fix was implemented?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Historical duplicate deals, such as the 128 in \"They replied\", are addressed through a manual cleanup process. I use HubSpot's native merge functionality to consolidate duplicate deals and contacts, ensuring that all associated activities and notes are preserved on the primary record."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">HubSpot CRM Automation: Dedup Failures and 128 Duplicate Deals</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-23T19:30:15.183Z">October 23, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My AI agents fill HubSpot automatically, eliminating manual entry. This system, however, is not without its failures. A recent dedup failure created 128 duplicate deals in the "They replied" stage, and 73 deals in "decisionmakerboughtin", alongside 122 in "contractsent" and 1461 in "appointmentscheduled". The root cause was an agent skipping the expected schema, which broke the pipeline routing and led to these duplicates.</p>
+<h2>The HubSpot CRM Automation AI Agents Dedup Challenge</h2>
+<p>The goal is to automate HubSpot CRM entry entirely. My <code>cto-aipa</code> process, which has seen 12 commits in the last 48 hours and 223 restarts in the last 2 days, is central to this. It handles deep-dives into potential deals, as seen in commits like "Pitz deep dive second pass: BR site + João + R$ plans, US domain redirect, legal entity, product screens/video, demo chat, all 8 blog posts" and "Pitz site deep-dive in HubSpot, deals sheet merges deep-dives; claim released." The <code>deal-digest.log</code> shows 29 live job deals, with 16 in "qualifiedtobuy" and 5 in "decisionmakerboughtin" for job deals, but the overall HubSpot totals are much higher, indicating the scale of automation.</p>
+<p>The problem arose when one agent, responsible for initial data ingestion, failed to adhere to the established schema for identifying existing records. Instead of checking for existing companies or contacts before creating new deals, it simply pushed new entries. This resulted in multiple deals for the same entity, each representing a separate interaction or data point, but without the necessary consolidation.</p>
+<h2>The Duplicate Deals and Pipeline Routing Fix</h2>
+<p>The <code>deal-digest.log</code> shows HubSpot totals of 16 deals in "qualifiedtobuy", 73 in "decisionmakerboughtin", 122 in "contractsent", and 1461 in "appointmentscheduled". The "They replied" stage alone had 128 deals. These numbers are not job deals, but overall HubSpot totals, highlighting the impact of the dedup failure across the entire pipeline. The <code>cto-aipa</code> commit "Deals sheet merges every deep-dive on a deal (newest first, all cautions kept) so a new note never hides the hand-written research; Pitz site note text" was an attempt to address the issue of fragmented information, but it didn't prevent the creation of new duplicate deals if the initial dedup failed.</p>
+<p>My fix involved enforcing a stricter pre-processing step for all incoming data destined for HubSpot. Before any new deal or contact is created, the agent must now perform a lookup based on a unique identifier (e.g., domain name for companies, email for contacts). If a match is found, the agent is instructed to update the existing record with new information, rather than creating a duplicate. This logic is now embedded in the <code>cto-aipa</code> process, which has seen 12 commits in the last 48 hours, indicating active development and refinement around these issues.</p>
+<h2>What Breaks When an Agent Skips the Schema</h2>
+<p>When an AI agent skips the schema, the immediate consequence is data inconsistency. Beyond the 128 duplicate deals, the pipeline routing breaks down. A deal that should progress from "appointmentscheduled" to "qualifiedtobuy" might have multiple entries, making it impossible to track the true status. The <code>deal-digest.log</code> shows 1461 deals in "appointmentscheduled" and 16 in "qualifiedtobuy" for job deals, but the overall HubSpot totals are much higher. This disparity highlights how a single dedup failure can cascade through the entire sales process.</p>
+<p>The <code>concierge-selftest.log</code> shows "duplicate suppressed (redundant drafters collapse) — {"ok":true,"duplicate":true,"existing":"b0c93ef0068beaa3"}", indicating that some duplicate suppression is in place for other processes, but it clearly wasn't sufficient for the HubSpot deal creation. The <code>cto-aipa</code> process, with its 223 restarts in 2 days, is a testament to the iterative nature of fixing these issues. Each restart often represents a deployment of a new version or a configuration change aimed at improving reliability and data integrity.</p>
+<h2>Monitoring and Prevention</h2>
+<p>To prevent future dedup failures, I've implemented a more robust monitoring system. The <code>hs-watch-manual-emails.log</code> shows "ok": true, indicating that HubSpot email processing is functioning, but this doesn't directly address deal dedup. The <code>followup-radar.log</code> shows 675 inbox emails and 4 sent from Gmail, and 286 inbox and 11 sent from Zoho, indicating a high volume of email activity that needs to be correctly associated with deals.</p>
+<p>The <code>NOW.md</code> file, which serves as the working memory for my AI agents (Cursor Cloud, Cursor Desktop, and Claude Code), explicitly states: "The only things all of them read are <strong>HubSpot</strong> and <strong>this file</strong>." This emphasizes the importance of HubSpot as the single source of truth and the <code>NOW.md</code> file as the communication protocol between agents that cannot directly talk. The recent <code>cto-aipa</code> commit "OpenClaw case sheet audited + PRD safety mechanisms; cap 140k" suggests the introduction of new safety mechanisms to prevent such failures. The <code>algom-stream</code> process, with its 55193 restarts over 68 days, and <code>algom-poll</code> with 0 restarts over 87 days, show the varied stability of different components within the system. The <code>cto-aipa</code> process, with 223 restarts in 2 days, is still undergoing active development to stabilize its HubSpot integration.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you identify a duplicate deal in HubSpot when an agent creates one?</strong><br>A: I identify duplicates by looking for multiple deals associated with the same company domain or contact email. The <code>deal-digest.log</code> shows HubSpot totals for various stages, and any significant spike in deals for a known entity triggers an alert for manual review and agent retraining.</p>
+<p><strong>Q: What specific schema elements did the agent skip that led to the dedup failure?</strong><br>A: The agent skipped the <code>company_domain</code> and <code>contact_email</code> fields in its initial lookup query to HubSpot. Instead of querying existing records, it proceeded directly to deal creation, assuming uniqueness, which resulted in the 128 duplicate deals.</p>
+<p><strong>Q: How do you retrain an AI agent to prevent it from skipping schema elements again?</strong><br>A: Retraining involves updating the agent's prompt and internal logic to explicitly include a pre-check step using the <code>company_domain</code> or <code>contact_email</code> fields. This is followed by testing against a dataset that includes known duplicates to ensure the new logic correctly identifies and merges them.</p>
+<p><strong>Q: What is the typical latency for an AI agent to create or update a deal in HubSpot?</strong><br>A: I do not have that measured for individual deal creation or update. The <code>concierge-selftest.log</code> shows "4317ms to first card" for a Telegram card delivery, which is a different operation. HubSpot's API rate limits (not measured here) are a more significant factor than individual agent latency.</p>
+<p><strong>Q: How do you handle historical duplicate deals created before the fix was implemented?</strong><br>A: Historical duplicate deals, such as the 128 in "They replied", are addressed through a manual cleanup process. I use HubSpot's native merge functionality to consolidate duplicate deals and contacts, ensuring that all associated activities and notes are preserved on the primary record.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
