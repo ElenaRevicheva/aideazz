@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp AI Bot Production: Webhook Failures and 225 Restarts | AIdeazz</title>
+  <meta name="description" content="My WhatsApp AI bot, cto-aipa, logged 225 restarts in less than a day. This wasn't a feature; it was a production failure. The core issue wasn't complex AI logic, but fundamental infrastructure gaps: …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="WhatsApp AI Bot Production: Webhook Failures and 225 Restarts">
+  <meta property="og:description" content="My WhatsApp AI bot, cto-aipa, logged 225 restarts in less than a day. This wasn't a feature; it was a production failure. The core issue wasn't complex AI logic, but fundamental infrastructure gaps: …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-24T19:30:16.070Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WhatsApp AI Bot Production: Webhook Failures and 225 Restarts">
+  <meta name="twitter:description" content="My WhatsApp AI bot, cto-aipa, logged 225 restarts in less than a day. This wasn't a feature; it was a production failure. The core issue wasn't complex AI logic, but fundamental infrastructure gaps: …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WhatsApp AI Bot Production: Webhook Failures and 225 Restarts",
+  "description": "My WhatsApp AI bot, cto-aipa, logged 225 restarts in less than a day. This wasn't a feature; it was a production failure. The core issue wasn't complex AI logic, but fundamental infrastructure gaps: …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-24T19:30:16.070Z",
+  "dateModified": "2026-10-24T19:30:16.070Z",
+  "url": "https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What specific data do you externalize for conversational state?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I externalize user session IDs, current conversation context (e.g., last question asked, entities extracted), and any temporary data needed for multi-turn interactions. This data is stored in a persistent database, allowing the bot to retrieve it upon restart and continue the conversation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you implement client-side throttling for external APIs like HubSpot?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a token bucket or leaky bucket algorithm. Each API call consumes a \"token,\" and tokens are refilled at a rate matching the API's limit (e.g., 10 tokens per 10 seconds for HubSpot's \"ten_secondly_rolling\" limit). If no tokens are available, the request is queued or delayed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the practical impact of 225 restarts on user experience?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For `cto-aipa`, 225 restarts in less than a day meant that any ongoing conversation was likely interrupted. Users would experience the bot losing context, failing to respond, or providing irrelevant answers, leading to frustration and abandonment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you manage coordination between multiple AI agents or developers working on the same codebase without direct communication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I use a shared, human-readable \"working memory\" file like `NOW.md` that outlines current tasks, known issues, and protocols. This serves as a manual communication channel, ensuring that each agent or developer understands the current state and avoids conflicting work."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">WhatsApp AI Bot Production: Webhook Failures and 225 Restarts</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-24T19:30:16.070Z">October 24, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My WhatsApp AI bot, <code>cto-aipa</code>, logged 225 restarts in less than a day. This wasn't a feature; it was a production failure. The core issue wasn't complex AI logic, but fundamental infrastructure gaps: dropped webhooks, ephemeral in-memory state, and external API rate limits that tutorials rarely cover.</p>
+<h2>Webhook Delivery Gaps: The Silent Killer</h2>
+<p>The first problem was simple: WhatsApp messages weren't consistently reaching my bot. When a user sends a message, WhatsApp (via Twilio, in my setup) sends a webhook to my server. If that webhook fails to deliver or isn't processed quickly, the message is lost. My <code>cto-aipa</code> process, responsible for handling these incoming messages, was restarting frequently. Each restart meant any in-flight webhook processing was aborted.</p>
+<p>I do not have specific webhook delivery failure logs measured, but the <code>cto-aipa</code> process's 225 restarts in under 0 days of uptime (compared to <code>algom-poll</code> at 0 restarts over 88 days, or <code>dragontrade-dashboard</code> at 1 restart over 69 days) strongly indicated instability at the ingress point. A stable process should not restart that often. This instability directly impacted webhook reliability. If the process handling the webhook is restarting, it cannot acknowledge receipt, leading to potential retries or, worse, dropped messages from the user's perspective.</p>
+<p>The solution wasn't about optimizing the AI, but hardening the message ingestion. This means implementing a robust queueing mechanism <em>before</em> the bot logic, ensuring that even if <code>cto-aipa</code> restarts, the incoming messages are persisted and can be processed once it's back online. This decouples message receipt from message processing, a critical distinction for any production-grade messaging bot.</p>
+<h2>In-Memory State Resets on PM2 Restarts</h2>
+<p>The 225 restarts of <code>cto-aipa</code> also exposed a critical flaw in how I managed conversational state. My initial design relied on in-memory storage for user sessions and context. Each time <code>cto-aipa</code> restarted, this in-memory state was wiped clean.</p>
+<p>Imagine a user in the middle of a multi-turn conversation with the bot. They ask a question, the bot processes it, and then <code>cto-aipa</code> restarts. When the bot comes back online, it has no memory of the previous turns. The user's next message is treated as a new conversation, leading to confusion and a broken user experience. This is particularly problematic for AI agents that need to maintain context over several interactions, like my <code>cto-aipa</code> which handles complex deal-related queries.</p>
+<p>The fix involved externalizing state. Instead of keeping session data in the <code>cto-aipa</code> process's memory, I needed to persist it to a database or a dedicated state store. This way, even if the process restarts, the state can be reloaded, and the conversation can resume from where it left off. This is a fundamental pattern for resilient applications, but it's often overlooked in initial bot development tutorials that focus on the "happy path" of a single, uninterrupted session.</p>
+<h2>External API Rate Limits: HubSpot's 429</h2>
+<p>Beyond internal stability, external dependencies introduced their own set of challenges. My <code>cto-aipa</code> bot interacts with HubSpot to retrieve and update deal information. The <code>hs-watch-manual-emails.log</code> showed a clear problem:</p>
+<p><pre><code class="language-plain">GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage → 429: {"status":"error","message":"You have reached your ten_secondly_rolling limit.","errorType":"RATE_LIMIT","correlationId":"01a16f5e-0b2f-7e80-a3a8-9c3aa49485f4","policyName":"TEN_SECONDLY_ROLLING","groupName":"publicapi:private_app-api-calls-ten-secondly:39045903:51409153"}
+</code></pre></p>
+<p>This <code>429</code> error, indicating "Too Many Requests," meant my bot was hitting HubSpot's "ten_secondly_rolling" rate limit. This isn't a daily or hourly limit; it's a rolling window, making it harder to manage without careful throttling. When this limit was hit, <code>cto-aipa</code> couldn't fetch necessary deal data, leading to incomplete or failed responses to user queries.</p>
+<p>The <code>deal-digest.log</code> shows 27 live job deals, and HubSpot totals show 15 qualifiedtobuy, 73 decisionmakerboughtin, 120 contractsent, and 1477 appointmentscheduled deals. My bot needs to access this data, but without respecting the rate limits, it gets blocked.</p>
+<p>The solution here was to implement robust rate limiting and retry mechanisms within <code>cto-aipa</code> for all external API calls. This involves:</p>
+<p>1.  <strong>Client-side throttling:</strong> Proactively delaying requests to stay within the known limits.<br>2.  <strong>Exponential backoff with jitter:</strong> When a <code>429</code> is received, waiting for an increasing amount of time before retrying, with a random component to avoid thundering herd problems.<br>3.  <strong>Circuit breakers:</strong> Temporarily stopping requests to a service that is consistently returning errors, to give it time to recover and prevent cascading failures.</p>
+<p>These measures ensure that <code>cto-aipa</code> can gracefully handle external API constraints, rather than crashing or failing silently.</p>
+<h2>The Operator's Role: Shared Memory and Protocol</h2>
+<p>The operational reality of running these agents is also critical. My <code>NOW.md</code> file explicitly states: "NOW — the shared session between Cursor and Claude Code. Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this file. So this file is not documentation. It is the working memory of whichever agent is not currently running, and the protocol below is how two agents that cannot talk avoid."</p>
+<p>This highlights a key challenge: when multiple AI agents or development environments are working on the same codebase (<code>cto-aipa</code> had 12 commits in the last 48 hours), coordinating their actions and understanding their current state is paramount. The <code>NOW.md</code> serves as a manual, shared memory, a protocol for agents that cannot directly communicate. This is a human-in-the-loop solution to a technical coordination problem. Without this, conflicting changes or redundant efforts would be inevitable, further contributing to instability.</p>
+<p>For example, recent commits in <code>cto-aipa</code> like "CTO AIPA + Atuona free-first voice; claim released" and "Free-first voice: CTO AIPA speaks with Microsoft Edge when OpenAI fails; Atuona transcribes with Groq first" show active development. Without a coordination mechanism like <code>NOW.md</code>, these changes could easily introduce new, unhandled edge cases or conflicts, leading to more restarts.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: What specific data do you externalize for conversational state?</strong><br>A: I externalize user session IDs, current conversation context (e.g., last question asked, entities extracted), and any temporary data needed for multi-turn interactions. This data is stored in a persistent database, allowing the bot to retrieve it upon restart and continue the conversation.</p>
+<p><strong>Q: How do you implement client-side throttling for external APIs like HubSpot?</strong><br>A: I use a token bucket or leaky bucket algorithm. Each API call consumes a "token," and tokens are refilled at a rate matching the API's limit (e.g., 10 tokens per 10 seconds for HubSpot's "ten_secondly_rolling" limit). If no tokens are available, the request is queued or delayed.</p>
+<p><strong>Q: What's the practical impact of 225 restarts on user experience?</strong><br>A: For <code>cto-aipa</code>, 225 restarts in less than a day meant that any ongoing conversation was likely interrupted. Users would experience the bot losing context, failing to respond, or providing irrelevant answers, leading to frustration and abandonment.</p>
+<p><strong>Q: How do you manage coordination between multiple AI agents or developers working on the same codebase without direct communication?</strong><br>A: I use a shared, human-readable "working memory" file like <code>NOW.md</code> that outlines current tasks, known issues, and protocols. This serves as a manual communication channel, ensuring that each agent or developer understands the current state and avoids conflicting work.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
