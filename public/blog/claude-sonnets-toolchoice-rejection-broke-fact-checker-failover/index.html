@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Sonnet's `tool_choice` Rejection Broke Fact-Checker Failover | AIdeazz</title>
+  <meta name="description" content="My fact-checker agent, cto-aipa, experienced a silent failover regression on 2026-10-25. The issue stemmed from Claude Sonnet's rejection of a forced tool_choice parameter, leading to true statements…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Claude Sonnet's `tool_choice` Rejection Broke Fact-Checker Failover">
+  <meta property="og:description" content="My fact-checker agent, cto-aipa, experienced a silent failover regression on 2026-10-25. The issue stemmed from Claude Sonnet's rejection of a forced tool_choice parameter, leading to true statements…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-25T19:30:14.005Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Claude Sonnet's `tool_choice` Rejection Broke Fact-Checker Failover">
+  <meta name="twitter:description" content="My fact-checker agent, cto-aipa, experienced a silent failover regression on 2026-10-25. The issue stemmed from Claude Sonnet's rejection of a forced tool_choice parameter, leading to true statements…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Claude Sonnet's `tool_choice` Rejection Broke Fact-Checker Failover",
+  "description": "My fact-checker agent, cto-aipa, experienced a silent failover regression on 2026-10-25. The issue stemmed from Claude Sonnet's rejection of a forced tool_choice parameter, leading to true statements…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-25T19:30:14.005Z",
+  "dateModified": "2026-10-25T19:30:14.005Z",
+  "url": "https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How did you detect the silent `tool_choice` rejection without an explicit error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I detected it by observing the `openclaw-fallback.log` for the fact-checker's output. The log showed the agent was running and producing responses, but the expected structured verification details were missing, indicating the `tool_choice` was being ignored rather than executed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What was the impact on the fact-checker's performance during the regression?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "During the regression, the fact-checker incorrectly flagged true statements. While I do not have a precise percentage of misclassifications measured, the core function of verifying truthfulness was compromised until the plain-English findings pivot was implemented."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not just force the model to error if `tool_choice` is rejected?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Some models, like `claude-sonnet-5-5` in this case, do not throw an error for an ignored `tool_choice`. They simply proceed without using the tool. My system's failover logic assumed an error would occur, leading to the silent regression."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the \"plain-English findings\" approach compare to structured tool calls in terms of accuracy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Plain-English findings are generally less precise than structured tool calls because they rely on natural language parsing, which can be ambiguous. However, they provide a functional fallback when structured calls fail, ensuring the system can still deliver a useful, albeit less granular, output."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Claude Sonnet's `tool_choice` Rejection Broke Fact-Checker Failover</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-25T19:30:14.005Z">October 25, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>My fact-checker agent, <code>cto-aipa</code>, experienced a silent failover regression on 2026-10-25. The issue stemmed from Claude Sonnet's rejection of a forced <code>tool_choice</code> parameter, leading to true statements being incorrectly flagged. This wasn't a crash, but a subtle degradation in output quality that required a pivot to plain-English findings to restore reliability. The <code>cto-aipa</code> process, which typically runs with minimal restarts, logged 228 restarts today, indicating the rapid iteration needed to resolve this.</p>
+<h2>The <code>tool_choice</code> Constraint and Its Unexpected Breach</h2>
+<p>My agents use <code>tool_choice</code> to ensure specific functions are called, especially for critical tasks like fact-checking. The <code>cto-aipa</code> agent's fact-checker component relies on this to enforce structured output, guiding the model to use its tools for verification. On 2026-10-25, I pushed a commit (f5f4e4aa) to switch the fact-checker to <code>claude-opus-5-5</code> while promotional credits lasted, aiming for the strongest model until November 8. This was a temporary measure, with the long-term plan (commit 14899f9b) to have model tiers follow monthly budget allocations: Opus, then Claude, then free.</p>
+<p>However, the failover logic was designed to gracefully degrade to <code>claude-sonnet-5-5</code> if Opus was unavailable or failed. This is where the problem emerged. <code>claude-sonnet-5-5</code> silently rejected the <code>tool_choice</code> parameter when it was forced. Instead of erroring out, it simply ignored the instruction, leading to unstructured, unverified responses. The system continued to operate, but the fact-checking mechanism was effectively bypassed. This resulted in a critical failure: true statements were no longer being correctly identified and were instead flagged as potentially false or unverified.</p>
+<h2>Diagnosing the Silent Regression</h2>
+<p>The regression was silent because the API call itself didn't fail. It returned a response, but that response lacked the structured output expected from the tool. This meant no explicit error was thrown that would trigger an immediate alert. I identified the issue by observing the output of the <code>openclaw-fallback.log</code>, which showed repeated entries like "🔎 Fact-check — PrepClaw's reply at 19:04 UTC:" without the expected verification details. The <code>cto-aipa</code> process's 228 restarts in the last 0 days, compared to <code>dragontrade-dashboard</code>'s 1 restart in 70 days or <code>algom-poll</code>'s 0 restarts in 89 days, was a strong indicator of active development and debugging.</p>
+<p>The commit dff369a4 on 2026-10-25 explicitly states: "fact-checker: fix silent failover since 15:30 (sonnet-5-5 rejects forced tool_choice); plain-English findings; true statements no longer flagged". This confirms the root cause and the time of detection. The key was realizing that the model wasn't failing, but rather silently circumventing the intended tool use.</p>
+<h2>The Pivot to Plain-English Findings</h2>
+<p>To restore reliability and ensure the fact-checker model could still provide value even without strict <code>tool_choice</code> enforcement, I implemented a pivot to "plain-English findings." This involved modifying the prompt and post-processing logic to extract verification details directly from the model's natural language output, rather than relying solely on structured tool calls.</p>
+<p>This change, captured in commit dff369a4, meant that instead of expecting a JSON object from a specific tool, the system would now parse the model's free-form text for indicators of verification or contradiction. While less precise than a structured tool call, it allowed the fact-checker to continue operating effectively with <code>claude-sonnet-5-5</code> as a failover, preventing the incorrect flagging of true statements. The subsequent commit 75e0a80e, "fact-checker failover regression fixed," confirmed the resolution.</p>
+<h2>Model Tiering and Cost Management</h2>
+<p>The incident highlighted the complexities of managing model tiers, especially when balancing performance with cost. My system's <code>model-tier</code> logic (commit 14899f9b) is designed to dynamically switch between Opus, Claude, and free tiers based on budget. The temporary shift to <code>claude-opus-5-5</code> (f5f4e4aa) was a performance optimization during a promotional credit period.</p>
+<p>This experience reinforces the need for robust failover mechanisms that account for subtle API behavior differences across models, even within the same provider's family. A model's rejection of a parameter, even if silent, can have significant downstream effects on agent reliability and output quality. The <code>cto-aipa</code> process, with its 199 MB memory usage, is a critical component, and ensuring its resilience across different model backends is paramount.</p>
+<h2>Lessons Learned for Fact-Checker Model Failover and Tool Choice Regression</h2>
+<p>1.  <strong>Silent Failures are the Most Dangerous:</strong> An API call that succeeds but ignores critical parameters is harder to detect than one that throws an error. Monitoring output quality and expected structure is as important as monitoring API success rates.<br>2.  <strong>Model-Specific <code>tool_choice</code> Behavior:</strong> Not all models, even from the same provider, handle <code>tool_choice</code> identically. Explicitly testing failover paths with each potential model is crucial.<br>3.  <strong>Plain-English as a Robust Fallback:</strong> When structured output fails, a well-engineered prompt that encourages plain-English findings can provide a valuable, albeit less precise, fallback. This saved the fact-checker from being completely inoperable.<br>4.  <strong>Rapid Iteration is Key:</strong> The 12 commits in <code>cto-aipa</code> within the last 48 hours, including specific fixes for the <code>tool_choice</code> regression, demonstrate the speed required to address production issues in AI agent systems.</p>
+<p>This incident underscores that even with careful planning, unexpected model behaviors can break failover logic. The solution wasn't just to switch models, but to adapt the output interpretation, ensuring the fact-checker remained effective.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How did you detect the silent <code>tool_choice</code> rejection without an explicit error?</strong><br>A: I detected it by observing the <code>openclaw-fallback.log</code> for the fact-checker's output. The log showed the agent was running and producing responses, but the expected structured verification details were missing, indicating the <code>tool_choice</code> was being ignored rather than executed.</p>
+<p><strong>Q: What was the impact on the fact-checker's performance during the regression?</strong><br>A: During the regression, the fact-checker incorrectly flagged true statements. While I do not have a precise percentage of misclassifications measured, the core function of verifying truthfulness was compromised until the plain-English findings pivot was implemented.</p>
+<p><strong>Q: Why not just force the model to error if <code>tool_choice</code> is rejected?</strong><br>A: Some models, like <code>claude-sonnet-5-5</code> in this case, do not throw an error for an ignored <code>tool_choice</code>. They simply proceed without using the tool. My system's failover logic assumed an error would occur, leading to the silent regression.</p>
+<p><strong>Q: How does the "plain-English findings" approach compare to structured tool calls in terms of accuracy?</strong><br>A: Plain-English findings are generally less precise than structured tool calls because they rely on natural language parsing, which can be ambiguous. However, they provide a functional fallback when structured calls fail, ensuring the system can still deliver a useful, albeit less granular, output.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
