@@ -16,6 +16,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/
 https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/
 https://aideazz.xyz/blog/hubspot-crm-automation-dedup-failures-and-128-duplicate-deals/
 https://aideazz.xyz/blog/whitespace-process-uptime-why-0-days-and-21-restarts/
