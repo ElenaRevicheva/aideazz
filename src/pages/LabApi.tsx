@@ -903,7 +903,7 @@ export default function LabApi() {
                 {/* 21 Oct 2026 (Elena): Atlas replaces the footer's "Start a project" — the big "Start a project"
                     button right above still carries the inquiry. Plain <a>: /atlas is a static shell page
                     (scripts/make_atlas_shells.py), so the SPA router would answer it with index.html. */}
-                <a href="https://aideazz.xyz/atlas" className="text-white transition-colors hover:text-purple-200">
+                <a href="https://aideazz.xyz/atlas" className="text-gray-300 transition-colors hover:text-white">
                   Atlas
                 </a>
                 {/* Same class as every other link in this column. It was an amber
