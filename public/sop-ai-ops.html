@@ -1317,5 +1317,90 @@
   });
 })();
 </script>
+
+<!-- Contact bubbles, same as the rest of aideazz.xyz (26 Oct 2026): HubSpot chat bottom-right (index.html's loader),
+     WhatsApp click-to-chat bottom-LEFT — a static port of src/components/WhatsAppFloat.tsx (HubSpot's launcher is
+     anchored bottom-right at a huge z-index, so the two channels sit on opposite corners). wa.me deep link only. -->
+<style>
+  .waf{position:fixed;left:calc(20px + env(safe-area-inset-left,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;display:flex;flex-direction:column;align-items:flex-start;gap:12px;font-family:inherit}
+  .waf-card{width:288px;max-width:calc(100vw - 40px);overflow:hidden;border-radius:16px;border:1px solid rgba(74,222,128,.3);background:rgba(15,23,42,.95);box-shadow:0 25px 50px -12px rgba(34,197,94,.2);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transform-origin:bottom left;animation:waf-in .28s cubic-bezier(.2,.9,.3,1.2)}
+  .waf [hidden]{display:none!important}
+  @keyframes waf-in{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:none}}
+  .waf-head{display:flex;align-items:center;gap:12px;background:#16a34a;padding:12px 16px;color:#fff;font-weight:600;font-size:15px}
+  .waf-state{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500}
+  .waf-state i{width:8px;height:8px;border-radius:50%;background:#86efac}
+  .waf.away .waf-state{color:rgba(220,252,231,.8)} .waf.away .waf-state i{background:#fcd34d}
+  .waf-x{background:none;border:0;color:rgba(255,255,255,.8);cursor:pointer;padding:0;display:flex}
+  .waf-x:hover{color:#fff}
+  .waf-body{display:grid;gap:12px;padding:16px}
+  .waf-msg{border-radius:12px;border-top-left-radius:0;background:rgba(255,255,255,.1);padding:8px 12px;font-size:14px;line-height:1.45;color:#f3f4f6}
+  .waf-btn{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:12px 16px;font-weight:600;font-size:15px;text-decoration:none!important;transition:background .2s ease}
+  .waf-go{background:#16a34a;color:#fff!important;box-shadow:0 10px 15px -3px rgba(34,197,94,.4)} .waf-go:hover{background:#22c55e}
+  .waf-book{border:1px solid rgba(192,132,252,.4);background:rgba(147,51,234,.2);color:#f3e8ff!important} .waf-book:hover{background:rgba(147,51,234,.3)}
+  .waf-dock{position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+  .waf-ring{position:absolute;inset:0;border-radius:50%;background:#22c55e;opacity:.6;animation:waf-ping 1s cubic-bezier(0,0,.2,1) infinite}
+  .waf-ring.b{background:#4ade80;opacity:.4;animation-delay:.6s}
+  .waf.open .waf-ring{display:none}
+  @keyframes waf-ping{75%,100%{transform:scale(2);opacity:0}}
+  .waf-fab{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;background:#16a34a;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 15px -3px rgba(34,197,94,.5);transition:background .2s ease,transform .15s ease;animation:waf-wiggle 3.3s ease-in-out infinite}
+  .waf-fab:hover{background:#22c55e;transform:scale(1.08)} .waf-fab:active{transform:scale(.92)}
+  .waf-fab:focus-visible,.waf-x:focus-visible,.waf-btn:focus-visible{outline:2px solid #86efac;outline-offset:3px}
+  .waf.open .waf-fab{animation:none}
+  .waf-fab .ic-x{display:none} .waf.open .waf-fab .ic-x{display:block} .waf.open .waf-fab .ic-chat{display:none}
+  @keyframes waf-wiggle{0%,72.7%,100%{transform:rotate(0) scale(1)}76%{transform:rotate(-12deg) scale(1.03)}80%{transform:rotate(12deg) scale(1.06)}86%{transform:rotate(-8deg) scale(1.03)}92%{transform:rotate(8deg)}}
+  @media (prefers-reduced-motion:reduce){.waf-ring{display:none}.waf-fab,.waf-card{animation:none}}
+</style>
+<div class="waf" id="waf">
+  <div class="waf-card" id="waf-card" hidden role="dialog" aria-label="Chat on WhatsApp">
+    <div class="waf-head">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      <span>Chat on WhatsApp</span>
+      <span class="waf-state"><i></i><span id="waf-state">Online</span></span>
+      <button type="button" class="waf-x" id="waf-close" aria-label="Close chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="waf-body">
+      <div class="waf-msg" id="waf-msg">Hello 👋 Thanks for looking at my work. Message me directly — I usually reply fast.</div>
+      <a class="waf-btn waf-go" id="waf-go" href="https://wa.me/50761666716" target="_blank" rel="noreferrer"><span id="waf-go-t">Open Chat</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></a>
+      <a class="waf-btn waf-book" id="waf-book" href="https://calendly.com/elena_revicheva/coffee-chat" target="_blank" rel="noreferrer" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5"/><path d="M16 2v4M8 2v4M3 10h5"/><circle cx="16" cy="16" r="6"/><path d="M16 14v2.2l1.6 1"/></svg> Book a Call</a>
+    </div>
+  </div>
+  <div class="waf-dock">
+    <span class="waf-ring"></span><span class="waf-ring b"></span>
+    <button type="button" class="waf-fab" id="waf-fab" aria-label="Open WhatsApp chat" aria-expanded="false" aria-controls="waf-card">
+      <svg class="ic-chat" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      <svg class="ic-x" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+<script>
+(function () {
+  // Online 09:00–17:59 Panama, Mon–Sat (same rule as WhatsAppFloat.tsx); after hours it offers a booking link.
+  var online = true;
+  try {
+    var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Panama', hour: 'numeric', hour12: false, weekday: 'short' }).formatToParts(new Date());
+    var h = 0, d = '';
+    p.forEach(function (x) { if (x.type === 'hour') h = parseInt(x.value, 10) % 24; if (x.type === 'weekday') d = x.value; });
+    online = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(d) !== -1 && h >= 9 && h <= 17;
+  } catch (e) {}
+  var root = document.getElementById('waf'), card = document.getElementById('waf-card'), fab = document.getElementById('waf-fab');
+  var prefill = 'Hi Elena — I saw your AIdeazz portfolio and I’d like to talk.';
+  document.getElementById('waf-go').href = 'https://wa.me/50761666716?text=' + encodeURIComponent(prefill);
+  if (!online) {
+    root.classList.add('away');
+    document.getElementById('waf-state').textContent = 'Away';
+    document.getElementById('waf-msg').textContent = 'I’m offline right now 🌙 Leave a message and I’ll reply as soon as I’m back — or grab a time that works for you below.';
+    document.getElementById('waf-go-t').textContent = 'Send a Message';
+    document.getElementById('waf-book').hidden = false;
+  }
+  function setOpen(v) { card.hidden = !v; root.classList.toggle('open', v); fab.setAttribute('aria-expanded', String(v)); }
+  fab.addEventListener('click', function () { setOpen(card.hidden); });
+  document.getElementById('waf-close').addEventListener('click', function () { setOpen(false); });
+  document.getElementById('waf-go').addEventListener('click', function () {
+    try { window.gtag && window.gtag('event', 'contact_whatsapp', { placement: 'float', state: online ? 'online' : 'away' }); } catch (e) {}
+  });
+})();
+</script>
+<!-- HubSpot chat + tracking (portal 51409153), the same loader index.html uses -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/51409153.js?v=20260726"></script>
 </body>
 </html>
