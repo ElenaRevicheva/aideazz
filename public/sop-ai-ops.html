@@ -39,10 +39,10 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
     {"@type":"Question","name":"What is the AIdeazz AI Lab?","acceptedAnswer":{"@type":"Answer","text":"A production fleet of eleven AI co-founder agents plus a marketing engine, running 24/7 on a single Oracle VM at zero monthly infrastructure cost. It publishes content daily, captures leads into a CRM, and measures whether campaigns moved the needle rather than reporting vanity metrics."}},
     {"@type":"Question","name":"How does AIdeazz keep AI agents from dying silently?","acceptedAnswer":{"@type":"Answer","text":"Every product declares a health check, a restart command and a PM2 or systemd process name in a single resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph."}},
-    {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
+    {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 3,200 deals and 1,500 contacts exist in the CRM (counted 26 October 2026). Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
     {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited."}},
     {"@type":"Question","name":"How does AIdeazz stop AI from publishing made-up numbers?","acceptedAnswer":{"@type":"Answer","text":"The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Near-duplicate articles are blocked by token overlap rather than slug equality, and every incident where a system fooled the operator is written up with a named failure mode in the public AI Ops Wiki."}},
-    {"@type":"Question","name":"What is the AI Visibility Audit API?","acceptedAnswer":{"@type":"Answer","text":"A free public API that scores any website 0–100 for AI search visibility: 34 automated checks in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 19 September 2026 aideazz.xyz, the podcast and this runbook scored 100/A+."}},
+    {"@type":"Question","name":"What is the AI Visibility Audit API?","acceptedAnswer":{"@type":"Answer","text":"A free public API that scores any website 0–100 for AI search visibility: 34 automated checks in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 26 October 2026 aideazz.xyz, the podcast and this runbook scored 100/A+."}},
     {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
   ]}
   </script>
@@ -500,7 +500,7 @@
         <a href="https://aideazz.xyz/api" target="_blank" rel="noopener" class="btn ghost">AI Visibility Audit API · free</a>
         <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener" class="btn ghost">Nine systems — provenance dossier</a>
         <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener" class="btn ghost">Podcast · 11 episodes</a>
-        <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener" class="btn ghost">AI Film Studio · 6 films</a>
+        <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener" class="btn ghost">AI Film Studio · 9 films</a>
       </div>
 
       <div class="meta" aria-label="Document metadata">
@@ -522,32 +522,32 @@
         </div>
       </div>
 
-      <!-- Proof — every figure read from the running systems (provenance dossier 24 Aug 2026; counts refreshed 19 Sep 2026) -->
+      <!-- Proof — every figure read from the running systems (provenance dossier 24 Aug 2026; counts refreshed 26 Oct 2026) -->
       <div class="stats" aria-label="Headline production numbers">
         <div class="card lift"><div class="n">~181K</div><div class="l">lines of original code · read from production</div></div>
-        <div class="card lift"><div class="n">150+</div><div class="l">essays · grounded daily blog · 14:30 every day</div></div>
-        <div class="card lift"><div class="n">21 · 18</div><div class="l">AI Ops Wiki incidents · named failure modes</div></div>
+        <div class="card lift"><div class="n">190+</div><div class="l">essays · grounded daily blog · 14:30 every day</div></div>
+        <div class="card lift"><div class="n">29 · 23</div><div class="l">AI Ops Wiki incidents · named failure modes</div></div>
         <div class="card lift"><div class="n">5</div><div class="l">LLM providers · one fallback chain on every agent</div></div>
       </div>
-      <!-- Proof ticker — every figure read from the running systems (provenance dossier 24 Aug 2026; counts refreshed 19 Sep 2026) -->
+      <!-- Proof ticker — every figure read from the running systems (provenance dossier 24 Aug 2026; counts refreshed 26 Oct 2026) -->
       <div class="proof-ticker" aria-label="Verified production numbers">
         <div class="proof-track">
     <span class="proof-half-a proof-item"><b>~181K</b> lines of original code</span>
-    <span class="proof-half-a proof-item"><b>20 mo</b> one operator · one server</span>
-    <span class="proof-half-a proof-item"><b>150+</b> essays · daily 14:30</span>
-    <span class="proof-half-a proof-item"><b>21</b> AI Ops Wiki incidents · 18 failure modes</span>
+    <span class="proof-half-a proof-item"><b>21 mo</b> one operator · one server</span>
+    <span class="proof-half-a proof-item"><b>190+</b> essays · daily 14:30</span>
+    <span class="proof-half-a proof-item"><b>29</b> AI Ops Wiki incidents · 23 failure modes</span>
     <span class="proof-half-a proof-item"><b>11</b> podcast episodes</span>
-    <span class="proof-half-a proof-item"><b>6</b> films · automated edit</span>
+    <span class="proof-half-a proof-item"><b>9</b> films · automated edit</span>
     <span class="proof-half-a proof-item"><b>5</b> LLM providers · one chain</span>
-    <span class="proof-half-a proof-item"><b>173</b> sitemap URLs · 7 machine-readable surfaces</span>
+    <span class="proof-half-a proof-item"><b>215</b> sitemap URLs · 7 machine-readable surfaces</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>~181K</b> lines of original code</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>20 mo</b> one operator · one server</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>150+</b> essays · daily 14:30</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>21</b> AI Ops Wiki incidents · 18 failure modes</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>21 mo</b> one operator · one server</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>190+</b> essays · daily 14:30</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>29</b> AI Ops Wiki incidents · 23 failure modes</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>11</b> podcast episodes</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>6</b> films · automated edit</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>9</b> films · automated edit</span>
     <span class="proof-half-b proof-item" aria-hidden="true"><b>5</b> LLM providers · one chain</span>
-    <span class="proof-half-b proof-item" aria-hidden="true"><b>173</b> sitemap URLs · 7 machine-readable surfaces</span>
+    <span class="proof-half-b proof-item" aria-hidden="true"><b>215</b> sitemap URLs · 7 machine-readable surfaces</span>
         </div>
       </div>
 
@@ -580,7 +580,7 @@
     <div class="top"><b>Note · What a business owner should take away</b><span>Elena Revicheva · AIdeazz AI Lab</span></div>
     <ul class="body">
       <li><strong>One lab, many products:</strong> tutoring bots, job hunter, social growth, CRM pipeline, daily blog, and a marketing radar (Atlas) that reads the ad market and exports test campaigns — with real Google Analytics feedback since July 2026.</li>
-      <li><strong>Honest numbers:</strong> 150+ essays published, 21 wiki incidents and 18 named failure modes, ~181K lines of code read from production (<a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">dossier</a>); CRM has processed 900+ deals historically; revenue is still effectively zero — the systems are the proof, not the sales curve.</li>
+      <li><strong>Honest numbers:</strong> 190+ essays published, 29 wiki incidents and 23 named failure modes, ~181K lines of code read from production (<a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">dossier</a>); CRM holds 3,200+ deals (live count, 26 Oct 2026); revenue is still effectively zero — the systems are the proof, not the sales curve.</li>
       <li><strong>Risk control:</strong> automated health checks and isolated secrets mean one bot failing does not take down the whole fleet.</li>
       <li><strong>Why this page exists:</strong> public proof that AIdeazz runs like a product company — not slide decks — so clients, partners, and search engines can verify operational maturity.</li>
     </ul>
@@ -602,38 +602,38 @@
           <tr><td>Marketing radar</td><td>Weekly ad-market intelligence on the lab&rsquo;s seven sellable services — open windows arrive as ready-to-run sales briefs, and CRM outcomes feed back so the radar learns what converts</td><td><a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">Atlas live radar</a></td></tr>
           <tr><td>CRM spine</td><td>All agents feed one HubSpot pipeline</td><td>HubSpot Sales Pipeline</td></tr>
           <tr><td>Measure layer</td><td>Website sessions, form leads, deals by campaign</td><td>Atlas concept cards (performance block)</td></tr>
-          <tr><td>Learning record</td><td>AI Ops Wiki — 21 production incidents and 18 named failure modes, each incident with a named failure mode and a verified number. Generated, never hand-edited</td><td><a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></td></tr>
+          <tr><td>Learning record</td><td>AI Ops Wiki — 29 production incidents and 23 named failure modes, each incident with a named failure mode and a verified number. Generated, never hand-edited</td><td><a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></td></tr>
           <tr><td>Provenance dossier</td><td>Nine systems and why they exist — engineering provenance for every product, figures read from production</td><td><a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">nine-systems</a></td></tr>
-          <tr><td>Publishing engine</td><td>150+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
-          <tr><td>AI Film Studio</td><td>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 6 films live</td><td><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></td></tr>
+          <tr><td>Publishing engine</td><td>190+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
+          <tr><td>AI Film Studio</td><td>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 9 films live</td><td><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></td></tr>
           <tr><td>Investor / narrative deck</td><td>The live pitch — September 2026 actualization, honest traction</td><td><a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener">pitch.html</a></td></tr>
           <tr><td>Sibling products</td><td>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- GEO / AEO / Tech-SEO layer — added 19 Sep 2026. Scores measured that day with the live API. -->
+    <!-- GEO / AEO / Tech-SEO layer — added 19 Sep 2026; scores + crawler verdicts re-measured 26 Oct 2026 with the live API (POST /v1/visibility, demo key). -->
     <div class="card callout mt2">
       <span class="tag info">AI Visibility layer · September 2026</span>
       <div>Every product in the lab is built to be <strong>read and quoted</strong> by AI answer engines, not only ranked by Google. The <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">AI Visibility Audit API</a> is both the product I sell and the instrument I run on my own surfaces: <strong>34 automated checks</strong> in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot). Free to try, public demo key.</div>
     </div>
     <div class="card tbl mt scrollx">
       <table>
-        <thead><tr><th>Surface — audited 19 Sep 2026 with the API itself</th><th>Score</th><th>AI crawlers allowed</th></tr></thead>
+        <thead><tr><th>Surface — re-audited 26 Oct 2026 with the API itself</th><th>Score</th><th>AI crawlers allowed</th></tr></thead>
         <tbody>
           <tr><td><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a> — portfolio + blog</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
           <tr><td><a href="https://podcast.aideazz.xyz" target="_blank" rel="noopener">podcast.aideazz.xyz</a> — 11 episodes, each linked to its post</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
           <tr><td>This runbook</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
           <tr><td><a href="https://aideazz.xyz/api" target="_blank" rel="noopener">/api</a> — the audit tool itself</td><td><span class="tag ok">98 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="/ai-ops-wiki.html">AI Ops Wiki</a> — 21 incidents · 18 failure modes</td><td><span class="tag ok">93 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a> — AI film studio &amp; gallery</td><td><span class="tag warn">69 · C</span></td><td class="num">0 / 6 — <strong>the audit's own finding; fix queued</strong></td></tr>
+          <tr><td><a href="/ai-ops-wiki.html">AI Ops Wiki</a> — 29 incidents · 23 failure modes</td><td><span class="tag ok">93 · A+</span></td><td class="num">6 / 6</td></tr>
+          <tr><td><a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a> — AI film studio &amp; gallery</td><td><span class="tag ok">93 · A+</span></td><td class="num">6 / 6 — <strong>was 69 · C and 0 / 6 on 19 Sep: the audit's own finding, since fixed</strong></td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="card kv mt">
       <div class="k">How GEO / AEO / Tech SEO runs across the products</div>
-      <p>Build sessions → AI Ops Wiki incidents (published nightly, alerts on failure) → grounded daily blog (150+ posts, EN/ES) + Dev.to canonical → podcast episodes that link back to their posts → <code>llms.txt</code>, a dated <code>geo-manifest</code> and a 173-URL sitemap that name the API, blog, wiki and podcast for AI crawlers → distribution on LinkedIn, Instagram and YouTube (Buffer / Make) and X (Algom Alpha, X API) → a weekly citation probe asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether any of it is actually cited.</p>
+      <p>Build sessions → AI Ops Wiki incidents (published nightly, alerts on failure) → grounded daily blog (190+ posts, EN/ES) + Dev.to canonical → podcast episodes that link back to their posts → <code>llms.txt</code>, a dated <code>geo-manifest</code> and a 215-URL sitemap that name the API, blog, wiki and podcast for AI crawlers → distribution on LinkedIn, Instagram and YouTube (Buffer / Make) and X (Algom Alpha, X API) → a weekly citation probe asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether any of it is actually cited.</p>
     </div>
     <div class="card kv mt">
       <div class="k">Marketing engine flow · closed loop since July 2026</div>
@@ -711,15 +711,15 @@
       <div class="card rep lift">
         <div class="rt">Essays published</div>
         <div class="rs">Grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">/blog</a></div>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="150" data-duration="1400">0</span>+</div>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="190" data-duration="1400">0</span>+</div>
         <div class="d">Every figure traced to a measurement before it ships; fails closed otherwise.</div>
         <span class="tag">Publishing</span>
       </div>
       <div class="card rep lift">
         <div class="rt">Named failure modes</div>
         <div class="rs">Postmortems · <a href="/ai-ops-wiki.html">AI Ops Wiki</a></div>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="18" data-duration="1200">0</span></div>
-        <div class="d">21 production incidents, each with a named failure mode and a verified number.</div>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="23" data-duration="1200">0</span></div>
+        <div class="d">29 production incidents, each with a named failure mode and a verified number.</div>
         <span class="tag">Learning record</span>
       </div>
       <div class="card rep lift">
@@ -822,7 +822,7 @@
       <div class="rec">
         <div class="id">09</div>
         <div class="who"><span class="av o">AT</span><div><div class="nm">Creative Co-Founder <small>(Atuona CCF)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a><a href="https://t.me/Atuona_AI_CCF_AIdeazz_bot" target="_blank" rel="noopener">Telegram</a><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">film studio</a></div></div></div>
-        <div class="role"><strong>Creative partner:</strong> Separate bot persona + public gallery, now with a fully automated <strong>AI film studio</strong> — source clips in, finished film out: voiceover locked to clip duration, crossfades on a running-offset accumulator, sidechain-ducked music, −16 LUFS master. 6 films live.<span class="ops">Single PM2 orchestrator binary; site ships via static edge hosting.</span></div>
+        <div class="role"><strong>Creative partner:</strong> Separate bot persona + public gallery, now with a fully automated <strong>AI film studio</strong> — source clips in, finished film out: voiceover locked to clip duration, crossfades on a running-offset accumulator, sidechain-ducked music, −16 LUFS master. 9 films live.<span class="ops">Single PM2 orchestrator binary; site ships via static edge hosting.</span></div>
         <div class="rt"><span class="tag info">PM2</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
@@ -1105,7 +1105,7 @@
       <div class="row"><div class="cat">Databases</div><div class="chips"><span class="tag">Oracle Autonomous DB (enterprise-grade encrypted connection, multi-table estate)</span><span class="tag">PostgreSQL + pgvector (semantic memory for tutoring agents)</span></div></div>
       <div class="row"><div class="cat">CRM &amp; Outreach</div><div class="chips"><span class="tag">HubSpot CRM v3 + v4 associations</span><span class="tag">Hunter.io</span><span class="tag">Resend</span></div></div>
       <div class="row"><div class="cat">Social</div><div class="chips"><span class="tag">X API v2 (Account Activity, filtered stream, engagement worker)</span><span class="tag">Make.com</span><span class="tag">Telegram Bot API</span></div></div>
-      <div class="row"><div class="cat">AI / LLMs</div><div class="chips"><span class="tag ok"><strong style="color:inherit">Five-provider waterfall on every product</strong>&nbsp;— Claude · OpenAI · Gemini · Grok · Groq, order set per use case; with four of five dark, the agent still answers</span><span class="tag">Claude Sonnet / Haiku (quality paths)</span><span class="tag">OpenAI (gpt-4o-mini + text-embedding-3-small + TTS / Whisper)</span><span class="tag">Gemini + Grok (xAI) in the chain</span><span class="tag">Groq open-model inference — model id via one fleet-wide switch; provider deprecations are a one-line config change</span><span class="tag">Bright Data (public ad-transparency capture)</span><span class="tag">Runway (Seedance 2.0 / Kling 3.0) + Flux 1.1 Pro for Atlas creative</span><span class="tag">LangChain</span><span class="tag">LangGraph</span></div></div>
+      <div class="row"><div class="cat">AI / LLMs</div><div class="chips"><span class="tag ok"><strong style="color:inherit">Five-provider waterfall on every product</strong>&nbsp;— Claude · OpenAI · Gemini · Grok · Groq, order set per use case; with four of five dark, the agent still answers</span><span class="tag">Claude Sonnet / Haiku (quality paths)</span><span class="tag">OpenAI (gpt-4o-mini + text-embedding-3-small; TTS / Whisper now the backup — voice runs Groq-first with a free Microsoft Edge fallback since 24 Oct 2026)</span><span class="tag">Gemini + Grok (xAI) in the chain</span><span class="tag">Groq open-model inference — model id via one fleet-wide switch; provider deprecations are a one-line config change</span><span class="tag">Bright Data (public ad-transparency capture)</span><span class="tag">Atlas creative: Flux 1.1 Pro stills + a Runway → Luma → Gemini video failover chain</span><span class="tag">LangChain</span><span class="tag">LangGraph</span></div></div>
       <div class="row"><div class="cat">Lead Gen</div><div class="chips"><span class="tag">HN Algolia</span><span class="tag">GitHub REST</span><span class="tag">Product Hunt GraphQL</span><span class="tag">Bright Data (SERP API + Web Unlocker + Scraping Browser — replaced paid SerpAPI) — ~150–250 net-new companies/month after filtering</span></div></div>
       <div class="row"><div class="cat">Hosting / CDN</div><div class="chips"><span class="tag">OCI Ubuntu VM (VM.Standard.E5.Flex, 12 GB)</span><span class="tag">AWS Lambda</span><span class="tag">4everland IPFS frontends</span><span class="tag">Cloudflare DNS</span></div></div>
       <div class="row"><div class="cat">Monitoring</div><div class="chips"><span class="tag">Cron health driver</span><span class="tag">PM2 logs</span><span class="tag">CloudWatch</span><span class="tag">curl probes</span><span class="tag">OCI keep-alive</span></div></div>
@@ -1131,7 +1131,7 @@
       </div>
       <div class="card faq-item lift">
         <h3>Does the marketing engine generate leads, or only traffic?</h3>
-        <p>Inbound inquiries post from the website into Oracle and HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 900 deals and 500 contacts exist in the CRM. Attribution is instrumented end to end with UTM tags, though campaign volume is still low.</p>
+        <p>Inbound inquiries post from the website into Oracle and HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 3,200 deals and 1,500 contacts exist in the CRM (counted 26 October 2026). Attribution is instrumented end to end with UTM tags, though campaign volume is still low.</p>
       </div>
       <div class="card faq-item lift">
         <h3>How is content optimized for AI search, not just Google?</h3>
@@ -1143,7 +1143,7 @@
       </div>
       <div class="card faq-item lift">
         <h3>What is the AI Visibility Audit API?</h3>
-        <p>A free public API that scores any website 0–100 for AI search visibility: <strong>34 automated checks</strong> in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 19 September 2026 aideazz.xyz, the podcast and this runbook scored 100/A+. Try it free at <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">aideazz.xyz/api</a>.</p>
+        <p>A free public API that scores any website 0–100 for AI search visibility: <strong>34 automated checks</strong> in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 26 October 2026 aideazz.xyz, the podcast and this runbook scored 100/A+. Try it free at <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">aideazz.xyz/api</a>.</p>
       </div>
       <div class="card faq-item lift">
         <h3>Who is this page for?</h3>
