@@ -1,0 +1,42 @@
+{
+  "note": "Imagery for aideazz.xyz/sop-ai-ops.html (26 Oct 2026). Generated on the ATUONA stills engines with cto-aipa docs/applications/professional-outlook/gen-art.cjs on Oracle: node ~/outlook-art/gen-art.cjs ~/sop-art/out ~/sop-art/sop-art-jobs.json. Deliberately a different light and palette from the two October decks (sage mist, daylight): the runbook is blue hour and golden hour, indigo + amber.",
+  "style": "Photoreal, naturalistic, blue-hour and golden-hour light, muted indigo, lavender and warm amber tones, airy haze, premium editorial landscape photography with a quiet high-tech feeling, ultra-detailed. Absolutely no text, no letters, no logos, no signs, no watermark, no people.",
+  "jobs": [
+    {
+      "name": "r-hero",
+      "ar": "16:9",
+      "engines": ["seedream"],
+      "prompt": "Wide panorama at blue hour over a calm bay: low dark-blue rolling hills and a still water surface fill the lower third of the frame; the upper two thirds is a soft, empty gradient sky from deep indigo at the top to warm amber at the horizon, a few thin lavender clouds, very calm and minimal."
+    },
+    {
+      "name": "r-fleet",
+      "ar": "3:4",
+      "engines": ["seedream"],
+      "prompt": "Aerial view of a lavender field at dusk, long orderly rows converging toward a warm golden horizon, violet and indigo tones in the foreground, soft haze, a sense of a calm system running in harmony."
+    },
+    {
+      "name": "r-ops",
+      "ar": "16:9",
+      "engines": ["seedream"],
+      "prompt": "Macro photograph of a dew-covered spider web at dawn, every thread lit warm gold by backlight against a soft indigo-blue background, shallow depth of field, a natural network of connected lines, calm and precise."
+    },
+    {
+      "name": "r-loop",
+      "ar": "16:9",
+      "engines": ["seedream"],
+      "prompt": "Aerial view of a river bending in a wide oxbow loop at golden hour, the water reflecting warm amber light, dusky violet-grey banks and meadows, soft haze, minimal and serene."
+    },
+    {
+      "name": "r-kintsugi",
+      "ar": "3:4",
+      "engines": ["seedream"],
+      "prompt": "A dark ceramic bowl repaired with fine gold kintsugi seams, resting on smooth warm sand at blue hour, soft indigo ambient light with a warm highlight on the gold seams, calm, minimal, airy."
+    },
+    {
+      "name": "r-close",
+      "ar": "16:9",
+      "engines": ["seedream"],
+      "prompt": "A long wooden boardwalk crossing pale dunes toward a calm sea at blue hour, small warm lamps on the posts glowing amber, the boardwalk starting at the bottom centre of the frame and curving to the right; the upper half of the frame is a soft, empty indigo-to-amber sky."
+    }
+  ]
+}
