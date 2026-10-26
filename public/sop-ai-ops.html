@@ -458,6 +458,12 @@
       .photo .shade{display:none}
       .dash .photo .tx,.rel .photo .tx,.form-wrap .photo .tx,.stone .tx{position:static;padding:16px 18px 18px;color:var(--ink)}
     }
+    @media (max-width:400px){
+      /* Galaxy-class 360px screens: the nav row was 6px wider than the screen and clipped "Run the pipeline" */
+      .navlinks{gap:6px}
+      .brand{font-size:14.5px;gap:8px}
+      .navlinks .btn{padding:7px 9px;font-size:12.5px}
+    }
     @media (max-width:560px){
       .hero .art{top:64px}
       .dash .photo img,.stone img{aspect-ratio:4/5}
