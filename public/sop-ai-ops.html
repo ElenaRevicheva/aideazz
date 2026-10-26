@@ -440,6 +440,28 @@
       .pm .r{grid-template-columns:1fr;gap:2px}
       .hero h1{font-size:40px}
     }
+
+    /* ---------- phone/tablet imagery: show the picture, don't bury it (26 Oct 2026) ----------
+       On a narrow screen a 16:9 background stretched behind ~2,000px of hero copy was upscaled ~2x
+       and hidden by the cream shade, and photo cards were covered by their own caption.
+       Hero + close become a clear banner band; photo cards stack the caption under the photo. */
+    @media (max-width:860px){
+      .hero .art{inset:auto;top:76px;left:0;right:0;aspect-ratio:16/10}
+      .hero .art .shade{background:linear-gradient(180deg,rgba(247,246,243,0) 62%,rgba(247,246,243,1) 100%)}
+      .hero .inner{padding-top:calc(62.5vw + 12px)}
+      .close{display:flex;flex-direction:column}
+      .close .wrap{order:1}
+      .close .art{order:2;position:relative;inset:auto;aspect-ratio:16/10}
+      .close .art .shade{background:linear-gradient(180deg,rgba(247,246,243,1) 0%,rgba(247,246,243,0) 38%)}
+      .dash .photo,.rel .photo,.form-wrap .photo,.stone,.fail .stone{min-height:0;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line)}
+      .photo img{height:auto;aspect-ratio:16/10}
+      .photo .shade{display:none}
+      .dash .photo .tx,.rel .photo .tx,.form-wrap .photo .tx,.stone .tx{position:static;padding:16px 18px 18px;color:var(--ink)}
+    }
+    @media (max-width:560px){
+      .hero .art{top:64px}
+      .dash .photo img,.stone img{aspect-ratio:4/5}
+    }
   </style>
 
   <!-- Google Analytics 4 -->
