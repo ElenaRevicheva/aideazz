@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The IMAP Read Flag Side Effect: How an Agent Spoiled Mail Priority | AIdeazz</title>
+  <meta name="description" content="425 out of 425 inbox messages were marked read by an automated reply detector before I ever saw them. Because every incoming thread registered as opened within minutes, Gmail recalibrated its scoring…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The IMAP Read Flag Side Effect: How an Agent Spoiled Mail Priority">
+  <meta property="og:description" content="425 out of 425 inbox messages were marked read by an automated reply detector before I ever saw them. Because every incoming thread registered as opened within minutes, Gmail recalibrated its scoring…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-10-27T19:30:54.428Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The IMAP Read Flag Side Effect: How an Agent Spoiled Mail Priority">
+  <meta name="twitter:description" content="425 out of 425 inbox messages were marked read by an automated reply detector before I ever saw them. Because every incoming thread registered as opened within minutes, Gmail recalibrated its scoring…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The IMAP Read Flag Side Effect: How an Agent Spoiled Mail Priority",
+  "description": "425 out of 425 inbox messages were marked read by an automated reply detector before I ever saw them. Because every incoming thread registered as opened within minutes, Gmail recalibrated its scoring…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-10-27T19:30:54.428Z",
+  "dateModified": "2026-10-27T19:30:54.428Z",
+  "url": "https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does fetching an email over IMAP change its unread status by default?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard IMAP protocol implementations treat requests for message bodies (`RFC822` or `BODY[]`) as an explicit read action by a user, automatically applying the `\\Seen` flag on the server. To inspect content without side effects, clients must explicitly query using non-mutating mechanisms such as `BODY.PEEK[]`."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did marking 425 messages as read skew Gmail's Important classification to 88%?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Gmail trains priority sorting using client interaction metrics. When an automated agent connects and opens 425 out of 425 emails almost instantaneously, the underlying classification models interpret the activity as rapid manual review, biasing the mailbox so that 88% of incoming mail was categorized as Important compared to the earlier baseline of 33%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the risk of using sequence numbers rather than UIDs when scanning candidate emails?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sequence numbers are volatile indices that renumber whenever messages are moved, archived, or deleted by another client. If an agent scans mail using sequence numbers while items are concurrently shifted, it can process the wrong messages or skip records entirely. UIDs provide persistent identifiers that remain unchanged across sessions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if an agent drops a misclassified message after marking it processed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It creates a permanent operational drop. In our incident on 26 October 2026, an interview invite scored 1.0 was dropped by a downstream filter and flagged as already handled; the agent never evaluated it again until we decoupled the filtering logic from the deduplication record."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The IMAP Read Flag Side Effect: How an Agent Spoiled Mail Priority</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-10-27T19:30:54.428Z">October 27, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>425 out of 425 inbox messages were marked read by an automated reply detector before I ever saw them. Because every incoming thread registered as opened within minutes, Gmail recalibrated its scoring heuristics and pushed its Important classification share from 33% to 88%. When you deploy an AI agent to monitor candidate responses across mailboxes without enforcing an explicit read-only protocol, the agent does not merely fetch data—it actively alters user state and destroys triage priorities.</p>
+<p>The system runs background ingestion against two separate mailboxes to ensure no employer communication slips past unnoticed. What seemed like a simple background task quietly triggered a destructive <strong>imap read flag side effect</strong> across our primary communications channel.</p>
+<h2>The Cost of the Read-That-Writes</h2>
+<p>The job-search pipeline relies on scanning incoming applicant updates across accounts. In our environment, the watcher process polls mail servers every hour, pulling message bodies so an evaluation model can classify incoming employer interest. If an applicant receives a genuine response, the automation links the interaction back to HubSpot, where we currently track 127 deals at the "They replied" stage (dealstage <code>contractsent</code>) and 3220 total deals across the workspace.</p>
+<p>When a message is fetched by an IMAP consumer without explicit read-only parameters or using default retrieval methods, standard mail servers register the inspection as an interactive read event. The server sets the <code>\Seen</code> flag automatically. In our setup, 425 out of 425 inbox messages had their unread status cleared during the monitoring pass.</p>
+<p>This created two immediate breakdowns:</p>
+<p>1. The mailbox owner logged in to an entirely cleared unread queue, seeing zero new visual cues despite fresh communication arriving throughout the day.<br>2. Mailbox heuristics interpret rapid mark-as-read actions as aggressive human engagement. Gmail watched 425 messages get opened almost immediately, concluded that nearly everything entering the inbox was urgent, and inflated the Important share from 33% to 88%.</p>
+<p>A triage engine that flags 88% of all mail as Important ceases to function as a filter. When everything is flagged as top priority, the inbox is functionally dead.</p>
+<h2>Positional Fetching vs. UID Cutover</h2>
+<p>The underlying bug was tied to two design flaws: using sequence positions rather than stable identifiers, and pulling full message content under standard connection modes.</p>
+<p>Sequential index fetching relies on ephemeral numbers assigned to messages within a given folder view. If a message is deleted, archived, or shifted between sweeps, index 5 ceases to point to the original message. Furthermore, naive index fetches frequently default to standard body parsing, clearing the unread status behind the scenes.</p>
+<p>We resolved this with a specific migration recorded in commit <code>7c64e7b</code>: switching from sequential positions to permanent UIDs, scanning the Spam folder explicitly, eliminating the previous 50-mail cap, and enforcing non-destructive inspection. The UID cutover was deployed at 27 Oct 13:30 UTC (commit <code>d45de62</code>).</p>
+<p>Under UID-based operation:<br><ul><li>The watcher requests message attributes and bodies specifically requesting <code>BODY.PEEK[]</code> style semantics instead of mutative reads.</li><br><li>Unique message IDs are verified against previous cycles to establish an exact processing watermark without modifying server-side flags.</li><br><li>The unread counter remains untouched across sweeps, proven by live test runs where the inbox unread count remained constant before and after agent polling.</li></ul></p>
+<p>Instead of an arbitrary cap of 50 messages, the agent now manages its window cleanly over a 72-hour sliding scope (commit <code>27b84ef</code>), logging failures directly rather than letting silent fetch anomalies hide in local buffers.</p>
+<h2>Downstream Filters and Classification Overrides</h2>
+<p>Fixing the retrieval flag resolved inbox corruption, but the reply-radar service introduced a second silent hazard: downstream rule filters overriding upstream classification decisions.</p>
+<p>On 26 October 2026, an employer invited me to a recorded video screen with a strict expiry. The upstream model rated the message as a 1.0 positive match. Another recruiter message was evaluated with a 0.95 positive score. Yet both items were purged downstream. A hardcoded string filter identified a automated snippet and categorized the 1.0 invite as an auto-reply, while the 0.95 message was dropped because the sender used a no-reply ATS address.</p>
+<p>To make matters worse, the pipeline logged both messages as already handled. The agent marked them as alerted, so subsequent sweeps ignored them entirely.</p>
+<p>We corrected this through two updates:<br><ul><li>Commit <code>c3afb88</code>: Addressed the downstream veto, ensuring that when the upstream classifier assigns high confidence to critical invites, secondary rule heuristics cannot silently kill the lead.</li><br><li>Commit <code>6d6bc64</code>: Enforced that no-reply ATS senders (including platforms like Teamtailor and CI&T) trigger high-priority alerts whenever the classifier confirms genuine candidate intent.</li></ul></p>
+<p>If an automated filter decides to drop a positive reply, commit <code>fd3e811</code> ensures it issues a concise Telegram notification rather than failing silently.</p>
+<h2>System Health and Infrastructure Verification</h2>
+<p>Production AI operations on Oracle Cloud do not allow for unmonitored infrastructure. Every daemon running our synchronization logic operates under PM2 supervision. Currently, 9 out of 9 supervised processes are online:</p>
+<ul><li><code>dragontrade-dashboard</code>: online, up 72d, 1 restart, 68 MB memory</li>
+<li><code>cto-aipa</code>: online, up 0d, 237 restarts, 198 MB memory</li>
+<li><code>algom-stream</code>: online, up 72d, 55193 restarts, 51 MB memory</li>
+<li><code>dragontrade-main</code>: online, up 1d, 5 restarts, 184 MB memory</li>
+<li><code>algom-poll</code>: online, up 1d, 1 restart, 83 MB memory</li>
+<li><code>whitespace</code>: online, up 1d, 24 restarts, 123 MB memory</li>
+<li><code>n8n</code>: online, up 75d, 0 restarts, 496 MB memory</li>
+<li><code>serpapi-jobs</code>: online, up 3d, 8 restarts, 117 MB memory</li>
+<li><code>pm2-logrotate</code>: online, up 16d, 9 restarts, 84 MB memory</li></ul>
+<p>Across our repositories, active iteration remains high. In the last 48 hours, we recorded 12 commits in <code>cto-aipa</code>, 12 commits in <code>aideazz</code>, and 12 commits in <code>VibeJobHunterAIPA_AIMCF</code>. Recent sweeps captured by our monitoring logs verify the operational baseline:</p>
+<ul><li><code>reply-radar.log</code>: Recent cycle scanned 164 messages, skipped 0 automated items, matched 0 replies, and raised 0 errors.</li>
+<li><code>followup-radar.log</code>: Logged tracking against active connections: <code>imap.gmail.com</code> with 620 inbox items and 4 sent messages over 45 days, <code>imap.zoho.com</code> with 270 inbox items and 9 sent messages, and an alternate mailbox with 785 inbox items.</li>
+<li><code>deal-digest.log</code>: Captured 27 live job deals written to markdown, tracking pipeline totals across stages: 11 at <code>qualifiedtobuy</code>, 0 at <code>presentationscheduled</code>, 75 at <code>decisionmakerboughtin</code>, 121 at <code>contractsent</code>, and 1492 at <code>appointmentscheduled</code>.</li></ul>
+<p>If you do not measure the state changes your AI agent causes on external services, you are operating blindly. A process designed to read data must never write state by accident.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why does fetching an email over IMAP change its unread status by default?</strong><br>A: Standard IMAP protocol implementations treat requests for message bodies (<code>RFC822</code> or <code>BODY[]</code>) as an explicit read action by a user, automatically applying the <code>\Seen</code> flag on the server. To inspect content without side effects, clients must explicitly query using non-mutating mechanisms such as <code>BODY.PEEK[]</code>.</p>
+<p><strong>Q: How did marking 425 messages as read skew Gmail's Important classification to 88%?</strong><br>A: Gmail trains priority sorting using client interaction metrics. When an automated agent connects and opens 425 out of 425 emails almost instantaneously, the underlying classification models interpret the activity as rapid manual review, biasing the mailbox so that 88% of incoming mail was categorized as Important compared to the earlier baseline of 33%.</p>
+<p><strong>Q: What is the risk of using sequence numbers rather than UIDs when scanning candidate emails?</strong><br>A: Sequence numbers are volatile indices that renumber whenever messages are moved, archived, or deleted by another client. If an agent scans mail using sequence numbers while items are concurrently shifted, it can process the wrong messages or skip records entirely. UIDs provide persistent identifiers that remain unchanged across sessions.</p>
+<p><strong>Q: What happens if an agent drops a misclassified message after marking it processed?</strong><br>A: It creates a permanent operational drop. In our incident on 26 October 2026, an interview invite scored 1.0 was dropped by a downstream filter and flagged as already handled; the agent never evaluated it again until we decoupled the filtering logic from the deduplication record.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
