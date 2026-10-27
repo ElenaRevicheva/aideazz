@@ -458,6 +458,46 @@
       .photo .shade{display:none}
       .dash .photo .tx,.rel .photo .tx,.form-wrap .photo .tx,.stone .tx{position:static;padding:16px 18px 18px;color:var(--ink)}
     }
+    /* ---------- living stills (27 Oct 2026): our own photos breathe without video ----------
+       Each data-fx image is wrapped in .lv by the script at the end of the page. Layers, bottom to top:
+       the photo (slow camera drift + hand-held sway + scroll depth), breathing light that follows the
+       finger/mouse, a light leak, a horizon streak, drifting mist, nature details (dew, pollen, lamps, glints),
+       film grain. Everything pauses off screen and stops for prefers-reduced-motion. */
+    @property --mx{syntax:'<percentage>';inherits:true;initial-value:50%}
+    @property --my{syntax:'<percentage>';inherits:true;initial-value:50%}
+    .lv{position:relative;display:block;overflow:hidden;width:100%;height:100%;--mx:var(--lx,50%);--my:var(--ly,50%);transition:--mx 1.2s ease,--my 1.2s ease}
+    .lv>img{display:block;transform-origin:var(--ox,50% 50%);animation:lv-cam 18s ease-in-out infinite alternate,lv-hand 8s ease-in-out infinite;will-change:transform}
+    @keyframes lv-cam{from{scale:1.04}to{scale:1.1}}
+    @keyframes lv-hand{0%,100%{translate:0 0}22%{translate:2.4px -1.6px}47%{translate:-1.8px 2.2px}71%{translate:2px 1.2px}88%{translate:-1.4px -2px}}
+    .lv>i{position:absolute;pointer-events:none}
+    .lv-glow{inset:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,214,150,.7) 0,rgba(255,170,90,.3) 20%,rgba(140,110,255,0) 52%);mix-blend-mode:screen;animation:lv-breathe 7.5s ease-in-out infinite}
+    @keyframes lv-breathe{0%,100%{opacity:.25}50%{opacity:1}}
+    .lv-leak{inset:-10% -60%;background:linear-gradient(105deg,transparent 40%,rgba(255,206,150,.20) 46%,rgba(255,246,228,.42) 50%,rgba(255,190,120,.18) 54%,transparent 60%);mix-blend-mode:screen;transform:translateX(-70%);animation:lv-leak 9s cubic-bezier(.45,.05,.3,1) infinite;animation-delay:var(--d,0s)}
+    @keyframes lv-leak{0%{transform:translateX(-70%)}34%,100%{transform:translateX(70%)}}
+    .lv-streak{left:-30%;width:160%;top:var(--sty,60%);height:16%;translate:0 -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,226,180,.7) 0,rgba(255,176,96,.28) 38%,rgba(255,150,80,0) 72%);mix-blend-mode:screen;animation:lv-streak 17s ease-in-out infinite alternate}
+    @keyframes lv-streak{0%{transform:translateX(-9%) scaleY(.8);opacity:.35}50%{opacity:.85}100%{transform:translateX(9%) scaleY(1.15);opacity:.5}}
+    .lv-mist{inset:-10% -50%;background:radial-gradient(38% 22% at 30% var(--mst,70%),rgba(244,240,255,.42),rgba(244,240,255,0) 70%),radial-gradient(30% 18% at 72% calc(var(--mst,70%) + 8%),rgba(236,232,250,.34),rgba(236,232,250,0) 70%);animation:lv-mist 38s ease-in-out infinite alternate}
+    @keyframes lv-mist{from{transform:translateX(-12%)}to{transform:translateX(12%)}}
+    .lv-rays{inset:-40% -20% 0;background:repeating-conic-gradient(from 180deg at var(--lx) 0,rgba(255,226,170,.16) 0deg 2.2deg,rgba(255,226,170,0) 2.2deg 7deg);-webkit-mask-image:radial-gradient(70% 80% at var(--lx) 0,#000,transparent 75%);mask-image:radial-gradient(70% 80% at var(--lx) 0,#000,transparent 75%);mix-blend-mode:screen;animation:lv-rays 22s ease-in-out infinite alternate;transform-origin:var(--lx) 0}
+    @keyframes lv-rays{from{transform:rotate(-2.5deg);opacity:.55}to{transform:rotate(2.5deg);opacity:1}}
+    .lv-grain{inset:-50%;opacity:.13;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:lv-grain .9s steps(5) infinite}
+    @keyframes lv-grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,4%)}40%{transform:translate(5%,-7%)}60%{transform:translate(-4%,-3%)}80%{transform:translate(7%,5%)}100%{transform:translate(0,0)}}
+    .lv-sp{left:var(--x);top:var(--y);width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,240,210,.95) 22%,rgba(255,200,120,.35) 48%,rgba(255,200,120,0) 70%);mix-blend-mode:screen;opacity:0;animation:lv-twinkle var(--t,3.6s) ease-in-out infinite;animation-delay:var(--d,0s)}
+    @keyframes lv-twinkle{0%,100%{opacity:0;transform:scale(.35)}45%{opacity:1;transform:scale(1)}60%{opacity:.85}}
+    .lv-sp.lamp{background:radial-gradient(circle,rgba(255,236,190,1) 0,rgba(255,190,100,.6) 25%,rgba(255,160,70,0) 70%);animation-name:lv-flicker}
+    @keyframes lv-flicker{0%,100%{opacity:.55}8%{opacity:.9}12%{opacity:.6}30%{opacity:1}34%{opacity:.7}58%{opacity:.95}62%{opacity:.62}80%{opacity:.88}}
+    .lv-sp.pollen{background:radial-gradient(circle,rgba(255,248,230,.95) 0,rgba(255,220,160,.4) 45%,rgba(255,220,160,0) 70%);animation-name:lv-pollen;animation-timing-function:linear}
+    @keyframes lv-pollen{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}85%{opacity:.7}100%{opacity:0;transform:translate(var(--dx,18px),-46px)}}
+    .lv:not(.on) *,.lv:not(.on)>img{animation-play-state:paused}
+    @media (prefers-reduced-motion:reduce){.lv>img,.lv>i{animation:none!important}.lv-leak,.lv-sp,.lv-grain{display:none}}
+    /* misty edges where the photo stands on its own (phones/tablets): it dissolves into the page instead of being cut */
+    @media (max-width:860px){
+      .photo .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
+      .hero .art .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%)}
+      .close .art .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 82%,transparent 100%)}
+      .hero .art,.close .art{overflow:hidden}
+    }
+
     @media (max-width:400px){
       /* Galaxy-class 360px screens: the nav row was 6px wider than the screen and clipped "Run the pipeline" */
       .navlinks{gap:6px}
@@ -496,7 +536,7 @@
 <!-- HERO -->
 <header class="hero">
   <div class="art" aria-hidden="true">
-    <img src="/media/sop/r-hero.jpg" alt="" width="1920" height="1081" fetchpriority="high" />
+    <img data-fx="hero" src="/media/sop/r-hero.jpg" alt="" width="1920" height="1081" fetchpriority="high" />
     <div class="shade"></div>
   </div>
   <div class="wrap">
@@ -720,7 +760,7 @@
     <!-- DASHBOARD (counts animate on scroll into view) -->
     <div class="dash" id="bento-stats" aria-label="Fleet at a glance">
       <div class="photo">
-        <img src="/media/sop/r-fleet.jpg" alt="" width="900" height="1200" loading="lazy" />
+        <img data-fx="fleet" src="/media/sop/r-fleet.jpg" alt="" width="900" height="1200" loading="lazy" />
         <div class="shade"></div>
         <span class="tag ok"><span class="dot"></span>One operator · one server</span>
         <div class="tx">
@@ -879,7 +919,7 @@
 
     <div class="rel">
       <div class="photo">
-        <img src="/media/sop/r-ops.jpg" alt="" width="1200" height="675" loading="lazy" />
+        <img data-fx="ops" src="/media/sop/r-ops.jpg" alt="" width="1200" height="675" loading="lazy" />
         <div class="shade"></div>
         <span class="tag ok"><span class="dot"></span>Watchdog · ~5 min detection</span>
         <div class="tx">
@@ -982,7 +1022,7 @@
 
     <div class="form-wrap" id="try-the-pipeline">
       <div class="photo">
-        <img src="/media/sop/r-loop.jpg" alt="" width="1920" height="1081" loading="lazy" />
+        <img data-fx="loop" src="/media/sop/r-loop.jpg" alt="" width="1920" height="1081" loading="lazy" />
         <div class="shade"></div>
         <span class="tag hot">Try it</span>
         <div class="tx">
@@ -1111,7 +1151,7 @@
         <div class="r"><span>Rule earned</span><p><strong>Verify from logs, not config.</strong> Never claim agent behavior without grepping for the ACTION line (not the setup line). The fix is now a standing operating rule across the fleet.</p></div>
       </div>
       <div class="photo stone">
-        <img src="/media/sop/r-kintsugi.jpg" alt="" width="900" height="1200" loading="lazy" />
+        <img data-fx="kintsugi" src="/media/sop/r-kintsugi.jpg" alt="" width="900" height="1200" loading="lazy" />
         <div class="shade"></div>
         <div class="tx">
           <h3>Kintsugi, not cover-ups</h3>
@@ -1185,7 +1225,7 @@
 <!-- CLOSE + FOOTER -->
 <footer class="close footer">
   <div class="art" aria-hidden="true">
-    <img src="/media/sop/r-close.jpg" alt="" width="1920" height="1081" loading="lazy" />
+    <img data-fx="close" src="/media/sop/r-close.jpg" alt="" width="1920" height="1081" loading="lazy" />
     <div class="shade"></div>
   </div>
   <div class="wrap">
@@ -1321,6 +1361,95 @@
   sections.forEach(function (s) {
     io.observe(s);
   });
+})();
+</script>
+
+<script>
+/* Living stills (27 Oct 2026). Positions are % of each photo's frame: lx/ly = where its light sits.
+   Sparks: [count, xFrom, xTo, yFrom, yTo, sizeFrom, sizeTo, kind]. */
+(function () {
+  var FX = {
+    hero:     { lx: '50%', ly: '74%', ox: '50% 70%', streak: '75%', mist: '86%', leak: 0,
+                sparks: [10, 8, 92, 82, 97, 4, 9, 'glint'] },
+    fleet:    { lx: '62%', ly: '10%', ox: '60% 20%', rays: 1, mist: '30%', leak: 2,
+                sparks: [14, 6, 94, 20, 92, 3, 7, 'pollen'] },
+    ops:      { lx: '50%', ly: '6%', ox: '50% 45%', mist: '78%', leak: 3,
+                sparks: [30, 14, 86, 8, 92, 3, 9, 'dew'] },
+    loop:     { lx: '58%', ly: '42%', ox: '55% 55%', streak: '44%', mist: '18%', leak: 2,
+                sparks: [9, 18, 88, 30, 80, 4, 9, 'glint'] },
+    kintsugi: { lx: '62%', ly: '62%', ox: '50% 60%', mist: '84%', leak: 1,
+                sparks: [11, 26, 64, 36, 68, 3, 8, 'dew'] },
+    close:    { lx: '92%', ly: '44%', ox: '60% 60%', streak: '55%', mist: '62%', leak: 9,
+                sparks: [9, 40, 72, 56, 84, 7, 14, 'lamp'] }
+  };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rnd = function (a, b) { return a + Math.random() * (b - a); };
+  var layer = function (cls, css) { var i = document.createElement('i'); i.className = cls; if (css) i.style.cssText = css; return i; };
+  var all = [];
+  document.querySelectorAll('img[data-fx]').forEach(function (img) {
+    var c = FX[img.getAttribute('data-fx')]; if (!c) return;
+    var lv = document.createElement('div');
+    lv.className = 'lv';
+    lv.style.cssText = '--lx:' + c.lx + ';--ly:' + c.ly + ';--ox:' + c.ox + (c.streak ? ';--sty:' + c.streak : '') + (c.mist ? ';--mst:' + c.mist : '');
+    img.parentNode.insertBefore(lv, img);
+    lv.appendChild(img);
+    lv.appendChild(layer('lv-glow'));
+    if (c.rays) lv.appendChild(layer('lv-rays'));
+    if (c.streak) lv.appendChild(layer('lv-streak'));
+    if (c.mist) lv.appendChild(layer('lv-mist'));
+    lv.appendChild(layer('lv-leak', '--d:' + c.leak + 's'));
+    if (!reduce) {
+      var s = c.sparks;
+      for (var k = 0; k < s[0]; k++) {
+        lv.appendChild(layer('lv-sp ' + s[7], '--x:' + rnd(s[1], s[2]).toFixed(1) + '%;--y:' + rnd(s[3], s[4]).toFixed(1) + '%;--s:' +
+          rnd(s[5], s[6]).toFixed(1) + 'px;--d:' + rnd(0, 6).toFixed(2) + 's;--t:' + rnd(s[7] === 'pollen' ? 7 : 2.6, s[7] === 'pollen' ? 12 : 5.2).toFixed(2) +
+          's;--dx:' + rnd(-24, 24).toFixed(0) + 'px'));
+      }
+    }
+    lv.appendChild(layer('lv-grain'));
+    all.push({ lv: lv, img: img, on: false });
+
+    // light follows a finger or the mouse, then drifts home
+    var host = lv.parentElement;
+    var move = function (e) {
+      var r = lv.getBoundingClientRect(); if (!r.width) return;
+      lv.style.setProperty('--mx', Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100)).toFixed(1) + '%');
+      lv.style.setProperty('--my', Math.max(0, Math.min(100, (e.clientY - r.top) / r.height * 100)).toFixed(1) + '%');
+    };
+    var home = function () { lv.style.setProperty('--mx', c.lx); lv.style.setProperty('--my', c.ly); };
+    host.addEventListener('pointermove', move, { passive: true });
+    host.addEventListener('pointerdown', move, { passive: true });
+    host.addEventListener('pointerleave', home);
+    host.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') setTimeout(home, 1600); });
+  });
+  if (!all.length) return;
+
+  // animate only what is on screen
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { all.forEach(function (a) { if (a.lv === e.target) { a.on = e.isIntersecting; a.lv.classList.toggle('on', a.on); } }); });
+    }, { rootMargin: '80px' });
+    all.forEach(function (a) { io.observe(a.lv); });
+  } else { all.forEach(function (a) { a.on = true; a.lv.classList.add('on'); }); }
+
+  // depth while scrolling: the photo moves a little slower than the page, inside its own zoom margin
+  if (reduce) return;
+  var ticking = false;
+  var depth = function () {
+    ticking = false;
+    var vh = window.innerHeight;
+    all.forEach(function (a) {
+      if (!a.on) return;
+      var r = a.lv.getBoundingClientRect();
+      var p = (r.top + r.height / 2 - vh / 2) / vh;
+      var lim = r.height * 0.018;
+      a.img.style.transform = 'translate3d(0,' + Math.max(-lim, Math.min(lim, -p * r.height * 0.06)).toFixed(1) + 'px,0)';
+    });
+  };
+  var onScroll = function () { if (!ticking) { ticking = true; requestAnimationFrame(depth); } };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  depth();
 })();
 </script>
 
