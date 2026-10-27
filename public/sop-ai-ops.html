@@ -897,7 +897,7 @@
         <span class="tag ok"><span class="dot"></span>One operator · one server</span>
         <div class="tx">
           <h3 class="q">How many AI capabilities does one operator run?</h3>
-          <div class="n b-num" data-counter data-start="0" data-end="11" data-duration="1400">0</div>
+          <div class="n b-num" data-counter data-start="0" data-end="11" data-duration="1400">11</div>
           <div class="t">Tracked capabilities</div>
           <div class="s">10 live · 1 roadmap (AILA). All auto-restart; I am the architect and the on-call.</div>
         </div>
@@ -905,28 +905,28 @@
       <article class="card rep lift">
         <div class="rt">Lines of original code</div>
         <h3 class="q">How much original code runs in production?</h3>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">0</span><span class="u">lines</span></div>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">181K</span><span class="u">lines</span></div>
         <p class="d">Nine systems and why each exists, with figures counted from the running code.</p>
         <div class="src"><span class="rs">Read from production · <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">provenance dossier</a></span><span class="tag">Provenance</span></div>
       </article>
       <article class="card rep lift">
         <div class="rt">Essays published</div>
         <h3 class="q">How much has the lab published?</h3>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="190" data-duration="1400">0</span>+<span class="u">essays</span></div>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="190" data-duration="1400">190</span>+<span class="u">essays</span></div>
         <p class="d">Every figure traced to a measurement before it ships; fails closed otherwise.</p>
         <div class="src"><span class="rs">Grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">/blog</a></span><span class="tag">Publishing</span></div>
       </article>
       <article class="card rep lift">
         <div class="rt">Named failure modes</div>
         <h3 class="q">How many production failures are documented?</h3>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="23" data-duration="1200">0</span><span class="u">failure modes</span></div>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="23" data-duration="1200">23</span><span class="u">failure modes</span></div>
         <p class="d">29 production incidents, each with a named failure mode and a verified number.</p>
         <div class="src"><span class="rs">Postmortems · <a href="/ai-ops-wiki.html">AI Ops Wiki</a></span><span class="tag">Learning record</span></div>
       </article>
       <article class="card rep lift">
         <div class="rt">Manual steps</div>
         <h3 class="q">How many manual steps are left between a commit and a post?</h3>
-        <div class="n"><span class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</span><span class="u">manual steps</span></div>
+        <div class="n"><span class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">0</span><span class="u">manual steps</span></div>
         <p class="d">A commit worth talking about reaches LinkedIn, the blog, X and Instagram without anyone retyping it.</p>
         <div class="src"><span class="rs">Milestone → social pipeline</span><span class="tag">Automation</span></div>
       </article>
@@ -1418,6 +1418,11 @@
     });
     return;
   }
+
+  // 27 Oct 2026: the HTML now holds the REAL final numbers — crawlers and AI answer engines that do not run
+  // JavaScript used to read "0 essays, 0 failure modes, 14 manual steps". Reset to the start value only here, before
+  // the block scrolls into view, so visitors still see the count-up.
+  nodes.forEach(function (el) { el.textContent = Number(el.dataset.start || 0) + (el.dataset.suffix || ''); });
 
   function run(el, delayMs) {
     var start = Number(el.dataset.start || 0);
