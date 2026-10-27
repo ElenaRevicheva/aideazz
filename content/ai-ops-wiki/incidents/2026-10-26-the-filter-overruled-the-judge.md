@@ -2,7 +2,7 @@
 title: The filter overruled the judge
 slug: 2026-10-26-the-filter-overruled-the-judge
 date: 2026-10-26
-blog: yes
+blog: no
 subtitle: A job-search agent's AI rated an employer's video-screen invitation 1.0 positive, and a one-line keyword guard behind it dropped the message as an auto-reply. A recruiter's message, rated 0.95, was dropped for coming from a no-reply address. Both were then remembered as already handled
 concepts: downstream-veto, ack-is-not-completion, silent-failure, verify-from-logs
 symptom: On 26 October 2026 an employer invited the owner to a recorded video screen with a five-day expiry, and a recruiter at a talent platform wrote to offer a role. Neither produced the Telegram alert or the CRM note that a positive reply is supposed to produce. The agent's log showed it had seen both: at 08:20:38 UTC it logged the invitation as a positive response, then at 08:20:52 "auto-reply (not an interview), NOT alerting"; at 13:30:07 it logged the recruiter's message as positive, then at 13:30:26 "blocked sender, NOT alerting/pushing". Its database held both with their scores: positive 1.0 and positive 0.95.
