@@ -855,11 +855,11 @@
     <div class="grid mt" style="grid-template-columns:minmax(0,1fr) minmax(0,1fr);">
       <div class="card tbl scrollx">
         <table>
-          <thead><tr><th>Status</th><th>Reality (July 21, 2026)</th></tr></thead>
+          <thead><tr><th>Status</th><th>Reality (27 Oct 2026)</th></tr></thead>
           <tbody>
-            <tr><td><span class="tag ok">Loaded</span></td><td>Discovery, content, CRM ingest, triage, Atlas radar on the lab&rsquo;s seven service lanes, performance bridge, GA4 sync, WhatsApp click tracking, Telegram sales briefs + CRM outcomes feedback (Jul 21)</td></tr>
-            <tr><td><span class="tag warn">Partial</span></td><td>Conversion — the loop&rsquo;s first honest read: outreach reply rate ≈ 4% on the visibility-audit lane (24 sends → 1 reply). The engine now measures this per service; beating it is the current game.</td></tr>
-            <tr><td><span class="tag">Next</span></td><td>Showcase package for clients; automated weekly blog from each Atlas snapshot; ads API read</td></tr>
+            <tr><td><span class="tag ok">Loaded</span></td><td>Discovery, grounded daily blog (one article every day, 20–27 Oct), one CRM endpoint for every agent, triage, Atlas Monday radar + lead machine, Lead Concierge (daily self-test: PASS), read-only mail watch on two inboxes, WhatsApp click tracking, CRM outcomes back into Atlas</td></tr>
+            <tr><td><span class="tag warn">Partial</span></td><td>Conversion — measured in HubSpot on 27 Oct: 119 of 333 judged-fit job deals reached “they replied”; 68 Atlas leads contacted; website inquiries 9 sent → 1 reply. Turning replies into paid work is the current game.</td></tr>
+            <tr><td><span class="tag">Next</span></td><td>X API credits for Algom; showcase package for clients; automated weekly blog from each Atlas snapshot</td></tr>
           </tbody>
         </table>
       </div>
@@ -960,56 +960,56 @@
       <div class="rec">
         <div class="id">01</div>
         <div class="who"><span class="av g">EW</span><div><div class="nm">EspaLuz WhatsApp</div><div class="lk"><a href="https://github.com/ElenaRevicheva/EspaLuzWhatsApp" target="_blank" rel="noopener">repo</a><a href="http://wa.me/50766623757" target="_blank" rel="noopener">wa.me</a></div></div></div>
-        <div class="role"><strong>Channel:</strong> Spanish tutoring on WhatsApp — conversation, drills, corrections.<span class="ops">Runs as a managed Linux service (<code>espaluz-whatsapp</code>) with automated health checks.</span></div>
+        <div class="role"><strong>Channel:</strong> Spanish tutoring on WhatsApp — conversation, drills, corrections.<span class="ops">Real PayPal subscription payments (two of $7.77 in the 30 days to 27&nbsp;Oct&nbsp;2026); every trial lands in HubSpot through CTO AIPA. Service <code>espaluz-whatsapp</code>, memory in PostgreSQL + pgvector.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">02</div>
         <div class="who"><span class="av g">ET</span><div><div class="nm">EspaLuz Telegram</div><div class="lk"><a href="https://github.com/ElenaRevicheva/EspaLuzFamilybot" target="_blank" rel="noopener">repo</a><a href="https://t.me/EspaLuzFamily_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
-        <div class="role"><strong>Channel:</strong> Same tutoring product on Telegram.<span class="ops">Two-layer memory: retrieval + pgvector RAG (<code>espaluz_rag.py</code>). Service <code>espaluz-familybot</code>.</span></div>
+        <div class="role"><strong>Channel:</strong> Same tutoring product on Telegram, with a kids mode where the heroes Pere and Titi answer in their own voices on video.<span class="ops">Trials land in HubSpot through CTO AIPA. Two-layer memory: retrieval + pgvector RAG (<code>espaluz_rag.py</code>). Service <code>espaluz-familybot</code>.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">03</div>
         <div class="who"><span class="av g">EI</span><div><div class="nm">EspaLuz Influencer</div><div class="lk"><a href="https://github.com/ElenaRevicheva/EspaLuz_Influencer" target="_blank" rel="noopener">repo</a><a href="https://t.me/Influencer_EspaLuz_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
-        <div class="role"><strong>Brand:</strong> Instagram publishing on a disciplined schedule; can spotlight real shipping milestones in consumer-friendly copy.<span class="ops">Groq captions + Make.com media handoff. Unit <code>espaluz-influencer</code>.</span></div>
+        <div class="role"><strong>Brand:</strong> One post a day at 23:00 Panama; two days in three it promotes the AI Visibility audit, and it picks up real shipping milestones handed over by the CMO agent.<span class="ops">Groq text → Make.com → social (last verified post 26&nbsp;Oct, Make.com 200); each post is logged in HubSpot. Unit <code>espaluz-influencer</code>.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">04</div>
         <div class="who"><span class="av">AA</span><div><div class="nm">Algom Alpha <small>(@reviceva)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/dragontrade-agent" target="_blank" rel="noopener">repo</a><a href="https://x.com/reviceva" target="_blank" rel="noopener">X</a></div></div></div>
-        <div class="role"><strong>Growth:</strong> Always-on X presence (education + narrative); folds major releases into the timeline without sounding like raw developer logs.<span class="ops">Stream sampling, engagement runner, and account-activity hooks coordinated with the CTO bot for alerts / follow-back. PM2 workers include <code>dragontrade-main</code> and satellite processes.</span></div>
+        <div class="role"><strong>Growth:</strong> Always-on X presence (education + narrative); folds major releases into the timeline without sounding like raw developer logs.<span class="ops">Stream sampling, engagement runner, and account-activity hooks coordinated with the CTO bot for alerts / follow-back. PM2 workers include <code>dragontrade-main</code> and satellite processes. <strong>Since 17&nbsp;Oct&nbsp;2026 the X API credits are depleted:</strong> the processes run, the output is zero — shown because this page reports output, not uptime.</span></div>
         <div class="rt"><span class="tag info">PM2</span></div>
-        <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
+        <div class="st"><span class="tag warn">Paused · X credits</span></div>
       </div>
       <div class="rec">
         <div class="id">05</div>
         <div class="who"><span class="av t">VJ</span><div><div class="nm">VibeJob Hunter</div><div class="lk"><a href="https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF" target="_blank" rel="noopener">repo</a><a href="https://t.me/vibejob_hunter_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
-        <div class="role"><strong>Product:</strong> Autonomous job hunt pipeline — evaluation harness, routing, ATS integrations.<span class="ops">Shares codebase with the marketing co-founder agent. Worker <code>vibejobhunter</code>.</span></div>
+        <div class="role"><strong>Product:</strong> Hourly job search across 13+ boards → rules + an LLM judge with five-provider fallback → a HubSpot deal → a Telegram alert with one-tap ⏳&nbsp;I&nbsp;applied / ❌&nbsp;Not&nbsp;a&nbsp;fit. Reads Gmail + Zoho read-only for employer replies. Never applies on its own.<span class="ops">333 judged-fit job deals; <strong>119 reached “💬 They replied”</strong> (HubSpot, 27&nbsp;Oct&nbsp;2026). Her decisions feed back into the judge hourly. Workers <code>vibejobhunter</code> + Bright Data ingest <code>serpapi-jobs</code>.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">06</div>
         <div class="who"><span class="av t">CM</span><div><div class="nm">AI Marketing Co-Founder <small>(CMO AIPA)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/VibeJobHunterAIPA_AIMCF" target="_blank" rel="noopener">repo</a><a href="https://linkedin.com/in/elenarevicheva" target="_blank" rel="noopener">LinkedIn</a><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a></div></div></div>
-        <div class="role"><strong>Revenue narrative:</strong> LinkedIn cadence, long-form syndication, CRM hygiene — turns engineering momentum into market-facing proof.<span class="ops">Claude + connectors for social; Hunter.io enrichment → HubSpot. Paired FastAPI bridge <code>vibejobhunter-web</code> exposes an internal health route.</span></div>
+        <div class="role"><strong>Revenue narrative:</strong> One LinkedIn post a day (Make.com → Buffer), led by a real engineering milestone from CTO AIPA when there is one; hands the same milestones to Algom (X) and the Influencer (Instagram).<span class="ops">Last verified post 27&nbsp;Oct 01:00&nbsp;UTC (“Post completed successfully”). Claude + connectors for social; Hunter.io enrichment → HubSpot. Paired FastAPI bridge <code>vibejobhunter-web</code> exposes an internal health route.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">07</div>
-        <div class="who"><span class="av t">OC</span><div><div class="nm">OpenClaw Vibejob Shortlist</div><div class="lk"><a href="https://github.com/ElenaRevicheva/openclaw-vibejob-shortlist" target="_blank" rel="noopener">repo</a><a href="https://t.me/OpenClaw_VibeJobsList_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
-        <div class="role"><strong>UX:</strong> Curated job shortlists delivered inside Telegram.<span class="ops">Standalone gateway service <code>openclaw-gateway</code>; probed via private health URL on the app host.</span></div>
+        <div class="who"><span class="av t">OC</span><div><div class="nm">OpenClaw <small>(interview coach)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/openclaw-vibejob-shortlist" target="_blank" rel="noopener">repo</a><a href="https://t.me/OpenClaw_VibeJobsList_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
+        <div class="role"><strong>Coach:</strong> Mock interviews by voice and text, English and Spanish, on Telegram and WhatsApp — coached from a deals sheet rebuilt from HubSpot every 30 minutes and from fact-checked study packs for each company.<span class="ops">Standalone gateway service <code>openclaw-gateway</code>; probed via private health URL on the app host.</span></div>
         <div class="rt"><span class="tag">systemd</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">08</div>
         <div class="who"><span class="av m">CT</span><div><div class="nm">Tech Co-Founder <small>(CTO AIPA)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/AIPA_AITCF" target="_blank" rel="noopener">repo</a><a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">Telegram</a></div></div></div>
-        <div class="role"><strong>Control tower:</strong> Watches repositories, scores riskier changes, broadcasts milestones to marketing, runs outreach/board workflows.<span class="ops">Express orchestrator under PM2 (<code>cto-aipa</code>), Oracle Autonomous DB via wallet-based TLS — credentials never live in this HTML.</span></div>
+        <div class="role"><strong>Control tower + CRM hub:</strong> every other agent writes to HubSpot through one endpoint here, one tag per agent, so provenance is a filter. Reviews code pushes, broadcasts milestones to marketing, and runs the Lead Concierge, the AI Visibility API, the grounded daily blog (one article every day) and the job apply kit.<span class="ops">Express orchestrator under PM2 (<code>cto-aipa</code>), Oracle Autonomous DB via wallet-based TLS — credentials never live in this HTML.</span></div>
         <div class="rt"><span class="tag info">PM2</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
@@ -1030,17 +1030,46 @@
       <div class="rec">
         <div class="id">10</div>
         <div class="who"><span class="av m">AS</span><div><div class="nm">Atlas Shifted <small>(Marketing Strategist)</small></div><div class="lk"><a href="https://github.com/ElenaRevicheva/atlas-shifted" target="_blank" rel="noopener">repo</a><a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">live radar</a></div></div></div>
-        <div class="role"><strong>Marketing intelligence:</strong> Watches the public ad market daily (9 AM Panama), scores which angle is opening, exports test campaigns, and — since July 2026 — pulls real Google Analytics sessions back into a performance ledger so you can see if a test moved traffic.<span class="ops">Detect → create → <strong>measure</strong> loop. Public ad-transparency data only for detection; GA4 for outcomes. Live at <a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">aideazz.xyz/atlas</a>.</span></div>
+        <div class="role"><strong>Marketing intelligence:</strong> Every Monday 9 AM Panama it reads the live ad market, marks each angle ENTER / WATCH / AVOID, alerts when one of the lab&rsquo;s service markets opens, and its lead machine stages qualified local businesses into HubSpot — 101 so far, 68 contacted.<span class="ops">Detect → stage → <strong>measure</strong>: real HubSpot deal stages per market are read back so next Monday&rsquo;s call learns what converted (Mon 26&nbsp;Oct: 26 businesses looked at, 8 staged + 1 with no website). Public ad-transparency data only. Live at <a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">aideazz.xyz/atlas</a>.</span></div>
         <div class="rt"><span class="tag info">PM2</span></div>
         <div class="st"><span class="tag ok"><span class="dot"></span>Live</span></div>
       </div>
       <div class="rec">
         <div class="id">11</div>
         <div class="who"><span class="av x">AL</span><div><div class="nm">AILA</div><div class="lk"><a href="https://github.com/ElenaRevicheva/hive" target="_blank" rel="noopener">architecture (hive)</a></div></div></div>
-        <div class="role"><strong>Roadmap:</strong> Long-horizon personal orchestration — documented architecture, not yet a standalone production process.<span class="ops">Interim coordination fields live in Oracle until AILA ships.</span></div>
+        <div class="role"><strong>Roadmap:</strong> Long-horizon personal orchestration — documented architecture, not yet a standalone production process.<span class="ops">Nothing runs yet. Until it ships, the agents hand work over through HubSpot, files and schedules — see below.</span></div>
         <div class="rt"><span class="lbl">—</span></div>
         <div class="st"><span class="tag">In design</span></div>
       </div>
+    </div>
+    <!-- 27 Oct 2026: how the agents really work together + real HubSpot outcomes (source: cto-aipa docs/AGENT_INVENTORY_2026-10-27.md) -->
+    <div class="card note mt" role="region" aria-label="How the agents hand work to each other">
+      <div class="top"><b>How the agents hand work to each other</b><span>Through HubSpot, files and schedules — not live chat</span></div>
+      <ul class="body">
+        <li><strong>One CRM spine:</strong> VibeJob Hunter, Atlas, WHITESPACE, EspaLuz and Algom all write to HubSpot through CTO AIPA&rsquo;s single endpoint, each with its own tag — so every deal says which agent made it.</li>
+        <li><strong>Inquiry → reply:</strong> a website form or chat becomes a HubSpot deal, AI drafts the answer, Elena taps ✅ in Telegram, Resend sends it from the company domain and stamps delivery on the deal.</li>
+        <li><strong>Job post → interview:</strong> VibeJob Hunter stages the deal → her ⏳/❌ tap moves it → “🔥 I act today” triggers the apply kit&rsquo;s letter, CV and defenses → OpenClaw coaches her for that exact company from the deals sheet.</li>
+        <li><strong>She teaches the judge:</strong> her stage moves and reasons are read back every hour into the job judge&rsquo;s feedback.</li>
+        <li><strong>Inbox → deal:</strong> a reply in Gmail or Zoho becomes a note, a task and a Telegram alert on its deal — read-only, so her mail stays unread until she opens it.</li>
+        <li><strong>Atlas learns from sales:</strong> Monday&rsquo;s market windows and leads go into HubSpot; their real stages come back into Atlas the same morning.</li>
+        <li><strong>Code → content:</strong> a <code>feat:</code> push to GitHub becomes a milestone that CTO AIPA hands to the CMO for LinkedIn, X and Instagram.</li>
+      </ul>
+    </div>
+
+    <div class="card tbl scrollx mt">
+      <table>
+        <thead><tr><th>Agent tag in HubSpot</th><th>Deals</th><th>Furthest stages reached (counted 27 Oct 2026)</th></tr></thead>
+        <tbody>
+          <tr><td>VibeJob Hunter · judged fit</td><td>333</td><td><span class="tag ok">119 they replied</span> 43 sent · 5 act today</td></tr>
+          <tr><td>VibeJob Hunter · board ingest</td><td>1,659</td><td>20 sent · 3 act today · 296 filtered out</td></tr>
+          <tr><td>Atlas lead machine</td><td>101</td><td><span class="tag ok">68 contacted</span> 31 act today</td></tr>
+          <tr><td>Website inquiries (Lead Concierge)</td><td>50</td><td>9 sent · 1 replied</td></tr>
+          <tr><td>Prospect search (CTO AIPA)</td><td>510</td><td>25 act today / this week · 1 replied</td></tr>
+          <tr><td>EspaLuz</td><td>96</td><td>9 sent · 1 replied · PayPal subscriptions live</td></tr>
+          <tr><td>Algom Alpha (X)</td><td>92</td><td><span class="tag warn">paused</span> none past triage</td></tr>
+          <tr><td><strong>All agents</strong></td><td><strong>3,220</strong></td><td>Every deal named by the agent that made it</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
