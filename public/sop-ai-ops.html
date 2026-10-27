@@ -39,11 +39,16 @@
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
     {"@type":"Question","name":"What is the AIdeazz AI Lab?","acceptedAnswer":{"@type":"Answer","text":"A production fleet of eleven AI co-founder agents plus a marketing engine, running 24/7 on a single Oracle VM at zero monthly infrastructure cost. It publishes content daily, captures leads into a CRM, and measures whether campaigns moved the needle rather than reporting vanity metrics."}},
     {"@type":"Question","name":"How does AIdeazz keep AI agents from dying silently?","acceptedAnswer":{"@type":"Answer","text":"Every product declares a health check, a restart command and a PM2 or systemd process name in a single resilience config. A watchdog polls those checks and restarts a dead process, and failures surface in Telegram rather than waiting to be noticed. Silent death was the original failure mode, so a service that stops answering is treated as an incident, not a gap in the graph."}},
-    {"@type":"Question","name":"Does the marketing engine actually generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 3,200 deals and 1,500 contacts exist in the CRM (counted 26 October 2026). Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
-    {"@type":"Question","name":"How is content optimized for AI search engines and not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited."}},
+    {"@type":"Question","name":"Does the marketing engine generate leads, or only traffic?","acceptedAnswer":{"@type":"Answer","text":"Inbound inquiries post from the website to an Oracle database and into HubSpot instantly, then a Make scenario drafts a reply that is approved from Telegram before it sends. More than 3,200 deals and 1,500 contacts exist in the CRM (counted 26 October 2026). Attribution plumbing is instrumented end to end with UTM tags, though campaign volume is still low."}},
+    {"@type":"Question","name":"How is content optimized for AI search, not just Google?","acceptedAnswer":{"@type":"Answer","text":"A 34-check audit engine scores every page for AI crawler access, structured data, answer-readiness and technical foundation. robots.txt explicitly allows 28 AI crawlers including GPTBot, ClaudeBot and PerplexityBot, and llms.txt plus a geo-manifest give answer engines a content map. A weekly citation probe then asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether AIdeazz was actually cited."}},
     {"@type":"Question","name":"How does AIdeazz stop AI from publishing made-up numbers?","acceptedAnswer":{"@type":"Answer","text":"The daily article generator collects production evidence before it writes — process uptimes, real commit messages, CRM counts — and a grounding gate refuses to publish any figure that cannot be traced to a measurement. Publishing fails closed: better nothing than something unsourceable. Near-duplicate articles are blocked by token overlap rather than slug equality, and every incident where a system fooled the operator is written up with a named failure mode in the public AI Ops Wiki."}},
     {"@type":"Question","name":"What is the AI Visibility Audit API?","acceptedAnswer":{"@type":"Answer","text":"A free public API that scores any website 0–100 for AI search visibility: 34 automated checks in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers, including GPTBot, ClaudeBot and PerplexityBot. It returns a grade and a prioritised fix list. The same API audits every AIdeazz surface: on 26 October 2026 aideazz.xyz, the podcast and this runbook scored 100/A+."}},
-    {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}}
+    {"@type":"Question","name":"Who is this page for?","acceptedAnswer":{"@type":"Answer","text":"Business owners who want a plain-language view of what is live, and engineers who want proof. The engineering appendix with repositories, deploy paths, health checks and postmortems is maintained separately on GitHub so this page stays readable and contains no IP addresses, ports or secrets."}},
+    {"@type":"Question","name":"How many AI capabilities does one operator run?","acceptedAnswer":{"@type":"Answer","text":"11 tracked capabilities: 10 live and 1 on the roadmap (AILA). All auto-restart, on one server, with Elena Revicheva as the architect and the on-call."}},
+    {"@type":"Question","name":"How much original code runs in production?","acceptedAnswer":{"@type":"Answer","text":"About 181K lines of original code, read from production across nine systems; the provenance dossier explains why each system exists, with figures counted from the running code."}},
+    {"@type":"Question","name":"How much has the lab published?","acceptedAnswer":{"@type":"Answer","text":"190+ essays on the grounded daily blog. Every figure is traced to a measurement before it ships, and the publisher fails closed otherwise."}},
+    {"@type":"Question","name":"How many production failures are documented?","acceptedAnswer":{"@type":"Answer","text":"23 named failure modes from 29 production incidents in the AI Ops Wiki, each with a named failure mode and a verified number (counted 26 October 2026)."}},
+    {"@type":"Question","name":"How many manual steps are left between a commit and a post?","acceptedAnswer":{"@type":"Answer","text":"Zero, down from 14. A commit worth talking about reaches LinkedIn, the blog, X and Instagram without anyone retyping it."}}
   ]}
   </script>
 
@@ -221,7 +226,7 @@
     .toc a.toc-out:hover{filter:brightness(1.06);box-shadow:0 0 22px rgba(91,79,207,.3)}
 
     /* ---------- dashboard counters ---------- */
-    .dash{display:grid;grid-template-columns:330px repeat(2,1fr);grid-template-rows:auto auto;gap:14px;margin-top:28px}
+    .dash{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));grid-template-rows:auto auto;gap:24px;margin-top:32px}
     .dash .photo{grid-row:span 2;min-height:330px}
     .dash .photo .shade{background:linear-gradient(0deg,rgba(18,16,38,.78) 0,rgba(18,16,38,.3) 48%,rgba(18,16,38,0) 72%)}
     .dash .photo .tx{position:absolute;left:22px;right:22px;bottom:20px;color:#fff}
@@ -236,6 +241,17 @@
     .rep .d{font-size:14.5px;line-height:1.45;color:var(--text);margin-top:8px}
     .rep .tag{align-self:flex-start;padding-top:3px;padding-bottom:3px;font-size:12.5px;margin-top:auto;padding-top:3px}
     .rep .tag{margin-top:14px}
+    /* Q&A tiles (27 Oct, Atlas pattern): label → question → number + unit → answer → source, with air between */
+    .rep{padding:26px 26px 22px}
+    .rep .rt{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+    .rep .q,.dash .photo .q{font-size:18px;font-weight:500;line-height:1.3;letter-spacing:-.01em;color:var(--ink);margin-top:8px;text-wrap:balance}
+    .rep .n{margin-top:20px;display:flex;align-items:baseline;flex-wrap:wrap}
+    .rep .n .u{font-size:15px;font-weight:400;letter-spacing:0;color:var(--muted);margin-left:10px}
+    .rep .d{margin-top:10px;margin-bottom:22px}
+    .rep .src{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap}
+    .rep .src .rs{margin-top:0}
+    .rep .src .tag{margin-top:0}
+    .dash .photo .q{color:var(--ink);margin:0 0 14px;max-width:24ch}
 
     /* ---------- agents (record list) ---------- */
     .records{overflow:hidden}
@@ -264,7 +280,7 @@
     .caps code{white-space:normal}
 
     /* ---------- reliability ---------- */
-    .rel{display:grid;grid-template-columns:300px 1fr;gap:16px;margin-top:28px}
+    .rel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:20px;margin-top:28px}
     .rel .photo{min-height:360px}
     .rel .photo .shade{background:linear-gradient(0deg,rgba(255,255,255,.96) 0,rgba(255,255,255,.84) 32%,rgba(255,255,255,0) 60%)}
     .rel .photo .tx{position:absolute;left:22px;right:22px;bottom:20px}
@@ -327,7 +343,10 @@
     .col p{font-size:14.5px;line-height:1.5;margin-top:8px}
 
     /* ---------- incidents ---------- */
-    .fail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 300px;gap:16px;margin-top:28px}
+    .fail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin-top:28px}
+    .fail .stone{grid-column:1/-1;min-height:480px}
+    .fail .stone img{object-position:50% 66%}
+    .fail .stone .tx{max-width:620px}
     .pm{padding:20px 22px}
     .pm h3{font-size:20px;margin-top:10px;line-height:1.28}
     .pm .when{font-size:14px;color:var(--muted);margin-top:4px}
@@ -397,7 +416,7 @@
 
     /* ---------- responsive ---------- */
     @media (max-width:1040px){
-      .dash{grid-template-columns:260px repeat(2,1fr)}
+      .dash{grid-template-columns:minmax(0,1fr) repeat(2,minmax(0,1fr));gap:18px}
       .fail{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
       .fail .stone{grid-column:1/-1;min-height:300px}
       .links{grid-template-columns:repeat(4,1fr)}
@@ -490,6 +509,17 @@
     @keyframes lv-pollen{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}85%{opacity:.7}100%{opacity:0;transform:translate(var(--dx,18px),-46px)}}
     .lv:not(.on) *,.lv:not(.on)>img{animation-play-state:paused}
     @media (prefers-reduced-motion:reduce){.lv>img,.lv>i{animation:none!important}.lv-leak,.lv-sp,.lv-grain{display:none}}
+    /* laptop: every photo dissolves into the page on all sides; captions sit on a light haze in the page's own colour */
+    @media (min-width:861px){
+      .photo{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);mask-composite:intersect;border-radius:0}
+      .dash .photo .tag,.rel .photo .tag,.form-wrap .photo .tag,.stone .tag{left:10%;top:17%}
+      .fail .stone{height:600px;min-height:0}
+      .dash .photo .tx,.rel .photo .tx,.form-wrap .photo .tx,.stone .tx{left:10%;right:10%;bottom:24px}
+      .dash .photo .shade{background:linear-gradient(0deg,rgba(247,246,243,.97) 0,rgba(247,246,243,.86) 36%,rgba(247,246,243,0) 64%)}
+      .dash .photo .tx{color:var(--ink)}
+      .rel .photo .shade,.stone .shade{background:linear-gradient(0deg,rgba(247,246,243,.97) 0,rgba(247,246,243,.85) 32%,rgba(247,246,243,0) 60%)}
+      .form-wrap .photo .shade{background:linear-gradient(0deg,rgba(247,246,243,.96) 0,rgba(247,246,243,.72) 36%,rgba(247,246,243,0) 64%)}
+    }
     /* misty edges where the photo stands on its own (phones/tablets): it dissolves into the page instead of being cut */
     @media (max-width:860px){
       .photo .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
@@ -771,44 +801,45 @@
 
     <!-- DASHBOARD (counts animate on scroll into view) -->
     <div class="dash" id="bento-stats" aria-label="Fleet at a glance">
-      <div class="photo">
+      <article class="photo">
         <img data-fx="fleet" src="/media/sop/r-fleet.jpg" alt="" width="900" height="1200" loading="lazy" />
         <div class="shade"></div>
         <span class="tag ok"><span class="dot"></span>One operator · one server</span>
         <div class="tx">
+          <h3 class="q">How many AI capabilities does one operator run?</h3>
           <div class="n b-num" data-counter data-start="0" data-end="11" data-duration="1400">0</div>
           <div class="t">Tracked capabilities</div>
           <div class="s">10 live · 1 roadmap (AILA). All auto-restart; I am the architect and the on-call.</div>
         </div>
-      </div>
-      <div class="card rep lift">
+      </article>
+      <article class="card rep lift">
         <div class="rt">Lines of original code</div>
-        <div class="rs">Read from production · <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">provenance dossier</a></div>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">0</span></div>
-        <div class="d">Nine systems and why each exists, with figures counted from the running code.</div>
-        <span class="tag">Provenance</span>
-      </div>
-      <div class="card rep lift">
+        <h3 class="q">How much original code runs in production?</h3>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="181" data-suffix="K" data-duration="1500">0</span><span class="u">lines</span></div>
+        <p class="d">Nine systems and why each exists, with figures counted from the running code.</p>
+        <div class="src"><span class="rs">Read from production · <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">provenance dossier</a></span><span class="tag">Provenance</span></div>
+      </article>
+      <article class="card rep lift">
         <div class="rt">Essays published</div>
-        <div class="rs">Grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">/blog</a></div>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="190" data-duration="1400">0</span>+</div>
-        <div class="d">Every figure traced to a measurement before it ships; fails closed otherwise.</div>
-        <span class="tag">Publishing</span>
-      </div>
-      <div class="card rep lift">
+        <h3 class="q">How much has the lab published?</h3>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="190" data-duration="1400">0</span>+<span class="u">essays</span></div>
+        <p class="d">Every figure traced to a measurement before it ships; fails closed otherwise.</p>
+        <div class="src"><span class="rs">Grounded daily blog · <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">/blog</a></span><span class="tag">Publishing</span></div>
+      </article>
+      <article class="card rep lift">
         <div class="rt">Named failure modes</div>
-        <div class="rs">Postmortems · <a href="/ai-ops-wiki.html">AI Ops Wiki</a></div>
-        <div class="n"><span class="b-num" data-counter data-start="0" data-end="23" data-duration="1200">0</span></div>
-        <div class="d">29 production incidents, each with a named failure mode and a verified number.</div>
-        <span class="tag">Learning record</span>
-      </div>
-      <div class="card rep lift">
+        <h3 class="q">How many production failures are documented?</h3>
+        <div class="n"><span class="b-num" data-counter data-start="0" data-end="23" data-duration="1200">0</span><span class="u">failure modes</span></div>
+        <p class="d">29 production incidents, each with a named failure mode and a verified number.</p>
+        <div class="src"><span class="rs">Postmortems · <a href="/ai-ops-wiki.html">AI Ops Wiki</a></span><span class="tag">Learning record</span></div>
+      </article>
+      <article class="card rep lift">
         <div class="rt">Manual steps</div>
-        <div class="rs">Milestone → social pipeline</div>
-        <div class="n"><span class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</span></div>
-        <div class="d">A commit worth talking about reaches LinkedIn, the blog, X and Instagram without anyone retyping it.</div>
-        <span class="tag">Automation</span>
-      </div>
+        <h3 class="q">How many manual steps are left between a commit and a post?</h3>
+        <div class="n"><span class="b-num" data-counter data-start="14" data-end="0" data-duration="1000">14</span><span class="u">manual steps</span></div>
+        <p class="d">A commit worth talking about reaches LinkedIn, the blog, X and Instagram without anyone retyping it.</p>
+        <div class="src"><span class="rs">Milestone → social pipeline</span><span class="tag">Automation</span></div>
+      </article>
     </div>
   </section>
 
