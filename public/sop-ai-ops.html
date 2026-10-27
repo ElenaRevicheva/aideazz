@@ -51,6 +51,9 @@
     {"@type":"Question","name":"How many manual steps are left between a commit and a post?","acceptedAnswer":{"@type":"Answer","text":"Zero, down from 14. A commit worth talking about reaches LinkedIn, the blog, X and Instagram without anyone retyping it."}}
   ]}
   </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@graph": [{"@type": "SiteNavigationElement", "name": "AI Lab status", "description": "What is live today, in words a business owner can check.", "url": "https://aideazz.xyz/sop-ai-ops.html#lab"}, {"@type": "SiteNavigationElement", "name": "Products & agents", "description": "Eleven AI co-founder agents — what each one does.", "url": "https://aideazz.xyz/sop-ai-ops.html#agents"}, {"@type": "SiteNavigationElement", "name": "Reliability", "description": "Health checks, restarts and alerts — nothing dies silently.", "url": "https://aideazz.xyz/sop-ai-ops.html#health"}, {"@type": "SiteNavigationElement", "name": "Go-to-market automation", "description": "Inquiry → CRM → approved reply, measured end to end.", "url": "https://aideazz.xyz/sop-ai-ops.html#pipeline"}, {"@type": "SiteNavigationElement", "name": "Release discipline", "description": "How a change reaches production and is proven there.", "url": "https://aideazz.xyz/sop-ai-ops.html#deploy"}, {"@type": "SiteNavigationElement", "name": "Incident example", "description": "One real outage, worked through beat by beat.", "url": "https://aideazz.xyz/sop-ai-ops.html#postmortem"}, {"@type": "SiteNavigationElement", "name": "Stack", "description": "Models, providers and infrastructure behind the lab.", "url": "https://aideazz.xyz/sop-ai-ops.html#stack"}, {"@type": "SiteNavigationElement", "name": "FAQ", "description": "Short answers to the questions people actually ask.", "url": "https://aideazz.xyz/sop-ai-ops.html#faq"}, {"@type": "SiteNavigationElement", "name": "WHITESPACE · free scan", "description": "The ad or content angle nobody is running yet.", "url": "https://aideazz.xyz/whitespace"}, {"@type": "SiteNavigationElement", "name": "Atlas · The Monday Move", "description": "Every Monday: which ad angles are opening, which are crowded.", "url": "https://aideazz.xyz/atlas"}, {"@type": "SiteNavigationElement", "name": "GEO/AEO Visibility API", "description": "Free audit: can AI find, understand and cite your site?", "url": "https://aideazz.xyz/api"}, {"@type": "SiteNavigationElement", "name": "AI Growth Operator", "description": "Set up with you inside WhatsApp Business, Google Maps and Instagram — website or not.", "url": "https://aideazz.xyz/AIdeazz_AI_Growth_Operator_2026.pdf"}, {"@type": "SiteNavigationElement", "name": "AI Ops Wiki", "description": "Every production failure, with its named failure mode.", "url": "https://aideazz.xyz/ai-ops-wiki.html"}]}
+  </script>
 
   <style>
     @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
@@ -187,7 +190,7 @@
     .hero .art{position:absolute;inset:0;z-index:0}
     .hero .art img{width:100%;height:100%;object-fit:cover;object-position:center 70%}
     .hero .art .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,246,243,.96) 0%,rgba(247,246,243,.82) 30%,rgba(247,246,243,.48) 58%,rgba(247,246,243,.18) 100%)}
-    .hero .inner{position:relative;z-index:2;padding:44px 0 36px}
+    .hero .inner{position:relative;z-index:2;padding:116px 0 36px}  /* 27 Oct: 76px nav row moved to the sticky bar */
     .hero h1{font-weight:500;font-size:clamp(38px,6vw,72px);line-height:1.02;letter-spacing:-.04em;color:#141827;margin-top:16px;max-width:900px}
     .hero h1 em{background:linear-gradient(118deg,var(--indigo-dk) 10%,var(--indigo) 45%,var(--amber) 95%);-webkit-background-clip:text;background-clip:text;color:transparent}
     @supports not (background-clip:text){.hero h1 em{color:var(--indigo-dk);background:none}}
@@ -465,7 +468,7 @@
        and hidden by the cream shade, and photo cards were covered by their own caption.
        Hero + close become a clear banner band; photo cards stack the caption under the photo. */
     @media (max-width:860px){
-      .hero .art{inset:auto;top:76px;left:0;right:0;aspect-ratio:16/10}
+      .hero .art{inset:auto;top:0;left:0;right:0;aspect-ratio:16/10}  /* 27 Oct: no nav row inside the hero any more */
       .hero .art .shade{background:linear-gradient(180deg,rgba(247,246,243,0) 62%,rgba(247,246,243,1) 100%)}
       .hero .inner{padding-top:calc(62.5vw + 12px)}
       .close{display:flex;flex-direction:column}
@@ -485,25 +488,26 @@
     @property --mx{syntax:'<percentage>';inherits:true;initial-value:50%}
     @property --my{syntax:'<percentage>';inherits:true;initial-value:50%}
     .lv{position:relative;display:block;overflow:hidden;width:100%;height:100%;--mx:var(--lx,50%);--my:var(--ly,50%);transition:--mx 1.2s ease,--my 1.2s ease}
-    .lv>img{display:block;transform-origin:var(--ox,50% 50%);animation:lv-cam 18s ease-in-out infinite alternate,lv-hand 8s ease-in-out infinite;will-change:transform}
-    @keyframes lv-cam{from{scale:1.04}to{scale:1.1}}
-    @keyframes lv-hand{0%,100%{translate:0 0}22%{translate:2.4px -1.6px}47%{translate:-1.8px 2.2px}71%{translate:2px 1.2px}88%{translate:-1.4px -2px}}
+    .lv>img{display:block;transform-origin:var(--ox,50% 50%);animation:lv-cam 12s ease-in-out infinite alternate,lv-hand 6.5s ease-in-out infinite;will-change:transform}
+    @keyframes lv-cam{from{scale:1.05;rotate:-.6deg}to{scale:1.17;rotate:.6deg}}
+    @keyframes lv-hand{0%,100%{translate:0 0}22%{translate:6px -4px}47%{translate:-5px 5.5px}71%{translate:5px 3px}88%{translate:-3.5px -5px}}
     .lv>i{position:absolute;pointer-events:none}
-    .lv-glow{inset:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,214,150,.7) 0,rgba(255,170,90,.3) 20%,rgba(140,110,255,0) 52%);mix-blend-mode:screen;animation:lv-breathe 7.5s ease-in-out infinite}
-    @keyframes lv-breathe{0%,100%{opacity:.25}50%{opacity:1}}
-    .lv-leak{inset:-10% -60%;background:linear-gradient(105deg,transparent 40%,rgba(255,206,150,.20) 46%,rgba(255,246,228,.42) 50%,rgba(255,190,120,.18) 54%,transparent 60%);mix-blend-mode:screen;transform:translateX(-70%);animation:lv-leak 9s cubic-bezier(.45,.05,.3,1) infinite;animation-delay:var(--d,0s)}
+    .lv-glow{inset:0;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,214,150,.7) 0,rgba(255,170,90,.3) 20%,rgba(140,110,255,0) 52%);mix-blend-mode:screen;animation:lv-breathe 5.5s ease-in-out infinite}
+    @keyframes lv-breathe{0%,100%{opacity:.15}50%{opacity:1}}
+    .lv-leak{inset:-10% -60%;background:linear-gradient(105deg,transparent 40%,rgba(255,206,150,.20) 46%,rgba(255,246,228,.42) 50%,rgba(255,190,120,.18) 54%,transparent 60%);mix-blend-mode:screen;transform:translateX(-70%);animation:lv-leak 6.5s cubic-bezier(.45,.05,.3,1) infinite;animation-delay:var(--d,0s)}
     @keyframes lv-leak{0%{transform:translateX(-70%)}34%,100%{transform:translateX(70%)}}
-    .lv-streak{left:-30%;width:160%;top:var(--sty,60%);height:16%;translate:0 -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,226,180,.7) 0,rgba(255,176,96,.28) 38%,rgba(255,150,80,0) 72%);mix-blend-mode:screen;animation:lv-streak 17s ease-in-out infinite alternate}
+    .lv-streak{left:-30%;width:160%;top:var(--sty,60%);height:16%;translate:0 -50%;background:radial-gradient(50% 50% at 50% 50%,rgba(255,226,180,.7) 0,rgba(255,176,96,.28) 38%,rgba(255,150,80,0) 72%);mix-blend-mode:screen;animation:lv-streak 11s ease-in-out infinite alternate}
     @keyframes lv-streak{0%{transform:translateX(-9%) scaleY(.8);opacity:.35}50%{opacity:.85}100%{transform:translateX(9%) scaleY(1.15);opacity:.5}}
-    .lv-mist{inset:-10% -50%;background:radial-gradient(38% 22% at 30% var(--mst,70%),rgba(244,240,255,.42),rgba(244,240,255,0) 70%),radial-gradient(30% 18% at 72% calc(var(--mst,70%) + 8%),rgba(236,232,250,.34),rgba(236,232,250,0) 70%);animation:lv-mist 38s ease-in-out infinite alternate}
-    @keyframes lv-mist{from{transform:translateX(-12%)}to{transform:translateX(12%)}}
+    .lv-mist{inset:-10% -50%;background:radial-gradient(38% 22% at 30% var(--mst,70%),rgba(244,240,255,.42),rgba(244,240,255,0) 70%),radial-gradient(30% 18% at 72% calc(var(--mst,70%) + 8%),rgba(236,232,250,.34),rgba(236,232,250,0) 70%);animation:lv-mist 22s ease-in-out infinite alternate}
+    @keyframes lv-mist{from{transform:translateX(-20%)}to{transform:translateX(20%)}}
     .lv-rays{inset:-40% -20% 0;background:repeating-conic-gradient(from 180deg at var(--lx) 0,rgba(255,226,170,.16) 0deg 2.2deg,rgba(255,226,170,0) 2.2deg 7deg);-webkit-mask-image:radial-gradient(70% 80% at var(--lx) 0,#000,transparent 75%);mask-image:radial-gradient(70% 80% at var(--lx) 0,#000,transparent 75%);mix-blend-mode:screen;animation:lv-rays 22s ease-in-out infinite alternate;transform-origin:var(--lx) 0}
     @keyframes lv-rays{from{transform:rotate(-2.5deg);opacity:.55}to{transform:rotate(2.5deg);opacity:1}}
     .lv-grain{inset:-50%;opacity:.13;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:lv-grain .9s steps(5) infinite}
     @keyframes lv-grain{0%{transform:translate(0,0)}20%{transform:translate(-6%,4%)}40%{transform:translate(5%,-7%)}60%{transform:translate(-4%,-3%)}80%{transform:translate(7%,5%)}100%{transform:translate(0,0)}}
     .lv-sp{left:var(--x);top:var(--y);width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,240,210,.95) 22%,rgba(255,200,120,.35) 48%,rgba(255,200,120,0) 70%);mix-blend-mode:screen;opacity:0;animation:lv-twinkle var(--t,3.6s) ease-in-out infinite;animation-delay:var(--d,0s)}
     @keyframes lv-twinkle{0%,100%{opacity:0;transform:scale(.35)}45%{opacity:1;transform:scale(1)}60%{opacity:.85}}
-    .lv-sp.lamp{background:radial-gradient(circle,rgba(255,236,190,1) 0,rgba(255,190,100,.6) 25%,rgba(255,160,70,0) 70%);animation-name:lv-flicker}
+    .lv-sp.lamp{background:radial-gradient(circle,rgba(255,236,190,1) 0,rgba(255,190,100,.6) 25%,rgba(255,160,70,0) 70%);animation:lv-flicker var(--t,3.6s) ease-in-out infinite,lv-drift calc(var(--t,3.6s) * 3.2) ease-in-out infinite alternate;animation-delay:var(--d,0s)}
+    @keyframes lv-drift{from{translate:0 0}to{translate:var(--dx,12px) -22px}}
     @keyframes lv-flicker{0%,100%{opacity:.55}8%{opacity:.9}12%{opacity:.6}30%{opacity:1}34%{opacity:.7}58%{opacity:.95}62%{opacity:.62}80%{opacity:.88}}
     .lv-sp.pollen{background:radial-gradient(circle,rgba(255,248,230,.95) 0,rgba(255,220,160,.4) 45%,rgba(255,220,160,0) 70%);animation-name:lv-pollen;animation-timing-function:linear}
     @keyframes lv-pollen{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}85%{opacity:.7}100%{opacity:0;transform:translate(var(--dx,18px),-46px)}}
@@ -511,7 +515,7 @@
     @media (prefers-reduced-motion:reduce){.lv>img,.lv>i{animation:none!important}.lv-leak,.lv-sp,.lv-grain{display:none}}
     /* laptop: every photo dissolves into the page on all sides; captions sit on a light haze in the page's own colour */
     @media (min-width:861px){
-      .photo{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);mask-composite:intersect;border-radius:0}
+      .photo{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%),linear-gradient(180deg,transparent 0,#000 13%,#000 100%);mask-composite:intersect;border-radius:0}
       .dash .photo .tag,.rel .photo .tag,.form-wrap .photo .tag,.stone .tag{left:10%;top:17%}
       .fail .stone{height:600px;min-height:0}
       .dash .photo .tx,.rel .photo .tx,.form-wrap .photo .tx,.stone .tx{left:10%;right:10%;bottom:24px}
@@ -522,7 +526,7 @@
     }
     /* misty edges where the photo stands on its own (phones/tablets): it dissolves into the page instead of being cut */
     @media (max-width:860px){
-      .photo .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
+      .photo .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 11%,#000 84%,transparent 100%),linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect}
       .hero .art .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 14%,#000 72%,transparent 100%)}
       .close .art .lv{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 82%,transparent 100%)}
       .hero .art,.close .art{overflow:hidden}
@@ -547,10 +551,69 @@
       .navlinks .btn{padding:7px 9px;font-size:12.5px}
     }
     @media (max-width:560px){
-      .hero .art{top:64px}
       .dash .photo img,.stone img{aspect-ratio:4/5}
     }
-  </style>
+  
+    /* ── TOP BAR (27 Oct 2026): the Atlas header pattern on the runbook's own paper/indigo/amber ── */
+    .tb{position:sticky;top:0;z-index:40;background:rgba(247,246,243,.88);backdrop-filter:var(--glass);-webkit-backdrop-filter:var(--glass);border-bottom:1px solid var(--line)}
+    .tbin{display:flex;align-items:center;gap:12px;height:66px}
+    .tbrand{display:flex;align-items:center;gap:11px;color:var(--ink);flex:none;min-width:0}
+    .tbrand:hover{text-decoration:none}
+    .tbw{display:flex;flex-direction:column;gap:4px;min-width:0}
+    .tbn{font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1;white-space:nowrap}
+    .tbn b{font-weight:700;background:linear-gradient(90deg,var(--indigo),var(--amber),var(--indigo));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tb-flow 6s linear infinite}
+    @keyframes tb-flow{to{background-position:220% center}}
+    .tbl{display:flex;align-items:center;gap:7px;font:500 9.5px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .tbl i{display:block;width:14px;height:1px;background:linear-gradient(90deg,var(--indigo),var(--amber))}
+    .tblinks{margin-left:auto;display:flex;align-items:center;gap:2px}
+    .tblinks>a.tbplain,.ddbtn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border:0;border-radius:10px;background:none;font:500 15px/1.3 var(--f);color:var(--ink);white-space:nowrap;cursor:pointer;transition:background .15s,color .15s}
+    .tblinks>a.tbplain:hover,.ddbtn:hover,.dd.open .ddbtn{background:rgba(91,79,207,.08);color:var(--indigo-dk);text-decoration:none}
+    .ddbtn svg{width:12px;height:12px;transition:transform .16s}
+    .dd.open .ddbtn svg{transform:rotate(180deg)}
+    .dd{position:relative}
+    .ddpanel{position:absolute;top:calc(100% + 12px);left:-8px;width:384px;padding:8px;border-radius:14px;background:#fff;border:1px solid var(--line2);box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transition:opacity .16s,visibility .16s}
+    .ddpanel::before{content:"";position:absolute;left:12px;right:12px;top:-1px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--indigo),var(--amber))}
+    .ddpanel::after{content:"";position:absolute;left:0;right:0;top:-14px;height:14px}
+    .dd.open .ddpanel{opacity:1;visibility:visible}
+    .ddg{display:block;padding:8px 10px 4px;font:500 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+    .ddsep{height:1px;margin:6px;background:var(--line)}
+    .dditem{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:start;padding:10px;border-radius:10px;color:var(--ink);transition:background .15s}
+    .dditem:hover,.dditem:focus-visible{background:rgba(91,79,207,.06);text-decoration:none}
+    .ddi{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:rgba(91,79,207,.08);color:var(--indigo);transition:background .15s,color .15s}
+    .ddi svg{width:20px;height:20px}
+    .dditem:hover .ddi,.dditem:focus-visible .ddi,.dditem.is-active .ddi{background:linear-gradient(135deg,var(--indigo),var(--amber));color:#fff}
+    .ddt{display:flex;align-items:center;gap:8px;font:600 14px/1.3 var(--f);color:var(--ink)}
+    .ddb{display:block;margin-top:2px;font-size:12.5px;line-height:1.45;color:var(--muted)}
+    .dditem.is-active .ddt::after{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--amber)}
+    .langsw{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;background:rgba(255,255,255,.7);flex:none}
+    .langsw a{padding:6px 11px;font:700 11px var(--mono);color:var(--muted)}
+    .langsw a:hover{text-decoration:none;color:var(--ink)}
+    .langsw a.on{background:var(--ink);color:#fff}
+    .tbcta{flex:none;padding:9px 16px;font-size:14px}
+    .menu-only{display:none}
+    .burger{display:none;flex:none;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:1px solid var(--line2);border-radius:12px;background:rgba(255,255,255,.7);color:var(--ink);cursor:pointer}
+    .burger svg{width:22px;height:22px}
+    [id]{scroll-margin-top:84px}
+    @media (max-width:1099.98px){
+      .tblinks,.tbcta{display:none}
+      .burger{display:inline-flex;margin-left:auto}
+      .tb.open .tblinks{display:flex;flex-direction:column;align-items:stretch;gap:0;position:absolute;top:100%;left:0;right:0;max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow:auto;overscroll-behavior:contain;padding:4px 20px 22px;background:#fbfaf7;border-bottom:1px solid var(--line2);box-shadow:0 30px 60px -24px rgba(28,33,48,.35)}
+      .tb.open .ddbtn{display:none}
+      .dd{border-bottom:1px solid var(--line);padding-bottom:6px}
+      .ddpanel{position:static;width:auto;padding:0;border:0;border-radius:0;background:none;box-shadow:none;opacity:1;visibility:visible;transition:none}
+      .ddpanel::before,.ddpanel::after{display:none}
+      .ddg{padding:14px 4px 4px}
+      .dditem{min-height:48px;padding:10px 4px}
+      .ddt{font-size:16px}
+      .tb.open .tblinks>a.tbplain{display:none}  /* FAQ is already in the runbook group on phones */
+      .menu-only{display:flex;flex-direction:column;align-items:stretch;gap:12px;padding-top:18px}
+      .menu-only .btn{min-height:48px;justify-content:center}
+      .menu-only .langsw{align-self:flex-start}
+      .menu-only .langsw a{min-width:56px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+    }
+    @media (max-width:639.98px){.tblang{display:none}.tbin{height:62px}.tbn{font-size:15.5px}.tbl{font-size:8.5px;letter-spacing:.2em}}
+    @media (min-width:640px) and (max-width:1099.98px){.tblang{margin-left:auto}.burger{margin-left:0}}
+</style>
 
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
@@ -575,6 +638,59 @@
 </div>
 <div class="noise-layer" aria-hidden="true"></div>
 
+<!-- TOP BAR (27 Oct 2026): the Atlas header pattern — brand + lab line, grouped menus with an icon, a title and one
+     line for every section and every AIdeazz tool, one ☰ panel below 1100px. Section links keep .toc-inner so the
+     scroll-spy still marks where the reader is. Mirrored in the SiteNavigationElement JSON-LD in <head>. -->
+<header class="tb" id="tb">
+  <div class="wrap tbin">
+    <a class="tbrand" href="https://aideazz.xyz" aria-label="AIdeazz AI Lab — home">
+      <span class="av">AI</span>
+      <span class="tbw"><span class="tbn">AIdeazz <b>AI Lab</b></span><span class="tbl"><i></i>Operations Runbook<i></i></span></span>
+    </a>
+    <nav class="tblinks toc-inner" id="tbmenu" aria-label="Runbook sections and AIdeazz tools">
+      <div class="dd">
+        <button type="button" class="ddbtn" aria-expanded="false" aria-controls="ddRunbook"><span>This runbook</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></button>
+        <div class="ddpanel" id="ddRunbook">
+        <span class="ddg">Plain language</span>
+        <a class="dditem" href="#lab"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.5-6 5 12 2.5-6H21"/></svg></span><span><span class="ddt">AI Lab status</span><span class="ddb">What is live today, in words a business owner can check.</span></span></a>
+        <a class="dditem" href="#agents"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></svg></span><span><span class="ddt">Products &amp; agents</span><span class="ddb">Eleven AI co-founder agents — what each one does.</span></span></a>
+        <a class="dditem" href="#health"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6Z"/><path d="m8.8 12.2 2.3 2.3 4.3-4.6"/></svg></span><span><span class="ddt">Reliability</span><span class="ddb">Health checks, restarts and alerts — nothing dies silently.</span></span></a>
+        <div class="ddsep" role="separator"></div>
+        <span class="ddg">Engineering proof</span>
+        <a class="dditem" href="#pipeline"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7.2 6h9.6M6.2 7.9l4.6 8.2M17.8 7.9l-4.6 8.2"/></svg></span><span><span class="ddt">Go-to-market automation</span><span class="ddb">Inquiry → CRM → approved reply, measured end to end.</span></span></a>
+        <a class="dditem" href="#deploy"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 8 5-5 5 5"/><path d="M4 15v3.5A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V15"/></svg></span><span><span class="ddt">Release discipline</span><span class="ddb">How a change reaches production and is proven there.</span></span></a>
+        <a class="dditem" href="#postmortem"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 0 18 0Z"/><path d="M9 12.5 11 15l-1.5 3M15 12.5 13.4 16"/></svg></span><span><span class="ddt">Incident example</span><span class="ddb">One real outage, worked through beat by beat.</span></span></a>
+        <a class="dditem" href="#stack"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 4.8-9 4.8-9-4.8Z"/><path d="m3 12.2 9 4.8 9-4.8"/><path d="m3 16.4 9 4.8 9-4.8"/></svg></span><span><span class="ddt">Stack</span><span class="ddb">Models, providers and infrastructure behind the lab.</span></span></a>
+        <a class="dditem" href="#faq"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.3c-.6.3-1 .9-1 1.6v.6"/><circle cx="12" cy="17.2" r=".6" fill="currentColor" stroke="none"/></svg></span><span><span class="ddt">FAQ</span><span class="ddb">Short answers to the questions people actually ask.</span></span></a>
+        </div>
+      </div>
+      <div class="dd">
+        <button type="button" class="ddbtn" aria-expanded="false" aria-controls="ddTools"><span>AIdeazz tools</span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 4.5 3 3 3-3"/></svg></button>
+        <div class="ddpanel" id="ddTools">
+        <span class="ddg">Ad intelligence</span>
+        <a class="dditem" href="https://aideazz.xyz/whitespace"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="2" stroke-dasharray="2.6 2.4"/><circle cx="15" cy="15" r="4.2"/><path d="m18.2 18.2 2.8 2.8"/></svg></span><span><span class="ddt">WHITESPACE · free scan</span><span class="ddb">The ad or content angle nobody is running yet.</span></span></a>
+        <a class="dditem" href="https://aideazz.xyz/atlas"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="6"/><ellipse cx="12" cy="8.5" rx="2.5" ry="6"/><path d="M6 8.5h12"/><path d="M3 18c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0"/><path d="M3 21.5c1.5-1.2 3-1.2 4.5 0s3 1.2 4.5 0 3-1.2 4.5 0 3 1.2 4.5 0"/></svg></span><span><span class="ddt">Atlas · The Monday Move</span><span class="ddb">Every Monday: which ad angles are opening, which are crowded.</span></span></a>
+        <div class="ddsep" role="separator"></div>
+        <span class="ddg">For your business</span>
+        <a class="dditem" href="https://aideazz.xyz/api"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5"/><path d="m16 7 5 5-5 5"/><path d="m13.5 4.5-3 15"/><circle cx="20" cy="3.8" r="1.4" fill="currentColor" stroke="none"/></svg></span><span><span class="ddt">GEO/AEO Visibility API ↗</span><span class="ddb">Free audit: can AI find, understand and cite your site?</span></span></a>
+        <a class="dditem" href="https://aideazz.xyz/AIdeazz_AI_Growth_Operator_2026.pdf" target="_blank" rel="noopener"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="m8.5 12 2.5 2.5 5-5"/></svg></span><span><span class="ddt">AI Growth Operator ↗</span><span class="ddb">Set up with you inside WhatsApp Business, Google Maps and Instagram — website or not.</span></span></a>
+        <a class="dditem" href="/ai-ops-wiki.html"><span class="ddi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H19v15H5.5A1.5 1.5 0 0 0 4 19.5Z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H19v-3"/><path d="M8 7.5h7M8 11h5"/></svg></span><span><span class="ddt">AI Ops Wiki</span><span class="ddb">Every production failure, with its named failure mode.</span></span></a>
+        </div>
+      </div>
+      <a class="tbplain" href="#faq">FAQ</a>
+      <div class="menu-only">
+        <span class="langsw"><a class="on" href="https://aideazz.xyz/sop-ai-ops.html" hreflang="en" lang="en" aria-current="page">EN</a><a href="https://aideazz.xyz/sop-ai-ops-es.html" hreflang="es" lang="es">ES</a></span>
+        <a class="btn" href="#try-the-pipeline">Run the pipeline →</a>
+      </div>
+    </nav>
+    <span class="langsw tblang"><a class="on" href="https://aideazz.xyz/sop-ai-ops.html" hreflang="en" lang="en" aria-current="page">EN</a><a href="https://aideazz.xyz/sop-ai-ops-es.html" hreflang="es" lang="es" title="Versión en español">ES</a></span>
+    <a class="btn tbcta" href="#try-the-pipeline">Run the pipeline</a>
+    <button type="button" class="burger" id="tbburger" aria-expanded="false" aria-controls="tbmenu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
 <!-- HERO -->
 <header class="hero">
   <div class="art">
@@ -582,16 +698,6 @@
     <div class="shade"></div>
   </div>
   <div class="wrap">
-    <nav class="nav" aria-label="Site">
-      <a class="brand" href="https://aideazz.xyz"><span class="av">AI</span>AIdeazz AI Lab</a>
-      <div class="navlinks">
-        <a class="hideM" href="/ai-ops-wiki.html">AI Ops Wiki</a>
-        <a class="hideM" href="https://aideazz.xyz/api">Audit API</a>
-        <a class="hideM" href="https://aideazz.xyz/atlas">Atlas</a>
-        <a class="lang" href="https://aideazz.xyz/sop-ai-ops-es.html" hreflang="es" lang="es" title="Versión en español">ES</a>
-        <a class="btn" href="#try-the-pipeline">Run the pipeline<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-      </div>
-    </nav>
 
     <div class="inner">
       <span class="tag ok live"><span class="dot"></span>Live in production · October 2026</span>
@@ -666,22 +772,6 @@
   </div>
 </header>
 
-<nav class="toc" aria-label="Page sections">
-  <div class="wrap">
-    <div class="in toc-inner">
-      <span class="toc-label">Jump</span>
-      <a href="#lab">AI Lab status</a>
-      <a href="#agents">Products &amp; agents</a>
-      <a href="#health">Reliability</a>
-      <a href="#pipeline">Go-to-market automation</a>
-      <a href="#deploy">Release discipline</a>
-      <a href="#postmortem">Incident example</a>
-      <a href="#stack">Stack</a>
-      <a href="#faq">FAQ</a>
-      <a class="toc-out" href="/ai-ops-wiki.html">AI Ops Wiki →</a>
-    </div>
-  </div>
-</nav>
 
 <main class="wrap" id="main">
 
@@ -1413,17 +1503,17 @@
 (function () {
   var FX = {
     hero:     { lx: '50%', ly: '74%', ox: '50% 70%', streak: '75%', mist: '86%', leak: 0,
-                sparks: [10, 8, 92, 82, 97, 4, 9, 'glint'] },
+                sparks: [12, 6, 94, 30, 92, 7, 14, 'lamp'] },
     fleet:    { lx: '62%', ly: '10%', ox: '60% 20%', rays: 1, mist: '30%', leak: 2,
-                sparks: [14, 6, 94, 20, 92, 3, 7, 'pollen'] },
+                sparks: [13, 6, 94, 12, 70, 7, 14, 'lamp'] },
     ops:      { lx: '50%', ly: '6%', ox: '50% 45%', mist: '78%', leak: 3,
-                sparks: [30, 14, 86, 8, 92, 3, 9, 'dew'] },
+                sparks: [14, 8, 92, 8, 88, 7, 14, 'lamp'] },
     loop:     { lx: '58%', ly: '42%', ox: '55% 55%', streak: '44%', mist: '18%', leak: 2,
-                sparks: [9, 18, 88, 30, 80, 4, 9, 'glint'] },
+                sparks: [12, 8, 92, 10, 80, 7, 14, 'lamp'] },
     kintsugi: { lx: '62%', ly: '62%', ox: '50% 60%', mist: '84%', leak: 1,
-                sparks: [11, 26, 64, 36, 68, 3, 8, 'dew'] },
+                sparks: [11, 10, 90, 8, 60, 7, 14, 'lamp'] },
     close:    { lx: '92%', ly: '44%', ox: '60% 60%', streak: '55%', mist: '62%', leak: 9,
-                sparks: [9, 40, 72, 56, 84, 7, 14, 'lamp'] }
+                sparks: [12, 30, 80, 30, 84, 7, 14, 'lamp'] }
   };
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var rnd = function (a, b) { return a + Math.random() * (b - a); };
@@ -1579,6 +1669,30 @@
 })();
 </script>
 <!-- HubSpot chat + tracking (portal 51409153), the same loader index.html uses -->
+
+<script>
+/* Top bar (27 Oct 2026): ☰ panel below 1100px, click/hover dropdowns above; Esc and any link close it. */
+(function () {
+  var tb = document.getElementById('tb'), burger = document.getElementById('tbburger');
+  if (!tb || !burger) return;
+  var dds = [].slice.call(tb.querySelectorAll('.dd'));
+  function closeDd(except) { dds.forEach(function (d) { if (d !== except) { d.classList.remove('open'); d.querySelector('.ddbtn').setAttribute('aria-expanded', 'false'); } }); }
+  var P = burger.querySelector('path'); function setOpen(on) { tb.classList.toggle('open', on); burger.setAttribute('aria-expanded', on ? 'true' : 'false'); burger.setAttribute('aria-label', on ? 'Close menu' : 'Menu'); P.setAttribute('d', on ? 'M18 6 6 18M6 6l12 12' : 'M4 7h16M4 12h16M4 17h16'); document.documentElement.style.overflow = on ? 'hidden' : ''; }
+  burger.addEventListener('click', function () { setOpen(!tb.classList.contains('open')); });
+  dds.forEach(function (d) {
+    var b = d.querySelector('.ddbtn');
+    b.addEventListener('click', function () { var on = !d.classList.contains('open'); closeDd(d); d.classList.toggle('open', on); b.setAttribute('aria-expanded', on ? 'true' : 'false'); });
+    if (window.matchMedia('(hover:hover)').matches) {
+      d.addEventListener('mouseenter', function () { if (innerWidth >= 1100) { closeDd(d); d.classList.add('open'); b.setAttribute('aria-expanded', 'true'); } });
+      d.addEventListener('mouseleave', function () { if (innerWidth >= 1100) closeDd(); });
+    }
+  });
+  tb.addEventListener('click', function (e) { if (e.target.closest('a')) { setOpen(false); closeDd(); } });
+  document.addEventListener('click', function (e) { if (!tb.contains(e.target)) closeDd(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setOpen(false); closeDd(); } });
+  addEventListener('resize', function () { if (innerWidth >= 1100) setOpen(false); });
+})();
+</script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/51409153.js?v=20260726"></script>
 </body>
 </html>
