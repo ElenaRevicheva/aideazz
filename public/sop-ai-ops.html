@@ -1509,7 +1509,7 @@
       </div>
 
       <div class="legal" id="legal">
-        <div class="legal-name">© 2026 AIdeazz AI Lab</div>
+        <div class="legal-name">© <span id="legal-year">2026</span> AIdeazz AI Lab</div>
         <div class="legal-line">Panama · All rights reserved</div>
       </div>
     </div>
@@ -1822,6 +1822,11 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setOpen(false); closeDd(); } });
   addEventListener('resize', function () { if (innerWidth >= 1100) setOpen(false); });
 })();
+</script>
+<script>
+  // The year is real in the HTML (no-JS readers and AI crawlers see a true value, as the counters rule);
+  // this only refreshes it, the same way the /api footer computes it.
+  (function(){var y=document.getElementById("legal-year");if(y)y.textContent=String(new Date().getFullYear());})();
 </script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js-na1.hs-scripts.com/51409153.js?v=20260726"></script>
 </body>
