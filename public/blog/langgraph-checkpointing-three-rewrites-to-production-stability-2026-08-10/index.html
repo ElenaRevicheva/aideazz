@@ -65,14 +65,6 @@
     },
     {
       "@type": "Question",
-      "name": "What's the overhead of using Redis for locking and ADB for checkpoints compared to a simpler solution?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Redis adds ~2-5ms latency for lock acquisition/release. ADB adds ~10-50ms for checkpoint `UPSERT` operations, depending on network latency and payload size. This is acceptable for most multi-agent systems where LLM calls dominate latency (hundreds of ms to seconds). The stability gain far outweighs this overhead for production."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "How do you manage the `LockAcquisitionError` in your `ADBCheckpointSaver`?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -160,6 +152,7 @@
       <time itemprop="datePublished" datetime="2026-08-10T19:30:19.838Z">August 10, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first LangGraph agent, a simple document summarizer, silently dropped 80% of its jobs for three weeks. The logs showed <code>Agent finished successfully</code>, but the output queue was empty. The problem wasn't the LLM, the prompt, or the vector store. It was a state schema mismatch, a silent killer in LangGraph's checkpointing mechanism, costing me 1,200 CPU hours on Oracle Cloud before I found it.</p>
 <p>This wasn't my only LangGraph production headache. Before I shipped my first multi-agent system for AIdeazz, I went through three complete rewrites of the core LangGraph state management and checkpointing logic. Each rewrite addressed a different failure mode: silent data loss, corrupted checkpoints, and finally, the pattern that brought stability to multi-step, stateful agent pipelines.</p>
@@ -214,59 +207,10 @@ def migrate_state(state: dict, target_version: int) -&gt; dict:
 <p>My second rewrite came after a week of <code>sqlite3.DatabaseError: database disk image is malformed</code> errors. This happened when running multiple instances of the same LangGraph agent, each with its own <code>SqliteSaver</code>, against a shared SQLite file on a network file system.</p>
 <p>The problem was a classic race condition. SQLite is robust for single-writer, multiple-reader scenarios. LangGraph's <code>SqliteSaver</code> performs multiple operations: <code>get_tuple</code>, deserialize, modify state, serialize, <code>put_tuple</code>. If two agents tried to update the same thread ID's checkpoint concurrently, one would overwrite the other's changes, or worse, write a partially updated or corrupted blob. The <code>SqliteSaver</code> doesn't implement file-level locking or transaction management for concurrent writes from separate processes.</p>
 <p>My agents were deployed as Docker containers on Oracle Container Engine for Kubernetes (OKE). Each pod had its own <code>SqliteSaver</code> instance, and I was mounting a shared NFS volume for the SQLite database. This setup is fundamentally flawed for <code>SqliteSaver</code> with concurrent writers.</p>
-<p><strong>The Fix:</strong> Centralized, atomic checkpoint storage. I switched from <code>SqliteSaver</code> to a custom <code>BaseCheckpointSaver</code> implementation backed by Oracle Autonomous Database (ADB) and Redis.</p>
-<p>1.  <strong>Redis for ephemeral state and locking:</strong> Before an agent starts processing a thread, it acquires a lock for that <code>thread_id</code> in Redis with an expiry. If it can't acquire the lock, it retries or queues the job.<br>2.  <strong>ADB for persistent checkpoints:</strong> The actual checkpoint data (the serialized LangGraph state) is stored in a JSON column in an ADB table. Updates are performed within a database transaction, ensuring atomicity. The <code>put_tuple</code> method now performs an <code>UPSERT</code> operation, updating the JSON column.</p>
+
+
 <p>This pattern ensures that only one agent can modify a given thread's state at any time, and the updates are atomic and durable. The cost of ADB is higher than SQLite, but the stability is non-negotiable for production.</p>
-<p><pre><code class="language-python"># Simplified custom saver logic
-class ADBCheckpointSaver(BaseCheckpointSaver):
-    def __init__(self, db_connection_pool, redis_client):
-        self.db_pool = db_connection_pool
-        self.redis = redis_client
 
-    def get_tuple(self, thread_id: str) -&gt; Optional[CheckpointTuple]:
-        # Acquire Redis lock
-        lock_key = f"langgraph_lock:{thread_id}"
-        if not self.redis.set(lock_key, "locked", ex=60, nx=True): # 60s expiry, only if not exists
-            raise LockAcquisitionError(f"Could not acquire lock for thread {thread_id}")
-
-        try:
-            with self.db_pool.acquire() as conn:
-                with conn.cursor() as cursor:
-                    cursor.execute("SELECT checkpoint_data FROM checkpoints WHERE thread_id = :1", [thread_id])
-                    row = cursor.fetchone()
-                    if row:
-                        checkpoint_data = json.loads(row[0])
-                        # Deserialize into CheckpointTuple
-                        return CheckpointTuple(
-                            config={"configurable": {"thread_id": thread_id}},
-                            checkpoint=checkpoint_data,
-                            parent_config=None, # Or retrieve if stored
-                        )
-                    return None
-        finally:
-            self.redis.delete(lock_key) # Release lock
-
-    def put_tuple(self, checkpoint_tuple: CheckpointTuple) -&gt; None:
-        thread_id = checkpoint_tuple.config["configurable"]["thread_id"]
-        lock_key = f"langgraph_lock:{thread_id}"
-        if not self.redis.get(lock_key):
-            raise LockAcquisitionError(f"Lock for thread {thread_id} not held during put_tuple")
-
-        with self.db_pool.acquire() as conn:
-            with conn.cursor() as cursor:
-                checkpoint_json = json.dumps(checkpoint_tuple.checkpoint)
-                cursor.execute(
-                    """
-                    MERGE INTO checkpoints c
-                    USING (SELECT :1 AS thread_id, :2 AS checkpoint_data FROM DUAL) d
-                    ON (c.thread_id = d.thread_id)
-                    WHEN MATCHED THEN UPDATE SET c.checkpoint_data = d.checkpoint_data
-                    WHEN NOT MATCHED THEN INSERT (thread_id, checkpoint_data) VALUES (d.thread_id, d.checkpoint_data)
-                    """,
-                    [thread_id, checkpoint_json]
-                )
-                conn.commit()
-</code></pre></p>
 <h2>The "Always Restart" Pattern for Multi-Step Pipelines</h2>
 <p>Even with schema versioning and atomic checkpointing, my multi-agent systems, especially those involving external API calls or human-in-the-loop steps, were brittle. An agent might make an API call, receive a 200 OK, but then fail to parse the response due to a network glitch or an unexpected payload. The state would be saved, but the agent was stuck. Retrying the <em>same</em> step often led to duplicate actions (e.g., sending the same email twice).</p>
 <p>My agents often involve:<br>1.  Ingestion & Pre-processing (Groq for quick classification)<br>2.  Complex Reasoning (Claude 3.5 Sonnet for multi-step planning)<br>3.  External API Calls (CRM, payment gateways)<br>4.  Human Review (via Telegram/WhatsApp)<br>5.  Final Output Generation</p>
@@ -295,7 +239,7 @@ class ADBCheckpointSaver(BaseCheckpointSaver):
 <p>This "Always Restart" pattern, combined with robust checkpointing and explicit schema management, finally brought the stability needed for production multi-agent systems on Oracle Cloud. My current agents handle thousands of messages daily, routing between Groq for fast initial processing, Claude 3.5 Sonnet for complex reasoning, and custom tools for external interactions, all while maintaining state across potentially long-running processes.</p>
 <h2>Frequently Asked Questions</h2>
 <p><strong>Q: How do you handle schema changes for in-flight agents with the versioning approach?</strong><br>A: When a new schema version is deployed, agents processing older checkpoints will first load the old state, then <code>migrate_state</code> will transform it to the new schema. This transformed state is then saved back to the checkpoint store, effectively upgrading the checkpoint. Agents starting new threads will use the latest schema.</p>
-<p><strong>Q: What's the overhead of using Redis for locking and ADB for checkpoints compared to a simpler solution?</strong><br>A: Redis adds ~2-5ms latency for lock acquisition/release. ADB adds ~10-50ms for checkpoint <code>UPSERT</code> operations, depending on network latency and payload size. This is acceptable for most multi-agent systems where LLM calls dominate latency (hundreds of ms to seconds). The stability gain far outweighs this overhead for production.</p>
+
 <p><strong>Q: How do you manage the <code>LockAcquisitionError</code> in your <code>ADBCheckpointSaver</code>?</strong><br>A: When <code>LockAcquisitionError</code> is raised, the agent's current invocation is aborted. The external orchestrator (e.g., a message queue consumer or a cron job) responsible for invoking agents will catch this error and typically re-queue the message or mark the thread for a later retry. This ensures that only one agent attempts to process a specific thread at a time.</p>
 <p><strong>Q: Does the "Always Restart" pattern mean you re-run LLM calls if a node fails after the LLM call but before saving state?</strong><br>A: Yes, if an LLM call completes but the subsequent state update or external action fails <em>before</em> the LangGraph node returns and its state is checkpointed, the LLM call might be re-run on restart. To prevent this for expensive LLM calls, I often add a <code>llm_response_cached: bool</code> flag to the state and save the raw LLM response. The node then checks this flag and uses the cached response if available.</p>
 <p><strong>Q: Why Oracle Autonomous Database (ADB) specifically?</strong><br>A: ADB offers fully managed, auto-scaling, and highly available PostgreSQL-compatible or Oracle Database instances. For AIdeazz, it integrates seamlessly with other Oracle Cloud Infrastructure (OCI) services I use (OKE, OCI Functions, OCI AI Services) and provides strong performance guarantees without requiring dedicated DBA resources, which is critical for a lean operation.</p>

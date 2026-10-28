@@ -57,14 +57,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Why not use a custom state manager with Redis or DynamoDB instead of LangGraph's built-in checkpointer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "While possible, it adds significant development and maintenance overhead. LangGraph's checkpointer handles serialization, deserialization, and versioning of the graph state automatically. Building this from scratch for a custom store would consume weeks of engineering time that could be spent on agent logic."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "How do you handle schema migrations for `AgentState` in production?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -152,6 +144,7 @@
       <time itemprop="datePublished" datetime="2026-07-29T19:30:16.512Z">July 29, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>Our first LangGraph agent, designed to process inbound support requests, silently dropped 80% of its jobs for two weeks. The <code>state</code> object, intended to carry a <code>job_id</code> and <code>customer_query</code>, was being overwritten with an empty dictionary at the start of every new graph execution. We only caught it when a customer complained about a missing ticket. The root cause: a schema mismatch between the initial state passed to <code>graph.invoke()</code> and the state expected by the first node. LangGraph didn't throw an error; it just reset the state. This wasn't a bug in LangGraph, but a fundamental misunderstanding of its state management in a production context.</p>
 <h2>The Silent State Reset: A $5,000 Lesson</h2>
@@ -225,10 +218,10 @@
     </code></pre><br>    Each node returns a dictionary that LangGraph intelligently merges. This pattern, combined with robust checkpointing, made our multi-agent systems resilient to failures and allowed us to build complex, multi-turn interactions. We now run agents that handle everything from customer support to internal data analysis, routing between Groq for speed, Claude for complex reasoning, and custom tools, all orchestrated by LangGraph with stable state management.</p>
 <h2>Cost Implications of Robust Checkpointing</h2>
 <p>Moving from a local SQLite file to a managed PostgreSQL instance on OCI increased our infrastructure cost for checkpointing from $0 to $50/month. This is for a small instance (1 OCPU, 1GB RAM) capable of handling hundreds of concurrent threads.</p>
-<p>The alternative, a custom Redis-based solution or a similar key-value store, would have required significant development and maintenance effort. Given our zero-VC funding model, minimizing operational overhead is paramount. The $50/month for a managed, battle-tested database is a small price to pay for stability and developer sanity.</p>
+
 <p>Furthermore, the stability gained directly impacts our LLM costs. Fewer retries due to lost state means fewer unnecessary API calls to Groq or Claude. A single complex multi-turn interaction can involve 5-10 LLM calls. If 10% of these interactions fail due to state loss and need to be re-run, that's a 10% increase in LLM spend. For our current volume, this translates to roughly $100-$200/month in saved LLM costs, effectively offsetting the database cost.</p>
 <h2>Frequently Asked Questions</h2>
-<p><strong>Q: Why not use a custom state manager with Redis or DynamoDB instead of LangGraph's built-in checkpointer?</strong><br>A: While possible, it adds significant development and maintenance overhead. LangGraph's checkpointer handles serialization, deserialization, and versioning of the graph state automatically. Building this from scratch for a custom store would consume weeks of engineering time that could be spent on agent logic.</p>
+
 <p><strong>Q: How do you handle schema migrations for <code>AgentState</code> in production?</strong><br>A: We treat <code>AgentState</code> like a database schema. For minor additions, we add new optional keys. For breaking changes, we deploy a new version of the agent with a new <code>thread_id</code> prefix and migrate active threads manually or through a one-off script, ensuring old threads complete on the old schema.</p>
 <p><strong>Q: What's the performance overhead of PostgreSQL checkpointing compared to in-memory?</strong><br>A: For typical agent interactions (seconds to minutes per turn), the overhead of a network roundtrip to PostgreSQL (tens of milliseconds) is negligible compared to LLM inference times (hundreds of milliseconds to seconds). For extremely high-throughput, low-latency scenarios, an in-memory checkpointer with periodic flushing might be considered, but it introduces data loss risk on crashes.</p>
 <p><strong>Q: Can LangGraph's checkpointer handle very large state objects (e.g., megabytes of data)?</strong><br>A: While technically possible, it's not recommended. Large state objects increase I/O, serialization/deserialization time, and database storage costs. We keep our <code>AgentState</code> lean, storing only essential metadata and pointers to larger data (e.g., file IDs in object storage) rather than embedding raw data directly.</p>

@@ -150,6 +150,7 @@
       <time itemprop="datePublished" datetime="2026-06-13T19:31:28.547Z">June 13, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>$47,000. That's what it will cost me to migrate away from a single vendor decision I made 18 months ago. The contract runs another 14 months. The API deprecation notice arrived last Tuesday.</p>
 <p>When you're building AI systems without VC funding, every vendor choice is a survival decision. I've made three that haunt my P&L: one API contract that gates 40% of our agent traffic, one database architecture that tripled our compute costs, and one infrastructure bet that Oracle made obsolete six months after signing.</p>
@@ -195,7 +196,7 @@
 <p>The difference: strategic lock-in has clear ROI. Accidental lock-in just has costs.</p>
 <h2>The Next Audit</h2>
 <p>Every quarter, I run the audit again. Takes one day. Saves five figures.</p>
-<p>Current red flags:<br><ul><li>Our Redis deployment is using AWS-specific features</li><br><li>Cloudflare Workers syntax is creeping into core logic</li><br><li>New Oracle "AI Services" look tempting but smell like lock-in</li></ul></p>
+
 <p>The $47K mistake taught me this: the time to audit vendor lock-in isn't when you're shopping for a fractional CTO. It's before you write the first line of vendor-specific code.</p>
 <p>But if you're reading this with production systems already running? Start the audit today. Every month you wait adds another 5-10% to your migration costs.</p>
 <p>That's not a guess. That's what the numbers tell me every time I look at that WhatsApp contract.</p>

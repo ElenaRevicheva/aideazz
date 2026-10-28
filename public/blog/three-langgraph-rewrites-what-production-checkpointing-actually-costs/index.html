@@ -158,6 +158,7 @@
       <time itemprop="datePublished" datetime="2026-06-15T19:52:09.478Z">June 15, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>We discarded roughly three weeks of agent jobs without a single error in the logs. No exception, no failed checkpoint, no alert. The state graph ran clean, returned a valid response to the user on Telegram, and silently dropped half the accumulated context every single invocation. I found it because a user asked our agent to "continue where we left off" and it had no idea what "left off" meant — even though the checkpoint table had rows. The rows were there. The data inside them was wrong. That is the worst kind of bug: the system that tells you everything is fine.</p>
 <p>This is what it actually took to get LangGraph stateful agents production checkpointing to a place I trust on Oracle Cloud, running real WhatsApp and Telegram traffic, routing between Groq and Claude. Three rewrites. The third one finally held.</p>
@@ -199,7 +200,7 @@ async def run_for_thread(thread_id: str, payload):
         config = {"configurable": {"thread_id": thread_id}}
         return await graph.ainvoke(payload, config)
 </code></pre></p>
-<p>For multi-process deployment this lock has to be distributed — we moved to a Redis-backed lock with a short TTL once we ran more than one worker. The TTL matters: set it longer than your slowest model call plus checkpoint write, or you'll release mid-run and reintroduce the race. We use 30 seconds, which covers our Claude tail latency with margin.</p>
+
 <h2>Rewrite three: the pattern that finally held</h2>
 <p>The third rewrite wasn't about a new bug. It was about admitting the architecture was wrong. We had one giant graph that did routing, retrieval, tool calls, and synthesis, all sharing one fat state object. Every change to one node risked the checkpoint shape, and a checkpoint shape change is a migration problem when you have live threads persisted in Postgres.</p>
 <p>The pattern that fixed it: <strong>a thin, stable supervisor graph with a deliberately minimal checkpointed state, and stateless subgraph workers that do not persist.</strong></p>

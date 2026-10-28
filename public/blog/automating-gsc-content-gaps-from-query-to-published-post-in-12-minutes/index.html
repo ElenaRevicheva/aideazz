@@ -81,14 +81,6 @@
     },
     {
       "@type": "Question",
-      "name": "Why Oracle Cloud for this specific setup?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "I'm leveraging the OCI Always Free tier for Redis and some compute, which keeps operational costs near zero. OCI Container Instances provide a simple, serverless way to run Docker containers without managing Kubernetes, which is ideal for these independent, event-driven agents."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "What's the biggest bottleneck in your current pipeline?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -160,6 +152,7 @@
       <time itemprop="datePublished" datetime="2026-08-01T19:30:14.343Z">August 1, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first attempt at an automated content pipeline failed to move the needle. I spent $120 on API calls for 30 articles, and my Google Search Console (GSC) impressions barely budged. The problem wasn't the LLM output; it was the input. "Content gap" isn't a vague concept you solve with keyword research tools. For a new site with 15 GSC queries, it means <em>exactly</em> those 15 queries. My initial agent was too broad, trying to guess what people <em>might</em> search for. It needed to address what they <em>were</em> searching for, but not finding on my site.</p>
 <p>This iteration of the pipeline, which now publishes 3-5 articles weekly for AIdeazz.xyz and Dev.to, focuses on a hyper-specific GSC gap analysis. It identifies queries with impressions but zero clicks, drafts an article using Claude 3 Opus (routed via Groq for speed where possible), publishes it, and caches the content. The entire process, from GSC data ingestion to a live article, averages 12 minutes.</p>
@@ -167,7 +160,7 @@
 <p>A "content gap" for a nascent site isn't about competing with established players on high-volume keywords. It's about serving the users Google <em>already</em> sends your way. My GSC data showed 15-20 queries with impressions ranging from 5 to 50, but 0 clicks. These were long-tail, specific questions related to AI agents, Oracle Cloud, or my specific tech stack. For example, "oracle cloud always free arm instance setup" or "groq api claude 3 opus routing."</p>
 <p>My agent's first task is to pull GSC data for the last 28 days. It filters for queries with <code>clicks = 0</code> and <code>impressions > 3</code>. This isn't arbitrary; <code>impressions > 3</code> ensures there's <em>some</em> signal, while <code>clicks = 0</code> confirms a complete failure to convert. The agent then ranks these queries by impression count, prioritizing the highest visibility gaps. If there are no such queries, the agent pauses for 24 hours. This prevents generating content for content's sake.</p>
 <h2>Agent Orchestration: From Query to Draft</h2>
-<p>Once a target query is identified (e.g., "oracle cloud always free arm instance setup"), the orchestration begins. I use a multi-agent system built on Oracle Cloud Infrastructure (OCI) with Python. Each agent is a Docker container, managed by OCI Container Instances, communicating via a Redis message queue.</p>
+
 <p>1.  <strong>GSC Query Agent:</strong> Initiates the process, pulls data, identifies the top gap query. It then pushes this query to the "Research Agent" queue.<br>2.  <strong>Research Agent:</strong> This agent's job is to gather context. It performs a targeted Google search for the identified query, scraping the top 3-5 results. It also queries my existing site's sitemap and internal knowledge base (a vector store of my past articles and notes) to avoid duplication and ensure internal linking opportunities. This research is critical for grounding the LLM. Without it, the LLM hallucinates or provides generic advice. The agent compiles this research into a structured JSON object: <code>{"query": "...", "top_results_summaries": [...], "internal_context": "..."}</code>. This JSON is then pushed to the "Drafting Agent" queue.<br>3.  <strong>Drafting Agent:</strong> This is where the LLM comes in. I primarily use Claude 3 Opus for its long context window and reasoning capabilities, but I've built in a fallback to Groq's Mixtral 8x7B for simpler queries or when Opus is slow. The agent first checks the query complexity. If it's a straightforward "how-to," it attempts to route to Groq. If it requires deeper analysis or synthesis, it defaults to Claude 3 Opus. The prompt is highly structured:</p>
 <p><pre><code class="language-plain">    You are an expert technical writer. Your task is to write a detailed, practical blog post addressing the user's query.
     Target Audience: Developers, technical founders. Assume they are skeptical of AI hype and value concrete examples.
@@ -191,7 +184,7 @@
 <p>Even with a highly structured prompt, LLM output isn't perfect. My "Review Agent" is a human.</p>
 <p>1.  <strong>Review Agent (Human):</strong> When a draft is ready, the "Drafting Agent" sends a notification to my Telegram bot. I review the article for accuracy, tone, and clarity. This usually takes 2-5 minutes. I make minor edits, add specific code snippets if needed, and ensure the article aligns with my brand voice. This human touch is crucial for maintaining quality and trust. Once approved, I trigger the next step via a button in the Telegram bot.<br>2.  <strong>Publishing Agent:</strong> This agent receives the approved Markdown. It performs two key actions:<br>    *   <strong>Dev.to API:</strong> It uses the Dev.to API to create a new post. The article is published as a draft initially, allowing for a final check on the platform. Once confirmed, it's set to <code>published: true</code>.<br>    *   <strong>AIdeazz.xyz Cache:</strong> The article is also stored in my AIdeazz.xyz content cache (a simple file-based cache on an OCI Block Volume). This ensures I have a canonical version on my own site, even if it's not immediately public. This also allows for future internal linking and content analysis.<br>    *   <strong>Sitemap Update:</strong> After publishing, the agent triggers a sitemap update for AIdeazz.xyz and pings Google Search Console to re-index. This ensures the new content is discoverable quickly.</p>
 <h2>Cost and Performance Metrics</h2>
-<p>The entire pipeline runs on OCI Always Free tier where possible (Redis, some compute instances) and OCI Container Instances for the agents.</p>
+
 <ul><li>  <strong>OCI Container Instances:</strong> Each agent runs on a 1 OCPU, 1GB RAM instance. Cost is negligible, usually under $0.01/hour per active agent.</li>
 <li>  <strong>LLM APIs:</strong> This is the primary variable cost.</li></ul>
     *   Claude 3 Opus: ~$15/M tokens input, ~$75/M tokens output. A 1500-word article (approx. 2000 tokens) costs around $0.15-$0.20 per article.
@@ -207,7 +200,7 @@
 <p><strong>Q: How do you handle duplicate content if you publish on both Dev.to and your own site?</strong><br>A: Dev.to allows specifying a canonical URL. I always set the canonical URL to the article on AIdeazz.xyz. This tells search engines that my site is the original source, preventing duplicate content penalties.</p>
 <p><strong>Q: What if the GSC query is too broad or nonsensical for an LLM to handle?</strong><br>A: The "Research Agent" helps filter some of this. If Google search results for a query are completely irrelevant or sparse, the agent flags it. Additionally, my human review step catches any LLM output that is off-topic or unpublishable, and I can manually discard or re-prompt.</p>
 <p><strong>Q: How do you ensure the LLM doesn't just regurgitate information from the scraped research?</strong><br>A: The prompt explicitly asks for a "detailed, practical blog post" and provides "research context" rather than "content to summarize." I also include "internal knowledge" to encourage synthesis with my existing perspective. The human review step is crucial here to ensure original insights and not just a rehash.</p>
-<p><strong>Q: Why Oracle Cloud for this specific setup?</strong><br>A: I'm leveraging the OCI Always Free tier for Redis and some compute, which keeps operational costs near zero. OCI Container Instances provide a simple, serverless way to run Docker containers without managing Kubernetes, which is ideal for these independent, event-driven agents.</p>
+
 <p><strong>Q: What's the biggest bottleneck in your current pipeline?</strong><br>A: The human review step. While fast, it's still a manual gate. I'm exploring an additional agent that uses a smaller, faster LLM (like Llama 3 8B on Groq) to perform an initial quality check and flag obvious issues, reducing my review time further.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>

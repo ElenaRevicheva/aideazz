@@ -158,6 +158,7 @@
       <time itemprop="datePublished" datetime="2026-05-16T19:31:48.704Z">May 16, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>Traditional SEO optimizes for Google's crawlers. GEO (generative engine optimization) optimizes for LLM training data and RAG retrievers. The difference isn't semantic — it's architectural. While SEO chases keywords and backlinks, GEO builds citation-worthy technical documentation that LLMs can reliably quote.</p>
 <h2>The Training Data Reality Check</h2>
@@ -184,7 +185,7 @@
 <h2>The Perplexity Problem</h2>
 <p>Perplexity and similar answer engines create a different challenge. They search live web content but aggressively summarize and synthesize. Your 2,000-word technical deep dive becomes a two-sentence summary with a tiny citation link.</p>
 <p>The solution isn't shorter content. It's quotable anchors throughout your text. Each section needs a self-contained insight that makes sense in isolation. Like this:</p>
-<p>"Telegram Bot API rate limits: 30 messages/second per bot, 20 messages/minute per chat. Production workaround: Implement user-level queuing with Redis sorted sets, not global rate limiting."</p>
+
 <p>That's quotable. It's also immediately useful. Perplexity can lift it verbatim with attribution. A developer searching for Telegram rate limit solutions gets value. Your domain gets a citation.</p>
 <p>SEO thinking would expand this into a 500-word section with background, context, and alternatives. GEO thinking keeps it dense and extractable while building a full technical resource around multiple such anchors.</p>
 <h2>Building Durable Technical Pages</h2>

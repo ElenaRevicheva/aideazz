@@ -57,14 +57,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What's the minimum viable agent architecture for a startup?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Single Python service with FastAPI, PostgreSQL for state, Redis for caching, and Celery for async tasks. Deploy on a single VM initially. This handles 1,000s of daily interactions before needing horizontal scaling."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "How do you prevent agents from making costly mistakes autonomously?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -158,6 +150,7 @@
       <time itemprop="datePublished" datetime="2026-05-15T19:31:16.821Z">May 15, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>Everyone's building "AI agents" now. Most are glorified chatbots with API calls. Here's what an actual agent looks like when you're running dozens in production, serving thousands of users daily across Telegram and WhatsApp.</p>
 <h2>The Production Definition: Observe → Decide → Act → Persist</h2>
@@ -166,7 +159,7 @@
 <p>My WhatsApp invoice processor doesn't just extract data—it maintains conversation state across days, remembers user preferences, autonomously retries failed OCR attempts, and escalates to human review when confidence drops below thresholds. That's an agent.</p>
 <h2>Architecture Reality: What Production Agents Actually Need</h2>
 <p>Running agents at scale on Oracle Cloud Infrastructure taught me the non-negotiables:</p>
-<p><strong>State Management</strong>  <br>Agents die without proper state persistence. We use Oracle Autonomous Database for conversation history, user context, and workflow state. Redis handles session caching. Every agent maintains:<br><ul><li>Conversation memory (last 10-50 messages depending on use case)</li><br><li>User profile data (preferences, permissions, usage patterns)</li><br><li>Workflow state machines (current step, pending actions, retry counts)</li><br><li>Cross-session context (previous interactions, learned patterns)</li></ul></p>
+
 <p><strong>Model Routing</strong>  <br>Single-model agents fail in production. We route dynamically:<br><ul><li>Groq's Llama 70B for high-volume, low-latency tasks (€0.0008/1K tokens)</li><br><li>Claude 3.5 Sonnet for complex reasoning and code generation</li><br><li>GPT-4 Vision for document processing when OCR confidence is low</li><br><li>Local Whisper models for voice transcription</li></ul></p>
 <p>The router itself is a lightweight classifier that considers: token cost, latency requirements, task complexity, and current queue depths.</p>
 <p><strong>Error Handling</strong>  <br>Agents fail constantly. Network timeouts, model hallucinations, API rate limits, malformed responses. Production agents need:<br><ul><li>Exponential backoff with jitter for API retries</li><br><li>Fallback models for critical paths</li><br><li>Human escalation workflows</li><br><li>Graceful degradation (partial results > no results)</li></ul></p>
@@ -183,7 +176,7 @@
 <h2>Building Your First Real Agent</h2>
 <p>Skip the tutorials building "email summarizers." Here's a production-worthy starting point:</p>
 <p><strong>Document Processing Agent</strong> (what we deploy for SMB clients):<br>1. Monitor email inbox or cloud folder<br>2. Classify document type (invoice, PO, contract)<br>3. Extract structured data using appropriate model<br>4. Validate against business rules<br>5. Push to ERP/accounting system<br>6. Handle exceptions with human escalation</p>
-<p><strong>Technical stack:</strong><br><ul><li>Python + FastAPI for agent service</li><br><li>Celery + Redis for task queue</li><br><li>PostgreSQL for state persistence</li><br><li>Webhook endpoints for email/cloud triggers</li><br><li>Docker + Kubernetes for deployment</li></ul></p>
+
 <p><strong>Cost reality:</strong> Running this for 1,000 documents/month:<br><ul><li>Infrastructure: ~€50 (Oracle Cloud Always Free tier covers most)</li><br><li>Model API costs: €20-80 depending on document complexity</li><br><li>Development: 2-3 weeks for MVP, 2-3 months for production-ready</li></ul></p>
 <h2>Common Failure Modes I've Seen</h2>
 <p><strong>1. Infinite Loops</strong>  <br>Agent decides to call itself recursively. Solution: Implement call stack depth limits and circuit breakers.</p>
@@ -207,7 +200,7 @@
 <p>The market's flooded with "AI agent frameworks" that abstract away the complexity. They work for demos. For production, you need to understand the plumbing: state management, error handling, cost control, and operational monitoring.</p>
 <p>That's what an AI agent actually is—not a chatbot with memory, but an autonomous system that observes, decides, acts, and persists, handling real workflows with real constraints.</p>
 <h2>Frequently Asked Questions</h2>
-<p><strong>Q: What's the minimum viable agent architecture for a startup?</strong><br>A: Single Python service with FastAPI, PostgreSQL for state, Redis for caching, and Celery for async tasks. Deploy on a single VM initially. This handles 1,000s of daily interactions before needing horizontal scaling.</p>
+
 <p><strong>Q: How do you prevent agents from making costly mistakes autonomously?</strong><br>A: Implement approval workflows for high-risk actions, set spending limits per time period, and use canary deployments where agents operate in shadow mode before getting write permissions. We also log every decision for audit trails.</p>
 <p><strong>Q: Should I use LangChain/similar frameworks or build from scratch?</strong><br>A: Start with frameworks for prototypes, but expect to replace components as you scale. Most frameworks optimize for flexibility over production concerns like cost control and error handling. We use LangChain for experiments, custom code for production.</p>
 <p><strong>Q: What's the typical latency for multi-step agent workflows?</strong><br>A: Depends on complexity, but our invoice processing agent averages 8-12 seconds for: receive document → OCR → extract data → validate → update database → send confirmation. User-facing chat agents target sub-2 second responses by preprocessing and caching common paths.</p>

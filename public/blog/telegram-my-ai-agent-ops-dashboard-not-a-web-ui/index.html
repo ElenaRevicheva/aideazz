@@ -160,6 +160,7 @@
       <time itemprop="datePublished" datetime="2026-08-21T21:21:50.012Z">August 21, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first production AI agent system, a content generation pipeline, launched with a standard web dashboard. It displayed agent status, job queues, and output previews. Within two weeks, I ripped it out. The problem wasn't the code; it was the <em>friction</em>. As a solo operator managing 10 live systems, I needed to react instantly, not open a browser, log in, and navigate. My solution: a Telegram bot.</p>
 <p>This isn't about building a customer-facing bot. This is about using Telegram as a real-time, low-latency operational interface for your AI agents. It replaced my web dashboard entirely, and for specific reasons rooted in the realities of solo-operator production AI.</p>
@@ -192,7 +193,7 @@ Current: 92%
 </code></pre></p>
 <p>This means I get a continuous, chronological feed of my entire AI production environment. I don't need to check multiple dashboards; I just scroll through a single chat. If I need to drill down, the messages often include direct links to logs or specific agent UIs (if they exist for deeper debugging).</p>
 <h2>The "Zero-Setup" Advantage</h2>
-<p>Deploying a web dashboard, even a simple one, involves:<br><ul><li>  Frontend framework (React, Vue, etc.)</li><br><li>  Backend API (FastAPI, Node.js, etc.)</li><br><li>  Database (PostgreSQL, Redis)</li><br><li>  Authentication system</li><br><li>  Deployment infrastructure (VM, container, serverless function)</li><br><li>  CI/CD pipeline for all of the above.</li></ul></p>
+
 <p>For a solo operator, this is a significant overhead. Each component is a potential point of failure, a security vulnerability, and a maintenance burden. My goal is to ship AI agents, not build web infrastructure.</p>
 <p>My Telegram bot, by contrast, is a single Python script. It runs as a lightweight service on an existing OCI compute instance. It uses the Telegram Bot API, which handles all the UI rendering, state management (for simple interactions), and secure communication. I don't manage a frontend, a separate API gateway, or a complex auth system. Telegram handles it.</p>
 <p>This "zero-setup" approach allowed me to deploy my ops dashboard in hours, not days or weeks. The cost is negligible – just the compute cycles for the bot itself.</p>

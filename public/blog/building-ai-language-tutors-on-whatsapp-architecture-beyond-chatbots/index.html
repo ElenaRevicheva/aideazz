@@ -73,14 +73,6 @@
     },
     {
       "@type": "Question",
-      "name": "How do you prevent abuse without rate limiting legitimate learners?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Three-tier system: free users get 50 messages, paid users get 500 daily, and I maintain a Redis blacklist for obvious abuse. The payment gate solves 95% of abuse. Legitimate learners rarely exceed 100 messages per day."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "What's the latency breakdown for voice message processing?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -158,6 +150,7 @@
       <time itemprop="datePublished" datetime="2026-05-19T19:31:36.581Z">May 19, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>I shipped my first AI language tutor on WhatsApp three months ago. The bot handles 400+ daily conversations, processes voice messages in Spanish and English, remembers context across weeks, and collects payments through Stripe — all without a traditional app. Here's what I learned building production messaging-based tutoring systems, and why WhatsApp's constraints actually improve the learning experience.</p>
 <h2>The Messaging Platform Advantage</h2>
@@ -165,17 +158,17 @@
 <p>The platform constraints force better design. WhatsApp's 1,600-character limit per message means I architect responses as digestible chunks. No overwhelming walls of text. The 24-hour messaging window creates natural session boundaries — perfect for spaced repetition. Voice messages arrive as .opus files, which compress beautifully and process faster than WebRTC streams.</p>
 <p>But the real advantage? Zero onboarding. Users already know how to send messages, record voice notes, and share images. They practice during commutes, between meetings, while cooking. The notification system is already configured. Payment happens once through a link, then they forget about it.</p>
 <h2>Multi-Agent Architecture on Oracle Cloud</h2>
-<p>My production stack runs entirely on Oracle Cloud Infrastructure, which surprised even me. But their Always Free tier handles 4 ARM cores and 24GB RAM — enough for my agent orchestrator, Redis instance, and PostgreSQL database without touching paid tiers.</p>
+
 <p>The architecture splits into specialized agents:</p>
 <p><strong>Conversation Agent</strong> (Groq + Llama 3.1): Handles real-time dialogue, corrections, and explanations. Groq's 70B model inference runs at 180 tokens/second — fast enough that users don't notice the processing lag. I route complex grammar explanations to Claude 3.5 via API when Groq struggles with nuanced language rules.</p>
 <p><strong>Memory Agent</strong> (Claude 3.5 Sonnet): Updates user profiles every 10 messages. Tracks vocabulary exposure, common errors, conversation topics, and learning pace. This runs async — users get responses immediately while profile updates queue in background.</p>
 <p><strong>Voice Processing Pipeline</strong> (Whisper Large V3 + local TTS): WhatsApp sends voice as .opus files. I transcode to WAV, run through Whisper for transcription, then generate corrections with Coqui TTS. The entire pipeline takes 2-3 seconds for a 30-second voice message on Oracle's ARM instances.</p>
 <p><strong>Payment Orchestrator</strong>: Stripe webhook handler that updates PostgreSQL user status. Simple boolean flag — paid or trial. No complex subscription logic in the critical path.</p>
-<p>The agents communicate through Redis pub/sub. When a message arrives via WhatsApp Business API webhook, the orchestrator publishes to the conversation channel. Each agent subscribes only to relevant events. This decoupling means I can restart individual agents without dropping messages.</p>
+
 <h2>Memory Systems That Actually Work</h2>
 <p>Generic chatbots suffer from goldfish memory. My language tutor remembers that María struggles with subjunctive mood, that she's planning a trip to Barcelona, and that she learns best through cooking vocabulary.</p>
 <p>The memory architecture has three layers:</p>
-<p><strong>Session Context</strong> (Redis, 24-hour TTL): Last 20 messages, current topic, error patterns in this session. Blazing fast retrieval, no database calls during conversation.</p>
+
 <p><strong>User Profile</strong> (PostgreSQL JSONB): Learning level, vocabulary list, error frequency map, preferred topics, timezone, payment status. The memory agent updates this async after each session.</p>
 <p><strong>Conversation Embeddings</strong> (pgvector): Previous conversation snippets encoded as vectors. When users reference old topics ("remember when we discussed that recipe?"), I search semantically. Limited to last 1000 messages to control costs.</p>
 <p>The trick is knowing what NOT to remember. I don't store every message — just summaries and key learning moments. Storage costs killed my first design that saved everything.</p>
@@ -185,7 +178,7 @@
 <p>The voice pipeline now:<br>1. Normalize audio levels (many WhatsApp recordings are too quiet)<br>2. Apply noise reduction using RNNoise<br>3. Split long messages at silence boundaries<br>4. Run Whisper with language hint based on user profile<br>5. Fallback to Claude for correction if confidence < 0.7</p>
 <p>For responses, I generate voice only for pronunciation examples and new vocabulary. Text suffices for grammar explanations and general conversation. Coqui TTS runs locally, avoiding API costs and latency.</p>
 <p>Payments integrate through Stripe Payment Links. Users click once, enter card details, done. No subscription management UI needed — they message "cancel" and I process it. The beauty of messaging: natural language commands beat form interfaces.</p>
-<p>The payment flow:<br>1. After 50 free messages, bot sends payment link<br>2. Stripe webhook hits my Oracle endpoint<br>3. Update PostgreSQL user status<br>4. Redis cache invalidation<br>5. Next message confirms activation</p>
+
 <p>I process $3,400/month with zero payment-related support tickets. Users understand one-time payments better than subscriptions.</p>
 <h2>Platform Constraints as Features</h2>
 <p>WhatsApp's limitations shape better interactions:</p>
@@ -209,7 +202,7 @@
 <h2>Frequently Asked Questions</h2>
 <p><strong>Q: How do you handle WhatsApp Business API costs at scale?</strong><br>A: WhatsApp charges $0.005-0.08 per conversation (24-hour window), varying by country. I pass this to users as part of the service fee. At 400 users averaging 3 conversations/month, it's roughly $72 monthly — negligible compared to infrastructure costs.</p>
 <p><strong>Q: Can this architecture work for other domains beyond language learning?</strong><br>A: Yes, but with caveats. Coaching, customer support, and educational bots work well. Complex workflows requiring visual interfaces don't. I tested a coding tutor — the lack of syntax highlighting and code formatting killed the experience.</p>
-<p><strong>Q: How do you prevent abuse without rate limiting legitimate learners?</strong><br>A: Three-tier system: free users get 50 messages, paid users get 500 daily, and I maintain a Redis blacklist for obvious abuse. The payment gate solves 95% of abuse. Legitimate learners rarely exceed 100 messages per day.</p>
+
 <p><strong>Q: What's the latency breakdown for voice message processing?</strong><br>A: Upload to Oracle: 200ms. Transcode opus to WAV: 400ms. Whisper inference: 6-8 seconds for 60-second audio. TTS generation: 1-2 seconds. Total round trip: 8-11 seconds. Users expect some delay with voice, so this feels acceptable.</p>
 <p><strong>Q: Why Oracle Cloud over AWS/GCP for production AI workloads?</strong><br>A: The Always Free tier's 4 ARM cores and 24GB RAM handles my entire stack. AWS charges $140/month for equivalent compute. Oracle's ARM instances run Whisper inference surprisingly well. I only pay for block storage ($12/month for 200GB).</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>

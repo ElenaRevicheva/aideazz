@@ -152,6 +152,7 @@
       <time itemprop="datePublished" datetime="2026-07-30T19:30:21.831Z">July 30, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first LangGraph agent silently discarded every job for weeks. The agent was supposed to process incoming Telegram messages, enrich them with external data, and then route them to a specific LLM (Groq for fast, simple tasks; Claude for complex reasoning). Instead, it would receive a message, acknowledge it, and then… nothing. No error, no log, just a black hole. The problem wasn't in the LLM calls or the routing logic. It was a state schema mismatch, a subtle bug that only surfaced when I tried to re-hydrate the agent's state from a checkpoint.</p>
 <h2>The Silent State Schema Mismatch</h2>
@@ -212,41 +213,8 @@ def process_enriched_data_node(state: AgentState) -&gt; AgentState:
             # LangGraph's invoke will handle loading the latest state if the config is the same
             raise # Re-raise to trigger tenacity retry
     </code></pre></p>
-<p>2.  <strong>External Locking (for critical sections):</strong> While LangGraph handles optimistic locking for its state, certain external operations (like calling a rate-limited API or updating an external database) might need stronger guarantees. For these, I introduced a simple Redis-based distributed lock. Before a critical node executes, it acquires a lock for the <code>thread_id</code>. If it can't acquire the lock, it waits or signals that the operation is already in progress. This prevented multiple agents from, for example, simultaneously fetching the same <code>enriched_data</code> or sending duplicate messages to the user.</p>
-<p><pre><code class="language-python">    import redis
-    import time
 
-    redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
-    def acquire_lock(lock_name, timeout=10):
-        end_time = time.time() + timeout
-        while time.time() &lt; end_time:
-            if redis_client.setnx(lock_name, 1):
-                redis_client.expire(lock_name, 30) # Lock expires in 30 seconds
-                return True
-            time.sleep(0.1)
-        return False
-
-    def release_lock(lock_name):
-        redis_client.delete(lock_name)
-
-    # Inside a LangGraph node:
-    def critical_external_api_call_node(state: AgentState) -&gt; AgentState:
-        thread_id = state["thread_id"] # Assuming thread_id is part of state
-        lock_name = f"lock:thread:{thread_id}"
-        if acquire_lock(lock_name):
-            try:
-                # Perform critical API call
-                print(f"Acquired lock for {thread_id}, calling API...")
-                time.sleep(2) # Simulate API call
-                return {"api_result": "success"}
-            finally:
-                release_lock(lock_name)
-        else:
-            print(f"Could not acquire lock for {thread_id}, another process is working.")
-            # Handle case where lock couldn't be acquired (e.g., wait, or return early)
-            return {"api_result": "skipped_due_to_lock"}
-    </code></pre></p>
 <p>This combination made the multi-agent system significantly more resilient. The retry mechanism handled transient database conflicts, and the external locking prevented race conditions on shared external resources.</p>
 <h2>The One Pattern That Made Multi-Step Pipelines Stable: Explicit Step Management</h2>
 <p>My final rewrite, and the one that truly stabilized complex multi-step agents, involved moving away from implicit state transitions and towards explicit step management within the LangGraph state.</p>

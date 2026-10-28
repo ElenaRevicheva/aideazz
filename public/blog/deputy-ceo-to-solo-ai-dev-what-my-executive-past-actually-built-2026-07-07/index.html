@@ -57,14 +57,6 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How do you manage context and state across multiple agents in your orchestration layer?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "I use a Redis cache for short-term conversation history and a PostgreSQL database for persistent user sessions. Each interaction includes a `session_id` which the orchestration layer uses to retrieve relevant context before routing to an agent."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "What's your strategy for handling LLM provider outages or rate limits?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -152,6 +144,7 @@
       <time itemprop="datePublished" datetime="2026-07-07T19:30:28.523Z">July 7, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first production AI agent, a Telegram bot for real estate leads, cost $0.03 per interaction on Groq. It failed to convert a single lead in its first 72 hours. The "executive experience" I brought to the table—leading a 200-person team, managing a $50M budget, negotiating with government ministers—did not prevent that failure. It also didn't write a single line of Python, debug a <code>KeyError</code>, or configure an Oracle Cloud Infrastructure (OCI) network security group.</p>
 <p>For two years, I tried to hide the 15-year gap between my last line of code and my first <code>git commit</code> at AIdeazz. I thought my Deputy CEO title was a liability, a sign I was out of touch. It turns out, some of it was. But other parts, the ones I never expected, are the only reason AIdeazz exists at all.</p>
@@ -176,7 +169,7 @@
 <p>For a long time, I omitted my Deputy CEO role from my public profiles, fearing it would make me look like a dilettante in the AI space. I focused only on the technical skills I was acquiring. But the truth is, the executive experience, while not directly coding, provided a unique perspective on problem-solving, client management, and operational resilience.</p>
 <p>It's not about <em>what</em> you did, but <em>how</em> you did it. The ability to identify a problem, break it down, allocate resources (even if those resources are just your own time), and drive it to completion is universal. My non-traditional path from Deputy CEO to solo AI developer in Panama is not a weakness; it's a differentiator. It means I understand the business context, the operational constraints, and the need for pragmatic, cost-effective solutions—not just elegant code.</p>
 <h2>Frequently Asked Questions</h2>
-<p><strong>Q: How do you manage context and state across multiple agents in your orchestration layer?</strong><br>A: I use a Redis cache for short-term conversation history and a PostgreSQL database for persistent user sessions. Each interaction includes a <code>session_id</code> which the orchestration layer uses to retrieve relevant context before routing to an agent.</p>
+
 <p><strong>Q: What's your strategy for handling LLM provider outages or rate limits?</strong><br>A: I implement a fallback mechanism. If Groq fails or hits a rate limit, the request is automatically retried with Claude 3.5 Sonnet. This requires careful token management and cost awareness, as Claude is more expensive.</p>
 <p><strong>Q: How do you ensure data privacy and security for client data, especially with external LLMs?</strong><br>A: I use anonymization and data minimization techniques. Sensitive PII is masked or removed before being sent to external LLMs. For highly sensitive data, I implement RAG on client-hosted vector databases within their private networks, ensuring only embeddings (not raw data) are exposed to the LLM context.</p>
 <p><strong>Q: What's the biggest challenge of building AI agents on Oracle Cloud Infrastructure?</strong><br>A: The biggest challenge is the learning curve for OCI-specific services and the less mature developer ecosystem compared to AWS/GCP. Debugging networking and IAM issues can be time-consuming, requiring deep dives into documentation and support forums.</p>

@@ -160,6 +160,7 @@
       <time itemprop="datePublished" datetime="2026-07-09T19:30:18.269Z">July 9, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <h2>Frequently Asked Questions</h2>
 <p><strong>Q: How much runway did you actually burn before the first paid multi-agent deployment?</strong><br>A: $47k across 11 months. The first $9k MRR came from a Telegram-based procurement agent for a logistics firm in Colombia. Everything before month 9 was pure negative cash flow on Oracle credits, Groq inference, and my own salary.</p>
@@ -174,7 +175,7 @@
 <p>Three things survived the translation from deputy CEO to solo AI builder.</p>
 <p>First, stakeholder compression. I used to run alignment sessions with 40-person steering committees. Now I compress that into a 9-prompt chain that routes between Groq for speed and Claude 3.5 Sonnet for reasoning. The same muscle that kept a Minister’s aide, three deputy ministers, and a state bank compliance officer on the same page now keeps four specialist agents from hallucinating conflicting supplier data.</p>
 <p>Second, variance reporting. Every Friday I still produce a one-page variance report. Only now the columns are “expected token spend,” “actual token spend,” “agent success rate,” and “human escalation rate.” My largest client pays $6,200/month because that report shows them saving $41k in procurement labor. The format is identical to the ones I used to send the Russian government — just the units changed from rubles to dollars and from headcount to inference cost.</p>
-<p>Third, ruthless scoping. The average government digital project had 47 success criteria and 9 ministries with veto power. I learned to kill 80% of the scope in the first workshop. That skill now prevents me from building features no one will pay for. My current multi-agent system has exactly four user-facing flows. Everything else is internal routing logic that lives in 180 lines of Python and a Redis cache on Oracle.</p>
+
 <h2>What Was Completely Useless</h2>
 <p>PowerPoint fluency. I can still build a 60-slide deck that would make McKinsey cry, but it has zero correlation with whether an agent survives production.</p>
 <p>Committee management. In government you optimize for consensus. In production AI you optimize for latency under 900ms and cost under $0.03 per session. The skills are antagonistic.</p>
@@ -188,7 +189,7 @@
 <p>Within 30 days I had two new $2,400/month contracts. Both clients said the same thing: “We were looking for someone who had actually failed in public before asking us to trust them with our procurement data.”</p>
 <h2>Current Stack and Real Constraints</h2>
 <p>I run everything on Oracle Cloud Always Free tier plus $180/month of paid compute. Two Ampere A1 instances handle the agent orchestration. Groq LPU instances are the default fast path (mixtral-8x7b and llama3-70b). Claude 3.5 Sonnet is the reasoning fallback triggered when confidence score drops below 0.72.</p>
-<p>All customer interaction happens through Telegram and WhatsApp Business API. No web frontend. The agents are multi-turn, maintain 30-day conversation memory in Redis, and can trigger Oracle Functions that call external supplier APIs. Average daily volume: 1,840 messages across all customers. Peak latency: 680ms on Groq path, 4.2s on Claude fallback.</p>
+
 <p>The entire system is 2,400 lines of Python, 41 prompt templates, and one brutally simple retry circuit that falls back to human escalation after three failures. I no longer hide that last part. In fact, I charge a premium for the escalation SLA (under 12 minutes during business hours).</p>
 <h2>What I Tell Other Executive Career Pivot AI Developers</h2>
 <p>If you are coming from a senior operating role and trying to become a technical founder, do these three things immediately:</p>

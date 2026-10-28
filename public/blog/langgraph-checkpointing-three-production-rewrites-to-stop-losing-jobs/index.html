@@ -65,22 +65,6 @@
     },
     {
       "@type": "Question",
-      "name": "How much overhead did the Redis lock add to each checkpoint operation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "On OCI Cache with Redis, a `SETNX` (acquire) and `DEL` (release) operation typically adds 5-15ms. For a full checkpoint load-and-save cycle, including network latency to the database, the total overhead was around 50ms per checkpoint operation. This was acceptable for my use case where agent steps are often LLM calls taking hundreds of milliseconds."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What if the Redis lock itself fails or the agent crashes while holding a lock?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Redis locks should always have an expiry (`timeout` parameter in `redis_client.lock`). If an agent crashes, the lock will automatically expire after the set duration (e.g., 60 seconds), preventing permanent deadlocks. This means a job might be delayed, but not permanently stuck."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "Why not use a more sophisticated workflow engine like Apache Airflow or Temporal for state?",
       "acceptedAnswer": {
         "@type": "Answer",
@@ -152,6 +136,7 @@
       <time itemprop="datePublished" datetime="2026-08-22T19:30:18.406Z">August 22, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>My first LangGraph agent silently dropped 80% of its jobs for three weeks. The logs showed success, the agent responded, but the core task—generating a specific output—never materialized. The problem wasn't the LLM, nor the tools. It was a state schema mismatch, a silent killer in a system designed for stateful persistence. This wasn't a "hello world" problem; this was a production agent, processing real user requests for AI-generated content, running on Oracle Cloud Infrastructure (OCI) with Groq and Claude models.</p>
 <h2>The Silent State Schema Mismatch</h2>
@@ -196,29 +181,7 @@ class AgentState(BaseModel):
 <p>If <code>SQLSaver</code> attempts to write a checkpoint while another process is still reading or writing it, you get database-level race conditions. Sometimes, a <code>UNIQUE constraint (USER.LANGGRAPH_CHECKPOINTS_PK) violated</code> error. Other times, a partial write, leading to a <code>json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)</code> on the next load. The <code>metadata</code> or <code>state</code> column in the <code>langgraph_checkpoints</code> table would be truncated or malformed.</p>
 <p>The <code>SQLSaver</code> uses a simple <code>INSERT OR REPLACE</code> for updates. This is not atomic for complex state objects. A proper solution requires pessimistic locking or a versioning system at the database level.</p>
 <p>My workaround involved two steps:</p>
-<p>1.  <strong>Application-level locking:</strong> Before loading or updating a checkpoint, acquire a distributed lock using Redis (OCI Cache with Redis). This ensures only one agent instance can touch a specific thread ID's checkpoint at a time. This added ~50ms latency per checkpoint operation but eliminated corruption.<br>    <pre><code class="language-python">    import redis
-    import os
 
-    REDIS_HOST = os.environ.get("REDIS_HOST")
-    REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
-    REDIS_DB = int(os.environ.get("REDIS_DB", 0))
-
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
-
-    def acquire_lock(thread_id: str, timeout: int = 60):
-        lock_name = f"langgraph_lock:{thread_id}"
-        lock = redis_client.lock(lock_name, timeout=timeout)
-        if not lock.acquire(blocking=True, timeout=10): # Try to acquire for 10s
-            raise TimeoutError(f"Could not acquire lock for thread {thread_id}")
-        return lock
-
-    def release_lock(lock):
-        lock.release()
-
-    # Usage:
-    # with acquire_lock(thread_id) as lock:
-    #    # Load/save checkpoint
-    </code></pre></p>
 <p>2.  <strong>Idempotent updates:</strong> The agent's nodes were refactored to be more idempotent. Instead of just appending to <code>intermediate_results</code>, each update would check if the new data was already present or if the state was already in a desired terminal condition. This reduced the impact of retries or duplicate executions.</p>
 <p>This significantly improved stability. The <code>TimeoutError</code> from the lock acquisition became a clear signal of contention, which I could handle gracefully (e.g., tell the user "Please wait, your previous request is still processing").</p>
 <h2>The Stable Pattern: Explicit State Transitions and Sub-Graphs</h2>
@@ -273,8 +236,8 @@ class AgentState(BaseModel):
 <p>This modularity, combined with the Pydantic state schema and distributed locking, transformed my LangGraph agents from fragile prototypes into robust production systems capable of handling thousands of concurrent user interactions across multiple messaging platforms. The cost of these three rewrites was significant in engineering hours, but the stability and reliability gained were essential for shipping production AI agents with zero VC funding. Every dropped job was a direct hit to user trust and my ability to generate revenue.</p>
 <h2>Frequently Asked Questions</h2>
 <p><strong>Q: Why not use LangGraph's built-in <code>checkpoint_saver</code> with a custom <code>serde</code>?</strong><br>A: While possible, the <code>SQLSaver</code>'s default <code>json.dumps</code> and <code>json.loads</code> don't handle schema evolution gracefully. A custom <code>serde</code> would still need to implement migration logic, and Pydantic provides a more robust, battle-tested framework for data validation and schema management than rolling your own.</p>
-<p><strong>Q: How much overhead did the Redis lock add to each checkpoint operation?</strong><br>A: On OCI Cache with Redis, a <code>SETNX</code> (acquire) and <code>DEL</code> (release) operation typically adds 5-15ms. For a full checkpoint load-and-save cycle, including network latency to the database, the total overhead was around 50ms per checkpoint operation. This was acceptable for my use case where agent steps are often LLM calls taking hundreds of milliseconds.</p>
-<p><strong>Q: What if the Redis lock itself fails or the agent crashes while holding a lock?</strong><br>A: Redis locks should always have an expiry (<code>timeout</code> parameter in <code>redis_client.lock</code>). If an agent crashes, the lock will automatically expire after the set duration (e.g., 60 seconds), preventing permanent deadlocks. This means a job might be delayed, but not permanently stuck.</p>
+
+
 <p><strong>Q: Why not use a more sophisticated workflow engine like Apache Airflow or Temporal for state?</strong><br>A: LangGraph provides a Python-native, LLM-centric way to define agentic workflows, tightly integrated with LangChain's ecosystem. For workflows heavily reliant on LLM reasoning and tool use, LangGraph's graph-based approach is more intuitive than traditional DAG orchestrators. The goal was to make LangGraph itself robust, not replace it.</p>
 <p>— Elena Revicheva · <a href="https://aideazz.xyz">AIdeazz</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a></p>
     </div>

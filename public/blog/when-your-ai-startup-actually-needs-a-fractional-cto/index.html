@@ -158,6 +158,7 @@
       <time itemprop="datePublished" datetime="2026-05-18T19:31:13.009Z">May 18, 2026</time>
       · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
     </p>
+<p class="correction"><strong>Correction (28 October 2026):</strong> an earlier version of this article described Redis (locks, caches, queues) as part of this system. It is not: the pipeline it described runs LangGraph with SQLite checkpointing (<code>langgraph-checkpoint-sqlite</code>), and no Redis package is installed anywhere in this system. Those passages were written by a fallback model during a credit outage and have been removed. The full account: <a href="https://aideazz.xyz/blog/blog-invented-its-stack-field-note/">The blog that invented its own infrastructure</a>.</p>
     <div itemprop="articleBody">
 <p>Most AI startups hiring a fractional CTO are solving the wrong problem. They think they need architecture validation when they're actually drowning in vendor decisions, integration complexity, and the gap between MVP demos and production systems. After building multi-agent systems that handle thousands of daily interactions across Telegram and WhatsApp, I've seen both sides — when fractional technical leadership accelerates growth and when it becomes expensive theater.</p>
 <h2>The Real Work: Beyond Architecture Reviews</h2>
@@ -173,7 +174,7 @@
 <h2>Architecture Decisions That Actually Matter</h2>
 <p>Most architecture debates in AI startups are premature optimization. Whether you use microservices or a monolith matters far less than these four decisions:</p>
 <p><strong>Agent Communication Pattern</strong>: Our agents use event-driven architecture with Oracle Streaming (Kafka-compatible). This wasn't because event-driven is "best practice" — it's because user messages arrive unpredictably and processing times vary by 10x depending on the query complexity. A synchronous REST architecture would have required 5x more compute to handle peak loads.</p>
-<p><strong>State Persistence Strategy</strong>: Every conversation needs context, but storing everything is expensive and slow. We use a three-tier approach: hot cache in Redis for active conversations, Oracle Autonomous Database for recent history, and object storage for archives. A fractional CTO should design this based on your actual usage patterns, not theoretical best practices.</p>
+
 <p><strong>Model Routing Logic</strong>: Static routing (always use GPT-4) is expensive. Dynamic routing (choose based on query) is complex. We found a middle ground: category-based routing with fallback escalation. Customer service queries start with Groq's Llama, escalate to Claude for complex issues. Financial queries always use GPT-4 for consistency.</p>
 <p><strong>Integration Boundaries</strong>: Where you draw service boundaries determines your development velocity. We maintain three core services: message ingestion, agent orchestration, and business logic. Everything else is a library. This lets us deploy agent logic updates without touching message handling infrastructure.</p>
 <h2>The Full-Time Transition Point</h2>
