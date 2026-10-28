@@ -747,7 +747,64 @@
     @media (min-width:861px){.tbl td .tag.wrap{white-space:nowrap}}  /* stacked tables have room: short pills, not full-width bars */
     /* phones: the ticker now opens the hero, so the copy starts a ticker-height higher over the photo */
     @media (max-width:860px){.hero .inner{padding-top:calc(62.5vw - 96px)}}
-    @media (max-width:400px){.tbn{font-size:15.5px}}  /* "AI OPS RUNBOOK" runs wider in Syne than the old wordmark: keeps 360px phones on one row */
+    @media (max-width:400px){.tbn{font-size:15.5px}}
+
+    /* ── 28 Oct 2026 (3): two levels everywhere, as the AI Ops Wiki: a closed named area → one line per item → its details.
+       Nothing is cut from the HTML (crawlers and AI engines read it all); the screen shows only what was asked for. ── */
+    .part{margin-top:22px;border-top:2px solid var(--ink)}
+    .part+.part{margin-top:12px}
+    .part>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) auto 32px;grid-template-areas:"tag n plus" "name n plus";gap:5px 18px;align-items:center;padding:16px 4px 18px}
+    .part>summary::-webkit-details-marker{display:none}
+    .part>summary:focus-visible{outline:2px solid var(--indigo);outline-offset:2px}
+    .pt-tag{grid-area:tag;font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--amber-dk)}
+    .pt-name{grid-area:name;font-weight:600;font-size:clamp(20px,1.9vw,26px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);transition:color .15s}
+    .part>summary:hover .pt-name{color:var(--indigo-dk)}
+    .pt-n{grid-area:n;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .pt-plus{grid-area:plus;position:relative;width:30px;height:30px;border:1.5px solid var(--ink);border-radius:6px;transition:background .15s}
+    .pt-plus::before,.pt-plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--ink);transform:translate(-50%,-50%)}
+    .pt-plus::after{transform:translate(-50%,-50%) rotate(90deg);transition:opacity .15s}
+    .part[open]>summary .pt-plus::after{opacity:0}
+    .part>summary:hover .pt-plus{background:rgba(91,79,207,.08)}
+    .pt-body{padding:2px 0 24px}
+    .pt-body>.agents,.pt-body>.caps,.pt-body>.note,.pt-body>.callout,.pt-body>.steps{margin-top:6px}
+    .item{border-top:1px solid var(--line)}
+    .item:last-child{border-bottom:1px solid var(--line)}
+    .item>summary,.item.flat{display:flex;align-items:center;gap:14px;padding:14px 8px;min-height:52px}
+    .item>summary{list-style:none;cursor:pointer;transition:background .15s}
+    .item>summary::-webkit-details-marker{display:none}
+    .item>summary:hover,.item[open]>summary{background:#faf9f6}
+    .item>summary:focus-visible{outline:2px solid var(--indigo);outline-offset:-2px}
+    .item>summary .chev{flex:none;margin-left:auto}
+    .it-num{flex:none;width:26px;font:500 12px var(--mono);letter-spacing:.06em;color:var(--amber-dk)}
+    .it-t{flex:none;max-width:42%;font-weight:600;font-size:16px;line-height:1.35;color:var(--ink)}
+    .it-t.wide{flex:1;max-width:none}
+    .it-s{flex:1;min-width:0;font-size:14.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .it-line{flex:1;min-width:0;font-size:15px;line-height:1.55;color:var(--text)}
+    .it-n{flex:none;margin-left:auto;font:500 14px var(--mono);color:var(--ink)}
+    .item .tag{flex:none}
+    .item .ldot{flex:none}
+    .it-b{display:grid;gap:8px;padding:4px 8px 20px 48px;max-width:1040px;font-size:15.5px;line-height:1.65;color:var(--text)}
+    .it-k{font-size:14px;color:var(--muted)}
+    .item[open]>summary .it-s{visibility:hidden}  /* the preview line is the body's first words: no echo once it is open */
+    .pt-body>.aindex span:first-child{display:none}  /* the count is already on the named area */
+    .it-b .chips{display:flex;flex-wrap:wrap;gap:7px}
+    .it-b .chips .tag{white-space:normal;line-height:1.35}
+    .it-b .pm{padding:0;background:none}
+    .it-b .pm .when{margin-top:0}
+    /* pipeline steps open one at a time inside the chain */
+    details.step>summary{list-style:none;cursor:pointer;position:relative;padding-right:30px}
+    details.step>summary::-webkit-details-marker{display:none}
+    details.step>summary .chev{position:absolute;right:0;top:50%}
+    details.step:not([open]){padding-bottom:20px}
+    @media (max-width:640px){
+      .part>summary{grid-template-areas:"tag plus" "name plus" "n plus";grid-template-columns:minmax(0,1fr) 32px}
+      .item>summary,.item.flat{flex-wrap:wrap;gap:6px 12px}
+      .it-t{max-width:none;flex:1 1 60%}
+      .it-s{flex-basis:100%;order:5}  /* one preview line, as the wiki's contents */
+      .item[open]>summary .it-s{display:none}
+      .it-line{flex-basis:100%;order:5}
+      .it-b{padding:2px 8px 18px}
+    }  /* "AI OPS RUNBOOK" runs wider in Syne than the old wordmark: keeps 360px phones on one row */
 </style>
 
   <!-- Google Analytics 4 -->
@@ -927,102 +984,67 @@
     <h2>What AIdeazz AI Lab is — <em>right now.</em></h2>
     <p class="lead">Your production AI co-founder fleet plus a marketing engine that connects discovery → content → leads → measurement. Not a prototype.</p>
 
-    <div class="card tbl mt2 scrollx">
-      <table>
-        <thead><tr><th>Piece</th><th>Role</th><th>Where to see it</th></tr></thead>
-        <tbody>
-          <tr><td>Public face</td><td>Portfolio, blog, inquiry form</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">aideazz.xyz/portfolio</a></td></tr>
-          <tr><td>AI Visibility Audit</td><td>Free live API + widget — score any site 0–100 on GEO · AEO · tech SEO (ChatGPT / Perplexity / Claude / Gemini readiness)</td><td><a href="https://aideazz.xyz/api" target="_blank" rel="noopener">aideazz.xyz/api</a></td></tr>
-          <tr><td>Tech hub</td><td>CRM, blog, outreach, performance tracking</td><td><a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">CTO AIPA Telegram</a></td></tr>
-          <tr><td>Marketing radar</td><td>Weekly ad-market intelligence on the lab&rsquo;s seven sellable services — open windows arrive as ready-to-run sales briefs, and CRM outcomes feed back so the radar learns what converts</td><td><a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">Atlas live radar</a></td></tr>
-          <tr><td>CRM spine</td><td>All agents feed one HubSpot pipeline</td><td>HubSpot Sales Pipeline</td></tr>
-          <tr><td>Measure layer</td><td>Website sessions, form leads, deals by campaign</td><td>Atlas concept cards (performance block)</td></tr>
-          <tr><td>Learning record</td><td>AI Ops Wiki — 29 production incidents and 23 named failure modes, each incident with a named failure mode and a verified number. Generated, never hand-edited</td><td><a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></td></tr>
-          <tr><td>Provenance dossier</td><td>Nine systems and why they exist — engineering provenance for every product, figures read from production</td><td><a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">nine-systems</a></td></tr>
-          <tr><td>Publishing engine</td><td>190+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</td><td><a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></td></tr>
-          <tr><td>AI Film Studio</td><td>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 9 films live</td><td><a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></td></tr>
-          <tr><td>Investor / narrative deck</td><td>The live pitch — September 2026 actualization, honest traction</td><td><a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener">pitch.html</a></td></tr>
-          <tr><td>Sibling products</td><td>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</td><td><a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <details class="part"><summary><span class="pt-tag">Start here</span><span class="pt-name">The pieces of the lab</span><span class="pt-n">12 pieces</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="piece"><summary><span class="it-t">Public face</span><span class="it-s">Portfolio, blog, inquiry form</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Portfolio, blog, inquiry form</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">aideazz.xyz/portfolio</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">AI Visibility Audit</span><span class="it-s">Free live API + widget — score any site 0–100 on GEO · AEO · tech SEO (ChatGPT / Perplexity / Claude / Gemini readiness)</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Free live API + widget — score any site 0–100 on GEO · AEO · tech SEO (ChatGPT / Perplexity / Claude / Gemini readiness)</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">aideazz.xyz/api</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Tech hub</span><span class="it-s">CRM, blog, outreach, performance tracking</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>CRM, blog, outreach, performance tracking</p><p class="it-k">Where to see it: <a href="https://t.me/aitcf_aideazz_bot" target="_blank" rel="noopener">CTO AIPA Telegram</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Marketing radar</span><span class="it-s">Weekly ad-market intelligence on the lab&rsquo;s seven sellable services — open windows arrive as ready-to-run sales briefs, and CRM outcomes feed back so the radar learns what converts</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Weekly ad-market intelligence on the lab&rsquo;s seven sellable services — open windows arrive as ready-to-run sales briefs, and CRM outcomes feed back so the radar learns what converts</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">Atlas live radar</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">CRM spine</span><span class="it-s">All agents feed one HubSpot pipeline</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>All agents feed one HubSpot pipeline</p><p class="it-k">Where to see it: HubSpot Sales Pipeline</p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Measure layer</span><span class="it-s">Website sessions, form leads, deals by campaign</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Website sessions, form leads, deals by campaign</p><p class="it-k">Where to see it: Atlas concept cards (performance block)</p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Learning record</span><span class="it-s">AI Ops Wiki — 29 production incidents and 23 named failure modes, each incident with a named failure mode and a verified number. Generated, never hand-edited</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>AI Ops Wiki — 29 production incidents and 23 named failure modes, each incident with a named failure mode and a verified number. Generated, never hand-edited</p><p class="it-k">Where to see it: <a href="/ai-ops-wiki.html">ai-ops-wiki.html</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Provenance dossier</span><span class="it-s">Nine systems and why they exist — engineering provenance for every product, figures read from production</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Nine systems and why they exist — engineering provenance for every product, figures read from production</p><p class="it-k">Where to see it: <a href="https://webhook.aideazz.xyz/doc/nine-systems" target="_blank" rel="noopener">nine-systems</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Publishing engine</span><span class="it-s">190+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>190+ essays (grounded daily blog), 11-episode podcast, Dev.to canonical crossposts</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">blog</a> · <a href="https://podcast.aideazz.xyz/" target="_blank" rel="noopener">podcast</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">AI Film Studio</span><span class="it-s">Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 9 films live</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Atuona — source clips in, finished film out: automated edit, sidechain-ducked mix, −16 LUFS master. 9 films live</p><p class="it-k">Where to see it: <a href="https://atuona.xyz/aifilmstudio/" target="_blank" rel="noopener">atuona.xyz/aifilmstudio</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Investor / narrative deck</span><span class="it-s">The live pitch — September 2026 actualization, honest traction</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>The live pitch — September 2026 actualization, honest traction</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/pitch.html" target="_blank" rel="noopener">pitch.html</a></p></div></details>
+      <details class="item" name="piece"><summary><span class="it-t">Sibling products</span><span class="it-s">EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>EspaLuz tutoring, job hunter, social bots, creative AI, daily briefing</p><p class="it-k">Where to see it: <a href="https://aideazz.xyz/portfolio" target="_blank" rel="noopener">Portfolio</a></p></div></details>
+    </div></details>
 
     <!-- GEO / AEO / Tech-SEO layer — added 19 Sep 2026; scores + crawler verdicts re-measured 26 Oct 2026 with the live API (POST /v1/visibility, demo key). -->
     <div class="card callout mt2">
       <span class="tag info">AI Visibility layer · September 2026</span>
       <div>Every product in the lab is built to be <strong>read and quoted</strong> by AI answer engines, not only ranked by Google. The <a href="https://aideazz.xyz/api" target="_blank" rel="noopener">AI Visibility Audit API</a> is both the product I sell and the instrument I run on my own surfaces: <strong>34 automated checks</strong> in four weighted categories — AI crawler access 25%, structured data (GEO) 25%, answer-readiness (AEO) 30%, technical foundation 20% — plus a separate verdict for each of six AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, CCBot). Free to try, public demo key.</div>
     </div>
-    <div class="card tbl mt scrollx">
-      <table>
-        <thead><tr><th>Surface — re-audited 26 Oct 2026 with the API itself</th><th>Score</th><th>AI crawlers allowed</th></tr></thead>
-        <tbody>
-          <tr><td><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a> — portfolio + blog</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="https://podcast.aideazz.xyz" target="_blank" rel="noopener">podcast.aideazz.xyz</a> — 11 episodes, each linked to its post</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td>This runbook</td><td><span class="tag ok">100 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="https://aideazz.xyz/api" target="_blank" rel="noopener">/api</a> — the audit tool itself</td><td><span class="tag ok">98 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="/ai-ops-wiki.html">AI Ops Wiki</a> — 29 incidents · 23 failure modes</td><td><span class="tag ok">93 · A+</span></td><td class="num">6 / 6</td></tr>
-          <tr><td><a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a> — AI film studio &amp; gallery</td><td><span class="tag ok">93 · A+</span></td><td class="num">6 / 6 — <strong>was 69 · C and 0 / 6 on 19 Sep: the audit's own finding, since fixed</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <details class="part"><summary><span class="pt-tag">AI visibility · re-audited 26 Oct 2026 with the API itself</span><span class="pt-name">Scores of our own surfaces</span><span class="pt-n">6 surfaces</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="score"><summary><span class="it-t">aideazz.xyz</span><span class="it-s">portfolio + blog</span><span class="tag ok">100 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><a href="https://aideazz.xyz" target="_blank" rel="noopener">aideazz.xyz</a> — portfolio + blog</p><p class="it-k">AI crawlers allowed: 6 / 6</p></div></details>
+      <details class="item" name="score"><summary><span class="it-t">podcast.aideazz.xyz</span><span class="it-s">11 episodes, each linked to its post</span><span class="tag ok">100 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><a href="https://podcast.aideazz.xyz" target="_blank" rel="noopener">podcast.aideazz.xyz</a> — 11 episodes, each linked to its post</p><p class="it-k">AI crawlers allowed: 6 / 6</p></div></details>
+      <details class="item" name="score"><summary><span class="it-t">This runbook</span><span class="it-s"></span><span class="tag ok">100 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>This runbook</p><p class="it-k">AI crawlers allowed: 6 / 6</p></div></details>
+      <details class="item" name="score"><summary><span class="it-t">/api</span><span class="it-s">the audit tool itself</span><span class="tag ok">98 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><a href="https://aideazz.xyz/api" target="_blank" rel="noopener">/api</a> — the audit tool itself</p><p class="it-k">AI crawlers allowed: 6 / 6</p></div></details>
+      <details class="item" name="score"><summary><span class="it-t">AI Ops Wiki</span><span class="it-s">29 incidents · 23 failure modes</span><span class="tag ok">93 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><a href="/ai-ops-wiki.html">AI Ops Wiki</a> — 29 incidents · 23 failure modes</p><p class="it-k">AI crawlers allowed: 6 / 6</p></div></details>
+      <details class="item" name="score"><summary><span class="it-t">atuona.xyz</span><span class="it-s">AI film studio &amp; gallery</span><span class="tag ok">93 · A+</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><a href="https://atuona.xyz" target="_blank" rel="noopener">atuona.xyz</a> — AI film studio &amp; gallery</p><p class="it-k">AI crawlers allowed: 6 / 6 — <strong>was 69 · C and 0 / 6 on 19 Sep: the audit's own finding, since fixed</strong></p></div></details>
+    </div></details>
 
-    <div class="card kv mt">
-      <div class="k">How GEO / AEO / Tech SEO runs across the products</div>
-      <p>Build sessions → AI Ops Wiki incidents (published nightly, alerts on failure) → grounded daily blog (190+ posts, EN/ES) + Dev.to canonical → podcast episodes that link back to their posts → <code>llms.txt</code>, a dated <code>geo-manifest</code> and a 215-URL sitemap that name the API, blog, wiki and podcast for AI crawlers → distribution on LinkedIn, Instagram and YouTube (Buffer / Make) and X (Algom Alpha, X API) → a weekly citation probe asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether any of it is actually cited.</p>
-    </div>
-    <div class="card kv mt">
-      <div class="k">Marketing engine flow · closed loop since July 2026</div>
-      <div class="flow" aria-label="Marketing loop">
-        <span class="tag info">SEO &amp; discoverability</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Daily blog</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Inquiry form with tracking</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">HubSpot</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Lead triage</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Outreach</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Atlas detects a market window for a service we sell</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Sales brief lands in Telegram</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">Outreach goes out</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag info">CRM outcome (sent / replied / won) flows back into Atlas</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-        <span class="tag ok">Next week&rsquo;s briefs are smarter</span>
-      </div>
-    </div>
+    <details class="part"><summary><span class="pt-tag">How it runs</span><span class="pt-name">The marketing engine</span><span class="pt-n">2 views</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="engine"><summary><span class="it-t">GEO / AEO / Tech SEO across the products</span><span class="it-s">From a build session to an AI answer engine citing it</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Build sessions → AI Ops Wiki incidents (published nightly, alerts on failure) → grounded daily blog (190+ posts, EN/ES) + Dev.to canonical → podcast episodes that link back to their posts → <code>llms.txt</code>, a dated <code>geo-manifest</code> and a 215-URL sitemap that name the API, blog, wiki and podcast for AI crawlers → distribution on LinkedIn, Instagram and YouTube (Buffer / Make) and X (Algom Alpha, X API) → a weekly citation probe asks Google AI Overviews, Gemini, OpenAI search and Perplexity whether any of it is actually cited.</p></div></details>
+      <details class="item" name="engine"><summary><span class="it-t">The closed marketing loop</span><span class="it-s">Live since July 2026 · 11 steps, CRM outcomes flow back</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="flow" aria-label="Marketing loop"><span class="tag info">SEO &amp; discoverability</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Daily blog</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Inquiry form with tracking</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">HubSpot</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Lead triage</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Outreach</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Atlas detects a market window for a service we sell</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Sales brief lands in Telegram</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">Outreach goes out</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag info">CRM outcome (sent / replied / won) flows back into Atlas</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg><span class="tag ok">Next week&rsquo;s briefs are smarter</span></div></div></details>
+    </div></details>
 
-    <div class="grid mt" style="grid-template-columns:minmax(0,1fr);"><!-- 28 Oct: stacked — side by side, the 3-row status table left an empty hole beside the 6-row roadmap -->
-      <div class="card tbl scrollx">
-        <table>
-          <thead><tr><th>Status</th><th>Reality (27 Oct 2026)</th></tr></thead>
-          <tbody>
-            <tr><td><span class="tag ok">Loaded</span></td><td>Discovery, grounded daily blog (one article every day, 20–27 Oct), one CRM endpoint for every agent, triage, Atlas Monday radar + lead machine, Lead Concierge (daily self-test: PASS), read-only mail watch on two inboxes, WhatsApp click tracking, CRM outcomes back into Atlas</td></tr>
-            <tr><td><span class="tag warn">Partial</span></td><td>Conversion — measured in HubSpot on 27 Oct: 119 of 333 judged-fit job deals reached “they replied”; 68 Atlas leads contacted; website inquiries 9 sent → 1 reply. Turning replies into paid work is the current game.</td></tr>
-            <tr><td><span class="tag">Next</span></td><td>X API credits for Algom; showcase package for clients; automated weekly blog from each Atlas snapshot</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="card tbl scrollx">
-        <table>
-          <thead><tr><th>Phase</th><th>Marketing roadmap</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>Foundation — SEO, analytics, trust signals</td><td><span class="tag ok">Loaded</span></td></tr>
-            <tr><td>2</td><td>Content — daily Dev.to blog</td><td><span class="tag ok">Loaded</span></td></tr>
-            <tr><td>3</td><td>Attribution + Atlas measure</td><td><span class="tag ok wrap">CRM outcomes loop live (Jul 21)</span></td></tr>
-            <tr><td>4</td><td>Outbound (WhatsApp-first prospect play + Atlas briefs)</td><td><span class="tag warn wrap">Live · measured per service</span></td></tr>
-            <tr><td>5</td><td>Lead triage</td><td><span class="tag ok">Operational</span></td></tr>
-            <tr><td>6</td><td>Client showcase package</td><td><span class="tag">Priority</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <details class="part"><summary><span class="pt-tag">Status · 27 Oct 2026</span><span class="pt-name">What is loaded, partial and next</span><span class="pt-n">3 lines</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="status"><summary><span class="tag ok">Loaded</span><span class="it-s">Discovery, grounded daily blog (one article every day, 20–27 Oct), one CRM endpoint for every agent, triage, Atlas Monday radar + lead machine, Lead Concierge (daily self-test: PASS), read-only mail watch on two inboxes, WhatsApp click tracking, CRM outcomes back into Atlas</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Discovery, grounded daily blog (one article every day, 20–27 Oct), one CRM endpoint for every agent, triage, Atlas Monday radar + lead machine, Lead Concierge (daily self-test: PASS), read-only mail watch on two inboxes, WhatsApp click tracking, CRM outcomes back into Atlas</p></div></details>
+      <details class="item" name="status"><summary><span class="tag warn">Partial</span><span class="it-s">Conversion — measured in HubSpot on 27 Oct: 119 of 333 judged-fit job deals reached “they replied”; 68 Atlas leads contacted; website inquiries 9 sent → 1 reply. Turning replies into paid work is the current game.</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Conversion — measured in HubSpot on 27 Oct: 119 of 333 judged-fit job deals reached “they replied”; 68 Atlas leads contacted; website inquiries 9 sent → 1 reply. Turning replies into paid work is the current game.</p></div></details>
+      <details class="item" name="status"><summary><span class="tag">Next</span><span class="it-s">X API credits for Algom; showcase package for clients; automated weekly blog from each Atlas snapshot</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>X API credits for Algom; showcase package for clients; automated weekly blog from each Atlas snapshot</p></div></details>
+    </div></details>
+    <details class="part"><summary><span class="pt-tag">Marketing roadmap</span><span class="pt-name">Six phases and where each stands</span><span class="pt-n">6 phases</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <div class="item flat"><span class="it-num">01</span><span class="it-t wide">Foundation — SEO, analytics, trust signals</span><span class="tag ok">Loaded</span></div>
+      <div class="item flat"><span class="it-num">02</span><span class="it-t wide">Content — daily Dev.to blog</span><span class="tag ok">Loaded</span></div>
+      <div class="item flat"><span class="it-num">03</span><span class="it-t wide">Attribution + Atlas measure</span><span class="tag ok wrap">CRM outcomes loop live (Jul 21)</span></div>
+      <div class="item flat"><span class="it-num">04</span><span class="it-t wide">Outbound (WhatsApp-first prospect play + Atlas briefs)</span><span class="tag warn wrap">Live · measured per service</span></div>
+      <div class="item flat"><span class="it-num">05</span><span class="it-t wide">Lead triage</span><span class="tag ok">Operational</span></div>
+      <div class="item flat"><span class="it-num">06</span><span class="it-t wide">Client showcase package</span><span class="tag">Priority</span></div>
+    </div></details>
 
-    <div class="card callout moss mt">
-      <span class="tag ok">How to verify · no terminal required</span>
-      <ul class="verify-list" style="display:grid;gap:8px;">
-        <li>Open <a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">Atlas</a> — the snapshot refreshes every <strong>Monday ~9:15 AM Panama</strong> and should show the most recent Monday&rsquo;s date.</li>
-        <li>Open the <a href="https://webhook.aideazz.xyz/whitespace/api/atlas/angle?vertical=whatsapp_ai_agents" target="_blank" rel="noopener">angle API</a> — live market angle for a service lane, with real CRM outcomes, as JSON. This is the same intelligence the sales briefs use.</li>
-        <li>Visit <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">aideazz.xyz/blog</a> — new articles publish on a daily cadence, including posts written from Atlas&rsquo;s own weekly snapshot.</li>
-        <li>Submit the inquiry form on <a href="https://aideazz.xyz/portfolio#portfolio-inquiry-form" target="_blank" rel="noopener">aideazz.xyz/portfolio</a> — you receive a confirmation email when it works (or use <a href="#try-the-pipeline">the form right on this page</a>, below the go-to-market pipeline).</li>
-        <li>Engineers: full runbook in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing Engine roadmap</a> on GitHub.</li>
-      </ul>
-    </div>
+    <details class="part"><summary><span class="pt-tag">No terminal required</span><span class="pt-name">How to verify it yourself</span><span class="pt-n">5 checks</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <div class="item flat"><span class="it-num">01</span><span class="it-line">Open <a href="https://aideazz.xyz/atlas" target="_blank" rel="noopener">Atlas</a> — the snapshot refreshes every <strong>Monday ~9:15 AM Panama</strong> and should show the most recent Monday&rsquo;s date.</span></div>
+      <div class="item flat"><span class="it-num">02</span><span class="it-line">Open the <a href="https://webhook.aideazz.xyz/whitespace/api/atlas/angle?vertical=whatsapp_ai_agents" target="_blank" rel="noopener">angle API</a> — live market angle for a service lane, with real CRM outcomes, as JSON. This is the same intelligence the sales briefs use.</span></div>
+      <div class="item flat"><span class="it-num">03</span><span class="it-line">Visit <a href="https://aideazz.xyz/blog" target="_blank" rel="noopener">aideazz.xyz/blog</a> — new articles publish on a daily cadence, including posts written from Atlas&rsquo;s own weekly snapshot.</span></div>
+      <div class="item flat"><span class="it-num">04</span><span class="it-line">Submit the inquiry form on <a href="https://aideazz.xyz/portfolio#portfolio-inquiry-form" target="_blank" rel="noopener">aideazz.xyz/portfolio</a> — you receive a confirmation email when it works (or use <a href="#try-the-pipeline">the form right on this page</a>, below the go-to-market pipeline).</span></div>
+      <div class="item flat"><span class="it-num">05</span><span class="it-line">Engineers: full runbook in <a href="https://github.com/ElenaRevicheva/AIPA_AITCF/blob/main/docs/oracle/AIDEAZZ_AI_MARKETING_ENGINE_FULL_ROADMAP.md" target="_blank" rel="noopener">Marketing Engine roadmap</a> on GitHub.</span></div>
+    </div></details>
 
     <!-- DASHBOARD (counts animate on scroll into view) -->
     <div class="dash" id="bento-stats" aria-label="Fleet at a glance">
@@ -1074,7 +1096,9 @@
     <h2>Products &amp; agents. <em>Each row is a shipping capability.</em></h2>
     <p class="lead">What customers or partners touch, with how it runs underneath (Linux services, process supervisor, or serverless). Naming matches the internal resilience matrix without exposing infrastructure coordinates.</p>
 
-    <div class="aindex mt2" aria-hidden="true"><span>12 entries · 10 live · 1 paused · 1 in design</span><span>Open one to read what it does</span></div>
+    <details class="part"><summary><span class="pt-tag">The fleet</span><span class="pt-name">Every agent, one line each</span><span class="pt-n">12 entries · 10 live</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+    <div class="aindex" aria-hidden="true"><span>12 entries · 10 live · 1 paused · 1 in design</span><span>Open one to read what it does</span></div>
     <div class="agents" aria-label="Agents — open one to read it">
       <details class="agent" name="agent" id="agent-01">
         <summary><span class="aid">01</span><span class="av g">EW</span><span class="anm">EspaLuz WhatsApp</span><span class="asum">Spanish tutoring on WhatsApp — conversation, drills, corrections.</span><span class="atags"><span class="tag">systemd</span><span class="tag ok"><span class="dot"></span>Live</span></span><span class="chev" aria-hidden="true"></span></summary>
@@ -1125,8 +1149,10 @@
         <div class="abody"><div class="role"><strong>Roadmap:</strong> Long-horizon personal orchestration — documented architecture, not yet a standalone production process.<span class="ops">Nothing runs yet. Until it ships, the agents hand work over through HubSpot, files and schedules — see below.</span></div><div class="lk"><a href="https://github.com/ElenaRevicheva/hive" target="_blank" rel="noopener">architecture (hive)</a></div></div>
       </details>
     </div>
+    </div></details>
 
-    <details class="fold mt"><summary>Cross-cutting capabilities <span>7 shared layers every agent stands on</span></summary>
+    <details class="part"><summary><span class="pt-tag">The fleet</span><span class="pt-name">Cross-cutting capabilities</span><span class="pt-n">7 shared layers every agent stands on</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
     <div class="caps" aria-label="Cross-cutting capabilities">
       <div class="card"><span class="t">GEO + SEO infrastructure · aideazz.xyz · AI-crawler signals · bilingual blog · lead capture → Oracle</span></div>
       <div class="card"><span class="t">CRM pipeline (HubSpot) + automatic prospecting from SERP, hiring boards &amp; product launches — staged deals carry a tested WhatsApp link + one-click email; sends auto-move the deal, create follow-up tasks, and Resend webhooks mark delivered/opened</span></div>
@@ -1142,10 +1168,11 @@
       <div>Exactly <strong>one deployed checkout per GitHub repository</strong> — prevents version drift, duplicate secrets, and “which folder is live?” incidents. Pairs like CTO + creative co-founder deliberately share a codebase but run as distinct personalities/interfaces.</div>
     </div>
 
-    </details>
+    </div></details>
 
     <!-- 27 Oct 2026: how the agents really work together + real HubSpot outcomes (source: cto-aipa docs/AGENT_INVENTORY_2026-10-27.md) -->
-    <details class="fold mt"><summary>How the agents hand work to each other <span>through HubSpot, files and schedules</span></summary>
+    <details class="part"><summary><span class="pt-tag">The fleet</span><span class="pt-name">How the agents hand work to each other</span><span class="pt-n">through HubSpot, files and schedules</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
     <div class="card note" role="region" aria-label="How the agents hand work to each other">
       <div class="top"><b>How the agents hand work to each other</b><span>Through HubSpot, files and schedules — not live chat</span></div>
       <ul class="body">
@@ -1158,25 +1185,19 @@
         <li><strong>Code → content:</strong> a <code>feat:</code> push to GitHub becomes a milestone that CTO AIPA hands to the CMO for LinkedIn, X and Instagram.</li>
       </ul>
     </div>
-    </details>
+    </div></details>
 
-    <details class="fold mt"><summary>What each agent produced in HubSpot <span>3,220 deals, counted 27 Oct 2026</span></summary>
-    <div class="card tbl scrollx">
-      <table>
-        <thead><tr><th>Agent tag in HubSpot</th><th>Deals</th><th>Furthest stages reached (counted 27 Oct 2026)</th></tr></thead>
-        <tbody>
-          <tr><td>VibeJob Hunter · judged fit</td><td>333</td><td><span class="tag ok">119 they replied</span> 43 sent · 5 act today</td></tr>
-          <tr><td>VibeJob Hunter · board ingest</td><td>1,659</td><td>20 sent · 3 act today · 296 filtered out</td></tr>
-          <tr><td>Atlas lead machine</td><td>101</td><td><span class="tag ok">68 contacted</span> 31 act today</td></tr>
-          <tr><td>Website inquiries (Lead Concierge)</td><td>50</td><td>9 sent · 1 replied</td></tr>
-          <tr><td>Prospect search (CTO AIPA)</td><td>510</td><td>25 act today / this week · 1 replied</td></tr>
-          <tr><td>EspaLuz</td><td>96</td><td>9 sent · 1 replied · PayPal subscriptions live</td></tr>
-          <tr><td>Algom Alpha (X)</td><td>92</td><td><span class="tag warn">paused</span> none past triage</td></tr>
-          <tr><td><strong>All agents</strong></td><td><strong>3,220</strong></td><td>Every deal named by the agent that made it</td></tr>
-        </tbody>
-      </table>
-    </div>
-    </details>
+    <details class="part"><summary><span class="pt-tag">The fleet</span><span class="pt-name">What each agent produced in HubSpot</span><span class="pt-n">3,220 deals, counted 27 Oct 2026</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <div class="item flat"><span class="it-t">VibeJob Hunter · judged fit</span><span class="it-line"><span class="tag ok">119 they replied</span> 43 sent · 5 act today</span><span class="it-n">333</span></div>
+      <div class="item flat"><span class="it-t">VibeJob Hunter · board ingest</span><span class="it-line">20 sent · 3 act today · 296 filtered out</span><span class="it-n">1,659</span></div>
+      <div class="item flat"><span class="it-t">Atlas lead machine</span><span class="it-line"><span class="tag ok">68 contacted</span> 31 act today</span><span class="it-n">101</span></div>
+      <div class="item flat"><span class="it-t">Website inquiries (Lead Concierge)</span><span class="it-line">9 sent · 1 replied</span><span class="it-n">50</span></div>
+      <div class="item flat"><span class="it-t">Prospect search (CTO AIPA)</span><span class="it-line">25 act today / this week · 1 replied</span><span class="it-n">510</span></div>
+      <div class="item flat"><span class="it-t">EspaLuz</span><span class="it-line">9 sent · 1 replied · PayPal subscriptions live</span><span class="it-n">96</span></div>
+      <div class="item flat"><span class="it-t">Algom Alpha (X)</span><span class="it-line"><span class="tag warn">paused</span> none past triage</span><span class="it-n">92</span></div>
+      <div class="item flat"><span class="it-t"><strong>All agents</strong></span><span class="it-line">Every deal named by the agent that made it</span><span class="it-n"><strong>3,220</strong></span></div>
+    </div></details>
   </section>
 
   <!-- §2 HEALTH MONITORING -->
@@ -1209,20 +1230,16 @@
       </div>
     </div>
 
-    <div class="card tbl health mt scrollx">
-      <table>
-        <thead><tr><th>Agent</th><th>Health check method</th><th>Recovery action</th></tr></thead>
-        <tbody>
-          <tr><td><span class="ldot" aria-hidden="true"></span>CTO AIPA + Atuona</td><td>Orchestrator HTTP OK via localhost probe</td><td><span class="act">pm2 restart cto-aipa</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>EspaLuz WhatsApp</td><td>Tutoring webhook answers OK from localhost</td><td><span class="act">systemctl restart espaluz-whatsapp</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>VibeJob Hunter + CMO</td><td>Marketing bridge health endpoint OK internally</td><td><span class="act">systemctl restart vibejobhunter-web vibejobhunter</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>OpenClaw Shortlist</td><td>HTTP GET gateway loopback → 200</td><td><span class="act">systemctl restart openclaw-gateway</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>Sprint Briefing</td><td>CloudWatch + EventBridge schedule</td><td><span class="act">Lambda retries / DLQ policy</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>PM2 stacks (e.g. Algom)</td><td>cron HTTP + <code>pm2 jlist</code> status online</td><td><span class="act">pm2 restart &lt;app&gt;</span></td></tr>
-          <tr><td><span class="ldot" aria-hidden="true"></span>All systemd agents</td><td>Process liveness via systemctl</td><td><span class="act">systemd restart policy</span></td></tr>
-        </tbody>
-      </table>
-    </div>
+    <details class="part"><summary><span class="pt-tag">Reliability</span><span class="pt-name">Health check per agent</span><span class="pt-n">7 checks</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body health">
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">CTO AIPA + Atuona</span><span class="it-s">Orchestrator HTTP OK via localhost probe</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> Orchestrator HTTP OK via localhost probe</p><p class="it-k">Recovery: <span class="act">pm2 restart cto-aipa</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">EspaLuz WhatsApp</span><span class="it-s">Tutoring webhook answers OK from localhost</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> Tutoring webhook answers OK from localhost</p><p class="it-k">Recovery: <span class="act">systemctl restart espaluz-whatsapp</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">VibeJob Hunter + CMO</span><span class="it-s">Marketing bridge health endpoint OK internally</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> Marketing bridge health endpoint OK internally</p><p class="it-k">Recovery: <span class="act">systemctl restart vibejobhunter-web vibejobhunter</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">OpenClaw Shortlist</span><span class="it-s">HTTP GET gateway loopback → 200</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> HTTP GET gateway loopback → 200</p><p class="it-k">Recovery: <span class="act">systemctl restart openclaw-gateway</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">Sprint Briefing</span><span class="it-s">CloudWatch + EventBridge schedule</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> CloudWatch + EventBridge schedule</p><p class="it-k">Recovery: <span class="act">Lambda retries / DLQ policy</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">PM2 stacks (e.g. Algom)</span><span class="it-s">cron HTTP + pm2 jlist status online</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> cron HTTP + <code>pm2 jlist</code> status online</p><p class="it-k">Recovery: <span class="act">pm2 restart &lt;app&gt;</span></p></div></details>
+      <details class="item" name="health"><summary><span class="ldot" aria-hidden="true"></span><span class="it-t">All systemd agents</span><span class="it-s">Process liveness via systemctl</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p><strong>Health check:</strong> Process liveness via systemctl</p><p class="it-k">Recovery: <span class="act">systemd restart policy</span></p></div></details>
+    </div></details>
   </section>
 
   <!-- §3 CONTENT PIPELINE -->
@@ -1236,57 +1253,39 @@
       <div>Only commits tagged <code>feat:</code>, <code>launch:</code>, or <code>release:</code> notify the marketing agent. Housekeeping commits (<code>fix:</code>, <code>docs:</code>, <code>chore:</code>, …) stay invisible to customers.</div>
     </div>
 
-    <div class="steps pipeline">
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">01</div><div class="p-line"></div></div>
-        <div class="card step"><div class="ch"><span class="chan">GitHub Webhook</span></div>
-        <h3>Commit detected → CTO AIPA</h3>
-        <p>Push events hit the secured webhook. Groq/Claude review diffs, classify milestones, enqueue pending updates for downstream marketers.</p>
+    <details class="part"><summary><span class="pt-tag">Go-to-market</span><span class="pt-name">The pipeline, step by step</span><span class="pt-n">7 steps</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <div class="steps pipeline">
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">01</div><div class="p-line"></div></div>
+          <details class="card step" name="step"><summary><div class="ch"><span class="chan">GitHub Webhook</span></div><h3>Commit detected → CTO AIPA</h3><span class="chev" aria-hidden="true"></span></summary><p>Push events hit the secured webhook. Groq/Claude review diffs, classify milestones, enqueue pending updates for downstream marketers.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">02</div><div class="p-line"></div></div>
+          <details class="card step" name="step"><summary><div class="ch"><span class="chan">LinkedIn · 20:00 Panama</span></div><h3>CMO generates + posts</h3><span class="chev" aria-hidden="true"></span></summary><p>Claude Sonnet copy → Make.com delivery. Zero manual paste.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">03</div><div class="p-line"></div></div>
+          <details class="card step" name="step"><summary><div class="ch"><span class="chan">Daily blog · aideazz.xyz/blog + dev.to</span></div><h3>Grounded blog publish — fail-closed on claims</h3><span class="chev" aria-hidden="true"></span></summary><p>The daily publisher collects production evidence before it writes and <strong>refuses to publish any number it cannot trace to a measurement</strong> (grounding gate, Aug 2026). Near-duplicates are blocked by token overlap, not slug equality. Ships to aideazz.xyz/blog with dev.to canonical crosspost; sliding-window mutex and always-notify Telegram guard against silent double publishes.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">04</div><div class="p-line"></div></div>
+          <details class="card step" name="step"><summary><div class="ch"><span class="chan">X · Every 5th post slot</span></div><h3>Algom Alpha tweet</h3><span class="chev" aria-hidden="true"></span></summary><p><code>x-tech-updater.js</code> merges milestones in plain language (Haiku / Groq), guarded against duplicate queue states.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">05</div><div class="p-line"></div></div>
+          <details class="card step" name="step"><summary><div class="ch"><span class="chan">Instagram · Even days 18:00 Panama</span></div><h3>EspaLuz Influencer</h3><span class="chev" aria-hidden="true"></span></summary><p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending. Since Sep 2026 the same channel also carries the AI Visibility API campaign two days in three (EspaLuz on the third), alternating English and Spanish.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">06</div><div class="p-line"></div></div>
+          <details class="card step accent" name="step"><summary><div class="ch"><span class="chan">Inbound · HubSpot → Claude Fable 5 → Telegram</span></div><h3>Lead Concierge — form to sent reply in minutes</h3><span class="chev" aria-hidden="true"></span></summary><p>Portfolio inquiries and HubSpot chat become CRM contacts in seconds (server-side push, no cron wait). <strong>Claude Fable 5 drafts the reply</strong> — right language, right proof links — and a dedicated <strong>concierge watchdog</strong> re-drafts through the five-provider chain (Claude → OpenAI → Gemini → Grok → Groq) if the primary dies, so a single vendor outage cannot kill the inbox; on 19 Aug the chain absorbed a dead primary in 2.4 seconds. The draft lands in Telegram with <strong>Send / Edit / Skip</strong> buttons; one tap emails the lead from the company domain via Resend (optional Cc + magic-byte-checked PDF attachments) and logs the sent text to the contact&rsquo;s CRM timeline. Full audit trail, human approval on every send.</p></details>
+        </div>
+        <div class="p-item">
+          <div class="p-track"><div class="p-num">07</div><div class="p-line"></div></div>
+          <details class="card step wide" name="step"><summary><div class="ch"><span class="chan">Outbound · leads found → HubSpot on autopilot</span></div><h3>Automatic lead search + CRM that works itself</h3><span class="chev" aria-hidden="true"></span></summary><p>Prospects are discovered automatically — SERP, hiring boards, product launches, Bright Data enrichment — and staged into HubSpot as company + deal + contact + note, each note carrying a <strong>tested WhatsApp link</strong> and a <strong>one-click outreach email</strong>. From there the CRM works itself: an outgoing email is auto-detected and <strong>moves the deal to Sent</strong> while a <strong>soft follow-up task (+4 days)</strong> is created; <strong>Resend webhooks mark delivered / opened on the deal</strong> — true delivery events, not assumptions (delivered · bounced · complained · delayed · opened · clicked); a reply moves the deal to Replied and closes the open follow-ups. Every record names its author agent by prefix, so provenance is a filter, not an investigation.</p></details>
         </div>
       </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">02</div><div class="p-line"></div></div>
-        <div class="card step"><div class="ch"><span class="chan">LinkedIn · 20:00 Panama</span></div>
-        <h3>CMO generates + posts</h3>
-        <p>Claude Sonnet copy → Make.com delivery. Zero manual paste.</p>
-        </div>
-      </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">03</div><div class="p-line"></div></div>
-        <div class="card step"><div class="ch"><span class="chan">Daily blog · aideazz.xyz/blog + dev.to</span></div>
-        <h3>Grounded blog publish — fail-closed on claims</h3>
-        <p>The daily publisher collects production evidence before it writes and <strong>refuses to publish any number it cannot trace to a measurement</strong> (grounding gate, Aug 2026). Near-duplicates are blocked by token overlap, not slug equality. Ships to aideazz.xyz/blog with dev.to canonical crosspost; sliding-window mutex and always-notify Telegram guard against silent double publishes.</p>
-        </div>
-      </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">04</div><div class="p-line"></div></div>
-        <div class="card step"><div class="ch"><span class="chan">X · Every 5th post slot</span></div>
-        <h3>Algom Alpha tweet</h3>
-        <p><code>x-tech-updater.js</code> merges milestones in plain language (Haiku / Groq), guarded against duplicate queue states.</p>
-        </div>
-      </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">05</div><div class="p-line"></div></div>
-        <div class="card step"><div class="ch"><span class="chan">Instagram · Even days 18:00 Panama</span></div>
-        <h3>EspaLuz Influencer</h3>
-        <p>Milestone-aware caption + Make.com media pipeline; falls back to standard queue when nothing pending. Since Sep 2026 the same channel also carries the AI Visibility API campaign two days in three (EspaLuz on the third), alternating English and Spanish.</p>
-        </div>
-      </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">06</div><div class="p-line"></div></div>
-        <div class="card step accent"><div class="ch"><span class="chan">Inbound · HubSpot → Claude Fable 5 → Telegram</span></div>
-        <h3>Lead Concierge — form to sent reply in minutes</h3>
-        <p>Portfolio inquiries and HubSpot chat become CRM contacts in seconds (server-side push, no cron wait). <strong>Claude Fable 5 drafts the reply</strong> — right language, right proof links — and a dedicated <strong>concierge watchdog</strong> re-drafts through the five-provider chain (Claude → OpenAI → Gemini → Grok → Groq) if the primary dies, so a single vendor outage cannot kill the inbox; on 19 Aug the chain absorbed a dead primary in 2.4 seconds. The draft lands in Telegram with <strong>Send / Edit / Skip</strong> buttons; one tap emails the lead from the company domain via Resend (optional Cc + magic-byte-checked PDF attachments) and logs the sent text to the contact&rsquo;s CRM timeline. Full audit trail, human approval on every send.</p>
-        </div>
-      </div>
-      <div class="p-item">
-        <div class="p-track"><div class="p-num">07</div><div class="p-line"></div></div>
-        <div class="card step wide"><div class="ch"><span class="chan">Outbound · leads found → HubSpot on autopilot</span></div>
-        <h3>Automatic lead search + CRM that works itself</h3>
-        <p>Prospects are discovered automatically — SERP, hiring boards, product launches, Bright Data enrichment — and staged into HubSpot as company + deal + contact + note, each note carrying a <strong>tested WhatsApp link</strong> and a <strong>one-click outreach email</strong>. From there the CRM works itself: an outgoing email is auto-detected and <strong>moves the deal to Sent</strong> while a <strong>soft follow-up task (+4 days)</strong> is created; <strong>Resend webhooks mark delivered / opened on the deal</strong> — true delivery events, not assumptions (delivered · bounced · complained · delayed · opened · clicked); a reply moves the deal to Replied and closes the open follow-ups. Every record names its author agent by prefix, so provenance is a filter, not an investigation.</p>
-        </div>
-      </div>
-    </div>
+    </div></details>
 
     <div class="form-wrap" id="try-the-pipeline">
       <div class="photo">
@@ -1382,14 +1381,15 @@
     <h2>Release discipline. <em>We ship like a product company.</em></h2>
     <p class="lead">Board-friendly translation: predictable processes, isolated secrets, verifiable rollouts — even though agents move faster than most teams.</p>
 
-    <div class="board rule-grid">
-      <div class="col"><div class="ch">Checkout<span>01</span></div><div class="card lift"><h3>One live checkout per codebase</h3><p>Eliminates “which folder is prod?” debates; paired bots share code intentionally but never duplicate repos.</p></div></div>
-      <div class="col"><div class="ch">Build<span>02</span></div><div class="card lift"><h3>Green build, then swap</h3><p>Pull latest → compile/tests succeed → only then restart supervised processes. Broken artifacts never replace what customers already rely on.</p></div></div>
-      <div class="col"><div class="ch">Secrets<span>03</span></div><div class="card lift"><h3>Secrets isolation</h3><p>Each bot owns its environment file; crypto wallets never touch GitHub; TypeScript strict mode catches sloppy typings before prod.</p></div></div>
-      <div class="col"><div class="ch">Registry<span>04</span></div><div class="card lift"><h3>Crash-proof process registry</h3><p>Every agent process is registered to auto-start on server boot and auto-restart on failure — no manual babysitting after a power cycle or kernel update.</p></div></div>
-      <div class="col"><div class="ch">Signals<span>05</span></div><div class="card lift"><h3>No silent failures</h3><p>Crash handlers log before exit so supervisors show why something died; watchdog cadence targets ~5 minute detection.</p></div></div>
-      <div class="col"><div class="ch">Verify<span>06</span></div><div class="card lift"><h3>Verify after deploy</h3><p>Health signal green, database connectivity logs clean, one real Telegram interaction — all pass before the incident is closed.</p></div></div>
-    </div>
+    <details class="part"><summary><span class="pt-tag">Release discipline</span><span class="pt-name">The six release rules</span><span class="pt-n">6 rules</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="rule"><summary><span class="it-num">01</span><span class="it-t">One live checkout per codebase</span><span class="it-s">Checkout</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Eliminates “which folder is prod?” debates; paired bots share code intentionally but never duplicate repos.</p></div></details>
+      <details class="item" name="rule"><summary><span class="it-num">02</span><span class="it-t">Green build, then swap</span><span class="it-s">Build</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Pull latest → compile/tests succeed → only then restart supervised processes. Broken artifacts never replace what customers already rely on.</p></div></details>
+      <details class="item" name="rule"><summary><span class="it-num">03</span><span class="it-t">Secrets isolation</span><span class="it-s">Secrets</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Each bot owns its environment file; crypto wallets never touch GitHub; TypeScript strict mode catches sloppy typings before prod.</p></div></details>
+      <details class="item" name="rule"><summary><span class="it-num">04</span><span class="it-t">Crash-proof process registry</span><span class="it-s">Registry</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Every agent process is registered to auto-start on server boot and auto-restart on failure — no manual babysitting after a power cycle or kernel update.</p></div></details>
+      <details class="item" name="rule"><summary><span class="it-num">05</span><span class="it-t">No silent failures</span><span class="it-s">Signals</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Crash handlers log before exit so supervisors show why something died; watchdog cadence targets ~5 minute detection.</p></div></details>
+      <details class="item" name="rule"><summary><span class="it-num">06</span><span class="it-t">Verify after deploy</span><span class="it-s">Verify</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><p>Health signal green, database connectivity logs clean, one real Telegram interaction — all pass before the incident is closed.</p></div></details>
+    </div></details>
   </section>
 
   <!-- §5 POSTMORTEM -->
@@ -1398,26 +1398,12 @@
     <h2>Incident response template. <em>Symptoms, causes, fix, proof.</em></h2>
     <p class="lead"><strong>For stakeholders:</strong> regressions are handled like financial reconciliations — symptoms, compounded causes, fix, proof — so the same automation trap rarely strikes twice.</p>
 
+    <details class="part"><summary><span class="pt-tag">Postmortems</span><span class="pt-name">Two incidents, written up in full</span><span class="pt-n">2 incidents</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="pm"><summary><span class="tag warn">Duplicate side effect</span><span class="it-t">HubSpot duplicate posting loop</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="pm">        <div class="when">May 10, 2026 — same milestone tweet emitted twice ~6 minutes apart</div><div class="r"><span>Symptom</span><p>Pending HubSpot milestones resurfaced every <code>x-tech-updater.js</code> cycle.</p></div><div class="r"><span>Root causes</span><p>Triple mismatch: legacy <code>posted</code> vs filter on <code>posted_x</code>; mark endpoint keyed on <code>timestamp</code> while older rows used <code>received_at</code>; backlog needed <code>posted_x</code> backfill.</p></div><div class="r did"><span>Fix applied</span><p>GET excludes either flag; mark endpoint tries timestamp → received_at → title; JS client sends title for fallback matching.</p></div><div class="r"><span>Verified by</span><p>API snapshot <code>{"ok": true, "pending": [], "total": 0, "held": true}</code> + two full automation cycles without duplication.</p></div><div class="r"><span>Resolution</span><p>≈2 hours from detection → patched APIs → verified on live automation cycles. Full narrative retained in the engineering appendix linked below.</p></div></div></div></details>
+      <details class="item" name="pm"><summary><span class="tag warn">Vacuous health check</span><span class="it-t">The engagement loop that never ran</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="pm">        <div class="when">May 25, 2026 — config said &ldquo;32 engagements/day&rdquo;; logs said zero cycles had ever completed</div><div class="r"><span>Symptom</span><p>Asked the logs to prove a claimed engagement rate. Startup banner found 4,357 times; cycle-completed action line found <strong>zero</strong> times. The behavior never happened, no matter what the config said.</p></div><div class="r"><span>Root causes</span><p>Three layers deep: the first engagement run was scheduled 5 minutes after startup; the process was being restarted every 5 minutes by an external cron; and that cron was a health check whose <code>grep</code> never matched PM2&rsquo;s box-drawing table output — so it judged a healthy process dead, forever.</p></div><div class="r did"><span>Fix applied</span><p>Health check rewritten to read structured state: <code>pm2 jlist | jq</code> on the process status field instead of grepping rendered text. Process stayed up; the first engagement cycle in the bot&rsquo;s history fired the same day, with real replies and follows verified from logs.</p></div><div class="r"><span>Rule earned</span><p><strong>Verify from logs, not config.</strong> Never claim agent behavior without grepping for the ACTION line (not the setup line). The fix is now a standing operating rule across the fleet.</p></div></div></div></details>
+    </div></details>
     <div class="fail">
-      <div class="card pm">
-        <span class="tag warn">Duplicate side effect</span>
-        <h3>HubSpot duplicate posting loop</h3>
-        <div class="when">May 10, 2026 — same milestone tweet emitted twice ~6 minutes apart</div>
-        <div class="r"><span>Symptom</span><p>Pending HubSpot milestones resurfaced every <code>x-tech-updater.js</code> cycle.</p></div>
-        <div class="r"><span>Root causes</span><p>Triple mismatch: legacy <code>posted</code> vs filter on <code>posted_x</code>; mark endpoint keyed on <code>timestamp</code> while older rows used <code>received_at</code>; backlog needed <code>posted_x</code> backfill.</p></div>
-        <div class="r did"><span>Fix applied</span><p>GET excludes either flag; mark endpoint tries timestamp → received_at → title; JS client sends title for fallback matching.</p></div>
-        <div class="r"><span>Verified by</span><p>API snapshot <code>{"ok": true, "pending": [], "total": 0, "held": true}</code> + two full automation cycles without duplication.</p></div>
-        <div class="r"><span>Resolution</span><p>≈2 hours from detection → patched APIs → verified on live automation cycles. Full narrative retained in the engineering appendix linked below.</p></div>
-      </div>
-      <div class="card pm">
-        <span class="tag warn">Vacuous health check</span>
-        <h3>The engagement loop that never ran</h3>
-        <div class="when">May 25, 2026 — config said &ldquo;32 engagements/day&rdquo;; logs said zero cycles had ever completed</div>
-        <div class="r"><span>Symptom</span><p>Asked the logs to prove a claimed engagement rate. Startup banner found 4,357 times; cycle-completed action line found <strong>zero</strong> times. The behavior never happened, no matter what the config said.</p></div>
-        <div class="r"><span>Root causes</span><p>Three layers deep: the first engagement run was scheduled 5 minutes after startup; the process was being restarted every 5 minutes by an external cron; and that cron was a health check whose <code>grep</code> never matched PM2&rsquo;s box-drawing table output — so it judged a healthy process dead, forever.</p></div>
-        <div class="r did"><span>Fix applied</span><p>Health check rewritten to read structured state: <code>pm2 jlist | jq</code> on the process status field instead of grepping rendered text. Process stayed up; the first engagement cycle in the bot&rsquo;s history fired the same day, with real replies and follows verified from logs.</p></div>
-        <div class="r"><span>Rule earned</span><p><strong>Verify from logs, not config.</strong> Never claim agent behavior without grepping for the ACTION line (not the setup line). The fix is now a standing operating rule across the fleet.</p></div>
-      </div>
       <div class="photo stone">
         <img data-fx="kintsugi" src="/media/sop/r-kintsugi.jpg" alt="Dark ceramic bowl repaired with gold kintsugi seams on sand at blue hour — failures documented, not hidden" width="900" height="1200" loading="lazy" />
         <div class="shade"></div>
@@ -1436,18 +1422,19 @@
     <h2>Stack reference. <em>Boring where uptime matters, sharp where it differentiates.</em></h2>
     <p class="lead">Boring reliability primitives where uptime matters; sharp AI + CRM + social APIs where differentiation matters.</p>
 
-    <div class="card stack stack-grid">
-      <div class="row"><div class="cat">Process Mgmt</div><div class="chips"><span class="tag">PM2</span><span class="tag">systemd</span><span class="tag">AWS Lambda + EventBridge</span></div></div>
-      <div class="row"><div class="cat">Databases</div><div class="chips"><span class="tag">Oracle Autonomous DB (enterprise-grade encrypted connection, multi-table estate)</span><span class="tag">PostgreSQL + pgvector (semantic memory for tutoring agents)</span></div></div>
-      <div class="row"><div class="cat">CRM &amp; Outreach</div><div class="chips"><span class="tag">HubSpot CRM v3 + v4 associations</span><span class="tag">Hunter.io</span><span class="tag">Resend</span></div></div>
-      <div class="row"><div class="cat">Social</div><div class="chips"><span class="tag">X API v2 (Account Activity, filtered stream, engagement worker)</span><span class="tag">Make.com</span><span class="tag">Telegram Bot API</span></div></div>
-      <div class="row"><div class="cat">AI / LLMs</div><div class="chips"><span class="tag ok"><strong style="color:inherit">Five-provider waterfall on every product</strong>&nbsp;— Claude · OpenAI · Gemini · Grok · Groq, order set per use case; with four of five dark, the agent still answers</span><span class="tag">Claude Sonnet / Haiku (quality paths)</span><span class="tag">OpenAI (gpt-4o-mini + text-embedding-3-small; TTS / Whisper now the backup — voice runs Groq-first with a free Microsoft Edge fallback since 24 Oct 2026)</span><span class="tag">Gemini + Grok (xAI) in the chain</span><span class="tag">Groq open-model inference — model id via one fleet-wide switch; provider deprecations are a one-line config change</span><span class="tag">Bright Data (public ad-transparency capture)</span><span class="tag">Atlas creative: Flux 1.1 Pro stills + a Runway → Luma → Gemini video failover chain</span><span class="tag">LangChain</span><span class="tag">LangGraph</span></div></div>
-      <div class="row"><div class="cat">Lead Gen</div><div class="chips"><span class="tag">HN Algolia</span><span class="tag">GitHub REST</span><span class="tag">Product Hunt GraphQL</span><span class="tag">Bright Data (SERP API + Web Unlocker + Scraping Browser — replaced paid SerpAPI) — ~150–250 net-new companies/month after filtering</span></div></div>
-      <div class="row"><div class="cat">Hosting / CDN</div><div class="chips"><span class="tag">OCI Ubuntu VM (VM.Standard.E5.Flex, 12 GB)</span><span class="tag">AWS Lambda</span><span class="tag">4everland IPFS frontends</span><span class="tag">Cloudflare DNS</span></div></div>
-      <div class="row"><div class="cat">Monitoring</div><div class="chips"><span class="tag">Cron health driver</span><span class="tag">PM2 logs</span><span class="tag">CloudWatch</span><span class="tag">curl probes</span><span class="tag">OCI keep-alive</span></div></div>
-      <div class="row"><div class="cat">Content &amp; SEO</div><div class="chips"><span class="tag">Bilingual daily blog</span><span class="tag">dev.to crosspost</span><span class="tag">GA4 + Atlas campaign measure (Jul 2026)</span><span class="tag">Google Search Console</span><span class="tag">GEO pack</span><span class="tag">AI Visibility Audit API (34 checks)</span><span class="tag">llms.txt + dated geo-manifest</span><span class="tag">weekly AI citation probe</span><span class="tag">lead capture → Oracle → HubSpot</span></div></div>
-      <div class="row"><div class="cat">Project Mgmt</div><div class="chips"><span class="tag">Trello API (daily + weekly Telegram briefings)</span><span class="tag">GitHub webhooks across the fleet</span></div></div>
-    </div>
+    <details class="part"><summary><span class="pt-tag">Stack reference</span><span class="pt-name">Ten layers of the stack</span><span class="pt-n">10 layers</span><span class="pt-plus" aria-hidden="true"></span></summary>
+    <div class="pt-body">
+      <details class="item" name="stack"><summary><span class="it-t">Process Mgmt</span><span class="it-s">3 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">PM2</span><span class="tag">systemd</span><span class="tag">AWS Lambda + EventBridge</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Databases</span><span class="it-s">2 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">Oracle Autonomous DB (enterprise-grade encrypted connection, multi-table estate)</span><span class="tag">PostgreSQL + pgvector (semantic memory for tutoring agents)</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">CRM &amp; Outreach</span><span class="it-s">3 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">HubSpot CRM v3 + v4 associations</span><span class="tag">Hunter.io</span><span class="tag">Resend</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Social</span><span class="it-s">3 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">X API v2 (Account Activity, filtered stream, engagement worker)</span><span class="tag">Make.com</span><span class="tag">Telegram Bot API</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">AI / LLMs</span><span class="it-s">9 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag ok"><strong style="color:inherit">Five-provider waterfall on every product</strong>&nbsp;— Claude · OpenAI · Gemini · Grok · Groq, order set per use case; with four of five dark, the agent still answers</span><span class="tag">Claude Sonnet / Haiku (quality paths)</span><span class="tag">OpenAI (gpt-4o-mini + text-embedding-3-small; TTS / Whisper now the backup — voice runs Groq-first with a free Microsoft Edge fallback since 24 Oct 2026)</span><span class="tag">Gemini + Grok (xAI) in the chain</span><span class="tag">Groq open-model inference — model id via one fleet-wide switch; provider deprecations are a one-line config change</span><span class="tag">Bright Data (public ad-transparency capture)</span><span class="tag">Atlas creative: Flux 1.1 Pro stills + a Runway → Luma → Gemini video failover chain</span><span class="tag">LangChain</span><span class="tag">LangGraph</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Lead Gen</span><span class="it-s">4 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">HN Algolia</span><span class="tag">GitHub REST</span><span class="tag">Product Hunt GraphQL</span><span class="tag">Bright Data (SERP API + Web Unlocker + Scraping Browser — replaced paid SerpAPI) — ~150–250 net-new companies/month after filtering</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Hosting / CDN</span><span class="it-s">4 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">OCI Ubuntu VM (VM.Standard.E5.Flex, 12 GB)</span><span class="tag">AWS Lambda</span><span class="tag">4everland IPFS frontends</span><span class="tag">Cloudflare DNS</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Monitoring</span><span class="it-s">5 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">Cron health driver</span><span class="tag">PM2 logs</span><span class="tag">CloudWatch</span><span class="tag">curl probes</span><span class="tag">OCI keep-alive</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Content &amp; SEO</span><span class="it-s">9 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">Bilingual daily blog</span><span class="tag">dev.to crosspost</span><span class="tag">GA4 + Atlas campaign measure (Jul 2026)</span><span class="tag">Google Search Console</span><span class="tag">GEO pack</span><span class="tag">AI Visibility Audit API (34 checks)</span><span class="tag">llms.txt + dated geo-manifest</span><span class="tag">weekly AI citation probe</span><span class="tag">lead capture → Oracle → HubSpot</span></div></div></details>
+      <details class="item" name="stack"><summary><span class="it-t">Project Mgmt</span><span class="it-s">2 tools</span><span class="chev" aria-hidden="true"></span></summary><div class="it-b"><div class="chips"><span class="tag">Trello API (daily + weekly Telegram briefings)</span><span class="tag">GitHub webhooks across the fleet</span></div></div></details>
+    </div></details>
   </section>
 
   <!-- §7 FAQ — mirrors the FAQPage JSON-LD in <head>; keep both in sync -->
