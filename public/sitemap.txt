@@ -16,7 +16,9 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/automating-source-rejection-behind-our-job-board-requalification-failure-alert/
 https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/
+https://aideazz.xyz/blog/the-watcher-opened-every-letter-field-note/
 https://aideazz.xyz/blog/auto-reply-false-positive-detection-when-blocklists-drop-interview-invites/
 https://aideazz.xyz/blog/claude-sonnets-toolchoice-rejection-broke-fact-checker-failover/
 https://aideazz.xyz/blog/whatsapp-ai-bot-production-webhook-failures-and-225-restarts/
