@@ -16,6 +16,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/how-to-get-chatgpt-to-recommend-a-dental-clinic-in-panama/
 https://aideazz.xyz/blog/automating-source-rejection-behind-our-job-board-requalification-failure-alert/
 https://aideazz.xyz/blog/the-imap-read-flag-side-effect-how-an-agent-spoiled-mail-priority/
 https://aideazz.xyz/blog/the-watcher-opened-every-letter-field-note/
