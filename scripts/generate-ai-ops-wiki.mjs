@@ -295,7 +295,7 @@ const html = `<!DOCTYPE html>
   <title>AI Ops Wiki — a field journal of production failures | AIdeazz</title>
   <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=az1" />
   <link rel="canonical" href="${URL_SELF}" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="AIdeazz" />
