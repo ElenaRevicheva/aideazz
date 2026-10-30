@@ -817,7 +817,7 @@ export default function BusinessCard() {
                         'Bright Data — live-web research agent',
                         'Bilingual daily blog — GEO · SEO · AEO',
                         'Daily voice briefing — AWS Lambda',
-                        'Multi-tier LLM failover — Claude → Groq → Grok/OpenAI/Gemini',
+                        'Cost-aware LLM failover — free first, Claude when credit lands',
                       ].map((cap) => (
                         <span
                           key={cap}
