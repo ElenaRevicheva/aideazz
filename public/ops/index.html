@@ -223,8 +223,10 @@ function flowSvg(){
   svg+=box(745,36,235,58,'CTO AIPA apply kit','brief · role defense · CV · letter · verdict',false);
   svg+=box(745,170,235,70,'You — aideazz.xyz/ops',fe.hiring+' jobs · '+fe.client+' clients ready',true);
   svg+=box(745,330,235,56,'OpenClaw','interview coach · study packs',false);
-  svg+=arrow(642,180,743,65,'every waiting job',true,690,112);
-  svg+=arrow(642,205,743,205,'ready for you',true,692,198);
+  svg+=arrow(642,180,743,65,'',true);
+  svg+='<text x="730" y="44" font-size="11" text-anchor="end" fill="'+fg+'">kit pulls 🔥 I Act TODAY jobs</text><text x="730" y="58" font-size="11" text-anchor="end" fill="'+mut+'">every 10 min, writes the kit back</text>';
+  svg+=arrow(642,205,743,205,'',true);
+  svg+='<text x="692" y="184" font-size="11" text-anchor="middle" fill="'+fg+'">copied to your</text><text x="692" y="198" font-size="11" text-anchor="middle" fill="'+fg+'">CRM every hour</text>';
   svg+=arrow(862,96,862,168,'',true);
   svg+='<text x="872" y="128" font-size="11.5" fill="'+fg+'">kit verdict sorts</text><text x="872" y="143" font-size="11.5" fill="'+fg+'">'+sunk+' of '+hired.length+' jobs down</text>';
   svg+=arrow(642,225,743,355,'deals + proof files',true,690,300);
