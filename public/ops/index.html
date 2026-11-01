@@ -81,6 +81,9 @@
   .agent .dot.down{background:var(--warn)}
   .agent .n{font-size:12.5px;color:var(--mut);line-height:1.45}
   .agent .sig{font-size:13px;margin-top:6px}
+  #flow{margin:0 0 18px}#flow svg{width:100%;height:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+  #flow .next{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin-top:10px;font-size:13px;color:var(--mut)}
+  #flow .next b{color:var(--fg)}
   @media(max-width:760px){.hideS{display:none}h1{font-size:24px}}
 </style></head><body><div class="wrap">
 <h1>Income ops</h1>
@@ -97,6 +100,7 @@
 </div>
 <div class="tiles" id="tiles"></div>
 <div class="tabs" id="tabs"></div>
+<div id="flow"></div>
 <table><thead id="head"></thead><tbody id="rows"></tbody></table>
 <footer>Your AIdeazz database. Jobs, clients and kit notes are copied from HubSpot hourly; your clicks (Did it, Skip) stay here and never reach HubSpot. This page itself never calls HubSpot.</footer>
 </div>
@@ -185,6 +189,55 @@ function teamRow(f){
     '<td class="hideS c">'+E(f.item||'—')+'</td>'+
     '<td><span class="pill '+o[0]+'">'+E(o[1])+'</span></td></tr>';
 }
+// 1 Nov 2026: the collaboration map — drawn from the same snapshot as the cards, so every number is live.
+// Solid arrows = wired and running today. "Next" steps are listed below the map, never drawn as if they existed.
+function flowSvg(){
+  var A={}; (TEAM.agents||[]).forEach(function(a){ A[a.id]=a; });
+  var hired=(DATA.hiring||[]), sunk=hired.filter(function(x){return x.kitFlags&&x.kitFlags.length;}).length;
+  var fe=TEAM.forElena||{hiring:0,client:0};
+  var css=getComputedStyle(document.documentElement);
+  var C=function(v){ return (css.getPropertyValue(v)||'').trim()||'#888'; };
+  var fg=C('--fg'), mut=C('--mut'), line=C('--line'), acc=C('--accent'), ok=C('--ok'), card=C('--card'), soft=C('--accent-soft');
+  function box(x,y,w,h,title,sub,hot){
+    return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="10" fill="'+(hot?soft:card)+'" stroke="'+(hot?acc:line)+'"/>'+
+      '<text x="'+(x+12)+'" y="'+(y+22)+'" font-size="14" font-weight="600" fill="'+fg+'">'+E(title)+'</text>'+
+      '<text x="'+(x+12)+'" y="'+(y+40)+'" font-size="11.5" fill="'+mut+'">'+E(sub)+'</text>';
+  }
+  function arrow(x1,y1,x2,y2,label,live,lx,ly){
+    var mx=(x1+x2)/2;
+    return '<path d="M'+x1+','+y1+' C'+mx+','+y1+' '+mx+','+y2+' '+x2+','+y2+'" fill="none" stroke="'+(live?ok:line)+'" stroke-width="'+(live?2:1.5)+'" marker-end="url(#ah'+(live?'g':'m')+')"/>'+
+      (label?'<text x="'+(lx||mx)+'" y="'+(ly||((y1+y2)/2-6))+'" font-size="11.5" text-anchor="middle" fill="'+(live?fg:mut)+'">'+E(label)+'</text>':'');
+  }
+  var left=[['vjh','finds jobs, judges fit'],['cto','leads · site inquiries'],['espaluz','tutor sign-ups'],['atlas','creative-angle leads'],['algom','X leads · follow-back']];
+  var svg='<svg viewBox="0 0 1000 430" role="img" aria-label="How your agents collaborate">'+
+    '<defs><marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="'+ok+'"/></marker>'+
+    '<marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="'+line+'"/></marker></defs>'+
+    '<text x="20" y="22" font-size="12" fill="'+mut+'">AGENTS HAND OVER</text><text x="400" y="22" font-size="12" fill="'+mut+'">SHARED MEMORY</text><text x="745" y="22" font-size="12" fill="'+mut+'">WORK REACHES YOU</text>';
+  left.forEach(function(l,i){
+    var a=A[l[0]]||{name:l[0],delivered7d:0}, y=36+i*66, n=a.delivered7d||0;
+    svg+=box(20,y,200,50,(a.up===false?'⚠ ':'')+a.name,l[1],false);
+    svg+=arrow(222,y+25,398,190, n+' in 7 days', n>0, 300, y+25-6);
+  });
+  svg+=box(400,150,240,90,'HubSpot + your CRM','one board every agent reads and writes',true);
+  svg+='<text x="412" y="225" font-size="11.5" fill="'+mut+'">front door: /api/crm-event</text>';
+  svg+=box(745,36,235,58,'CTO AIPA apply kit','brief · role defense · CV · letter · verdict',false);
+  svg+=box(745,170,235,70,'You — aideazz.xyz/ops',fe.hiring+' jobs · '+fe.client+' clients ready',true);
+  svg+=box(745,330,235,56,'OpenClaw','interview coach · study packs',false);
+  svg+=arrow(642,180,743,65,'every waiting job',true,690,112);
+  svg+=arrow(642,205,743,205,'ready for you',true,692,198);
+  svg+=arrow(862,96,862,168,'',true);
+  svg+='<text x="872" y="128" font-size="11.5" fill="'+fg+'">kit verdict sorts</text><text x="872" y="143" font-size="11.5" fill="'+fg+'">'+sunk+' of '+hired.length+' jobs down</text>';
+  svg+=arrow(642,225,743,355,'deals + proof files',true,690,300);
+  svg+=arrow(862,330,862,242,'',true);
+  svg+='<text x="852" y="292" font-size="11.5" text-anchor="end" fill="'+fg+'">mock interviews</text>';
+  svg+='<rect x="20" y="398" width="960" height="24" rx="6" fill="'+soft+'"/><text x="500" y="414" font-size="12" text-anchor="middle" fill="'+fg+'">every agent thinks through the free waterfall: Gemini → Groq → Grok → OpenAI → Claude last (Claude first when credit lands)</text>';
+  svg+='</svg>';
+  var next='<div class="next"><b>Next steps of the pivot</b> (not wired yet): '+
+    '① your rejection reasons → VibeJobHunter\'s source filter (Panama/LATAM excluded, classic SWE seat, missing tool) · '+
+    '② these team counts → the morning voice briefing · '+
+    '③ Algom back on X once the API credit is on the app with key i04… — green arrows = live today, grey = no hand-off this week.</div>';
+  return svg+next;
+}
 function renderTeam(){
   document.getElementById('head').innerHTML=HEAD_TEAM;
   if(!TEAM){
@@ -193,6 +246,7 @@ function renderTeam(){
     return;
   }
   document.getElementById('tiles').innerHTML=(TEAM.agents||[]).map(agentCard).join('');
+  document.getElementById('flow').innerHTML=flowSvg();
   var f=TEAM.feed||[];
   document.getElementById('rows').innerHTML = f.length
     ? f.map(teamRow).join('')
@@ -259,6 +313,7 @@ function tab(id,label){
 }
 
 function render(){
+  var fl=document.getElementById('flow'); if(fl&&TAB!=='team'){ fl.innerHTML=''; }
   var c=DATA.counts||{}, h=c.hiring_new||0, cl=c.client_new||0;
   var espN=ESP&&ESP.summary?ESP.summary.real_people:0;
   var fresh=ESP?(' · EspaLuz checked '+ESP.ageMin+' min ago'+(ESP.ageMin>120?' ⚠ sync late':'')):'';
