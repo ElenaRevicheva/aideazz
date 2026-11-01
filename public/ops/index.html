@@ -343,7 +343,7 @@ function row(lane,x){
   var verb = lane==='hiring' ? 'Apply →' : 'Review &amp; send →';
   var html='<tr class="r'+(open?' open':'')+'" onclick="tog(\''+x.id+'\')">'+
     '<td>'+badge+'</td>'+
-    '<td><div class="t">'+E(x.title)+'</div></td>'+
+    '<td><div class="t">'+E(x.title)+'</div>'+(x.kitFlags&&x.kitFlags.length?'<div class="c"><span class="pill warn" title="The apply kit doubts this job, so it sorts to the bottom. Nothing is hidden or closed.">⬇ kit: '+E(x.kitFlags.join(' · '))+'</span></div>':'')+'</td>'+
     '<td class="hideS c">'+E(x.company)+'</td>'+
     '<td class="sc">'+(x.score!=null?E(x.score):'—')+'</td>'+
     '<td class="hideS">'+pill+'</td>'+
