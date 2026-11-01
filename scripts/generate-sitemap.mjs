@@ -38,6 +38,8 @@ const STATIC_PAGES = [
   // The free audit API — a proof surface linked from /portfolio, and the page
   // directory listings will point at. It was missing from the sitemap entirely.
   { path: "/api", changefreq: "weekly", priority: "0.95" },
+  // EspaLuz shop window - the product page parents and answer engines can read (1 Nov 2026).
+  { path: "/espaluz", changefreq: "weekly", priority: "0.9" },
   // Atlas radar + WHITESPACE finder (flat shell pages framing the live app; see public/_redirects).
   { path: "/atlas", changefreq: "weekly", priority: "0.85" },
   { path: "/atlas/finder", changefreq: "weekly", priority: "0.8" },

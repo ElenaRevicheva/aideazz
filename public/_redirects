@@ -25,4 +25,8 @@
 /atlas/          /atlas.html             200
 /atlas/finder    /atlas-finder.html      200
 /atlas/finder/   /atlas-finder.html      200
+# EspaLuz shop window (1 Nov 2026): a standalone static page, not the SPA, so parents AND AI crawlers see EspaLuz.
+# FLAT file, never a public/espaluz/ directory (IPFS would 301 /espaluz -> /espaluz/).
+/espaluz         /espaluz.html           200
+/espaluz/        /espaluz.html           200
 /*             /index.html   200

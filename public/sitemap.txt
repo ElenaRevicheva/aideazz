@@ -1,5 +1,6 @@
 https://aideazz.xyz/portfolio
 https://aideazz.xyz/api
+https://aideazz.xyz/espaluz
 https://aideazz.xyz/atlas
 https://aideazz.xyz/atlas/finder
 https://aideazz.xyz/
@@ -16,6 +17,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/archive/
 https://aideazz.xyz/blog/why-immigration-lawyers-in-panama-get-skipped-by-chatgpt-and-perplexity/
 https://aideazz.xyz/blog/why-your-panama-plastic-surgery-clinic-does-not-appear-in-chatgpt-or-google-ai-answers/
 https://aideazz.xyz/blog/can-ai-agents-really-evolve-onthefly-a-founders-reality-check/
@@ -92,7 +94,6 @@ https://aideazz.xyz/blog/175-items-marked-done-zero-delivered-an-ai-agent-queue-
 https://aideazz.xyz/blog/marked-done-before-anyone-read-them-field-note/
 https://aideazz.xyz/blog/the-agent-that-could-not-unlock-itself-field-note/
 https://aideazz.xyz/blog/ai-agent-operations-the-hidden-costs-of-free-tier-and-99-restarts/
-https://aideazz.xyz/blog/archive/
 https://aideazz.xyz/blog/the-prerender-google-never-read-field-note/
 https://aideazz.xyz/blog/when-55193-restarts-hide-a-deeper-ai-agent-problem/
 https://aideazz.xyz/blog/a-third-of-the-measurement-went-dark-field-note/
