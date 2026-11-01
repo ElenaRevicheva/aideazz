@@ -16,6 +16,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/why-immigration-lawyers-in-panama-get-skipped-by-chatgpt-and-perplexity/
 https://aideazz.xyz/blog/why-your-panama-plastic-surgery-clinic-does-not-appear-in-chatgpt-or-google-ai-answers/
 https://aideazz.xyz/blog/can-ai-agents-really-evolve-onthefly-a-founders-reality-check/
 https://aideazz.xyz/blog/how-to-get-chatgpt-to-recommend-a-dental-clinic-in-panama/
