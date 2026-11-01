@@ -76,6 +76,11 @@
   .login input{font:15px/1 inherit;padding:10px 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);min-width:200px}
   button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
   #out{color:var(--mut);font-size:13px;text-decoration:none;border-bottom:1px dotted var(--mut)}
+  .agent .v{font-size:17px;font-weight:600;margin:2px 0 4px}
+  .agent .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--ok);margin-right:6px}
+  .agent .dot.down{background:var(--warn)}
+  .agent .n{font-size:12.5px;color:var(--mut);line-height:1.45}
+  .agent .sig{font-size:13px;margin-top:6px}
   @media(max-width:760px){.hideS{display:none}h1{font-size:24px}}
 </style></head><body><div class="wrap">
 <h1>Income ops</h1>
@@ -98,8 +103,9 @@
 <script>
 var E=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});};
-var DATA={hiring:[],client:[],counts:{}}, TAB='all', OPEN=null, RECORD=null, ESP=null;
+var DATA={hiring:[],client:[],counts:{}}, TAB='all', OPEN=null, RECORD=null, ESP=null, TEAM=null;
 var HEAD_QUEUE='<tr><th>Lane</th><th>What</th><th class="hideS">Who</th><th>Score</th><th class="hideS">Draft</th><th class="hideS">Added</th></tr>';
+var HEAD_TEAM='<tr><th>When (UTC)</th><th>Who → to whom</th><th>What</th><th class="hideS">Item</th><th>Outcome</th></tr>';
 var HEAD_ESP='<tr><th>Lane</th><th>Person</th><th class="hideS">Contact</th><th>Trial</th><th class="hideS">Paid (proof)</th><th class="hideS">Last active</th></tr>';
 var API="https://webhook.aideazz.xyz/queue/", REMOTE=true, KEY='ops.auth';
 
@@ -117,11 +123,11 @@ function signIn(){
   if(!pw){ return; }
   try{ localStorage.setItem(KEY,'Basic '+btoa('elena:'+pw)); }catch(e){}
   document.getElementById('login').hidden=true;
-  load(); loadEspaluz();
+  load(); loadEspaluz(); loadTeam();
 }
 function signOut(){
   try{ localStorage.removeItem(KEY); }catch(e){}
-  DATA={hiring:[],client:[],counts:{}}; OPEN=null; RECORD=null; ESP=null;
+  DATA={hiring:[],client:[],counts:{}}; OPEN=null; RECORD=null; ESP=null; TEAM=null;
   document.getElementById('tiles').innerHTML=''; document.getElementById('tabs').innerHTML='';
   document.getElementById('rows').innerHTML='';
   showLogin(false);
@@ -153,6 +159,44 @@ function load(){
 function loadEspaluz(){
   q('api/espaluz').then(function(r){ return r.ok?r.json():null; })
     .then(function(d){ ESP=d; render(); }).catch(function(){ ESP=null; });
+}
+// 1 Nov 2026: Team tab — every agent, alive or not, what it handed over and what waits for her. Read only.
+function loadTeam(){
+  q('api/team').then(function(r){ return r.ok?r.json():null; })
+    .then(function(d){ TEAM=d; render(); }).catch(function(){ TEAM=null; });
+}
+var OUTCOME={created:['ok','delivered'],duplicate:['','already known'],skipped:['','skipped']};
+function agentCard(a){
+  var since=(a.processes||[]).map(function(p){ return p.up?'':E(p.name)+' down'; }).filter(Boolean).join(', ');
+  return '<div class="tile agent"><div class="k"><span class="dot'+(a.up?'':' down')+'"></span>'+E(a.up?'running':'needs a look')+'</div>'+
+    '<div class="v">'+E(a.name)+'</div>'+
+    '<div class="n">'+E(a.role)+'</div>'+
+    '<div class="sig">'+(a.delivered7d||a.alreadyKnown7d
+      ? '<b>'+E(a.delivered7d)+'</b> handed over in 7 days'+(a.delivered24h?' ('+E(a.delivered24h)+' today)':'')+(a.alreadyKnown7d?' · '+E(a.alreadyKnown7d)+' already known':'')
+      : 'no hand-off in 7 days')+'</div>'+
+    (a.signal?'<div class="n">'+E(a.signal)+'</div>':'')+
+    '<div class="n">'+(a.tier==='free'?'free mode: Gemini first, Claude last':a.tier?'credit mode: Claude first':'')+(since?' · '+since:'')+'</div></div>';
+}
+function teamRow(f){
+  var o=OUTCOME[f.outcome]||['',f.outcome];
+  return '<tr><td class="c">'+E(String(f.at||'').slice(5,16).replace('T',' '))+'</td>'+
+    '<td><div class="t">'+E(f.from)+' → '+E(f.to)+'</div></td>'+
+    '<td class="c">'+E(f.what)+'</td>'+
+    '<td class="hideS c">'+E(f.item||'—')+'</td>'+
+    '<td><span class="pill '+o[0]+'">'+E(o[1])+'</span></td></tr>';
+}
+function renderTeam(){
+  document.getElementById('head').innerHTML=HEAD_TEAM;
+  if(!TEAM){
+    document.getElementById('tiles').innerHTML='';
+    document.getElementById('rows').innerHTML='<tr><td colspan="5" class="empty">The team snapshot is not available right now.</td></tr>';
+    return;
+  }
+  document.getElementById('tiles').innerHTML=(TEAM.agents||[]).map(agentCard).join('');
+  var f=TEAM.feed||[];
+  document.getElementById('rows').innerHTML = f.length
+    ? f.map(teamRow).join('')
+    : '<tr><td colspan="5" class="empty">No hand-offs in the last 7 days.</td></tr>';
 }
 function day(s){ return s?String(s).slice(0,10):'—'; }
 function contact(k){
@@ -218,6 +262,7 @@ function render(){
   var c=DATA.counts||{}, h=c.hiring_new||0, cl=c.client_new||0;
   var espN=ESP&&ESP.summary?ESP.summary.real_people:0;
   var fresh=ESP?(' · EspaLuz checked '+ESP.ageMin+' min ago'+(ESP.ageMin>120?' ⚠ sync late':'')):'';
+  var teamUp=TEAM?(TEAM.agents||[]).filter(function(a){return a.up;}).length+'/'+(TEAM.agents||[]).length:'?';
   var all=DATA.hiring.concat(DATA.client);
   var ready=all.filter(function(x){return x.draftTailored;}).length;
   var done=(c.hiring_done||0)+(c.client_done||0)+(c.hiring_skipped||0)+(c.client_skipped||0);
@@ -225,8 +270,9 @@ function render(){
     'All streams — live from the AIdeazz database · '+(h+cl)+' open items'+fresh;
   document.getElementById('tabs').innerHTML=
     tab('all','All ('+(h+cl)+')')+tab('hiring','Employer ('+h+')')+tab('client','Client ('+cl+')')+
-    tab('espaluz','EspaLuz ('+espN+')');
+    tab('espaluz','EspaLuz ('+espN+')')+tab('team','Team ('+teamUp+' running)');
   if(TAB==='espaluz'){ renderEspaluz(); return; }
+  if(TAB==='team'){ if(TEAM){ document.getElementById('sub').textContent='Your agents — checked '+TEAM.ageMin+' min ago'+(TEAM.ageMin>30?' ⚠ snapshot late':'')+' · who handed what to whom, last 7 days'; } renderTeam(); return; }
   document.getElementById('head').innerHTML=HEAD_QUEUE;
   document.getElementById('tiles').innerHTML=
     tile('Employers',h,'to apply to')+
@@ -346,5 +392,5 @@ function toast(msg){
   t.style.cssText='position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f1b2e;color:#fff;padding:10px 16px;border-radius:10px;font:14px system-ui;z-index:99;max-width:90vw';
   document.body.appendChild(t); setTimeout(function(){ t.remove(); }, 6000);
 }
-load(); loadEspaluz();
+load(); loadEspaluz(); loadTeam();
 </script></body></html>
