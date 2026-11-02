@@ -118,6 +118,22 @@
   a { color: var(--accent); }
   footer { border-top: 1px solid var(--line); margin-top: 48px; padding-top: 16px; color: var(--muted); font-size: .95rem; }
 </style>
+<!-- Google tag, same property as the rest of aideazz.xyz. Visits arrive with utm_source (influencer, linkedin, blog...);
+     each door button is one event, so the weekly report reads: visits -> door clicks, per machine. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TL5S8V23LT');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.href, door = h.indexOf('wa.me/') > -1 ? 'whatsapp' : h.indexOf('t.me/') > -1 ? 'telegram'
+      : h.indexOf('lovable.app') > -1 ? 'web' : '';
+    if (door) gtag('event', 'espaluz_door_' + door, { transport_type: 'beacon' });
+  });
+</script>
 </head>
 <body>
 <main>
