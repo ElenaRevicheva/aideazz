@@ -114,7 +114,7 @@ def snapshot(contexts):
 
 
 def page_shell(src_html):
-    style = re.search(r"<style>.*?</style>", src_html, re.S).group(0)
+    style = re.search(r"<link rel=\"preconnect\".*?</style>", src_html, re.S).group(0)
     gtag = re.search(r"<!-- Google tag.*?</script>\s*<script>.*?</script>", src_html, re.S).group(0)
     return style, gtag
 
@@ -221,16 +221,17 @@ def build_page(c, all_c, style, gtag):
   <article>
     <header class="hero">
       <div class="brand"><a href="/espaluz">EspaLuz</a> · {c['flag']} {esc(N)}</div>
-      <h1>Live {esc(N)} in Spanish</h1>
+      <p class="eyebrow">For international families building a life in {esc(n)}</p>
+      <h1>Live {esc(N)} in Spanish.</h1>
       <p class="lead">The words people really say, the customs nobody explains, the everyday moments from the hospital
       and public offices to the school gate, experienced with your family in {esc(n)}. And while you focus on what
       matters most in the moment, Pere and Titi keep the kids learning along the way.</p>
       <nav class="cta" aria-label="Start EspaLuz">
-        <a class="btn wa" href="https://wa.me/50766623757">WhatsApp</a>
+        <a class="btn wa" href="https://wa.me/50766623757">Begin on WhatsApp</a>
         <a class="btn tg" href="https://t.me/EspaLuzFamily_bot">Telegram</a>
-        <a class="btn" href="https://espaluz-ai-language-tutor.lovable.app">Web</a>
+        <a class="btn" href="https://espaluz-ai-language-tutor.lovable.app">Begin on the web</a>
       </nav>
-      <p class="note">14 days free on every channel. Then $11/month with PayPal.{(' Money here: ' + esc(c['currency']) + '.') if c['currency'] else ''}</p>
+      <p class="note">14 days to try, on any channel. Then $11 a month.{(' Money here: ' + esc(c['currency']) + '.') if c['currency'] else ''}</p>
     </header>
 
 {words_html}
@@ -242,7 +243,7 @@ def build_page(c, all_c, style, gtag):
 {moments_html}
 
     <section>
-      <h2>And the kids?</h2>
+      <h2>For the children: Pere and Titi</h2>
       <p>Children learn with <strong>Pere the sloth 🦥</strong> and <strong>Titi the monkey 🐒</strong>: they talk,
       trace letters and short sentences on a tablet, and show a photo that becomes the lesson. You get a short report
       of what they practised. <a href="/espaluz">More about EspaLuz</a>.</p>
