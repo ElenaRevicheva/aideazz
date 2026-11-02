@@ -149,6 +149,11 @@ def build_page(c, all_c, style, gtag):
              {"@type": "ListItem", "position": 2, "name": "EspaLuz", "item": SITE + "/espaluz"},
              {"@type": "ListItem", "position": 3, "name": N, "item": url}]},
          "mainEntity": {"@id": SITE + "/espaluz#app"}},
+        {"@type": ["SoftwareApplication", "MobileApplication"], "@id": SITE + "/espaluz#app", "name": "EspaLuz",
+         "url": SITE + "/espaluz", "applicationCategory": "LifestyleApplication",
+         "publisher": {"@type": "Organization", "name": "AIdeazz", "url": SITE + "/"},
+         "sameAs": ["https://wa.me/50766623757", "https://t.me/EspaLuzFamily_bot", "https://t.me/EspaLuz",
+                    "https://espaluz-ai-language-tutor.lovable.app"]},
         {"@type": "DefinedTermSet", "@id": url + "#words", "name": f"Spanish expressions used in {N}",
          "inLanguage": "es",
          "hasDefinedTerm": [{"@type": "DefinedTerm", "name": w, "description": m, "inLanguage": "es"} for w, m in c["words"]]},
@@ -171,15 +176,15 @@ def build_page(c, all_c, style, gtag):
       <p>EspaLuz knows little local slang for {esc(n)} yet, so this page does not invent any. Ask in your own words
       and EspaLuz explains the Spanish you hear.</p>
     </section>""")
-    food_html = ("    <section>\n      <h2>Food words you will hear</h2>\n      <ul class=\"facts\">"
+    food_html = ("    <section>\n      <h2>Which food words will you hear?</h2>\n      <ul class=\"facts\">"
                  + "".join(f"<li><strong lang=\"es\">{esc(w)}</strong>: {esc(m)}</li>" for w, m in c["food"])
                  + "</ul>\n    </section>") if c["food"] else ""
-    notes_html = ("    <section>\n      <h2>Customs nobody explains</h2>\n      <ul class=\"facts\">"
+    notes_html = ("    <section>\n      <h2>Which customs does nobody explain?</h2>\n      <ul class=\"facts\">"
                   + "".join(f"<li>{esc(t)}.</li>" for _, t in c["notes"]) + "</ul>\n    </section>") if c["notes"] else ""
     if c["topics"]:
         phr = "".join(f"<li><span lang=\"es\"><strong>{esc(es)}</strong></span> = {esc(en)}</li>" for _, es, en in c["phrases"][:12])
         moments_html = f"""    <section>
-      <h2>Everyday moments in {esc(n)}: where EspaLuz helps</h2>
+      <h2>How does EspaLuz help with everyday moments in {esc(n)}?</h2>
       <p>EspaLuz has a guide for {esc(n)} on <strong>{esc(topics_txt)}</strong>{(', including ' + esc(c['public_health']) + ', the public health system') if c['public_health'] else ''}.
       Type <code>help</code> and the topic in WhatsApp (for example <code>help doctor</code>), or just ask in your own words.
       For an appointment, the voice interpreter repeats what you say in Spanish and what they answer in English.</p>
@@ -187,7 +192,7 @@ def build_page(c, all_c, style, gtag):
     </section>"""
     else:
         moments_html = f"""    <section>
-      <h2>Everyday moments in {esc(n)}: where EspaLuz helps</h2>
+      <h2>How does EspaLuz help with everyday moments in {esc(n)}?</h2>
       <p>EspaLuz has no written guide for {esc(n)} yet. You can still ask in your own words, send a photo of a form or
       a sign, and use the voice interpreter at an appointment.</p>
     </section>"""
@@ -243,7 +248,7 @@ def build_page(c, all_c, style, gtag):
 {moments_html}
 
     <section>
-      <h2>For the children: Pere and Titi</h2>
+      <h2>What do the children get?</h2>
       <p>Children learn with <strong>Pere the sloth 🦥</strong> and <strong>Titi the monkey 🐒</strong>: they talk,
       trace letters and short sentences on a tablet, and show a photo that becomes the lesson. You get a short report
       of what they practised. <a href="/espaluz">More about EspaLuz</a>.</p>
