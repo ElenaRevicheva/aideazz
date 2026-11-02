@@ -29,4 +29,26 @@
 # FLAT file, never a public/espaluz/ directory (IPFS would 301 /espaluz -> /espaluz/).
 /espaluz         /espaluz.html           200
 /espaluz/        /espaluz.html           200
+# One flat page per country, built by scripts/build-espaluz-countries.py (2 Nov 2026).
+/espaluz/panama               /espaluz-panama.html  200
+/espaluz/mexico               /espaluz-mexico.html  200
+/espaluz/colombia             /espaluz-colombia.html  200
+/espaluz/argentina            /espaluz-argentina.html  200
+/espaluz/spain                /espaluz-spain.html  200
+/espaluz/costa-rica           /espaluz-costa-rica.html  200
+/espaluz/chile                /espaluz-chile.html  200
+/espaluz/peru                 /espaluz-peru.html  200
+/espaluz/ecuador              /espaluz-ecuador.html  200
+/espaluz/dominican-republic   /espaluz-dominican-republic.html  200
+/espaluz/uruguay              /espaluz-uruguay.html  200
+/espaluz/guatemala            /espaluz-guatemala.html  200
+/espaluz/honduras             /espaluz-honduras.html  200
+/espaluz/el-salvador          /espaluz-el-salvador.html  200
+/espaluz/nicaragua            /espaluz-nicaragua.html  200
+/espaluz/cuba                 /espaluz-cuba.html  200
+/espaluz/bolivia              /espaluz-bolivia.html  200
+/espaluz/paraguay             /espaluz-paraguay.html  200
+/espaluz/venezuela            /espaluz-venezuela.html  200
+/espaluz/puerto-rico          /espaluz-puerto-rico.html  200
+/espaluz/equatorial-guinea    /espaluz-equatorial-guinea.html  200
 /*             /index.html   200

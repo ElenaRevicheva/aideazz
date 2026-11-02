@@ -1,0 +1,1351 @@
+[
+ {
+  "slug": "panama",
+  "key": "panama",
+  "name_es": "Panamá",
+  "name_en": "Panama",
+  "flag": "🇵🇦",
+  "currency": "USD (Balboa for coins)",
+  "variant": "panamanian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Qué xopá?",
+    "What's up? (very informal)"
+   ],
+   [
+    "¿Qué es lo que hay?",
+    "What's going on?"
+   ],
+   [
+    "Buenas",
+    "Short greeting (any time of day)"
+   ],
+   [
+    "chuleta",
+    "Darn! / Wow! (exclamation)"
+   ],
+   [
+    "vaina",
+    "Thing / stuff (universal word)"
+   ],
+   [
+    "juega vivo",
+    "Be smart / Don't get scammed"
+   ],
+   [
+    "pelaíto",
+    "Kid / young person"
+   ],
+   [
+    "yeye",
+    "Trendy / fancy"
+   ],
+   [
+    "quedó pelao",
+    "Ran out of money"
+   ],
+   [
+    "frío como hielo",
+    "Very cold (drinks)"
+   ],
+   [
+    "¿Me regalas?",
+    "Can you give me? (polite request)"
+   ]
+  ],
+  "food": [
+   [
+    "patacones",
+    "Fried plantains (must-try)"
+   ],
+   [
+    "sancocho",
+    "Traditional chicken soup"
+   ],
+   [
+    "arroz con pollo",
+    "Rice with chicken"
+   ],
+   [
+    "ceviche",
+    "Raw fish marinated in lime"
+   ],
+   [
+    "ropa vieja",
+    "Shredded beef dish"
+   ],
+   [
+    "empanadas",
+    "Stuffed pastries"
+   ],
+   [
+    "chicha",
+    "Corn-based drink"
+   ],
+   [
+    "raspao",
+    "Shaved ice with syrup"
+   ]
+  ],
+  "notes": [
+   [
+    "formality",
+    "Use 'usted' with strangers, switch to 'tú' when invited"
+   ],
+   [
+    "tips",
+    "10% restaurant tip is standard, not mandatory"
+   ],
+   [
+    "holidays",
+    "Carnaval (Feb), Semana Santa, Nov 3-28 (many national days)"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "schools",
+   "banking",
+   "housing",
+   "transportation",
+   "utilities",
+   "shopping"
+  ],
+  "phrases": [
+   [
+    "healthcare",
+    "Es una emergencia",
+    "It's an emergency"
+   ],
+   [
+    "healthcare",
+    "Soy alérgico a...",
+    "I'm allergic to..."
+   ],
+   [
+    "healthcare",
+    "¿Tienen esta medicina?",
+    "Do you have this medicine?"
+   ],
+   [
+    "healthcare",
+    "Necesito una receta",
+    "I need a prescription"
+   ],
+   [
+    "immigration",
+    "Necesito extender mi visa",
+    "I need to extend my visa"
+   ],
+   [
+    "immigration",
+    "Quiero aplicar para residencia",
+    "I want to apply for residency"
+   ],
+   [
+    "immigration",
+    "¿Cuál es el estado de mi solicitud?",
+    "What's my application status?"
+   ],
+   [
+    "schools",
+    "Quiero inscribir a mi hijo",
+    "I want to enroll my child"
+   ],
+   [
+    "schools",
+    "Tengo una cita con el maestro",
+    "I have a meeting with the teacher"
+   ],
+   [
+    "schools",
+    "¿Dónde compro el uniforme?",
+    "Where do I buy the uniform?"
+   ],
+   [
+    "banking",
+    "Quiero abrir una cuenta",
+    "I want to open an account"
+   ],
+   [
+    "banking",
+    "Necesito hacer una transferencia",
+    "I need to make a transfer"
+   ],
+   [
+    "banking",
+    "El cajero se tragó mi tarjeta",
+    "The ATM ate my card"
+   ],
+   [
+    "banking",
+    "¿Cuál es la tasa de cambio?",
+    "What's the exchange rate?"
+   ],
+   [
+    "housing",
+    "Busco apartamento para alquilar",
+    "I'm looking for an apartment to rent"
+   ],
+   [
+    "housing",
+    "¿Cuánto es el depósito?",
+    "How much is the deposit?"
+   ],
+   [
+    "housing",
+    "¿Los servicios están incluidos?",
+    "Are utilities included?"
+   ],
+   [
+    "housing",
+    "Necesito un plomero/electricista",
+    "I need a plumber/electrician"
+   ],
+   [
+    "transportation",
+    "¿Cuánto cuesta ir a...?",
+    "How much to go to...?"
+   ],
+   [
+    "transportation",
+    "¿Cuál línea va a...?",
+    "Which line goes to...?"
+   ],
+   [
+    "transportation",
+    "¿Este bus pasa por...?",
+    "Does this bus go by...?"
+   ],
+   [
+    "utilities",
+    "Quiero pagar mi recibo",
+    "I want to pay my bill"
+   ],
+   [
+    "utilities",
+    "No hay luz/agua",
+    "There's no power/water"
+   ],
+   [
+    "utilities",
+    "Necesito instalación de internet",
+    "I need internet installation"
+   ],
+   [
+    "shopping",
+    "¿Dónde encuentro...?",
+    "Where do I find...?"
+   ],
+   [
+    "shopping",
+    "¿Cuánto cuesta esto?",
+    "How much is this?"
+   ],
+   [
+    "shopping",
+    "¿Tienen descuento?",
+    "Do you have a discount?"
+   ]
+  ],
+  "public_health": "CSS (Caja de Seguro Social)"
+ },
+ {
+  "slug": "mexico",
+  "key": "mexico",
+  "name_es": "México",
+  "name_en": "Mexico",
+  "flag": "🇲🇽",
+  "currency": "Mexican Peso (MXN)",
+  "variant": "mexican",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Qué onda?",
+    "What's up?"
+   ],
+   [
+    "¿Mande?",
+    "Pardon? / What did you say?"
+   ],
+   [
+    "Órale",
+    "Okay / Let's go / Wow"
+   ],
+   [
+    "chido/padre",
+    "Cool / great"
+   ],
+   [
+    "neta",
+    "Really / truth"
+   ],
+   [
+    "no manches",
+    "No way! / You're kidding"
+   ],
+   [
+    "chamba",
+    "Work / job"
+   ],
+   [
+    "fresa",
+    "Preppy / snobby person"
+   ],
+   [
+    "ahorita",
+    "Right now (but could mean later)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "formality",
+    "Mexicans are formal, use titles (Licenciado, Ingeniero)"
+   ],
+   [
+    "food_times",
+    "Comida (lunch) is main meal, 2-4 PM"
+   ],
+   [
+    "tips",
+    "10-15% at restaurants, tip bag carriers at grocery stores"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": "IMSS (employees), ISSSTE (government)"
+ },
+ {
+  "slug": "colombia",
+  "key": "colombia",
+  "name_es": "Colombia",
+  "name_en": "Colombia",
+  "flag": "🇨🇴",
+  "currency": "Colombian Peso (COP)",
+  "variant": "colombian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Quiubo?",
+    "What's up? (Qué hubo)"
+   ],
+   [
+    "Parcero/Parce",
+    "Buddy/friend (Medellín)"
+   ],
+   [
+    "Bacano",
+    "Cool/great"
+   ],
+   [
+    "berraco",
+    "Awesome / tough person"
+   ],
+   [
+    "sumercé",
+    "Formal 'you' (Bogotá)"
+   ],
+   [
+    "a la orden",
+    "At your service / You're welcome"
+   ],
+   [
+    "de una",
+    "Right away / Let's do it"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "regions",
+    "Paisas (Medellín), Costeños (Coast), Rolos (Bogotá) - different accents"
+   ],
+   [
+    "coffee",
+    "Tinto = small black coffee, available everywhere"
+   ]
+  ],
+  "topics": [
+   "immigration",
+   "banking",
+   "safety"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "argentina",
+  "key": "argentina",
+  "name_es": "Argentina",
+  "name_en": "Argentina",
+  "flag": "🇦🇷",
+  "currency": "Argentine Peso (ARS) - watch exchange rates!",
+  "variant": "rioplatense",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Qué onda?",
+    "What's up?"
+   ],
+   [
+    "Che",
+    "Hey (like 'dude')"
+   ],
+   [
+    "bárbaro",
+    "Great/awesome"
+   ],
+   [
+    "laburo",
+    "Work"
+   ],
+   [
+    "mango",
+    "Money (1 peso)"
+   ],
+   [
+    "afanar",
+    "To steal/to work hard"
+   ],
+   [
+    "morfar",
+    "To eat"
+   ],
+   [
+    "bondi",
+    "Bus"
+   ],
+   [
+    "note",
+    "Argentina uses 'vos' instead of 'tú'"
+   ],
+   [
+    "examples",
+    {
+     "tú eres → vos sos": "You are",
+     "tú tienes → vos tenés": "You have",
+     "tú puedes → vos podés": "You can"
+    }
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "mate",
+    "Sharing mate is social ritual - learn the etiquette"
+   ],
+   [
+    "dinner",
+    "Argentines eat dinner late (9-11 PM)"
+   ],
+   [
+    "kiss",
+    "One kiss on cheek for greeting"
+   ]
+  ],
+  "topics": [
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "spain",
+  "key": "spain",
+  "name_es": "España",
+  "name_en": "Spain",
+  "flag": "🇪🇸",
+  "currency": "Euro (EUR)",
+  "variant": "castilian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Qué tal?",
+    "How are you?"
+   ],
+   [
+    "Buenas",
+    "Short greeting"
+   ],
+   [
+    "vale",
+    "Okay (very common)"
+   ],
+   [
+    "mola",
+    "Cool"
+   ],
+   [
+    "tío/tía",
+    "Dude (uncle/aunt literally)"
+   ],
+   [
+    "currar",
+    "To work"
+   ],
+   [
+    "guay",
+    "Cool"
+   ],
+   [
+    "flipar",
+    "To freak out/be amazed"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "siesta",
+    "Many shops close 2-5 PM"
+   ],
+   [
+    "dinner",
+    "Dinner starts 9-10 PM"
+   ],
+   [
+    "regions",
+    "Cataluña, País Vasco, Galicia have their own languages"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": "Sistema Nacional de Salud"
+ },
+ {
+  "slug": "costa-rica",
+  "key": "costa_rica",
+  "name_es": "Costa Rica",
+  "name_en": "Costa Rica",
+  "flag": "🇨🇷",
+  "currency": "Colón (CRC) + USD widely accepted",
+  "variant": "costa_rican",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "pura vida",
+    "Pure life - greeting, goodbye, and philosophy"
+   ],
+   [
+    "mae",
+    "Dude"
+   ],
+   [
+    "tuanis",
+    "Cool"
+   ],
+   [
+    "tico/tica",
+    "Costa Rican person"
+   ],
+   [
+    "chunche",
+    "Thing/stuff"
+   ],
+   [
+    "brete",
+    "Work"
+   ],
+   [
+    "la vara",
+    "The thing/situation"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "pura_vida",
+    "Not just words - it's the laid-back lifestyle"
+   ],
+   [
+    "environment",
+    "Very eco-conscious country"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": "CCSS (Caja)"
+ },
+ {
+  "slug": "chile",
+  "key": "chile",
+  "name_es": "Chile",
+  "name_en": "Chile",
+  "flag": "🇨🇱",
+  "currency": "Chilean Peso (CLP)",
+  "variant": "chilean",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "cachai",
+    "You know? / Do you get it?"
+   ],
+   [
+    "po",
+    "Added to everything (sí po = yes)"
+   ],
+   [
+    "bacán",
+    "Cool"
+   ],
+   [
+    "al tiro",
+    "Right away"
+   ],
+   [
+    "pololo/polola",
+    "Boyfriend/girlfriend"
+   ],
+   [
+    "fome",
+    "Boring"
+   ]
+  ],
+  "food": [],
+  "notes": [],
+  "topics": [
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "peru",
+  "key": "peru",
+  "name_es": "Perú",
+  "name_en": "Peru",
+  "flag": "🇵🇪",
+  "currency": "Sol (PEN)",
+  "variant": "peruvian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "chévere",
+    "Cool"
+   ],
+   [
+    "pata",
+    "Friend/buddy"
+   ],
+   [
+    "jato",
+    "House"
+   ],
+   [
+    "chamba",
+    "Work"
+   ],
+   [
+    "causa",
+    "Friend (also a dish)"
+   ],
+   [
+    "ya",
+    "Okay/already (very versatile)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "food",
+    "Peruvian cuisine is world-famous - ceviche, lomo saltado"
+   ]
+  ],
+  "topics": [
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "ecuador",
+  "key": "ecuador",
+  "name_es": "Ecuador",
+  "name_en": "Ecuador",
+  "flag": "🇪🇨",
+  "currency": "USD (dollarized since 2000)",
+  "variant": "ecuadorian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "¿Qué fue?",
+    "What's up?"
+   ],
+   [
+    "Cómo le va",
+    "How's it going (formal)"
+   ],
+   [
+    "chuta",
+    "Darn! (mild exclamation)"
+   ],
+   [
+    "chévere",
+    "Cool/great"
+   ],
+   [
+    "ñaño/ñaña",
+    "Brother/sister (friend)"
+   ],
+   [
+    "man",
+    "Dude"
+   ],
+   [
+    "achachay",
+    "It's cold!"
+   ],
+   [
+    "arrarray",
+    "It's hot!"
+   ],
+   [
+    "de ley",
+    "For sure/definitely"
+   ],
+   [
+    "simón",
+    "Yes (informal)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "regions",
+    "Costa (coast), Sierra (highlands), Oriente (Amazon) - very different cultures and climates"
+   ],
+   [
+    "cuenca_culture",
+    "Colonial charm, UNESCO heritage, arts scene, known as most polite city"
+   ],
+   [
+    "food",
+    "Try cuy (guinea pig), locro de papa, encebollado (coast)"
+   ],
+   [
+    "siesta",
+    "Some shops close 1-3 PM"
+   ],
+   [
+    "altitude",
+    "Cuenca is 2,500m - take it easy first days"
+   ],
+   [
+    "weather",
+    "Cuenca has 'eternal spring' - sweater weather year-round"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking",
+   "housing",
+   "transportation"
+  ],
+  "phrases": [],
+  "public_health": "IESS (Seguro Social)"
+ },
+ {
+  "slug": "dominican-republic",
+  "key": "dominican_republic",
+  "name_es": "República Dominicana",
+  "name_en": "the Dominican Republic",
+  "flag": "🇩🇴",
+  "currency": "Dominican Peso (DOP)",
+  "variant": "dominican",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "tato",
+    "Okay/alright"
+   ],
+   [
+    "dime a ver",
+    "Tell me"
+   ],
+   [
+    "vaina",
+    "Thing (like Panama)"
+   ],
+   [
+    "jevi",
+    "Cool (from 'heavy')"
+   ],
+   [
+    "un chin",
+    "A little bit"
+   ],
+   [
+    "klk/qué lo qué",
+    "What's up? (very informal)"
+   ],
+   [
+    "manito/manita",
+    "Bro/sis"
+   ],
+   [
+    "tigueraje",
+    "Street smarts"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "music",
+    "Bachata and merengue - national pride"
+   ],
+   [
+    "baseball",
+    "National passion - MLB players everywhere"
+   ],
+   [
+    "zona_colonial",
+    "Historic district in Santo Domingo, UNESCO site"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "schools",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "uruguay",
+  "key": "uruguay",
+  "name_es": "Uruguay",
+  "name_en": "Uruguay",
+  "flag": "🇺🇾",
+  "currency": "Uruguayan Peso (UYU)",
+  "variant": "rioplatense",
+  "variant_note": "Uses 'vos' like Argentina",
+  "vos": [],
+  "words": [
+   [
+    "bo",
+    "Hey (like 'che' in Argentina)"
+   ],
+   [
+    "ta",
+    "Okay (very common)"
+   ],
+   [
+    "bárbaro",
+    "Great"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "mate",
+    "Even more mate culture than Argentina"
+   ]
+  ],
+  "topics": [],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "guatemala",
+  "key": "guatemala",
+  "name_es": "Guatemala",
+  "name_en": "Guatemala",
+  "flag": "🇬🇹",
+  "currency": "Quetzal (GTQ)",
+  "variant": "guatemalan",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "chapín/chapina",
+    "Guatemalan person"
+   ],
+   [
+    "cabal",
+    "Exactly right / Precisely"
+   ],
+   [
+    "pisto",
+    "Money"
+   ],
+   [
+    "patojo/patoja",
+    "Kid/young person"
+   ],
+   [
+    "chilero",
+    "Cool/nice"
+   ],
+   [
+    "aguas",
+    "Watch out! Be careful!"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "mayan_influence",
+    "Strong indigenous culture, many Mayan languages spoken"
+   ],
+   [
+    "antigua",
+    "Colonial city, UNESCO World Heritage, popular with expats"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "schools",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "honduras",
+  "key": "honduras",
+  "name_es": "Honduras",
+  "name_en": "Honduras",
+  "flag": "🇭🇳",
+  "currency": "Lempira (HNL)",
+  "variant": "honduran",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "catracho/catracha",
+    "Honduran person"
+   ],
+   [
+    "maje",
+    "Dude/guy"
+   ],
+   [
+    "cipote/cipota",
+    "Kid"
+   ],
+   [
+    "púchica",
+    "Wow! (exclamation)"
+   ],
+   [
+    "cheque",
+    "Okay/Alright"
+   ],
+   [
+    "cabal",
+    "Exactly"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "roatan",
+    "Bay Islands popular for diving and expat retirement"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "el-salvador",
+  "key": "el_salvador",
+  "name_es": "El Salvador",
+  "name_en": "El Salvador",
+  "flag": "🇸🇻",
+  "currency": "USD (Bitcoin is legal tender!)",
+  "variant": "salvadoran",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "chero/chera",
+    "Friend/buddy"
+   ],
+   [
+    "cipote/cipota",
+    "Kid"
+   ],
+   [
+    "vaya pues",
+    "Okay then"
+   ],
+   [
+    "púchica",
+    "Wow! (exclamation)"
+   ],
+   [
+    "chucho",
+    "Dog"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "pupusas",
+    "National dish - must try!"
+   ],
+   [
+    "surf",
+    "Great surf beaches on the Pacific coast"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "nicaragua",
+  "key": "nicaragua",
+  "name_es": "Nicaragua",
+  "name_en": "Nicaragua",
+  "flag": "🇳🇮",
+  "currency": "Córdoba (NIO)",
+  "variant": "nicaraguan",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "nica",
+    "Nicaraguan"
+   ],
+   [
+    "chunche",
+    "Thing/stuff"
+   ],
+   [
+    "tuani",
+    "Cool"
+   ],
+   [
+    "dale pues",
+    "Okay then"
+   ],
+   [
+    "pinolero",
+    "Nicaraguan (from pinol drink)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "granada_leon",
+    "Colonial cities popular with expats"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "cuba",
+  "key": "cuba",
+  "name_es": "Cuba",
+  "name_en": "Cuba",
+  "flag": "🇨🇺",
+  "currency": "Cuban Peso (CUP), also MLC for foreigners",
+  "variant": "cuban",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "asere",
+    "Friend/buddy"
+   ],
+   [
+    "socio",
+    "Buddy/pal"
+   ],
+   [
+    "¿qué bolá?",
+    "What's up?"
+   ],
+   [
+    "chévere",
+    "Cool/great"
+   ],
+   [
+    "guagua",
+    "Bus"
+   ],
+   [
+    "resolver",
+    "To figure out/solve (very Cuban concept)"
+   ],
+   [
+    "no es fácil",
+    "It's not easy (common expression)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "resolver",
+    "Cubans are experts at 'resolver' - finding creative solutions"
+   ],
+   [
+    "music",
+    "Salsa, son, and reggaeton everywhere"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "bolivia",
+  "key": "bolivia",
+  "name_es": "Bolivia",
+  "name_en": "Bolivia",
+  "flag": "🇧🇴",
+  "currency": "Boliviano (BOB)",
+  "variant": "bolivian",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "yapa",
+    "A little extra for free"
+   ],
+   [
+    "ñato/ñata",
+    "Friend"
+   ],
+   [
+    "che",
+    "Hey (to get attention)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "altitude",
+    "La Paz is 3,640m - prepare for altitude sickness"
+   ],
+   [
+    "indigenous",
+    "Strong indigenous culture, Aymara and Quechua languages"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "paraguay",
+  "key": "paraguay",
+  "name_es": "Paraguay",
+  "name_en": "Paraguay",
+  "flag": "🇵🇾",
+  "currency": "Guaraní (PYG)",
+  "variant": "paraguayan",
+  "variant_note": "Guaraní is co-official - many mix Spanish and Guaraní (Jopara)",
+  "vos": [],
+  "words": [
+   [
+    "nde",
+    "You (Guaraní, very common)"
+   ],
+   [
+    "chake",
+    "Watch out"
+   ],
+   [
+    "mbore",
+    "A lot"
+   ],
+   [
+    "kóga",
+    "How are you? (Guaraní)"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "tereré",
+    "National drink - cold yerba mate, essential in hot weather"
+   ],
+   [
+    "bilingual",
+    "Only truly bilingual country in Latin America"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "venezuela",
+  "key": "venezuela",
+  "name_es": "Venezuela",
+  "name_en": "Venezuela",
+  "flag": "🇻🇪",
+  "currency": "Bolívar (VES) - USD widely used due to hyperinflation",
+  "variant": "venezuelan",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "chamo/chama",
+    "Dude/girl"
+   ],
+   [
+    "chévere",
+    "Cool/great"
+   ],
+   [
+    "pana",
+    "Friend"
+   ],
+   [
+    "burda",
+    "A lot/very"
+   ],
+   [
+    "¿qué más?",
+    "What's up?"
+   ],
+   [
+    "fino",
+    "Fine/cool"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "arepas",
+    "National food - must try"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "puerto-rico",
+  "key": "puerto_rico",
+  "name_es": "Puerto Rico",
+  "name_en": "Puerto Rico",
+  "flag": "🇵🇷",
+  "currency": "USD",
+  "variant": "puerto_rican",
+  "variant_note": "",
+  "vos": [],
+  "words": [
+   [
+    "boricua",
+    "Puerto Rican"
+   ],
+   [
+    "wepa",
+    "Awesome!/Let's go!"
+   ],
+   [
+    "brutal",
+    "Awesome/amazing"
+   ],
+   [
+    "chacho",
+    "Dude (shortened from 'muchacho')"
+   ],
+   [
+    "nene/nena",
+    "Boy/girl (or term of endearment)"
+   ],
+   [
+    "mira",
+    "Look (used constantly)"
+   ],
+   [
+    "¿qué es la que hay?",
+    "What's up?"
+   ]
+  ],
+  "food": [],
+  "notes": [
+   [
+    "spanglish",
+    "Very common - code-switching between Spanish and English"
+   ]
+  ],
+  "topics": [
+   "healthcare",
+   "immigration",
+   "banking"
+  ],
+  "phrases": [],
+  "public_health": ""
+ },
+ {
+  "slug": "equatorial-guinea",
+  "key": "equatorial_guinea",
+  "name_es": "Guinea Ecuatorial",
+  "name_en": "Equatorial Guinea",
+  "flag": "🇬🇶",
+  "currency": "CFA Franc (XAF)",
+  "variant": "equatorial_guinean",
+  "variant_note": "Spanish is official but French and Portuguese also spoken",
+  "vos": [],
+  "words": [],
+  "food": [],
+  "notes": [
+   [
+    "unique",
+    "Only Spanish-speaking country in Africa"
+   ]
+  ],
+  "topics": [],
+  "phrases": [],
+  "public_health": ""
+ }
+]
