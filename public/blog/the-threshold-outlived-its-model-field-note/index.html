@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The threshold outlived its model | AIdeazz</title>
+  <meta name="description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. November 3, 2026.">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/the-threshold-outlived-its-model-field-note/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The threshold outlived its model">
+  <meta property="og:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. November 3, 2026.">
+  <meta property="og:url" content="https://aideazz.xyz/blog/the-threshold-outlived-its-model-field-note/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-03T21:30:20.917Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The threshold outlived its model">
+  <meta name="twitter:description" content="A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. November 3, 2026.">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "The threshold outlived its model",
+  "description": "A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. November 3, 2026.",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-03T21:30:20.917Z",
+  "dateModified": "2026-11-03T21:30:20.917Z",
+  "url": "https://aideazz.xyz/blog/the-threshold-outlived-its-model-field-note/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/the-threshold-outlived-its-model-field-note/"
+}</script>
+  
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">The threshold outlived its model</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-03T21:30:20.917Z">November 3, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p><em>A field note from the AIdeazz AI Lab — a real incident on a live production system, written up from the logs. November 3, 2026.</em></p>
+<p><strong>A family-language companion had chat history, semantic search over 588 stored conversation turns and a memory reader wired into every reply, and still forgot the people it talked to. The search cut-off had been tuned for a different embedding model, so real matches were thrown away, and nothing ever wrote down a fact about a person.</strong></p>
+<h2>What it looked like from outside</h2>
+<p>The owner had asked many times for the assistant to remember families, and it did not. The code looked complete. It kept the last five turns of each conversation in a database through LangChain, it embedded every turn for semantic search (retrieval-augmented generation, RAG), and a reader put "key memories about this user" into every reply. Production said otherwise. The table of facts about users held 13 rows after a year, 7 of them test entries. The RAG table held 588 embedded turns, yet the reply builder received nothing from it. An end-to-end test with a made-up family through the real code on the production database showed the break exactly: after the family said their son starts at a new school on Monday, the later message "today was my son's first day of school" retrieved no earlier turn at all.</p>
+<h2>What was actually happening</h2>
+<p>Two separate gaps, both silent. First, the semantic search kept only matches above a cosine similarity of 0.55. That number had been carried over when the embeddings moved from a paid API model to a free local multilingual model, whose scores for "the same topic" sit much lower. Measured on the test family, the related school turn scored 0.397, while unrelated turns scored 0.26 to 0.37. With the cut at 0.55 the search returned an empty string, which the reply builder treats as "nothing relevant", so no error and no log line ever appeared. Short bot replies such as "you're welcome" also scored as high as real content, crowding out what the person had said. Second, the fact memory had a reader and no writer: the only code that stored a fact about a user ran during an onboarding form almost nobody finished. Conversation history and semantic search remember sentences; neither one turns "my son Mateo is 8 and starts school Monday" into a fact the assistant can bring up a week later.</p>
+<h2>The fix</h2>
+<p>The cut-off was set from measurement, not memory: 0.38, which keeps the related turn and drops the unrelated ones. Search now recalls what the person said rather than the assistant's own replies, skips turns already present in the five-turn history window so nothing is sent twice, and logs a line each time it recalls something. A missing writer was added inside the existing memory module: after each grown-up message a free model notes up to three lasting facts (family members and ages, city, school, upcoming appointments with their day), in a background thread so replies are not slowed, with duplicates skipped and identification numbers, phone numbers, addresses and bank details never stored. The reader was widened from five facts to ten. Both chat channels share the same memory code, so one change fixed both.</p>
+<h2>How I know it worked</h2>
+<p>Production database counts: 13 user facts (7 tests) and 588 local embeddings before the fix. The end-to-end test ran the real memory code against the production database with a made-up family and deleted every one of its rows afterwards. Before the change: the school message recalled nothing at the 0.55 cut, with measured scores of 0.397 for the related turn and 0.26 to 0.37 for unrelated ones. After: the same message recalled the school turn at 40%, "I got my residence card" recalled the immigration appointment at 72%, "how do I say outlet again?" recalled the earlier question about the Spanish word at 41%, and the fact writer stored three facts including the appointment, while a pure lesson question produced none and a phone number in a test message was skipped. Both services were redeployed with file checksums equal to the committed code and no errors after restart. Real families had not yet written since the deploy at the time of writing, so the live path is proven by the end-to-end test, not yet by traffic.</p>
+<h2>The rule this earned</h2>
+<blockquote>A threshold belongs to the model that produced the scores. When the model changes, measure the scores again before trusting the cut, and test memory end to end with a known conversation, because an empty result looks exactly like "nothing relevant".</blockquote>
+<h2>The named concepts behind it</h2>
+<p>Naming a failure mode is what makes it possible to recognise the same shape somewhere new, before it costs another weekend.</p>
+<h3>Calibration drift</h3>
+<p><em>A number tuned for one model, one vendor or one data source stays in the code after the thing it was tuned for is replaced, and quietly stops meaning what it meant.</em></p>
+<p>Many AI systems decide with a number: keep search results above a similarity of 0.55, alert when a classifier is more than 80% sure, flag a transcript below a confidence of -1.0. Each number was chosen by looking at the scores one particular model produced.</p>
+<p>The failure is replacing the model and keeping the number. Different embedding models, speech models and classifiers spread their scores differently: one model's "clearly the same topic" may be another's 0.4. Nothing crashes. The cut simply starts throwing away everything, or letting everything through, and because an empty search result and a "nothing relevant" result look identical, the system reports success while doing nothing.</p>
+<p>The fix is to treat a threshold as part of the model, not part of the code: when the model changes, run a small known set (one pair that should match, a few that should not) through the new model, read the actual scores, and set the cut between them. Then keep that set as a test, so the next swap re-measures automatically.</p>
+<p>Ordinary-life version: a bathroom scale moved from a soft carpet to a tile floor. The "healthy weight" line you drew on it still sits in the same place, but the readings all shifted, so the line now tells you nothing.</p>
+<h3>Silent failure</h3>
+<p><em>The system did something reasonable, and told nobody.</em></p>
+<p>The most expensive bug class there is, because the clock keeps running while everyone assumes things are fine.</p>
+<p>A silent failure is not a crash. A crash is loud and gets fixed. A silent failure is a component making a <em>defensible local decision</em> -- drop this message, skip this record, return an empty string -- that nobody downstream is told about. From the outside, a system that is working perfectly and a system that is completely dead can produce the identical observation: nothing happened.</p>
+<p>The defence is not "add more logging". It is to make the healthy state <strong>provable</strong>, so that "nothing happened" can be distinguished from "nothing was supposed to happen". Two things do that:</p>
+<ul><li><strong>Log the outcome, not the attempt.</strong> "sending notification" tells you nothing. "notification DELIVERED (id 4661)" versus "notification REJECTED 400" tells you everything.</li>
+<li><strong>Run a canary.</strong> A synthetic transaction pushed through the real path on a schedule, which shouts when it does not come out the far end. Without one, you are relying on a customer to report your outage.</li></ul>
+<h3>Verify from logs, not config</h3>
+<p><em>Configuration tells you what somebody intended. Logs tell you what happened.</em></p>
+<p>A setting, an environment variable or a present API key is a statement of intent. It is evidence that somebody meant for a behaviour to occur. It is not evidence that the behaviour occurs.</p>
+<p>The gap between the two is where the longest outages live, because reading the configuration <em>feels</em> like verification. It produces confident, wrong statements: the key is set, so the provider works; the schedule says every fifteen minutes, so it runs every fifteen minutes; the file was deployed, so the new code is running.</p>
+<p>Each of those has a cheap, decisive check that costs seconds:</p>
+<ul><li><strong>Probe the dependency</strong>, do not read its credential. A key that exists proves nothing about the balance behind it.</li>
+<li><strong>Grep for the action line, not the setup line.</strong> A startup banner proves the process started, not that it ever did its work.</li>
+<li><strong>Compare timestamps</strong> after a deploy. If the running process is older than the file on disk, it is still executing the previous version from memory.</li></ul>
+<p>The rule this earns: never report a system's behaviour from its configuration. Grep the line that proves the behaviour happened, and quote it.</p>
+<h3>Liveness is not correctness</h3>
+<p><em>A dead job announces itself. A job that runs perfectly and emits slightly wrong output never will.</em></p>
+<p>Almost every check you own measures <em>liveness</em>: did it run, did it return, did it exit zero, did it publish. Almost none measures <em>correctness</em>: was the thing it produced the right thing. These are different properties, and the gap between them is where the expensive incidents live.</p>
+<p>The asymmetry is what makes this dangerous. A job that stops firing is loud — the output is missing, someone notices within a day. A job that fires on schedule and produces output that is subtly wrong is silent, and it stays silent for as long as nobody reads the output, because every signal you have is reporting the truth. The scheduler really did fire. The API really did return 200. The file really was written. Each check passes honestly while the only thing that matters fails.</p>
+<p>Two shapes to watch for:</p>
+<p>1. <strong>The safety net that adjusts instead of refusing.</strong> A guard catches a bad condition, then modifies the input so the operation can proceed — renaming a colliding key, truncating an over-long field, coercing a bad type. The error disappears from the logs and the bad condition ships anyway. A guard that never refuses is not a control; it is a laundering step, converting a real signal into a clean log line. Prefer failing closed: a skipped run is cheap and visible, a wrong run is expensive and invisible.<br>2. <strong>The record that drifts from the reality.</strong> Any check that compares against a cache, a state file, or a local ledger is only as good as that memory. When the memory can be truncated by a restart, a fresh machine, or a path that writes to one place and reads from another, the check degrades quietly and keeps returning "fine". Seed the memory from the artifacts themselves wherever you can, and periodically assert that the two still agree.</p>
+<p>The practical defence is to add one check that reads the <em>output</em> rather than the exit code, and to make it something a human would actually notice — a count that should be stable, a uniqueness constraint, a spot comparison against what shipped last time. You are not trying to verify everything. You are trying to have at least one signal that fails when the job succeeds incorrectly.</p>
+<p>---</p>
+<p>This note is one entry in a running wiki of production engineering lessons — every concept linked to the incident that taught it — at <a href="https://aideazz.xyz/ai-ops-wiki.html">aideazz.xyz/ai-ops-wiki.html</a>.</p>
+<p>No customer data, credentials, hostnames or internal record identifiers appear in these write-ups.</p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
