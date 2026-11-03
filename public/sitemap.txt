@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/ai-visibility-audit-for-a-service-business-in-panama-geo-aeo/
 https://aideazz.xyz/blog/yacht-charter-or-luxury-villa-in-panama-why-ai-skips-your-site/
 https://aideazz.xyz/blog/why-immigration-lawyers-in-panama-get-skipped-by-chatgpt-and-perplexity/
 https://aideazz.xyz/blog/why-your-panama-plastic-surgery-clinic-does-not-appear-in-chatgpt-or-google-ai-answers/
