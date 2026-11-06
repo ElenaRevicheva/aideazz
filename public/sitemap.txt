@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/relocation-services-panama-how-ai-assistants-recommend-providers/
 https://aideazz.xyz/blog/medical-tourism-clinic-panama-chatgpt-recommendation-signals/
 https://aideazz.xyz/blog/why-a-toprated-panama-dental-tourism-clinic-still-vanishes-from-ai-answers/
 https://aideazz.xyz/blog/ai-visibility-audit-for-a-service-business-in-panama-geo-aeo/
