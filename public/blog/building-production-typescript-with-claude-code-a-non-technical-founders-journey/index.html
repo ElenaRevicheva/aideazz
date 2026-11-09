@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building Production TypeScript with Claude Code: A Non-Technical Founder’s Journey | AIdeazz</title>
+  <meta name="description" content="I launched into production with a staggering number of failures. Six out of nine supervised processes were online, while the algom-stream had undergone a catastrophic 14,192 restarts, indicating seve…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building Production TypeScript with Claude Code: A Non-Technical Founder’s Journey">
+  <meta property="og:description" content="I launched into production with a staggering number of failures. Six out of nine supervised processes were online, while the algom-stream had undergone a catastrophic 14,192 restarts, indicating seve…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-09T19:30:26.811Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building Production TypeScript with Claude Code: A Non-Technical Founder’s Journey">
+  <meta name="twitter:description" content="I launched into production with a staggering number of failures. Six out of nine supervised processes were online, while the algom-stream had undergone a catastrophic 14,192 restarts, indicating seve…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building Production TypeScript with Claude Code: A Non-Technical Founder’s Journey",
+  "description": "I launched into production with a staggering number of failures. Six out of nine supervised processes were online, while the algom-stream had undergone a catastrophic 14,192 restarts, indicating seve…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-09T19:30:26.811Z",
+  "dateModified": "2026-11-09T19:30:26.811Z",
+  "url": "https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you ensure Claude Code's reliability during development processes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I rely on PM2 to supervise my application processes, currently running eight out of nine without issues. Daily checks ensure I can act on any failures or discrepancies promptly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What specific workflow tools complement your collaboration with Claude Code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I utilize version control through Git for committing changes, which I cross-reference constantly. In my latest 48-hour window, I logged 12 commits, ensuring continuity and scrutiny over the development process with Claude's input."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What limitations has Claude Code revealed during your developmental cycles?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While Claude Code greatly aids in drafting legal documentation or boilerplate tasks, he occasionally mismanages complex logic implementations, leading to restarts—two to be exact in my current setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How has your perception of AI assistance shifted since implementation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Initially, I perceived AI as a tool for rapid production, but now I see it as a way to enrich my understanding and actively guide development, avoiding pitfalls that come with unmonitored machine outputs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you share recent outcomes from your AI-assisted projects?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most recently, all monitored processes like the pm2-logrotate have remained stable. My `dragontrade_dashboard` and `cto-aipa` also indicate dependable usage patterns with 0 restarts over the past four days each."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Building Production TypeScript with Claude Code: A Non-Technical Founder’s Journey</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-09T19:30:26.811Z">November 9, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>I launched into production with a staggering number of failures. Six out of nine supervised processes were online, while the algom-stream had undergone a catastrophic 14,192 restarts, indicating severe instability. I had to face the harsh reality that I was operating without the technical acumen of a computer science degree, yet I relied on my AI assistant, Claude Code, like a permanent pair programmer.</p>
+<h2>Understanding AI as an Extension, Not a Shortcut</h2>
+<p>In system development, especially as a non-technical founder, the popular conception often treats AI as a miraculous shortcut. This is misleading. Claude Code does not replace my decision-making but amplifies it. For instance, in my last two days of commits, while I executed 12 changes in cto-aipa, Claude Code allowed me to maintain continuity in complex iterations, writing boilerplates and establishing code patterns I would have struggled with. Still, he cannot autonomously build features; I must guide, review, and iterate.</p>
+<h2>Where I Trust AI Blindly</h2>
+<p>There are specific tasks I delegate to Claude Code without supervision, notably repetitive boilerplate tasks and initial drafts of feature specifications. For example, I asked him for a breakdown of user story templates and received a solid draft that saved me hours. Yet, I cautiously avoid trusting him with critical logic implementation or architectural decisions. This is evident in the two restarts and minor bugs that came up during the integration of new features he recommended for privacy policy drafting.</p>
+<h2>Relying on Proven Processes</h2>
+<p>Much of AI-assisted development has to do with the processes and frameworks you put in place. Out of the 9 processes I monitor using PM2, eight were reported online. My active processes include essential components like pm2-logrotate, which has zero restarts over four days and maintains a lean memory footprint at 85 MB. This signals reliability in what I can produce through Claude's aid, representing the backbone of my operations.</p>
+<p>I strictly follow a methodical approach to development that embraces Claude Code's capabilities while also requiring me to robustly oversee operational workflows. This balance ensures that neither the AI nor I gets overwhelmed. I segregate tasks into two camps — AI-driven tasks, where Claude excels, and critical decision-making tasks where my direct input remains paramount.</p>
+<h2>Fetching Insights from Git Commits</h2>
+<p>When delving into code management, the ability to fetch answers from my Git commit history proves invaluable. The last 48 hours logged 12 commits, showcasing my active engagement with Claude Code as we worked through features, especially around drafting Google Play registration requirements. This information isn't just a recitation; I rely heavily on specific instances where productive discussions yield actionable insights.</p>
+<p>For instance, one commit from November 9, <code>5791ccb1</code>, highlights a successfully drafted privacy policy, revealing how Claude can assist in legal documents where I am less confident. This collaboration aids in rapid cycles of iteration yet still requires my scrutiny to ensure robustness against potential pitfalls.</p>
+<h2>The Value of Data-Driven Feedback</h2>
+<p>Data informs my trust in Claude Code. For example, I track the performance of my processes routinely. Out of my current processes, 85 MB and 80 MB of memory use in both <code>pm2-logrotate</code> and <code>dragontrade-dashboard</code> signify efficiency at play. If Claude backs my execution with even a fraction of this efficiency within our collaborative space, I feel more confident in allocating more tasks his way.</p>
+<p>However, when I noted <code>algom-tream</code> waiting for a restart after a staggering 14,192 failures, that’s a glaring red flag. AI may accelerate processes, but stalwart operations often depend on rigorous oversight and adjustment. I need to know when AI output stumbles, as in real-world applications; failure can be costly.</p>
+<h2>Why Agile Iteration Is a Non-Negotiable</h2>
+<p>Amidst the havoc often observed with first-time AI integration, agile practices are vital. The balance of deploying AI to "assist" rather than "replace" ensures a commanding grip over development outcomes. An example is using iterative cycles to handle the <code>cto-aipa</code> project through 12 commits in just 48 hours. Guiding Claude through structured feedback loops helps him refine coding decisions he recommends, like implementation patterns or logical flows without detracting from my directive role.</p>
+<p>Without these continuous checks and an understanding of the limitations inherent in Claude as an assistant, I risk a disjointed evolution of my project, relinquishing quality control to what I have termed machine-generated content instead of collaborative intelligence.</p>
+<h2>Stretching the Capacity of AI</h2>
+<p>Today, Claude Code's utility spans several APIs and techniques; however, I must control the narrative. With processes supervised by PM2, I know where to capitalize on AI's prowess without blind faith. My committed approach—aligning precise human oversight with intelligent automation—delivers a compounded edge.</p>
+<p>For instance, the audit results from my last checks scored a perfect 100 on a visibility audit run against my project site. This outcome solidifies my belief in Claude's ability to complement our hard work—projecting visibility and scalability, devoid of over-reliance on the automaton's insights.</p>
+<p>In the end, my journey as a non-technical founder has been fraught with challenges, but learning to coexist with AI has enshrined my adherence to rigorous workflows while pulling through production challenges through technology.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you ensure Claude Code's reliability during development processes?</strong><br>A: I rely on PM2 to supervise my application processes, currently running eight out of nine without issues. Daily checks ensure I can act on any failures or discrepancies promptly.</p>
+<p><strong>Q: What specific workflow tools complement your collaboration with Claude Code?</strong><br>A: I utilize version control through Git for committing changes, which I cross-reference constantly. In my latest 48-hour window, I logged 12 commits, ensuring continuity and scrutiny over the development process with Claude's input.</p>
+<p><strong>Q: What limitations has Claude Code revealed during your developmental cycles?</strong><br>A: While Claude Code greatly aids in drafting legal documentation or boilerplate tasks, he occasionally mismanages complex logic implementations, leading to restarts—two to be exact in my current setup.</p>
+<p><strong>Q: How has your perception of AI assistance shifted since implementation?</strong><br>A: Initially, I perceived AI as a tool for rapid production, but now I see it as a way to enrich my understanding and actively guide development, avoiding pitfalls that come with unmonitored machine outputs.</p>
+<p><strong>Q: Can you share recent outcomes from your AI-assisted projects?</strong><br>A: Most recently, all monitored processes like the pm2-logrotate have remained stable. My <code>dragontrade_dashboard</code> and <code>cto-aipa</code> also indicate dependable usage patterns with 0 restarts over the past four days each.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
