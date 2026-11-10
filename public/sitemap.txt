@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/pm2-crash-loops-and-backoff-17031-restarts-while-siblings-survived/
 https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/
 https://aideazz.xyz/blog/measure-share-of-voice-in-chatgpt-perplexity-and-google-ai-mode-for-a-local-business/
 https://aideazz.xyz/blog/luxury-villa-rental-panama-city-ai-search-visibility-checklist/
