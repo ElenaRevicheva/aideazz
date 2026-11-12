@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/why-auto-apply-drops-every-interview-ai-job-application-automation-ats-limitations/
 https://aideazz.xyz/blog/imaplibimap4abort-socket-error-eof-in-python-mailbox-fetch-passes/
 https://aideazz.xyz/blog/pm2-crash-loops-and-backoff-17031-restarts-while-siblings-survived/
 https://aideazz.xyz/blog/building-production-typescript-with-claude-code-a-non-technical-founders-journey/
