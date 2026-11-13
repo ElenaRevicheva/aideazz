@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi Agent Handoff File Conflict: Coordinating Disconnected Coding Agents in Git | AIdeazz</title>
+  <meta name="description" content="Two disconnected AI tools operating on the same repository without shared runtime memory will eventually overwrite each other's work. In our environment, Cursor Cloud, Cursor Desktop, and Claude Code…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/multi-agent-handoff-file-conflict-coordinating-disconnected-coding-agents-in-git/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Multi Agent Handoff File Conflict: Coordinating Disconnected Coding Agents in Git">
+  <meta property="og:description" content="Two disconnected AI tools operating on the same repository without shared runtime memory will eventually overwrite each other's work. In our environment, Cursor Cloud, Cursor Desktop, and Claude Code…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/multi-agent-handoff-file-conflict-coordinating-disconnected-coding-agents-in-git/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-13T19:30:58.147Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Multi Agent Handoff File Conflict: Coordinating Disconnected Coding Agents in Git">
+  <meta name="twitter:description" content="Two disconnected AI tools operating on the same repository without shared runtime memory will eventually overwrite each other's work. In our environment, Cursor Cloud, Cursor Desktop, and Claude Code…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Multi Agent Handoff File Conflict: Coordinating Disconnected Coding Agents in Git",
+  "description": "Two disconnected AI tools operating on the same repository without shared runtime memory will eventually overwrite each other's work. In our environment, Cursor Cloud, Cursor Desktop, and Claude Code…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-13T19:30:58.147Z",
+  "dateModified": "2026-11-13T19:30:58.147Z",
+  "url": "https://aideazz.xyz/blog/multi-agent-handoff-file-conflict-coordinating-disconnected-coding-agents-in-git/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/multi-agent-handoff-file-conflict-coordinating-disconnected-coding-agents-in-git/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do you prevent two coding agents from editing the same file at the same time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We do not run Cursor and Claude Code simultaneously on the same branch. One agent completes its run, updates the tracking file on disk, commits the state to git, and hands off execution before the next agent is invoked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if an agent fails to update the handoff file before ending its session?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The next agent halts or works from inaccurate context. We catch this by inspecting git status and commit diffs directly; if local changes are uncommitted or unrecorded, the incoming agent is instructed to stop until the branch state is verified."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Git merge conflict markers resolve AI agent collisions automatically?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Standard git merge markers catch textual collisions on the same line, but they cannot detect semantic regressions where Agent B silently removes an asynchronous handler or API assumption that Agent A added three commits earlier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not use a shared vector database or live messaging server between agents instead of a disk file?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Introducing an external messaging or vector server adds another point of failure and maintenance overhead. Storing the synchronization state directly inside the repository ensures that memory is versioned, auditable, and accessible without extra network dependencies."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Multi Agent Handoff File Conflict: Coordinating Disconnected Coding Agents in Git</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-13T19:30:58.147Z">November 13, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>Two disconnected AI tools operating on the same repository without shared runtime memory will eventually overwrite each other's work. In our environment, Cursor Cloud, Cursor Desktop, and Claude Code touch the same codebase, but none of them share a conversation context, an agent-to-agent channel, or an active connection. When two agents make separate decisions against stale file snapshots, you do not just get a standard merge conflict; you get a silent reversion where one agent unintentionally wipes out changes pushed minutes earlier by another.</p>
+<p>In the repository <code>cto-aipa</code>, we logged 12 commits over the last 48 hours managing this handoff. Without a strict protocol, managing autonomous coding agents turns into tracking down why an operational feature vanished between commits.</p>
+<h2>The Cost of Memory Blindness Between Autonomous Coding Runs</h2>
+<p>Cursor and Claude Code operate in isolation. Neither tool inspects the other’s runtime scratchpad. When Claude Code executes a task, it sees only the files on disk and the history committed to git. Cursor Desktop or Cloud sees the workspace state when prompted. If one agent builds a feature and commits code while another agent begins a task from an older head or without clear instructions about ongoing state, collisions happen at the working directory level.</p>
+<p>In <code>cto-aipa</code>, our commit history reflects constant, fast-moving handoffs:</p>
+<ul><li><code>ec71777b</code> (2026-11-13) marked <code>NOW: class path + start marker live (bundle b-6uwbrT, espaluz-chat v355)</code></li>
+<li><code>b2d1e85f</code> (2026-11-13) recorded <code>NOW: class soft-motivation built (a4dcc57)</code></li>
+<li><code>f56e6158</code> (2026-11-13) tracked <code>NOW: class progress audit (attendance-based, invisible to the child, photos rewarded) + start-marker revert needs Publish</code></li>
+<li><code>aa1530ed</code> (2026-11-13) captured <code>NOW: classroom pause + continue-where-you-stopped built; Bear & Fox in app waits for production</code></li>
+<li><code>4eae5f56</code> (2026-11-13) verified <code>NOW: car mode + work question live after Publish, verified; full sync 0/0, Oracle = git</code></li>
+<li><code>c9d43cd7</code> (2026-11-13) documented <code>NOW: car mode steps 1-3 built and verified offline locally; needs Lovable Publish; mic + sync pending</code></li></ul>
+<p>Notice how each commit message explicitly declares what was built, what was verified, and what state remains pending. When agents lack shared memory, commit logs and working files are the only surfaces where state can be synchronized. If an agent does not record that a start marker needs publishing or that sync is pending, the next agent running a task will assume the deployment is clean and can easily undo uncommitted or unflagged progress.</p>
+<h2>Resolving the Multi Agent Handoff File Conflict via Disk State</h2>
+<p>A multi agent handoff file conflict happens when an agent starts a task without knowing what the previous agent left unfinished. Traditional version control alerts you if two users push competing edits to the same remote branch, but AI coding assistants frequently alter project configuration, run local build scripts, or modify markdown trackers directly on disk.</p>
+<p>To prevent this collision, we enforce that our agents read and update a dedicated synchronization file: <code>docs/oracle/NOW.md</code>.</p>
+<p>As explicitly documented in our runtime environment:</p>
+<blockquote>"NOW — the shared session between Cursor and Claude Code. Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this... So this file is not documentation. It is the working memory of whichever agent is not currently running..."</blockquote>
+<p>Because the file lives in the workspace, every agent is forced to read it before editing code. Before an agent executes a plan, it must check the active operational state. When it finishes, it must overwrite that state file with its own output before staging its changes. Git commit <code>4eae5f56</code> documents the exact check: <code>full sync 0/0, Oracle = git</code>. If local working state does not match the upstream git tracking branch, no handoff takes place.</p>
+<h2>Production Runtime Supervision While Agents Ship Code</h2>
+<p>Automated code generation is meaningless if background processes drop offline unnoticed. While <code>cto-aipa</code> was seeing rapid development updates, our system was supervising 9 processes under PM2 on Oracle Cloud. Currently, 8 processes are online:</p>
+<ul><li><code>pm2-logrotate</code>: online, 0 restarts, up 8d, 85 MB</li>
+<li><code>dragontrade-dashboard</code>: online, 0 restarts, up 8d, 80 MB</li>
+<li><code>cto-aipa</code>: online, 3 restarts, up 3d, 244 MB</li>
+<li><code>algom-stream</code>: waiting restart, 25543 restarts, up 0d</li>
+<li><code>dragontrade-main</code>: online, 0 restarts, up 8d, 197 MB</li>
+<li><code>algom-poll</code>: online, 0 restarts, up 8d, 79 MB</li>
+<li><code>whitespace</code>: online, 0 restarts, up 8d, 114 MB</li>
+<li><code>n8n</code>: online, 0 restarts, up 8d, 410 MB</li>
+<li><code>serpapi-jobs</code>: online, 0 restarts, up 8d, 118 MB</li></ul>
+<p>While stable workers like <code>n8n</code> run without issue at 410 MB and <code>dragontrade-main</code> holds 197 MB across 8 days, <code>algom-stream</code> entered an unrecovered failure state with 25543 restarts. Process supervision isolates failures: one looping streaming service does not crash <code>cto-aipa</code> or corrupt our automation pipelines.</p>
+<p>Meanwhile, background log monitors continuously record telemetry across adjacent tools:</p>
+<ul><li><code>deal-digest.log</code> shows 31 live job deals written to <code>/home/ubuntu/.openclaw/workspace/deals/TOOLS.md</code> across 11034 chars, with stage breakdowns tracking 12 in <code>qualifiedtobuy</code>, 0 in <code>presentationscheduled</code>, 3 in <code>decisionmakerboughtin</code>, 6 in <code>contractsent</code>, and 10 in <code>appointmentscheduled</code>. HubSpot aggregate totals report 12 in <code>qualifiedtobuy</code>, 0 in <code>presentationscheduled</code>, 80 in <code>decisionmakerboughtin</code>, 128 in <code>contractsent</code>, and 1519 in <code>appointmentscheduled</code>, with 9 deals inside the 14-day window.</li>
+<li>In HubSpot CRM queries, we see 135 deals sitting at "They replied" (<code>dealstage=contractsent</code>) and 0 deals closed won.</li>
+<li><code>reply-radar.log</code> processed scans across 182 to 184 emails, identifying 0 CRM matches and 0 errors, while skipping automated records.</li>
+<li><code>github-token-watch.log</code> verified our authentication runway: 237 days left on 2026-11-11, 236 days left on 2026-11-12, and 235 days left on 2026-11-13.</li>
+<li><code>espaluz-truth.log</code> recorded 59 rows written to <code>truth_people</code>.</li>
+<li><code>concierge-selftest.log</code> passed 5 checks with 4517ms to the first card, confirming duplicate delivery suppression.</li></ul>
+<p>When multiple autonomous agents edit logic that interacts with APIs or databases, stale handoffs immediately cause pipeline regressions. If an agent does not know that another process has an active socket or token dependency, it will refactor shared utilities blind.</p>
+<h2>Structured Handoff Protocols: From File Locks to Audited Deployments</h2>
+<p>To make disconnected agent handoffs predictable, human operators must impose boundaries. AI models will not negotiate locks among themselves unless the prompt architecture and file structure demand it.</p>
+<p>Here is the operational checklist we enforce across our tooling:</p>
+<p>1. <strong>Strict File Demarcation:</strong> Agents do not write to unassigned files without reading the synchronization file first.<br>2. <strong>Explicit Verification Commits:</strong> As demonstrated in commit <code>c9d43cd7</code> (<code>car mode steps 1-3 built and verified offline locally; needs Lovable Publish</code>), an agent must state what is completed and what manual or downstream steps remain.<br>3. <strong>External Audits:</strong> In our static publication repository <code>aideazz</code>, 4 commits were recorded over the last 48 hours, including updates to static routes like commit <code>4dcd711</code> and AEO surfaces in <code>f2805a2</code>. Our automated site audit engine (<code>visibility-audit.ts</code> engine 1.2.0) evaluates pages across 34 checks in 4 groups. On <code>https://aideazz.xyz</code>, the audit reports a score of 100/100, grade A+, with 34 of 34 checks passed.</p>
+<p>The audit weights structure quality across four clear categories:<br><ul><li><strong>AI Crawler Access (25% weight):</strong> 11 checks ensuring robots.txt is reachable, server returns HTTP 200, and crawlers like GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, and CCBot can access indexable HTML without noindex directives.</li><br><li><strong>Structured Data / GEO (25% weight):</strong> 8 checks inspecting JSON-LD identity schema, Open Graph tags, canonical URLs, and meta descriptions between 50 and 170 characters.</li><br><li><strong>Answer-Readiness / AEO (30% weight):</strong> 8 checks checking single H1 tags, section structure, depth above 300 words, semantic tags, and title tags between 15 and 70 characters.</li><br><li><strong>Technical Foundation (20% weight):</strong> 7 checks confirming response times under 1.5s, HTML size under 1.5 MB, HTTPS enforcement, and image alt tag coverage at or above 80%.</li></ul></p>
+<p>Whether managing search crawler accessibility or coordinating two LLM coding tools in a single repository, consistency comes down to programmatic verification. Agents without visibility produce regressions; agents bound to structured handoff files and explicit checks ship working software.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How do you prevent two coding agents from editing the same file at the same time?</strong><br>A: We do not run Cursor and Claude Code simultaneously on the same branch. One agent completes its run, updates the tracking file on disk, commits the state to git, and hands off execution before the next agent is invoked.</p>
+<p><strong>Q: What happens if an agent fails to update the handoff file before ending its session?</strong><br>A: The next agent halts or works from inaccurate context. We catch this by inspecting git status and commit diffs directly; if local changes are uncommitted or unrecorded, the incoming agent is instructed to stop until the branch state is verified.</p>
+<p><strong>Q: Can Git merge conflict markers resolve AI agent collisions automatically?</strong><br>A: No. Standard git merge markers catch textual collisions on the same line, but they cannot detect semantic regressions where Agent B silently removes an asynchronous handler or API assumption that Agent A added three commits earlier.</p>
+<p><strong>Q: Why not use a shared vector database or live messaging server between agents instead of a disk file?</strong><br>A: Introducing an external messaging or vector server adds another point of failure and maintenance overhead. Storing the synchronization state directly inside the repository ensures that memory is versioned, auditable, and accessible without extra network dependencies.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+<p><em>EspaLuz: live your new country in Spanish. Confidence, belonging and independence for international families in Latin America (web, WhatsApp, Telegram; 14 days free): <a href="https://aideazz.xyz/espaluz?utm_source=blog">aideazz.xyz/espaluz</a></em></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
