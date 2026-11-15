@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM2 Crash Loops: How algom-stream Hit 4403 Restarts While Sibling Workers Ran Clean | AIdeazz</title>
+  <meta name="description" content="On November 15, 2026, pm2 jlist reported 8 online of 9 processes across my Oracle Cloud host, while algom-stream sat in waiting restart with 4403 restarts and an uptime of 0d. Right beside it, its si…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pm2-crash-loops-how-algom-stream-hit-4403-restarts-while-sibling-workers-ran-clean/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PM2 Crash Loops: How algom-stream Hit 4403 Restarts While Sibling Workers Ran Clean">
+  <meta property="og:description" content="On November 15, 2026, pm2 jlist reported 8 online of 9 processes across my Oracle Cloud host, while algom-stream sat in waiting restart with 4403 restarts and an uptime of 0d. Right beside it, its si…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pm2-crash-loops-how-algom-stream-hit-4403-restarts-while-sibling-workers-ran-clean/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-15T19:30:27.307Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PM2 Crash Loops: How algom-stream Hit 4403 Restarts While Sibling Workers Ran Clean">
+  <meta name="twitter:description" content="On November 15, 2026, pm2 jlist reported 8 online of 9 processes across my Oracle Cloud host, while algom-stream sat in waiting restart with 4403 restarts and an uptime of 0d. Right beside it, its si…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PM2 Crash Loops: How algom-stream Hit 4403 Restarts While Sibling Workers Ran Clean",
+  "description": "On November 15, 2026, pm2 jlist reported 8 online of 9 processes across my Oracle Cloud host, while algom-stream sat in waiting restart with 4403 restarts and an uptime of 0d. Right beside it, its si…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-15T19:30:27.307Z",
+  "dateModified": "2026-11-15T19:30:27.307Z",
+  "url": "https://aideazz.xyz/blog/pm2-crash-loops-how-algom-stream-hit-4403-restarts-while-sibling-workers-ran-clean/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pm2-crash-loops-how-algom-stream-hit-4403-restarts-while-sibling-workers-ran-clean/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why did algom-poll survive with 0 restarts while algom-stream crashed 4403 times?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "`algom-poll` runs discrete, bounded polling executions that catch request errors within local try/catch blocks, keeping the process online at 78 MB. `algom-stream` maintains a persistent socket connection where uncaught disconnections or unhandled promise rejections bubble up to the runtime root, forcing PM2 to restart the process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does PM2 stop restarting a process after a specific number of crashes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By default, PM2 will restart a crashing process indefinitely unless you explicitly configure the `max_restarts` directive or combine `min_uptime` with backoff limits in your ecosystem configuration file."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Did the high restart count on algom-stream degrade memory on the host?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. PM2 tracks and cleans up child process allocations on exit; `algom-stream` registered 0d uptime and minimal footprint, while stable services like `n8n` used 399 MB and `cto-aipa` used 218 MB without memory exhaustion."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">PM2 Crash Loops: How algom-stream Hit 4403 Restarts While Sibling Workers Ran Clean</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-15T19:30:27.307Z">November 15, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>On November 15, 2026, <code>pm2 jlist</code> reported 8 online of 9 processes across my Oracle Cloud host, while <code>algom-stream</code> sat in <code>waiting restart</code> with 4403 restarts and an uptime of 0d. Right beside it, its sibling ingest worker <code>algom-poll</code> showed 0 restarts, up 1d, consuming 78 MB of memory. The process supervisor did exactly what it was configured to do: whenever <code>algom-stream</code> dropped its execution loop, the runner spawned it again, burned through process lifecycles, and masked a systemic ingestion failure behind nominal server uptime.</p>
+<p>Relying on process supervisor state to indicate service health is a fatal assumption. If your status screen reports green lights because 8 processes are active, you will miss the single service trapped in a restart cycle until your pipelines starve.</p>
+<h2>The Measured Disconnect Between Stream and Poller</h2>
+<p>The host runs nine services managed by PM2. Six backend application processes and two system utilities were running without disruption when the telemetry snapshot was captured:</p>
+<ul><li><code>pm2-logrotate</code>: online, 0 restarts, up 1d, 82 MB</li>
+<li><code>dragontrade-dashboard</code>: online, 0 restarts, up 1d, 77 MB</li>
+<li><code>cto-aipa</code>: online, 0 restarts, up 1d, 218 MB</li>
+<li><code>dragontrade-main</code>: online, 0 restarts, up 1d, 181 MB</li>
+<li><code>algom-poll</code>: online, 0 restarts, up 1d, 78 MB</li>
+<li><code>whitespace</code>: online, 0 restarts, up 1d, 112 MB</li>
+<li><code>n8n</code>: online, 0 restarts, up 1d, 399 MB</li>
+<li><code>serpapi-jobs</code>: online, 0 restarts, up 1d, 108 MB</li>
+<li><code>algom-stream</code>: waiting restart, 4403 restarts, up 0d</li></ul>
+<p>Both <code>algom-stream</code> and <code>algom-poll</code> handle related data operations for the system. Yet <code>algom-poll</code> ran for 1d consuming 78 MB without crashing once, while <code>algom-stream</code> entered an unbuffered restart cycle that triggered 4403 times.</p>
+<p>The operational architecture explains the difference. Polling workers make transactional, bounded requests on a scheduled interval. A failure during a single polling pass throws an exception, logs an entry, exits gracefully, or sleeps until the next pass runs. The process stays running. Streaming workers, however, attempt to maintain persistent connections. When a stream drops, unhandled socket disconnections or unmanaged promise rejections bubble directly to the top of the event loop. Without strict restart backoff and top-level error trapping, PM2 treats the exit as an abnormal termination and immediately reboots the process. If the remote endpoint rejects the reconnection or drops the handshake, the process restarts repeatedly, hitting 4403 restarts while its sibling stays up.</p>
+<h2>Why Process Supervisors Hide Dead Code Paths</h2>
+<p>Process runners like PM2 ensure that temporary faults do not take down an entire stack. If an unexpected memory spike occurs, restarting the process preserves overall availability. But this convenience turns against you when a permanent failure state masquerades as transient instability.</p>
+<p>When <code>algom-stream</code> dropped into <code>waiting restart</code>, the machine did not raise an alert on CPU exhaustion or disk failure. Other services functioned continuously:<br><ul><li><code>deal-digest.log</code> recorded 32 live job deals processed to disk across stages including 14 qualifiedtobuy, 1 decisionmakerboughtin, 6 contractsent, and 11 appointmentscheduled.</li><br><li><code>espaluz-truth.log</code> completed recurring database synchronizations, outputting 59 rows to truth_people across consecutive batches.</li><br><li><code>cita-sort.log</code> evaluated schedules across 3 boards cleanly.</li><br><li><code>concierge-selftest.log</code> completed 5 checks in 4352ms.</li></ul></p>
+<p>The server had capacity. The network allowed external traffic. Yet <code>algom-stream</code> remained broken because automatic restarts bypass error discovery. A developer inspecting a dashboard that counts running processes sees 8 online nodes and assumes normal operations. Meanwhile, the stream worker never stays live long enough to establish state, write buffers, or notify downstream consumers.</p>
+<h2>The Cost of Silent Restarts on Downstream Workflows</h2>
+<p>When an ingest stream churns through 4403 restarts, upstream queues fill or silently discard events. In an autonomous business runtime, background services rely on persistent streams to trigger analysis, update records, and keep audit tracks accurate.</p>
+<p>Across our operational pipelines, disconnected data channels degrade system decisions. In our CRM pipelines running through the HubSpot deals search API, we track 135 deals at contractsent and 0 closed won. In our messaging interfaces, <code>apply-queue.log</code> logged:<br><pre><code class="language-plain">✓ sent to Telegram (1 new)
+sunk by kit verdict: 12
+✓ sent to Telegram (1 new)
+</code></pre><br>While downstream jobs like <code>followup-radar.log</code> scanned external mail accounts—tracking 776 inbox records in gmail and 209 in zoho—any process upstream that depends on continuous streaming data drops out of sync the moment a crash loop starts.</p>
+<p>If a worker is restarting every few seconds, log files become flooded with startup boilerplate. Diagnostic logs overwrite actionable historical stack traces unless rotation policies are strictly set. Because <code>pm2-logrotate</code> was active and stable at 82 MB, host memory was protected, but the diagnostic signal inside the worker log was buried under thousands of duplicate boot lines.</p>
+<h2>How to Prevent algom-stream Crash Loop PM a Measured Figure Restart</h2>
+<p>To prevent a worker process from accumulating thousands of restarts while its sibling processes remain operational, configure strict execution rules in your supervisor configuration:</p>
+<p>1. <strong>Enforce Minimum Uptime Thresholds</strong>: Use <code>min_uptime</code> in your PM2 ecosystem file. If a script fails before running for a required threshold (such as 10s or 20s), PM2 identifies it as unstable rather than executing a rapid reboot cycle.<br>2. <strong>Implement Exponential Backoff</strong>: By setting <code>exp_backoff_restart_delay</code>, you force the supervisor to wait progressively longer between restart attempts. This prevents thousands of blind restart cycles from thrashing host resources and filling process logs.<br>3. <strong>Decouple Stream Handlers from Process Life</strong>: In Node.js or Python streaming scripts, connection disconnects must never cause the main runtime loop to exit with a non-zero status code. Unhandled rejections must be captured inside the network transport layer, triggering an internal backoff and retry loop while keeping the PM2 process status cleanly <code>online</code>.<br>4. <strong>Monitor Restart Counts as P0 Incidents</strong>: A high restart count is an active failure. A monitoring check that flags any process with restarts exceeding 10 within an hour alerts the operator before the counter reaches 4403.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why did algom-poll survive with 0 restarts while algom-stream crashed 4403 times?</strong><br>A: <code>algom-poll</code> runs discrete, bounded polling executions that catch request errors within local try/catch blocks, keeping the process online at 78 MB. <code>algom-stream</code> maintains a persistent socket connection where uncaught disconnections or unhandled promise rejections bubble up to the runtime root, forcing PM2 to restart the process.</p>
+<p><strong>Q: Does PM2 stop restarting a process after a specific number of crashes?</strong><br>A: By default, PM2 will restart a crashing process indefinitely unless you explicitly configure the <code>max_restarts</code> directive or combine <code>min_uptime</code> with backoff limits in your ecosystem configuration file.</p>
+<p><strong>Q: Did the high restart count on algom-stream degrade memory on the host?</strong><br>A: No. PM2 tracks and cleans up child process allocations on exit; <code>algom-stream</code> registered 0d uptime and minimal footprint, while stable services like <code>n8n</code> used 399 MB and <code>cto-aipa</code> used 218 MB without memory exhaustion.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
