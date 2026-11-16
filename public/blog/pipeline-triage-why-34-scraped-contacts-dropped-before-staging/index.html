@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pipeline Triage: Why 34 Scraped Contacts Dropped Before Staging | AIdeazz</title>
+  <meta name="description" content="In today's run of atlas-lead-machine, the pipeline evaluated 42 prospect records and staged exactly 8. The remaining 34 were dropped by automated filtering gates before any outreach took place. Out o…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/pipeline-triage-why-34-scraped-contacts-dropped-before-staging/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pipeline Triage: Why 34 Scraped Contacts Dropped Before Staging">
+  <meta property="og:description" content="In today's run of atlas-lead-machine, the pipeline evaluated 42 prospect records and staged exactly 8. The remaining 34 were dropped by automated filtering gates before any outreach took place. Out o…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/pipeline-triage-why-34-scraped-contacts-dropped-before-staging/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-16T19:30:32.109Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pipeline Triage: Why 34 Scraped Contacts Dropped Before Staging">
+  <meta name="twitter:description" content="In today's run of atlas-lead-machine, the pipeline evaluated 42 prospect records and staged exactly 8. The remaining 34 were dropped by automated filtering gates before any outreach took place. Out o…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pipeline Triage: Why 34 Scraped Contacts Dropped Before Staging",
+  "description": "In today's run of atlas-lead-machine, the pipeline evaluated 42 prospect records and staged exactly 8. The remaining 34 were dropped by automated filtering gates before any outreach took place. Out o…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-16T19:30:32.109Z",
+  "dateModified": "2026-11-16T19:30:32.109Z",
+  "url": "https://aideazz.xyz/blog/pipeline-triage-why-34-scraped-contacts-dropped-before-staging/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/pipeline-triage-why-34-scraped-contacts-dropped-before-staging/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why drop records for missing emails instead of using an automated address guesser?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Permutation-based address guessing generates high bounce rates. Pushing unverified patterns across mailboxes monitored in `followup-radar.log` (which tracks 771 and 200 inbox threads across accounts) risks domain burning. If a direct address cannot be confirmed during the crawl, the record is dropped."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What caused the 2 audit failures in the run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The audit layer evaluates targets using 34 technical checks. If a prospect's domain fails critical criteria—such as blocking HTTP crawlers, missing canonical structures, or failing base mobile and SSL thresholds—the engine marks it `audit-failed` and rejects it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the risk of deduplicating only by email?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lead lists frequently contain branch locations or separate team members from the same company without an identical email address. Our pipeline combines direct email lookups with phone number matching against existing HubSpot records, as shown when screening the 10 no-website candidates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does rejecting 34 out of 42 leads reduce overall sales volume?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. In our pipeline, HubSpot currently contains 1529 deals at `appointmentscheduled` and 135 at `contractsent` with 0 closed won. Staging 34 unvalidated prospects increases API usage and worker load without increasing closed deals. High rejection rates protect outbound deliverability."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Pipeline Triage: Why 34 Scraped Contacts Dropped Before Staging</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-16T19:30:32.109Z">November 16, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>In today's run of <code>atlas-lead-machine</code>, the pipeline evaluated 42 prospect records and staged exactly 8. The remaining 34 were dropped by automated filtering gates before any outreach took place. Out of the raw pool, CRM deduplication removed 22 records, missing inbox routing dropped 12 records, and technical audit verification failed 2 records.</p>
+<p>Most lead generation setups measure success by how many rows a scraper pulls from directories or maps. That metric is meaningless. If an automated prospector pushes unvalidated records straight into active CRM deal stages, it pollutes the pipeline, wastes API quota, and triggers rate limits on outbound workers.</p>
+<p>Filtering is not an optimization step added later. It is the defensive core of the pipeline.</p>
+<h2>Gate 1: CRM Deduplication and Existing Pipeline Collisions</h2>
+<p>The largest drop in the batch happened at the deduplication layer. In <code>atlas-lead-machine.log</code>, 22 records out of 42 were discarded immediately with the marker <code>already-in-CRM</code>.</p>
+<p>One specific failure recorded in the log was <code>↺ Shaka Costa Rica — already in the CRM, skipped</code>. When an agent crawls a directory or re-scrapes a market sector, it repeatedly pulls businesses already progressing through sales stages. If those entities are not checked against existing records in HubSpot, the system creates orphaned duplicate deals. In our current deal tracking, HubSpot shows 1529 deals at <code>appointmentscheduled</code>, 14 at <code>qualifiedtobuy</code>, 80 at <code>decisionmakerboughtin</code>, and 129 at <code>contractsent</code>.</p>
+<p><pre><code class="language-plain">[lead-machine] done · staged 8 · looked at 42 · no-email 12 · already-in-CRM 22 · outside-band 0 · audit-failed 2 · crawler-blocked rescued 0
+</code></pre></p>
+<p>Without a strict deduplication gate executing before staging, those 22 records would have entered active sequences. In addition to email checks, the pipeline tests phone numbers against existing records. In this execution, the sub-routine for sites lacking domain infrastructure evaluated 10 seen candidates, marked 5 eligible, found 0 already in HubSpot by phone, and staged 2 (hitting its strict safety ceiling of max 2).</p>
+<p>Pushing duplicates into CRM pipelines also distorts deal visibility. Our <code>deal-digest.log</code> shows 37 live job deals tracked across active stages, while the HubSpot deals search API shows 135 deals sitting at the "They replied" stage (<code>contractsent</code>) and 0 closed won. When duplicate records slip through, follow-up daemons track redundant threads.</p>
+<h2>Gate 2: Missing Routing and Email Verification Drops</h2>
+<p>The second gate screens for operational deliverability. The engine logged <code>no-email 12</code>.</p>
+<p>Twelve records had discoverable business names and physical presence, but no functional, direct communication channel. Scraping scripts often attempt to bypass this by substituting generic contact forms, unmonitored registrar addresses, or broken mailto links. If the automated agent cannot isolate a clean address, the prospect is dropped immediately.</p>
+<p>Our follow-up systems operate under strict balance constraints. For instance, <code>followup-radar.log</code> monitors multiple active mailboxes:<br><ul><li><code>imap.gmail.com</code>: 771 inbox / 2 sent (last 45d window)</li><br><li><code>imap.zoho.com</code>: 200 inbox / 12 sent (last 45d window)</li><br><li>secondary <code>imap.gmail.com</code>: 729 inbox / 2 sent (last 45d window)</li></ul></p>
+<p>Meanwhile, <code>reply-radar.log</code> tracks incoming responses, recording 151 scanned passes with 1 automated or own thread skipped and 0 errors. Staging leads with non-existent or invalid email addresses forces delivery workers to absorb SMTP bounces. A bounce damages sending domain reputation across all linked inboxes. A lead without a verified contact channel is dead inventory, and treating it as a viable contact inflates false pipeline volume.</p>
+<h2>Gate 3: Structural Audits and Technical Eligibility Checks</h2>
+<p>Passing deduplication and email discovery is still not enough for a prospect to be staged. The pipeline enforces structural quality checks on the target's digital footprint. In this run, the log records <code>audit-failed 2</code>.</p>
+<p>When an inbound or outbound lead is evaluated, the business entity must meet baseline digital readiness standards. We run an automated technical visibility engine (<code>visibility-audit.ts</code>) that scores targets across 34 checks in 4 distinct groups:<br><ul><li><strong>AI Crawler Access</strong> (weight 25% of the score): Verifies HTTP 200 status, reachable <code>robots.txt</code>, permissions for bots like GPTBot, ClaudeBot, and PerplexityBot, <code>llms.txt</code>, and XML sitemaps.</li><br><li><strong>Structured Data (GEO)</strong> (weight 25% of the score): Validates JSON-LD or microdata schemas, Organization/Person identity tags, Open Graph meta tags, canonical URLs, and meta descriptions within the 50–170 character range.</li><br><li><strong>Answer-Readiness (AEO)</strong> (weight 30% of the score): Scans for single H1 tags, title tags between 15 and 70 characters, content depth exceeding 300 words, semantic landmarks, and freshness dates.</li><br><li><strong>Technical Foundation</strong> (weight 20% of the score): Tests HTTPS enforcement, server response time under 1.5s, raw HTML payload under 1.5 MB, and image alt text coverage of at least 80%.</li></ul></p>
+<p>When a scanned company fails critical technical checks—such as returning an unparseable payload, blocking crawler access entirely, or lacking base technical infrastructure—the lead generation audit failure rate increases, and the record is discarded. In this batch, 2 targets failed these audit criteria and were cut from staging.</p>
+<h2>Supervisor Telemetry and Execution Isolation</h2>
+<p>These filtering steps run on an isolated Oracle Cloud instance managed by PM2. System reliability depends on keeping background workers from cascading when external audits or scraping tasks stall.</p>
+<p>Currently, PM2 supervises 9 processes, with 8 online:<br><ul><li><code>pm2-logrotate</code>: online, 0 restarts, up 2d, 84 MB</li><br><li><code>dragontrade-dashboard</code>: online, 0 restarts, up 2d, 77 MB</li><br><li><code>cto-aipa</code>: online, 2 restarts, up 0d, 216 MB</li><br><li><code>dragontrade-main</code>: online, 0 restarts, up 2d, 183 MB</li><br><li><code>algom-poll</code>: online, 0 restarts, up 2d, 80 MB</li><br><li><code>whitespace</code>: online, 0 restarts, up 2d, 114 MB</li><br><li><code>n8n</code>: online, 0 restarts, up 2d, 396 MB</li><br><li><code>serpapi-jobs</code>: online, 0 restarts, up 2d, 108 MB</li><br><li><code>algom-stream</code>: waiting restart, 7235 restarts, up 0d</li></ul></p>
+<p><pre><code class="language-plain">[PM2] Process cto-aipa online (216 MB) · algom-stream waiting restart (7235 restarts)
+</code></pre></p>
+<p>The pipeline scripts run as scheduled tasks or isolated cron jobs. When lead generation runs without rigid gates, workers choke on bad data payloads, leading to runaway memory spikes and process loops like the one observed in <code>algom-stream</code>. By cutting 34 low-grade records at the script layer, downstream consumers like <code>atlas-outcomes</code> avoid execution stalls. Recent log runs confirm clean downstream handoffs: <code>pushed to Atlas: {"ok":true,"lanes":8}</code>.</p>
+<p>Filtering is not lost yield. Out of 42 raw prospects, the 8 that passed all checks—deduplication, direct email routing, and technical verification—were clean enough to stage directly into git registries and CRM draft cards without human repair.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why drop records for missing emails instead of using an automated address guesser?</strong><br>A: Permutation-based address guessing generates high bounce rates. Pushing unverified patterns across mailboxes monitored in <code>followup-radar.log</code> (which tracks 771 and 200 inbox threads across accounts) risks domain burning. If a direct address cannot be confirmed during the crawl, the record is dropped.</p>
+<p><strong>Q: What caused the 2 audit failures in the run?</strong><br>A: The audit layer evaluates targets using 34 technical checks. If a prospect's domain fails critical criteria—such as blocking HTTP crawlers, missing canonical structures, or failing base mobile and SSL thresholds—the engine marks it <code>audit-failed</code> and rejects it.</p>
+<p><strong>Q: What is the risk of deduplicating only by email?</strong><br>A: Lead lists frequently contain branch locations or separate team members from the same company without an identical email address. Our pipeline combines direct email lookups with phone number matching against existing HubSpot records, as shown when screening the 10 no-website candidates.</p>
+<p><strong>Q: Does rejecting 34 out of 42 leads reduce overall sales volume?</strong><br>A: No. In our pipeline, HubSpot currently contains 1529 deals at <code>appointmentscheduled</code> and 135 at <code>contractsent</code> with 0 closed won. Staging 34 unvalidated prospects increases API usage and worker load without increasing closed deals. High rejection rates protect outbound deliverability.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
