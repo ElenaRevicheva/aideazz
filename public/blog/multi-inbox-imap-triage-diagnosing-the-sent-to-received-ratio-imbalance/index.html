@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Inbox IMAP Triage: Diagnosing the Sent-to-Received Ratio Imbalance | AIdeazz</title>
+  <meta name="description" content="A production worker running mail polling does not fail when it loses connection; it fails when it silently reads hundreds of inbound messages while having sent almost nothing. When our outbound follo…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/multi-inbox-imap-triage-diagnosing-the-sent-to-received-ratio-imbalance/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Multi-Inbox IMAP Triage: Diagnosing the Sent-to-Received Ratio Imbalance">
+  <meta property="og:description" content="A production worker running mail polling does not fail when it loses connection; it fails when it silently reads hundreds of inbound messages while having sent almost nothing. When our outbound follo…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/multi-inbox-imap-triage-diagnosing-the-sent-to-received-ratio-imbalance/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-17T19:30:31.158Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Multi-Inbox IMAP Triage: Diagnosing the Sent-to-Received Ratio Imbalance">
+  <meta name="twitter:description" content="A production worker running mail polling does not fail when it loses connection; it fails when it silently reads hundreds of inbound messages while having sent almost nothing. When our outbound follo…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Multi-Inbox IMAP Triage: Diagnosing the Sent-to-Received Ratio Imbalance",
+  "description": "A production worker running mail polling does not fail when it loses connection; it fails when it silently reads hundreds of inbound messages while having sent almost nothing. When our outbound follo…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-17T19:30:31.158Z",
+  "dateModified": "2026-11-17T19:30:31.158Z",
+  "url": "https://aideazz.xyz/blog/multi-inbox-imap-triage-diagnosing-the-sent-to-received-ratio-imbalance/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/multi-inbox-imap-triage-diagnosing-the-sent-to-received-ratio-imbalance/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does the ratio between inbox and sent items matter if IMAP polling logs zero errors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A polling loop can log zero errors while scanning hundreds of messages if it simply finds no matching records in the CRM. In our logs, `followup-radar.log` revealed mailboxes with 729 and 667 incoming messages against only 2 and 3 sent messages, while `reply-radar.log` processed 162 emails with 0 CRM matches. The worker was completely healthy from an infrastructure standpoint, but entirely stalled from an operational perspective."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does upstream lead qualification affect IMAP inbox skew?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If upstream scrapers or filters drop records, outbound dispatch stops while inbound noise continues to accumulate. In `atlas-lead-machine.log`, out of 42 contacts examined, 22 were already in the CRM, 12 had no email, and 2 failed audits, leaving only 8 staged. When outbound volume falls to single digits, the sent folder stagnates while automated newsletters and system alerts steadily drive up the inbox total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can PM2 process metrics detect an IMAP triage breakdown?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. PM2 tracks memory usage, uptime, and restart counts. For example, `cto-aipa` showed 2 restarts and 232 MB memory over 1d of uptime, while `algom-poll` maintained 0 restarts and 79 MB across 3d. The supervisor cannot detect semantic issues such as an inbox accumulating 729 items with only 2 sent messages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the risk of scanning high-volume inboxes without CRM filtering?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Without early CRM matching, triage scripts waste execution time parsing MIME bodies of unindexed marketing mail. In our system, `reply-radar.log` discarded 160 scanned items immediately when no CRM match was found, preventing expensive downstream operations on irrelevant inbound traffic."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Multi-Inbox IMAP Triage: Diagnosing the Sent-to-Received Ratio Imbalance</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-17T19:30:31.158Z">November 17, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>A production worker running mail polling does not fail when it loses connection; it fails when it silently reads hundreds of inbound messages while having sent almost nothing. When our outbound follow-up radar checked its heterogeneous mail providers, it surfaced raw numbers that immediately flagged a operational failure: one inbox held 729 incoming messages against 2 sent over a 45-day window, another logged 667 inbox messages against 3 sent, and a third recorded 196 inbox messages against 12 sent.</p>
+<p>If you automate outbound outreach or candidate pipelines across disparate mail servers, monitoring your multi-inbox imap triage sent-to-received ratio is the only early warning against pipeline drift. A polling worker that digests hundreds of headers without generating corresponding dispatch signals creates an illusion of system health while operational throughput halts.</p>
+<p>Here is what running IMAP triage across heterogeneous mail infrastructure looks like under actual load, how we trace inbox asymmetry, and how our background processes handle the backlog.</p>
+<h2>Dissecting the Inbox Asymmetry Across Heterogeneous Mailboxes</h2>
+<p>When you poll multiple servers simultaneously, each endpoint exhibits distinct rate characteristics and volume patterns. In our stack, <code>followup-radar.log</code> records mailbox volume across independent providers over a 45-day monitoring horizon. The log captured the following breakdown:</p>
+<p><pre><code class="language-text">- imap.gmail.com: 729 inbox / 2 sent (last 45d)
+- imap.zoho.com: 196 inbox / 12 sent (last 45d)
+- imap.gmail.com: 667 inbox / 3 sent (last 45d)
+</code></pre></p>
+<p>Across these three mail accounts, the inbound volume totaled hundreds of unhandled messages while outbound dispatches remained in single or low double digits. An automated process scanning these folders can parse headers all day without throwing an unhandled exception. The loop returns an exit code of zero, the process stays green in the process supervisor, yet the actual business feedback loop is dead.</p>
+<p>When <code>reply-radar.log</code> executed its checks on inbound items, the outcome showed:</p>
+<p><pre><code class="language-text">APPLY — scanned 160 · automated/own skipped 0 · no CRM match 1 · REPLIES MATCHED 0 · errors 0
+APPLY — scanned 160 · automated/own skipped 0 · no CRM match 0 · REPLIES MATCHED 0 · errors 0
+APPLY — scanned 162 · automated/own skipped 2 · no CRM match 0 · REPLIES MATCHED 0 · errors 0
+</code></pre></p>
+<p>The radar scanned 160 messages in consecutive sweeps, followed by 162 messages where 2 automated or self-sent items were skipped, yielding exactly 0 matched replies. An inbox-to-sent disparity of this magnitude indicates that non-actionable traffic (marketing newsletters, transactional notices, and unclassified auto-responders) is saturating the IMAP triage parser, masking whether outbound leads ever responded.</p>
+<h2>How Polling Loops Mask Upstream Process Failures</h2>
+<p>A mailbox that accumulates 729 or 667 incoming messages against 2 or 3 sent items typically points to an upstream bottleneck in the staging pipeline. If leads are not entering the CRM or passing qualification stages, no outbound emails get drafted, leaving the sent folders starved while public-facing addresses continue to receive noise.</p>
+<p>Looking at <code>atlas-lead-machine.log</code>, we can see the triage rules actively rejecting or filtering prospective contacts before they ever reach the dispatch layer:</p>
+<p><pre><code class="language-text">[lead-machine] done · staged 8 · looked at 42 · no-email 12 · already-in-CRM 22 · outside-band 0 · audit-failed 2 · crawler-blocked rescued 0
+</code></pre></p>
+<p>Out of 42 candidates inspected, 22 were already present in HubSpot, 12 had no email address, and 2 failed audit checks, leaving only 8 staged contacts. In an earlier log run, out of 10 items seen, 5 were eligible and only 2 were staged. When upstream stages filter out 34 contacts across these criteria, outbound activity drops to near zero.</p>
+<p>Simultaneously, <code>atlas-outcomes.log</code> showed:</p>
+<p><pre><code class="language-json">{
+  "staged": 0,
+  "sent": 0,
+  "pushed to Atlas": {"ok": true, "lanes": 8}
+}
+</code></pre></p>
+<p>When staging generates 0 leads and dispatches 0 messages, the sent folder across all IMAP accounts remains static. Yet incoming newsletters and system notifications keep incrementing the inbox counts toward 729 and 667. Without an automated metric alerting on the sent-to-received ratio, an operator checking only process uptime will assume the automation pipeline is running normally.</p>
+<h2>Supervisor Stability vs. Process Health</h2>
+<p>In our runtime environment managed by PM2, 8 of 9 processes are online:</p>
+<ul><li><code>cto-aipa</code>: online, 2 restarts, up 1d, 232 MB memory usage.</li>
+<li><code>whitespace</code>: online, 0 restarts, up 3d, 114 MB.</li>
+<li><code>dragontrade-main</code>: online, 0 restarts, up 3d, 183 MB.</li>
+<li><code>dragontrade-dashboard</code>: online, 0 restarts, up 3d, 77 MB.</li>
+<li><code>algom-poll</code>: online, 0 restarts, up 3d, 79 MB.</li>
+<li><code>serpapi-jobs</code>: online, 0 restarts, up 3d, 108 MB.</li>
+<li><code>n8n</code>: online, 0 restarts, up 3d, 400 MB.</li>
+<li><code>pm2-logrotate</code>: online, 0 restarts, up 3d, 85 MB.</li>
+<li><code>algom-stream</code>: waiting restart, 10070 restarts, up 0d.</li></ul>
+<p>While <code>algom-stream</code> entered a restart loop hitting 10070 restarts, the primary worker <code>cto-aipa</code> remained stable with only 2 restarts over a 1d uptime window. Sibling workers like <code>algom-poll</code> ran for 3d without a single restart.</p>
+<p>Process supervision tells you whether Node.js or Python processes are crashing; it cannot evaluate whether the message ratio inside your mail store represents an operational stall. An IMAP reader process can run cleanly for 3d, consume 79 MB of memory, handle zero errors, and still fail to surface a single business-critical reply because the inbound stream is choked with unmatched items.</p>
+<h2>Connecting IMAP Triage Directly to CRM Pipeline Stages</h2>
+<p>The remedy to inbox bloat is anchoring IMAP polling directly to CRM deal states. In our setup, deals are queried directly against the HubSpot deals search API:</p>
+<ul><li>Deals at "They replied" (<code>dealstage=contractsent</code>): 135</li>
+<li>Deals closed won (<code>dealstage=closedwon</code>): 0</li>
+<li>Active deals digest: 32 live job deals tracked in <code>deal-digest.log</code></li>
+<li>HubSpot stage distribution: 15 qualified to buy, 0 presentation scheduled, 80 decision maker bought in, 129 contract sent, and 1530 appointment scheduled.</li>
+<li>In the 14-day window: 6 deals.</li></ul>
+<p>When <code>deal-digest.log</code> records 129 contracts sent and 1530 appointments scheduled across aggregate pipeline history, but the live 45-day active IMAP monitor reports only 2 sent emails on <code>imap.gmail.com</code> and 12 on <code>imap.zoho.com</code>, it exposes an immediate divergence between CRM tracking records and active mailbox usage.</p>
+<p>To keep the pipeline moving without manual intervention:<br>1. Match incoming headers exclusively against known CRM contact IDs before performing body retrieval. In <code>reply-radar.log</code>, matching 0 replies across 162 scanned records allows the worker to discard non-CRM mail without reading bodies, saving CPU cycles and network overhead.<br>2. Track mailbox outbound activity as a health check. If an automated box has sent fewer than 10 messages over a multi-week span while receiving hundreds, trigger an alert to verify whether upstream stages—such as <code>apply-queue.log</code> (where 12 candidates were sunk by kit verdict)—are dropping all candidate records before output.<br>3. Validate lead qualification thresholds. In <code>job-board-watch.log</code>, a source was rejected when only 25.4% of postings remained live after pruning expired listings, missing the required 40.0% threshold.</p>
+<p>Balancing inbound triage against outbound velocity ensures your automated systems do not run blind behind clean process logs.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why does the ratio between inbox and sent items matter if IMAP polling logs zero errors?</strong><br>A: A polling loop can log zero errors while scanning hundreds of messages if it simply finds no matching records in the CRM. In our logs, <code>followup-radar.log</code> revealed mailboxes with 729 and 667 incoming messages against only 2 and 3 sent messages, while <code>reply-radar.log</code> processed 162 emails with 0 CRM matches. The worker was completely healthy from an infrastructure standpoint, but entirely stalled from an operational perspective.</p>
+<p><strong>Q: How does upstream lead qualification affect IMAP inbox skew?</strong><br>A: If upstream scrapers or filters drop records, outbound dispatch stops while inbound noise continues to accumulate. In <code>atlas-lead-machine.log</code>, out of 42 contacts examined, 22 were already in the CRM, 12 had no email, and 2 failed audits, leaving only 8 staged. When outbound volume falls to single digits, the sent folder stagnates while automated newsletters and system alerts steadily drive up the inbox total.</p>
+<p><strong>Q: Can PM2 process metrics detect an IMAP triage breakdown?</strong><br>A: No. PM2 tracks memory usage, uptime, and restart counts. For example, <code>cto-aipa</code> showed 2 restarts and 232 MB memory over 1d of uptime, while <code>algom-poll</code> maintained 0 restarts and 79 MB across 3d. The supervisor cannot detect semantic issues such as an inbox accumulating 729 items with only 2 sent messages.</p>
+<p><strong>Q: What is the risk of scanning high-volume inboxes without CRM filtering?</strong><br>A: Without early CRM matching, triage scripts waste execution time parsing MIME bodies of unindexed marketing mail. In our system, <code>reply-radar.log</code> discarded 160 scanned items immediately when no CRM match was found, preventing expensive downstream operations on irrelevant inbound traffic.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
