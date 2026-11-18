@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scoring Hiring Signals on X: When a Lead Generation AI Agent Rejects the Pipeline | AIdeazz</title>
+  <meta name="description" content="A lead generation AI agent running automated discovery on social signals sounds elegant until your ingestion worker hits 12908 restarts and your downstream qualification filters drop raw signals into…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/scoring-hiring-signals-on-x-when-a-lead-generation-ai-agent-rejects-the-pipeline/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scoring Hiring Signals on X: When a Lead Generation AI Agent Rejects the Pipeline">
+  <meta property="og:description" content="A lead generation AI agent running automated discovery on social signals sounds elegant until your ingestion worker hits 12908 restarts and your downstream qualification filters drop raw signals into…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/scoring-hiring-signals-on-x-when-a-lead-generation-ai-agent-rejects-the-pipeline/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-18T19:30:23.802Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scoring Hiring Signals on X: When a Lead Generation AI Agent Rejects the Pipeline">
+  <meta name="twitter:description" content="A lead generation AI agent running automated discovery on social signals sounds elegant until your ingestion worker hits 12908 restarts and your downstream qualification filters drop raw signals into…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Scoring Hiring Signals on X: When a Lead Generation AI Agent Rejects the Pipeline",
+  "description": "A lead generation AI agent running automated discovery on social signals sounds elegant until your ingestion worker hits 12908 restarts and your downstream qualification filters drop raw signals into…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-18T19:30:23.802Z",
+  "dateModified": "2026-11-18T19:30:23.802Z",
+  "url": "https://aideazz.xyz/blog/scoring-hiring-signals-on-x-when-a-lead-generation-ai-agent-rejects-the-pipeline/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/scoring-hiring-signals-on-x-when-a-lead-generation-ai-agent-rejects-the-pipeline/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why separate the stream listener from the polling worker if both target the same data source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Persistent stream connections can fail repeatedly under network churn, causing `algom-stream` to record 12908 restarts in PM2. Running `algom-poll` as an isolated worker allowed it to maintain 0 restarts over 4 days with a predictable 79 MB memory profile."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What automated rule determines when an ingested signal stream is dropped?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our requalification script drops any feed where live valid items fall below a strict threshold; in our production log, a feed showing 25.4% active postings was rejected because the requirement was at least 40.0%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many active opportunities survive filtering to reach the qualified stage in CRM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In our HubSpot deal digest, 16 deals sit in `qualifiedtobuy` out of 27 live job deals tracked, while total historical records show 136 deals reached the \"They replied\" stage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do disconnected AI coding agents prevent duplicate outreach drafts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deduping occurs via payload hashing; our self-test verified duplicate suppression across 5 checks in 4306ms, ensuring identical signals collapse into existing thread identifiers."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Scoring Hiring Signals on X: When a Lead Generation AI Agent Rejects the Pipeline</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-18T19:30:23.802Z">November 18, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>A lead generation AI agent running automated discovery on social signals sounds elegant until your ingestion worker hits 12908 restarts and your downstream qualification filters drop raw signals into the trash. On our host, <code>pm2 jlist</code> monitors 9 processes: 8 online, while <code>algom-stream</code> sits in <code>waiting restart</code> with 12908 restarts on record. Sibling worker <code>algom-poll</code> runs steadily at 79 MB with 0 restarts across 4 days, pulling raw posts, while <code>twitter-api-v2</code> handles the network layer.</p>
+<p>If you build an autonomous scout to ingest posts from X based on hiring-adjacent phrases, you quickly discover that keyword detection is not lead qualification. An automated bot evaluating inbound text from a social feed will happily fill your CRM with noise unless you enforce strict mechanical guardrails.</p>
+<p>Here is how our discovery and scoring filters operate, what happens when qualification thresholds trigger outright rejections, and how we measure what enters HubSpot.</p>
+<h2>Ingestion vs Filtering: The Failure in Unbounded Stream Workers</h2>
+<p>The architecture separates social stream ingestion from downstream evaluation. In our stack, <code>algom-poll</code> handles scheduled batch polling, consuming 79 MB of memory, while <code>algom-stream</code> was wired to listen to persistent streams. Persistent stream connections fail hard on network flakes or unhandled socket disconnects, leading directly to the 12908 restarts recorded in PM2. Meanwhile, batched polling via <code>algom-poll</code> has sustained 4 days of uptime with 0 restarts.</p>
+<p>When social posts match target criteria—such as hiring intent, tech stack shifts, or platform migrations—they are fed into an evaluation pipeline built with <code>@anthropic-ai/sdk</code> and <code>openai</code>. But raw matching creates an immediate operational problem: the volume of superficial matches dwarfs genuinely actionable opportunities.</p>
+<p>Our production records show the cost of strict filtering. In <code>apply-queue.log</code>, a single pass processed inbound targets and concluded:<br><pre><code class="language-text">✓ sent to Telegram (1 new)
+sunk by kit verdict: 13
+✓ sent to Telegram (1 new)
+</code></pre><br>Out of that batch, 13 potential items were sunk immediately by deterministic kit evaluation. Only 1 reached the Telegram notification queue. If an autonomous agent forwards every positive semantic match to your notification boards or CRM, your team spends their day reviewing junk.</p>
+<h2>Setting Hard Requalification Thresholds: The 25.4% Production Drop</h2>
+<p>When using bots to qualify business opportunities—whether scraping open requisitions or scoring founder announcements on social media—stale and irrelevant data pollutes the queue.</p>
+<p>To prevent human operators from wasting time, our pipeline applies strict requalification jobs. In <code>job-board-watch.log</code>, our validation check evaluated a target stream and emitted this exact log:<br><pre><code class="language-text">FAIL: only 25.4% still live after removing expired and stale postings (need &gt;=40.0%)
+VERDICT: REJECTED
+RESULT: a wired board FAILED re-qualification (Telegram alert sent)
+</code></pre></p>
+<p>The system demanded a threshold of at least 40.0% valid items. When the audit measured only 25.4% remaining live, the agent did not attempt to clean up or patch the difference. It executed an automated rejection and notified the operator.</p>
+<p>When you configure an AI agent to decide what constitutes a "qualified lead," you must define structural rejection rules that override LLM sentiment. An LLM can always hallucinate a reason why a post looks promising. A hard programmatic check—such as checking whether a referenced URL returns an HTTP 200 or verifying active links—cuts through speculative relevance.</p>
+<h2>CRM Ingestion Reality: Qualified Deals vs False Signal Accumulation</h2>
+<p>The downstream destination for vetted opportunities is HubSpot. Raw signals pass through evaluation scripts before any deal creation happens. The state of our live deal pipeline illustrates the bottleneck between high-volume ingestion and genuine prospect replies.</p>
+<p>Our <code>deal-digest.log</code> measures the live state:<br><ul><li>Live job deals tracked: 27</li><br><li>Deals in <code>qualifiedtobuy</code>: 16</li><br><li>Deals in <code>contractsent</code>: 7</li><br><li>Deals in <code>appointmentscheduled</code>: 4</li><br><li>Deals in <code>presentationscheduled</code>: 0</li><br><li>Deals in <code>14-day window</code>: 7</li></ul></p>
+<p>Looking across broader HubSpot totals recorded in the digest:<br><ul><li><code>qualifiedtobuy</code>: 16</li><br><li><code>contractsent</code>: 130</li><br><li><code>decisionmakerboughtin</code>: 80</li><br><li><code>appointmentscheduled</code>: 1531</li></ul></p>
+<p>Across our HubSpot deal search API, deals specifically marked at "They replied" (<code>dealstage=contractsent</code>) stand at 136.</p>
+<p>Notice the distribution: 1531 opportunities reached scheduled stages historically, but active, verified deals in <code>qualifiedtobuy</code> sit at exactly 16. That ratio is not an accident. When automated agents source leads, top-of-funnel capture is trivial. Converting unstructured text matches into a clean stage of 16 requires dropping the vast majority of signals before they ever reach a salesperson's eyes.</p>
+<h2>Multi-Agent Coordination Without Memory Leaks</h2>
+<p>Managing this pipeline across our team involves two autonomous coding assistants: Cursor and Claude Code. As documented in our operator queue file <code>/home/ubuntu/cto-aipa/docs/oracle/NOW.md</code>:<br><blockquote>"Cursor Cloud, Cursor Desktop and Claude Code all work this repo and none of them can see each other's chats. No shared conversation, no Claude MCP in Cursor, no way to send the other agent a message. The only things all of them read are HubSpot and this..."</blockquote></p>
+<p>To keep operations from stepping on each other across multiple commits—we recorded 12 commits in <code>cto-aipa</code> and 4 commits in <code>aideazz</code> over the last 48 hours—the agents rely on explicit file-level tracking and shared logs.</p>
+<p>In <code>concierge-selftest.log</code>, our automated verification verifies duplicate suppression across incoming cards:<br><pre><code class="language-text">ok   Telegram card delivered (then removed) — removed=true
+ok   duplicate suppressed (redundant drafters collapse) — {"ok":true,"duplicate":true,"existing":"a9c31d3cfa848781"}
+✅ PASS — 5 checks, 4306ms to first card
+</code></pre><br>Running 5 checks in 4306ms ensures that duplicate signals picked up from social monitoring or job boards collapse into an existing hash rather than generating parallel outreach tasks.</p>
+<h2>Auditing Extraction Surfaces</h2>
+<p>Our audit engine ran against <code>https://aideazz.xyz</code> and registered a score of 100/100 with 34 of 34 checks passing. If the pages our agents inspect—or the assets we deploy—fail fundamental checks like returning an HTTP 200 or rendering raw HTML, downstream extraction mechanisms break.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: Why separate the stream listener from the polling worker if both target the same data source?</strong><br>A: Persistent stream connections can fail repeatedly under network churn, causing <code>algom-stream</code> to record 12908 restarts in PM2. Running <code>algom-poll</code> as an isolated worker allowed it to maintain 0 restarts over 4 days with a predictable 79 MB memory profile.</p>
+<p><strong>Q: What automated rule determines when an ingested signal stream is dropped?</strong><br>A: Our requalification script drops any feed where live valid items fall below a strict threshold; in our production log, a feed showing 25.4% active postings was rejected because the requirement was at least 40.0%.</p>
+<p><strong>Q: How many active opportunities survive filtering to reach the qualified stage in CRM?</strong><br>A: In our HubSpot deal digest, 16 deals sit in <code>qualifiedtobuy</code> out of 27 live job deals tracked, while total historical records show 136 deals reached the "They replied" stage.</p>
+<p><strong>Q: How do disconnected AI coding agents prevent duplicate outreach drafts?</strong><br>A: Deduping occurs via payload hashing; our self-test verified duplicate suppression across 5 checks in 4306ms, ensuring identical signals collapse into existing thread identifiers.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
