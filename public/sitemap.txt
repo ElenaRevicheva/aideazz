@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/scoring-hiring-signals-on-x-when-a-lead-generation-ai-agent-rejects-the-pipeline/
 https://aideazz.xyz/blog/multi-inbox-imap-triage-diagnosing-the-sent-to-received-ratio-imbalance/
 https://aideazz.xyz/blog/pipeline-triage-why-34-scraped-contacts-dropped-before-staging/
 https://aideazz.xyz/blog/pm2-crash-loops-how-algom-stream-hit-4403-restarts-while-sibling-workers-ran-clean/
