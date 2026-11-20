@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Routing Cost Groq vs Claude: What Production Automation Actually Hits | AIdeazz</title>
+  <meta name="description" content="8 online of 9 processes supervised by PM2 run continuously on my instance, but routing every step through a frontier model would have killed my budget before noon. When you operate production agents …">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/llm-routing-cost-groq-vs-claude-what-production-automation-actually-hits/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="LLM Routing Cost Groq vs Claude: What Production Automation Actually Hits">
+  <meta property="og:description" content="8 online of 9 processes supervised by PM2 run continuously on my instance, but routing every step through a frontier model would have killed my budget before noon. When you operate production agents …">
+  <meta property="og:url" content="https://aideazz.xyz/blog/llm-routing-cost-groq-vs-claude-what-production-automation-actually-hits/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-20T19:30:25.883Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LLM Routing Cost Groq vs Claude: What Production Automation Actually Hits">
+  <meta name="twitter:description" content="8 online of 9 processes supervised by PM2 run continuously on my instance, but routing every step through a frontier model would have killed my budget before noon. When you operate production agents …">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLM Routing Cost Groq vs Claude: What Production Automation Actually Hits",
+  "description": "8 online of 9 processes supervised by PM2 run continuously on my instance, but routing every step through a frontier model would have killed my budget before noon. When you operate production agents …",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-20T19:30:25.883Z",
+  "dateModified": "2026-11-20T19:30:25.883Z",
+  "url": "https://aideazz.xyz/blog/llm-routing-cost-groq-vs-claude-what-production-automation-actually-hits/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/llm-routing-cost-groq-vs-claude-what-production-automation-actually-hits/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should an agent route to Groq instead of Claude?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Route to Groq when the task is high-frequency, extraction-focused, or likely to result in a rejection. In our triage passes where 13 items are sunk by kit verdict before 1 passes to Telegram, running frontier models on the rejections provides zero operational advantage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does routing between Groq and Claude introduce noticeable system latency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. In our stack, Groq delivers sub-second inferences for classification, while deep checks in `concierge-selftest.log` measure 4572ms to first card across 5 checks. The delay in human-facing operations comes from reasoning and deduplication, not the routing logic."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the exact token cost difference you observe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I do not have that measured down to the unit token on this host. The financial difference comes from volume segregation: keeping routine polling passes like our 207 scanned emails away from premium API tiers prevents unexpected monthly bill spikes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle schema parsing failures when using small models on fast inference engines?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We enforce strict JSON validation and drop malformed payloads immediately into a retry queue. If a payload fails schema parsing twice on the fast inference tier, it is either discarded or escalated to Claude depending on whether the record represents an active customer deal."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">LLM Routing Cost Groq vs Claude: What Production Automation Actually Hits</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-20T19:30:25.883Z">November 20, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>8 online of 9 processes supervised by PM2 run continuously on my instance, but routing every step through a frontier model would have killed my budget before noon. When you operate production agents without outside capital, deciding where an inference call lands is not an academic exercise in benchmark scores. It is the boundary between an automation stack that pays for itself and one that drains your card.</p>
+<p>My stack relies on both <code>groq-sdk</code> and <code>@anthropic-ai/sdk</code>. Both run on the same server, but they do completely different jobs. If you evaluate LLM routing cost Groq vs Claude purely on advertised quality, you will route simple plumbing into expensive endpoints and pay enterprise bills for work a fast inference chip can resolve in milliseconds.</p>
+<h2>High-Volume Filtering Destroys Budgets Without Fast Inference</h2>
+<p>In my live ingestion pipelines, the volume of inbound candidates dwarfs the volume of actions worth taking. In <code>apply-queue.log</code>, my recent run logged:</p>
+<p><pre><code class="language-plain">sunk by kit verdict: 13
+✓ sent to Telegram (1 new)
+</code></pre></p>
+<p>Thirteen candidates were rejected by rule and triage checks before 1 passed through. If every candidate evaluation triggered a call to Claude, that filtering layer would dominate the server's operating expense.</p>
+<p>A screening agent does not need deep cross-domain synthesis. It needs to check structured constraints against an incoming payload. This is where Groq handles the raw throughput. Parsing an unformatted record, verifying fields, and stripping noise requires speed and low inference cost. When my process <code>reply-radar.log</code> scanned 207 items across incoming mail passes, 0 CRM replies matched. Pumping 207 passes of inert data through a high-tier Anthropic model just to confirm that nothing happened is an architectural mistake. Groq allows me to run high-frequency polling—like <code>algom-poll</code> running clean at 79 MB memory footprint—without worrying about token consumption on negative verdicts.</p>
+<h2>Where Frontier Models Are Non-Negotiable</h2>
+<p>Fast inference models break when ambiguous synthesis determines the outcome. My pipeline hits Claude when a decision directly affects external entities or client records.</p>
+<p>In my live deal pipeline, HubSpot shows 136 deals at the replied stage (<code>contractsent</code>), with appointments scheduled sitting at 1533 and closed won currently at 0. When an inbound response actually lands in that inbox, interpreting subtle objections, tone, and contract nuance cannot be trusted to smaller models running on fast inference hardware.</p>
+<p>Small, fast open-weight models frequently hallucinate structured extractions or misread conversational context when a prospect hedges. A triage model can discard a non-matching resume or categorize a ping, but drafting the response that moves a deal forward requires the reasoning of Claude. When <code>concierge-selftest.log</code> runs its health checks, it clocks 4572ms to the first card, running through 5 checks with redundant drafters collapsing duplicate payloads. That latency is unacceptable for an inline streaming parser, but for conversational synthesis where accuracy dictates deal progress, 4572ms is trivial.</p>
+<h2>Managing the Latency and Stability Surface in Production</h2>
+<p>Running two distinct LLM providers in parallel creates concrete operational boundaries on the host. In my environment, Node services coordinated via <code>pm2</code> balance these calls across background jobs:</p>
+<ul><li><code>cto-aipa</code> runs at 257 MB with 2 restarts, handling 12 commits over the last 48 hours.</li>
+<li><code>n8n</code> sits at 398 MB, orchestrating webhooks.</li>
+<li>Memory-isolated micro-workers like <code>serpapi-jobs</code> (107 MB) and <code>whitespace</code> (114 MB) run continuously with 0 restarts across 6 days.</li></ul>
+<p>The failure mode with fast inference chips is rarely latency; it is payload strictness. If an endpoint expects strict schema conformity, smaller models behind high-speed inference engines will occasionally mangle edge-case JSON, causing downstream workers to abort.</p>
+<p>Meanwhile, process <code>algom-stream</code> ran into 18587 restarts and sits waiting restart, illustrating what happens when streaming ingest logic lacks a hard backoff or hits unexpected upstream rate behavior, while its companion worker <code>algom-poll</code> ran 0 restarts over 6 days at 79 MB.</p>
+<p>Reliability does not come from using one superior provider for all tasks. It comes from isolating the calls. When <code>espaluz-chain-alert.log</code> confirms <code>probe ok (0 provider(s) failed first)</code>, it proves that downstream workflows do not collapse when an individual inference gateway experiences network friction.</p>
+<h2>Ground Truth Verification Trumps Model Size</h2>
+<p>A larger model does not fix broken site data or structural errors in your application. In our optimization suite at aideazz.xyz, the free AI visibility audit runs 34 checks across 4 scoring groups:</p>
+<ul><li>AI Crawler Access (weight 25% of the score)</li>
+<li>Structured Data (weight 25% of the score)</li>
+<li>Answer-Readiness (weight 30% of the score)</li>
+<li>Technical Foundation (weight 20% of the score)</li></ul>
+<p>The current audit for aideazz.xyz scores 100/100, earning an A+ grade with 34 of 34 checks passed. Crawlers from OpenAI, Anthropic, and common training corpora get clean HTTP 200 responses, schema validation, and semantic landmarks.</p>
+<p>Throwing Claude at unstructured web data without semantic landmarks or clear robots access is simply burning money to compensate for bad technical architecture. If your target pages do not provide structured data or extractable facts in raw HTML, no model—Groq, Claude, or anything else—will parse the ground truth reliably.</p>
+<p>For founders balancing tight margins, model routing is simple: route high-frequency, discardable filtering jobs to Groq; route irreversible, multi-step customer actions to Claude; and verify the underlying data before calling either.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: When should an agent route to Groq instead of Claude?</strong><br>A: Route to Groq when the task is high-frequency, extraction-focused, or likely to result in a rejection. In our triage passes where 13 items are sunk by kit verdict before 1 passes to Telegram, running frontier models on the rejections provides zero operational advantage.</p>
+<p><strong>Q: Does routing between Groq and Claude introduce noticeable system latency?</strong><br>A: No. In our stack, Groq delivers sub-second inferences for classification, while deep checks in <code>concierge-selftest.log</code> measure 4572ms to first card across 5 checks. The delay in human-facing operations comes from reasoning and deduplication, not the routing logic.</p>
+<p><strong>Q: What is the exact token cost difference you observe?</strong><br>A: I do not have that measured down to the unit token on this host. The financial difference comes from volume segregation: keeping routine polling passes like our 207 scanned emails away from premium API tiers prevents unexpected monthly bill spikes.</p>
+<p><strong>Q: How do you handle schema parsing failures when using small models on fast inference engines?</strong><br>A: We enforce strict JSON validation and drop malformed payloads immediately into a retry queue. If a payload fails schema parsing twice on the fast inference tier, it is either discarded or escalated to Claude depending on whether the record represents an active customer deal.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
