@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/pm-a-measured-figure-process-memory-leak-cto-aipa-201-mb-and-10-restarts/
 https://aideazz.xyz/blog/pm2-algom-stream-waiting-restart-surviving-21426-crash-loops/
 https://aideazz.xyz/blog/llm-routing-cost-groq-vs-claude-what-production-automation-actually-hits/
 https://aideazz.xyz/blog/small-business-ai-automation-client-pipeline-results-what-136-replies-look-like/
