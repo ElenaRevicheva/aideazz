@@ -38,6 +38,7 @@ https://aideazz.xyz/geo-manifest.json
 https://aideazz.xyz/humans.txt
 https://aideazz.xyz/CITATION.cff
 https://aideazz.xyz/robots.txt
+https://aideazz.xyz/blog/the-cost-of-visual-automation-why-n8n-takes-394-mb-while-lean-workers-take-78-mb/
 https://aideazz.xyz/blog/hubspot-crm-automation-ai-agents-dedup-fixing-multi-agent-pipeline-collisions/
 https://aideazz.xyz/blog/algom-stream-process-restart-anomaly-waiting-state-why-one-worker-failed/
 https://aideazz.xyz/blog/hubspot-rate-limiting-in-lead-staging-pipeline-surviving-the-secondly-ceiling/
