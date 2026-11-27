@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detecting Production Memory Creep Across PM2 Supervised Node Services | AIdeazz</title>
+  <meta name="description" content="A process running with zero restarts is not proof of stability. On my host, pm2 jlist reports 8 online processes out of 9, but the memory footprint across those instances tells a story that restart c…">
+  <meta name="author" content="Elena Revicheva">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://aideazz.xyz/blog/detecting-production-memory-creep-across-pm2-supervised-node-services/">
+  <link rel="icon" type="image/png" href="/faviconnew.png?v=1">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Detecting Production Memory Creep Across PM2 Supervised Node Services">
+  <meta property="og:description" content="A process running with zero restarts is not proof of stability. On my host, pm2 jlist reports 8 online processes out of 9, but the memory footprint across those instances tells a story that restart c…">
+  <meta property="og:url" content="https://aideazz.xyz/blog/detecting-production-memory-creep-across-pm2-supervised-node-services/">
+  <meta property="og:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta property="og:site_name" content="AIdeazz">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-11-27T19:30:25.999Z">
+  <meta property="article:author" content="Elena Revicheva">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Detecting Production Memory Creep Across PM2 Supervised Node Services">
+  <meta name="twitter:description" content="A process running with zero restarts is not proof of stability. On my host, pm2 jlist reports 8 online processes out of 9, but the memory footprint across those instances tells a story that restart c…">
+  <meta name="twitter:image" content="https://aideazz.xyz/elena-og.jpg">
+  <meta name="twitter:creator" content="@reviceva">
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Detecting Production Memory Creep Across PM2 Supervised Node Services",
+  "description": "A process running with zero restarts is not proof of stability. On my host, pm2 jlist reports 8 online processes out of 9, but the memory footprint across those instances tells a story that restart c…",
+  "image": "https://aideazz.xyz/elena-og.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Elena Revicheva",
+    "url": "https://aideazz.xyz/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AIdeazz",
+    "url": "https://aideazz.xyz",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://aideazz.xyz/faviconnew.png"
+    }
+  },
+  "datePublished": "2026-11-27T19:30:25.999Z",
+  "dateModified": "2026-11-27T19:30:25.999Z",
+  "url": "https://aideazz.xyz/blog/detecting-production-memory-creep-across-pm2-supervised-node-services/",
+  "mainEntityOfPage": "https://aideazz.xyz/blog/detecting-production-memory-creep-across-pm2-supervised-node-services/"
+}</script>
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does a supervisor restart hide an active memory leak?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "When a supervisor restarts a crashing or oversized process, the immediate resident set size drops back down to the baseline. In `cto-aipa`, observing 6 restarts alongside 227 MB indicates the process is cyclically recovering from terminations rather than maintaining steady-state execution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does n8n show 396 MB with 0 restarts while algom-poll consumes only 79 MB?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The difference stems from runtime scope and architecture. The `algom-poll` process is a lean, focused background worker, whereas `n8n` loads an entire workflow engine, UI backplane, and execution canvas within its single Node environment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What operational risks emerge when external APIs return HTTP 429 during automated runs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As seen in `hs-watch-manual-emails.log` with the `ten_secondly_rolling limit` error, repeated 429 responses force workers to hold active retry objects in memory. Without strict buffer eviction, retry queues cause memory drift in the client process."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should an operator offload state from process memory to disk?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As implemented in `cto-aipa` commit `fbaf3d21`, state such as drafts or channel metadata should persist directly to disk whenever workers are expected to restart or recover cleanly across maintenance cycles."
+      }
+    }
+  ]
+}</script>
+
+  <!-- Google Analytics (matches site-wide) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TL5S8V23LT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TL5S8V23LT');
+  </script>
+
+  <!-- Ahrefs Web Analytics — the only source that splits LLM referrals (ChatGPT,
+       Perplexity, Gemini, Claude) out of generic referral traffic. Blog posts are
+       the pages most likely to be cited, so this is where the signal shows up. -->
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="06Z2AphR1Lvzb5NSr2agUg" async></script>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px; line-height: 1.65; color: #1a1a1a; background: #fafafa; }
+    header { border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 32px; }
+    header a { text-decoration: none; color: #6366f1; font-weight: 600; margin-right: 12px; font-size: 14px; }
+    header a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; line-height: 1.2; margin: 0 0 12px; color: #111; }
+    h2 { font-size: 24px; margin-top: 32px; color: #1f2937; }
+    h3 { font-size: 19px; margin-top: 24px; color: #374151; }
+    .meta { color: #6b7280; font-size: 14px; margin-bottom: 32px; }
+    p { margin: 16px 0; }
+    a { color: #6366f1; }
+    a:hover { text-decoration: underline; }
+    code { background: #f3f4f6; padding: 2px 6px; border-radius: 3px; font-size: 0.92em; font-family: 'SF Mono', Menlo, monospace; }
+    pre { background: #1e293b; color: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; }
+    pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9em; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    blockquote { border-left: 3px solid #d1d5db; padding-left: 16px; color: #4b5563; font-style: italic; margin: 16px 0; }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #6b7280; }
+    footer a { color: #6366f1; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">AIdeazz</a>
+    <a href="/blog">Blog</a>
+    <a href="/about">About</a>
+    <a href="/portfolio">Portfolio</a>
+  </header>
+
+  <article itemscope itemtype="https://schema.org/BlogPosting">
+    <h1 itemprop="headline">Detecting Production Memory Creep Across PM2 Supervised Node Services</h1>
+    <p class="meta">
+      <time itemprop="datePublished" datetime="2026-11-27T19:30:25.999Z">November 27, 2026</time>
+      · by <span itemprop="author" itemscope itemtype="https://schema.org/Person"><span itemprop="name">Elena Revicheva</span></span>
+    </p>
+    <div itemprop="articleBody">
+<p>A process running with zero restarts is not proof of stability. On my host, <code>pm2 jlist</code> reports 8 online processes out of 9, but the memory footprint across those instances tells a story that restart counts actively conceal. If you only alert on process crashes, you miss the silent accumulation of state until your host runs out of room.</p>
+<p>I run background workers and agent dispatchers on a single cloud instance. When I pull runtime figures, I compare memory footprints directly against supervisor restart counters to identify silent state retention before it takes down an instance.</p>
+<h2>Comparing Worker Memory Footprints Under Supervisor Monitoring</h2>
+<p>When inspecting our supervisor table via <code>pm2 jlist</code>, the raw numbers expose massive divergence across workloads with identical uptimes:</p>
+<ul><li><code>pm2-logrotate</code>: online, 0 restarts, up 1d, 80 MB</li>
+<li><code>dragontrade-dashboard</code>: online, 0 restarts, up 1d, 77 MB</li>
+<li><code>dragontrade-main</code>: online, 0 restarts, up 1d, 182 MB</li>
+<li><code>algom-poll</code>: online, 0 restarts, up 1d, 79 MB</li>
+<li><code>whitespace</code>: online, 0 restarts, up 1d, 93 MB</li>
+<li><code>serpapi-jobs</code>: online, 0 restarts, up 1d, 106 MB</li>
+<li><code>cto-aipa</code>: online, 6 restarts, up 1d, 227 MB</li>
+<li><code>n8n</code>: online, 0 restarts, up 1d, 396 MB</li>
+<li><code>algom-stream</code>: waiting restart, 4343 restarts, up 0d</li></ul>
+<p>A service like <code>dragontrade-dashboard</code> holds flat at 77 MB with 0 restarts after 1d online. Lean pollers such as <code>algom-poll</code> remain steady at 79 MB. Meanwhile, <code>n8n</code> runs at 396 MB with 0 restarts. The high footprint in visual automation engines often reflects the baseline weight of execution environments rather than immediate failure, but it establishes a baseline that requires constant tracking.</p>
+<p>The more pressing signal appears in <code>cto-aipa</code>. It registers 227 MB alongside 6 restarts over the same 1d span. A service accumulating restarts while still holding 227 MB points toward retained state, in-memory buffers, or active churn during event handling. In contrast, <code>algom-stream</code> collapsed into a failure loop with 4343 restarts, showing what happens when supervisor boundaries fail to recover normal execution.</p>
+<h2>Tracking State Retention and Git Activity in Active Dispatchers</h2>
+<p>The <code>cto-aipa</code> worker manages interactive operations, outbound drafts, and channel learning. Over the last 48h, the repository logged 12 commits. Frequent code updates alter operational memory dynamically, especially when background workers do not clean up listener references or state dictionaries across hot deployments.</p>
+<p>Recent commits in <code>cto-aipa</code> reveal why state management is brittle:<br><ul><li>Commit <code>0d9dc8df</code>: NOW: Atuona channel learned via edit, draft re-offered</li><br><li>Commit <code>7988af79</code>: NOW: channel learned by an edit, not a forward</li><br><li>Commit <code>ff00870c</code>: Atuona /channel: an EDIT in the channel teaches it (owner Kira and bot chat Elena are different accounts, forward impossible); waiting drafts sent back with fresh ✅</li><br><li>Commit <code>91cba9a3</code>: NOW: /channel learns the channel from a forwarded post; drafts persist</li><br><li>Commit <code>fbaf3d21</code>: Atuona /channel: learn the channel from one forwarded post (admin-checked, only while unknown); pending drafts persist on disk across restarts</li><br><li>Commit <code>4e99fd28</code>: NOW: /channel how-to live</li></ul></p>
+<p>When features like draft persistence across restarts and real-time channel learning are introduced, in-memory representations of messages and metadata can slip outside garbage collection scopes. If drafts persist on disk, yet active node processes cache pending objects in memory without aggressive TTLs, memory drifts upward. The 227 MB footprint in <code>cto-aipa</code> after 6 restarts demonstrates that supervisor restarts act as an emergency valve, but they do not solve root-level retention.</p>
+<h2>Pipeline Downstream Logs and Upstream Saturation</h2>
+<p>Memory leaks and unbounded process growth do not occur in isolation; they are often catalyzed by backpressure from external APIs and stalled job queues. When upstream requests block or get throttled, intermediate data structures pile up in memory.</p>
+<p>Log inspections across our services demonstrate this operational pressure:<br><ul><li><code>hs-watch-manual-emails.log</code>: Emits HTTP 429 errors from the HubSpot API: <code>GET /crm/v3/objects/deals/[id]?properties=dealname,dealstage → 429: {"status":"error","message":"You have reached your ten_secondly_rolling limit.","errorType":"RATE_LIMIT","correlationId":"01a21e64-2790-79aa-8d0a-1d30d6bcfa94","policyName":"TEN_SECONDLY_ROLLING","groupName":"publicapi:private_app-api-calls-ten-secondly:39045903:51409153"}</code>.</li><br><li><code>model-tier.log</code>: Shows transport-level drops: <code>nd: LIST => socket error: EOF</code>.</li><br><li><code>concierge-selftest.log</code>: Verifies handler latency and deduplication: <code>✅ PASS — 5 checks, 4390ms to first card</code> alongside duplicate checks (<code>duplicate suppressed (redundant drafters collapse) — {"ok":true,"duplicate":true,"existing":"33c5a83d2947f60d"}</code>).</li><br><li><code>apply-queue.log</code>: Indicates dropped or processed leads: <code>✓ sent to Telegram (2 new)</code>, <code>sunk by kit verdict: 15</code>.</li><br><li><code>reply-radar.log</code>: Confirms batch email scanning cycles: <code>APPLY — scanned 206 · automated/own skipped 2 · no CRM match 0 · REPLIES MATCHED 0 · errors 0</code>.</li><br><li><code>followup-radar.log</code>: Logs account activity: <code>imap.gmail.com: 744 inbox / 5 sent (last 45d)</code>, <code>imap.zoho.com: 131 inbox / 11 sent (last 45d)</code>, <code>imap.gmail.com: 757 inbox / 5 sent (last 45d)</code>.</li><br><li><code>deal-digest.log</code>: Records 24 live job deals written to disk, stage partitions with <code>qualifiedtobuy=20</code>, <code>contractsent=2</code>, <code>appointmentscheduled=2</code>, and overall CRM totals including <code>contractsent=130</code> and <code>appointmentscheduled=1541</code>.</li></ul></p>
+<p>When a rate limiter fires an HTTP 429 or an external socket returns an EOF error, the calling code must avoid buffering retries indefinitely. If an outbound polling loop queues events during an API stall without hard capacity caps, node process memory expands silently.</p>
+<h2>Implementing Concrete Process Memory Creep Production Monitoring</h2>
+<p>To prevent services from consuming all available memory while appearing healthy with 0 restarts, monitoring must evaluate drift alongside restarts.</p>
+<p>First, establish memory ceiling limits within supervisor configurations. For node workers managed under PM2, configure an explicit <code>max_memory_restart</code> ceiling. A worker like <code>algom-poll</code> requires under 80 MB, while <code>dragontrade-main</code> operates around 182 MB. Allowing workers to run unbounded means a service like <code>cto-aipa</code> can climb past 227 MB without generating an alert.</p>
+<p>Second, separate expected platform baselines from operational creep. An instance of <code>n8n</code> idling at 396 MB with 0 restarts is functioning within its expected runtime profile for visual workflow orchestration. However, a custom TypeScript agent that starts at 80 MB and drifts toward 227 MB across 6 restarts indicates unhandled event listeners, disk draft caching overlaps, or unreleased object pools.</p>
+<p>Third, monitor queue exhaustion and disk handoffs. In our environment, commit <code>fbaf3d21</code> explicitly moved pending drafts to disk across restarts. Offloading transient state to the filesystem prevents an in-memory accumulation pattern when external services block or rate limits pause transmission.</p>
+<p>Fourth, track scheduled operator jobs that run outside the supervisor. Our shared operational queue in <code>NOW.md</code> records scheduled ad-hoc scripts:<br><code>⏰ 25 Nov ~11:00 UTC Claude Code: a one-off scheduled job is WAITING on Oracle — DO NOT KILL. A plain bash -c sleep … ; node news_sweep_20261126.cjs in ~/nexus-gap/ (not PM2, no cron) fires once on 27 Nov 02:00 UTC, runs one Grok news search and Telegrams Elena via the existing bot token, then exits.</code></p>
+<p>Running unscheduled or one-off scripts outside supervisor oversight consumes memory that supervisor tables cannot account for. System metrics must inspect total host capacity rather than only summing supervised process memory.</p>
+<h2>Frequently Asked Questions</h2>
+<p><strong>Q: How does a supervisor restart hide an active memory leak?</strong><br>A: When a supervisor restarts a crashing or oversized process, the immediate resident set size drops back down to the baseline. In <code>cto-aipa</code>, observing 6 restarts alongside 227 MB indicates the process is cyclically recovering from terminations rather than maintaining steady-state execution.</p>
+<p><strong>Q: Why does n8n show 396 MB with 0 restarts while algom-poll consumes only 79 MB?</strong><br>A: The difference stems from runtime scope and architecture. The <code>algom-poll</code> process is a lean, focused background worker, whereas <code>n8n</code> loads an entire workflow engine, UI backplane, and execution canvas within its single Node environment.</p>
+<p><strong>Q: What operational risks emerge when external APIs return HTTP 429 during automated runs?</strong><br>A: As seen in <code>hs-watch-manual-emails.log</code> with the <code>ten_secondly_rolling limit</code> error, repeated 429 responses force workers to hold active retry objects in memory. Without strict buffer eviction, retry queues cause memory drift in the client process.</p>
+<p><strong>Q: When should an operator offload state from process memory to disk?</strong><br>A: As implemented in <code>cto-aipa</code> commit <code>fbaf3d21</code>, state such as drafts or channel metadata should persist directly to disk whenever workers are expected to restart or recover cleanly across maintenance cycles.</p>
+<p>— Elena Revicheva · <a href="https://aideazz.xyz/sop-ai-ops.html">AIdeazz AI Lab</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/Elena_Revicheva_Professional_Outlook_2026.pdf">Professional Outlook (PDF)</a></p>
+    </div>
+  </article>
+
+  <footer>
+    <p>Written by Elena Revicheva — Applied AI Engineer building production LLM systems.</p>
+    <p><a href="https://aideazz.xyz/about">About</a> · <a href="https://aideazz.xyz/portfolio">Portfolio</a> · <a href="https://aideazz.xyz/blog">More articles</a> · <a href="mailto:aipa@aideazz.xyz">Contact</a></p>
+  </footer>
+</body>
+</html>
